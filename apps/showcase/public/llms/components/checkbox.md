@@ -13,7 +13,6 @@ Binary checkbox is used as a controlled input with ngModel and binary properties
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxBasicDemo {
     checked: any = null;
@@ -36,7 +35,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -46,7 +44,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxDisabledDemo {
     checked1: boolean = false;
@@ -61,7 +59,6 @@ Checkboxes can be generated using a list of values.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -75,7 +72,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxDynamicDemo implements OnInit {
     selectedCategories: any[] = [];
@@ -94,7 +91,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -103,7 +99,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxFilledDemo {
     checked: boolean = false;
@@ -117,7 +113,6 @@ The indeterminate state indicates that a checkbox is neither "on" or "off".
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -126,7 +121,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxIndeterminateDemo {
     checked: any = null;
@@ -140,7 +135,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -149,7 +143,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxInvalidDemo {
     checked: boolean = false;
@@ -163,7 +157,6 @@ The label attribute provides a label text for the checkbox. This label is also c
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -173,7 +166,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxLabelDemo {
     selectedValues: string[] = [];
@@ -187,7 +180,6 @@ Multiple checkboxes can be grouped together.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -211,7 +203,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxMultipleDemo {
     pizza: string[] = [];
@@ -225,10 +217,6 @@ Checkbox can also be used with reactive forms. In this case, the formControlName
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -247,14 +235,14 @@ import { MessageService } from 'voxx-ui/api';
                 @if (hasAnyInvalid()) {
                     <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class CheckboxReactiveformsDemo {
     messageService = inject(MessageService);
@@ -319,7 +307,6 @@ Checkbox provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     template: `
@@ -339,7 +326,7 @@ import { CheckboxModule } from 'voxx-ui/checkbox';
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxSizesDemo {
     size: any = null;
@@ -351,10 +338,6 @@ export class CheckboxSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'voxx-ui/checkbox';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -373,14 +356,14 @@ import { MessageService } from 'voxx-ui/api';
                 @if (isInvalid()) {
                     <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxTemplatedrivenformsDemo {
     messageService = inject(MessageService);

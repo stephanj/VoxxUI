@@ -1,7 +1,7 @@
 {
     "name": "showcase",
     "version": "21.1.9",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "MIT",
     "type": "module",
     "scripts": {
         "ng": "ng",
@@ -24,8 +24,6 @@
     "devDependencies": {
         "@algolia/client-search": "^4.19.1",
         "@angular/ssr": "catalog:angular21",
-        "@docsearch/css": "^3.3.4",
-        "@docsearch/js": "^3.3.4",
         "@primeuix/themes": "catalog:",
         "@angular/cdk": "catalog:angular21",
         "@stackblitz/sdk": "1.9.0",

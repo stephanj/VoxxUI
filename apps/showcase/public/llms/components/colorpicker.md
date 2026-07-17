@@ -13,7 +13,6 @@ ColorPicker is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { ColorPickerModule } from 'voxx-ui/colorpicker';
         </div>
     `,
     standalone: true,
-    imports: [ColorPickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ColorpickerBasicDemo {
     color: string | undefined;
@@ -36,7 +35,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
@@ -45,7 +43,7 @@ import { ColorPickerModule } from 'voxx-ui/colorpicker';
         </div>
     `,
     standalone: true,
-    imports: [ColorPickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ColorpickerDisabledDemo {
     color: string | undefined;
@@ -59,7 +57,6 @@ Default color format to use in value binding is hex and other possible values ca
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
@@ -82,7 +79,7 @@ import { ColorPickerModule } from 'voxx-ui/colorpicker';
         </div>
     `,
     standalone: true,
-    imports: [ColorPickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ColorpickerFormatDemo {
     color: string = '#6466f1';
@@ -98,7 +95,6 @@ ColorPicker is displayed as a popup by default, add inline property to customize
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
@@ -107,7 +103,7 @@ import { ColorPickerModule } from 'voxx-ui/colorpicker';
         </div>
     `,
     standalone: true,
-    imports: [ColorPickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ColorpickerInlineDemo {
     color: string | undefined;
@@ -121,10 +117,6 @@ ColorPicker can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'voxx-ui/colorpicker';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -138,12 +130,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Color is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [ColorPickerModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class ColorpickerReactiveformsDemo {
     messageService = inject(MessageService);
@@ -177,10 +169,6 @@ export class ColorpickerReactiveformsDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'voxx-ui/colorpicker';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -194,12 +182,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Color is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [ColorPickerModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ColorpickerTemplatedrivenformsDemo {
     messageService = inject(MessageService);

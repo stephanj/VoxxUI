@@ -16,8 +16,6 @@ Dynamic dialogs require an instance of a DialogService that is responsible for d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService, DialogService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 import { Dialog } from 'voxx-ui/dialog';
@@ -30,7 +28,7 @@ import { Dialog } from 'voxx-ui/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [DialogService, MessageService]
 })
 export class DynamicdialogExampleDemo {

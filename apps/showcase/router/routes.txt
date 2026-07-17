@@ -29,7 +29,6 @@
 /guides
 /guides/accessibility
 /guides/csslayer
-/guides/templateupdate
 /llms
 /llms/components/
 /llms/pages/
@@ -43,7 +42,6 @@
 /inputtextarea
 /configuration
 /listbox
-/lts
 /menu
 /message
 /metergroup
@@ -62,7 +60,6 @@
 /radiobutton
 /rating
 /ripple
-/roadmap
 /scroller
 /scrollpanel
 /selectbutton
@@ -76,17 +73,14 @@
 /steps/personal
 /steps/seat
 /styleclass
-/support
 /table
 /tabs
 /tag
-/team
 /theming
 /tieredmenu
 /toast
 /togglebutton
 /tooltip
-/uikit
 /migration/v21
 /migration/v20
 /migration/v19

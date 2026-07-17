@@ -12,7 +12,6 @@ Menu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuModule } from 'voxx-ui/menu';
 import { MenuItem } from 'voxx-ui/api';
 
 @Component({
@@ -22,7 +21,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [MenuModule]
+    imports: []
 })
 export class MenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -42,8 +41,6 @@ The function to invoke when an item is clicked is defined using the command prop
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuModule } from 'voxx-ui/menu';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -54,7 +51,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [MenuModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {
@@ -96,7 +93,6 @@ Menu supports one level of nesting by defining children with items property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuModule } from 'voxx-ui/menu';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -106,7 +102,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [MenuModule],
+    imports: [],
     providers: [MessageService]
 })
 export class MenuGroupDemo implements OnInit {
@@ -152,8 +148,6 @@ Popup mode is enabled by setting popup property to true and calling toggle metho
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { MenuModule } from 'voxx-ui/menu';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -164,7 +158,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, MenuModule],
+    imports: [],
     providers: [MessageService]
 })
 export class MenuPopupDemo implements OnInit {
@@ -197,7 +191,6 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuModule } from 'voxx-ui/menu';
 import { MenuItem } from 'voxx-ui/api';
 
 @Component({
@@ -207,7 +200,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [MenuModule]
+    imports: []
 })
 export class MenuRouterDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -247,11 +240,8 @@ Menu offers item customization with the item template that receives the menuitem
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { BadgeModule } from 'voxx-ui/badge';
-import { Menu, MenuModule } from 'voxx-ui/menu';
-import { RippleModule } from 'voxx-ui/ripple';
 import { MenuItem } from 'voxx-ui/api';
+import { Menu } from 'voxx-ui/menu';
 
 @Component({
     template: `
@@ -295,7 +285,7 @@ import { MenuItem } from 'voxx-ui/api';
                     <span class="text-primary font-bold">{{ item.label }}</span>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
+                    <a vxRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
                         <vx-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
@@ -303,7 +293,7 @@ import { MenuItem } from 'voxx-ui/api';
                     </a>
                 </ng-template>
                 <ng-template #end>
-                    <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
+                    <button vxRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
                         <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
                             <span class="font-bold">Amy Elsner</span>
@@ -315,7 +305,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, BadgeModule, MenuModule, RippleModule]
+    imports: []
 })
 export class MenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;

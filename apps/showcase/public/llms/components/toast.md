@@ -12,8 +12,6 @@ Toasts are displayed by calling the add and addAll method provided by the messag
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -24,7 +22,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastBasicDemo {
@@ -38,8 +36,6 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -51,7 +47,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastClearDemo {
@@ -69,9 +65,6 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ProgressBarModule } from 'voxx-ui/progressbar';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -99,7 +92,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ProgressBarModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastHeadlessDemo {
@@ -149,8 +142,6 @@ A toast disappears after 3000ms by default, set the life option on either the me
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -162,7 +153,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastLifeDemo {
@@ -180,20 +171,17 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
-import { RippleModule } from 'voxx-ui/ripple';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <vx-toast />
-            <vx-button pRipple (click)="show()" label="Multiple" severity="warn" />
+            <vx-button vxRipple (click)="show()" label="Multiple" severity="warn" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastMultipleDemo {
@@ -207,9 +195,6 @@ Location of the toast is customized with the position property. Valid values are
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
-import { RippleModule } from 'voxx-ui/ripple';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -219,14 +204,14 @@ import { MessageService } from 'voxx-ui/api';
             <vx-toast position="bottom-left" key="bl" />
             <vx-toast position="bottom-right" key="br" />
             <div class="flex flex-wrap gap-2">
-                <vx-button pRipple (click)="showTopLeft()" label="Top Left" />
-                <vx-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
-                <vx-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+                <vx-button vxRipple (click)="showTopLeft()" label="Top Left" />
+                <vx-button vxRipple (click)="showBottomLeft()" label="Bottom Left" />
+                <vx-button vxRipple (click)="showBottomRight()" label="Bottom Right" />
             </div>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastPositionDemo {
@@ -260,8 +245,6 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -272,7 +255,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastResponsiveDemo {
@@ -286,25 +269,22 @@ The severity option specifies the type of the message. There are four types of m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
-import { RippleModule } from 'voxx-ui/ripple';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
             <vx-toast />
-            <vx-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
-            <vx-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
-            <vx-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
-            <vx-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
-            <vx-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
-            <vx-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
+            <vx-button type="button" vxRipple (click)="showSuccess()" label="Success" severity="success" />
+            <vx-button type="button" vxRipple (click)="showInfo()" label="Info" severity="info" />
+            <vx-button type="button" vxRipple (click)="showWarn()" label="Warn" severity="warn" />
+            <vx-button type="button" vxRipple (click)="showError()" label="Error" severity="danger" />
+            <vx-button type="button" vxRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+            <vx-button type="button" vxRipple (click)="showContrast()" label="Contrast" severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastSeverityDemo {
@@ -338,9 +318,6 @@ A toast disappears after the time defined by the life option, set sticky option 
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
-import { RippleModule } from 'voxx-ui/ripple';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -348,13 +325,13 @@ import { MessageService } from 'voxx-ui/api';
         <div class="card flex justify-center">
             <vx-toast />
             <div class="flex flex-wrap gap-2">
-                <vx-button pRipple (click)="show()" label="Sticky" />
-                <vx-button pRipple (click)="clear()" severity="secondary" label="Clear" />
+                <vx-button vxRipple (click)="show()" label="Sticky" />
+                <vx-button vxRipple (click)="clear()" severity="secondary" label="Clear" />
             </div>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule, RippleModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastStickyDemo {
@@ -372,8 +349,6 @@ A page may have multiple toast components, in case you'd like to target a specif
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -386,7 +361,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastTargetDemo {
@@ -405,9 +380,6 @@ Templating allows customizing the content where the message instance is availabl
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { ButtonModule } from 'voxx-ui/button';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -429,7 +401,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, ButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ToastTemplateDemo {

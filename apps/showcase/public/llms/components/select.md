@@ -13,7 +13,6 @@ Select is used as a controlled component with ngModel property along with an opt
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -27,7 +26,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectBasicDemo implements OnInit {
     cities: City[];
@@ -52,7 +51,6 @@ An alternative way to highlight the selected option is displaying a checkmark in
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -66,7 +64,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectCheckmarkDemo implements OnInit {
     cities: City[];
@@ -91,7 +89,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -105,7 +102,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectCleariconDemo implements OnInit {
     cities: City[];
@@ -130,10 +127,6 @@ Custom filter can be applied with the filterTemplate .
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { SelectModule } from 'voxx-ui/select';
-import { InputGroupModule } from 'voxx-ui/inputgroup';
-import { InputTextModule } from 'voxx-ui/inputtext';
 import { Country } from '@/domain/customer';
 
 interface City {
@@ -145,22 +138,22 @@ interface City {
     template: `
         <div class="card flex justify-center">
             <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                <ng-template pTemplate="filter" let-options="options">
+                <ng-template vxTemplate="filter" let-options="options">
                     <div class="flex gap-1">
                         <vx-inputgroup (click)="$event.stopPropagation()">
                             <vx-inputgroup-addon><i class="pi pi-search"></i></vx-inputgroup-addon>
-                            <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
+                            <input type="text" vxInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
                         </vx-inputgroup>
                         <vx-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
                     </div>
                 </ng-template>
-                <ng-template pTemplate="selectedItem" let-selectedOption>
+                <ng-template vxTemplate="selectedItem" let-selectedOption>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
-                <ng-template let-country pTemplate="item">
+                <ng-template let-country vxTemplate="item">
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
@@ -170,7 +163,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, SelectModule, InputGroupModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectCustomfilterDemo implements OnInit {
     countries: City[] | undefined;
@@ -210,7 +203,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -224,7 +216,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectDisabledDemo implements OnInit {
     cities: City[] | undefined;
@@ -249,7 +241,6 @@ When editable is present, the input can also be entered with typing.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -263,7 +254,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectEditableDemo implements OnInit {
     cities: City[] | undefined;
@@ -288,7 +279,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -302,7 +292,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectFilledDemo implements OnInit {
     cities: City[];
@@ -327,7 +317,6 @@ Select provides built-in filtering that is enabled by adding the filter property
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 import { Country } from '@/domain/customer';
 
 @Component({
@@ -350,7 +339,7 @@ import { Country } from '@/domain/customer';
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectFilterDemo implements OnInit {
     countries: any[] | undefined;
@@ -380,8 +369,6 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
 
 interface City {
     name: string;
@@ -406,7 +393,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FloatLabelModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectFloatlabelDemo implements OnInit {
     cities: City[] | undefined;
@@ -433,7 +420,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -447,7 +433,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectFluidDemo implements OnInit {
     cities: City[];
@@ -472,7 +458,6 @@ Options can be grouped when a nested data structures is provided.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 import { SelectItemGroup } from 'voxx-ui/api';
 
 @Component({
@@ -489,7 +474,7 @@ import { SelectItemGroup } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectGroupDemo {
     groupedCities: SelectItemGroup[];
@@ -532,49 +517,6 @@ export class SelectGroupDemo {
 }
 ```
 
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-
-interface City {
-    name: string;
-    code: string;
-}
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel class="w-full md:w-56">
-                <vx-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
-                <label for="dd-city">City</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [SelectModule, IftaLabelModule, FormsModule]
-})
-export class SelectIftalabelDemo implements OnInit {
-    cities: City[] | undefined;
-    selectedCity: City | undefined;
-
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
-    }
-}
-```
-
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -582,7 +524,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -597,7 +538,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectInvalidDemo {
     cities: City[];
@@ -613,7 +554,6 @@ export class SelectInvalidDemo {
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 import { SelectItem } from 'voxx-ui/api';
 
 @Component({
@@ -623,7 +563,7 @@ import { SelectItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectLazyvirtualscrollDemo {
     items: SelectItem[];
@@ -672,7 +612,6 @@ Loading state can be used loading property.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -686,7 +625,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectLoadingstateDemo implements OnInit {
     cities: City[];
@@ -711,10 +650,6 @@ Select can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface City {
@@ -733,12 +668,12 @@ interface City {
                         <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class SelectReactiveformsDemo {
     messageService = inject(MessageService);
@@ -775,7 +710,6 @@ Select provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -791,7 +725,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectSizesDemo implements OnInit {
     value1: City | undefined;
@@ -818,8 +752,6 @@ Both the selected option and the options list can be templated to provide custom
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { SelectModule } from 'voxx-ui/select';
 
 @Component({
     template: `
@@ -852,7 +784,7 @@ import { SelectModule } from 'voxx-ui/select';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectTemplateDemo implements OnInit {
     countries: any[] | undefined;
@@ -880,10 +812,6 @@ export class SelectTemplateDemo implements OnInit {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface City {
@@ -912,12 +840,12 @@ interface City {
                         <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectTemplatedrivenformsDemo {
     messageService = inject(MessageService);
@@ -940,7 +868,6 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'voxx-ui/select';
 import { SelectItem } from 'voxx-ui/api';
 
 @Component({
@@ -950,7 +877,7 @@ import { SelectItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectVirtualscrollDemo {
     items: SelectItem[];
@@ -1030,7 +957,7 @@ Select is used to choose an item from a collection of options.
 | ariaFilterLabel | string | - | Defines a string that labels the filter input. |
 | ariaLabel | string | - | Used to define a aria label attribute the current element. |
 | ariaLabelledBy | string | - | Establishes relationships between the component and label(s) where its value should be one or more element IDs. |
-| filterMatchMode | "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "lt" \| "lte" \| "gt" \| "gte" | contains | Defines how the items are filtered. |
+| filterMatchMode | "gt" \| "lt" \| "in" \| "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "lte" \| "gte" | contains | Defines how the items are filtered. |
 | tooltip | string | - | Advisory information to display in a tooltip on hover. |
 | tooltipPosition | "right" \| "left" \| "top" \| "bottom" | right | Position of the tooltip. |
 | tooltipPositionStyle | string | absolute | Type of CSS position. |

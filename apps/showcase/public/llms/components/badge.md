@@ -12,7 +12,6 @@ Content of the badge is specified using the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
@@ -21,7 +20,7 @@ import { BadgeModule } from 'voxx-ui/badge';
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeBasicDemo {}
 ```
@@ -32,7 +31,6 @@ Buttons have built-in support for badges to display a badge inline.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -42,7 +40,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class BadgeButtonDemo {}
 ```
@@ -57,41 +55,13 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <i class="pi pi-bell !text-3xl" pBadge value="2"></i>
+            <i class="pi pi-bell !text-3xl" vxBadge value="2"></i>
         </div>
     `,
     standalone: true,
     imports: []
 })
 export class BadgeDirectiveDemo {}
-```
-
-## Overlay
-
-A badge can be added to any element by encapsulating the content with the OverlayBadge component.
-
-```typescript
-import { Component } from '@angular/core';
-import { OverlayBadgeModule } from 'voxx-ui/overlaybadge';
-
-@Component({
-    template: `
-        <div class="card flex flex-wrap justify-center gap-6">
-            <vx-overlaybadge value="2">
-                <i class="pi pi-bell" style="font-size: 2rem"></i>
-            </vx-overlaybadge>
-            <vx-overlaybadge value="4" severity="danger">
-                <i class="pi pi-calendar" style="font-size: 2rem"></i>
-            </vx-overlaybadge>
-            <vx-overlaybadge severity="danger">
-                <i class="pi pi-envelope" style="font-size: 2rem"></i>
-            </vx-overlaybadge>
-        </div>
-    `,
-    standalone: true,
-    imports: [OverlayBadgeModule]
-})
-export class BadgeOverlayDemo {}
 ```
 
 ## position-doc
@@ -104,9 +74,9 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-            <i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
-            <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
+            <i class="pi pi-bell mr-6 p-text-secondary" vxBadge style="font-size: 2rem" value="2"></i>
+            <i class="pi pi-calendar mr-6 p-text-secondary" vxBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
+            <i class="pi pi-envelope p-text-secondary" vxBadge style="font-size: 2rem" severity="danger"></i>
         </div>
     `,
     standalone: true,
@@ -121,7 +91,6 @@ Severity defines the color of the badge, possible values are success , info , wa
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
@@ -136,7 +105,7 @@ import { BadgeModule } from 'voxx-ui/badge';
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeSeverityDemo {}
 ```
@@ -147,7 +116,6 @@ Badge sizes are adjusted with the badgeSize property that accepts small , large 
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
@@ -159,7 +127,7 @@ import { BadgeModule } from 'voxx-ui/badge';
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeSizeDemo {}
 ```

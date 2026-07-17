@@ -12,7 +12,6 @@ ScrollPanel is defined using dimensions for the scrollable viewport.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ScrollPanelModule } from 'voxx-ui/scrollpanel';
 
 @Component({
     template: `
@@ -34,7 +33,7 @@ import { ScrollPanelModule } from 'voxx-ui/scrollpanel';
         </div>
     `,
     standalone: true,
-    imports: [ScrollPanelModule]
+    imports: []
 })
 export class ScrollpanelBasicDemo {}
 ```
@@ -45,7 +44,6 @@ Scrollbar visuals can be styled for a unified look across different platforms.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ScrollPanelModule } from 'voxx-ui/scrollpanel';
 
 @Component({
     template: `
@@ -79,7 +77,7 @@ import { ScrollPanelModule } from 'voxx-ui/scrollpanel';
         </div>
     `,
     standalone: true,
-    imports: [ScrollPanelModule]
+    imports: []
 })
 export class ScrollpanelCustomDemo {}
 ```

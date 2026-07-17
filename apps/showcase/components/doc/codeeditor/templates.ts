@@ -24,7 +24,7 @@ const dependencies = {
     '@primeuix/themes': '^2.0.2',
     'chart.js': '4.4.2',
     primeicons: '^7.0.0',
-    primeng: `${version}`,
+    'voxx-ui': `${version}`,
     quill: '2.0.2',
     rxjs: '~7.8.0',
     tailwindcss: '^3.4.10',
@@ -1002,7 +1002,7 @@ const getAngularApp = (props: Props = {}) => {
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
         <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png">
+        
     </head>
     <body>
         <${selector}></${selector}>
@@ -1048,7 +1048,7 @@ import Aura from '@primeuix/themes/aura';
     const files = {
         'package.json': {
             content: {
-                name: `primeng-${selector}`,
+                name: `voxx-ui-${selector}`,
                 description: `VoxxUI ${componentName}`,
                 license: 'MIT',
                 keywords: [],

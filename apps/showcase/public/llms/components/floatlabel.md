@@ -13,20 +13,18 @@ FloatLabel is used by wrapping the input and its label.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <vx-floatlabel>
-                <input id="username" pInputText [(ngModel)]="value" autocomplete="off" />
+                <input id="username" vxInputText [(ngModel)]="value" autocomplete="off" />
                 <label for="username">Username</label>
             </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class FloatlabelBasicDemo {
     value: string | undefined;
@@ -40,28 +38,26 @@ When the form element is invalid, the label is also highlighted.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <vx-floatlabel>
-                <input pInputText id="value1" [(ngModel)]="value1" [invalid]="!value1" autocomplete="off" />
+                <input vxInputText id="value1" [(ngModel)]="value1" [invalid]="!value1" autocomplete="off" />
                 <label for="value1">Username</label>
             </vx-floatlabel>
             <vx-floatlabel variant="in">
-                <input pInputText id="value2" [(ngModel)]="value2" [invalid]="!value2" autocomplete="off" />
+                <input vxInputText id="value2" [(ngModel)]="value2" [invalid]="!value2" autocomplete="off" />
                 <label for="value2">Username</label>
             </vx-floatlabel>
             <vx-floatlabel variant="on">
-                <input pInputText id="value3" [(ngModel)]="value3" [invalid]="!value3" autocomplete="off" />
+                <input vxInputText id="value3" [(ngModel)]="value3" [invalid]="!value3" autocomplete="off" />
                 <label for="value3">Username</label>
             </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class FloatlabelInvalidDemo {
     value1: string | undefined;
@@ -77,24 +73,22 @@ The variant property defines the position of the label. Default value is over , 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <vx-floatlabel variant="in">
-                <input pInputText id="in_label" [(ngModel)]="value1" autocomplete="off" />
+                <input vxInputText id="in_label" [(ngModel)]="value1" autocomplete="off" />
                 <label for="in_label">In Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="on">
-                <input pInputText id="on_label" [(ngModel)]="value2" autocomplete="off" />
+                <input vxInputText id="on_label" [(ngModel)]="value2" autocomplete="off" />
                 <label for="on_label">On Label</label>
             </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class FloatlabelVariantsDemo {
     value1: string | undefined;

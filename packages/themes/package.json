@@ -1,10 +1,10 @@
 {
     "name": "@voxxui/themes",
     "version": "21.1.9",
-    "author": "PrimeTek Informatics",
+    "author": "Stephan Janssen",
     "description": "",
     "homepage": "https://github.com/stephanj/VoxxUI",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/stephanj/VoxxUI.git",

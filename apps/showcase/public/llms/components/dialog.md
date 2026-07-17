@@ -12,9 +12,6 @@ Dialog is used as a container and visibility is controlled with visible property
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DialogModule } from 'voxx-ui/dialog';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -24,11 +21,11 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                 <span class="p-text-secondary block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex items-center gap-4 mb-8">
                     <label for="email" class="font-semibold w-24">Email</label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-end gap-2">
                     <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
@@ -38,7 +35,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule, InputTextModule]
+    imports: []
 })
 export class DialogBasicDemo {
     visible: boolean = false;
@@ -55,9 +52,6 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DialogModule } from 'voxx-ui/dialog';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -97,11 +91,11 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                         </svg>
                         <div class="inline-flex flex-col gap-2">
                             <label for="username" class="text-primary-50 font-semibold">Username</label>
-                            <input pInputText id="username" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" />
+                            <input vxInputText id="username" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" />
                         </div>
                         <div class="inline-flex flex-col gap-2">
                             <label for="password" class="text-primary-50 font-semibold">Password</label>
-                            <input pInputText id="password" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" type="password" />
+                            <input vxInputText id="password" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" type="password" />
                         </div>
                         <div class="flex items-center gap-4">
                             <vx-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
@@ -113,7 +107,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule, InputTextModule]
+    imports: []
 })
 export class DialogHeadlessDemo {
     visible: boolean = false;
@@ -134,8 +128,6 @@ Dialog automatically displays a scroller when content exceeds viewport.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DialogModule } from 'voxx-ui/dialog';
 
 @Component({
     template: `
@@ -178,7 +170,7 @@ import { DialogModule } from 'voxx-ui/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule]
+    imports: []
 })
 export class DialogLongcontentDemo {
     visible: boolean = false;
@@ -195,8 +187,6 @@ Setting maximizable property to true enables the full screen mode.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DialogModule } from 'voxx-ui/dialog';
 
 @Component({
     template: `
@@ -211,7 +201,7 @@ import { DialogModule } from 'voxx-ui/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule]
+    imports: []
 })
 export class DialogMaximizableDemo {
     visible: boolean = false;
@@ -228,8 +218,7 @@ Mask layer behind the Dialog can be turned on by setting the modal property to t
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { Dialog } from 'voxx-ui/dialog';
 
 @Component({
     template: `
@@ -244,7 +233,7 @@ import { Dialog, DialogModule } from 'voxx-ui/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule]
+    imports: []
 })
 export class DialogModalDemo {
     visible: boolean = false;
@@ -262,9 +251,6 @@ When dialog includes other components with overlays such as dropdown, the overla
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { DialogModule } from 'voxx-ui/dialog';
-import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -283,7 +269,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule, SelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DialogOverlaysinsideDemo implements OnInit {
     cities: City[] | undefined;
@@ -312,9 +298,7 @@ The position property is used to display a Dialog at all edges and corners of th
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Dialog, DialogModule } from 'voxx-ui/dialog';
-import { InputTextModule } from 'voxx-ui/inputtext';
+import { Dialog } from 'voxx-ui/dialog';
 
 @Component({
     template: `
@@ -337,11 +321,11 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                 <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex items-center gap-4 mb-8">
                     <label for="email" class="font-semibold w-24">Email</label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-end gap-2">
                     <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
@@ -351,7 +335,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule, InputTextModule]
+    imports: []
 })
 export class DialogPositionDemo {
     visible: boolean = false;
@@ -369,8 +353,7 @@ Dialog width can be adjusted per screen size with the breakpoints option where a
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { Dialog } from 'voxx-ui/dialog';
 
 @Component({
     template: `
@@ -385,7 +368,7 @@ import { Dialog, DialogModule } from 'voxx-ui/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule]
+    imports: []
 })
 export class DialogResponsiveDemo {
     visible: boolean = false;
@@ -402,10 +385,6 @@ Dialog can be customized using header and footer templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { ButtonModule } from 'voxx-ui/button';
-import { DialogModule } from 'voxx-ui/dialog';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -421,11 +400,11 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                 <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex items-center gap-4 mb-2">
                     <label for="email" class="font-semibold w-24">Email</label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <ng-template #footer>
                     <vx-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
@@ -435,7 +414,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, ButtonModule, DialogModule, InputTextModule]
+    imports: []
 })
 export class DialogTemplateDemo {
     visible: boolean = false;
@@ -452,9 +431,7 @@ Mask layer behind the Dialog is configured with the modal property. By default, 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Dialog, DialogModule } from 'voxx-ui/dialog';
-import { InputTextModule } from 'voxx-ui/inputtext';
+import { Dialog } from 'voxx-ui/dialog';
 
 @Component({
     template: `
@@ -464,11 +441,11 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                 <span class="p-text-secondary block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
-                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex items-center gap-4 mb-8">
                     <label for="email" class="font-semibold w-24">Email</label>
-                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                    <input vxInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-end gap-2">
                     <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
@@ -478,7 +455,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DialogModule, InputTextModule]
+    imports: []
 })
 export class DialogWithoutmodalDemo {
     visible: boolean = false;

@@ -12,7 +12,6 @@ Buttons have built-in badge support with badge and badgeClass properties.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonBadgeDemo {}
 ```
@@ -33,7 +32,6 @@ Text to display on a button is defined with the label property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -42,33 +40,9 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonBasicDemo {}
-```
-
-## Button Group
-
-Multiple buttons are grouped when wrapped inside an element with ButtonGroup component.
-
-```typescript
-import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-buttongroup>
-                <vx-button label="Save" icon="pi pi-check" />
-                <vx-button label="Delete" icon="pi pi-trash" />
-                <vx-button label="Cancel" icon="pi pi-times" />
-            </vx-buttongroup>
-        </div>
-    `,
-    standalone: true,
-    imports: [ButtonModule]
-})
-export class ButtonButtongroupDemo {}
 ```
 
 ## buttonset-doc
@@ -77,44 +51,41 @@ Multiple buttons are grouped when wrapped inside an element with p-buttonset cla
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { RippleModule } from 'voxx-ui/ripple';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <span class="p-buttonset">
-                <button pButton pRipple label="Save" icon="pi pi-check"></button>
-                <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-                <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
+                <button vxButton vxRipple label="Save" icon="pi pi-check"></button>
+                <button vxButton vxRipple label="Delete" icon="pi pi-trash"></button>
+                <button vxButton vxRipple label="Cancel" icon="pi pi-times"></button>
             </span>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, RippleModule]
+    imports: []
 })
 export class ButtonButtonsetDemo {}
 ```
 
 ## Directive
 
-Button can also be used as directive using pButton along with pButtonLabel and pButtonIcon helper directives.
+Button can also be used as directive using vxButton along with vxButtonLabel and vxButtonIcon helper directives.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <button pButton>
-                <i class="pi pi-check" pButtonIcon></i>
-                <span pButtonLabel>Save</span>
+            <button vxButton>
+                <i class="pi pi-check" vxButtonIcon></i>
+                <span vxButtonLabel>Save</span>
             </button>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonDirectiveDemo {}
 ```
@@ -125,7 +96,6 @@ When disabled is present, the element cannot be edited and focused.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -134,7 +104,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonDisabledDemo {}
 ```
@@ -145,7 +115,6 @@ Icon of a button is specified with icon property and position is configured usin
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -162,7 +131,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonIconsDemo {}
 ```
@@ -173,7 +142,6 @@ Buttons can have icons without labels.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -226,33 +194,32 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonIconsonlyDemo {}
 ```
 
 ## Link
 
-A button can be rendered as a link when link property is present, while the pButton directive can be applied on an anchor element to style the link as a button.
+A button can be rendered as a link when link property is present, while the vxButton directive can be applied on an anchor element to style the link as a button.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
             <vx-button label="Link" link />
-            <a href="https://angular.dev/" pButton target="_blank" rel="noopener noreferrer">
-                <span pButtonLabel>Angular Website</span>
+            <a href="https://angular.dev/" vxButton target="_blank" rel="noopener noreferrer">
+                <span vxButtonLabel>Angular Website</span>
             </a>
-            <a routerLink="/" pButton>
-                <span pButtonLabel>Router Link</span>
+            <a routerLink="/" vxButton>
+                <span vxButtonLabel>Router Link</span>
             </a>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonLinkDemo {}
 ```
@@ -263,7 +230,6 @@ Busy state is controlled with the loading property.
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -272,7 +238,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonLoadingDemo {
     loading = signal(false);
@@ -293,7 +259,6 @@ Outlined buttons display a border without a background initially.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -309,7 +274,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonOutlinedDemo {}
 ```
@@ -320,7 +285,6 @@ Raised buttons display a shadow to indicate elevation.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -336,7 +300,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonRaisedDemo {}
 ```
@@ -347,7 +311,6 @@ Text buttons can be displayed as raised for elevation.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -363,7 +326,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonRaisedtextDemo {}
 ```
@@ -374,7 +337,6 @@ Rounded buttons have a circular border radius.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -390,7 +352,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonRoundedDemo {}
 ```
@@ -401,7 +363,6 @@ Severity defines the type of button.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -417,7 +378,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonSeverityDemo {}
 ```
@@ -428,7 +389,6 @@ Button provides small and large sizes as alternatives to the standard.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -439,7 +399,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonSizesDemo {}
 ```
@@ -450,7 +410,6 @@ Custom content inside a button is defined as children.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -484,7 +443,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonTemplateDemo {}
 ```
@@ -495,7 +454,6 @@ Text buttons are displayed as textual elements.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -511,7 +469,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class ButtonTextDemo {}
 ```

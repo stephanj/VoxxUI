@@ -12,7 +12,6 @@ OrderList is used as a controlled input with value property. Content of a list i
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -27,7 +26,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [OrderListModule],
+    imports: [],
     providers: [ProductService]
 })
 export class OrderlistBasicDemo implements OnInit {
@@ -59,7 +58,6 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -89,7 +87,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [OrderListModule],
+    imports: [],
     providers: [ProductService]
 })
 export class OrderlistDragdropDemo implements OnInit {
@@ -121,7 +119,6 @@ Filter value is checked against the property of an object configured with the fi
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -151,7 +148,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [OrderListModule],
+    imports: [],
     providers: [ProductService]
 })
 export class OrderlistFilterDemo implements OnInit {
@@ -183,7 +180,6 @@ For custom content support define an item template that gets the item instance a
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -213,7 +209,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [OrderListModule],
+    imports: [],
     providers: [ProductService]
 })
 export class OrderlistTemplateDemo implements OnInit {
@@ -265,7 +261,7 @@ OrderList is used to manage the order of a collection.
 | dragdrop | boolean | false | Whether to enable dragdrop based reordering. |
 | controlsPosition | "right" \| "left" | left | Defines the location of the buttons with respect to the list. |
 | ariaFilterLabel | string | - | Defines a string that labels the filter input. |
-| filterMatchMode | "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "lt" \| "lte" \| "gt" \| "gte" | contains | Defines how the items are filtered. |
+| filterMatchMode | "gt" \| "lt" \| "in" \| "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "lte" \| "gte" | contains | Defines how the items are filtered. |
 | breakpoint | string | 960px | Indicates the width of the screen at which the component should change its behavior. |
 | stripedRows | boolean | false | Whether to displays rows with alternating colors. |
 | disabled | boolean | false | When present, it specifies that the component should be disabled. |

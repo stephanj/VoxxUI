@@ -13,7 +13,6 @@ Two-way value binding is defined using ngModel .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
         </div>
     `,
     standalone: true,
-    imports: [ToggleSwitchModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ToggleswitchBasicDemo {
     checked: boolean = false;
@@ -36,7 +35,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
     template: `
@@ -45,7 +43,7 @@ import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
         </div>
     `,
     standalone: true,
-    imports: [ToggleSwitchModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ToggleswitchDisabledDemo {
     checked: boolean = false;
@@ -59,7 +57,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
     template: `
@@ -68,7 +65,7 @@ import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
         </div>
     `,
     standalone: true,
-    imports: [ToggleSwitchModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ToggleswitchInvalidDemo {
     checked: boolean = false;
@@ -82,7 +79,6 @@ Enabling ngModel property displays the component as active initially.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
     template: `
@@ -91,7 +87,7 @@ import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
         </div>
     `,
     standalone: true,
-    imports: [ToggleSwitchModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ToggleswitchPreselectionDemo {
     checked: boolean = true;
@@ -105,10 +101,6 @@ ToggleSwitch can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -122,12 +114,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Activation is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ToggleSwitchModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class ToggleswitchReactiveformsDemo {
     messageService = inject(MessageService);
@@ -163,7 +155,6 @@ The handle template is available to display custom content.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
     template: `
@@ -176,7 +167,7 @@ import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
         </div>
     `,
     standalone: true,
-    imports: [ToggleSwitchModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ToggleswitchTemplateDemo {
     checked: boolean = false;
@@ -188,10 +179,6 @@ export class ToggleswitchTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -205,12 +192,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Activation is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ToggleSwitchModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ToggleswitchTemplatedrivenformsDemo {
     messageService = inject(MessageService);

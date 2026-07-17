@@ -13,17 +13,15 @@ InputMask is used as a controlled input with ngModel properties.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input pInputText pInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
+            <input vxInputText vxInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskBasicDemo {
     value: string | undefined;
@@ -37,7 +35,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
@@ -46,7 +43,7 @@ import { InputMaskModule } from 'voxx-ui/inputmask';
         </div>
     `,
     standalone: true,
-    imports: [InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskCleariconDemo {
     value: string | undefined;
@@ -60,17 +57,15 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input pInputText pInputMask="999-99-9999" [(ngModel)]="value" disabled />
+            <input vxInputText vxInputMask="999-99-9999" [(ngModel)]="value" disabled />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskDisabledDemo {
     value: string | undefined;
@@ -84,17 +79,15 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input pInputText pInputMask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
+            <input vxInputText vxInputMask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskFilledDemo {
     value: string | undefined;
@@ -108,29 +101,26 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <vx-floatlabel>
-                <input pInputText id="over_label" [(ngModel)]="value1" pInputMask="999-99-9999" />
+                <input vxInputText id="over_label" [(ngModel)]="value1" vxInputMask="999-99-9999" />
                 <label for="over_label">Over Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="in">
-                <input pInputText id="in_label" [(ngModel)]="value2" pInputMask="999-99-9999" />
+                <input vxInputText id="in_label" [(ngModel)]="value2" vxInputMask="999-99-9999" />
                 <label for="in_label">In Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="on">
-                <input pInputText id="on_label" [(ngModel)]="value3" pInputMask="999-99-9999" />
+                <input vxInputText id="on_label" [(ngModel)]="value3" vxInputMask="999-99-9999" />
                 <label for="on_label">On Label</label>
             </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskFloatlabelDemo {
     value1: string | undefined;
@@ -146,47 +136,17 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card">
-            <input pInputText pInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" fluid />
+            <input vxInputText vxInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" fluid />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskFluidDemo {
-    value: string | undefined;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <input pInputText id="ssn" [(ngModel)]="value" pInputMask="999-99-9999" autocomplete="off" />
-                <label for="ssn">SSN</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, InputTextModule, InputMaskModule, FormsModule]
-})
-export class InputmaskIftalabelDemo {
     value: string | undefined;
 }
 ```
@@ -198,18 +158,16 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
-            <input pInputText [(ngModel)]="value1" pInputMask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
-            <input pInputText [(ngModel)]="value2" pInputMask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
+            <input vxInputText [(ngModel)]="value1" vxInputMask="99-999999" placeholder="Serial Key" [invalid]="!value1" />
+            <input vxInputText [(ngModel)]="value2" vxInputMask="99-999999" placeholder="Serial Key" [invalid]="!value2" variant="filled" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskInvalidDemo {
     value1: string | undefined;
@@ -224,28 +182,26 @@ Mask format can be a combination of the following definitions; a for alphabetic 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <span class="font-bold block mb-2">SSN</span>
-                <input pInputText pInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
+                <input vxInputText vxInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Phone</span>
-                <input pInputText pInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
+                <input vxInputText vxInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Serial Number</span>
-                <input pInputText pInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
+                <input vxInputText vxInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
             </div>
         </vx-fluid>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskMaskDemo {
     value1: string | undefined;
@@ -261,17 +217,15 @@ When the input does not complete the mask definition, it is cleared by default. 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input pInputText pInputMask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
+            <input vxInputText vxInputMask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskOptionalDemo {
     value: string | undefined;
@@ -285,11 +239,6 @@ InputMask can also be used with reactive forms. In this case, the formControlNam
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -298,17 +247,17 @@ import { MessageService } from 'voxx-ui/api';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <input pInputText pInputMask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
+                    <input vxInputText vxInputMask="99-999999" formControlName="value" placeholder="99-999999" [invalid]="isInvalid('value')" fluid />
                     @if (isInvalid('value')) {
                         <vx-message severity="error" size="small" variant="simple">Serial number is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, InputMaskModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class InputmaskReactiveformsDemo {
     messageService = inject(MessageService);
@@ -345,19 +294,17 @@ InputMask provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" pInputMask="99-999999" />
-            <input pInputText [(ngModel)]="value2" placeholder="Normal" pInputMask="99-999999" />
-            <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" pInputMask="99-999999" />
+            <input vxInputText [(ngModel)]="value1" placeholder="Small" vxSize="small" vxInputMask="99-999999" />
+            <input vxInputText [(ngModel)]="value2" placeholder="Normal" vxInputMask="99-999999" />
+            <input vxInputText [(ngModel)]="value3" placeholder="Large" vxSize="large" vxInputMask="99-999999" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskSizesDemo {
     value1: string | undefined;
@@ -373,17 +320,15 @@ Default placeholder for a mask is underscore that can be customized using slotCh
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input pInputText [(ngModel)]="value" pInputMask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
+            <input vxInputText [(ngModel)]="value" vxInputMask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskSlotcharDemo {
     value: string | undefined;
@@ -395,11 +340,6 @@ export class InputmaskSlotcharDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
-import { InputTextModule } from 'voxx-ui/inputtext';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -408,17 +348,17 @@ import { MessageService } from 'voxx-ui/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <input pInputText name="serial" pInputMask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
+                    <input vxInputText name="serial" vxInputMask="99-999999" #serialNumber="ngModel" [(ngModel)]="value" placeholder="99-999999" [invalid]="serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)" required fluid />
                     @if (serialNumber.invalid && (serialNumber.touched || exampleForm.submitted)) {
                         <vx-message severity="error" size="small" variant="simple">Serial number is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputmaskTemplatedrivenformsDemo {
     messageService = inject(MessageService);

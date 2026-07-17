@@ -13,7 +13,6 @@ Spinner buttons are enabled using the showButtons options and layout is defined 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -40,7 +39,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberButtonsDemo {
     value1: number = 20;
@@ -56,7 +55,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -65,7 +63,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberCleariconDemo {
     value: number | undefined;
@@ -79,7 +77,6 @@ Currency formatting is specified by setting the mode option to currency and curr
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -103,7 +100,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberCurrencyDemo {
     value1: number = 1500;
@@ -120,7 +117,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -129,7 +125,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberDisabledDemo {
     value1: number = 50;
@@ -143,7 +139,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -152,7 +147,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberFilledDemo {
     value1!: number;
@@ -166,8 +161,6 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -187,7 +180,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberFloatlabelDemo {
     value1: number | undefined;
@@ -203,7 +196,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -212,36 +204,9 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberFluidDemo {
-    value: number | undefined;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <vx-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" />
-                <label for="price_input">Price</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, InputNumberModule, FormsModule]
-})
-export class InputnumberIftalabelDemo {
     value: number | undefined;
 }
 ```
@@ -253,7 +218,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -263,7 +227,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberInvalidDemo {
     value1!: number;
@@ -278,7 +242,6 @@ Localization information such as grouping and decimal symbols are defined with t
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -302,7 +265,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberLocaleDemo {
     value1: number = 151351;
@@ -319,7 +282,6 @@ InputNumber is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -343,7 +305,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberNumeralsDemo {
     value1: number = 42723;
@@ -360,7 +322,6 @@ Custom texts e.g. units can be placed before or after the input section with the
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -384,7 +345,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberPrefixsuffixDemo {
     value1: number = 20;
@@ -401,10 +362,6 @@ InputNumber can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -418,12 +375,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Number is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class InputnumberReactiveformsDemo {
     messageService = inject(MessageService);
@@ -459,7 +416,6 @@ InputNumber provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -470,7 +426,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberSizesDemo {
     value1!: number;
@@ -484,10 +440,6 @@ export class InputnumberSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -501,12 +453,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Number is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberTemplatedrivenformsDemo {
     messageService = inject(MessageService);
@@ -528,7 +480,6 @@ Buttons can also placed vertically by setting buttonLayout as vertical .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'voxx-ui/inputnumber';
 
 @Component({
     template: `
@@ -544,7 +495,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberVerticalDemo {
     value1: number = 50;

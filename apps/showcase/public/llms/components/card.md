@@ -12,8 +12,6 @@ Card content can be customized further with subHeader , header and footer proper
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { CardModule } from 'voxx-ui/card';
 
 @Component({
     template: `
@@ -38,7 +36,7 @@ import { CardModule } from 'voxx-ui/card';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, CardModule]
+    imports: []
 })
 export class CardAdvancedDemo {}
 ```
@@ -49,7 +47,6 @@ A simple Card is created with a header property along with the content as childr
 
 ```typescript
 import { Component } from '@angular/core';
-import { CardModule } from 'voxx-ui/card';
 
 @Component({
     template: `
@@ -63,7 +60,7 @@ import { CardModule } from 'voxx-ui/card';
         </div>
     `,
     standalone: true,
-    imports: [CardModule]
+    imports: []
 })
 export class CardBasicDemo {}
 ```

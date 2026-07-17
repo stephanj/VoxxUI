@@ -12,7 +12,6 @@ Accordion is defined using AccordionPanel , AccordionHeader and AccordionContent
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'voxx-ui/accordion';
 
 @Component({
     template: `
@@ -50,7 +49,7 @@ import { AccordionModule } from 'voxx-ui/accordion';
         </div>
     `,
     standalone: true,
-    imports: [AccordionModule]
+    imports: []
 })
 export class AccordionBasicDemo {}
 ```
@@ -61,8 +60,6 @@ Panels can be controlled programmatically using value property as a model.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'voxx-ui/accordion';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -105,7 +102,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [AccordionModule, ButtonModule]
+    imports: []
 })
 export class AccordionControlledDemo {
     active: string = '0';
@@ -118,7 +115,6 @@ Enabling disabled property of an AccordionTab prevents user interaction.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'voxx-ui/accordion';
 
 @Component({
     template: `
@@ -159,7 +155,7 @@ import { AccordionModule } from 'voxx-ui/accordion';
         </div>
     `,
     standalone: true,
-    imports: [AccordionModule]
+    imports: []
 })
 export class AccordionDisabledDemo {}
 ```
@@ -170,7 +166,6 @@ AccordionPanel can be generated dynamically using the standard &#64;for block.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'voxx-ui/accordion';
 
 @Component({
     template: `
@@ -188,7 +183,7 @@ import { AccordionModule } from 'voxx-ui/accordion';
         </div>
     `,
     standalone: true,
-    imports: [AccordionModule]
+    imports: []
 })
 export class AccordionDynamicDemo {
     tabs: any[];
@@ -201,7 +196,6 @@ Only one tab at a time can be active by default, enabling multiple property chan
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'voxx-ui/accordion';
 
 @Component({
     template: `
@@ -239,7 +233,7 @@ import { AccordionModule } from 'voxx-ui/accordion';
         </div>
     `,
     standalone: true,
-    imports: [AccordionModule]
+    imports: []
 })
 export class AccordionMultipleDemo {}
 ```
@@ -250,9 +244,6 @@ Accordion is customized with toggleicon template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'voxx-ui/accordion';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
@@ -329,7 +320,7 @@ import { BadgeModule } from 'voxx-ui/badge';
         </div>
     `,
     standalone: true,
-    imports: [AccordionModule, AvatarModule, BadgeModule]
+    imports: []
 })
 export class AccordionTemplateDemo {}
 ```

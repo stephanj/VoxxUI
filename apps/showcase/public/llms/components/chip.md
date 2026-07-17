@@ -12,7 +12,6 @@ A basic chip with a text is created with the label property. In addition when re
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
@@ -24,7 +23,7 @@ import { ChipModule } from 'voxx-ui/chip';
         </div>
     `,
     standalone: true,
-    imports: [ChipModule]
+    imports: []
 })
 export class ChipBasicDemo {}
 ```
@@ -35,7 +34,6 @@ A font icon next to the label can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
@@ -47,7 +45,7 @@ import { ChipModule } from 'voxx-ui/chip';
         </div>
     `,
     standalone: true,
-    imports: [ChipModule]
+    imports: []
 })
 export class ChipIconDemo {}
 ```
@@ -58,7 +56,6 @@ The image property is used to display an image like an avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
@@ -70,7 +67,7 @@ import { ChipModule } from 'voxx-ui/chip';
         </div>
     `,
     standalone: true,
-    imports: [ChipModule]
+    imports: []
 })
 export class ChipImageDemo {}
 ```
@@ -81,7 +78,6 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
@@ -93,7 +89,7 @@ import { ChipModule } from 'voxx-ui/chip';
         </div>
     `,
     standalone: true,
-    imports: [ChipModule]
+    imports: []
 })
 export class ChipTemplateDemo {}
 ```

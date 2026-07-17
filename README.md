@@ -1,27 +1,43 @@
-# PrimeNG
+# VoxxUI
 
-### The next chapter has begun.
+VoxxUI is an open source UI component library for [Angular](https://angular.dev), maintained for the
+[cfp.dev](https://devoxx.com) conference platform (Devoxx & VoxxedDays call-for-papers and program apps).
 
-After years as an open source library, PrimeNG enters its next chapter as part of **PrimeUI**,  a sustainable foundation for the libraries you rely on.
+It is a lean, focused fork of [PrimeNG](https://github.com/primefaces/primeng) v21 (MIT):
+the component set is pruned to what the CFP platform actually uses (62 components, audited against the
+production bundles — see `docs/CFP-COMPONENT-AUDIT.md`), and the public API is renamed:
 
-This repository is now **archived**. It remains available, as a record of everything built here together.
+| PrimeNG | VoxxUI |
+| --- | --- |
+| `npm install primeng` | `npm install voxx-ui` |
+| `import { ButtonModule } from 'primeng/button'` | `import { ButtonModule } from 'voxx-ui/button'` |
+| `<p-button>`, `<p-table>` | `<vx-button>`, `<vx-table>` |
+| `pTooltip`, `pTemplate`, `pInputText` | `vxTooltip`, `vxTemplate`, `vxInputText` |
+| `providePrimeNG(...)` | `provideVoxxUI(...)` |
 
-## What this means
+Styling still builds on the [PrimeUIX](https://github.com/primefaces/primeuix) theming packages
+(`@primeuix/themes`, `@primeuix/styles`), so `.p-*` CSS classes and design tokens work unchanged.
 
-**Existing MIT versions remain MIT, forever.**
-Every release published under the MIT license stays exactly as it is. Your existing projects are unaffected. Nothing is taken away.
+## Monorepo layout
 
-**Development continues at a new home.**
-Active development, new releases, and everything ahead now live under PrimeUI.
+- `packages/primeng` — the `voxx-ui` component library (Angular 21)
+- `packages/themes` — `@voxxui/themes` re-exports
+- `packages/mcp` — `@voxxui/mcp`, a Model Context Protocol server for the library
+- `apps/showcase` — documentation & demo application
 
-➡️ **Read the announcement:** [primeui.dev/nextchapter](https://primeui.dev/nextchapter)
+## Development
 
-➡️ **The journey continues at:** [primeng.dev](https://primeng.dev)
+```bash
+pnpm install
+pnpm run build:lib        # build the voxx-ui package
+pnpm run dev              # run the showcase
+pnpm run test:unit        # unit tests
+```
 
-## Thank you
+## License
 
-To everyone who used PrimeNG, filed an issue, opened a pull request, answered a question, or simply built something with it,  thank you. This library reached hundreds of millions of downloads because of you.
+MIT — see [LICENSE.md](./LICENSE.md).
 
-This archive stays here as a thank you and a milestone. The next chapter is just beginning, and we hope you'll be part of it.
-
-— The PrimeTek Team
+VoxxUI is a derivative work of PrimeNG, Copyright (c) PrimeTek, used under the MIT license.
+PrimeNG and PrimeTek are trademarks of PrimeTek Bilişim A.Ş.; this project is not affiliated
+with or endorsed by PrimeTek.

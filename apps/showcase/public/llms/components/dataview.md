@@ -12,9 +12,6 @@ DataView requires a value to display along with a list template that receives an
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DataViewModule } from 'voxx-ui/dataview';
-import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -62,7 +59,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DataViewModule, TagModule],
+    imports: [],
     providers: [ProductService]
 })
 export class DataviewBasicDemo implements OnInit {
@@ -102,10 +99,6 @@ DataView supports list and grid display modes defined with the layout property. 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataViewModule } from 'voxx-ui/dataview';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
-import { TagModule } from 'voxx-ui/tag';
-import { ButtonModule } from 'voxx-ui/button';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -145,8 +138,8 @@ import { Product } from '@/domain/product';
                                 <div class="flex flex-col md:items-end gap-8">
                                     <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
                                     <div class="flex flex-row-reverse md:flex-row gap-2">
-                                        <button pButton icon="pi pi-heart" [outlined]="true"></button>
-                                        <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
+                                        <button vxButton icon="pi pi-heart" [outlined]="true"></button>
+                                        <button vxButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
                                     </div>
                                 </div>
                             </div>
@@ -179,8 +172,8 @@ import { Product } from '@/domain/product';
                                     <div class="flex flex-col gap-6 mt-6">
                                         <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
                                         <div class="flex gap-2">
-                                            <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
-                                            <button pButton icon="pi pi-heart" outlined></button>
+                                            <button vxButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
+                                            <button vxButton icon="pi pi-heart" outlined></button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +185,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [DataViewModule, SelectButtonModule, TagModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [ProductService]
 })
 export class DataviewLayoutDemo implements OnInit {
@@ -208,107 +201,12 @@ export class DataviewLayoutDemo implements OnInit {
 }
 ```
 
-## Loading
-
-While data is being loaded. Skeleton component may be used to indicate the busy state.
-
-```typescript
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DataViewModule } from 'voxx-ui/dataview';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
-import { SkeletonModule } from 'voxx-ui/skeleton';
-import { ProductService } from '@/service/productservice';
-import { Product } from '@/domain/product';
-
-@Component({
-    template: `
-        <div class="card">
-            <vx-dataview #dv [value]="products()" [layout]="layout">
-                <ng-template #header>
-                    <div class="flex justify-end">
-                        <vx-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
-                            <ng-template #item let-option>
-                                <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
-                            </ng-template>
-                        </vx-selectbutton>
-                    </div>
-                </ng-template>
-                <ng-template #list let-items>
-                    <div class="flex flex-col">
-                        <div *ngFor="let i of counterArray(6); let first = first">
-                            <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <vx-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
-                                <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
-                                    <div class="flex flex-col items-center sm:items-start gap-4">
-                                        <vx-skeleton width="8rem" height="2rem" />
-                                        <vx-skeleton width="6rem" height="1rem" />
-                                        <div class="flex items-center gap-4">
-                                            <vx-skeleton width="6rem" height="1rem" />
-                                            <vx-skeleton width="3rem" height="1rem" />
-                                        </div>
-                                    </div>
-                                    <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
-                                        <vx-skeleton width="4rem" height="2rem" />
-                                        <vx-skeleton size="3rem" shape="circle" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #grid let-items>
-                    <div class="grid grid-cols-12 gap-4">
-                        <div *ngFor="let i of counterArray(6); let first = first" class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
-                            <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
-                                <div class="flex flex-wrap items-center justify-between gap-2">
-                                    <vx-skeleton width="6rem" height="2rem" />
-                                    <vx-skeleton width="3rem" height="1rem" />
-                                </div>
-                                <div class="flex flex-col items-center gap-4 py-8">
-                                    <vx-skeleton height="10rem" class="w-3/4" class="w-3/4" />
-                                    <vx-skeleton width="8rem" height="2rem" />
-                                    <vx-skeleton width="6rem" height="1rem" />
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <vx-skeleton width="4rem" height="2rem" />
-                                    <vx-skeleton width="6rem" height="1rem" shape="circle" size="3rem" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </vx-dataview>
-        </div>
-    `,
-    standalone: true,
-    imports: [DataViewModule, SelectButtonModule, SkeletonModule, FormsModule],
-    providers: [ProductService]
-})
-export class DataviewLoadingDemo implements OnInit {
-    private productService = inject(ProductService);
-    products = signal<any>([]);
-    options: string[] = ['list', 'grid'];
-
-    ngOnInit() {
-        this.productService.getProducts().then((data) => this.products.set([...data.slice(0, 12)]));
-    }
-
-    counterArray(n: number): any[] {
-        return Array(n);
-    }
-}
-```
-
 ## Pagination
 
 Pagination is enabled with the paginator and rows properties. Refer to the Paginator for more information about customizing the paginator.
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DataViewModule } from 'voxx-ui/dataview';
-import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -356,7 +254,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DataViewModule, TagModule],
+    imports: [],
     providers: [ProductService]
 })
 export class DataviewPaginationDemo implements OnInit {
@@ -378,10 +276,6 @@ Built-in sorting is controlled by bindings sortField and sortOrder properties fr
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { DataViewModule } from 'voxx-ui/dataview';
-import { SelectModule } from 'voxx-ui/select';
-import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { SelectItem } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
@@ -435,7 +329,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DataViewModule, SelectModule, TagModule, FormsModule],
+    imports: [FormsModule],
     providers: [ProductService]
 })
 export class DataviewSortingDemo implements OnInit {

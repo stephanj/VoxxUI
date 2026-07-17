@@ -13,7 +13,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
 
 @Component({
     template: `
@@ -23,7 +22,7 @@ import { RadioButtonModule } from 'voxx-ui/radiobutton';
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonDisabledDemo {
     value: number = 2;
@@ -37,7 +36,6 @@ RadioButtons can be generated using a list of values.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
 
 @Component({
     template: `
@@ -51,7 +49,7 @@ import { RadioButtonModule } from 'voxx-ui/radiobutton';
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonDynamicDemo implements OnInit {
     selectedCategory: any = null;
@@ -70,7 +68,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
 
 @Component({
     template: `
@@ -79,7 +76,7 @@ import { RadioButtonModule } from 'voxx-ui/radiobutton';
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonFilledDemo {
     checked: boolean = false;
@@ -93,7 +90,6 @@ RadioButton is used as a controlled input with value and ngModel properties.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
 
 @Component({
     template: `
@@ -119,7 +115,7 @@ import { RadioButtonModule } from 'voxx-ui/radiobutton';
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonGroupDemo {
     ingredient!: string;
@@ -133,7 +129,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
 
 @Component({
     template: `
@@ -142,7 +137,7 @@ import { RadioButtonModule } from 'voxx-ui/radiobutton';
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonInvalidDemo {
     value: boolean = false;
@@ -156,10 +151,6 @@ RadioButton can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -178,14 +169,14 @@ import { MessageService } from 'voxx-ui/api';
                 @if (isInvalid('selectedCategory')) {
                     <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     providers: [MessageService]
 })
 export class RadiobuttonReactiveformsDemo {
@@ -232,7 +223,6 @@ RadioButton provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
 
 @Component({
     template: `
@@ -254,7 +244,7 @@ import { RadioButtonModule } from 'voxx-ui/radiobutton';
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonSizesDemo {
     size: any = false;
@@ -266,10 +256,6 @@ export class RadiobuttonSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { RadioButtonModule } from 'voxx-ui/radiobutton';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -288,14 +274,14 @@ import { MessageService } from 'voxx-ui/api';
                 @if (isInvalid(exampleForm)) {
                     <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [MessageService]
 })
 export class RadiobuttonTemplatedrivenformsDemo {

@@ -12,10 +12,6 @@ Popover is accessed via its reference and visibility is controlled using toggle 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { InputGroupModule } from 'voxx-ui/inputgroup';
-import { PopoverModule } from 'voxx-ui/popover';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -26,7 +22,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
                         <vx-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <input vxInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
                             <vx-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
                             </vx-inputgroup-addon>
@@ -36,8 +32,8 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
                         <div class="flex">
                             <vx-inputgroup>
-                                <input pInputText disabled />
-                                <button pButton label="Invite" icon="pi pi-users"></button>
+                                <input vxInputText disabled />
+                                <button vxButton label="Invite" icon="pi pi-users"></button>
                             </vx-inputgroup>
                         </div>
                     </div>
@@ -64,7 +60,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, InputGroupModule, PopoverModule, InputTextModule]
+    imports: []
 })
 export class PopoverBasicDemo {
     members: any[];
@@ -77,13 +73,10 @@ Place the Popover outside of the data iteration components to avoid rendering it
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Popover, PopoverModule } from 'voxx-ui/popover';
-import { TableModule } from 'voxx-ui/table';
-import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
+import { Popover } from 'voxx-ui/popover';
 
 @Component({
     template: `
@@ -154,7 +147,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule, TableModule, TagModule],
+    imports: [],
     providers: [ProductService, MessageService]
 })
 export class PopoverDatatableDemo implements OnInit {
@@ -211,8 +204,7 @@ In this sample, data is retrieved from the content inside the popover.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Popover, PopoverModule } from 'voxx-ui/popover';
+import { Popover } from 'voxx-ui/popover';
 
 @Component({
     template: `
@@ -237,7 +229,7 @@ import { Popover, PopoverModule } from 'voxx-ui/popover';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule]
+    imports: []
 })
 export class PopoverSelectdataDemo {
     selectedMember: any = null;
@@ -260,8 +252,6 @@ show method takes two parameters, first one is the event and it is mandatory. By
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { PopoverModule } from 'voxx-ui/popover';
 
 @Component({
     template: `
@@ -276,7 +266,7 @@ import { PopoverModule } from 'voxx-ui/popover';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule]
+    imports: []
 })
 export class PopoverTargetDemo {}
 ```
@@ -287,8 +277,6 @@ Content of the OverlayPanel is defined by content template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { PopoverModule } from 'voxx-ui/popover';
 import { OverlayPanel } from 'voxx-ui/overlaypanel';
 
 @Component({
@@ -303,7 +291,7 @@ import { OverlayPanel } from 'voxx-ui/overlaypanel';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule]
+    imports: []
 })
 export class PopoverTemplateDemo {}
 ```

@@ -12,8 +12,6 @@ Drawer is used as a container and visibility is controlled with a binding to vis
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
@@ -28,7 +26,7 @@ import { DrawerModule } from 'voxx-ui/drawer';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DrawerModule]
+    imports: []
 })
 export class DrawerBasicDemo {
     visible: boolean = false;
@@ -41,8 +39,6 @@ Drawer can cover the whole page when fullScreen property is enabled.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
@@ -57,7 +53,7 @@ import { DrawerModule } from 'voxx-ui/drawer';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DrawerModule]
+    imports: []
 })
 export class DrawerFullscreenDemo {
     visible: boolean = false;
@@ -70,10 +66,7 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { ButtonModule } from 'voxx-ui/button';
-import { Drawer, DrawerModule } from 'voxx-ui/drawer';
-import { RippleModule } from 'voxx-ui/ripple';
+import { Drawer } from 'voxx-ui/drawer';
 
 @Component({
     template: `
@@ -122,8 +115,8 @@ import { RippleModule } from 'voxx-ui/ripple';
                             <ul class="list-none p-4 m-0">
                                 <li>
                                     <div
-                                        pRipple
-                                        pStyleClass="@next"
+                                        vxRipple
+                                        vxStyleClass="@next"
                                         enterFromClass="hidden"
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
@@ -135,21 +128,21 @@ import { RippleModule } from 'voxx-ui/ripple';
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-home mr-2"></i>
                                                 <span class="font-medium">Dashboard</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-bookmark mr-2"></i>
                                                 <span class="font-medium">Bookmarks</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                                pRipple
-                                                pStyleClass="@next"
+                                                vxRipple
+                                                vxStyleClass="@next"
                                                 enterFromClass="hidden"
                                                 enterActiveClass="animate-slidedown"
                                                 leaveToClass="hidden"
@@ -163,8 +156,8 @@ import { RippleModule } from 'voxx-ui/ripple';
                                             <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                 <li>
                                                     <a
-                                                        pRipple
-                                                        pStyleClass="@next"
+                                                        vxRipple
+                                                        vxStyleClass="@next"
                                                         enterFromClass="hidden"
                                                         enterActiveClass="animate-slidedown"
                                                         leaveToClass="hidden"
@@ -178,7 +171,7 @@ import { RippleModule } from 'voxx-ui/ripple';
                                                     <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                         <li>
                                                             <a
-                                                                pRipple
+                                                                vxRipple
                                                                 class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                             >
                                                                 <i class="pi pi-table mr-2"></i>
@@ -187,7 +180,7 @@ import { RippleModule } from 'voxx-ui/ripple';
                                                         </li>
                                                         <li>
                                                             <a
-                                                                pRipple
+                                                                vxRipple
                                                                 class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                             >
                                                                 <i class="pi pi-search mr-2"></i>
@@ -197,7 +190,7 @@ import { RippleModule } from 'voxx-ui/ripple';
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                                    <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                         <i class="pi pi-chart-line mr-2"></i>
                                                         <span class="font-medium">Expenses</span>
                                                     </a>
@@ -205,26 +198,26 @@ import { RippleModule } from 'voxx-ui/ripple';
                                             </ul>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-users mr-2"></i>
                                                 <span class="font-medium">Team</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-comments mr-2"></i>
                                                 <span class="font-medium">Messages</span>
                                                 <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-calendar mr-2"></i>
                                                 <span class="font-medium">Calendar</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
@@ -235,8 +228,8 @@ import { RippleModule } from 'voxx-ui/ripple';
                             <ul class="list-none p-4 m-0">
                                 <li>
                                     <div
-                                        pRipple
-                                        pStyleClass="@next"
+                                        vxRipple
+                                        vxStyleClass="@next"
                                         enterFromClass="hidden"
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
@@ -248,19 +241,19 @@ import { RippleModule } from 'voxx-ui/ripple';
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-folder mr-2"></i>
                                                 <span class="font-medium">Projects</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-chart-bar mr-2"></i>
                                                 <span class="font-medium">Performance</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
@@ -271,7 +264,7 @@ import { RippleModule } from 'voxx-ui/ripple';
                         </div>
                         <div class="mt-auto">
                             <hr class="mb-4 mx-4 border-t border-0 border-surface" />
-                            <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                            <a vxRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                 <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
@@ -283,7 +276,7 @@ import { RippleModule } from 'voxx-ui/ripple';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, ButtonModule, DrawerModule, RippleModule]
+    imports: []
 })
 export class DrawerHeadlessDemo {
     visible: boolean = false;
@@ -300,8 +293,7 @@ Drawer location is configured with the position property that can take left , ri
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { Drawer, DrawerModule } from 'voxx-ui/drawer';
+import { Drawer } from 'voxx-ui/drawer';
 
 @Component({
     template: `
@@ -339,7 +331,7 @@ import { Drawer, DrawerModule } from 'voxx-ui/drawer';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DrawerModule]
+    imports: []
 })
 export class DrawerPositionDemo {
     visible1: boolean = false;
@@ -355,8 +347,6 @@ Drawer dimension can be defined with style or class properties, this responsive 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
@@ -371,7 +361,7 @@ import { DrawerModule } from 'voxx-ui/drawer';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DrawerModule]
+    imports: []
 })
 export class DrawerSizeDemo {
     visible: boolean = false;
@@ -384,9 +374,6 @@ Drawer is customizable by header , content , footer templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { DrawerModule } from 'voxx-ui/drawer';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -404,16 +391,16 @@ import { ButtonModule } from 'voxx-ui/button';
                 </p>
                 <ng-template #footer>
                     <div class="flex items-center gap-2">
-                        <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-                        <button pButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
+                        <button vxButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
+                        <button vxButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
                     </div>
                 </ng-template>
             </vx-drawer>
-            <button pButton (click)="visible = true" icon="pi pi-plus"></button>
+            <button vxButton (click)="visible = true" icon="pi pi-plus"></button>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, DrawerModule, ButtonModule]
+    imports: []
 })
 export class DrawerTemplateDemo {
     visible: boolean = false;

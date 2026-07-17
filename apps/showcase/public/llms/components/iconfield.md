@@ -12,25 +12,22 @@ A group is created by wrapping the input and icon with the IconField component. 
 
 ```typescript
 import { Component } from '@angular/core';
-import { IconFieldModule } from 'voxx-ui/iconfield';
-import { InputIconModule } from 'voxx-ui/inputicon';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
             <vx-iconfield>
                 <vx-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Search" />
+                <input type="text" vxInputText placeholder="Search" />
             </vx-iconfield>
             <vx-iconfield>
-                <input type="text" pInputText />
+                <input type="text" vxInputText />
                 <vx-inputicon class="pi pi-spinner pi-spin" />
             </vx-iconfield>
         </div>
     `,
     standalone: true,
-    imports: [IconFieldModule, InputIconModule, InputTextModule]
+    imports: []
 })
 export class IconfieldBasicDemo {}
 ```
@@ -42,10 +39,6 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { IconFieldModule } from 'voxx-ui/iconfield';
-import { InputIconModule } from 'voxx-ui/inputicon';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -53,28 +46,28 @@ import { InputTextModule } from 'voxx-ui/inputtext';
             <vx-floatlabel>
                 <vx-iconfield>
                     <vx-inputicon class="pi pi-search" />
-                    <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+                    <input vxInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
                 </vx-iconfield>
                 <label for="over_label">Over Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="in">
                 <vx-iconfield>
                     <vx-inputicon class="pi pi-search" />
-                    <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+                    <input vxInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
                 </vx-iconfield>
                 <label for="in_label">In Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="on">
                 <vx-iconfield>
                     <vx-inputicon class="pi pi-search" />
-                    <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+                    <input vxInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
                 </vx-iconfield>
                 <label for="on_label">On Label</label>
             </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, IconFieldModule, InputIconModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class IconfieldFloatlabelDemo {
     value1: string | undefined;
@@ -83,69 +76,34 @@ export class IconfieldFloatlabelDemo {
 }
 ```
 
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IconFieldModule } from 'voxx-ui/iconfield';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-import { InputIconModule } from 'voxx-ui/inputicon';
-import { InputTextModule } from 'voxx-ui/inputtext';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <vx-iconfield>
-                    <vx-inputicon class="pi pi-user" />
-                    <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-                </vx-iconfield>
-                <label for="username">Username</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IconFieldModule, IftaLabelModule, InputIconModule, InputTextModule, FormsModule]
-})
-export class IconfieldIftalabelDemo {
-    value: string | undefined;
-}
-```
-
 ## Sizes
 
-IconField is compatible with the pSize setting of the input field.
+IconField is compatible with the vxSize setting of the input field.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IconFieldModule } from 'voxx-ui/iconfield';
-import { InputIconModule } from 'voxx-ui/inputicon';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
             <vx-iconfield>
                 <vx-inputicon class="pi pi-search" />
-                <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
+                <input vxInputText [(ngModel)]="value1" placeholder="Small" vxSize="small" />
             </vx-iconfield>
             <vx-iconfield>
-                <input pInputText [(ngModel)]="value2" placeholder="Normal" />
+                <input vxInputText [(ngModel)]="value2" placeholder="Normal" />
                 <vx-inputicon class="pi pi-user" />
             </vx-iconfield>
             <vx-iconfield>
                 <vx-inputicon class="pi pi-lock" />
-                <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
+                <input vxInputText [(ngModel)]="value3" placeholder="Large" vxSize="large" />
                 <vx-inputicon class="pi pi-spin pi-spinner" />
             </vx-iconfield>
         </div>
     `,
     standalone: true,
-    imports: [IconFieldModule, InputIconModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class IconfieldSizesDemo {
     value1: any = null;
@@ -160,9 +118,6 @@ An eye icon is displayed by default when the image is hovered in preview mode. U
 
 ```typescript
 import { Component } from '@angular/core';
-import { IconFieldModule } from 'voxx-ui/iconfield';
-import { InputIconModule } from 'voxx-ui/inputicon';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -199,12 +154,12 @@ import { InputTextModule } from 'voxx-ui/inputtext';
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
                 </vx-inputicon>
-                <input type="text" pInputText placeholder="Search" />
+                <input type="text" vxInputText placeholder="Search" />
             </vx-iconfield>
         </div>
     `,
     standalone: true,
-    imports: [IconFieldModule, InputIconModule, InputTextModule]
+    imports: []
 })
 export class IconfieldTemplateDemo {}
 ```

@@ -1,10 +1,10 @@
 {
     "name": "voxx-ui",
     "version": "21.1.9",
-    "author": "PrimeTek Informatics",
+    "author": "Stephan Janssen",
     "description": "VoxxUI is an open source UI component library for Angular — a lean fork of PrimeNG maintained for the cfp.dev platform.",
     "homepage": "https://github.com/stephanj/VoxxUI",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/stephanj/VoxxUI.git",

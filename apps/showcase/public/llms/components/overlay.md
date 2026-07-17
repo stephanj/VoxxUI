@@ -1,6 +1,6 @@
-# Overlay API - PrimeNG
+# Overlay API - VoxxUI
 
-This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+This API allows overlay components to be controlled from the VoxxUI. In this way, all overlay components in the application can have the same behavior.
 
 ## Accessibility
 
@@ -24,7 +24,6 @@ Overlay is a container to display content in an overlay window. All the options 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -34,7 +33,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class OverlayBasicDemo {
     overlayVisible: boolean = false;
@@ -135,7 +134,6 @@ Content can be customized with the content template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -147,7 +145,7 @@ import { ButtonModule } from 'voxx-ui/button';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class OverlayTemplateDemo {
     overlayVisible: boolean = false;
@@ -164,7 +162,7 @@ Transition options of the show or hide animation. The default value of showTrans
 
 ## Overlay
 
-This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+This API allows overlay components to be controlled from the VoxxUI. In this way, all overlay components in the application can have the same behavior.
 
 ### Props
 

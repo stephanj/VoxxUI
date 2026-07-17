@@ -12,7 +12,6 @@ Splitter requires two SplitterPanel components as children which are displayed h
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
     template: `
@@ -28,7 +27,7 @@ import { SplitterModule } from 'voxx-ui/splitter';
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterHorizontalDemo {}
 ```
@@ -39,7 +38,6 @@ Splitters can be combined to create advanced layouts.
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
     template: `
@@ -69,7 +67,7 @@ import { SplitterModule } from 'voxx-ui/splitter';
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterNestedDemo {}
 ```
@@ -80,7 +78,6 @@ When no panelSizes are defined, panels are split 50/50, use the panelSizes prope
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
     template: `
@@ -96,7 +93,7 @@ import { SplitterModule } from 'voxx-ui/splitter';
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterSizeDemo {}
 ```
@@ -107,7 +104,6 @@ Panels are displayed as stacked by setting the layout to vertical .
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
     template: `
@@ -123,7 +119,7 @@ import { SplitterModule } from 'voxx-ui/splitter';
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterVerticalDemo {}
 ```

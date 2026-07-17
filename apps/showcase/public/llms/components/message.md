@@ -12,7 +12,6 @@ Message component requires a content to display.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -21,7 +20,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule]
+    imports: []
 })
 export class MessageBasicDemo {}
 ```
@@ -32,7 +31,6 @@ Enable closable option to display an icon to remove a message.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -41,7 +39,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule]
+    imports: []
 })
 export class MessageClosableDemo {}
 ```
@@ -52,8 +50,6 @@ Multiple messages can be displayed using the standard for block.
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -70,7 +66,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, MessageModule]
+    imports: []
 })
 export class MessageDynamicDemo {
     messages = signal<any[]>([]);
@@ -96,9 +92,6 @@ Validation errors in a form are displayed with the error severity.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'voxx-ui/inputmask';
-import { MessageModule } from 'voxx-ui/message';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -106,7 +99,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
             <div class="flex flex-col gap-4">
                 <vx-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</vx-message>
                 <div class="flex flex-col gap-1">
-                    <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
+                    <input vxInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
                     @if (!username) {
                         <vx-message severity="error" variant="simple" size="small">Username is required</vx-message>
                     }
@@ -121,7 +114,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
         </div>
     `,
     standalone: true,
-    imports: [InputMaskModule, MessageModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MessageFormDemo {
     username: string | undefined;
@@ -135,8 +128,6 @@ The icon of a message is specified with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -151,7 +142,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, MessageModule]
+    imports: []
 })
 export class MessageIconDemo {}
 ```
@@ -162,8 +153,6 @@ Messages can disappear automatically by defined the life in milliseconds.
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -175,7 +164,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, MessageModule]
+    imports: []
 })
 export class MessageLifeDemo {
     visible = signal(false);
@@ -196,7 +185,6 @@ Configure the variant value as outlined for messages with borders and no backgro
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -210,7 +198,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule]
+    imports: []
 })
 export class MessageOutlinedDemo {}
 ```
@@ -221,7 +209,6 @@ The severity option specifies the type of the message.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -235,7 +222,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule]
+    imports: []
 })
 export class MessageSeverityDemo {}
 ```
@@ -246,7 +233,6 @@ Configure the variant value as simple for messages without borders and backgroun
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -260,7 +246,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule]
+    imports: []
 })
 export class MessageSimpleDemo {}
 ```
@@ -271,7 +257,6 @@ Message provides small and large sizes as alternatives to the base.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     template: `
@@ -282,7 +267,7 @@ import { MessageModule } from 'voxx-ui/message';
         </div>
     `,
     standalone: true,
-    imports: [MessageModule]
+    imports: []
 })
 export class MessageSizesDemo {}
 ```
@@ -299,7 +284,7 @@ Message groups a collection of contents in tabs.
 | unstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 | pt | InputSignal<MessagePassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
-| severity | "success" \| "info" \| "warn" \| "secondary" \| "contrast" \| "error" | 'info' | Severity level of the message. |
+| severity | "error" \| "success" \| "info" \| "warn" \| "secondary" \| "contrast" | 'info' | Severity level of the message. |
 | text | string | - | Text content. **(Deprecated)** |
 | escape | boolean | true | Whether displaying messages would be escaped or not. **(Deprecated)** |
 | style | { [klass: string]: any } | - | Inline style of the component. |

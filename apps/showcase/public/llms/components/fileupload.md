@@ -12,8 +12,6 @@ Advanced uploader provides dragdrop support, multi file uploads, auto uploading,
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FileUploadModule } from 'voxx-ui/fileupload';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 interface UploadEvent {
@@ -33,7 +31,7 @@ interface UploadEvent {
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadAdvancedDemo {
@@ -48,8 +46,6 @@ When auto property is enabled, a file gets uploaded instantly after selection.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FileUploadModule } from 'voxx-ui/fileupload';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 interface UploadEvent {
@@ -65,7 +61,7 @@ interface UploadEvent {
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadAutoDemo {
@@ -79,9 +75,6 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { FileUploadModule } from 'voxx-ui/fileupload';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 interface UploadEvent {
@@ -98,7 +91,7 @@ interface UploadEvent {
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadBasicDemo {
@@ -112,8 +105,6 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FileUploadModule } from 'voxx-ui/fileupload';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -124,7 +115,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadCustomDemo {
@@ -136,12 +127,6 @@ export class FileuploadCustomDemo {
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { BadgeModule } from 'voxx-ui/badge';
-import { ButtonModule } from 'voxx-ui/button';
-import { FileUploadModule } from 'voxx-ui/fileupload';
-import { ProgressBarModule } from 'voxx-ui/progressbar';
-import { ToastModule } from 'voxx-ui/toast';
-import { PrimeNG } from 'voxx-ui/config';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -211,7 +196,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule, ButtonModule, FileUploadModule, ProgressBarModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadTemplateDemo {
@@ -294,9 +279,9 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | style | { [klass: string]: any } | - | Inline style of the element. |
 | styleClass | string | - | Class of the element. |
 | previewWidth | number | 50 | Width of the image thumbnail in pixels. |
-| chooseLabel | string | - | Label of the choose button. Defaults to PrimeNG Locale configuration. |
-| uploadLabel | string | - | Label of the upload button. Defaults to PrimeNG Locale configuration. |
-| cancelLabel | string | - | Label of the cancel button. Defaults to PrimeNG Locale configuration. |
+| chooseLabel | string | - | Label of the choose button. Defaults to VoxxUI Locale configuration. |
+| uploadLabel | string | - | Label of the upload button. Defaults to VoxxUI Locale configuration. |
+| cancelLabel | string | - | Label of the cancel button. Defaults to VoxxUI Locale configuration. |
 | chooseIcon | string | - | Icon of the choose button. |
 | uploadIcon | string | - | Icon of the upload button. |
 | cancelIcon | string | - | Icon of the cancel button. |
@@ -304,7 +289,7 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | showCancelButton | boolean | true | Whether to show the cancel button. |
 | mode | "advanced" \| "basic" | advanced | Defines the UI of the component. |
 | headers | HttpHeaders | - | HttpHeaders class represents the header configuration options for an HTTP request. |
-| customUpload | boolean | false | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration. |
+| customUpload | boolean | false | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to VoxxUI Locale configuration. |
 | fileLimit | number | - | Maximum number of files that can be uploaded. |
 | uploadStyleClass | string | - | Style class of the upload button. |
 | cancelStyleClass | string | - | Style class of the cancel button. |

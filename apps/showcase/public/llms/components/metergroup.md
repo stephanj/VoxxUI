@@ -12,7 +12,6 @@ MeterGroup requires a value as the data to display where each item in the collec
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -21,7 +20,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: []
 })
 export class MetergroupBasicDemo {
     value: any[] = [{ label: 'Space used', value: 15, color: 'var(--p-primary-color)' }];
@@ -34,7 +33,6 @@ Icons can be displayed next to the labels instead of the default marker.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -43,7 +41,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: []
 })
 export class MetergroupIconDemo {
     value: any[];
@@ -56,7 +54,6 @@ The position of the labels relative to the meters is defined using the labelPosi
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -65,7 +62,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: []
 })
 export class MetergroupLabelDemo {
     value: any[];
@@ -78,7 +75,6 @@ Boundaries are configured with the min and max values whose defaults are 0 and 1
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -87,7 +83,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: []
 })
 export class MetergroupMinmaxDemo {
     value: any[];
@@ -100,7 +96,6 @@ Adding more items to the array displays the meters in a group.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -109,7 +104,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: []
 })
 export class MetergroupMultipleDemo {
     value: any[];
@@ -122,9 +117,6 @@ MeterGroup provides templating support for labels, meter items, and content arou
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { CardModule } from 'voxx-ui/card';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -167,7 +159,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, CardModule, MeterGroupModule]
+    imports: []
 })
 export class MetergroupTemplateDemo {
     value: any[];
@@ -180,7 +172,6 @@ Layout of the MeterGroup is configured with the orientation property that accept
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
@@ -189,7 +180,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
         </div>
     `,
     standalone: true,
-    imports: [MeterGroupModule]
+    imports: []
 })
 export class MetergroupVerticalDemo {
     value: any[];

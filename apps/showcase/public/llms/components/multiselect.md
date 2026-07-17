@@ -13,7 +13,6 @@ MultiSelect is used as a controlled component with ngModel property along with a
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -27,7 +26,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectBasicDemo implements OnInit {
     cities!: City[];
@@ -52,7 +51,6 @@ Selected values are displayed as a comma separated list by default, setting disp
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -66,7 +64,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectChipsDemo implements OnInit {
     cities!: City[];
@@ -91,7 +89,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -105,7 +102,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectCleariconDemo implements OnInit {
     cities!: City[];
@@ -130,7 +127,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -144,7 +140,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectDisabledDemo implements OnInit {
     cities!: City[];
@@ -169,7 +165,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -183,7 +178,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectFilledDemo implements OnInit {
     cities!: City[];
@@ -208,7 +203,6 @@ MultiSelect provides built-in filtering that is enabled by adding the filter pro
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -222,7 +216,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectFilterDemo implements OnInit {
     cities!: City[];
@@ -247,8 +241,6 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -273,7 +265,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectFloatlabelDemo implements OnInit {
     cities!: City[];
@@ -300,7 +292,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -314,7 +305,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectFluidDemo implements OnInit {
     cities!: City[];
@@ -339,7 +330,6 @@ Options can be grouped when a nested data structures is provided.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 import { SelectItemGroup } from 'voxx-ui/api';
 
 interface City {
@@ -361,7 +351,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectGroupDemo {
     groupedCities!: SelectItemGroup[];
@@ -404,49 +394,6 @@ export class MultiselectGroupDemo {
 }
 ```
 
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
-
-interface City {
-    name: string;
-    code: string;
-}
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel class="w-full md:w-80">
-                <vx-multiselect [(ngModel)]="selectedCities" inputId="ms_cities" [options]="cities" optionLabel="name" [filter]="true" [maxSelectedLabels]="3" class="w-full" />
-                <label for="ms_cities">Cities</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, MultiSelectModule, FormsModule]
-})
-export class MultiselectIftalabelDemo implements OnInit {
-    cities!: City[];
-    selectedCities!: City[];
-
-    ngOnInit() {
-        this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
-        ];
-    }
-}
-```
-
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -454,7 +401,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -469,7 +415,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectInvalidDemo {
     value1: boolean = true;
@@ -487,7 +433,6 @@ Loading state can be used loading property.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -501,7 +446,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectLoadingstateDemo implements OnInit {
     cities!: City[];
@@ -526,10 +471,6 @@ MultiSelect can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface City {
@@ -548,12 +489,12 @@ interface City {
                         <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     providers: [MessageService]
 })
 export class MultiselectReactiveformsDemo {
@@ -592,7 +533,6 @@ MultiSelect provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 interface City {
     name: string;
@@ -608,7 +548,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectSizesDemo implements OnInit {
     cities!: City[];
@@ -635,8 +575,6 @@ Available options and the selected options support customization with item and s
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 import { Country } from '@/domain/customer';
 
 interface Country {
@@ -673,7 +611,7 @@ interface Country {
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectTemplateDemo implements OnInit {
     countries!: Country[];
@@ -701,10 +639,6 @@ export class MultiselectTemplateDemo implements OnInit {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface City {
@@ -734,12 +668,12 @@ interface City {
                         <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, MultiSelectModule, ToastModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [MessageService]
 })
 export class MultiselectTemplatedrivenformsDemo {
@@ -764,7 +698,6 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 @Component({
     template: `
@@ -791,7 +724,7 @@ import { MultiSelectModule } from 'voxx-ui/multiselect';
         </div>
     `,
     standalone: true,
-    imports: [MultiSelectModule, FormsModule]
+    imports: [FormsModule]
 })
 export class MultiselectVirtualscrollDemo {
     items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
@@ -862,7 +795,7 @@ MultiSelect is used to select multiple items from a collection.
 | virtualScrollOptions | ScrollerOptions | - | Whether to use the scroller feature. The properties of scroller component can be used like an object in it. |
 | overlayOptions | OverlayOptions | - | Whether to use overlay API feature. The properties of overlay API can be used like an object in it. |
 | ariaFilterLabel | string | - | Defines a string that labels the filter input. |
-| filterMatchMode | "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "in" \| "lt" \| "lte" \| "gt" \| "gte" | contains | Defines how the items are filtered. |
+| filterMatchMode | "gt" \| "lt" \| "in" \| "startsWith" \| "contains" \| "endsWith" \| "equals" \| "notEquals" \| "lte" \| "gte" | contains | Defines how the items are filtered. |
 | tooltip | string | - | Advisory information to display in a tooltip on hover. |
 | tooltipPosition | "right" \| "left" \| "top" \| "bottom" | right | Position of the tooltip. |
 | tooltipPositionStyle | string | absolute | Type of CSS position. |

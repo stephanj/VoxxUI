@@ -12,7 +12,6 @@ Tabs is defined using TabList , Tab , TabPanels and TabPanel components. Tab and
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -48,7 +47,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [TabsModule]
+    imports: []
 })
 export class TabsBasicDemo {}
 ```
@@ -59,8 +58,6 @@ Tabs can be controlled programmatically using value property as a model.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -101,7 +98,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, TabsModule]
+    imports: []
 })
 export class TabsControlledDemo {
     value: number = 0;
@@ -114,9 +111,6 @@ Custom content for a tab is defined with the default ng-content.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
-import { BadgeModule } from 'voxx-ui/badge';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -168,7 +162,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, BadgeModule, TabsModule]
+    imports: []
 })
 export class TabsCustomtemplateDemo {}
 ```
@@ -179,7 +173,6 @@ Enabling disabled property of a Tab prevents user interaction.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -216,7 +209,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [TabsModule]
+    imports: []
 })
 export class TabsDisabledDemo {}
 ```
@@ -227,7 +220,6 @@ Tabs can be generated dynamically using the standard &#64;for block.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -249,7 +241,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [TabsModule]
+    imports: []
 })
 export class TabsDynamicDemo implements OnInit {
     ngOnInit() {
@@ -268,7 +260,6 @@ By default, inactive tab's content is rendered (but hidden). You can use the laz
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -301,7 +292,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [TabsModule]
+    imports: []
 })
 export class TabsLazyDemo {}
 ```
@@ -312,7 +303,6 @@ Adding scrollable property displays navigational buttons at each side to scroll 
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -336,7 +326,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [TabsModule]
+    imports: []
 })
 export class TabsScrollableDemo {
     scrollableTabs: any[];
@@ -349,7 +339,6 @@ A navigation menu is implemented using tabs without the panels where the content
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     template: `
@@ -368,7 +357,7 @@ import { TabsModule } from 'voxx-ui/tabs';
         </div>
     `,
     standalone: true,
-    imports: [TabsModule]
+    imports: []
 })
 export class TabsTabmenuDemo {
     tabs: any[];

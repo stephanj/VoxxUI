@@ -9,7 +9,6 @@ export const routes: Routes = [
         children: [
             { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
             { path: 'theming', redirectTo: 'theming/styled', pathMatch: 'full' },
-            { path: 'uikit/guide', redirectTo: 'uikit/guide/v3', pathMatch: 'full' },
             { path: 'autocomplete', loadChildren: () => import('@/pages/autocomplete/routes') },
             {
                 path: 'installation',
@@ -20,8 +19,6 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/configuration/routes')
             },
             { path: 'playground', loadChildren: () => import('@/pages/playground/routes') },
-            { path: 'roadmap', loadChildren: () => import('@/pages/roadmap/routes') },
-            { path: 'team', loadChildren: () => import('@/pages/team/routes') },
             {
                 path: 'theming',
                 loadChildren: () => import('@/pages/theming/routes')
@@ -110,7 +107,6 @@ export const routes: Routes = [
                 loadChildren: () => import('@/pages/inputgroup/routes')
             },
             { path: 'listbox', loadChildren: () => import('@/pages/listbox/routes') },
-            { path: 'lts', loadChildren: () => import('@/pages/lts/routes') },
             { path: 'menu', loadChildren: () => import('@/pages/menu/routes') },
             { path: 'message', loadChildren: () => import('@/pages/message/routes') },
             {
@@ -163,7 +159,6 @@ export const routes: Routes = [
                 path: 'splitter',
                 loadChildren: () => import('@/pages/splitter/routes')
             },
-            { path: 'support', loadChildren: () => import('@/pages/support/routes') },
             {
                 path: 'styleclass',
                 loadChildren: () => import('@/pages/styleclass/routes')
@@ -189,7 +184,6 @@ export const routes: Routes = [
                 path: 'virtualscroller',
                 loadChildren: () => import('@/pages/scroller/routes')
             },
-            { path: 'uikit', loadChildren: () => import('@/pages/uikit/routes') },
             { path: 'autofocus', loadChildren: () => import('@/pages/autofocus/routes') },
             { path: 'overlay', loadChildren: () => import('@/pages/overlay/routes') },
             {

@@ -13,7 +13,6 @@ Listbox is used as a controlled component with ngModel property along with an op
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -27,7 +26,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxBasicDemo implements OnInit {
     cities!: City[];
@@ -52,7 +51,6 @@ Listbox allows item selection using checkboxes.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -66,7 +64,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxCheckboxDemo implements OnInit {
     cities!: City[];
@@ -91,7 +89,6 @@ An alternative way to highlight the selected option is displaying a checkmark in
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -105,7 +102,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxCheckmarkDemo implements OnInit {
     cities!: City[];
@@ -130,7 +127,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -144,7 +140,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxDisabledDemo implements OnInit {
     cities!: City[];
@@ -169,7 +165,6 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 @Component({
     template: `
@@ -178,7 +173,7 @@ import { ListboxModule } from 'voxx-ui/listbox';
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxDragdropDemo implements OnInit {
     cities!: any[];
@@ -203,7 +198,6 @@ ListBox provides built-in filtering that is enabled by adding the filter propert
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -217,7 +211,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxFilterDemo implements OnInit {
     cities!: City[];
@@ -242,7 +236,6 @@ Options can be grouped when a nested data structures is provided.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 import { SelectItemGroup } from 'voxx-ui/api';
 import { Country } from '@/domain/customer';
 
@@ -265,7 +258,7 @@ interface Country {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxGroupDemo {
     groupedCities!: SelectItemGroup[];
@@ -315,7 +308,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -329,7 +321,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxInvalidDemo implements OnInit {
     cities!: City[];
@@ -354,7 +346,6 @@ ListBox allows choosing a single item by default, enable multiple property to ch
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -368,7 +359,7 @@ interface City {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxMultipleDemo implements OnInit {
     cities!: City[];
@@ -393,10 +384,6 @@ Listbox can also be used with reactive forms. In this case, the formControlName 
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface City {
@@ -415,12 +402,12 @@ interface City {
                         <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class ListboxReactiveformsDemo {
     messageService = inject(MessageService);
@@ -464,7 +451,6 @@ For custom content support define a template named item where the default local 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 import { Country } from '@/domain/customer';
 
 interface Country {
@@ -486,7 +472,7 @@ interface Country {
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxTemplateDemo implements OnInit {
     countries!: Country[];
@@ -514,10 +500,6 @@ export class ListboxTemplateDemo implements OnInit {
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface City {
@@ -536,12 +518,12 @@ interface City {
                         <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxTemplatedrivenformsDemo implements OnInit {
     messageService = inject(MessageService);
@@ -574,7 +556,6 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'voxx-ui/listbox';
 
 @Component({
     template: `
@@ -599,7 +580,7 @@ import { ListboxModule } from 'voxx-ui/listbox';
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxVirtualscrollDemo {
     items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));

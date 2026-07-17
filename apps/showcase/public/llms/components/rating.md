@@ -13,7 +13,6 @@ Two-way value binding is defined using ngModel .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'voxx-ui/rating';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { RatingModule } from 'voxx-ui/rating';
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingBasicDemo {
     value!: number;
@@ -36,7 +35,6 @@ When disabled is present, a visual hint is applied to indicate that the Knob can
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'voxx-ui/rating';
 
 @Component({
     template: `
@@ -45,7 +43,7 @@ import { RatingModule } from 'voxx-ui/rating';
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingDisabledDemo {
     value: number = 5;
@@ -59,7 +57,6 @@ Number of stars to display is defined with stars property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'voxx-ui/rating';
 
 @Component({
     template: `
@@ -68,7 +65,7 @@ import { RatingModule } from 'voxx-ui/rating';
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingNumberofstarsDemo {
     value: number = 5;
@@ -82,10 +79,6 @@ Rating can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { RatingModule } from 'voxx-ui/rating';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -99,12 +92,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     providers: [MessageService]
 })
 export class RatingReactiveformsDemo {
@@ -142,7 +135,6 @@ When readonly present, value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'voxx-ui/rating';
 
 @Component({
     template: `
@@ -151,7 +143,7 @@ import { RatingModule } from 'voxx-ui/rating';
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingReadonlyDemo {
     value: number = 3;
@@ -165,7 +157,6 @@ Templating allows customizing the content where the icon instance is available a
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'voxx-ui/rating';
 
 @Component({
     template: `
@@ -181,7 +172,7 @@ import { RatingModule } from 'voxx-ui/rating';
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingTemplateDemo {
     value!: number;
@@ -193,10 +184,6 @@ export class RatingTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { RatingModule } from 'voxx-ui/rating';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -210,12 +197,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [MessageService]
 })
 export class RatingTemplatedrivenformsDemo {
@@ -239,7 +226,6 @@ A cancel icon is displayed to reset the value by default, set cancel as false to
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'voxx-ui/rating';
 
 @Component({
     template: `
@@ -248,7 +234,7 @@ import { RatingModule } from 'voxx-ui/rating';
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingWithoutcancelDemo {
     value!: number;

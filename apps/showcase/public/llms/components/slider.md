@@ -13,7 +13,6 @@ Two-way binding is defined using the standard ngModel directive.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { SliderModule } from 'voxx-ui/slider';
         </div>
     `,
     standalone: true,
-    imports: [SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderBasicDemo {
     value!: number;
@@ -36,8 +35,6 @@ Image filter implementation using multiple sliders.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
-import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
@@ -50,7 +47,7 @@ import { SliderModule } from 'voxx-ui/slider';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderFilterDemo {
     filter: number = 0;
@@ -66,20 +63,18 @@ Slider is connected to an input field using two-way binding.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'voxx-ui/slider';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div>
-                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
+                <input type="text" vxInputText [(ngModel)]="value" class="w-full mb-4" />
                 <vx-slider [(ngModel)]="value" class="w-full" />
             </div>
         </div>
     `,
     standalone: true,
-    imports: [SliderModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderInputDemo {
     value: number = 50;
@@ -93,7 +88,6 @@ When range property is present, slider provides two handles to define two values
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
@@ -102,7 +96,7 @@ import { SliderModule } from 'voxx-ui/slider';
         </div>
     `,
     standalone: true,
-    imports: [SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderRangeDemo {
     rangeValues: number[] = [20, 80];
@@ -116,10 +110,6 @@ Slider can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { SliderModule } from 'voxx-ui/slider';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -133,12 +123,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Must be greater than 25.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, SliderModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class SliderReactiveformsDemo {
     messageService = inject(MessageService);
@@ -174,7 +164,6 @@ Size of each movement is defined with the step property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
@@ -183,7 +172,7 @@ import { SliderModule } from 'voxx-ui/slider';
         </div>
     `,
     standalone: true,
-    imports: [SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderStepDemo {
     value: number = 20;
@@ -195,10 +184,6 @@ export class SliderStepDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { SliderModule } from 'voxx-ui/slider';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -212,12 +197,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Must be greater than 25.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, SliderModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderTemplatedrivenformsDemo {
     messageService = inject(MessageService);
@@ -239,7 +224,6 @@ Default layout of slider is horizontal , use orientation property for the altern
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
@@ -248,7 +232,7 @@ import { SliderModule } from 'voxx-ui/slider';
         </div>
     `,
     standalone: true,
-    imports: [SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SliderVerticalDemo {
     value: number = 50;

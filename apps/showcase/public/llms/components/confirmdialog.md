@@ -12,9 +12,6 @@ ConfirmDialog is defined using p-confirmdialog tag and an instance of Confirmati
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
@@ -27,7 +24,7 @@ import { MessageService, ConfirmationService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    imports: [],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogBasicDemo {
@@ -68,9 +65,6 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
@@ -98,7 +92,7 @@ import { MessageService, ConfirmationService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    imports: [],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogHeadlessDemo {
@@ -113,9 +107,6 @@ The position property of the confirm options is used to display a Dialog at all 
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService, ConfirmationService } from 'voxx-ui/api';
 import { Dialog } from 'voxx-ui/dialog';
 
@@ -141,7 +132,7 @@ import { Dialog } from 'voxx-ui/dialog';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    imports: [],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogPositionDemo {
@@ -156,9 +147,6 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
@@ -179,7 +167,7 @@ import { MessageService, ConfirmationService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ConfirmDialogModule, ToastModule],
+    imports: [],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmdialogTemplateDemo {

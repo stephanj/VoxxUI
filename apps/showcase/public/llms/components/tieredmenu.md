@@ -12,7 +12,6 @@ TieredMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 import { MenuItem } from 'voxx-ui/api';
 
 @Component({
@@ -22,7 +21,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [TieredMenuModule]
+    imports: []
 })
 export class TieredmenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -107,8 +106,6 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TieredMenuModule } from 'voxx-ui/tieredmenu';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -119,7 +116,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [TieredMenuModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class TieredmenuCommandDemo implements OnInit {
@@ -194,8 +191,6 @@ Popup mode is enabled by adding popup property and calling toggle method with an
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'voxx-ui/button';
-import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 import { MenuItem } from 'voxx-ui/api';
 
 @Component({
@@ -206,7 +201,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, TieredMenuModule]
+    imports: []
 })
 export class TieredmenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -291,7 +286,6 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 import { MenuItem } from 'voxx-ui/api';
 
 @Component({
@@ -301,7 +295,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [TieredMenuModule]
+    imports: []
 })
 export class TieredmenuRouterDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -354,9 +348,6 @@ TieredMenu offers item customization with the item template that receives the me
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BadgeModule } from 'voxx-ui/badge';
-import { TieredMenuModule } from 'voxx-ui/tieredmenu';
-import { RippleModule } from 'voxx-ui/ripple';
 import { MenuItem } from 'voxx-ui/api';
 
 @Component({
@@ -364,7 +355,7 @@ import { MenuItem } from 'voxx-ui/api';
         <div class="card flex justify-center">
             <vx-tieredmenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                    <a vxRipple class="flex items-center px-4 py-3 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
                         <vx-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
@@ -376,7 +367,7 @@ import { MenuItem } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule, TieredMenuModule, RippleModule]
+    imports: []
 })
 export class TieredmenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;

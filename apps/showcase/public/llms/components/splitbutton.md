@@ -12,8 +12,6 @@ SplitButton has a default action button and a collection of additional options d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -24,7 +22,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonBasicDemo {
@@ -70,8 +68,6 @@ When the disabled attribute is present, the element is uneditable and unfocused.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -82,7 +78,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonDisabledDemo {
@@ -128,8 +124,6 @@ The buttons and menuitems have support to display icons.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -140,7 +134,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonIconsDemo {
@@ -184,8 +178,6 @@ SplitButton has a default action button and a collection of additional options d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -196,7 +188,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonNestedDemo {
@@ -344,8 +336,6 @@ Outlined buttons display a border without a background initially.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -363,7 +353,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonOutlinedDemo {
@@ -410,8 +400,6 @@ Raised buttons display a shadow to indicate elevation.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -429,7 +417,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonRaisedDemo {
@@ -476,8 +464,6 @@ Text buttons can be displayed as raised as well for elevation.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -495,7 +481,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonRaisedtextDemo {
@@ -546,8 +532,6 @@ Rounded buttons have a circular border radius.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -565,7 +549,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonRoundedDemo {
@@ -612,8 +596,6 @@ The severity property defines the type of button.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -631,7 +613,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonSeverityDemo {
@@ -678,8 +660,6 @@ SplitButton provides small and large sizes as alternatives to the standard.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -692,7 +672,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonSizesDemo {
@@ -738,8 +718,6 @@ SplitButton has a default action button and a collection of additional options d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -750,14 +728,14 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
                 <ng-template #content>
                     <span class="flex items-center font-bold">
                         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
-                        <span>PrimeNG</span>
+                        <span>VoxxUI</span>
                     </span>
                 </ng-template>
             </vx-splitbutton>
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonTemplateDemo {
@@ -804,8 +782,6 @@ Text buttons are displayed as textual elements.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'voxx-ui/splitbutton';
-import { ToastModule } from 'voxx-ui/toast';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -823,7 +799,7 @@ import { MenuItem, MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonTextDemo {

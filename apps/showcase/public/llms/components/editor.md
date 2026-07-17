@@ -13,7 +13,6 @@ A model can be bound using the standard ngModel directive.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'voxx-ui/editor';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { EditorModule } from 'voxx-ui/editor';
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorBasicDemo {
     text: string | undefined;
@@ -36,7 +35,6 @@ Editor provides a default toolbar with common options, to customize it define yo
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'voxx-ui/editor';
 
 @Component({
     template: `
@@ -53,10 +51,10 @@ import { EditorModule } from 'voxx-ui/editor';
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorCustomtoolbarDemo {
-    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
+    text: string = '<div>Hello World!</div><div>VoxxUI <b>Editor</b> Rocks</div><div><br></div>';
 }
 ```
 
@@ -71,10 +69,6 @@ Editor can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EditorModule } from 'voxx-ui/editor';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -88,12 +82,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Content is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class EditorReactiveformsDemo {
     messageService = inject(MessageService);
@@ -130,7 +124,6 @@ When readonly is present, the value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'voxx-ui/editor';
 
 @Component({
     template: `
@@ -139,7 +132,7 @@ import { EditorModule } from 'voxx-ui/editor';
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';
@@ -151,10 +144,6 @@ export class EditorReadonlyDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'voxx-ui/editor';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -168,12 +157,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Content is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorTemplatedrivenformsDemo {
     messageService = inject(MessageService);

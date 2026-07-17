@@ -13,7 +13,6 @@ SelectButton requires a value to bind and a collection of options.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonBasicDemo {
     stateOptions: any[];
@@ -37,7 +36,6 @@ When disabled is present, the element cannot be edited and focused entirely. Cer
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -47,7 +45,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonDisabledDemo {
     stateOptions: any[];
@@ -64,7 +62,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -73,7 +70,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonFluidDemo {
     stateOptions: any[];
@@ -88,7 +85,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -97,7 +93,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonInvalidDemo {
     stateOptions: any[];
@@ -112,7 +108,6 @@ SelectButton allows selecting only one item by default and setting multiple opti
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -121,7 +116,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonMultipleDemo {
     paymentOptions: any[];
@@ -136,10 +131,6 @@ SelectButton can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -153,12 +144,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Selection is required</vx-message>
                     }
                 </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, SelectButtonModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class SelectbuttonReactiveformsDemo {
     messageService = inject(MessageService);
@@ -195,7 +186,6 @@ SelectButton provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -206,7 +196,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonSizesDemo {
     value1!: string;
@@ -223,7 +213,6 @@ For custom content support define a template named item where the default local 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
 
 @Component({
     template: `
@@ -236,7 +225,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
         </div>
     `,
     standalone: true,
-    imports: [SelectButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonTemplateDemo {
     value: any;
@@ -249,10 +238,6 @@ export class SelectbuttonTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { SelectButtonModule } from 'voxx-ui/selectbutton';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -266,12 +251,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Selection is required.</vx-message>
                     }
                 </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, SelectButtonModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class SelectbuttonTemplatedrivenformsDemo {
     messageService = inject(MessageService);

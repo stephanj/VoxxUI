@@ -13,7 +13,6 @@ Two-way binding to a boolean property is defined using the standard ngModel dire
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { ToggleButtonModule } from 'voxx-ui/togglebutton';
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonBasicDemo {
     checked: boolean = false;
@@ -36,7 +35,6 @@ Icons and Labels can be customized using onLabel , offLabel , onIcon and offIcon
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     template: `
@@ -45,7 +43,7 @@ import { ToggleButtonModule } from 'voxx-ui/togglebutton';
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonCustomizedDemo {
     checked: boolean = false;
@@ -59,7 +57,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     template: `
@@ -68,7 +65,7 @@ import { ToggleButtonModule } from 'voxx-ui/togglebutton';
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonDisabledDemo {
     checked: boolean = false;
@@ -82,7 +79,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     template: `
@@ -91,7 +87,7 @@ import { ToggleButtonModule } from 'voxx-ui/togglebutton';
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonFluidDemo {
     checked: boolean = false;
@@ -105,7 +101,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     template: `
@@ -114,7 +109,7 @@ import { ToggleButtonModule } from 'voxx-ui/togglebutton';
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonInvalidDemo {
     checked: boolean = false;
@@ -128,10 +123,6 @@ ToggleButton can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -145,12 +136,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Consent is mandatory.</vx-message>
                     }
                 </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ToggleButtonModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class TogglebuttonReactiveformsDemo {
     messageService = inject(MessageService);
@@ -186,7 +177,6 @@ ToggleButton provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     template: `
@@ -197,7 +187,7 @@ import { ToggleButtonModule } from 'voxx-ui/togglebutton';
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonSizesDemo {
     value1: boolean = false;
@@ -211,10 +201,6 @@ export class TogglebuttonSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ToggleButtonModule } from 'voxx-ui/togglebutton';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -228,14 +214,14 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Consent is mandatory.</vx-message>
                     }
                 </div>
-                <button pButton type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ToggleButtonModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonTemplatedrivenformsDemo {
     messageService = inject(MessageService);

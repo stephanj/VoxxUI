@@ -12,7 +12,7 @@ Paginator is used as a controlled component with first , rows and onPageChange p
 
 ```typescript
 import { Component } from '@angular/core';
-import { Paginator, PaginatorModule } from 'voxx-ui/paginator';
+import { Paginator } from 'voxx-ui/paginator';
 
 @Component({
     template: `
@@ -21,7 +21,7 @@ import { Paginator, PaginatorModule } from 'voxx-ui/paginator';
         </div>
     `,
     standalone: true,
-    imports: [PaginatorModule]
+    imports: []
 })
 export class PaginatorBasicDemo {
     first: number = 0;
@@ -40,7 +40,6 @@ Current page report item in the template displays information about the paginati
 
 ```typescript
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'voxx-ui/paginator';
 
 @Component({
     template: `
@@ -58,7 +57,7 @@ import { PaginatorModule } from 'voxx-ui/paginator';
         </div>
     `,
     standalone: true,
-    imports: [PaginatorModule]
+    imports: []
 })
 export class PaginatorCurrentpagereportDemo {
     first: number = 0;
@@ -77,7 +76,6 @@ Sample image gallery implementation using paginator.
 
 ```typescript
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'voxx-ui/paginator';
 
 @Component({
     template: `
@@ -87,7 +85,7 @@ import { PaginatorModule } from 'voxx-ui/paginator';
         </div>
     `,
     standalone: true,
-    imports: [PaginatorModule]
+    imports: []
 })
 export class PaginatorImagesDemo {
     first: number = 0;
@@ -107,11 +105,6 @@ Templating allows overriding the default content of the UI elements by defining 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { DividerModule } from 'voxx-ui/divider';
-import { SelectModule } from 'voxx-ui/select';
-import { PaginatorModule } from 'voxx-ui/paginator';
-import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
@@ -127,7 +120,6 @@ import { SliderModule } from 'voxx-ui/slider';
                     <vx-button icon="pi pi-search" />
                 </div>
             </div>
-            <vx-divider />
             <div class="flex items-center justify-end">
                 <span class="mx-1 text-color">Items per page: </span>
                 <vx-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
@@ -142,7 +134,6 @@ import { SliderModule } from 'voxx-ui/slider';
                     [showFirstLastIcon]="false"
                 ></vx-paginator>
             </div>
-            <vx-divider />
             <div class="flex items-center justify-start">
                 <div class="flex justify-center items-center gap-4">
                     <span>Items per page: </span>
@@ -161,7 +152,7 @@ import { SliderModule } from 'voxx-ui/slider';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DividerModule, SelectModule, PaginatorModule, SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PaginatorTemplateDemo {
     first1: number = 0;

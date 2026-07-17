@@ -13,7 +13,6 @@ Two-way value binding is defined using the standard ngModel directive referencin
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerBasicDemo {
     date: Date | undefined;
@@ -36,8 +35,6 @@ When showButtonBar is present, today and clear buttons are displayed at the foot
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'voxx-ui/button';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -60,7 +57,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerButtonbarDemo {
     date: Date | undefined;
@@ -75,7 +72,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -84,7 +80,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerCleariconDemo {
     date: Date | undefined;
@@ -98,7 +94,6 @@ Custom content can be placed inside date cells with the ng-template property tha
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -112,7 +107,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerDatetemplateDemo {
     date: Date[] | undefined;
@@ -126,7 +121,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -135,7 +129,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerDisabledDemo {
     date: Date | undefined;
@@ -244,7 +238,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -253,7 +246,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerFilledDemo {
     date: Date[] | undefined;
@@ -267,8 +260,6 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
 
 @Component({
     template: `
@@ -288,7 +279,7 @@ import { FloatLabelModule } from 'voxx-ui/floatlabel';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FloatLabelModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerFloatlabelDemo {
     value1: Date | undefined;
@@ -304,7 +295,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -313,7 +303,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerFluidDemo {
     date: Date | undefined;
@@ -327,7 +317,6 @@ Default date format is mm/dd/yy which can be customized using the dateFormat pro
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -336,7 +325,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerFormatDemo {
     date: Date | undefined;
@@ -350,7 +339,6 @@ An additional icon is displayed next to the input field when showIcon is present
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -374,39 +362,12 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerIconDemo {
     date1: Date | undefined;
     date2: Date | undefined;
     date3: Date | undefined;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <vx-datepicker [(ngModel)]="value" inputId="date" showIcon iconDisplay="input" />
-                <label for="date">Date</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [DatePickerModule, IftaLabelModule, FormsModule]
-})
-export class DatepickerIftalabelDemo {
-    value: Date | undefined;
 }
 ```
 
@@ -417,7 +378,6 @@ DatePicker is displayed as a popup by default, add inline property to customize 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -426,7 +386,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerInlineDemo {
     date: Date[] | undefined;
@@ -440,7 +400,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -450,7 +409,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerInvalidDemo {
     date1: Date | undefined;
@@ -460,26 +419,24 @@ export class DatepickerInvalidDemo {
 
 ## Locale
 
-Locale for different languages and formats is defined globally, refer to the PrimeNG Locale configuration for more information.
+Locale for different languages and formats is defined globally, refer to the VoxxUI Locale configuration for more information.
 
 ## Mask
 
-DatePicker can be used with the pInputMask directive to enforce a specific input format.
+DatePicker can be used with the vxInputMask directive to enforce a specific input format.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
-import { InputMaskModule } from 'voxx-ui/inputmask';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <vx-datepicker [(ngModel)]="date" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy" pInputMask="99/99/9999" />
+            <vx-datepicker [(ngModel)]="date" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy" vxInputMask="99/99/9999" />
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, InputMaskModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerMaskDemo {
     date: Date | undefined;
@@ -527,7 +484,6 @@ Boundaries for the permitted dates that can be entered are defined with minDate 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -536,7 +492,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerMinmaxDemo implements OnInit {
     date: Date | undefined;
@@ -568,7 +524,6 @@ Month only picker is enabled by specifying view as month in addition to a suitab
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -577,7 +532,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerMonthDemo {
     date: Date[] | undefined;
@@ -591,7 +546,6 @@ In order to choose multiple dates, set selectionMode as multiple . In this mode,
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -600,7 +554,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerMultipleDemo {
     dates: Date[] | undefined;
@@ -614,7 +568,6 @@ Number of months to display is configured with the numberOfMonths property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -623,7 +576,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerMultiplemonthsDemo {
     date: Date[] | undefined;
@@ -637,7 +590,6 @@ A range of dates can be selected by defining selectionMode as range , in this ca
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -646,7 +598,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerRangeDemo {
     rangeDates: Date[] | undefined;
@@ -660,10 +612,6 @@ DatePicker can also be used with reactive forms. In this case, the formControlNa
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -677,12 +625,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Date is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class DatepickerReactiveformsDemo {
     messageService = inject(MessageService);
@@ -718,7 +666,6 @@ DatePicker provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -729,7 +676,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerSizesDemo {
     value1: Date | undefined;
@@ -768,10 +715,6 @@ export class DatepickerTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -785,12 +728,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Date is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerTemplatedrivenformsDemo {
     messageService = inject(MessageService);
@@ -878,7 +821,6 @@ A time picker is displayed when showTime is enabled where 12/24 hour format is c
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -898,7 +840,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </vx-fluid>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerTimeDemo {
     datetime12h: Date[] | undefined;
@@ -914,7 +856,6 @@ When touchUI is enabled, overlay is displayed as optimized for touch devices.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -923,7 +864,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerTouchuiDemo {
     date: Date[] | undefined;
@@ -937,7 +878,6 @@ Specifying view as year in addition to a suitable dateFormat enables the year pi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     template: `
@@ -946,7 +886,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
         </div>
     `,
     standalone: true,
-    imports: [DatePickerModule, FormsModule]
+    imports: [FormsModule]
 })
 export class DatepickerYearDemo {
     date: Date[] | undefined;

@@ -13,16 +13,15 @@ InputText is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input type="text" pInputText [(ngModel)]="value" />
+            <input type="text" vxInputText [(ngModel)]="value" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextBasicDemo {
     value: string;
@@ -36,16 +35,15 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input pInputText [disabled]="true" [(ngModel)]="value" />
+            <input vxInputText [disabled]="true" [(ngModel)]="value" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextDisabledDemo {
     value: string | undefined = 'Disabled';
@@ -59,16 +57,15 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input type="text" pInputText [(ngModel)]="value" variant="filled" />
+            <input type="text" vxInputText [(ngModel)]="value" variant="filled" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextFilledDemo {
     value: string;
@@ -82,28 +79,26 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
             <vx-floatlabel>
-                <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+                <input vxInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
                 <label for="over_label">Over Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="in">
-                <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+                <input vxInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
                 <label for="in_label">In Label</label>
             </vx-floatlabel>
             <vx-floatlabel variant="on">
-                <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+                <input vxInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
                 <label for="on_label">On Label</label>
             </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextFloatlabelDemo {
     value1: string | undefined;
@@ -119,16 +114,15 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input type="text" pInputText [(ngModel)]="value" fluid />
+            <input type="text" vxInputText [(ngModel)]="value" fluid />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextFluidDemo {
     value: string;
@@ -142,20 +136,19 @@ An advisory text can be defined with the semantic small tag.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-2">
                 <label for="username">Username</label>
-                <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+                <input vxInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
                 <small id="username-help">Enter your username to reset your password.</small>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextHelptextDemo {
     value: string | undefined;
@@ -169,54 +162,26 @@ Icons can be placed inside an input element by wrapping both the input and the i
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input type="text" pInputText [(ngModel)]="value" />
+                <input type="text" vxInputText [(ngModel)]="value" />
             </span>
             <span class="p-input-icon-right">
                 <i class="pi pi-spin pi-spinner"></i>
-                <input type="text" pInputText [(ngModel)]="value2" />
+                <input type="text" vxInputText [(ngModel)]="value2" />
             </span>
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextIconsDemo {
     value: string | undefined;
     value2: string | undefined;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-import { InputTextModule } from 'voxx-ui/inputtext';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
-                <label for="username">Username</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, InputTextModule, FormsModule]
-})
-export class InputtextIftalabelDemo {
-    value: string | undefined;
 }
 ```
 
@@ -227,44 +192,20 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
-            <input pInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
-            <input pInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
+            <input vxInputText [(ngModel)]="value1" [invalid]="!value1" placeholder="Name" />
+            <input vxInputText [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Name" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextInvalidDemo {
     value1: string | undefined;
     value2: string | undefined;
-}
-```
-
-## keyfilter-doc
-
-InputText has built-in key filtering support to block certain keys, refer to keyfilter page for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
-        </div>
-    `,
-    standalone: true,
-    imports: [InputTextModule, FormsModule]
-})
-export class InputtextKeyfilterDemo {
-    value: number | undefined;
 }
 ```
 
@@ -273,10 +214,6 @@ export class InputtextKeyfilterDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
-import { InputTextModule } from 'voxx-ui/inputtext';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -285,13 +222,13 @@ import { MessageService } from 'voxx-ui/api';
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
+                    <input vxInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
                     @if (isInvalid('username')) {
                         <vx-message severity="error" size="small" variant="simple">Username is required.</vx-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
+                    <input vxInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
                     @if (isInvalid('email')) {
                         @if (exampleForm.get('email')?.errors?.['required']) {
                             <vx-message severity="error" size="small" variant="simple">Email is required.</vx-message>
@@ -301,12 +238,12 @@ import { MessageService } from 'voxx-ui/api';
                         }
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class InputtextReactiveformsDemo {
     messageService = inject(MessageService);
@@ -343,18 +280,17 @@ InputText provides small and large sizes as alternatives to the standard.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4 ">
-            <input pInputText [(ngModel)]="value1" type="text" pSize="small" placeholder="Small" />
-            <input pInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
-            <input pInputText [(ngModel)]="value3" type="text" pSize="large" placeholder="Large" />
+            <input vxInputText [(ngModel)]="value1" type="text" vxSize="small" placeholder="Small" />
+            <input vxInputText [(ngModel)]="value2" type="text" placeholder="Normal" />
+            <input vxInputText [(ngModel)]="value3" type="text" vxSize="large" placeholder="Large" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextSizesDemo {
     value1: string | undefined;
@@ -368,10 +304,6 @@ export class InputtextSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
-import { InputTextModule } from 'voxx-ui/inputtext';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -380,13 +312,13 @@ import { MessageService } from 'voxx-ui/api';
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
+                    <input vxInputText type="text" id="username" placeholder="Username" name="username" [(ngModel)]="user.username" #username="ngModel" [invalid]="username.invalid && (username.touched || exampleForm.submitted)" required />
                     @if (username.invalid && (username.touched || exampleForm.submitted)) {
                         <vx-message severity="error" size="small" variant="simple">Username is required.</vx-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
+                    <input vxInputText type="email" id="email" name="email" placeholder="Email" [(ngModel)]="user.email" #email="ngModel" required email [invalid]="email.invalid && (email.touched || exampleForm.submitted)" />
                     @if (email.invalid && (email.touched || exampleForm.submitted)) {
                         <vx-message severity="error" size="small" variant="simple">
                             @if (email.hasError('required')) {
@@ -398,12 +330,12 @@ import { MessageService } from 'voxx-ui/api';
                         </vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ButtonModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputtextTemplatedrivenformsDemo {
     messageService = inject(MessageService);
@@ -431,9 +363,9 @@ InputText directive is an extension to standard input element with theming.
 | pt | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the component. |
 | ptOptions | InputSignal<PassThroughOptions> | undefined | Used to configure passthrough(pt) options of the component. |
 | ptInputText | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. **(Deprecated)** |
-| pInputTextPT | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
-| pInputTextUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
-| pSize | "small" \| "large" | - | Defines the size of the component. |
+| vxInputTextPT | InputSignal<InputTextPassThrough> | undefined | Used to pass attributes to DOM elements inside the InputText component. |
+| vxInputTextUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| vxSize | "small" \| "large" | - | Defines the size of the component. |
 | variant | InputSignal<"outlined" \| "filled"> | undefined | Specifies the input variant of the component. |
 | fluid | InputSignalWithTransform<boolean, unknown> | undefined | Spans 100% width of the container when enabled. |
 | invalid | InputSignalWithTransform<boolean, unknown> | false | When present, it specifies that the component should have invalid state style. |

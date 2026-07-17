@@ -13,7 +13,6 @@ This example demonstrates an advanced use case with templating, object handling,
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -57,7 +56,7 @@ import { Product } from '@/domain/product';
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [FormsModule],
     providers: [ProductService]
 })
 export class AutocompleteAdvancedChipsDemo implements OnInit {
@@ -110,7 +109,6 @@ With ⁠multiple enabled, the AutoComplete component behaves like a chips or tag
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 @Component({
     template: `
@@ -126,7 +124,7 @@ import { AutoCompleteModule } from 'voxx-ui/autocomplete';
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteBasicChipsDemo {
     valueBlur: any[] = [];
@@ -143,7 +141,6 @@ AutoComplete uses ngModel for two-way binding, requires a list of suggestions an
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -157,7 +154,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteBasicDemo {
     items: any[] = [];
@@ -176,7 +173,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -190,7 +186,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteClearIconDemo {
     items: any[] = [];
@@ -209,7 +205,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -223,7 +218,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteDisabledDemo {
     items: any[] | undefined;
@@ -243,7 +238,6 @@ Enabling dropdown property displays a button next to the input field where click
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -257,7 +251,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteDropdownDemo {
     items: any[] | undefined;
@@ -278,7 +272,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -292,7 +285,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteFilledDemo {
     items: any[] | undefined;
@@ -312,8 +305,6 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -338,7 +329,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FloatLabelModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteFloatLabelDemo {
     value1: string | undefined;
@@ -359,7 +350,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -373,7 +363,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteFluidDemo {
     items: any[] = [];
@@ -392,7 +382,6 @@ ForceSelection mode validates the manual input to check whether it also exists i
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { CountryService } from '@/service/countryservice';
 
 interface AutoCompleteCompleteEvent {
@@ -407,7 +396,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [FormsModule],
     providers: [CountryService]
 })
 export class AutocompleteForceSelectionDemo implements OnInit {
@@ -445,7 +434,6 @@ Option grouping is enabled when group property is set to true . group template i
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { SelectItemGroup, FilterService } from 'voxx-ui/api';
 
 interface AutoCompleteCompleteEvent {
@@ -467,7 +455,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteGroupDemo implements OnInit {
     selectedCity: any;
@@ -529,43 +517,6 @@ export class AutocompleteGroupDemo implements OnInit {
 }
 ```
 
-## ifta-label-doc
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-
-interface AutoCompleteCompleteEvent {
-    originalEvent: Event;
-    query: string;
-}
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <vx-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" inputId="ac" />
-                <label for="ac">Identifier</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [AutoCompleteModule, IftaLabelModule, FormsModule]
-})
-export class AutocompleteIftaLabelDemo {
-    items: any[] | undefined;
-    value: any;
-
-    search(event: AutoCompleteCompleteEvent) {
-        this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
-    }
-}
-```
-
 ## Invalid
 
 The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
@@ -573,7 +524,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -588,7 +538,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteInvalidDemo {
     value1: any;
@@ -608,7 +558,6 @@ Enable multiple selection mode using the ⁠multiple property to allow users to 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -625,7 +574,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteMultipleDemo {
     value1: any[] | undefined;
@@ -645,7 +594,6 @@ AutoComplete can also work with objects using the optionLabel property that defi
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { CountryService } from '@/service/countryservice';
 import { Country } from '@/domain/customer';
 
@@ -661,7 +609,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule],
+    imports: [FormsModule],
     providers: [CountryService]
 })
 export class AutocompleteObjectsDemo implements OnInit {
@@ -699,10 +647,6 @@ AutoComplete can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 interface AutoCompleteCompleteEvent {
@@ -721,12 +665,12 @@ interface AutoCompleteCompleteEvent {
                         <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class AutocompleteReactiveFormsDemo {
     messageService = inject(MessageService);
@@ -767,7 +711,6 @@ AutoComplete provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 @Component({
     template: `
@@ -778,7 +721,7 @@ import { AutoCompleteModule } from 'voxx-ui/autocomplete';
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteSizesDemo {
     items: any[] | undefined;
@@ -799,8 +742,6 @@ AutoComplete offers multiple templates for customization through templating.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
-import { ButtonModule } from 'voxx-ui/button';
 import { CountryService } from '@/service/countryservice';
 
 interface AutoCompleteCompleteEvent {
@@ -830,7 +771,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [CountryService]
 })
 export class AutocompleteTemplateDemo implements OnInit {
@@ -865,10 +806,6 @@ export class AutocompleteTemplateDemo implements OnInit {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
-import { MessageModule } from 'voxx-ui/message';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -882,12 +819,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteTemplateDrivenFormsDemo {
     messageService = inject(MessageService);
@@ -914,7 +851,6 @@ Virtual scrolling is an efficient way of rendering the options by displaying a s
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -928,7 +864,7 @@ interface AutoCompleteCompleteEvent {
         </div>
     `,
     standalone: true,
-    imports: [AutoCompleteModule, FormsModule]
+    imports: [FormsModule]
 })
 export class AutocompleteVirtualScrollDemo implements OnInit {
     selectedItem: any;

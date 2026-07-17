@@ -12,7 +12,6 @@ Grouping is available by wrapping multiple Avatar components inside an AvatarGro
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -28,7 +27,7 @@ import { AvatarModule } from 'voxx-ui/avatar';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarAvatargroupDemo {}
 ```
@@ -125,16 +124,15 @@ A badge can be added to an Avatar with the Badge directive.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
+            <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" vxBadge value="4" severity="danger" />
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarBadgeDemo {}
 ```
@@ -145,7 +143,6 @@ A font icon is displayed as an Avatar with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -163,17 +160,11 @@ import { AvatarModule } from 'voxx-ui/avatar';
                     <vx-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
                     <vx-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
                 </div>
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <vx-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <vx-avatar icon="pi pi-user" size="xlarge" />
-                    </vx-overlay-badge>
-                </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarIconDemo {}
 ```
@@ -184,7 +175,6 @@ Use the image property to display an image as an Avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -197,12 +187,6 @@ import { AvatarModule } from 'voxx-ui/avatar';
                     <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
                 </div>
                 <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <vx-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <vx-avatar class="p-overlay-badge" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" />
-                    </vx-overlay-badge>
-                </div>
-                <div class="flex-auto">
                     <h5>Gravatar</h5>
                     <vx-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" class="flex items-center justify-center mr-2" size="xlarge" />
                 </div>
@@ -210,7 +194,7 @@ import { AvatarModule } from 'voxx-ui/avatar';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarImageDemo {}
 ```
@@ -221,7 +205,6 @@ A letter Avatar is defined with the label property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -239,17 +222,11 @@ import { AvatarModule } from 'voxx-ui/avatar';
                     <vx-avatar label="V" class="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
                     <vx-avatar label="U" class="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
                 </div>
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <vx-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <vx-avatar label="U" size="xlarge" />
-                    </vx-overlay-badge>
-                </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarLabelDemo {}
 ```
@@ -260,7 +237,6 @@ Avatar comes in two different styles specified with the shape property, square i
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -270,7 +246,7 @@ import { AvatarModule } from 'voxx-ui/avatar';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarShapeDemo {}
 ```
@@ -281,7 +257,6 @@ size property defines the size of the Avatar with large and xlarge as possible v
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -291,7 +266,7 @@ import { AvatarModule } from 'voxx-ui/avatar';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarSizeDemo {}
 ```
@@ -302,7 +277,6 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     template: `
@@ -336,7 +310,7 @@ import { AvatarModule } from 'voxx-ui/avatar';
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarTemplateDemo {}
 ```
@@ -352,7 +326,7 @@ Avatar represents people using icons, labels and images.
 | label | string | - | Defines the text to display. |
 | icon | string | - | Defines the icon to display. |
 | image | string | - | Defines the image to display. |
-| size | "large" \| "xlarge" \| "normal" | normal | Size of the element. |
+| size | "large" \| "normal" \| "xlarge" | normal | Size of the element. |
 | shape | "circle" \| "square" | square | Shape of the element. |
 | styleClass | string | - | Class of the element. **(Deprecated)** |
 | ariaLabel | string | - | Establishes a string value that labels the component. |

@@ -12,7 +12,6 @@ ProgressBar is used with the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'voxx-ui/progressbar';
 
 @Component({
     template: `
@@ -21,7 +20,7 @@ import { ProgressBarModule } from 'voxx-ui/progressbar';
         </div>
     `,
     standalone: true,
-    imports: [ProgressBarModule]
+    imports: []
 })
 export class ProgressbarBasicDemo {}
 ```
@@ -32,8 +31,6 @@ Value is reactive so updating it dynamically changes the bar as well.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ProgressBarModule } from 'voxx-ui/progressbar';
-import { ToastModule } from 'voxx-ui/toast';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -44,7 +41,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ProgressBarModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ProgressbarDynamicDemo implements OnInit {
@@ -81,7 +78,6 @@ For progresses with no value to track, set the mode property to indeterminate .
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ProgressBarModule } from 'voxx-ui/progressbar';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -91,7 +87,7 @@ import { MessageService } from 'voxx-ui/api';
         </div>
     `,
     standalone: true,
-    imports: [ProgressBarModule],
+    imports: [],
     providers: [MessageService]
 })
 export class ProgressbarIndeterminateDemo {
@@ -105,7 +101,6 @@ content template allows displaying custom content inside the progressbar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'voxx-ui/progressbar';
 
 @Component({
     template: `
@@ -118,7 +113,7 @@ import { ProgressBarModule } from 'voxx-ui/progressbar';
         </div>
     `,
     standalone: true,
-    imports: [ProgressBarModule]
+    imports: []
 })
 export class ProgressbarTemplateDemo {}
 ```

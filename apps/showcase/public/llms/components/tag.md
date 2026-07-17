@@ -12,7 +12,6 @@ Label of the tag is defined with the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     template: `
@@ -21,7 +20,7 @@ import { TagModule } from 'voxx-ui/tag';
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagBasicDemo {}
 ```
@@ -32,7 +31,6 @@ A font icon next to the value can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     template: `
@@ -47,7 +45,7 @@ import { TagModule } from 'voxx-ui/tag';
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagIconDemo {}
 ```
@@ -58,7 +56,6 @@ Enabling rounded , displays a tag as a pill.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     template: `
@@ -73,7 +70,7 @@ import { TagModule } from 'voxx-ui/tag';
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagPillDemo {}
 ```
@@ -84,7 +81,6 @@ Severity defines the color of the tag, possible values are success , info , warn
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     template: `
@@ -99,7 +95,7 @@ import { TagModule } from 'voxx-ui/tag';
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagSeverityDemo {}
 ```
@@ -110,7 +106,6 @@ Children of the component are passed as the content for templating.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'voxx-ui/tag';
 import { Country } from '@/domain/customer';
 
 @Component({
@@ -125,7 +120,7 @@ import { Country } from '@/domain/customer';
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagTemplateDemo {}
 ```

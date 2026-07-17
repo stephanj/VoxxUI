@@ -13,7 +13,6 @@ Two-way value binding is defined using ngModel .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -22,7 +21,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordBasicDemo {
     value!: string;
@@ -36,7 +35,6 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -45,7 +43,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordCleariconDemo {
     value!: string;
@@ -59,7 +57,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -68,7 +65,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordDisabledDemo {
     value!: string;
@@ -82,7 +79,6 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -91,7 +87,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordFilledDemo {
     value!: string;
@@ -105,8 +101,6 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'voxx-ui/floatlabel';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -126,7 +120,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordFloatlabelDemo {
     value1!: string;
@@ -142,7 +136,6 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -151,36 +144,9 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordFluidDemo {
-    value!: string;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'voxx-ui/iftalabel';
-import { PasswordModule } from 'voxx-ui/password';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <vx-iftalabel>
-                <vx-password [(ngModel)]="value" inputId="password" autocomplete="off" />
-                <label for="password">Password</label>
-            </vx-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, PasswordModule, FormsModule]
-})
-export class PasswordIftalabelDemo {
     value!: string;
 }
 ```
@@ -192,7 +158,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -202,7 +167,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordInvalidDemo {
     value1!: string;
@@ -217,7 +182,6 @@ Labels are translated at component level by promptLabel , weakLabel , mediumLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -226,7 +190,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordLocaleDemo {
     value!: string;
@@ -240,7 +204,6 @@ Strength meter is displayed as a popup while a value is being entered.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -249,7 +212,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordMeterDemo {
     value!: string;
@@ -263,10 +226,6 @@ Password can also be used with reactive forms. In this case, the formControlName
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { PasswordModule } from 'voxx-ui/password';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -280,12 +239,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Password is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     providers: [MessageService]
 })
 export class PasswordReactiveformsDemo {
@@ -323,7 +282,6 @@ Password provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -334,7 +292,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordSizesDemo {
     value1: string;
@@ -350,8 +308,6 @@ export class PasswordSizesDemo {
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DividerModule } from 'voxx-ui/divider';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -361,7 +317,6 @@ import { PasswordModule } from 'voxx-ui/password';
                     <div class="font-semibold text-xm mb-4">Reset Password</div>
                 </ng-template>
                 <ng-template #footer>
-                    <vx-divider />
                     <ul class="pl-2 my-0 leading-normal text-sm">
                         <li>At least one lowercase</li>
                         <li>At least one uppercase</li>
@@ -373,7 +328,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [DividerModule, PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordTemplateDemo {
     value!: string;
@@ -385,10 +340,6 @@ export class PasswordTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'voxx-ui/message';
-import { PasswordModule } from 'voxx-ui/password';
-import { ToastModule } from 'voxx-ui/toast';
-import { ButtonModule } from 'voxx-ui/button';
 import { MessageService } from 'voxx-ui/api';
 
 @Component({
@@ -402,12 +353,12 @@ import { MessageService } from 'voxx-ui/api';
                         <vx-message severity="error" size="small" variant="simple">Password is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, PasswordModule, ToastModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [MessageService]
 })
 export class PasswordTemplatedrivenformsDemo {
@@ -431,7 +382,6 @@ When toggleMask is present, an icon is displayed to show the value as plain text
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
@@ -440,7 +390,7 @@ import { PasswordModule } from 'voxx-ui/password';
         </div>
     `,
     standalone: true,
-    imports: [PasswordModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PasswordTogglemaskDemo {
     value!: string;
@@ -476,13 +426,13 @@ Password displays strength indicator for password fields.
 | ariaLabel | string | - | Defines a string that labels the input for accessibility. |
 | ariaLabelledBy | string | - | Specifies one or more IDs in the DOM that labels the input field. |
 | label | string | - | Label of the input for accessibility. |
-| promptLabel | string | - | Text to prompt password entry. Defaults to PrimeNG I18N API configuration. |
+| promptLabel | string | - | Text to prompt password entry. Defaults to VoxxUI I18N API configuration. |
 | mediumRegex | string | ^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,}) | Regex value for medium regex. |
 | strongRegex | string | ^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,}) | Regex value for strong regex. |
-| weakLabel | string | - | Text for a weak password. Defaults to PrimeNG I18N API configuration. |
-| mediumLabel | string | - | Text for a medium password. Defaults to PrimeNG I18N API configuration. |
+| weakLabel | string | - | Text for a weak password. Defaults to VoxxUI I18N API configuration. |
+| mediumLabel | string | - | Text for a medium password. Defaults to VoxxUI I18N API configuration. |
 | maxLength | number | - | specifies the maximum number of characters allowed in the input element. **(Deprecated)** |
-| strongLabel | string | - | Text for a strong password. Defaults to PrimeNG I18N API configuration. |
+| strongLabel | string | - | Text for a strong password. Defaults to VoxxUI I18N API configuration. |
 | inputId | string | - | Identifier of the accessible input element. |
 | feedback | boolean | true | Whether to show the strength indicator or not. |
 | toggleMask | boolean | false | Whether to show an icon to display the password as plain text. |
