@@ -5461,7 +5461,14 @@ export class ReorderableRow extends BaseComponent {
                     </ul>
                     <ng-template #menu>
                         <div [class]="cx('filterOperator')" [vxBind]="ptm('filterOperator')" *ngIf="isShowOperator">
-                            <vx-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')" [unstyled]="unstyled()"></vx-select>
+                            <vx-select
+                                [options]="operatorOptions"
+                                [pt]="ptm('pcFilterOperatorDropdown')"
+                                [ngModel]="operator"
+                                (ngModelChange)="onOperatorChange($event)"
+                                [styleClass]="cx('pcFilterOperatorDropdown')"
+                                [unstyled]="unstyled()"
+                            ></vx-select>
                         </div>
                         <div [class]="cx('filterRuleList')" [vxBind]="ptm('filterRuleList')">
                             <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')" [vxBind]="ptm('filterRule')">

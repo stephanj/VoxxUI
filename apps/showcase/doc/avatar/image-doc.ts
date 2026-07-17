@@ -20,7 +20,6 @@ import { AvatarModule } from 'voxx-ui/avatar';
                     <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
                 </div>
 
-
                 <div class="flex-auto">
                     <h5>Gravatar</h5>
                     <vx-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" class="flex items-center justify-center mr-2" size="xlarge" />

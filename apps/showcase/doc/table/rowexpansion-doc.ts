@@ -21,7 +21,8 @@ import { ToastModule } from 'voxx-ui/toast';
     template: ` <app-docsectiontext>
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>vxRowToggler</i> directive on an element as the target to
-                toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>vxRowTogglerDisabled</i> as true disables the toggle event for the element.
+                toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>vxRowTogglerDisabled</i> as true disables the toggle event for the
+                element.
             </p>
         </app-docsectiontext>
         <vx-deferred-demo (load)="loadDemoData()">

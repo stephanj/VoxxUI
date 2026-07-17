@@ -22,7 +22,8 @@ import { ToastModule } from 'voxx-ui/toast';
     template: ` <app-docsectiontext>
             <p>
                 Row editing toggles the visibility of all the editors in the row at once and provides additional options to save and cancel editing. Row editing functionality is enabled by setting the <i>editMode</i> to "row" on table, defining a
-                dataKey to uniquely identify a row, adding <i>vxEditableRow</i> directive to the editable rows and defining the UI Controls with <i>vxInitEditableRow</i>, <i>vxSaveEditableRow</i> and <i>vxCancelEditableRow</i> directives respectively.
+                dataKey to uniquely identify a row, adding <i>vxEditableRow</i> directive to the editable rows and defining the UI Controls with <i>vxInitEditableRow</i>, <i>vxSaveEditableRow</i> and <i>vxCancelEditableRow</i> directives
+                respectively.
             </p>
             <p>
                 Save and Cancel functionality implementation is left to the page author to provide more control over the editing business logic. Example below utilizes a simple implementation where a row is cloned when editing is initialized and is

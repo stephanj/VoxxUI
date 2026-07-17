@@ -1977,7 +1977,16 @@ class TestDynamicDataSourcesMultiSelectComponent {
             <form [formGroup]="reactiveForm" class="reactive-form">
                 <vx-multiselect #reactiveMultiSelect formControlName="cities" [options]="allCities" optionLabel="name" placeholder="Select cities (Reactive)" [showClear]="true" [filter]="true" class="reactive-multiselect"></vx-multiselect>
 
-                <vx-multiselect #validatedMultiSelect formControlName="validatedCities" [options]="allCities" optionLabel="name" placeholder="Required cities (Reactive)" [showClear]="true" [filter]="true" class="validated-multiselect"></vx-multiselect>
+                <vx-multiselect
+                    #validatedMultiSelect
+                    formControlName="validatedCities"
+                    [options]="allCities"
+                    optionLabel="name"
+                    placeholder="Required cities (Reactive)"
+                    [showClear]="true"
+                    [filter]="true"
+                    class="validated-multiselect"
+                ></vx-multiselect>
             </form>
 
             <!-- Template-driven form with NgModel -->

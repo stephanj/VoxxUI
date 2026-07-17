@@ -345,7 +345,16 @@ class TestDynamicSelectComponent {
             ></vx-select>
 
             <!-- Getter-based options -->
-            <vx-select #getterSelect class="getter-select" [options]="getterOptions" [(ngModel)]="selectedGetter" [optionLabel]="getterLabel" [optionValue]="getterValue" [placeholder]="getterPlaceholder" (onChange)="onGetterChange($event)"></vx-select>
+            <vx-select
+                #getterSelect
+                class="getter-select"
+                [options]="getterOptions"
+                [(ngModel)]="selectedGetter"
+                [optionLabel]="getterLabel"
+                [optionValue]="getterValue"
+                [placeholder]="getterPlaceholder"
+                (onChange)="onGetterChange($event)"
+            ></vx-select>
 
             <!-- Function-based options -->
             <vx-select
@@ -669,7 +678,17 @@ class TestComprehensiveFormComponent {
         <div class="viewchild-test-container">
             <vx-select #testSelect [options]="options" [(ngModel)]="selectedValue" optionLabel="name" optionValue="code" placeholder="ViewChild test select" [filter]="true" [showClear]="true" [virtualScroll]="false"></vx-select>
 
-            <vx-select #virtualSelect [options]="largeOptions" [(ngModel)]="selectedVirtual" optionLabel="name" optionValue="code" placeholder="Virtual scroll select" [virtualScroll]="true" [virtualScrollItemSize]="38" [scrollHeight]="200"></vx-select>
+            <vx-select
+                #virtualSelect
+                [options]="largeOptions"
+                [(ngModel)]="selectedVirtual"
+                optionLabel="name"
+                optionValue="code"
+                placeholder="Virtual scroll select"
+                [virtualScroll]="true"
+                [virtualScrollItemSize]="38"
+                [scrollHeight]="200"
+            ></vx-select>
         </div>
     `
 })

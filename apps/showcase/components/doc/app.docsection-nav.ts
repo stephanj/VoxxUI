@@ -52,7 +52,6 @@ export class AppDocSectionNav implements OnInit {
 
     scrollEndTimer!: any;
 
-
     private readonly document = inject(DOCUMENT);
     private readonly platformId = inject(PLATFORM_ID);
     private readonly location = inject(Location);
@@ -68,7 +67,6 @@ export class AppDocSectionNav implements OnInit {
                 .pipe(takeUntilDestroyed(this.destroyRef))
                 .subscribe(() => this.onScroll());
         }
-
     }
 
     scrollCurrentUrl() {
