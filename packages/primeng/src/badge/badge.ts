@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformServer } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'voxx-ui/api';
@@ -141,6 +141,11 @@ export class BadgeDirective extends BaseComponent {
     }
 
     onAfterViewInit(): void {
+        // the badge decoration is created with direct DOM APIs; skip on the
+        // server and let the browser render it after bootstrap
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
         this.id = uuid('pn_id_') + '_badge';
         this.renderBadgeContent();
     }
