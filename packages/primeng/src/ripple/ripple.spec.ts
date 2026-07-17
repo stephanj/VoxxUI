@@ -84,19 +84,19 @@ describe('Ripple', () => {
         it('should have required dependencies injected', () => {
             expect(rippleInstance).toBeTruthy();
             // Dependencies are injected but may not be directly accessible in test environment
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should initialize correctly', () => {
             expect(rippleInstance).toBeTruthy();
             // Listeners are private and not directly testable
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should initialize properly', () => {
             expect(rippleInstance).toBeTruthy();
             // Timeout property may not be directly accessible in test environment
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
     });
 
@@ -208,7 +208,7 @@ describe('Ripple', () => {
             // Each instance should be unique
             instances.forEach((instance, index) => {
                 expect(instance).toBeTruthy();
-                expect(instance.constructor.name).toBe('Ripple');
+                expect(instance).toBeInstanceOf(Ripple);
 
                 // Instances should be different objects
                 instances.forEach((otherInstance, otherIndex) => {
@@ -223,17 +223,17 @@ describe('Ripple', () => {
     describe('Component State Tests', () => {
         it('should maintain consistent state across lifecycle', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should be properly instantiated', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should be an instance of Ripple', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
     });
 
@@ -440,28 +440,28 @@ describe('Ripple', () => {
     describe('Directive Properties', () => {
         it('should have expected directive structure', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
             // Properties are injected but may not be directly accessible in test
         });
 
         it('should be properly configured', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should be a valid directive instance', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should initialize correctly as directive', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
 
         it('should have proper directive structure', () => {
             expect(rippleInstance).toBeTruthy();
-            expect(rippleInstance.constructor.name).toBe('Ripple');
+            expect(rippleInstance).toBeInstanceOf(Ripple);
         });
     });
 });
