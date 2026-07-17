@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'basic-doc',
@@ -12,7 +12,7 @@ import { ButtonModule } from 'primeng/button';
             <p>Text to display on a button is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button label="Submit" />
+            <vx-button label="Submit" />
         </div>
         <app-code></app-code>
     `

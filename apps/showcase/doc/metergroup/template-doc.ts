@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MeterGroupModule } from 'primeng/metergroup';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
+import { CardModule } from 'voxx-ui/card';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -15,11 +15,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>MeterGroup provides templating support for labels, meter items, and content around the meters.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-metergroup [value]="value" labelPosition="start">
+            <vx-metergroup [value]="value" labelPosition="start">
                 <ng-template #label>
                     <div class="flex flex-wrap gap-4">
                         <ng-container *ngFor="let meterItem of value; let index = index">
-                            <p-card class="flex-1" styleClass="border border-surface shadow-none">
+                            <vx-card class="flex-1" styleClass="border border-surface shadow-none">
                                 <div class="flex justify-between gap-8">
                                     <div class="flex flex-col gap-1">
                                         <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
@@ -29,7 +29,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                                         <i [class]="meterItem.icon"></i>
                                     </span>
                                 </div>
-                            </p-card>
+                            </vx-card>
                         </ng-container>
                     </div>
                 </ng-template>
@@ -45,11 +45,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </ng-template>
                 <ng-template #end>
                     <div class="flex justify-between mt-4">
-                        <p-button label="Manage Storage" [outlined]="true" size="small" />
-                        <p-button label="Update Plan" size="small" />
+                        <vx-button label="Manage Storage" [outlined]="true" size="small" />
+                        <vx-button label="Update Plan" size="small" />
                     </div>
                 </ng-template>
-            </p-metergroup>
+            </vx-metergroup>
         </div>
         <app-code></app-code>
     `

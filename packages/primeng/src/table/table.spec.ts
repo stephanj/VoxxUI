@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'primeng/api';
-import { Select } from 'primeng/select';
+import { SharedModule } from 'voxx-ui/api';
+import { Select } from 'voxx-ui/select';
 import { Table, TableModule, TableService } from './table';
 
 describe('Table', () => {
@@ -15,7 +15,7 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products" [dataKey]="'id'">
+            <vx-table [value]="products" [dataKey]="'id'">
                 <ng-template #header>
                     <tr>
                         <th>ID</th>
@@ -44,7 +44,7 @@ describe('Table', () => {
                         <td>{{ product.rating }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestBasicTableComponent {
@@ -60,10 +60,10 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products" [selection]="selectedProducts" [selectionMode]="'multiple'" [dataKey]="'id'">
+            <vx-table [value]="products" [selection]="selectedProducts" [selectionMode]="'multiple'" [dataKey]="'id'">
                 <ng-template #header>
                     <tr>
-                        <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th><vx-tableHeaderCheckbox></vx-tableHeaderCheckbox></th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>Status</th>
@@ -71,13 +71,13 @@ describe('Table', () => {
                 </ng-template>
                 <ng-template #body let-product>
                     <tr>
-                        <td><p-tableCheckbox [value]="product"></p-tableCheckbox></td>
+                        <td><vx-tableCheckbox [value]="product"></vx-tableCheckbox></td>
                         <td>{{ product.name }}</td>
                         <td>{{ product.price | currency }}</td>
                         <td>{{ product.inventoryStatus }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestSelectionTableComponent {
@@ -91,12 +91,12 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products" [sortMode]="'multiple'">
+            <vx-table [value]="products" [sortMode]="'multiple'">
                 <ng-template #header>
                     <tr>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                        <th vxSortableColumn="name">Name <vx-sortIcon field="name"></vx-sortIcon></th>
+                        <th vxSortableColumn="price">Price <vx-sortIcon field="price"></vx-sortIcon></th>
+                        <th vxSortableColumn="category">Category <vx-sortIcon field="category"></vx-sortIcon></th>
                     </tr>
                 </ng-template>
                 <ng-template #body let-product>
@@ -106,7 +106,7 @@ describe('Table', () => {
                         <td>{{ product.category }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestSortingTableComponent {
@@ -120,24 +120,24 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products" [globalFilterFields]="['name', 'category']">
+            <vx-table [value]="products" [globalFilterFields]="['name', 'category']">
                 <ng-template #header>
                     <tr>
                         <th>
                             Name
-                            <p-columnFilter field="name" matchMode="contains" display="menu">
+                            <vx-columnFilter field="name" matchMode="contains" display="menu">
                                 <ng-template #filter let-value let-filter="filterCallback">
                                     <input type="text" [(ngModel)]="value" (ngModelChange)="filter($event)" placeholder="Search by name" />
                                 </ng-template>
-                            </p-columnFilter>
+                            </vx-columnFilter>
                         </th>
                         <th>
                             Category
-                            <p-columnFilter field="category" matchMode="equals" display="menu">
+                            <vx-columnFilter field="category" matchMode="equals" display="menu">
                                 <ng-template #filter let-value let-filter="filterCallback">
-                                    <p-select [(ngModel)]="value" [options]="categories" (ngModelChange)="filter($event)" placeholder="Select Category"> </p-select>
+                                    <vx-select [(ngModel)]="value" [options]="categories" (ngModelChange)="filter($event)" placeholder="Select Category"> </vx-select>
                                 </ng-template>
-                            </p-columnFilter>
+                            </vx-columnFilter>
                         </th>
                     </tr>
                 </ng-template>
@@ -147,7 +147,7 @@ describe('Table', () => {
                         <td>{{ product.category }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestFilteringTableComponent {
@@ -165,7 +165,7 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products" [virtualScroll]="true" [virtualScrollItemSize]="46" [scrollHeight]="'400px'">
+            <vx-table [value]="products" [virtualScroll]="true" [virtualScrollItemSize]="46" [scrollHeight]="'400px'">
                 <ng-template #header>
                     <tr>
                         <th>ID</th>
@@ -180,7 +180,7 @@ describe('Table', () => {
                         <td>{{ product.price | currency }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestVirtualScrollTableComponent {
@@ -194,7 +194,7 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products" [lazy]="true" [totalRecords]="totalRecords" [paginator]="true" [rows]="10" (onLazyLoad)="loadProducts($event)">
+            <vx-table [value]="products" [lazy]="true" [totalRecords]="totalRecords" [paginator]="true" [rows]="10" (onLazyLoad)="loadProducts($event)">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
@@ -207,7 +207,7 @@ describe('Table', () => {
                         <td>{{ product.price | currency }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestLazyLoadTableComponent {
@@ -229,13 +229,13 @@ describe('Table', () => {
     @Component({
         standalone: false,
         template: `
-            <p-table [value]="products">
+            <vx-table [value]="products">
                 <ng-template #caption>
                     <div class="p-d-flex p-ai-center p-jc-between">
                         <h5>Product Catalog</h5>
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input type="text" pInputText placeholder="Global Search" />
+                            <input type="text" vxInputText placeholder="Global Search" />
                         </span>
                     </div>
                 </ng-template>
@@ -252,7 +252,7 @@ describe('Table', () => {
                     </tr>
                 </ng-template>
                 <ng-template #summary> Total Products: {{ products.length }} </ng-template>
-            </p-table>
+            </vx-table>
         `
     })
     class TestTemplatesTableComponent {
@@ -290,7 +290,7 @@ describe('Table', () => {
         });
 
         it('should render table with product data', () => {
-            const tableElement = testFixture.debugElement.query(By.css('p-table'));
+            const tableElement = testFixture.debugElement.query(By.css('vx-table'));
             expect(tableElement).toBeTruthy();
         });
 
@@ -306,7 +306,7 @@ describe('Table', () => {
         });
 
         it('should have correct dataKey', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.dataKey).toBe('id');
         });
     });
@@ -323,17 +323,17 @@ describe('Table', () => {
         });
 
         it('should enable multiple selection', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.selectionMode).toBe('multiple');
         });
 
         it('should render checkboxes for selection', () => {
-            const checkboxes = testFixture.debugElement.queryAll(By.css('p-tableCheckbox'));
+            const checkboxes = testFixture.debugElement.queryAll(By.css('vx-tableCheckbox'));
             expect(checkboxes.length).toBe(testComponent.products.length);
         });
 
         it('should render header checkbox for select all', () => {
-            const headerCheckbox = testFixture.debugElement.query(By.css('p-tableHeaderCheckbox'));
+            const headerCheckbox = testFixture.debugElement.query(By.css('vx-tableHeaderCheckbox'));
             expect(headerCheckbox).toBeTruthy();
         });
     });
@@ -350,17 +350,17 @@ describe('Table', () => {
         });
 
         it('should enable multiple sort mode', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.sortMode).toBe('multiple');
         });
 
         it('should render sort icons', () => {
-            const sortIcons = testFixture.debugElement.queryAll(By.css('p-sortIcon'));
+            const sortIcons = testFixture.debugElement.queryAll(By.css('vx-sortIcon'));
             expect(sortIcons.length).toBe(3);
         });
 
         it('should have sortable columns', () => {
-            const sortableColumns = testFixture.debugElement.queryAll(By.css('[pSortableColumn]'));
+            const sortableColumns = testFixture.debugElement.queryAll(By.css('[vxSortableColumn]'));
             expect(sortableColumns.length).toBe(3);
         });
     });
@@ -377,12 +377,12 @@ describe('Table', () => {
         });
 
         it('should have global filter fields configured', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.globalFilterFields).toEqual(['name', 'category']);
         });
 
         it('should render column filters', () => {
-            const columnFilters = testFixture.debugElement.queryAll(By.css('p-columnFilter'));
+            const columnFilters = testFixture.debugElement.queryAll(By.css('vx-columnFilter'));
             expect(columnFilters.length).toBe(2);
         });
     });
@@ -399,12 +399,12 @@ describe('Table', () => {
         });
 
         it('should enable virtual scrolling', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.virtualScroll).toBe(true);
         });
 
         it('should have correct virtual scroll item size', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.virtualScrollItemSize).toBe(46);
         });
 
@@ -425,18 +425,18 @@ describe('Table', () => {
         });
 
         it('should enable lazy loading', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.lazy).toBe(true);
         });
 
         it('should have correct total records', () => {
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
             expect(tableInstance.totalRecords).toBe(1000);
         });
 
         it('should emit lazy load event', () => {
             spyOn(testComponent, 'loadProducts');
-            const tableInstance = testFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
 
             tableInstance.onLazyLoad.emit({ first: 0, rows: 10 });
             expect(testComponent.loadProducts).toHaveBeenCalled();
@@ -485,7 +485,7 @@ describe('Table', () => {
         });
 
         it('should handle inventory status filtering for stock management', async () => {
-            const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
 
             tableInstance.filter('INSTOCK', 'inventoryStatus', 'equals');
             await new Promise((resolve) => setTimeout(resolve, 350));
@@ -497,7 +497,7 @@ describe('Table', () => {
         });
 
         it('should sort by price for promotional planning', async () => {
-            const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
 
             tableInstance.sort({ field: 'price', order: 1 });
             await ecommerceFixture.whenStable();
@@ -507,7 +507,7 @@ describe('Table', () => {
         });
 
         it('should support price range filtering for budget constraints', async () => {
-            const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
 
             tableInstance.filter(100, 'price', 'lt');
             await new Promise((resolve) => setTimeout(resolve, 350));
@@ -528,7 +528,7 @@ describe('Table', () => {
         });
 
         it('should support CSV export for external analysis', () => {
-            const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+            const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
             spyOn(tableInstance, 'exportCSV');
 
             tableInstance.exportCSV({ selectionOnly: false });
@@ -537,23 +537,23 @@ describe('Table', () => {
 
         describe('Real-Life Scenarios - Additional Tests', () => {
             it('should handle bulk operations efficiently', () => {
-                const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+                const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
                 expect(tableInstance).toBeTruthy();
             });
 
             it('should support complex filtering operations', () => {
-                const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+                const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
                 expect(tableInstance).toBeTruthy();
             });
 
             it('should handle large datasets with virtual scrolling', () => {
-                const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+                const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
                 expect(tableInstance).toBeTruthy();
                 expect(ecommerceComponent.products.length).toBeGreaterThan(0);
             });
 
             it('should maintain state across user interactions', () => {
-                const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+                const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
                 expect(tableInstance).toBeTruthy();
                 expect(tableInstance.value).toBeDefined();
             });
@@ -563,13 +563,13 @@ describe('Table', () => {
             });
 
             it('should handle column reordering and resizing', () => {
-                const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+                const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
                 expect(tableInstance).toBeTruthy();
                 expect(tableInstance.value).toBeDefined();
             });
 
             it('should provide advanced sorting capabilities', () => {
-                const tableInstance = ecommerceFixture.debugElement.query(By.css('p-table')).componentInstance;
+                const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
                 expect(tableInstance).toBeTruthy();
                 expect(typeof tableInstance.sort).toBe('function');
             });
@@ -649,7 +649,7 @@ describe('Table', () => {
         @Component({
             standalone: false,
             template: `
-                <p-table
+                <vx-table
                     [value]="products"
                     [dataKey]="'id'"
                     [selection]="selectedProducts"
@@ -670,24 +670,24 @@ describe('Table', () => {
                     </ng-template>
                     <ng-template #header>
                         <tr>
-                            <th><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-                            <th pReorderableColumn pResizableColumn>
+                            <th><vx-tableHeaderCheckbox></vx-tableHeaderCheckbox></th>
+                            <th vxReorderableColumn vxResizableColumn>
                                 Name
-                                <p-columnFilter field="name" matchMode="contains" display="menu">
+                                <vx-columnFilter field="name" matchMode="contains" display="menu">
                                     <ng-template #filter let-value let-filter="filterCallback">
                                         <input type="text" [(ngModel)]="value" (ngModelChange)="filter($event)" placeholder="Search" />
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </th>
-                            <th pReorderableColumn pResizableColumn>Price</th>
-                            <th pReorderableColumn pResizableColumn>Category</th>
+                            <th vxReorderableColumn vxResizableColumn>Price</th>
+                            <th vxReorderableColumn vxResizableColumn>Category</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-rowIndex="rowIndex">
-                        <tr [pReorderableRow]="rowIndex">
-                            <td><p-tableCheckbox [value]="product"></p-tableCheckbox></td>
+                        <tr [vxReorderableRow]="rowIndex">
+                            <td><vx-tableCheckbox [value]="product"></vx-tableCheckbox></td>
                             <td>
-                                <span pReorderableRowHandle class="pi pi-bars"></span>
+                                <span vxReorderableRowHandle class="pi pi-bars"></span>
                                 {{ product.name }}
                             </td>
                             <td>{{ product.price | currency }}</td>
@@ -702,7 +702,7 @@ describe('Table', () => {
                     <ng-template #summary>
                         <div>Footer Summary</div>
                     </ng-template>
-                </p-table>
+                </vx-table>
             `
         })
         class TestComprehensivePTComponent {
@@ -733,7 +733,7 @@ describe('Table', () => {
             fixture.detectChanges();
 
             // Check that p-table element exists (host element)
-            const tableElement = fixture.nativeElement.querySelector('p-table');
+            const tableElement = fixture.nativeElement.querySelector('vx-table');
             expect(tableElement).toBeTruthy();
         });
 
@@ -1037,7 +1037,7 @@ describe('Table', () => {
             fixture.detectChanges();
 
             // Check that header checkbox exists
-            const headerCheckbox = fixture.nativeElement.querySelector('p-tableheadercheckbox');
+            const headerCheckbox = fixture.nativeElement.querySelector('vx-tableheadercheckbox');
             expect(headerCheckbox).toBeTruthy();
         });
 
@@ -1052,7 +1052,7 @@ describe('Table', () => {
             fixture.detectChanges();
 
             // Check that row checkboxes exist
-            const checkboxes = fixture.nativeElement.querySelectorAll('p-tablecheckbox');
+            const checkboxes = fixture.nativeElement.querySelectorAll('vx-tablecheckbox');
             expect(checkboxes.length).toBeGreaterThan(0);
         });
 
@@ -1067,7 +1067,7 @@ describe('Table', () => {
             fixture.detectChanges();
 
             // Check that column filter element exists
-            const filterEl = fixture.nativeElement.querySelector('p-columnfilter');
+            const filterEl = fixture.nativeElement.querySelector('vx-columnfilter');
             expect(filterEl).toBeTruthy();
         });
 
@@ -1095,7 +1095,7 @@ describe('Table', () => {
         @Component({
             standalone: false,
             template: `
-                <p-table [value]="products" [dataKey]="'id'" editMode="cell">
+                <vx-table [value]="products" [dataKey]="'id'" editMode="cell">
                     <ng-template #header>
                         <tr>
                             <th>ID</th>
@@ -1106,29 +1106,29 @@ describe('Table', () => {
                     <ng-template #body let-product let-rowIndex="rowIndex">
                         <tr>
                             <td>{{ product.id }}</td>
-                            <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex">
-                                <p-cellEditor>
+                            <td [vxEditableColumn]="product" [vxEditableColumnField]="'name'" [vxEditableColumnRowIndex]="rowIndex">
+                                <vx-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
+                                        <input vxInputText type="text" [(ngModel)]="product.name" class="name-input" />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.name }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </vx-cellEditor>
                             </td>
-                            <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
-                                <p-cellEditor>
+                            <td [vxEditableColumn]="product" [vxEditableColumnField]="'price'" [vxEditableColumnRowIndex]="rowIndex">
+                                <vx-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
+                                        <input vxInputText type="text" [(ngModel)]="product.price" class="price-input" />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.price | currency }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </vx-cellEditor>
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             `
         })
         class TestCellNavigationComponent {
@@ -1360,7 +1360,7 @@ describe('Table', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-table [value]="products" [dataKey]="'id'" editMode="cell">
+                    <vx-table [value]="products" [dataKey]="'id'" editMode="cell">
                         <ng-template #header>
                             <tr>
                                 <th>Name</th>
@@ -1369,29 +1369,29 @@ describe('Table', () => {
                         </ng-template>
                         <ng-template #body let-product let-rowIndex="rowIndex">
                             <tr>
-                                <td [pEditableColumn]="product" [pEditableColumnField]="'name'" [pEditableColumnRowIndex]="rowIndex" [pEditableColumnDisabled]="true">
-                                    <p-cellEditor>
+                                <td [vxEditableColumn]="product" [vxEditableColumnField]="'name'" [vxEditableColumnRowIndex]="rowIndex" [vxEditableColumnDisabled]="true">
+                                    <vx-cellEditor>
                                         <ng-template #input>
-                                            <input pInputText type="text" [(ngModel)]="product.name" class="name-input" />
+                                            <input vxInputText type="text" [(ngModel)]="product.name" class="name-input" />
                                         </ng-template>
                                         <ng-template #output>
                                             {{ product.name }}
                                         </ng-template>
-                                    </p-cellEditor>
+                                    </vx-cellEditor>
                                 </td>
-                                <td [pEditableColumn]="product" [pEditableColumnField]="'price'" [pEditableColumnRowIndex]="rowIndex">
-                                    <p-cellEditor>
+                                <td [vxEditableColumn]="product" [vxEditableColumnField]="'price'" [vxEditableColumnRowIndex]="rowIndex">
+                                    <vx-cellEditor>
                                         <ng-template #input>
-                                            <input pInputText type="text" [(ngModel)]="product.price" class="price-input" />
+                                            <input vxInputText type="text" [(ngModel)]="product.price" class="price-input" />
                                         </ng-template>
                                         <ng-template #output>
                                             {{ product.price | currency }}
                                         </ng-template>
-                                    </p-cellEditor>
+                                    </vx-cellEditor>
                                 </td>
                             </tr>
                         </ng-template>
-                    </p-table>
+                    </vx-table>
                 `
             })
             class TestDisabledCellComponent {

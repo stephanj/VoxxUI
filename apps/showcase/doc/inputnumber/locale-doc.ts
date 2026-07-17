@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FluidModule } from 'primeng/fluid';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { FluidModule } from 'voxx-ui/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -13,24 +13,24 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext>
             <p>Localization information such as grouping and decimal symbols are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-                <p-inputnumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-german">German Locale</label>
-                <p-inputnumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
-                <p-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
             </div>
-        </p-fluid>
+        </vx-fluid>
         <app-code></app-code>
     `
 })

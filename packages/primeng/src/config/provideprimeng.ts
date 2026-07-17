@@ -1,19 +1,19 @@
 import { EnvironmentProviders, inject, InjectionToken, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
-import { PrimeNG } from './primeng';
-import type { PrimeNGConfigType } from './primeng.types';
+import { VoxxUI } from './primeng';
+import type { VoxxUIConfigType } from './primeng.types';
 
-export const PRIME_NG_CONFIG = new InjectionToken<PrimeNGConfigType>('PRIME_NG_CONFIG');
+export const VOXX_UI_CONFIG = new InjectionToken<VoxxUIConfigType>('VOXX_UI_CONFIG');
 
-export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentProviders {
+export function provideVoxxUI(...features: VoxxUIConfigType[]): EnvironmentProviders {
     const providers = features?.map((feature) => ({
-        provide: PRIME_NG_CONFIG,
+        provide: VOXX_UI_CONFIG,
         useValue: feature,
         multi: false
     }));
 
     const initializer = provideAppInitializer(() => {
-        const PrimeNGConfig = inject(PrimeNG);
-        features?.forEach((feature) => PrimeNGConfig.setConfig(feature));
+        const VoxxUIConfig = inject(VoxxUI);
+        features?.forEach((feature) => VoxxUIConfig.setConfig(feature));
         return;
     });
 

@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'voxx-ui/paginator';
 
 @Component({
     selector: 'paginator-pt-viewer',
@@ -10,7 +10,7 @@ import { PaginatorModule } from 'primeng/paginator';
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">
-                <p-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                <vx-paginator [rows]="10" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></vx-paginator>
             </div>
         </app-docptviewer>
     `

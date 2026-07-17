@@ -4,8 +4,8 @@ import { DemoCodeService } from '@/service/democodeservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'voxx-ui/button';
+import { TooltipModule } from 'voxx-ui/tooltip';
 import { useCodeSandbox, useStackBlitz } from './codeeditor';
 
 @Component({
@@ -17,18 +17,18 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
             <div class="doc-section-code">
                 <div class="doc-section-code-buttons animate-scalein animate-duration-300">
                     @if (!hideToggleCode()) {
-                        <button [pTooltip]="fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
+                        <button [vxTooltip]="fullCodeVisible() ? 'Collapse' : 'Expand'" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
                             <i class="pi pi-arrows-v"></i>
                         </button>
                     }
                     @if (!hideStackBlitz() && !hideToggleCode()) {
-                        <button pTooltip="Edit in StackBlitz" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="openStackBlitz()">
+                        <button vxTooltip="Edit in StackBlitz" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="openStackBlitz()">
                             <svg role="img" width="13" height="18" viewBox="0 0 13 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: 'block'">
                                 <path d="M0 10.6533H5.43896L2.26866 18.1733L12.6667 7.463H7.1986L10.3399 0L0 10.6533Z" />
                             </svg>
                         </button>
                     }
-                    <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
+                    <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" vxTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
                         <i class="pi pi-copy"></i>
                     </button>
                 </div>

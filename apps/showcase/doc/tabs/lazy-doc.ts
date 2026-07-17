@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
     selector: 'lazy-doc',
@@ -15,31 +15,31 @@ import { TabsModule } from 'primeng/tabs';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs lazy value="0">
-                <p-tablist>
-                    <p-tab value="0">Header I</p-tab>
-                    <p-tab value="1">Header II</p-tab>
-                    <p-tab value="2">Header III</p-tab>
-                </p-tablist>
-                <p-tabpanels>
-                    <p-tabpanel value="0">
+            <vx-tabs lazy value="0">
+                <vx-tablist>
+                    <vx-tab value="0">Header I</vx-tab>
+                    <vx-tab value="1">Header II</vx-tab>
+                    <vx-tab value="2">Header III</vx-tab>
+                </vx-tablist>
+                <vx-tabpanels>
+                    <vx-tabpanel value="0">
                         <p class="m-0">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
                             laborum.
                         </p>
-                    </p-tabpanel>
-                    <p-tabpanel value="1">
+                    </vx-tabpanel>
+                    <vx-tabpanel value="1">
                         <p class="m-0">
                             Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo
                             enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
                         </p>
-                    </p-tabpanel>
-                    <p-tabpanel value="2">
+                    </vx-tabpanel>
+                    <vx-tabpanel value="2">
                         <ng-template #content>Complex components that should only be initialized when the tab becomes active</ng-template>
-                    </p-tabpanel>
-                </p-tabpanels>
-            </p-tabs>
+                    </vx-tabpanel>
+                </vx-tabpanels>
+            </vx-tabs>
         </div>
         <app-code></app-code>
     `

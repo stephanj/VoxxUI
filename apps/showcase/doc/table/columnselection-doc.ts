@@ -5,10 +5,10 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'columnselection-doc',
@@ -17,10 +17,10 @@ import { ToastModule } from 'primeng/toast';
     template: ` <app-docsectiontext>
             <p>Row selection with an element inside a column is implemented with templating.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toast />
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-toast />
+                <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -37,13 +37,13 @@ import { ToastModule } from 'primeng/toast';
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
                             <td>
-                                <p-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
+                                <vx-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]

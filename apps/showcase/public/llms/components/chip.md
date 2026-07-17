@@ -12,15 +12,15 @@ A basic chip with a text is created with the label property. In addition when re
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
         <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Action" />
-            <p-chip label="Comedy" />
-            <p-chip label="Mystery" />
-            <p-chip label="Thriller" [removable]="true" />
+            <vx-chip label="Action" />
+            <vx-chip label="Comedy" />
+            <vx-chip label="Mystery" />
+            <vx-chip label="Thriller" [removable]="true" />
         </div>
     `,
     standalone: true,
@@ -35,15 +35,15 @@ A font icon next to the label can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
         <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Apple" icon="pi pi-apple" />
-            <p-chip label="Facebook" icon="pi pi-facebook" />
-            <p-chip label="Google" icon="pi pi-google" />
-            <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
+            <vx-chip label="Apple" icon="pi pi-apple" />
+            <vx-chip label="Facebook" icon="pi pi-facebook" />
+            <vx-chip label="Google" icon="pi pi-google" />
+            <vx-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true" />
         </div>
     `,
     standalone: true,
@@ -58,15 +58,15 @@ The image property is used to display an image like an avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
         <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
-            <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
-            <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
-            <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
+            <vx-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
+            <vx-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
+            <vx-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
+            <vx-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
         </div>
     `,
     standalone: true,
@@ -81,15 +81,15 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     template: `
         <div class="card">
-            <p-chip class="!py-0 !pl-0 !pr-4">
+            <vx-chip class="!py-0 !pl-0 !pr-4">
                 <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
                 <span class="ml-2 font-medium">PRIME</span>
-            </p-chip>
+            </vx-chip>
         </div>
     `,
     standalone: true,

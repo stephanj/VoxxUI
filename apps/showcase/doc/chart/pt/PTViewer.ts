@@ -4,7 +4,7 @@ import { DesignerService } from '@/service/designerservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     selector: 'chart-pt-viewer',
@@ -12,7 +12,7 @@ import { ChartModule } from 'primeng/chart';
     imports: [CommonModule, AppDocPtViewer, FormsModule, ChartModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-full md:w-[30rem]" />
+            <vx-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-full md:w-[30rem]" />
         </app-docptviewer>
     `
 })

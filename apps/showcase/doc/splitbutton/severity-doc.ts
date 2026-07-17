@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -15,15 +15,15 @@ import { RouterModule } from '@angular/router';
             <p>The <i>severity</i> property defines the type of button.</p>
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
         </div>
         <app-code></app-code>
     `,

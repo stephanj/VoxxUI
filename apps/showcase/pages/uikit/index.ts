@@ -2,9 +2,9 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BadgeModule } from 'primeng/badge';
-import { Ripple } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
+import { BadgeModule } from 'voxx-ui/badge';
+import { Ripple } from 'voxx-ui/ripple';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     selector: 'overview-doc',
@@ -12,13 +12,13 @@ import { TooltipModule } from 'primeng/tooltip';
     imports: [CommonModule, Ripple, BadgeModule, TooltipModule, RouterModule],
     template: ` <div>
         <div style="border-radius: 50px" class="overflow-hidden mb-8 flex items-center">
-            <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpg" class="w-full" />
+            <img alt="VoxxUI Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpg" class="w-full" />
         </div>
 
         <div class="card mb-8" style="border-radius: 50px">
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-figma.png" class="w-full" />
+                    <img alt="VoxxUI Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-figma.png" class="w-full" />
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">UP-TO-DATE</div>
@@ -79,12 +79,12 @@ import { TooltipModule } from 'primeng/tooltip';
                     </ul>
                 </div>
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-system.png" class="w-full" />
+                    <img alt="VoxxUI Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-system.png" class="w-full" />
                 </div>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20 mb-20">
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-themes.png" class="w-full" />
+                    <img alt="VoxxUI Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/uikit-themes.png" class="w-full" />
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">DARK MODE</div>
@@ -137,7 +137,7 @@ import { TooltipModule } from 'primeng/tooltip';
             </div>
             <div class="flex flex-col md:flex-row items-center gap-6 md:gap-20">
                 <div class="w-full md:w-6/12">
-                    <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/feature-2.png" class="w-full" />
+                    <img alt="VoxxUI Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/designer/feature-2.png" class="w-full" />
                 </div>
                 <div class="w-full md:w-6/12">
                     <div class="text-primary font-bold mb-2">AUTOMATED</div>
@@ -238,7 +238,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$99 for + 1 Year" value="?" severity="secondary" /></span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <vx-badge vxTooltip="$99 for + 1 Year" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -246,7 +246,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface mt-auto" />
-                            <a href="https://primeui.store/uikit" pRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                            <a href="https://primeui.store/uikit" vxRipple class="bg-blue-500 text-white hover:bg-blue-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -282,7 +282,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="$249 for + 1 Year" value="?" severity="secondary" /></span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <vx-badge vxTooltip="$249 for + 1 Year" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -290,7 +290,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface" />
-                            <a href="https://primeui.store/uikit" pRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
+                            <a href="https://primeui.store/uikit" vxRipple class="bg-purple-500 text-white hover:bg-purple-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Buy Now</a>
                         </div>
                     </div>
                 </div>
@@ -324,7 +324,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <p-badge pTooltip="Contact Us" value="?" severity="secondary" /></span>
+                                    <span class="inline-flex items-center gap-2">1 Year Free Updates <vx-badge vxTooltip="Contact Us" value="?" severity="secondary" /></span>
                                 </li>
                                 <li class="flex items-center mb-4">
                                     <i class="pi pi-check-circle text-green-500 mr-2"></i>
@@ -332,7 +332,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 </li>
                             </ul>
                             <hr class="mb-4 mx-0 border-t border-0 border-surface" />
-                            <a href="mailto:contact@primetek.com.tr" pRipple class="bg-slate-500 text-white hover:bg-slate-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Contact Us</a>
+                            <a href="mailto:contact@primetek.com.tr" vxRipple class="bg-slate-500 text-white hover:bg-slate-400 p-4 w-full rounded-border text-center transition-colors duration-300 font-bold">Contact Us</a>
                         </div>
                     </div>
                 </div>

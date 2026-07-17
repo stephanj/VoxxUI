@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BadgeModule } from 'primeng/badge';`
+        typescript: `import { BadgeModule } from 'voxx-ui/badge';`
     };
 }

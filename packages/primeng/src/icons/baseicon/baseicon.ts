@@ -1,6 +1,6 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation } from '@angular/core';
 import { cn } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'voxx-ui/basecomponent';
 import { BaseIconStyle } from './style/baseiconstyle';
 
 @Component({

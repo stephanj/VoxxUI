@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     selector: 'touchui-doc',
@@ -13,7 +13,7 @@ import { DatePickerModule } from 'primeng/datepicker';
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
+            <vx-datepicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
         </div>
         <app-code></app-code>
     `

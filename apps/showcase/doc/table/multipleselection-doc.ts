@@ -6,8 +6,8 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'voxx-ui/table';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
     selector: 'multipleselection-doc',
@@ -20,13 +20,13 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
-                    <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                    <vx-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
-                <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -36,16 +36,16 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                         </tr>
                     </ng-template>
                     <ng-template #body let-product let-rowIndex="rowIndex">
-                        <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
+                        <tr [vxSelectableRow]="product" [vxSelectableRowIndex]="rowIndex">
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

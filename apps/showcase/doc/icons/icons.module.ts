@@ -3,7 +3,7 @@ import { AppDocModule } from '@/components/doc/app.doc.module';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuModule } from 'primeng/menu';
+import { MenuModule } from 'voxx-ui/menu';
 import { BasicDoc } from './basicdoc';
 import { ColorDoc } from './colordoc';
 import { ConstantsDoc } from './constantsdoc';

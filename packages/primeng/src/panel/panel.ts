@@ -21,14 +21,14 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
-import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { ButtonModule } from 'primeng/button';
-import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Nullable } from 'primeng/ts-helpers';
-import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'primeng/types/panel';
+import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { ButtonModule } from 'voxx-ui/button';
+import { MinusIcon, PlusIcon } from 'voxx-ui/icons';
+import { MotionModule } from 'voxx-ui/motion';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'voxx-ui/types/panel';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
@@ -38,17 +38,17 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-panel',
+    selector: 'vx-panel',
     standalone: true,
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
-        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
-            <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
-            <ng-content select="p-header"></ng-content>
+        <div [vxBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
+            <span [vxBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
+            <ng-content select="vx-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            <div [pBind]="ptm('headerActions')" [class]="cx('headerActions')">
+            <div [vxBind]="ptm('headerActions')" [class]="cx('headerActions')">
                 <ng-template *ngTemplateOutlet="iconsTemplate || _iconsTemplate"></ng-template>
-                <p-button
+                <vx-button
                     *ngIf="toggleable"
                     [attr.id]="id + '_header'"
                     severity="secondary"
@@ -69,40 +69,40 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     <ng-template #icon>
                         <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
-                                <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton.icon')" />
+                                <svg data-p-icon="minus" [vxBind]="ptm('pcToggleButton.icon')" />
                             </ng-container>
 
                             <ng-container *ngIf="collapsed">
-                                <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton.icon')" />
+                                <svg data-p-icon="plus" [vxBind]="ptm('pcToggleButton.icon')" />
                             </ng-container>
                         </ng-container>
 
                         <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
                     </ng-template>
-                </p-button>
+                </vx-button>
             </div>
         </div>
         <div
-            [pBind]="ptm('contentContainer')"
-            [pMotion]="!toggleable || (toggleable && !collapsed)"
-            pMotionName="p-collapsible"
-            [pMotionOptions]="computedMotionOptions()"
+            [vxBind]="ptm('contentContainer')"
+            [vxMotion]="!toggleable || (toggleable && !collapsed)"
+            vxMotionName="p-collapsible"
+            [vxMotionOptions]="computedMotionOptions()"
             [class]="cx('contentContainer')"
             [id]="id + '_content'"
             role="region"
             [attr.aria-labelledby]="id + '_header'"
             [attr.aria-hidden]="collapsed"
             [attr.tabindex]="collapsed ? '-1' : undefined"
-            (pMotionOnAfterEnter)="onToggleDone($event)"
+            (vxMotionOnAfterEnter)="onToggleDone($event)"
         >
-            <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
-                <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
+            <div [vxBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
+                <div [vxBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
 
-                <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
+                <div [vxBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                    <ng-content select="vx-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 </div>
             </div>

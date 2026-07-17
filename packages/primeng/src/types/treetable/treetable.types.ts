@@ -1,9 +1,9 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
-import type { BadgePassThrough } from 'primeng/types/badge';
-import type { CheckboxPassThrough } from 'primeng/types/checkbox';
-import type { PaginatorPassThrough } from 'primeng/types/paginator';
-import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption, SortMeta, TreeNode, TreeTableNode } from 'voxx-ui/api';
+import type { BadgePassThrough } from 'voxx-ui/types/badge';
+import type { CheckboxPassThrough } from 'voxx-ui/types/checkbox';
+import type { PaginatorPassThrough } from 'voxx-ui/types/paginator';
+import type { VirtualScrollerPassThrough } from 'voxx-ui/types/scroller';
 
 /**
  * Custom pass-through(pt) options.

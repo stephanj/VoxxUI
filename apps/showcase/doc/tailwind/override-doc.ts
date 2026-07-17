@@ -37,15 +37,15 @@ import { Component } from '@angular/core';
 })
 export class OverrideDoc {
     code1 = {
-        html: `<input pInputText placeholder="Overriden" class="p-8!" />`
+        html: `<input vxInputText placeholder="Overriden" class="p-8!" />`
     };
 
     code2 = {
-        html: `<input pInputText placeholder="Overriden" class="!p-8" />`
+        html: `<input vxInputText placeholder="Overriden" class="!p-8" />`
     };
 
     code3 = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {
@@ -64,7 +64,7 @@ export class OverrideDoc {
     };
 
     code5 = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {

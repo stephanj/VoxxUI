@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { PrimeNG } from 'primeng/config';
-import { DomHandler } from 'primeng/dom';
+import { VoxxUI } from 'voxx-ui/config';
+import { DomHandler } from 'voxx-ui/dom';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
@@ -34,7 +34,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
 
-    primeng: PrimeNG = inject(PrimeNG);
+    primeng: VoxxUI = inject(VoxxUI);
 
     isNewsActive = computed(() => false);
 

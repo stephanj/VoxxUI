@@ -1,20 +1,20 @@
 import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'voxx-ui/api';
 import { Badge, BadgeDirective, BadgeModule } from './badge';
 
 @Component({
     standalone: false,
     selector: 'test-basic-badge',
-    template: `<p-badge></p-badge>`
+    template: `<vx-badge></vx-badge>`
 })
 class TestBasicBadgeComponent {}
 
 @Component({
     standalone: false,
     selector: 'test-value-badge',
-    template: `<p-badge [value]="value"></p-badge>`
+    template: `<vx-badge [value]="value"></vx-badge>`
 })
 class TestValueBadgeComponent {
     value: string | number | null = '2';
@@ -23,7 +23,7 @@ class TestValueBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-size-badge',
-    template: `<p-badge [badgeSize]="badgeSize" value="1"></p-badge>`
+    template: `<vx-badge [badgeSize]="badgeSize" value="1"></vx-badge>`
 })
 class TestSizeBadgeComponent {
     badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
@@ -32,7 +32,7 @@ class TestSizeBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-severity-badge',
-    template: `<p-badge [severity]="severity" value="1"></p-badge>`
+    template: `<vx-badge [severity]="severity" value="1"></vx-badge>`
 })
 class TestSeverityBadgeComponent {
     severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
@@ -41,7 +41,7 @@ class TestSeverityBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-disabled-badge',
-    template: `<p-badge [badgeDisabled]="disabled" value="1"></p-badge>`
+    template: `<vx-badge [badgeDisabled]="disabled" value="1"></vx-badge>`
 })
 class TestDisabledBadgeComponent {
     disabled = false;
@@ -50,7 +50,7 @@ class TestDisabledBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-style-class-badge',
-    template: `<p-badge [styleClass]="styleClass" value="1"></p-badge>`
+    template: `<vx-badge [styleClass]="styleClass" value="1"></vx-badge>`
 })
 class TestStyleClassBadgeComponent {
     styleClass = 'custom-badge';
@@ -59,7 +59,7 @@ class TestStyleClassBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-directive-badge',
-    template: `<button #button pBadge [value]="value">Button</button>`
+    template: `<button #button vxBadge [value]="value">Button</button>`
 })
 class TestDirectiveBadgeComponent {
     @ViewChild('button', { static: true }) button!: ElementRef;
@@ -69,7 +69,7 @@ class TestDirectiveBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-directive-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`
+    template: `<button vxBadge [value]="value" [size]="size">Button</button>`
 })
 class TestDirectiveSizeBadgeComponent {
     value: string | number = '1';
@@ -79,7 +79,7 @@ class TestDirectiveSizeBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-directive-severity-badge',
-    template: `<button pBadge [value]="value" [severity]="severity">Button</button>`
+    template: `<button vxBadge [value]="value" [severity]="severity">Button</button>`
 })
 class TestDirectiveSeverityBadgeComponent {
     value: string | number = '1';
@@ -89,7 +89,7 @@ class TestDirectiveSeverityBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-directive-disabled-badge',
-    template: `<button pBadge [value]="value" [badgeDisabled]="disabled">Button</button>`
+    template: `<button vxBadge [value]="value" [badgeDisabled]="disabled">Button</button>`
 })
 class TestDirectiveDisabledBadgeComponent {
     value: string | number = '1';
@@ -99,7 +99,7 @@ class TestDirectiveDisabledBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-directive-style-badge',
-    template: `<button pBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`
+    template: `<button vxBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`
 })
 class TestDirectiveStyleBadgeComponent {
     value: string | number = '1';
@@ -110,7 +110,7 @@ class TestDirectiveStyleBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-deprecated-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`
+    template: `<button vxBadge [value]="value" [size]="size">Button</button>`
 })
 class TestDeprecatedSizeBadgeComponent {
     value: string | number = '1';
@@ -120,7 +120,7 @@ class TestDeprecatedSizeBadgeComponent {
 @Component({
     standalone: false,
     selector: 'test-dynamic-badge',
-    template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </p-badge> `
+    template: ` <vx-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </vx-badge> `
 })
 class TestDynamicBadgeComponent {
     value: string | number | null = '1';
@@ -944,7 +944,7 @@ describe('Badge', () => {
         @Component({
             standalone: true,
             imports: [Badge],
-            template: `<p-badge [value]="value()" [badgeSize]="badgeSize()" [severity]="severity()" [pt]="pt()"></p-badge>`
+            template: `<vx-badge [value]="value()" [badgeSize]="badgeSize()" [severity]="severity()" [pt]="pt()"></vx-badge>`
         })
         class TestPTBadgeComponent {
             value = input<string | number | null>();

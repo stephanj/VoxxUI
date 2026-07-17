@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'subheadergrouping-doc',
@@ -16,9 +16,9 @@ import { TableModule } from 'primeng/table';
                 footer with <i>groupfooter</i> templates.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '60rem' }">
+                <vx-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Name</th>
@@ -29,7 +29,7 @@ import { TableModule } from 'primeng/table';
                         </tr>
                     </ng-template>
                     <ng-template #groupheader let-customer>
-                        <tr pRowGroupHeader>
+                        <tr vxRowGroupHeader>
                             <td colspan="5">
                                 <div class="flex items-center gap-2">
                                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
@@ -60,16 +60,16 @@ import { TableModule } from 'primeng/table';
                                 {{ customer.company }}
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                                <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
                                 {{ customer.date }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     selector: 'verticalbar-doc',
@@ -15,7 +15,7 @@ import { ChartModule } from 'primeng/chart';
             <p>A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code></app-code>
     `

@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
 
 /**
  * Custom pass-through(pt) options.

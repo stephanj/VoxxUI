@@ -25,14 +25,14 @@ import {
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { PopoverContentTemplateContext, PopoverPassThrough } from 'primeng/types/popover';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { ConnectedOverlayScrollHandler } from 'voxx-ui/dom';
+import { MotionModule } from 'voxx-ui/motion';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import { PopoverContentTemplateContext, PopoverPassThrough } from 'voxx-ui/types/popover';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 
@@ -43,7 +43,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-popover',
+    selector: 'vx-popover',
     standalone: true,
     imports: [CommonModule, SharedModule, Bind, MotionModule],
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
@@ -51,7 +51,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
     template: `
         @if (render) {
             <div
-                [pBind]="ptm('root')"
+                [vxBind]="ptm('root')"
                 [class]="cn(cx('root'), styleClass)"
                 [style]="sx('root')"
                 [ngStyle]="style"
@@ -60,14 +60,14 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
                 [attr.aria-modal]="overlayVisible"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledBy]="ariaLabelledBy"
-                [pMotion]="overlayVisible"
-                pMotionName="p-anchored-overlay"
-                [pMotionAppear]="true"
-                (pMotionOnEnter)="onAnimationStart($event)"
-                (pMotionOnAfterLeave)="onAnimationEnd()"
-                [pMotionOptions]="computedMotionOptions()"
+                [vxMotion]="overlayVisible"
+                vxMotionName="p-anchored-overlay"
+                [vxMotionAppear]="true"
+                (vxMotionOnEnter)="onAnimationStart($event)"
+                (vxMotionOnAfterLeave)="onAnimationEnd()"
+                [vxMotionOptions]="computedMotionOptions()"
             >
-                <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+                <div [vxBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                     <ng-content></ng-content>
                     <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
                 </div>

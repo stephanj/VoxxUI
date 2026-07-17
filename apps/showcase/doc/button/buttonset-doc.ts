@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'buttonset-doc',
@@ -13,9 +13,9 @@ import { ButtonModule } from 'primeng/button';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <span class="p-buttonset">
-                <button pButton pRipple label="Save" icon="pi pi-check"></button>
-                <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-                <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
+                <button vxButton vxRipple label="Save" icon="pi pi-check"></button>
+                <button vxButton vxRipple label="Delete" icon="pi pi-trash"></button>
+                <button vxButton vxRipple label="Cancel" icon="pi pi-times"></button>
             </span>
         </div>
         <app-code></app-code>

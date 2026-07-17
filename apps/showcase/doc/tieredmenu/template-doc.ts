@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { RippleModule } from 'primeng/ripple';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { BadgeModule } from 'voxx-ui/badge';
+import { RippleModule } from 'voxx-ui/ripple';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 
 @Component({
     selector: 'template-doc',
@@ -16,17 +16,17 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
             <p>TieredMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items">
+            <vx-tieredmenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
-                    <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
+                    <a vxRipple class="flex items-center px-4 py-3 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
                     </a>
                 </ng-template>
-            </p-tieredmenu>
+            </vx-tieredmenu>
         </div>
         <app-code></app-code>
     `

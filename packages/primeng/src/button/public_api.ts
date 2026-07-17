@@ -1,4 +1,4 @@
 // Backward compatibility
-export * from 'primeng/types/button';
+export * from 'voxx-ui/types/button';
 export * from './button';
 export * from './style/buttonstyle';

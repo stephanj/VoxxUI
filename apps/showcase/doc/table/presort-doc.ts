@@ -5,7 +5,7 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'presort-doc',
@@ -18,39 +18,39 @@ import { TableModule } from 'primeng/table';
                 <i>DataTableSortMeta</i> objects.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
+                <vx-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>
                         <tr>
-                            <th pSortableColumn="code" style="width:20%">
+                            <th vxSortableColumn="code" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Code
-                                    <p-sortIcon field="code" />
+                                    <vx-sortIcon field="code" />
                                 </div>
                             </th>
-                            <th pSortableColumn="name" style="width:20%">
+                            <th vxSortableColumn="name" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <vx-sortIcon field="name" />
                                 </div>
                             </th>
-                            <th pSortableColumn="price" style="width:20%">
+                            <th vxSortableColumn="price" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Price
-                                    <p-sortIcon field="price" />
+                                    <vx-sortIcon field="price" />
                                 </div>
                             </th>
-                            <th pSortableColumn="category" style="width:20%">
+                            <th vxSortableColumn="category" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Category
-                                    <p-sortIcon field="category" />
+                                    <vx-sortIcon field="category" />
                                 </div>
                             </th>
-                            <th pSortableColumn="quantity" style="width:20%">
+                            <th vxSortableColumn="quantity" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Quantity
-                                    <p-sortIcon field="quantity" />
+                                    <vx-sortIcon field="quantity" />
                                 </div>
                             </th>
                         </tr>
@@ -64,9 +64,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush

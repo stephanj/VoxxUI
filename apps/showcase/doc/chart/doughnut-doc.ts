@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     selector: 'doughnut-doc',
@@ -15,7 +15,7 @@ import { ChartModule } from 'primeng/chart';
             <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code></app-code>
     `

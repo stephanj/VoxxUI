@@ -3,15 +3,15 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroupAddon } from './inputgroupaddon';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 @Component({
     standalone: true,
     imports: [InputGroupAddon, FormsModule],
     template: `
-        <p-inputgroup-addon>
+        <vx-inputgroup-addon>
             <i class="pi pi-user"></i>
-        </p-inputgroup-addon>
+        </vx-inputgroup-addon>
     `
 })
 class TestBasicInputGroupAddonComponent {}
@@ -19,7 +19,7 @@ class TestBasicInputGroupAddonComponent {}
 @Component({
     standalone: true,
     imports: [InputGroupAddon, FormsModule],
-    template: ` <p-inputgroup-addon [style]="addonStyle" [styleClass]="addonClass"> $ </p-inputgroup-addon> `
+    template: ` <vx-inputgroup-addon [style]="addonStyle" [styleClass]="addonClass"> $ </vx-inputgroup-addon> `
 })
 class TestStyledInputGroupAddonComponent {
     addonStyle: { [key: string]: any } = { 'background-color': '#f0f0f0' };
@@ -241,14 +241,14 @@ describe('InputGroupAddon PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 6: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 6: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputGroupAddon, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             inputGroupAddon: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -276,7 +276,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
                 imports: [InputGroupAddon, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             inputGroupAddon: {
                                 hooks: {

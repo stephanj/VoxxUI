@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, Type, ViewChild, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { Dialog, DialogPassThrough } from 'primeng/dialog';
-import { Nullable } from 'primeng/ts-helpers';
+import { SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Dialog, DialogPassThrough } from 'voxx-ui/dialog';
+import { Nullable } from 'voxx-ui/ts-helpers';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';
@@ -14,11 +14,11 @@ import { DynamicDialogStyle } from './style/dynamicdialogstyle';
 const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALOG_INSTANCE');
 
 @Component({
-    selector: 'p-dynamicDialog, p-dynamicdialog, p-dynamic-dialog',
+    selector: 'vx-dynamicDialog, vx-dynamicdialog, vx-dynamic-dialog',
     standalone: true,
     imports: [CommonModule, SharedModule, DynamicDialogContent, Dialog, BindModule],
     template: `
-        <p-dialog
+        <vx-dialog
             [(visible)]="visible"
             [header]="ddconfig?.header"
             [draggable]="ddconfig?.draggable !== false"
@@ -79,9 +79,9 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
                 <ng-container *ngComponentOutlet="minimizeIconTemplate"></ng-container>
             </ng-template>
 
-            <ng-template pDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
+            <ng-template vxDynamicDialogContent *ngIf="!contentTemplate"></ng-template>
             <div *ngIf="ddconfig.footer && !footerTemplate">{{ ddconfig.footer }}</div>
-        </p-dialog>
+        </vx-dialog>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,

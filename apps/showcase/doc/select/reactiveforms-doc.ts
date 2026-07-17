@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
+import { SelectModule } from 'voxx-ui/select';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
+import { ButtonModule } from 'voxx-ui/button';
 import { CommonModule } from '@angular/common';
 
 interface City {
@@ -23,16 +23,16 @@ interface City {
         <app-docsectiontext>
             <p>Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                    <vx-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
                     @if (isInvalid('city')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Listbox } from 'primeng/listbox';
+import { Listbox } from 'voxx-ui/listbox';
 
 interface City {
     name: string;
@@ -15,7 +15,7 @@ interface City {
     imports: [CommonModule, AppDocPtViewer, Listbox, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name" class="w-full md:w-56" />
+            <vx-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name" class="w-full md:w-56" />
         </app-docptviewer>
     `
 })

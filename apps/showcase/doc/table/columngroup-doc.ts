@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
@@ -12,9 +12,9 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
     template: ` <app-docsectiontext>
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th rowspan="3">Product</th>
@@ -47,9 +47,9 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                             <td class="font-bold p-3 pb-0">{{ thisYearTotal | currency: 'USD' }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

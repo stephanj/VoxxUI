@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { InputIconPassThrough } from 'primeng/types/inputicon';
+import { SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { InputIconPassThrough } from 'voxx-ui/types/inputicon';
 import { InputIconStyle } from './style/inputiconstyle';
 
 const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');
@@ -13,7 +13,7 @@ const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-inputicon, p-inputIcon',
+    selector: 'vx-inputicon, vx-inputIcon',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `<ng-content></ng-content>`,

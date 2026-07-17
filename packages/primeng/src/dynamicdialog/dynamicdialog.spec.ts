@@ -1,8 +1,8 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
+import { DomHandler } from 'voxx-ui/dom';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { Subject } from 'rxjs';
 import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -566,7 +566,7 @@ describe('DynamicDialog', () => {
 
         it('should apply maximized class when maximized', async () => {
             // Get the dialog element from Dialog component
-            const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
+            const dialogElement = fixture.debugElement.query(By.css('vx-dialog'));
             expect(dialogElement).toBeTruthy();
 
             // Click the maximize button which is in the Dialog component

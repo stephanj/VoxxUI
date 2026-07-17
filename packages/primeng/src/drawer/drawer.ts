@@ -22,17 +22,17 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Button, ButtonProps } from 'primeng/button';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
-import { FocusTrapModule } from 'primeng/focustrap';
-import { TimesIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DrawerPassThrough } from 'primeng/types/drawer';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { Button, ButtonProps } from 'voxx-ui/button';
+import { blockBodyScroll, unblockBodyScroll } from 'voxx-ui/dom';
+import { FocusTrapModule } from 'voxx-ui/focustrap';
+import { TimesIcon } from 'voxx-ui/icons';
+import { MotionModule } from 'voxx-ui/motion';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import { DrawerPassThrough } from 'voxx-ui/types/drawer';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { DrawerStyle } from './style/drawerstyle';
 
 const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
@@ -42,7 +42,7 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-drawer',
+    selector: 'vx-drawer',
     standalone: true,
     imports: [CommonModule, Button, TimesIcon, SharedModule, Bind, FocusTrapModule, MotionModule],
     providers: [DrawerStyle, { provide: DRAWER_INSTANCE, useExisting: Drawer }, { provide: PARENT_INSTANCE, useExisting: Drawer }],
@@ -51,29 +51,29 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
         @if (modalVisible) {
             <div
                 #container
-                [pBind]="ptm('root')"
-                [pMotion]="visible"
-                [pMotionAppear]="true"
-                [pMotionEnterActiveClass]="$enterAnimation()"
-                [pMotionLeaveActiveClass]="$leaveAnimation()"
-                [pMotionOptions]="computedMotionOptions()"
-                (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                (pMotionOnAfterLeave)="onAfterLeave($event)"
+                [vxBind]="ptm('root')"
+                [vxMotion]="visible"
+                [vxMotionAppear]="true"
+                [vxMotionEnterActiveClass]="$enterAnimation()"
+                [vxMotionLeaveActiveClass]="$leaveAnimation()"
+                [vxMotionOptions]="computedMotionOptions()"
+                (vxMotionOnBeforeEnter)="onBeforeEnter($event)"
+                (vxMotionOnAfterLeave)="onAfterLeave($event)"
                 [class]="cn(cx('root'), styleClass)"
                 [style]="style"
                 role="complementary"
                 (keydown)="onKeyDown($event)"
-                pFocusTrap
+                vxFocusTrap
                 [attr.data-p]="dataP"
                 [attr.data-p-open]="visible"
             >
                 @if (headlessTemplate || _headlessTemplate) {
                     <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
                 } @else {
-                    <div [pBind]="ptm('header')" [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                    <div [vxBind]="ptm('header')" [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
                         <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                        <div *ngIf="header" [pBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
-                        <p-button
+                        <div *ngIf="header" [vxBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
+                        <vx-button
                             *ngIf="showCloseIcon && closable"
                             [pt]="ptm('pcCloseButton')"
                             [ngClass]="cx('pcCloseButton')"
@@ -88,16 +88,16 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                                 <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
                                 <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
+                        </vx-button>
                     </div>
 
-                    <div [pBind]="ptm('content')" [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                    <div [vxBind]="ptm('content')" [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                     </div>
 
                     <ng-container *ngIf="footerTemplate || _footerTemplate">
-                        <div [pBind]="ptm('footer')" [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                        <div [vxBind]="ptm('footer')" [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
                             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                         </div>
                     </ng-container>

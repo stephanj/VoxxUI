@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     selector: 'template-doc',
@@ -12,10 +12,10 @@ import { ChipModule } from 'primeng/chip';
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chip class="!py-0 !pl-0 !pr-4">
+            <vx-chip class="!py-0 !pl-0 !pr-4">
                 <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
                 <span class="ml-2 font-medium">PRIME</span>
-            </p-chip>
+            </vx-chip>
         </div>
         <app-code></app-code>
     `

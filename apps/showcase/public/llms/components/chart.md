@@ -12,12 +12,12 @@ A chart is configured with 3 properties; type , data and options . Chart type is
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+            <vx-chart type="bar" [data]="basicData" [options]="basicOptions" />
         </div>
     `,
     standalone: true,
@@ -100,12 +100,12 @@ Different chart types can be combined in the same graph using the type option of
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -199,12 +199,12 @@ A doughnut chart is a variant of the pie chart, with a blank center allowing for
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -259,12 +259,12 @@ A bar chart is rendered horizontally when indexAxis option is set as y .
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -353,12 +353,12 @@ A line chart or line graph is a type of chart which displays information as a se
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -445,12 +445,12 @@ Various styles of a line series can be customized to display customizations like
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -586,12 +586,12 @@ Multiple axes can be added using the scales option.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -694,12 +694,12 @@ A pie chart is a circular statistical graphic which is divided into slices to il
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -754,12 +754,12 @@ Polar area charts are similar to pie charts, but each segment has the same angle
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -903,12 +903,12 @@ A radar chart is a graphical method of displaying multivariate data in the form 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -983,12 +983,12 @@ Bars can be stacked on top of each other when stacked option of a scale is enabl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -1085,12 +1085,12 @@ A bar chart or bar graph is a chart that presents grouped data with rectangular 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     template: `
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
     `,
     standalone: true,

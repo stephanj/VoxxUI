@@ -10,8 +10,8 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                PrimeNG uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
-                <i>.my-app-dark</i> so that PrimeNG can fit in seamlessly with your color scheme.
+                VoxxUI uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
+                <i>.my-app-dark</i> so that VoxxUI can fit in seamlessly with your color scheme.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
             <p class="mt-4">
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
 })
 export class DarkModeDoc {
     code1: Code = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {
@@ -50,7 +50,7 @@ export class DarkModeDoc {
     };
 
     code2 = {
-        html: `<p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
+        html: `<vx-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
     };
 
     code3 = {
@@ -65,7 +65,7 @@ export class DarkModeDoc {
     };
 
     code5: Code = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {

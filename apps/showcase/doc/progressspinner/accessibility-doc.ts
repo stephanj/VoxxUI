@@ -21,6 +21,6 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-progress-spinner aria-label="Loading"></p-progress-spinner>`
+        html: `<vx-progress-spinner aria-label="Loading"></vx-progress-spinner>`
     };
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
@@ -17,7 +17,7 @@ interface AutoCompleteCompleteEvent {
             <p>The fluid prop makes the component take up the full width of its container when set to true.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
+            <vx-autocomplete [(ngModel)]="value" [suggestions]="items" (completeMethod)="search($event)" fluid />
         </div>
         <app-code></app-code>`
 })

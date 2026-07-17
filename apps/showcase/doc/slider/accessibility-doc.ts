@@ -84,8 +84,8 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="label_number">Number</span>
-<p-slider ariaLabelledBy="label_number" />
+<vx-slider ariaLabelledBy="label_number" />
 
-<p-slider ariaLabel="Number" />`
+<vx-slider ariaLabel="Number" />`
     };
 }

@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     selector: 'stackedbar-doc',
@@ -15,7 +15,7 @@ import { ChartModule } from 'primeng/chart';
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code></app-code>
     `

@@ -1,14 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { ChevronLeftIcon, ChevronRightIcon } from 'primeng/icons';
-import { RippleModule } from 'primeng/ripple';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { ChevronLeftIcon, ChevronRightIcon } from 'voxx-ui/icons';
+import { RippleModule } from 'voxx-ui/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
-import { TabListPassThrough } from 'primeng/types/tabs';
+import { TabListPassThrough } from 'voxx-ui/types/tabs';
 
 const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 
@@ -17,7 +17,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-tablist',
+    selector: 'vx-tablist',
     standalone: true,
     imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, BindModule],
     template: `
@@ -25,8 +25,8 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
             <button
                 type="button"
                 #prevButton
-                pRipple
-                [pBind]="ptm('prevButton')"
+                vxRipple
+                [vxBind]="ptm('prevButton')"
                 [class]="cx('prevButton')"
                 [attr.aria-label]="prevButtonAriaLabel"
                 [attr.tabindex]="tabindex()"
@@ -40,18 +40,18 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
                 }
             </button>
         }
-        <div #content [pBind]="ptm('content')" [class]="cx('content')" (scroll)="onScroll($event)">
-            <div #tabs [pBind]="ptm('tabList')" [class]="cx('tabList')" role="tablist">
+        <div #content [vxBind]="ptm('content')" [class]="cx('content')" (scroll)="onScroll($event)">
+            <div #tabs [vxBind]="ptm('tabList')" [class]="cx('tabList')" role="tablist">
                 <ng-content />
-                <span #inkbar [pBind]="ptm('activeBar')" role="presentation" [class]="cx('activeBar')"></span>
+                <span #inkbar [vxBind]="ptm('activeBar')" role="presentation" [class]="cx('activeBar')"></span>
             </div>
         </div>
         @if (showNavigators() && isNextButtonEnabled()) {
             <button
                 type="button"
                 #nextButton
-                pRipple
-                [pBind]="ptm('nextButton')"
+                vxRipple
+                [vxBind]="ptm('nextButton')"
                 [class]="cx('nextButton')"
                 [attr.aria-label]="nextButtonAriaLabel"
                 [attr.tabindex]="tabindex()"

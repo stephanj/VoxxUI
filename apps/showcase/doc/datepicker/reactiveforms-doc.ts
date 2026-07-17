@@ -2,11 +2,11 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { DatePickerModule } from 'voxx-ui/datepicker';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'reactiveforms-doc',
@@ -16,16 +16,16 @@ import { ToastModule } from 'primeng/toast';
         <app-docsectiontext>
             <p>DatePicker can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
+                    <vx-datepicker formControlName="selectedDate" [invalid]="isInvalid('selectedDate')" />
                     @if (isInvalid('selectedDate')) {
-                        <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Date is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

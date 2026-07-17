@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as inputtext_style } from '@primeuix/styles/inputtext';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${inputtext_style}
 
-    /* For PrimeNG */
+    /* For VoxxUI */
    .p-inputtext.ng-invalid.ng-dirty {
         border-color: dt('inputtext.invalid.border.color');
     }
@@ -20,8 +20,8 @@ const classes = {
         'p-inputtext p-component',
         {
             'p-filled': instance.$filled(),
-            'p-inputtext-sm': instance.pSize === 'small',
-            'p-inputtext-lg': instance.pSize === 'large',
+            'p-inputtext-sm': instance.vxSize === 'small',
+            'p-inputtext-lg': instance.vxSize === 'large',
             'p-invalid': instance.invalid(),
             'p-variant-filled': instance.$variant() === 'filled',
             'p-inputtext-fluid': instance.hasFluid

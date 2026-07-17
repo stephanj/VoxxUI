@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, QueryList, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from 'primeng/types/splitter';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from 'voxx-ui/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
-import { SplitterPassThrough } from 'primeng/types/splitter';
+import { SplitterPassThrough } from 'voxx-ui/types/splitter';
 
 const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 
@@ -16,17 +16,17 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-splitter',
+    selector: 'vx-splitter',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
-            <div [pBind]="ptm('panel')" [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1">
+            <div [vxBind]="ptm('panel')" [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1">
                 <ng-container *ngTemplateOutlet="panel"></ng-container>
             </div>
             <div
                 *ngIf="i !== panels.length - 1"
-                [pBind]="ptm('gutter')"
+                [vxBind]="ptm('gutter')"
                 [class]="cx('gutter')"
                 role="separator"
                 tabindex="-1"
@@ -38,7 +38,7 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
                 [attr.data-p]="dataP"
             >
                 <div
-                    [pBind]="ptm('gutterHandle')"
+                    [vxBind]="ptm('gutterHandle')"
                     [class]="cx('gutterHandle')"
                     tabindex="0"
                     [ngStyle]="gutterStyle()"

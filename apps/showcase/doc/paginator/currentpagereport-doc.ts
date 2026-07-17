@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PaginatorState, PaginatorModule } from 'primeng/paginator';
+import { PaginatorState, PaginatorModule } from 'voxx-ui/paginator';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -20,7 +20,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </ul>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-paginator
+            <vx-paginator
                 (onPageChange)="onPageChange($event)"
                 [first]="first"
                 [rows]="rows"

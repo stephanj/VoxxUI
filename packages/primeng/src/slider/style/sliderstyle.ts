@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/slider';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const inlineStyles = {
     handle: { position: 'absolute' },

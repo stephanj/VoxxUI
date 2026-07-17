@@ -1,10 +1,10 @@
 import { HttpEvent } from '@angular/common/http';
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { BadgePassThrough } from 'primeng/types/badge';
-import type { ButtonPassThrough } from 'primeng/types/button';
-import type { MessagePassThrough } from 'primeng/types/message';
-import type { ProgressBarPassThrough } from 'primeng/types/progressbar';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import type { BadgePassThrough } from 'voxx-ui/types/badge';
+import type { ButtonPassThrough } from 'voxx-ui/types/button';
+import type { MessagePassThrough } from 'voxx-ui/types/message';
+import type { ProgressBarPassThrough } from 'voxx-ui/types/progressbar';
 
 /**
  * Custom pass-through(pt) options.

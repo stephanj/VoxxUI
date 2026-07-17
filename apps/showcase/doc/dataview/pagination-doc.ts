@@ -5,9 +5,9 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'pagination-doc',
@@ -19,14 +19,14 @@ import { TagModule } from 'primeng/tag';
             <p>Pagination is enabled with the <i>paginator</i> and <i>rows</i> properties. Refer to the <a routerLink="/paginator">Paginator</a> for more information about customizing the paginator.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
+            <vx-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of items; let first = first">
                             <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -47,8 +47,8 @@ import { TagModule } from 'primeng/tag';
                                     <div class="flex flex-col md:items-end gap-8">
                                         <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
                                         <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            <vx-button icon="pi pi-heart" [outlined]="true" />
+                                            <vx-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@ import { TagModule } from 'primeng/tag';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
         <app-code [extFiles]="['Product']"></app-code>
     `

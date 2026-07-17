@@ -12,12 +12,12 @@ Image is used as the native img element and supports all properties that the nat
 
 ```typescript
 import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'voxx-ui/image';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
+            <vx-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
     `,
     standalone: true,
@@ -32,12 +32,12 @@ Preview mode displays a modal layer when the image is clicked that provides tran
 
 ```typescript
 import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'voxx-ui/image';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" [preview]="true" />
+            <vx-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" [preview]="true" />
         </div>
     `,
     standalone: true,
@@ -52,12 +52,12 @@ In case that you want to show different image on preview, you can set previewIma
 
 ```typescript
 import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'voxx-ui/image';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="Image" width="250" [preview]="true" />
+            <vx-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="Image" width="250" [preview]="true" />
         </div>
     `,
     standalone: true,
@@ -72,12 +72,12 @@ An eye icon is displayed by default when the image is hovered in preview mode. U
 
 ```typescript
 import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'voxx-ui/image';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
+            <vx-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" [preview]="true" alt="Image" width="250">
                 <ng-template #indicator>
                     <i class="pi pi-search"></i>
                 </ng-template>
@@ -87,7 +87,7 @@ import { ImageModule } from 'primeng/image';
                 <ng-template #preview let-style="style" let-previewCallback="previewCallback">
                     <img src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="image" [style]="style" (click)="previewCallback()" />
                 </ng-template>
-            </p-image>
+            </vx-image>
         </div>
     `,
     standalone: true,

@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     selector: 'basic-doc',
@@ -18,7 +18,7 @@ import { ChartModule } from 'primeng/chart';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+            <vx-chart type="bar" [data]="basicData" [options]="basicOptions" />
         </div>
         <app-code></app-code>
     `

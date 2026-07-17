@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-import { InputTextModule } from 'primeng/inputtext';
+import { SliderModule } from 'voxx-ui/slider';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
@@ -15,8 +15,8 @@ import { AppCode } from '@/components/doc/app.code';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <div>
-                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
-                <p-slider [(ngModel)]="value" class="w-full" />
+                <input type="text" vxInputText [(ngModel)]="value" class="w-full mb-4" />
+                <vx-slider [(ngModel)]="value" class="w-full" />
             </div>
         </div>
         <app-code></app-code>

@@ -2,14 +2,14 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { providePrimeNG } from 'primeng/config';
-import { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
+import { provideVoxxUI } from 'voxx-ui/config';
+import { ColorPickerChangeEvent } from 'voxx-ui/types/colorpicker';
 import { ColorPicker } from './colorpicker';
 
 @Component({
     standalone: false,
     template: `
-        <p-colorpicker
+        <vx-colorpicker
             [(ngModel)]="color"
             [format]="format"
             [inline]="inline"
@@ -24,7 +24,7 @@ import { ColorPicker } from './colorpicker';
             (onShow)="onShowEvent($event)"
             (onHide)="onHideEvent($event)"
         >
-        </p-colorpicker>
+        </vx-colorpicker>
     `
 })
 class TestBasicColorPickerComponent {
@@ -62,7 +62,7 @@ class TestBasicColorPickerComponent {
     standalone: false,
     template: `
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <p-colorpicker formControlName="selectedColor" [format]="format" [defaultColor]="defaultColor" (onChange)="onColorChange($event)"> </p-colorpicker>
+            <vx-colorpicker formControlName="selectedColor" [format]="format" [defaultColor]="defaultColor" (onChange)="onColorChange($event)"> </vx-colorpicker>
         </form>
     `
 })
@@ -89,13 +89,13 @@ class TestReactiveFormColorPickerComponent {
     standalone: false,
     template: `
         <div>
-            <p-colorpicker [(ngModel)]="hexColor" format="hex" inputId="hex-picker"> </p-colorpicker>
+            <vx-colorpicker [(ngModel)]="hexColor" format="hex" inputId="hex-picker"> </vx-colorpicker>
         </div>
         <div>
-            <p-colorpicker [(ngModel)]="rgbColor" format="rgb" inputId="rgb-picker"> </p-colorpicker>
+            <vx-colorpicker [(ngModel)]="rgbColor" format="rgb" inputId="rgb-picker"> </vx-colorpicker>
         </div>
         <div>
-            <p-colorpicker [(ngModel)]="hsbColor" format="hsb" inputId="hsb-picker"> </p-colorpicker>
+            <vx-colorpicker [(ngModel)]="hsbColor" format="hsb" inputId="hsb-picker"> </vx-colorpicker>
         </div>
     `
 })
@@ -107,7 +107,7 @@ class TestFormatColorPickerComponent {
 
 @Component({
     standalone: false,
-    template: ` <p-colorpicker [(ngModel)]="color" [inline]="true" [disabled]="disabled" (onChange)="onColorChange($event)"> </p-colorpicker> `
+    template: ` <vx-colorpicker [(ngModel)]="color" [inline]="true" [disabled]="disabled" (onChange)="onColorChange($event)"> </vx-colorpicker> `
 })
 class TestInlineColorPickerComponent {
     color: string = '#ff0000';
@@ -122,7 +122,7 @@ class TestInlineColorPickerComponent {
 
 @Component({
     standalone: false,
-    template: ` <p-colorpicker [(ngModel)]="color" [disabled]="disabled" [autofocus]="autofocus" [inputId]="inputId" [tabindex]="tabindex" [defaultColor]="defaultColor" (onChange)="onColorChange($event)"> </p-colorpicker> `
+    template: ` <vx-colorpicker [(ngModel)]="color" [disabled]="disabled" [autofocus]="autofocus" [inputId]="inputId" [tabindex]="tabindex" [defaultColor]="defaultColor" (onChange)="onColorChange($event)"> </vx-colorpicker> `
 })
 class TestStyledColorPickerComponent {
     color: string = '#ff0000';
@@ -161,12 +161,12 @@ describe('ColorPicker', () => {
         it('should create the component', () => {
             expect(testComponent).toBeTruthy();
 
-            const colorPickerComponent = testFixture.debugElement.query(By.css('p-colorpicker'));
+            const colorPickerComponent = testFixture.debugElement.query(By.css('vx-colorpicker'));
             expect(colorPickerComponent).toBeTruthy();
         });
 
         it('should have default values', () => {
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
 
             expect(colorPickerInstance.format).toBe('hex');
             expect(colorPickerInstance.inline).toBeFalsy();
@@ -184,7 +184,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
 
             expect(colorPickerInstance.format).toBe('rgb');
             expect(colorPickerInstance.inline).toBe(true);
@@ -203,7 +203,7 @@ describe('ColorPicker', () => {
             testFixture = TestBed.createComponent(TestBasicColorPickerComponent);
             testComponent = testFixture.componentInstance;
             await testFixture.whenStable();
-            colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
         });
 
         it('should display color picker input when not inline', async () => {
@@ -350,7 +350,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
             expect(colorPickerInstance.disabled()).toBe(true);
         });
     });
@@ -420,7 +420,7 @@ describe('ColorPicker', () => {
         });
 
         it('should emit onChange event', async () => {
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
 
             const newColor = '#00ff00';
             const mockEvent = new Event('change');
@@ -442,7 +442,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
 
             colorPickerInstance.onShow.emit({});
             testFixture.changeDetectorRef.markForCheck();
@@ -456,7 +456,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
 
             colorPickerInstance.onHide.emit({});
             testFixture.changeDetectorRef.markForCheck();
@@ -486,7 +486,7 @@ describe('ColorPicker', () => {
 
         it('should handle keyboard navigation', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input[type="text"]'));
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
 
             // Focus the element
             inputElement.nativeElement.focus();
@@ -518,7 +518,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
             expect(colorPickerInstance.autofocus).toBe(true);
         });
     });
@@ -572,7 +572,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
             const input = testFixture.debugElement.query(By.css('input[type="text"]'));
 
             // Rapid clicks
@@ -594,7 +594,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
             expect(colorPickerInstance.defaultColor).toBe('00ff00');
         });
     });
@@ -715,7 +715,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
             let changeCount = 0;
 
             colorPickerInstance.onChange.subscribe(() => {
@@ -749,7 +749,7 @@ describe('ColorPicker', () => {
 
             expect(endTime - startTime).toBeLessThan(1000); // Should render in less than 1 second
 
-            const colorPickers = multipleTestComponent.debugElement.queryAll(By.css('p-colorpicker'));
+            const colorPickers = multipleTestComponent.debugElement.queryAll(By.css('vx-colorpicker'));
             expect(colorPickers.length).toBe(3);
             await multipleTestComponent.whenStable();
         });
@@ -782,7 +782,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerComponent = testFixture.debugElement.query(By.css('p-colorpicker'));
+            const colorPickerComponent = testFixture.debugElement.query(By.css('vx-colorpicker'));
             expect(colorPickerComponent).toBeTruthy();
         });
 
@@ -797,7 +797,7 @@ describe('ColorPicker', () => {
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
-                const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+                const colorPickerInstance = testFixture.debugElement.query(By.css('vx-colorpicker')).componentInstance;
                 expect(colorPickerInstance).toBeTruthy();
             }
         });
@@ -810,7 +810,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: 'PT_ROOT_CLASS',
@@ -863,7 +863,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: 'PT_ROOT_OVERLAY',
@@ -892,7 +892,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -962,7 +962,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1028,7 +1028,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
@@ -1073,7 +1073,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
@@ -1121,7 +1121,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
@@ -1173,7 +1173,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1237,7 +1237,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 colorHandle: ({ instance }: any) => ({
@@ -1280,7 +1280,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => {
@@ -1323,7 +1323,7 @@ describe('ColorPicker', () => {
                 standalone: true,
                 imports: [ColorPicker, FormsModule],
                 template: `
-                    <p-colorpicker
+                    <vx-colorpicker
                         [pt]="{
                             root: 'INLINE_PT_ROOT',
                             panel: 'INLINE_PT_PANEL',
@@ -1331,7 +1331,7 @@ describe('ColorPicker', () => {
                         }"
                         [inline]="true"
                     >
-                    </p-colorpicker>
+                    </vx-colorpicker>
                 `
             })
             class TestInlinePTComponent {}
@@ -1345,7 +1345,7 @@ describe('ColorPicker', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const rootEl = fixture.nativeElement.querySelector('p-colorpicker');
+            const rootEl = fixture.nativeElement.querySelector('vx-colorpicker');
             expect(rootEl.className).toContain('INLINE_PT_ROOT');
 
             const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
@@ -1360,7 +1360,7 @@ describe('ColorPicker', () => {
                 standalone: true,
                 imports: [ColorPicker, FormsModule],
                 template: `
-                    <p-colorpicker
+                    <vx-colorpicker
                         [pt]="{
                             root: { class: 'INLINE_OBJ_ROOT' },
                             panel: {
@@ -1370,7 +1370,7 @@ describe('ColorPicker', () => {
                         }"
                         [inline]="true"
                     >
-                    </p-colorpicker>
+                    </vx-colorpicker>
                 `
             })
             class TestInlineObjectPTComponent {}
@@ -1384,7 +1384,7 @@ describe('ColorPicker', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const rootEl = fixture.nativeElement.querySelector('p-colorpicker');
+            const rootEl = fixture.nativeElement.querySelector('vx-colorpicker');
             expect(rootEl.className).toContain('INLINE_OBJ_ROOT');
 
             const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
@@ -1392,13 +1392,13 @@ describe('ColorPicker', () => {
             expect(panel?.getAttribute('data-p-inline')).toBe('true');
         });
 
-        // Case 8: Test from PrimeNGConfig (global PT)
-        it('PT Case 8a: should apply global PT configuration from PrimeNGConfig', async () => {
+        // Case 8: Test from VoxxUIConfig (global PT)
+        it('PT Case 8a: should apply global PT configuration from VoxxUIConfig', async () => {
             TestBed.configureTestingModule({
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1446,7 +1446,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1484,7 +1484,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1535,9 +1535,9 @@ describe('ColorPicker', () => {
                 standalone: true,
                 imports: [ColorPicker, FormsModule],
                 template: `
-                    <p-colorpicker [inline]="true" id="picker1"></p-colorpicker>
-                    <p-colorpicker [inline]="true" id="picker2"></p-colorpicker>
-                    <p-colorpicker [inline]="true" id="picker3"></p-colorpicker>
+                    <vx-colorpicker [inline]="true" id="picker1"></vx-colorpicker>
+                    <vx-colorpicker [inline]="true" id="picker2"></vx-colorpicker>
+                    <vx-colorpicker [inline]="true" id="picker3"></vx-colorpicker>
                 `
             })
             class TestMultiplePTComponent {}
@@ -1546,7 +1546,7 @@ describe('ColorPicker', () => {
                 imports: [TestMultiplePTComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: 'GLOBAL_MULTI_ROOT',
@@ -1563,7 +1563,7 @@ describe('ColorPicker', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const pickers = fixture.nativeElement.querySelectorAll('p-colorpicker');
+            const pickers = fixture.nativeElement.querySelectorAll('vx-colorpicker');
             expect(pickers.length).toBe(3);
 
             pickers.forEach((picker: HTMLElement) => {
@@ -1582,7 +1582,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: 'HOOKS_ROOT_CLASS',
@@ -1618,7 +1618,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 hooks: {
@@ -1655,7 +1655,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 hooks: {
@@ -1698,7 +1698,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({

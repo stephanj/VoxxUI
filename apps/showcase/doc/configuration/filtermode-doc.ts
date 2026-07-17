@@ -16,7 +16,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class FilterModeDoc {
     code: Code = {
-        typescript: `import { PrimeNGConfig } from 'primeng/api';
+        typescript: `import { VoxxUIConfig } from 'voxx-ui/api';
 
 @Component({
     selector: 'app-root',
@@ -24,7 +24,7 @@ export class FilterModeDoc {
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primengConfig: VoxxUIConfig) {}
 
     ngOnInit() {
         primengConfig.filterMatchModeOptions = {

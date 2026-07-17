@@ -12,23 +12,23 @@ DataView requires a value to display along with a list template that receives an
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-dataview #dv [value]="products()">
+            <vx-dataview #dv [value]="products()">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of items; let first = first">
                             <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -49,8 +49,8 @@ import { Product } from '@/domain/product';
                                     <div class="flex flex-col md:items-end gap-8">
                                         <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
                                         <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            <vx-button icon="pi pi-heart" [outlined]="true" />
+                                            <vx-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@ import { Product } from '@/domain/product';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
     `,
     standalone: true,
@@ -102,24 +102,24 @@ DataView supports list and grid display modes defined with the layout property. 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { TagModule } from 'voxx-ui/tag';
+import { ButtonModule } from 'voxx-ui/button';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-dataview #dv [value]="products()" [layout]="layout">
+            <vx-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
-                        <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                        <vx-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                             <ng-template #item let-item>
                                 <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                             </ng-template>
-                        </p-selectbutton>
+                        </vx-selectbutton>
                     </div>
                 </ng-template>
                 <ng-template #list let-items>
@@ -127,7 +127,7 @@ import { Product } from '@/domain/product';
                         <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                             <div class="md:w-40 relative">
                                 <img class="block xl:block mx-auto rounded w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                             <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                 <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -160,7 +160,7 @@ import { Product } from '@/domain/product';
                                 <div class="bg-surface-50 flex justify-center rounded p-4">
                                     <div class="relative mx-auto">
                                         <img class="rounded w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px" />
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                        <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                     </div>
                                 </div>
                                 <div class="pt-6">
@@ -188,7 +188,7 @@ import { Product } from '@/domain/product';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
     `,
     standalone: true,
@@ -215,42 +215,42 @@ While data is being loaded. Skeleton component may be used to indicate the busy 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SkeletonModule } from 'primeng/skeleton';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { SkeletonModule } from 'voxx-ui/skeleton';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-dataview #dv [value]="products()" [layout]="layout">
+            <vx-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
-                        <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                        <vx-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                             <ng-template #item let-option>
                                 <i [class]="option === 'list' ? 'pi pi-bars' : 'pi pi-table'"></i>
                             </ng-template>
-                        </p-selectbutton>
+                        </vx-selectbutton>
                     </div>
                 </ng-template>
                 <ng-template #list let-items>
                     <div class="flex flex-col">
                         <div *ngFor="let i of counterArray(6); let first = first">
                             <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
+                                <vx-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
                                 <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
                                     <div class="flex flex-col items-center sm:items-start gap-4">
-                                        <p-skeleton width="8rem" height="2rem" />
-                                        <p-skeleton width="6rem" height="1rem" />
+                                        <vx-skeleton width="8rem" height="2rem" />
+                                        <vx-skeleton width="6rem" height="1rem" />
                                         <div class="flex items-center gap-4">
-                                            <p-skeleton width="6rem" height="1rem" />
-                                            <p-skeleton width="3rem" height="1rem" />
+                                            <vx-skeleton width="6rem" height="1rem" />
+                                            <vx-skeleton width="3rem" height="1rem" />
                                         </div>
                                     </div>
                                     <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
-                                        <p-skeleton width="4rem" height="2rem" />
-                                        <p-skeleton size="3rem" shape="circle" />
+                                        <vx-skeleton width="4rem" height="2rem" />
+                                        <vx-skeleton size="3rem" shape="circle" />
                                     </div>
                                 </div>
                             </div>
@@ -262,23 +262,23 @@ import { Product } from '@/domain/product';
                         <div *ngFor="let i of counterArray(6); let first = first" class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
                             <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
                                 <div class="flex flex-wrap items-center justify-between gap-2">
-                                    <p-skeleton width="6rem" height="2rem" />
-                                    <p-skeleton width="3rem" height="1rem" />
+                                    <vx-skeleton width="6rem" height="2rem" />
+                                    <vx-skeleton width="3rem" height="1rem" />
                                 </div>
                                 <div class="flex flex-col items-center gap-4 py-8">
-                                    <p-skeleton height="10rem" class="w-3/4" class="w-3/4" />
-                                    <p-skeleton width="8rem" height="2rem" />
-                                    <p-skeleton width="6rem" height="1rem" />
+                                    <vx-skeleton height="10rem" class="w-3/4" class="w-3/4" />
+                                    <vx-skeleton width="8rem" height="2rem" />
+                                    <vx-skeleton width="6rem" height="1rem" />
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <p-skeleton width="4rem" height="2rem" />
-                                    <p-skeleton width="6rem" height="1rem" shape="circle" size="3rem" />
+                                    <vx-skeleton width="4rem" height="2rem" />
+                                    <vx-skeleton width="6rem" height="1rem" shape="circle" size="3rem" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
     `,
     standalone: true,
@@ -306,23 +306,23 @@ Pagination is enabled with the paginator and rows properties. Refer to the Pagin
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
+            <vx-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of items; let first = first">
                             <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -343,8 +343,8 @@ import { Product } from '@/domain/product';
                                     <div class="flex flex-col md:items-end gap-8">
                                         <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
                                         <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            <vx-button icon="pi pi-heart" [outlined]="true" />
+                                            <vx-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
                                         </div>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@ import { Product } from '@/domain/product';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
     `,
     standalone: true,
@@ -378,21 +378,21 @@ Built-in sorting is controlled by bindings sortField and sortOrder properties fr
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectModule } from 'primeng/select';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { SelectModule } from 'voxx-ui/select';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
-import { SelectItem } from 'primeng/api';
+import { SelectItem } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
+            <vx-dataview #dv [value]="products()" [sortField]="sortField" [sortOrder]="sortOrder">
                 <ng-template #header>
                     <div class="flex flex-col md:flex-row md:justify-between">
-                        <p-select [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" class="mb-2 md:mb-0" />
+                        <vx-select [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" class="mb-2 md:mb-0" />
                     </div>
                 </ng-template>
                 <ng-template #list let-items>
@@ -401,7 +401,7 @@ import { Product } from '@/domain/product';
                             <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
+                                    <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                     <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -422,8 +422,8 @@ import { Product } from '@/domain/product';
                                     <div class="flex flex-col md:items-end gap-8">
                                         <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
                                         <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            <vx-button icon="pi pi-heart" [outlined]="true" />
+                                            <vx-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
                                         </div>
                                     </div>
                                 </div>
@@ -431,7 +431,7 @@ import { Product } from '@/domain/product';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
     `,
     standalone: true,

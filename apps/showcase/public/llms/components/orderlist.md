@@ -12,18 +12,18 @@ OrderList is used as a controlled input with value property. Content of a list i
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
+            <vx-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
                 <ng-template #item let-option>
                     {{ option.name }}
                 </ng-template>
-            </p-orderlist>
+            </vx-orderlist>
         </div>
     `,
     standalone: true,
@@ -59,14 +59,14 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <vx-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -85,7 +85,7 @@ import { Product } from '@/domain/product';
                         <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderlist>
+            </vx-orderlist>
         </div>
     `,
     standalone: true,
@@ -121,14 +121,14 @@ Filter value is checked against the property of an object configured with the fi
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
+            <vx-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -147,7 +147,7 @@ import { Product } from '@/domain/product';
                         <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderlist>
+            </vx-orderlist>
         </div>
     `,
     standalone: true,
@@ -183,14 +183,14 @@ For custom content support define an item template that gets the item instance a
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
+            <vx-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -209,7 +209,7 @@ import { Product } from '@/domain/product';
                         <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
-            </p-orderlist>
+            </vx-orderlist>
         </div>
     `,
     standalone: true,

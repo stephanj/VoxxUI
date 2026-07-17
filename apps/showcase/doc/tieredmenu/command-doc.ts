@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { ToastModule } from 'primeng/toast';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'command-doc',
@@ -15,8 +15,8 @@ import { ToastModule } from 'primeng/toast';
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-tieredmenu [model]="items" />
+            <vx-toast />
+            <vx-tieredmenu [model]="items" />
         </div>
         <app-code></app-code>
     `

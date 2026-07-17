@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "primeng": {
+        "voxx-ui": {
             "root": "src",
             "projectType": "library",
             "architect": {

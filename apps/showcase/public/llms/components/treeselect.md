@@ -13,14 +13,14 @@ TreeSelect is used as a controlled component with ng-model directive along with 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+            <vx-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
         </div>
     `,
     standalone: true,
@@ -48,13 +48,13 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
+            <vx-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
         </div>
     `,
     standalone: true,
@@ -82,13 +82,13 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
+            <vx-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" class="md:w-80 w-full" [showClear]="true" />
         </div>
     `,
     standalone: true,
@@ -116,13 +116,13 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
+            <vx-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
         </div>
     `,
     standalone: true,
@@ -150,13 +150,13 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
+            <vx-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
         </div>
     `,
     standalone: true,
@@ -184,13 +184,13 @@ Filtering is enabled by adding the filter property, by default label property of
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
+            <vx-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
         </div>
     `,
     standalone: true,
@@ -218,25 +218,25 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-80">
-                <p-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" />
+            <vx-floatlabel class="w-full md:w-80">
+                <vx-treeselect [(ngModel)]="value1" inputId="over_label" [options]="nodes" class="w-full" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-80" variant="in">
-                <p-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" />
+            </vx-floatlabel>
+            <vx-floatlabel class="w-full md:w-80" variant="in">
+                <vx-treeselect [(ngModel)]="value2" inputId="in_label" [options]="nodes" class="w-full" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-80" variant="on">
-                <p-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" />
+            </vx-floatlabel>
+            <vx-floatlabel class="w-full md:w-80" variant="on">
+                <vx-treeselect [(ngModel)]="value3" inputId="on_label" [options]="nodes" class="w-full" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
     `,
     standalone: true,
@@ -266,13 +266,13 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card">
-            <p-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" fluid />
+            <vx-treeselect [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" fluid />
         </div>
     `,
     standalone: true,
@@ -300,17 +300,17 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { IftaLabelModule } from 'voxx-ui/iftalabel';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-80">
-                <p-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
+            <vx-iftalabel class="w-full md:w-80">
+                <vx-treeselect [(ngModel)]="selectedValue" inputId="t_file" [options]="nodes" class="w-full" />
                 <label for="t_file">File</label>
-            </p-iftalabel>
+            </vx-iftalabel>
         </div>
     `,
     standalone: true,
@@ -338,14 +338,14 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
-            <p-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
-            <p-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+            <vx-treeselect [invalid]="selectedValue1 === undefined" [(ngModel)]="selectedValue1" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
+            <vx-treeselect [invalid]="selectedValue2 === undefined" [(ngModel)]="selectedValue2" [options]="nodes" placeholder="TreeSelect" class="md:w-80 w-full" />
         </div>
     `,
     standalone: true,
@@ -374,13 +374,13 @@ Lazy loading is useful when dealing with huge datasets, in this example nodes ar
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { TreeNode } from 'primeng/api';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect
+            <vx-treeselect
                 class="w-full md:w-80"
                 [(ngModel)]="selectedNodes"
                 (onNodeExpand)="onNodeExpand($event)"
@@ -462,13 +462,13 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
+            <vx-treeselect class="w-full md:w-80" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
         </div>
     `,
     standalone: true,
@@ -496,22 +496,22 @@ TreeSelect can also be used with reactive forms. In this case, the formControlNa
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
+import { ButtonModule } from 'voxx-ui/button';
 import { NodeService } from '@/service/nodeservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full md:w-80">
                 <div class="flex flex-col gap-1">
-                    <p-treeselect class="md:w-80 w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" [invalid]="isInvalid('selectedNodes')" />
+                    <vx-treeselect class="md:w-80 w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" [invalid]="isInvalid('selectedNodes')" />
                     @if (isInvalid('selectedNodes')) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Selection is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -562,15 +562,15 @@ TreeSelect provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-treeselect [(ngModel)]="value1" [options]="nodes" size="small" placeholder="Small" class="md:w-80 w-full" />
-            <p-treeselect [(ngModel)]="value2" [options]="nodes" placeholder="Normal" class="md:w-80 w-full" />
-            <p-treeselect [(ngModel)]="value3" [options]="nodes" size="large" placeholder="Large" class="md:w-80 w-full" />
+            <vx-treeselect [(ngModel)]="value1" [options]="nodes" size="small" placeholder="Small" class="md:w-80 w-full" />
+            <vx-treeselect [(ngModel)]="value2" [options]="nodes" placeholder="Normal" class="md:w-80 w-full" />
+            <vx-treeselect [(ngModel)]="value3" [options]="nodes" size="large" placeholder="Large" class="md:w-80 w-full" />
         </div>
     `,
     standalone: true,
@@ -600,14 +600,14 @@ TreeSelect offers multiple templates for customization through templating.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { ButtonModule } from 'voxx-ui/button';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
+            <vx-treeselect class="md:w-80 w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item">
                 <ng-template #dropdownicon>
                     <i class="pi pi-search"></i>
                 </ng-template>
@@ -616,11 +616,11 @@ import { NodeService } from '@/service/nodeservice';
                 </ng-template>
                 <ng-template #footer>
                     <div class="px-3 pt-1 pb-2 flex justify-between">
-                        <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-                        <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-plus" />
+                        <vx-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
+                        <vx-button label="Remove All" severity="danger" text size="small" icon="pi pi-plus" />
                     </div>
                 </ng-template>
-            </p-treeselect>
+            </vx-treeselect>
         </div>
     `,
     standalone: true,
@@ -646,22 +646,22 @@ export class TreeselectTemplateDemo implements OnInit {
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
+import { ButtonModule } from 'voxx-ui/button';
 import { NodeService } from '@/service/nodeservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full md:w-80">
                 <div class="flex flex-col gap-1">
-                    <p-treeselect #node="ngModel" [(ngModel)]="selectedNodes" [invalid]="node.invalid && exampleForm.submitted" name="node" class="md:w-80 w-full" [options]="nodes" placeholder="Select Item" required />
+                    <vx-treeselect #node="ngModel" [(ngModel)]="selectedNodes" [invalid]="node.invalid && exampleForm.submitted" name="node" class="md:w-80 w-full" [options]="nodes" placeholder="Select Item" required />
                     @if (node.invalid && exampleForm.submitted) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Selection is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -701,13 +701,13 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'voxx-ui/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-treeselect
+            <vx-treeselect
                 class="w-full md:w-80"
                 [(ngModel)]="selectedNodes"
                 [options]="nodes"
@@ -718,7 +718,7 @@ import { NodeService } from '@/service/nodeservice';
                 [virtualScroll]="true"
                 [virtualScrollItemSize]="35"
                 [virtualScrollOptions]="{ scrollHeight: '200px' }"
-            ></p-treeselect>
+            ></vx-treeselect>
         </div>
     `,
     standalone: true,

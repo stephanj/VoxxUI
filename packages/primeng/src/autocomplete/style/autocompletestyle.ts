@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as autocomplete_style } from '@primeuix/styles/autocomplete';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
 ${autocomplete_style}
 
-/* For PrimeNG */
+/* For VoxxUI */
 p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
 p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
 p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,

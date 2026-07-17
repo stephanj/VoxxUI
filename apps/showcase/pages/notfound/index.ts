@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
                 <span class="font-bold text-9xl"> 4 </span>
             </div>
             <div class="font-bold text-center text-4xl border-t border-surface pt-8">Page Not Found</div>
-            <p-button label="GO TO HOMEPAGE" routerLink="/" />
+            <vx-button label="GO TO HOMEPAGE" routerLink="/" />
         </div>
     </div>`
 })

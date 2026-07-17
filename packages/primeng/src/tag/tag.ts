@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { TagPassThrough } from 'primeng/types/tag';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { TagPassThrough } from 'voxx-ui/types/tag';
 import { TagStyle } from './style/tagstyle';
 
 const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
@@ -13,18 +13,18 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-tag',
+    selector: 'vx-tag',
     standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
         <ng-container *ngIf="!iconTemplate && !_iconTemplate">
-            <span [class]="cx('icon')" [ngClass]="icon" [pBind]="ptm('icon')" *ngIf="icon"></span>
+            <span [class]="cx('icon')" [ngClass]="icon" [vxBind]="ptm('icon')" *ngIf="icon"></span>
         </ng-container>
-        <span [class]="cx('icon')" [pBind]="ptm('icon')" *ngIf="iconTemplate || _iconTemplate">
+        <span [class]="cx('icon')" [vxBind]="ptm('icon')" *ngIf="iconTemplate || _iconTemplate">
             <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
         </span>
-        <span [class]="cx('label')" [pBind]="ptm('label')">{{ value }}</span>
+        <span [class]="cx('label')" [vxBind]="ptm('label')">{{ value }}</span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

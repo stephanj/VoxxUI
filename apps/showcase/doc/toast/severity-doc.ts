@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
     selector: 'severity-doc',
@@ -18,13 +18,13 @@ import { Ripple } from 'primeng/ripple';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
-            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
-            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
-            <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
-            <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
-            <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
+            <vx-toast />
+            <vx-button type="button" vxRipple (click)="showSuccess()" label="Success" severity="success" />
+            <vx-button type="button" vxRipple (click)="showInfo()" label="Info" severity="info" />
+            <vx-button type="button" vxRipple (click)="showWarn()" label="Warn" severity="warn" />
+            <vx-button type="button" vxRipple (click)="showError()" label="Error" severity="danger" />
+            <vx-button type="button" vxRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+            <vx-button type="button" vxRipple (click)="showContrast()" label="Contrast" severity="contrast" />
         </div>
         <app-code></app-code>
     `,

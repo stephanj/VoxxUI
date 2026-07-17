@@ -3,9 +3,9 @@ import { CommonModule, DOCUMENT, isPlatformBrowser, Location } from '@angular/co
 import { Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils } from 'primeng/utils';
+import { ButtonModule } from 'voxx-ui/button';
+import { DomHandler } from 'voxx-ui/dom';
+import { ObjectUtils } from 'voxx-ui/utils';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -48,10 +48,10 @@ import { fromEvent } from 'rxjs';
                     <div class="text-center text-sm mt-4 text-secondary">{{ ad.details }}</div>
                     <span class="flex justify-center mt-4">
                         @if (ad.href) {
-                            <a pButton label="Learn More" size="small" [href]="ad.href" target="_blank" rel="noopener" rounded></a>
+                            <a vxButton label="Learn More" size="small" [href]="ad.href" target="_blank" rel="noopener" rounded></a>
                         }
                         @if (ad.routerLink) {
-                            <a pButton label="Learn More" size="small" [routerLink]="ad.routerLink" rounded></a>
+                            <a vxButton label="Learn More" size="small" [routerLink]="ad.routerLink" rounded></a>
                         }
                     </span>
                 </div>
@@ -65,7 +65,7 @@ import { fromEvent } from 'rxjs';
                     </div>
                     <div class="text-center text-sm mt-4">Apply coupon code <b>ENDOFYEAR25</b> at checkout to enjoy 25% off your order.</div>
                     <span class="flex justify-center">
-                        <p-button label="Buy Now" size="small" href="https://primeui.store" target="_blank" rel="noopener" class="mt-4 inline-flex" rounded />
+                        <vx-button label="Buy Now" size="small" href="https://primeui.store" target="_blank" rel="noopener" class="mt-4 inline-flex" rounded />
                     </span>
                 </div>
             }
@@ -90,7 +90,7 @@ export class AppDocSectionNav implements OnInit {
             lightImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/primeblocks-menu-light.jpg',
             darkImage: 'https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/ads/primeblocks-menu-dark.jpg',
             title: 'PrimeBlocks',
-            details: '490+ ready to use UI blocks crafted with PrimeNG and Tailwind CSS.',
+            details: '490+ ready to use UI blocks crafted with VoxxUI and Tailwind CSS.',
             href: 'https://primeblocks.org'
         },
         {

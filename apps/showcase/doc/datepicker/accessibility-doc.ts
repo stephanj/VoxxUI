@@ -235,11 +235,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="date1">Date</label>
-<p-datepicker inputId="date1"/>
+<vx-datepicker inputId="date1"/>
 
 <span id="date2">Date</span>
-<p-datepicker ariaLabelledBy="date2"/>
+<vx-datepicker ariaLabelledBy="date2"/>
 
-<p-datepicker ariaLabel="Date"/>`
+<vx-datepicker ariaLabel="Date"/>`
     };
 }

@@ -3,13 +3,13 @@ import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { SelectModule } from 'primeng/select';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { SelectModule } from 'voxx-ui/select';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
@@ -25,9 +25,9 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
             </p>
             <p>The optional global filtering searches the data against a single value that is bound to the <i>global</i> key of the <i>filters</i> object. The fields to search against is defined with the <i>globalFilterFields</i>.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
+                <vx-table
                     #dt2
                     [value]="customers"
                     dataKey="id"
@@ -40,12 +40,12 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                 >
                     <ng-template #caption>
                         <div class="flex">
-                            <p-iconfield iconPosition="left" class="ml-auto">
-                                <p-inputicon>
+                            <vx-iconfield iconPosition="left" class="ml-auto">
+                                <vx-inputicon>
                                     <i class="pi pi-search"></i>
-                                </p-inputicon>
-                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                            </p-iconfield>
+                                </vx-inputicon>
+                                <input vxInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </vx-iconfield>
                         </div>
                     </ng-template>
                     <ng-template #header>
@@ -58,38 +58,38 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                         </tr>
                         <tr>
                             <th>
-                                <p-columnFilter type="text" field="name" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
+                                <vx-columnFilter type="text" field="name" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></vx-columnFilter>
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="country.name" placeholder="Enter key to search" ariaLabel="Filter Country"></p-columnFilter>
+                                <vx-columnFilter type="text" field="country.name" placeholder="Enter key to search" ariaLabel="Filter Country"></vx-columnFilter>
                             </th>
                             <th>
-                                <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                                <vx-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
+                                        <vx-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                             <ng-template let-option #item>
                                                 <div class="flex items-center gap-2">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                     <span>{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
-                                        </p-multiselect>
+                                        </vx-multiselect>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </th>
                             <th>
-                                <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                                <vx-columnFilter field="status" matchMode="equals" [showMenu]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true" style="min-width: 12rem">
+                                        <vx-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true" style="min-width: 12rem">
                                             <ng-template let-option #item>
-                                                <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
+                                                <vx-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                                             </ng-template>
-                                        </p-select>
+                                        </vx-select>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </th>
                             <th>
-                                <p-columnFilter type="boolean" field="verified"></p-columnFilter>
+                                <vx-columnFilter type="boolean" field="verified"></vx-columnFilter>
                             </th>
                         </tr>
                     </ng-template>
@@ -111,7 +111,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                                 </div>
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                                <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
                                 <i
@@ -129,9 +129,9 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                             <td colspan="5">No customers found.</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

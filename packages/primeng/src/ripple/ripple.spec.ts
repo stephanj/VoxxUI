@@ -5,13 +5,13 @@ import { Ripple } from './ripple';
 
 @Component({
     standalone: false,
-    template: `<button pRipple class="test-button">Click me</button>`
+    template: `<button vxRipple class="test-button">Click me</button>`
 })
 class TestBasicRippleComponent {}
 
 @Component({
     standalone: false,
-    template: `<div pRipple class="test-div" [style]="style">Ripple Div</div>`
+    template: `<div vxRipple class="test-div" [style]="style">Ripple Div</div>`
 })
 class TestStyledRippleComponent {
     style = { width: '200px', height: '100px', position: 'relative' };
@@ -20,9 +20,9 @@ class TestStyledRippleComponent {
 @Component({
     standalone: false,
     template: `
-        <div pRipple class="multiple-ripple-1">First</div>
-        <div pRipple class="multiple-ripple-2">Second</div>
-        <span pRipple class="multiple-ripple-3">Third</span>
+        <div vxRipple class="multiple-ripple-1">First</div>
+        <div vxRipple class="multiple-ripple-2">Second</div>
+        <span vxRipple class="multiple-ripple-3">Third</span>
     `
 })
 class TestMultipleRippleComponent {}
@@ -30,7 +30,7 @@ class TestMultipleRippleComponent {}
 @Component({
     standalone: false,
     template: `
-        <div pRipple class="nested-container">
+        <div vxRipple class="nested-container">
             <span>Nested content</span>
             <button>Nested button</button>
         </div>
@@ -40,7 +40,7 @@ class TestNestedRippleComponent {}
 
 @Component({
     standalone: false,
-    template: `<div pRipple [style]="style" [class]="styleClass">Custom Styled Ripple</div>`
+    template: `<div vxRipple [style]="style" [class]="styleClass">Custom Styled Ripple</div>`
 })
 class TestCustomStyledComponent {
     style = { background: 'lightblue', border: '1px solid blue' };

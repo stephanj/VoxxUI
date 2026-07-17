@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
-    /* For PrimeNG */
+    /* For VoxxUI */
     p-inputmask {
         position: relative;
     }

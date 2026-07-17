@@ -12,14 +12,14 @@ PanelMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'voxx-ui/panelmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { PanelMenu } from 'voxx-ui/panelmenu';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" class="w-full md:w-80" />
+            <vx-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
     `,
     standalone: true,
@@ -117,16 +117,16 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'voxx-ui/panelmenu';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { PanelMenu } from 'voxx-ui/panelmenu';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-panelmenu [model]="items" class="w-full md:w-80" />
+            <vx-toast />
+            <vx-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
     `,
     standalone: true,
@@ -214,16 +214,16 @@ Menu items can be controlled programmatically.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { ButtonModule } from 'voxx-ui/button';
+import { PanelMenu, PanelMenuModule } from 'voxx-ui/panelmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { PanelMenu } from 'voxx-ui/panelmenu';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-            <p-panelmenu [model]="items" class="w-full md:w-80" />
+            <vx-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
+            <vx-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
     `,
     standalone: true,
@@ -313,14 +313,14 @@ Only one single root menuitem can be active by default, enable multiple property
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'voxx-ui/panelmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { PanelMenu } from 'voxx-ui/panelmenu';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
+            <vx-panelmenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
         </div>
     `,
     standalone: true,
@@ -418,14 +418,14 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'voxx-ui/panelmenu';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { PanelMenu } from 'voxx-ui/panelmenu';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-panelmenu [model]="items" class="w-full md:w-80" />
+            <vx-panelmenu [model]="items" class="w-full md:w-80" />
         </div>
     `,
     standalone: true,
@@ -488,25 +488,25 @@ PanelMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { BadgeModule } from 'voxx-ui/badge';
+import { PanelMenu, PanelMenuModule } from 'voxx-ui/panelmenu';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MenuItem } from 'voxx-ui/api';
+import { PanelMenu } from 'voxx-ui/panelmenu';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center">
-            <p-panelmenu [model]="items" class="w-full md:w-80">
+            <vx-panelmenu [model]="items" class="w-full md:w-80">
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
-            </p-panelmenu>
+            </vx-panelmenu>
         </div>
     `,
     standalone: true,

@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'global-doc',
@@ -24,7 +24,7 @@ export class GlobalDoc {
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNG({
+        provideVoxxUI({
             unstyled: true,
             pt: {
                 button: {

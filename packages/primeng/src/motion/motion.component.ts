@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked } from '@angular/core';
 import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import type { MotionPassThrough } from 'primeng/types/motion';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import type { MotionPassThrough } from 'voxx-ui/types/motion';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
 
@@ -15,7 +15,7 @@ const MOTION_INSTANCE = new InjectionToken<Motion>('MOTION_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-motion',
+    selector: 'vx-motion',
     standalone: true,
     imports: [CommonModule, BindModule],
     template: `

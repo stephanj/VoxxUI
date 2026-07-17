@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
+import { RatingModule } from 'voxx-ui/rating';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -13,14 +13,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value">
+            <vx-rating [(ngModel)]="value">
                 <ng-template #onicon>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
                 </ng-template>
                 <ng-template #officon>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
                 </ng-template>
-            </p-rating>
+            </vx-rating>
         </div>
         <app-code></app-code>
     `

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@primeuix/utils/dom';
-import { PrimeNG } from 'primeng/config';
+import { VoxxUI } from 'voxx-ui/config';
 import { AppDocSectionText } from './app.docsectiontext';
 
 interface DocItem {
@@ -83,7 +83,7 @@ export const getPTOptions = (name) => {
     template: `
         <app-docsectiontext>
             <p>
-                Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a PrimeNG component not a DOM element. Visit the
+                Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a VoxxUI component not a DOM element. Visit the
                 <a routerLink="/passthrough">pass-through</a> documentation for more information.
             </p>
         </app-docsectiontext>
@@ -115,7 +115,7 @@ export class AppDocPtViewer {
 
     container = viewChild<ElementRef>('container');
 
-    primeng: PrimeNG = inject(PrimeNG);
+    primeng: VoxxUI = inject(VoxxUI);
 
     hoveredElements: any[] = [];
 

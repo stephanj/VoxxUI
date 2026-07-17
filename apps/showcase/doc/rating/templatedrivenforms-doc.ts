@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { RatingModule } from 'primeng/rating';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { MessageService } from 'voxx-ui/api';
+import { RatingModule } from 'voxx-ui/rating';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
@@ -16,16 +16,16 @@ import { CommonModule } from '@angular/common';
     providers: [MessageService],
     template: `
         <app-docsectiontext></app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
                 <div class="flex flex-col items-center gap-2">
-                    <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
+                    <vx-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
                     @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

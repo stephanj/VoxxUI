@@ -12,14 +12,14 @@ Galleria can be extended further to implement complex requirements.
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
+import { GalleriaModule } from 'voxx-ui/galleria';
+import { ButtonModule } from 'voxx-ui/button';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
         <div class="card">
-            <p-galleria
+            <vx-galleria
                 #galleria
                 [(value)]="images"
                 [(activeIndex)]="activeIndex"
@@ -71,7 +71,7 @@ import { PhotoService } from '@/service/photoservice';
                         ></button>
                     </div>
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,
@@ -185,20 +185,20 @@ A slideshow implementation is defined by adding circular and autoPlay properties
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'voxx-ui/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
         <div class="card">
-            <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+            <vx-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
                 <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" style="display: block" />
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,
@@ -222,20 +222,20 @@ Galleria requires a value as a collection of images, item template for the highe
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'voxx-ui/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
         <div class="card">
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <vx-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width:100%" />
                 </ng-template>
                 <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,
@@ -259,13 +259,13 @@ Description of an image is specified with the caption template.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'voxx-ui/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
         <div class="card">
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <vx-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
@@ -276,7 +276,7 @@ import { PhotoService } from '@/service/photoservice';
                     <div class="text-xl mb-2 font-bold">{{ item.title }}</div>
                     <p class="text-white">{{ item.alt }}</p>
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,
@@ -300,25 +300,25 @@ Galleria can be controlled programmatically using the activeIndex property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'voxx-ui/button';
+import { GalleriaModule } from 'voxx-ui/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
         <div class="card">
             <div class="mb-4">
-                <p-button type="button" icon="pi pi-minus" (click)="prev()" />
-                <p-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
+                <vx-button type="button" icon="pi pi-minus" (click)="prev()" />
+                <vx-button type="button" icon="pi pi-plus" (click)="next()" severity="secondary" styleClass="ml-2" />
             </div>
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
+            <vx-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%;" />
                 </ng-template>
                 <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,
@@ -351,20 +351,20 @@ Galleria responsiveness is defined with the responsiveOptions property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'voxx-ui/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
     template: `
         <div class="card">
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+            <vx-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template #thumbnail let-item>
                     <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,
@@ -389,8 +389,8 @@ Galleria can be controlled programmatically using the activeIndex property.
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { GalleriaModule } from 'primeng/galleria';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { GalleriaModule } from 'voxx-ui/galleria';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -398,11 +398,11 @@ import { PhotoService } from '@/service/photoservice';
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
                 <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                    <vx-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
                     <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
                 </div>
             </div>
-            <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <vx-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
@@ -411,7 +411,7 @@ import { PhotoService } from '@/service/photoservice';
                         <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
                     </div>
                 </ng-template>
-            </p-galleria>
+            </vx-galleria>
         </div>
     `,
     standalone: true,

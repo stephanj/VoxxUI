@@ -12,35 +12,35 @@ Carousel requires a collection of items as its value along with a template to re
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { CarouselModule } from 'voxx-ui/carousel';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+            <vx-carousel [value]="products()" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface rounded-border m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
                         <div class="flex justify-between items-center">
                             <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                             <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                                <vx-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <vx-button icon="pi pi-shopping-cart" styleClass="ml-2" />
                             </span>
                         </div>
                     </div>
                 </ng-template>
-            </p-carousel>
+            </vx-carousel>
         </div>
     `,
     standalone: true,
@@ -99,35 +99,35 @@ When autoplayInterval is defined in milliseconds, items are scrolled automatical
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { CarouselModule } from 'voxx-ui/carousel';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
+            <vx-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
                         <div class="flex justify-between items-center">
                             <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                             <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                                <vx-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <vx-button icon="pi pi-shopping-cart" styleClass="ml-2" />
                             </span>
                         </div>
                     </div>
                 </ng-template>
-            </p-carousel>
+            </vx-carousel>
         </div>
     `,
     standalone: true,
@@ -186,35 +186,35 @@ Carousel supports specific configuration per screen size with the responsiveOpti
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { CarouselModule } from 'voxx-ui/carousel';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+            <vx-carousel [value]="products()" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
                         <div class="flex justify-between items-center">
                             <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                             <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                                <vx-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <vx-button icon="pi pi-shopping-cart" styleClass="ml-2" />
                             </span>
                         </div>
                     </div>
                 </ng-template>
-            </p-carousel>
+            </vx-carousel>
         </div>
     `,
     standalone: true,
@@ -273,35 +273,35 @@ To create a vertical Carousel, orientation needs to be set to vertical along wit
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { CarouselModule } from 'voxx-ui/carousel';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
+            <vx-carousel [value]="products()" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="330px" contentClass="flex items-center">
                 <ng-template let-product #item>
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded" />
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                                <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
                         <div class="mb-4 font-medium">{{ product.name }}</div>
                         <div class="flex justify-between items-center">
                             <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                             <span>
-                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
-                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                                <vx-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <vx-button icon="pi pi-shopping-cart" styleClass="ml-2" />
                             </span>
                         </div>
                     </div>
                 </ng-template>
-            </p-carousel>
+            </vx-carousel>
         </div>
     `,
     standalone: true,

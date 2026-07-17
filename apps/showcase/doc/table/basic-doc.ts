@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Table, TableModule, TablePassThrough } from 'primeng/table';
+import { Table, TableModule, TablePassThrough } from 'voxx-ui/table';
 
 @Component({
     selector: 'basic-doc',
@@ -13,9 +13,9 @@ import { Table, TableModule, TablePassThrough } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -32,9 +32,9 @@ import { Table, TableModule, TablePassThrough } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

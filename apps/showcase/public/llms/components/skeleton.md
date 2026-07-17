@@ -12,24 +12,24 @@ Sample Card implementation using different Skeleton components and Tailwind CSS 
 
 ```typescript
 import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonModule } from 'voxx-ui/skeleton';
 
 @Component({
     template: `
         <div class="card">
             <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
                 <div class="flex mb-4">
-                    <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                    <vx-skeleton shape="circle" size="4rem" class="mr-2" />
                     <div>
-                        <p-skeleton width="10rem" class="mb-2" />
-                        <p-skeleton width="5rem" class="mb-2" />
-                        <p-skeleton height=".5rem" />
+                        <vx-skeleton width="10rem" class="mb-2" />
+                        <vx-skeleton width="5rem" class="mb-2" />
+                        <vx-skeleton height=".5rem" />
                     </div>
                 </div>
-                <p-skeleton width="100%" height="150px" />
+                <vx-skeleton width="100%" height="150px" />
                 <div class="flex justify-between mt-4">
-                    <p-skeleton width="4rem" height="2rem" />
-                    <p-skeleton width="4rem" height="2rem" />
+                    <vx-skeleton width="4rem" height="2rem" />
+                    <vx-skeleton width="4rem" height="2rem" />
                 </div>
             </div>
         </div>
@@ -46,13 +46,13 @@ Sample DataTable implementation using different Skeleton components and Tailwind
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'voxx-ui/skeleton';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -63,13 +63,13 @@ import { TableModule } from 'primeng/table';
                 </ng-template>
                 <ng-template #body let-product>
                     <tr>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -90,7 +90,7 @@ Sample List implementation using different Skeleton components and Tailwind CSS 
 
 ```typescript
 import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonModule } from 'voxx-ui/skeleton';
 
 @Component({
     template: `
@@ -99,37 +99,37 @@ import { SkeletonModule } from 'primeng/skeleton';
                 <ul class="m-0 p-0 list-none">
                     <li class="mb-4">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                            <vx-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
+                                <vx-skeleton width="100%" class="mb-2" />
+                                <vx-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li class="mb-4">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                            <vx-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
+                                <vx-skeleton width="100%" class="mb-2" />
+                                <vx-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li class="mb-4">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                            <vx-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
+                                <vx-skeleton width="100%" class="mb-2" />
+                                <vx-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" class="mr-2" />
+                            <vx-skeleton shape="circle" size="4rem" class="mr-2" />
                             <div class="self-center" style="flex: 1">
-                                <p-skeleton width="100%" class="mb-2" />
-                                <p-skeleton width="75%" />
+                                <vx-skeleton width="100%" class="mb-2" />
+                                <vx-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
@@ -149,7 +149,7 @@ Various shapes and sizes can be created using styling properties like shape , wi
 
 ```typescript
 import { Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonModule } from 'voxx-ui/skeleton';
 
 @Component({
     template: `
@@ -157,36 +157,36 @@ import { SkeletonModule } from 'primeng/skeleton';
             <div class="flex flex-wrap">
                 <div class="w-full xl:w-6/12 p-4">
                     <h5>Rectangle</h5>
-                    <p-skeleton class="mb-2" />
-                    <p-skeleton width="10rem" class="mb-2" />
-                    <p-skeleton width="5rem" class="mb-2" />
-                    <p-skeleton height="2rem" class="mb-2" />
-                    <p-skeleton width="10rem" height="4rem" />
+                    <vx-skeleton class="mb-2" />
+                    <vx-skeleton width="10rem" class="mb-2" />
+                    <vx-skeleton width="5rem" class="mb-2" />
+                    <vx-skeleton height="2rem" class="mb-2" />
+                    <vx-skeleton width="10rem" height="4rem" />
                 </div>
                 <div class="w-full xl:w-6/12 p-4">
                     <h5>Rounded</h5>
-                    <p-skeleton class="mb-2" borderRadius="16px" />
-                    <p-skeleton width="10rem" class="mb-2" borderRadius="16px" />
-                    <p-skeleton width="5rem" class="mb-2" borderRadius="16px" />
-                    <p-skeleton height="2rem" class="mb-2" borderRadius="16px" />
-                    <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
+                    <vx-skeleton class="mb-2" borderRadius="16px" />
+                    <vx-skeleton width="10rem" class="mb-2" borderRadius="16px" />
+                    <vx-skeleton width="5rem" class="mb-2" borderRadius="16px" />
+                    <vx-skeleton height="2rem" class="mb-2" borderRadius="16px" />
+                    <vx-skeleton width="10rem" height="4rem" borderRadius="16px" />
                 </div>
                 <div class="w-full xl:w-6/12 p-4">
                     <h5 class="mt-4">Square</h5>
                     <div class="flex items-end">
-                        <p-skeleton size="2rem" class="mr-2" />
-                        <p-skeleton size="3rem" class="mr-2" />
-                        <p-skeleton size="4rem" class="mr-2" />
-                        <p-skeleton size="5rem" />
+                        <vx-skeleton size="2rem" class="mr-2" />
+                        <vx-skeleton size="3rem" class="mr-2" />
+                        <vx-skeleton size="4rem" class="mr-2" />
+                        <vx-skeleton size="5rem" />
                     </div>
                 </div>
                 <div class="field w-full xl:w-6/12 p-4">
                     <h5 class="mt-4">Circle</h5>
                     <div class="flex items-end">
-                        <p-skeleton shape="circle" size="2rem" class="mr-2" />
-                        <p-skeleton shape="circle" size="3rem" class="mr-2" />
-                        <p-skeleton shape="circle" size="4rem" class="mr-2" />
-                        <p-skeleton shape="circle" size="5rem" />
+                        <vx-skeleton shape="circle" size="2rem" class="mr-2" />
+                        <vx-skeleton shape="circle" size="3rem" class="mr-2" />
+                        <vx-skeleton shape="circle" size="4rem" class="mr-2" />
+                        <vx-skeleton shape="circle" size="5rem" />
                     </div>
                 </div>
             </div>

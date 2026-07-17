@@ -2,8 +2,8 @@ import { CountryService } from '@/service/countryservice';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ButtonModule } from 'primeng/button';
+import { AutoCompleteModule } from 'voxx-ui/autocomplete';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
@@ -20,7 +20,7 @@ interface AutoCompleteCompleteEvent {
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
+            <vx-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
                 <ng-template let-country #item>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
@@ -32,10 +32,10 @@ interface AutoCompleteCompleteEvent {
                 </ng-template>
                 <ng-template #footer>
                     <div class="px-3 py-3">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        <vx-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
                     </div>
                 </ng-template>
-            </p-autocomplete>
+            </vx-autocomplete>
         </div>
         <app-code></app-code>`
 })

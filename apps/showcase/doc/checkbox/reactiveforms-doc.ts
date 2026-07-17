@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { MessageService } from 'voxx-ui/api';
+import { CheckboxModule } from 'voxx-ui/checkbox';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -18,22 +18,22 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Checkbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
 
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
-                            <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
+                            <vx-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
                             <label [for]="item"> {{ item | titlecase }} </label>
                         </div>
                     }
                 </div>
                 @if (hasAnyInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>

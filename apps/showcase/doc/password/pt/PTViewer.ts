@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     selector: 'password-pt-viewer',
@@ -10,7 +10,7 @@ import { PasswordModule } from 'primeng/password';
     imports: [CommonModule, AppDocPtViewer, PasswordModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-password [(ngModel)]="value" [toggleMask]="true"></p-password>
+            <vx-password [(ngModel)]="value" [toggleMask]="true"></vx-password>
         </app-docptviewer>
     `
 })

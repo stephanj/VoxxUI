@@ -12,13 +12,13 @@ Menu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'voxx-ui/menu';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-menu [model]="items" />
+            <vx-menu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -42,15 +42,15 @@ The function to invoke when an item is clicked is defined using the command prop
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'voxx-ui/menu';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-menu [model]="items" />
+            <vx-toast />
+            <vx-menu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -96,13 +96,13 @@ Menu supports one level of nesting by defining children with items property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'voxx-ui/menu';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-menu [model]="items" />
+            <vx-menu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -152,15 +152,15 @@ Popup mode is enabled by setting popup property to true and calling toggle metho
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { MenuModule } from 'voxx-ui/menu';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-menu #menu [model]="items" [popup]="true" />
-            <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+            <vx-menu #menu [model]="items" [popup]="true" />
+            <vx-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
         </div>
     `,
     standalone: true,
@@ -197,13 +197,13 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'voxx-ui/menu';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-menu [model]="items" />
+            <vx-menu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -247,16 +247,16 @@ Menu offers item customization with the item template that receives the menuitem
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { Menu, MenuModule } from 'primeng/menu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { BadgeModule } from 'voxx-ui/badge';
+import { Menu, MenuModule } from 'voxx-ui/menu';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
+            <vx-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template #start>
                     <span class="inline-flex items-center gap-1 px-2 py-2">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -298,20 +298,20 @@ import { MenuItem } from 'primeng/api';
                     <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
                 <ng-template #end>
                     <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
                         </span>
                     </button>
                 </ng-template>
-            </p-menu>
+            </vx-menu>
         </div>
     `,
     standalone: true,

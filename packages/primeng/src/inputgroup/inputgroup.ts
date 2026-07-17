@@ -1,8 +1,8 @@
 import { Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { InputGroupPassThrough } from 'primeng/types/inputgroup';
+import { SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { InputGroupPassThrough } from 'voxx-ui/types/inputgroup';
 import { InputGroupStyle } from './style/inputgroupstyle';
 
 const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE');
@@ -12,7 +12,7 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
  * @group Components
  */
 @Component({
-    selector: 'p-inputgroup, p-inputGroup, p-input-group',
+    selector: 'vx-inputgroup, vx-inputGroup, vx-input-group',
     standalone: true,
     imports: [BindModule],
     template: ` <ng-content></ng-content> `,

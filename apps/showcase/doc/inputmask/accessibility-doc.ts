@@ -42,11 +42,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="date">Date</label>
-<input pInputText id="date" pInputMask="99/99/9999" />
+<input vxInputText id="date" vxInputMask="99/99/9999" />
 
 <span id="phone">Phone</span>
-<input pInputText pInputMask="(999) 999-9999" aria-labelledby="phone" />
+<input vxInputText vxInputMask="(999) 999-9999" aria-labelledby="phone" />
 
-<input pInputText pInputMask="99" aria-label="Age" />`
+<input vxInputText vxInputMask="99" aria-label="Age" />`
     };
 }

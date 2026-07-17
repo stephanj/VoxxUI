@@ -16,8 +16,8 @@ import { Component } from '@angular/core';
 })
 export class ModeDoc {
     code2 = {
-        typescript: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
-import { PrimeNG } from 'primeng/config';
+        typescript: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'voxx-ui/api';
+import { VoxxUI } from 'voxx-ui/config';
 
 const responsiveOptions: ResponsiveOverlayOptions = {
     // style?: any;                                     // Style of component in given breakpoint or media query

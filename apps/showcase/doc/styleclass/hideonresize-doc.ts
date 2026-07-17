@@ -1,8 +1,8 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'voxx-ui/button';
+import { StyleClassModule } from 'voxx-ui/styleclass';
 
 @Component({
     selector: 'hideonresize-doc',
@@ -18,8 +18,8 @@ import { StyleClassModule } from 'primeng/styleclass';
         <div class="card">
             <div class="flex flex-wrap justify-center gap-4">
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
-                    <p-button
-                        pStyleClass=".window-responsive-box"
+                    <vx-button
+                        vxStyleClass=".window-responsive-box"
                         enterFromClass="hidden"
                         enterActiveClass="animate-fadein"
                         leaveActiveClass="animate-fadeout"
@@ -38,8 +38,8 @@ import { StyleClassModule } from 'primeng/styleclass';
                 </div>
 
                 <div class="flex flex-col items-center gap-4 w-[25rem]">
-                    <p-button
-                        pStyleClass=".resizable-container"
+                    <vx-button
+                        vxStyleClass=".resizable-container"
                         enterFromClass="hidden"
                         enterActiveClass="animate-fadein"
                         leaveActiveClass="animate-fadeout"

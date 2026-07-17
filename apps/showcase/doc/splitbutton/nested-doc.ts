@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'nested-doc',
@@ -14,8 +14,8 @@ import { ToastModule } from 'primeng/toast';
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
+            <vx-toast />
+            <vx-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
         </div>
         <app-code></app-code>
     `,

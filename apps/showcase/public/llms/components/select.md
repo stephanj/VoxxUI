@@ -13,7 +13,7 @@ Select is used as a controlled component with ngModel property along with an opt
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -23,7 +23,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -52,7 +52,7 @@ An alternative way to highlight the selected option is displaying a checkmark in
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -62,7 +62,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -91,7 +91,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -101,7 +101,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" [showClear]="true" />
         </div>
     `,
     standalone: true,
@@ -130,10 +130,10 @@ Custom filter can be applied with the filterTemplate .
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { SelectModule } from 'voxx-ui/select';
+import { InputGroupModule } from 'voxx-ui/inputgroup';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { Country } from '@/domain/customer';
 
 interface City {
@@ -144,14 +144,14 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+            <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="flex gap-1">
-                        <p-inputgroup (click)="$event.stopPropagation()">
-                            <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
+                        <vx-inputgroup (click)="$event.stopPropagation()">
+                            <vx-inputgroup-addon><i class="pi pi-search"></i></vx-inputgroup-addon>
                             <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
-                        </p-inputgroup>
-                        <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+                        </vx-inputgroup>
+                        <vx-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
                     </div>
                 </ng-template>
                 <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -166,7 +166,7 @@ interface City {
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-select>
+            </vx-select>
         </div>
     `,
     standalone: true,
@@ -210,7 +210,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -220,7 +220,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -249,7 +249,7 @@ When editable is present, the input can also be entered with typing.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -259,7 +259,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -288,7 +288,7 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -298,7 +298,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -327,13 +327,13 @@ Select provides built-in filtering that is enabled by adding the filter property
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 import { Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
+            <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" class="w-full md:w-56">
                 <ng-template #selectedItem let-selectedOption>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
@@ -346,7 +346,7 @@ import { Country } from '@/domain/customer';
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-select>
+            </vx-select>
         </div>
     `,
     standalone: true,
@@ -380,8 +380,8 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { SelectModule } from 'voxx-ui/select';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
 
 interface City {
     name: string;
@@ -391,18 +391,18 @@ interface City {
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-56">
-                <p-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
+            <vx-floatlabel class="w-full md:w-56">
+                <vx-select [(ngModel)]="value1" inputId="over_label" [options]="cities" optionLabel="name" class="w-full" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="in">
-                <p-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
+            </vx-floatlabel>
+            <vx-floatlabel class="w-full md:w-56" variant="in">
+                <vx-select [(ngModel)]="value2" inputId="in_label" [options]="cities" optionLabel="name" class="w-full" variant="filled" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel class="w-full md:w-56" variant="on">
-                <p-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
+            </vx-floatlabel>
+            <vx-floatlabel class="w-full md:w-56" variant="on">
+                <vx-select [(ngModel)]="value3" inputId="on_label" [options]="cities" optionLabel="name" class="w-full" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
     `,
     standalone: true,
@@ -433,7 +433,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -443,7 +443,7 @@ interface City {
 @Component({
     template: `
         <div class="card">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" fluid />
         </div>
     `,
     standalone: true,
@@ -472,20 +472,20 @@ Options can be grouped when a nested data structures is provided.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectModule } from 'voxx-ui/select';
+import { SelectItemGroup } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
+            <vx-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true" class="w-full md:w-56">
                 <ng-template let-group #group>
                     <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
-            </p-select>
+            </vx-select>
         </div>
     `,
     standalone: true,
@@ -539,8 +539,8 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { SelectModule } from 'voxx-ui/select';
+import { IftaLabelModule } from 'voxx-ui/iftalabel';
 
 interface City {
     name: string;
@@ -550,10 +550,10 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-iftalabel class="w-full md:w-56">
-                <p-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
+            <vx-iftalabel class="w-full md:w-56">
+                <vx-select [(ngModel)]="selectedCity" inputId="dd-city" [options]="cities" optionLabel="name" class="w-full" />
                 <label for="dd-city">City</label>
-            </p-iftalabel>
+            </vx-iftalabel>
         </div>
     `,
     standalone: true,
@@ -582,7 +582,7 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -592,8 +592,8 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
-            <p-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity1" optionLabel="name" [showClear]="true" [invalid]="value1" placeholder="Select a City" class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity2" optionLabel="name" [showClear]="true" [invalid]="value2" placeholder="Select a City" class="w-full md:w-56" variant="filled" />
         </div>
     `,
     standalone: true,
@@ -613,13 +613,13 @@ export class SelectInvalidDemo {
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { SelectItem } from 'primeng/api';
+import { SelectModule } from 'voxx-ui/select';
+import { SelectItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
+            <vx-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" [virtualScrollOptions]="options" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -672,7 +672,7 @@ Loading state can be used loading property.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -682,7 +682,7 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -711,11 +711,11 @@ Select can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { SelectModule } from 'voxx-ui/select';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 interface City {
     name: string;
@@ -724,13 +724,13 @@ interface City {
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
+                    <vx-select formControlName="city" [options]="cities" [invalid]="isInvalid('city')" optionLabel="name" placeholder="Select a City" class="w-full md:w-56" />
                     @if (isInvalid('city')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -775,7 +775,7 @@ Select provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -785,9 +785,9 @@ interface City {
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
-            <p-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
-            <p-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
+            <vx-select [(ngModel)]="value1" [options]="cities" optionLabel="name" size="small" placeholder="Small" class="w-full md:w-56" />
+            <vx-select [(ngModel)]="value2" [options]="cities" optionLabel="name" placeholder="Normal" class="w-full md:w-56" />
+            <vx-select [(ngModel)]="value3" [options]="cities" optionLabel="name" size="large" placeholder="Large" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
@@ -818,13 +818,13 @@ Both the selected option and the options list can be templated to provide custom
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'voxx-ui/button';
+import { SelectModule } from 'voxx-ui/select';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
+            <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
                 <ng-template #selectedItem let-selectedOption>
                     <div class="flex items-center gap-2" *ngIf="selectedOption">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
@@ -845,10 +845,10 @@ import { SelectModule } from 'primeng/select';
                 </ng-template>
                 <ng-template #footer>
                     <div class="p-3">
-                        <p-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
+                        <vx-button label="Add New" fluid severity="secondary" text size="small" icon="pi pi-plus" />
                     </div>
                 </ng-template>
-            </p-select>
+            </vx-select>
         </div>
     `,
     standalone: true,
@@ -880,11 +880,11 @@ export class SelectTemplateDemo implements OnInit {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { SelectModule } from 'voxx-ui/select';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 interface City {
     name: string;
@@ -893,11 +893,11 @@ interface City {
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-select
+                    <vx-select
                         #city="ngModel"
                         [(ngModel)]="selectedCity"
                         [options]="cities"
@@ -909,7 +909,7 @@ interface City {
                         required
                     />
                     @if (city.invalid && (city.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -940,13 +940,13 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { SelectItem } from 'primeng/api';
+import { SelectModule } from 'voxx-ui/select';
+import { SelectItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
+            <vx-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,

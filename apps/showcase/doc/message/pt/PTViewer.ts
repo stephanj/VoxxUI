@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     selector: 'message-pt-viewer',
@@ -9,7 +9,7 @@ import { MessageModule } from 'primeng/message';
     imports: [CommonModule, AppDocPtViewer, MessageModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-message [closable]="true" severity="info" icon="pi pi-send">Info Message</p-message>
+            <vx-message [closable]="true" severity="info" icon="pi pi-send">Info Message</vx-message>
         </app-docptviewer>
     `
 })

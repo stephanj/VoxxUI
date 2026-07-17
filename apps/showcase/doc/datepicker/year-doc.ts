@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
     selector: 'year-doc',
@@ -13,7 +13,7 @@ import { DatePickerModule } from 'primeng/datepicker';
             <p>Specifying <i>view</i> as <i>year</i> in addition to a suitable <i>dateFormat</i> enables the year picker.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
+            <vx-datepicker [(ngModel)]="date" view="year" dateFormat="yy" />
         </div>
         <app-code></app-code>
     `

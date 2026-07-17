@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -13,8 +13,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
 
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
-            <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
+            <vx-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
+            <vx-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
         </div>
 
         <app-code></app-code>

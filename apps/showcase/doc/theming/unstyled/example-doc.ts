@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 interface City {
     name: string;
@@ -19,7 +19,7 @@ interface City {
         <app-docsectiontext>
             <p>
                 Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The <i>tailwindcss-primeui</i> even provides special
-                variants such as <i>p-outlined:</i>, <i>p-vertical</i> for the PrimeNG components.
+                variants such as <i>p-outlined:</i>, <i>p-vertical</i> for the VoxxUI components.
             </p>
             <p>
                 The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the
@@ -28,7 +28,7 @@ interface City {
             </p>
 
             <div class="card flex justify-center">
-                <p-button
+                <vx-button
                     label="Search"
                     icon="pi pi-search"
                     [unstyled]="true"
@@ -45,7 +45,7 @@ interface City {
 })
 export class ExampleDoc {
     code: Code = {
-        html: `<p-button
+        html: `<vx-button
     label="Search"
     icon="pi pi-search"
     [unstyled]="true"

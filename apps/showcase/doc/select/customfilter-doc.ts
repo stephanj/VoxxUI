@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectFilterOptions } from 'primeng/select';
+import { SelectFilterOptions } from 'voxx-ui/select';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'voxx-ui/select';
+import { InputGroupModule } from 'voxx-ui/inputgroup';
+import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
+import { ButtonModule } from 'voxx-ui/button';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { CommonModule } from '@angular/common';
 
 interface City {
@@ -24,29 +24,29 @@ interface City {
             <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                <ng-template pTemplate="filter" let-options="options">
+            <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+                <ng-template vxTemplate="filter" let-options="options">
                     <div class="flex gap-1">
-                        <p-inputgroup (click)="$event.stopPropagation()">
-                            <p-inputgroup-addon><i class="pi pi-search"></i></p-inputgroup-addon>
-                            <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
-                        </p-inputgroup>
-                        <p-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
+                        <vx-inputgroup (click)="$event.stopPropagation()">
+                            <vx-inputgroup-addon><i class="pi pi-search"></i></vx-inputgroup-addon>
+                            <input type="text" vxInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
+                        </vx-inputgroup>
+                        <vx-button icon="pi pi-times" (click)="resetFunction(options)" severity="secondary" />
                     </div>
                 </ng-template>
-                <ng-template pTemplate="selectedItem" let-selectedOption>
+                <ng-template vxTemplate="selectedItem" let-selectedOption>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
-                <ng-template let-country pTemplate="item">
+                <ng-template let-country vxTemplate="item">
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-select>
+            </vx-select>
         </div>
         <app-code></app-code>
     `

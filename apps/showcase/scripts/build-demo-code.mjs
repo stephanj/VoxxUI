@@ -98,7 +98,7 @@ const PRIMENG_NAMED_EXPORTS = {
     PanelMenu: 'panelmenu'
 };
 
-// PrimeNG API types that need to be imported from 'primeng/api'
+// PrimeNG API types that need to be imported from 'voxx-ui/api'
 const PRIMENG_API_TYPES = [
     'TreeNode',
     'MenuItem',
@@ -1091,9 +1091,9 @@ function generateTypescript(componentName, template, services = [], fileContent 
         const namedExportsForModule = primeNGNamedExportsEarly[moduleLower] || [];
         if (namedExportsForModule.length > 0) {
             // Combine module with named exports
-            importStatements += `import { ${[...namedExportsForModule, module].join(', ')} } from 'primeng/${moduleLower}';\n`;
+            importStatements += `import { ${[...namedExportsForModule, module].join(', ')} } from 'voxx-ui/${moduleLower}';\n`;
         } else {
-            importStatements += `import { ${module} } from 'primeng/${moduleLower}';\n`;
+            importStatements += `import { ${module} } from 'voxx-ui/${moduleLower}';\n`;
         }
     }
 
@@ -1104,7 +1104,7 @@ function generateTypescript(componentName, template, services = [], fileContent 
 
     // Add PrimeNG config import if used in constructor
     if (constructor && constructor.params && constructor.params.includes('PrimeNG')) {
-        importStatements += `import { PrimeNG } from 'primeng/config';\n`;
+        importStatements += `import { PrimeNG } from 'voxx-ui/config';\n`;
     }
 
     // Detect and add PrimeNG API types (TreeNode, MenuItem, etc.) and services
@@ -1120,7 +1120,7 @@ function generateTypescript(componentName, template, services = [], fileContent 
     // Combine API types with PrimeNG services for import (avoid duplicates)
     const apiImports = [...new Set([...usedApiTypes, ...primeNGServices])];
     if (apiImports.length > 0) {
-        importStatements += `import { ${apiImports.join(', ')} } from 'primeng/api';\n`;
+        importStatements += `import { ${apiImports.join(', ')} } from 'voxx-ui/api';\n`;
     }
 
     // Detect and add domain type imports (Customer, Product, etc.)
@@ -1135,7 +1135,7 @@ function generateTypescript(componentName, template, services = [], fileContent 
         const moduleName = moduleNameBase + 'Module';
         // Only add separate import if we don't already have the module imported
         if (!primeNGImports.includes(moduleName)) {
-            importStatements += `import { ${exports.join(', ')} } from 'primeng/${modulePath}';\n`;
+            importStatements += `import { ${exports.join(', ')} } from 'voxx-ui/${modulePath}';\n`;
         }
     }
 

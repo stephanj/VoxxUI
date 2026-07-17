@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { AvatarGroupPassThrough } from 'primeng/types/avatargroup';
+import { SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { AvatarGroupPassThrough } from 'voxx-ui/types/avatargroup';
 import { AvatarGroupStyle } from './style/avatargroupstyle';
 
 const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTANCE');
@@ -13,7 +13,7 @@ const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-avatarGroup, p-avatar-group, p-avatargroup',
+    selector: 'vx-avatarGroup, vx-avatar-group, vx-avatargroup',
     standalone: true,
     imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,

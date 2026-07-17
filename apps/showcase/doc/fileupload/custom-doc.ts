@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
+import { FileUploadModule } from 'voxx-ui/fileupload';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'custom-doc',
@@ -14,8 +14,8 @@ import { ToastModule } from 'primeng/toast';
             <p>FileUpload basic <i>mode</i> provides a simpler UI as an alternative to default advanced mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast></p-toast>
-            <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
+            <vx-toast></vx-toast>
+            <vx-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></vx-fileupload>
         </div>
         <app-code></app-code>
     `,

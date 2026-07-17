@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { SliderModule } from 'primeng/slider';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'voxx-ui/api';
+import { SliderModule } from 'voxx-ui/slider';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
+import { ButtonModule } from 'voxx-ui/button';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -17,16 +17,16 @@ import { AppCode } from '@/components/doc/app.code';
         <app-docsectiontext>
             <p>Slider can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-4">
-                    <p-slider formControlName="value" styleClass="w-56" />
+                    <vx-slider formControlName="value" styleClass="w-56" />
                     @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Must be greater than 25.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

@@ -3,14 +3,14 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'voxx-ui/api';
 import { CommonModule } from '@angular/common';
 
 // Test Components
 @Component({
     standalone: false,
     template: `
-        <p-inputmask
+        <vx-inputmask
             [(ngModel)]="value"
             [mask]="mask"
             [slotChar]="slotChar"
@@ -40,7 +40,7 @@ import { CommonModule } from '@angular/common';
             (onKeydown)="onKeydownEvent($event)"
             (onClear)="onClearEvent($event)"
         >
-        </p-inputmask>
+        </vx-inputmask>
     `
 })
 class TestBasicInputMaskComponent {
@@ -79,7 +79,7 @@ class TestBasicInputMaskComponent {
     standalone: false,
     template: `
         <form [formGroup]="form">
-            <p-inputmask [mask]="mask" formControlName="maskedValue" [unmask]="unmask"> </p-inputmask>
+            <vx-inputmask [mask]="mask" formControlName="maskedValue" [unmask]="unmask"> </vx-inputmask>
         </form>
     `
 })
@@ -95,12 +95,12 @@ class TestFormInputMaskComponent {
 @Component({
     standalone: false,
     template: `
-        <p-inputmask [mask]="mask" [(ngModel)]="value" [showClear]="showClear" [placeholder]="placeholder" [autoClear]="autoClear" [unmask]="unmask">
-            <!-- Clear icon template with both pTemplate and #template -->
-            <ng-template pTemplate="clearicon" #clearicon>
+        <vx-inputmask [mask]="mask" [(ngModel)]="value" [showClear]="showClear" [placeholder]="placeholder" [autoClear]="autoClear" [unmask]="unmask">
+            <!-- Clear icon template with both vxTemplate and #template -->
+            <ng-template vxTemplate="clearicon" #clearicon>
                 <i class="pi pi-times-circle custom-clear-icon" data-testid="clear-icon-template"></i>
             </ng-template>
-        </p-inputmask>
+        </vx-inputmask>
     `
 })
 class TestTemplateInputMaskComponent {
@@ -116,9 +116,9 @@ class TestTemplateInputMaskComponent {
     standalone: false,
     template: `
         <div>
-            <p-inputmask [mask]="phoneMask" [(ngModel)]="phoneValue" placeholder="Phone Number"> </p-inputmask>
-            <p-inputmask [mask]="ssnMask" [(ngModel)]="ssnValue" [unmask]="true" placeholder="SSN"> </p-inputmask>
-            <p-inputmask [mask]="dateMask" [(ngModel)]="dateValue" [slotChar]="'mm/dd/yyyy'.charAt(0)" placeholder="Date"> </p-inputmask>
+            <vx-inputmask [mask]="phoneMask" [(ngModel)]="phoneValue" placeholder="Phone Number"> </vx-inputmask>
+            <vx-inputmask [mask]="ssnMask" [(ngModel)]="ssnValue" [unmask]="true" placeholder="SSN"> </vx-inputmask>
+            <vx-inputmask [mask]="dateMask" [(ngModel)]="dateValue" [slotChar]="'mm/dd/yyyy'.charAt(0)" placeholder="Date"> </vx-inputmask>
         </div>
     `
 })
@@ -331,7 +331,7 @@ describe('InputMask', () => {
             spyOn(testComponent, 'onInputFocus');
             testFixture.detectChanges();
 
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
             const focusEvent = new Event('focus');
             inputMask.onInputFocus(focusEvent);
             await testFixture.whenStable();
@@ -343,7 +343,7 @@ describe('InputMask', () => {
             spyOn(testComponent, 'onInputBlur');
             testFixture.detectChanges();
 
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
             const blurEvent = new Event('blur');
             inputMask.onInputBlur(blurEvent);
             await testFixture.whenStable();
@@ -356,7 +356,7 @@ describe('InputMask', () => {
             testFixture.detectChanges();
 
             // Simulate keydown event through the component's output binding
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
             if (inputMask.onKeydown) {
                 const keyEvent = new KeyboardEvent('keydown', { keyCode: 49 });
                 inputMask.onKeydown.emit(keyEvent);
@@ -370,7 +370,7 @@ describe('InputMask', () => {
             spyOn(testComponent, 'onInputChange');
             testFixture.detectChanges();
 
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
             const inputEvent = new Event('input');
             inputMask.onInputChange(inputEvent);
 
@@ -383,7 +383,7 @@ describe('InputMask', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
             if (inputMask.onComplete) {
                 inputMask.onComplete.emit();
                 expect(testComponent.onMaskComplete).toHaveBeenCalled();
@@ -400,7 +400,7 @@ describe('InputMask', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
             if (inputMask.onClear) {
                 inputMask.onClear.emit();
                 expect(testComponent.onClearEvent).toHaveBeenCalled();
@@ -575,7 +575,7 @@ describe('InputMask', () => {
             const templateComponent = TestBed.createComponent(TestTemplateInputMaskComponent);
             templateComponent.detectChanges();
 
-            const inputMaskInstance = templateComponent.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMaskInstance = templateComponent.debugElement.query(By.css('vx-inputmask')).componentInstance;
             expect(inputMaskInstance).toBeTruthy();
             expect(inputMaskInstance._clearIconTemplate !== undefined || inputMaskInstance._clearIconTemplate === undefined).toBe(true);
         });
@@ -588,7 +588,7 @@ describe('InputMask', () => {
             await templateComponent.whenStable();
 
             // Clear icon should be visible when value exists and showClear is true
-            const inputMaskInstance = templateComponent.debugElement.query(By.css('p-inputmask')).componentInstance;
+            const inputMaskInstance = templateComponent.debugElement.query(By.css('vx-inputmask')).componentInstance;
             expect(inputMaskInstance.showClear).toBe(true);
         });
     });
@@ -604,7 +604,7 @@ describe('InputMask', () => {
         });
 
         it('should handle different mask patterns simultaneously', () => {
-            const inputMasks = multiFixture.debugElement.queryAll(By.css('p-inputmask'));
+            const inputMasks = multiFixture.debugElement.queryAll(By.css('vx-inputmask'));
 
             expect(inputMasks.length).toBe(3);
             expect(multiComponent.phoneMask).toBe('(999) 999-9999');
@@ -613,7 +613,7 @@ describe('InputMask', () => {
         });
 
         it('should handle unmasked values independently', () => {
-            const inputMasks = multiFixture.debugElement.queryAll(By.css('p-inputmask'));
+            const inputMasks = multiFixture.debugElement.queryAll(By.css('vx-inputmask'));
             expect(inputMasks.length).toBe(3);
             // Test that components are properly rendered
             expect(inputMasks[1]).toBeTruthy();
@@ -881,7 +881,7 @@ describe('InputMask', () => {
 
         beforeEach(async () => {
             templatesFixture = TestBed.createComponent(TestTemplateInputMaskComponent);
-            templatesInputMaskElement = templatesFixture.debugElement.query(By.css('p-inputmask'));
+            templatesInputMaskElement = templatesFixture.debugElement.query(By.css('vx-inputmask'));
             templatesFixture.detectChanges();
         });
 
@@ -948,8 +948,8 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should recognize both pTemplate and #template structures for clearicon', () => {
-            // Test that component can handle both pTemplate directive and #template references
+        it('should recognize both vxTemplate and #template structures for clearicon', () => {
+            // Test that component can handle both vxTemplate directive and #template references
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
             // Verify component can work with templates without errors
@@ -997,8 +997,8 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should support dual template approach (pTemplate + #template) for clearicon', () => {
-            // Verify that using both pTemplate and #template doesn't cause conflicts
+        it('should support dual template approach (vxTemplate + #template) for clearicon', () => {
+            // Verify that using both vxTemplate and #template doesn't cause conflicts
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
             // Component should handle dual template approach
@@ -1073,14 +1073,14 @@ describe('InputMask', () => {
             }).not.toThrow();
         });
 
-        it('should support pTemplate="clearicon" directive', () => {
+        it('should support vxTemplate="clearicon" directive', () => {
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
 
-            // Test that pTemplate="clearicon" is properly recognized
+            // Test that vxTemplate="clearicon" is properly recognized
             expect(() => {
                 templatesFixture.detectChanges();
 
-                // Component should process pTemplate directive for clearicon
+                // Component should process vxTemplate directive for clearicon
                 if (inputMaskComponent.templates) {
                     const clearIconTemplates = inputMaskComponent.templates.filter((t: any) => t.getType && t.getType() === 'clearicon');
                     // Should find the clearicon template
@@ -1328,7 +1328,7 @@ describe('InputMask', () => {
             @Component({
                 standalone: true,
                 imports: [InputMask, FormsModule],
-                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: 'INLINE_PT_CLASS' } }" />`
+                template: `<vx-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: 'INLINE_PT_CLASS' } }" />`
             })
             class InlineTestComponent {}
 
@@ -1343,7 +1343,7 @@ describe('InputMask', () => {
             @Component({
                 standalone: true,
                 imports: [InputMask, FormsModule],
-                template: `<p-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: { class: 'INLINE_PT_OBJECT_CLASS' } } }" />`
+                template: `<vx-inputmask [mask]="'999-99-9999'" [pt]="{ pcInputText: { root: { class: 'INLINE_PT_OBJECT_CLASS' } } }" />`
             })
             class InlineObjectTestComponent {}
 
@@ -1356,15 +1356,15 @@ describe('InputMask', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
+            it('should apply global PT configuration from VoxxUIConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [InputMask, FormsModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideVoxxUI',
                             useValue: {
                                 pt: {
                                     inputmask: {
@@ -1554,7 +1554,7 @@ describe('InputMask', () => {
 @Component({
     standalone: true,
     imports: [InputMaskDirective, FormsModule],
-    template: `<input [pInputMask]="mask" [(ngModel)]="value" />`
+    template: `<input [vxInputMask]="mask" [(ngModel)]="value" />`
 })
 class DirectiveBasicTestComponent {
     mask = '999-99-9999';
@@ -1564,7 +1564,7 @@ class DirectiveBasicTestComponent {
 @Component({
     standalone: true,
     imports: [InputMaskDirective, ReactiveFormsModule],
-    template: `<input [pInputMask]="mask" [formControl]="control" />`
+    template: `<input [vxInputMask]="mask" [formControl]="control" />`
 })
 class DirectiveReactiveFormTestComponent {
     mask = '(999) 999-9999';
@@ -1574,7 +1574,7 @@ class DirectiveReactiveFormTestComponent {
 @Component({
     standalone: true,
     imports: [InputMaskDirective, FormsModule],
-    template: ` <input [pInputMask]="mask" [(ngModel)]="value" [slotChar]="slotChar" [autoClear]="autoClear" [attr.readonly]="readonly ? '' : null" [keepBuffer]="keepBuffer" [characterPattern]="characterPattern" (onComplete)="onComplete()" /> `
+    template: ` <input [vxInputMask]="mask" [(ngModel)]="value" [slotChar]="slotChar" [autoClear]="autoClear" [attr.readonly]="readonly ? '' : null" [keepBuffer]="keepBuffer" [characterPattern]="characterPattern" (onComplete)="onComplete()" /> `
 })
 class DirectiveFullFeaturedTestComponent {
     mask = '99/99/9999';
@@ -1644,7 +1644,7 @@ describe('InputMaskDirective', () => {
             const inputEl = fixture.debugElement.query(By.css('input'));
             const directive = inputEl.injector.get(InputMaskDirective);
 
-            expect(directive.pInputMask()).toBe('999-99-9999');
+            expect(directive.vxInputMask()).toBe('999-99-9999');
         });
     });
 
@@ -2022,7 +2022,7 @@ describe('InputMaskDirective', () => {
             const inputEl = fixture.debugElement.query(By.css('input'));
             const directive = inputEl.injector.get(InputMaskDirective);
 
-            expect(directive.pInputMask()).toBe('999-99-9999');
+            expect(directive.vxInputMask()).toBe('999-99-9999');
             expect(directive.len).toBe(11);
 
             // Change mask
@@ -2030,7 +2030,7 @@ describe('InputMaskDirective', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            expect(directive.pInputMask()).toBe('(999) 999-9999');
+            expect(directive.vxInputMask()).toBe('(999) 999-9999');
             expect(directive.len).toBe(14);
         });
 

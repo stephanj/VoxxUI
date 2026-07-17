@@ -1,9 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'voxx-ui/button';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { StyleClassModule } from 'voxx-ui/styleclass';
 
 @Component({
     selector: 'toggleclass-doc',
@@ -17,8 +17,8 @@ import { StyleClassModule } from 'primeng/styleclass';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center">
-            <p-button label="Toggle Display" pStyleClass="@next" toggleClass="hidden" />
-            <input type="text" pInputText class="hidden mt-4" />
+            <vx-button label="Toggle Display" vxStyleClass="@next" toggleClass="hidden" />
+            <input type="text" vxInputText class="hidden mt-4" />
         </div>
         <app-code></app-code>
     `

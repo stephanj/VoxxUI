@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'voxx-ui/button';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     selector: 'custom-doc',
@@ -14,7 +14,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <p>Tooltip can use either a <i>string</i> or a <i>TemplateRef</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
+            <vx-button [vxTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
             <ng-template #tooltipContent>
                 <div class="flex items-center">
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
@@ -46,7 +46,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
-                    <span> <b>PrimeNG</b> rocks! </span>
+                    <span> <b>VoxxUI</b> rocks! </span>
                 </div>
             </ng-template>
         </div>

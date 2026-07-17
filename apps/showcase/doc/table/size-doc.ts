@@ -6,8 +6,8 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TableModule } from 'primeng/table';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'size-doc',
@@ -16,12 +16,12 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center mb-4">
-                    <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
+                    <vx-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
                 </div>
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
+                <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -38,9 +38,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

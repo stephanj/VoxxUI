@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { Message } from './message';
 
 @Component({
     standalone: false,
     template: `
-        <p-message
+        <vx-message
             [severity]="severity"
             [text]="text"
             [escape]="escape"
@@ -26,7 +26,7 @@ import { Message } from './message';
             (onClose)="onClose($event)"
         >
             <div class="message-content">{{ content }}</div>
-        </p-message>
+        </vx-message>
     `
 })
 class TestBasicMessageComponent {
@@ -55,14 +55,14 @@ class TestBasicMessageComponent {
 @Component({
     standalone: false,
     template: `
-        <p-message [closable]="true">
+        <vx-message [closable]="true">
             <ng-template #container let-closeCallback="closeCallback">
                 <div class="custom-container">
                     Custom Container Content
                     <button class="custom-close-button" (click)="closeCallback($event)">Close</button>
                 </div>
             </ng-template>
-        </p-message>
+        </vx-message>
     `
 })
 class TestContainerTemplateComponent {}
@@ -70,7 +70,7 @@ class TestContainerTemplateComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-message [closable]="true">
+        <vx-message [closable]="true">
             <ng-template #icon>
                 <i class="custom-icon">🔔</i>
             </ng-template>
@@ -78,7 +78,7 @@ class TestContainerTemplateComponent {}
                 <i class="custom-close-icon">✖</i>
             </ng-template>
             Custom Message Content
-        </p-message>
+        </vx-message>
     `
 })
 class TestIconTemplatesComponent {}
@@ -86,20 +86,20 @@ class TestIconTemplatesComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-message [closable]="true">
-            <ng-template pTemplate="container" let-closeCallback="closeCallback">
+        <vx-message [closable]="true">
+            <ng-template vxTemplate="container" let-closeCallback="closeCallback">
                 <div class="ptemplate-container">
                     PTemplate Container
                     <button class="ptemplate-close" (click)="closeCallback($event)">Close</button>
                 </div>
             </ng-template>
-            <ng-template pTemplate="icon">
+            <ng-template vxTemplate="icon">
                 <i class="ptemplate-icon">📢</i>
             </ng-template>
-            <ng-template pTemplate="closeicon">
+            <ng-template vxTemplate="closeicon">
                 <i class="ptemplate-close-icon">❌</i>
             </ng-template>
-        </p-message>
+        </vx-message>
     `
 })
 class TestPTemplateComponent {}
@@ -107,11 +107,11 @@ class TestPTemplateComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-message [closable]="true" [severity]="'error'">
+        <vx-message [closable]="true" [severity]="'error'">
             <input type="text" class="focusable-input" />
             <button class="focusable-button">Button</button>
             <div tabindex="0" class="focusable-div">Focusable Div</div>
-        </p-message>
+        </vx-message>
     `
 })
 class TestKeyboardNavigationComponent {}
@@ -132,7 +132,7 @@ describe('Message', () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            messageEl = fixture.debugElement.query(By.css('p-message'));
+            messageEl = fixture.debugElement.query(By.css('vx-message'));
         });
 
         it('should create the component', () => {
@@ -197,7 +197,7 @@ describe('Message', () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            messageEl = fixture.debugElement.query(By.css('p-message'));
+            messageEl = fixture.debugElement.query(By.css('vx-message'));
             messageInstance = messageEl.componentInstance as Message;
         });
 
@@ -218,7 +218,7 @@ describe('Message', () => {
             await fixture.whenStable();
 
             // In v21, the message gets p-message-leave-active class when closing
-            const messageElement = fixture.debugElement.query(By.css('p-message'));
+            const messageElement = fixture.debugElement.query(By.css('vx-message'));
             expect(messageElement.nativeElement.classList.contains('p-message-leave-active')).toBe(true);
         });
     });
@@ -239,7 +239,7 @@ describe('Message', () => {
             component = fixture.componentInstance;
             component.closable = true;
             fixture.detectChanges();
-            messageEl = fixture.debugElement.query(By.css('p-message'));
+            messageEl = fixture.debugElement.query(By.css('vx-message'));
         });
 
         it('should emit onClose event when close button is clicked', async () => {
@@ -294,7 +294,7 @@ describe('Message', () => {
             component.life = 1000;
             fixture.detectChanges();
 
-            messageEl = fixture.debugElement.query(By.css('p-message'));
+            messageEl = fixture.debugElement.query(By.css('vx-message'));
             messageInstance = messageEl.componentInstance as Message;
 
             expect(messageInstance.visible()).toBe(true);
@@ -315,7 +315,7 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            messageEl = fixture.debugElement.query(By.css('p-message'));
+            messageEl = fixture.debugElement.query(By.css('vx-message'));
             messageInstance = messageEl.componentInstance as Message;
 
             expect(messageInstance.visible()).toBe(true);
@@ -352,7 +352,7 @@ describe('Message', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                const messageEl = fixture.debugElement.query(By.css('p-message'));
+                const messageEl = fixture.debugElement.query(By.css('vx-message'));
                 const messageInstance = messageEl.componentInstance as Message;
                 expect(messageInstance.severity).toBe(severity);
             }
@@ -364,7 +364,7 @@ describe('Message', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            let messageEl = fixture.debugElement.query(By.css('p-message'));
+            let messageEl = fixture.debugElement.query(By.css('vx-message'));
             expect(messageEl).toBeTruthy();
 
             component.severity = undefined as any;
@@ -372,7 +372,7 @@ describe('Message', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            messageEl = fixture.debugElement.query(By.css('p-message'));
+            messageEl = fixture.debugElement.query(By.css('vx-message'));
             expect(messageEl).toBeTruthy();
         });
     });
@@ -495,7 +495,7 @@ describe('Message', () => {
         });
 
         it('should provide closeCallback context to container template', async () => {
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             // Spy on close method before ngAfterContentInit
@@ -548,7 +548,7 @@ describe('Message', () => {
         });
     });
 
-    describe('Template Content Projection - pTemplate approach', () => {
+    describe('Template Content Projection - vxTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
         let component: TestPTemplateComponent;
 
@@ -564,31 +564,31 @@ describe('Message', () => {
             fixture.detectChanges();
         });
 
-        it('should process pTemplate container in ngAfterContentInit', () => {
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+        it('should process vxTemplate container in ngAfterContentInit', () => {
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             messageInstance.ngAfterContentInit();
             expect(messageInstance._containerTemplate).toBeTruthy();
         });
 
-        it('should process pTemplate icon in ngAfterContentInit', () => {
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+        it('should process vxTemplate icon in ngAfterContentInit', () => {
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             messageInstance.ngAfterContentInit();
             expect(messageInstance._iconTemplate).toBeTruthy();
         });
 
-        it('should process pTemplate closeicon in ngAfterContentInit', () => {
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+        it('should process vxTemplate closeicon in ngAfterContentInit', () => {
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             messageInstance.ngAfterContentInit();
             expect(messageInstance._closeIconTemplate).toBeTruthy();
         });
 
-        it('should render pTemplate content correctly', async () => {
+        it('should render vxTemplate content correctly', async () => {
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -606,8 +606,8 @@ describe('Message', () => {
             expect(ptemplateCloseIcon.nativeElement.textContent).toBe('❌');
         });
 
-        it('should handle closeCallback in pTemplate container', async () => {
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+        it('should handle closeCallback in vxTemplate container', async () => {
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             // Spy on close method before ngAfterContentInit
@@ -658,7 +658,7 @@ describe('Message', () => {
             component.style = { border: '2px solid red', padding: '10px' };
             fixture.detectChanges();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             expect(messageInstance.style).toEqual({ border: '2px solid red', padding: '10px' });
@@ -675,7 +675,7 @@ describe('Message', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
             expect(messageInstance.size).toBe('large');
 
@@ -695,7 +695,7 @@ describe('Message', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                const messageEl = fixture.debugElement.query(By.css('p-message'));
+                const messageEl = fixture.debugElement.query(By.css('vx-message'));
                 const messageInstance = messageEl.componentInstance as Message;
                 expect(messageInstance.variant).toBe(variant);
             }
@@ -787,7 +787,7 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
             spyOn(messageInstance.onClose, 'emit');
 
@@ -816,8 +816,8 @@ describe('Message', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const message1 = fixture.debugElement.query(By.css('p-message')).componentInstance as Message;
-            const message2 = fixture2.debugElement.query(By.css('p-message')).componentInstance as Message;
+            const message1 = fixture.debugElement.query(By.css('vx-message')).componentInstance as Message;
+            const message2 = fixture2.debugElement.query(By.css('vx-message')).componentInstance as Message;
 
             expect(message1.severity).toBe('error');
             expect(message2.severity).toBe('success');
@@ -828,7 +828,7 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             await fixture.whenStable();
@@ -878,7 +878,7 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             // Destroy component before timeout
@@ -906,7 +906,7 @@ describe('Message', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const messageEl = fixture.debugElement.query(By.css('p-message'));
+            const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
             expect(messageInstance.visible()).toBe(true);
         });
@@ -1441,13 +1441,13 @@ describe('Message', () => {
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
             standalone: false,
-            template: `<p-message [pt]="{ root: 'INLINE_ROOT_CLASS' }" [text]="'Inline Test'"></p-message>`
+            template: `<vx-message [pt]="{ root: 'INLINE_ROOT_CLASS' }" [text]="'Inline Test'"></vx-message>`
         })
         class TestInlineStringComponent {}
 
         @Component({
             standalone: false,
-            template: `<p-message [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid blue' } } }" [text]="'Inline Test'"></p-message>`
+            template: `<vx-message [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid blue' } } }" [text]="'Inline Test'"></vx-message>`
         })
         class TestInlineObjectComponent {}
 
@@ -1481,23 +1481,23 @@ describe('Message', () => {
         });
     });
 
-    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
+    describe('PassThrough - Case 7: Test from VoxxUIConfig', () => {
         @Component({
             standalone: false,
             template: `
-                <p-message [text]="'First Message'" [closable]="true"></p-message>
-                <p-message [text]="'Second Message'" [closable]="true"></p-message>
+                <vx-message [text]="'First Message'" [closable]="true"></vx-message>
+                <vx-message [text]="'Second Message'" [closable]="true"></vx-message>
             `
         })
         class TestGlobalPtComponent {}
 
-        it('should apply global pt configuration from PrimeNGConfig', async () => {
+        it('should apply global pt configuration from VoxxUIConfig', async () => {
             await TestBed.configureTestingModule({
                 imports: [Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             message: {
                                 host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1511,7 +1511,7 @@ describe('Message', () => {
             const fixture = TestBed.createComponent(TestGlobalPtComponent);
             fixture.detectChanges();
 
-            const messages = fixture.debugElement.queryAll(By.css('p-message'));
+            const messages = fixture.debugElement.queryAll(By.css('vx-message'));
             expect(messages.length).toBe(2);
 
             // Check first message - host element has both p-message class and aria-label
@@ -1525,13 +1525,13 @@ describe('Message', () => {
             expect(secondHost.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
         });
 
-        it('should apply global css from PrimeNGConfig', async () => {
+        it('should apply global css from VoxxUIConfig', async () => {
             await TestBed.configureTestingModule({
                 imports: [Message],
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             message: {
                                 root: {
@@ -1546,7 +1546,7 @@ describe('Message', () => {
             const fixture = TestBed.createComponent(TestGlobalPtComponent);
             fixture.detectChanges();
 
-            const messages = fixture.debugElement.queryAll(By.css('p-message'));
+            const messages = fixture.debugElement.queryAll(By.css('vx-message'));
             const firstRoot = messages[0].nativeElement;
 
             // Verify global pt is applied - host element has p-message class
@@ -1556,7 +1556,7 @@ describe('Message', () => {
         it('should merge local pt with global pt configuration', async () => {
             @Component({
                 standalone: false,
-                template: `<p-message [pt]="{ root: 'LOCAL_ROOT_CLASS', content: 'LOCAL_CONTENT_CLASS' }" [text]="'Test'"></p-message>`
+                template: `<vx-message [pt]="{ root: 'LOCAL_ROOT_CLASS', content: 'LOCAL_CONTENT_CLASS' }" [text]="'Test'"></vx-message>`
             })
             class TestMergedPtComponent {}
 
@@ -1565,7 +1565,7 @@ describe('Message', () => {
                 declarations: [TestMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             message: {
                                 root: 'GLOBAL_ROOT_CLASS',
@@ -1580,7 +1580,7 @@ describe('Message', () => {
             fixture.detectChanges();
 
             // In v21, .p-message is on the host element itself - query p-message component
-            const messageComponent = fixture.debugElement.query(By.css('p-message'));
+            const messageComponent = fixture.debugElement.query(By.css('vx-message'));
             const rootElement = messageComponent.nativeElement;
             const contentElement = messageComponent.query(By.css('.p-message-content'));
             const textElement = messageComponent.query(By.css('span'));
@@ -1598,7 +1598,7 @@ describe('Message', () => {
                 declarations: [TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             message: {
                                 root: {
@@ -1619,7 +1619,7 @@ describe('Message', () => {
             fixture.detectChanges();
 
             // In v21, .p-message is on the host element itself - query p-message component
-            const messageComponent = fixture.debugElement.query(By.css('p-message'));
+            const messageComponent = fixture.debugElement.query(By.css('vx-message'));
             const rootElement = messageComponent.nativeElement;
             const closeButton = messageComponent.query(By.css('button'));
 

@@ -7,7 +7,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>PrimeNG is a community-driven project backed by the expertise and sponsorship of PrimeTek, and we appreciate any help you can provide. Here are some areas where you can contribute:</p>
+            <p>VoxxUI is a community-driven project backed by the expertise and sponsorship of PrimeTek, and we appreciate any help you can provide. Here are some areas where you can contribute:</p>
             <h3>Issue Triage</h3>
             <p>Help us manage issues by;</p>
             <ul class="list-disc list-inside line-height-3 px-10 m-0">
@@ -22,7 +22,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <h3>Community Support</h3>
             <p>
                 Assist other users by participating in the issue tracker, <a href="https://github.com/orgs/primefaces/discussions/categories/primeng" target="_blank" rel="noopener noreferrer">GitHub discussions</a>, and the
-                <a href="https://discord.com/invite/gzKFYnpmCY" target="_blank" rel="noopener noreferrer">PrimeLand Discord</a> server. Your expertise can help others solve problems and improve their experience with PrimeNG.
+                <a href="https://discord.com/invite/gzKFYnpmCY" target="_blank" rel="noopener noreferrer">PrimeLand Discord</a> server. Your expertise can help others solve problems and improve their experience with VoxxUI.
             </p>
         </app-docsectiontext>
     `

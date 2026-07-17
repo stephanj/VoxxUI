@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ProgressBarContentTemplateContext, ProgressBarPassThrough } from 'primeng/types/progressbar';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { ProgressBarContentTemplateContext, ProgressBarPassThrough } from 'voxx-ui/types/progressbar';
 import { ProgressBarStyle } from './style/progressbarstyle';
 
 const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTANCE');
@@ -13,17 +13,17 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-progressBar, p-progressbar, p-progress-bar',
+    selector: 'vx-progressBar, vx-progressbar, vx-progress-bar',
     standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
-        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-p]="dataP">
-            <div [class]="cx('label')" [pBind]="ptm('label')" [attr.data-p]="dataP">
+        <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [vxBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-p]="dataP">
+            <div [class]="cx('label')" [vxBind]="ptm('label')" [attr.data-p]="dataP">
                 <div *ngIf="showValue && !contentTemplate && !_contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'">{{ value }}{{ unit }}</div>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: value }"></ng-container>
             </div>
         </div>
-        <div *ngIf="mode === 'indeterminate'" [class]="cn(cx('value'), valueStyleClass)" [pBind]="ptm('value')" [style.background]="color" [attr.data-p]="dataP"></div>
+        <div *ngIf="mode === 'indeterminate'" [class]="cn(cx('value'), valueStyleClass)" [vxBind]="ptm('value')" [style.background]="color" [attr.data-p]="dataP"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

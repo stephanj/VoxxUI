@@ -18,7 +18,7 @@ export class RuntimeDoc {
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { VoxxUI } from 'voxx-ui/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -27,7 +27,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private config: PrimeNG, private translateService: TranslateService) {}
+    constructor(private config: VoxxUI, private translateService: TranslateService) {}
 
     ngOnInit() {
         this.translateService.setDefaultLang('en');

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -14,11 +14,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>The <i>handle</i> template is available to display custom content.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-4">
-            <p-toggleswitch [(ngModel)]="checked">
+            <vx-toggleswitch [(ngModel)]="checked">
                 <ng-template #handle let-checked="checked">
                     <i [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
                 </ng-template>
-            </p-toggleswitch>
+            </vx-toggleswitch>
         </div>
         <app-code></app-code>
     `

@@ -7,7 +7,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Our team has put in great deal of effort while updating PrimeNG, and there are no filed breaking changes in v20.</p>
+            <p>Our team has put in great deal of effort while updating VoxxUI, and there are no filed breaking changes in v20.</p>
         </app-docsectiontext>
     `
 })

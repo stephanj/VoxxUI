@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
     selector: 'pie-doc',
@@ -15,7 +15,7 @@ import { ChartModule } from 'primeng/chart';
             <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code></app-code>
     `

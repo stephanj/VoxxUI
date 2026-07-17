@@ -31,17 +31,17 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@primeuix/utils';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
-import { Ripple } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { VoidListener } from 'primeng/ts-helpers';
-import { MenuItemTemplateContext, MenuPassThrough, MenuSubmenuHeaderTemplateContext } from 'primeng/types/menu';
-import { ZIndexUtils } from 'primeng/utils';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BadgeModule } from 'voxx-ui/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { ConnectedOverlayScrollHandler } from 'voxx-ui/dom';
+import { MotionModule } from 'voxx-ui/motion';
+import { Ripple } from 'voxx-ui/ripple';
+import { TooltipModule } from 'voxx-ui/tooltip';
+import { VoidListener } from 'voxx-ui/ts-helpers';
+import { MenuItemTemplateContext, MenuPassThrough, MenuSubmenuHeaderTemplateContext } from 'voxx-ui/types/menu';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { MenuStyle } from './style/menustyle';
 
 const MENU_INSTANCE = new InjectionToken<Menu>('MENU_INSTANCE');
@@ -66,10 +66,10 @@ export class SafeHtmlPipe implements PipeTransform {
 }
 
 @Component({
-    selector: '[pMenuItemContent]',
+    selector: '[vxMenuItemContent]',
     standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule],
-    template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'" [pBind]="getPTOptions('itemContent')">
+    template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'" [vxBind]="getPTOptions('itemContent')">
         <ng-container *ngIf="!itemTemplate">
             <a
                 *ngIf="!item?.routerLink"
@@ -80,8 +80,8 @@ export class SafeHtmlPipe implements PipeTransform {
                 [class]="cn(cx('itemLink'), item?.linkClass)"
                 [ngStyle]="item?.linkStyle"
                 [target]="item.target"
-                [pBind]="getPTOptions('itemLink')"
-                pRipple
+                [vxBind]="getPTOptions('itemLink')"
+                vxRipple
             >
                 <ng-container *ngTemplateOutlet="itemContent; context: { $implicit: item }"></ng-container>
             </a>
@@ -103,8 +103,8 @@ export class SafeHtmlPipe implements PipeTransform {
                 [skipLocationChange]="item.skipLocationChange"
                 [replaceUrl]="item.replaceUrl"
                 [state]="item.state"
-                [pBind]="getPTOptions('itemLink')"
-                pRipple
+                [vxBind]="getPTOptions('itemLink')"
+                vxRipple
             >
                 <ng-container *ngTemplateOutlet="itemContent; context: { $implicit: item }"></ng-container>
             </a>
@@ -115,17 +115,17 @@ export class SafeHtmlPipe implements PipeTransform {
         </ng-container>
 
         <ng-template #itemContent>
-            <span [class]="cn(cx('itemIcon', { item }), item.iconClass)" [pBind]="getPTOptions('itemIcon')" *ngIf="item.icon" [ngStyle]="item.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
-            <span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [pBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-            <ng-template #htmlLabel><span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [pBind]="getPTOptions('itemLabel')"></span></ng-template>
-            <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions('pcBadge')" [unstyled]="unstyled()" />
+            <span [class]="cn(cx('itemIcon', { item }), item.iconClass)" [vxBind]="getPTOptions('itemIcon')" *ngIf="item.icon" [ngStyle]="item.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
+            <span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [vxBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+            <ng-template #htmlLabel><span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [vxBind]="getPTOptions('itemLabel')"></span></ng-template>
+            <vx-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions('pcBadge')" [unstyled]="unstyled()" />
         </ng-template>
     </div>`,
     encapsulation: ViewEncapsulation.None,
     providers: [MenuStyle]
 })
 export class MenuItemContent extends BaseComponent {
-    @Input('pMenuItemContent') item: MenuItem | undefined;
+    @Input('vxMenuItemContent') item: MenuItem | undefined;
 
     @Input() itemTemplate: any | undefined;
 
@@ -159,7 +159,7 @@ export class MenuItemContent extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-menu',
+    selector: 'vx-menu',
     standalone: true,
     imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule],
     template: `
@@ -171,23 +171,23 @@ export class MenuItemContent extends BaseComponent {
                 [ngStyle]="style"
                 (click)="onOverlayClick($event)"
                 [attr.id]="id"
-                [pBind]="ptm('root')"
+                [vxBind]="ptm('root')"
                 [attr.data-p]="dataP"
-                [pMotion]="visible || !popup"
-                [pMotionName]="'p-anchored-overlay'"
-                [pMotionAppear]="!!popup"
-                [pMotionDisabled]="!popup"
-                [pMotionOptions]="computedMotionOptions()"
-                (pMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
-                (pMotionOnAfterLeave)="onOverlayAfterLeave()"
+                [vxMotion]="visible || !popup"
+                [vxMotionName]="'p-anchored-overlay'"
+                [vxMotionAppear]="!!popup"
+                [vxMotionDisabled]="!popup"
+                [vxMotionOptions]="computedMotionOptions()"
+                (vxMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
+                (vxMotionOnAfterLeave)="onOverlayAfterLeave()"
             >
-                <div *ngIf="startTemplate ?? _startTemplate" [class]="cx('start')" [pBind]="ptm('start')" [attr.data-pc-section]="'start'">
+                <div *ngIf="startTemplate ?? _startTemplate" [class]="cx('start')" [vxBind]="ptm('start')" [attr.data-pc-section]="'start'">
                     <ng-container *ngTemplateOutlet="startTemplate ?? _startTemplate"></ng-container>
                 </div>
                 <ul
                     #list
                     [class]="cx('list')"
-                    [pBind]="ptm('list')"
+                    [vxBind]="ptm('list')"
                     role="menu"
                     [attr.id]="id + '_list'"
                     [attr.tabindex]="getTabIndexValue()"
@@ -200,15 +200,15 @@ export class MenuItemContent extends BaseComponent {
                     (keydown)="onListKeyDown($event)"
                 >
                     <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                        <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="submenu.separator && submenu.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
+                        <li [class]="cx('separator')" [vxBind]="ptm('separator')" *ngIf="submenu.separator && submenu.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
                         <li
                             [class]="cx('submenuLabel')"
-                            [pBind]="ptm('submenuLabel')"
+                            [vxBind]="ptm('submenuLabel')"
                             [attr.data-automationid]="submenu.automationId"
                             *ngIf="!submenu.separator"
-                            pTooltip
+                            vxTooltip
                             [tooltipOptions]="submenu.tooltipOptions"
-                            [pTooltipUnstyled]="unstyled()"
+                            [vxTooltipUnstyled]="unstyled()"
                             role="none"
                             [attr.id]="menuitemId(submenu, id, i)"
                             [attr.data-pc-section]="'submenulabel'"
@@ -220,20 +220,20 @@ export class MenuItemContent extends BaseComponent {
                             <ng-container *ngTemplateOutlet="submenuHeaderTemplate ?? _submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                         </li>
                         <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                            <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator" [attr.data-pc-section]="'separator'"></li>
+                            <li [class]="cx('separator')" [vxBind]="ptm('separator')" *ngIf="item.separator && (item.visible !== false || submenu.visible !== false)" role="separator" [attr.data-pc-section]="'separator'"></li>
                             <li
                                 [class]="cn(cx('item', { item, id: menuitemId(item, id, i, j) }), item?.styleClass)"
-                                [pBind]="ptm('item')"
+                                [vxBind]="ptm('item')"
                                 *ngIf="!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)"
-                                [pMenuItemContent]="item"
+                                [vxMenuItemContent]="item"
                                 [itemTemplate]="itemTemplate ?? _itemTemplate"
                                 [idx]="j"
                                 [menuitemId]="menuitemId(item, id, i, j)"
                                 [style]="item.style"
                                 (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
-                                pTooltip
+                                vxTooltip
                                 [tooltipOptions]="item.tooltipOptions"
-                                [pTooltipUnstyled]="unstyled()"
+                                [vxTooltipUnstyled]="unstyled()"
                                 [unstyled]="unstyled()"
                                 role="menuitem"
                                 [attr.aria-label]="label(item.label)"
@@ -245,21 +245,21 @@ export class MenuItemContent extends BaseComponent {
                         </ng-template>
                     </ng-template>
                     <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                        <li [class]="cx('separator')" [pBind]="ptm('separator')" *ngIf="item.separator && item.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
+                        <li [class]="cx('separator')" [vxBind]="ptm('separator')" *ngIf="item.separator && item.visible !== false" role="separator" [attr.data-pc-section]="'separator'"></li>
                         <li
                             [class]="cn(cx('item', { item, id: menuitemId(item, id, i) }), item?.styleClass)"
-                            [pBind]="ptm('item')"
+                            [vxBind]="ptm('item')"
                             *ngIf="!item.separator && item.visible !== false"
-                            [pMenuItemContent]="item"
+                            [vxMenuItemContent]="item"
                             [itemTemplate]="itemTemplate ?? _itemTemplate"
                             [idx]="i"
                             [menuitemId]="menuitemId(item, id, i)"
                             [ngStyle]="item.style"
                             (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
-                            pTooltip
+                            vxTooltip
                             [tooltipOptions]="item.tooltipOptions"
                             [unstyled]="unstyled()"
-                            [pTooltipUnstyled]="unstyled()"
+                            [vxTooltipUnstyled]="unstyled()"
                             role="menuitem"
                             [attr.aria-label]="label(item.label)"
                             [attr.data-p-focused]="isItemFocused(menuitemId(item, id, i))"
@@ -269,7 +269,7 @@ export class MenuItemContent extends BaseComponent {
                         ></li>
                     </ng-template>
                 </ul>
-                <div *ngIf="endTemplate ?? _endTemplate" [class]="cx('end')" [pBind]="ptm('end')" [attr.data-pc-section]="'end'">
+                <div *ngIf="endTemplate ?? _endTemplate" [class]="cx('end')" [vxBind]="ptm('end')" [attr.data-pc-section]="'end'">
                     <ng-container *ngTemplateOutlet="endTemplate ?? _endTemplate"></ng-container>
                 </div>
             </div>

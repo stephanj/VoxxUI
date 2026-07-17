@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -12,7 +12,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>ProgressBar is used with the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progressbar [value]="50" />
+            <vx-progressbar [value]="50" />
         </div>
         <app-code></app-code>
     `

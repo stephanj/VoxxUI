@@ -25,18 +25,18 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { Button } from 'primeng/button';
-import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'primeng/dom';
-import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { MotionModule } from 'primeng/motion';
-import { Ripple } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseInput } from 'voxx-ui/baseinput';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Button } from 'voxx-ui/button';
+import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'voxx-ui/dom';
+import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'voxx-ui/icons';
+import { InputText } from 'voxx-ui/inputtext';
+import { MotionModule } from 'voxx-ui/motion';
+import { Ripple } from 'voxx-ui/ripple';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
 import {
     DatePickerButtonBarTemplateContext,
     DatePickerDateTemplateContext,
@@ -51,8 +51,8 @@ import {
     LocaleSettings,
     Month,
     NavigationState
-} from 'primeng/types/datepicker';
-import { ZIndexUtils } from 'primeng/utils';
+} from 'voxx-ui/types/datepicker';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerStyle } from './style/datepickerstyle';
 
@@ -69,7 +69,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
  * @group Components
  */
 @Component({
-    selector: 'p-datePicker, p-datepicker, p-date-picker',
+    selector: 'vx-datePicker, vx-datepicker, vx-date-picker',
     standalone: true,
     imports: [CommonModule, Button, Ripple, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocus, InputText, SharedModule, BindModule, MotionModule],
     hostDirectives: [Bind],
@@ -77,9 +77,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
         <ng-template [ngIf]="!inline">
             <input
                 #inputfield
-                pInputText
+                vxInputText
                 data-p-maskable
-                [pSize]="size()"
+                [vxSize]="size()"
                 [attr.size]="inputSize()"
                 type="text"
                 role="combobox"
@@ -107,7 +107,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [attr.tabindex]="tabindex"
                 [attr.inputmode]="touchUI ? 'off' : null"
                 autocomplete="off"
-                [pAutoFocus]="autofocus"
+                [vxAutoFocus]="autofocus"
                 [variant]="$variant()"
                 [fluid]="hasFluid"
                 [invalid]="invalid()"
@@ -115,8 +115,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [unstyled]="unstyled()"
             />
             <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
-                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()" />
-                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()">
+                <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [vxBind]="ptm('inputIcon')" (click)="clear()" />
+                <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [vxBind]="ptm('inputIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -131,23 +131,23 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [class]="cx('dropdown')"
                 [disabled]="$disabled()"
                 tabindex="0"
-                [pBind]="ptm('dropdown')"
+                [vxBind]="ptm('dropdown')"
             >
-                <span *ngIf="icon" [ngClass]="icon" [pBind]="ptm('dropdownIcon')"></span>
+                <span *ngIf="icon" [ngClass]="icon" [vxBind]="ptm('dropdownIcon')"></span>
                 <ng-container *ngIf="!icon">
-                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [pBind]="ptm('dropdownIcon')" />
+                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [vxBind]="ptm('dropdownIcon')" />
                     <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                <span [class]="cx('inputIconContainer')" [pBind]="ptm('inputIconContainer')" [attr.data-p]="inputIconDataP">
-                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
+                <span [class]="cx('inputIconContainer')" [vxBind]="ptm('inputIconContainer')" [attr.data-p]="inputIconDataP">
+                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" [vxBind]="ptm('inputIcon')" />
 
                     <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </span>
             </ng-container>
         </ng-template>
-        <p-motion [visible]="inline || overlayVisible" name="p-anchored-overlay" [appear]="!inline" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave($event)">
+        <vx-motion [visible]="inline || overlayVisible" name="p-anchored-overlay" [appear]="!inline" [options]="computedMotionOptions()" (onBeforeEnter)="onOverlayBeforeEnter($event)" (onAfterLeave)="onOverlayAfterLeave($event)">
             <div
                 #contentWrapper
                 [attr.id]="panelId"
@@ -157,15 +157,15 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [attr.role]="inline ? null : 'dialog'"
                 [attr.aria-modal]="inline ? null : 'true'"
                 (click)="onOverlayClick($event)"
-                [pBind]="ptm('panel')"
+                [vxBind]="ptm('panel')"
             >
-                <ng-content select="p-header"></ng-content>
+                <ng-content select="vx-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                 <ng-container *ngIf="!timeOnly">
-                    <div [class]="cx('calendarContainer')" [pBind]="ptm('calendarContainer')">
-                        <div [class]="cx('calendar')" *ngFor="let month of months; let i = index" [pBind]="ptm('calendar')">
-                            <div [class]="cx('header')" [pBind]="ptm('header')">
-                                <p-button
+                    <div [class]="cx('calendarContainer')" [vxBind]="ptm('calendarContainer')">
+                        <div [class]="cx('calendar')" *ngFor="let month of months; let i = index" [vxBind]="ptm('calendar')">
+                            <div [class]="cx('header')" [vxBind]="ptm('header')">
+                                <vx-button
                                     rounded
                                     variant="text"
                                     severity="secondary"
@@ -184,8 +184,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                             <ng-template *ngTemplateOutlet="previousIconTemplate || _previousIconTemplate"></ng-template>
                                         </span>
                                     </ng-template>
-                                </p-button>
-                                <div [class]="cx('title')" [pBind]="ptm('title')">
+                                </vx-button>
+                                <div [class]="cx('title')" [vxBind]="ptm('title')">
                                     <button
                                         *ngIf="currentView === 'date'"
                                         type="button"
@@ -194,8 +194,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         [class]="cx('selectMonth')"
                                         [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                         [attr.aria-label]="this.getTranslation('chooseMonth')"
-                                        pRipple
-                                        [pBind]="ptm('selectMonth')"
+                                        vxRipple
+                                        [vxBind]="ptm('selectMonth')"
                                         [attr.data-pc-group-section]="'navigator'"
                                     >
                                         {{ getMonthName(month.month) }}
@@ -208,18 +208,18 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         [class]="cx('selectYear')"
                                         [attr.disabled]="switchViewButtonDisabled() ? '' : undefined"
                                         [attr.aria-label]="getTranslation('chooseYear')"
-                                        pRipple
-                                        [pBind]="ptm('selectYear')"
+                                        vxRipple
+                                        [vxBind]="ptm('selectYear')"
                                         [attr.data-pc-group-section]="'navigator'"
                                     >
                                         {{ getYear(month) }}
                                     </button>
-                                    <span [class]="cx('decade')" *ngIf="currentView === 'year'" [pBind]="ptm('decade')">
+                                    <span [class]="cx('decade')" *ngIf="currentView === 'year'" [vxBind]="ptm('decade')">
                                         <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
                                         <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
-                                <p-button
+                                <vx-button
                                     rounded
                                     variant="text"
                                     severity="secondary"
@@ -237,27 +237,27 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                             <ng-template *ngTemplateOutlet="nextIconTemplate || _nextIconTemplate"></ng-template>
                                         </ng-container>
                                     </ng-template>
-                                </p-button>
+                                </vx-button>
                             </div>
-                            <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'" [pBind]="ptm('table')">
-                                <thead [pBind]="ptm('tableHeader')">
-                                    <tr [pBind]="ptm('tableHeaderRow')">
-                                        <th *ngIf="showWeek" [class]="cx('weekHeader')" [pBind]="ptm('weekHeader')">
-                                            <span [pBind]="ptm('weekHeaderLabel')">{{ getTranslation('weekHeader') }}</span>
+                            <table [class]="cx('dayView')" role="grid" *ngIf="currentView === 'date'" [vxBind]="ptm('table')">
+                                <thead [vxBind]="ptm('tableHeader')">
+                                    <tr [vxBind]="ptm('tableHeaderRow')">
+                                        <th *ngIf="showWeek" [class]="cx('weekHeader')" [vxBind]="ptm('weekHeader')">
+                                            <span [vxBind]="ptm('weekHeaderLabel')">{{ getTranslation('weekHeader') }}</span>
                                         </th>
-                                        <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last" [pBind]="ptm('weekDayCell')">
-                                            <span [class]="cx('weekDay')" [pBind]="ptm('weekDay')">{{ weekDay }}</span>
+                                        <th [class]="cx('weekDayCell')" scope="col" *ngFor="let weekDay of weekDays; let begin = first; let end = last" [vxBind]="ptm('weekDayCell')">
+                                            <span [class]="cx('weekDay')" [vxBind]="ptm('weekDay')">{{ weekDay }}</span>
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody [pBind]="ptm('tableBody')">
-                                    <tr *ngFor="let week of month.dates; let j = index" [pBind]="ptm('tableBodyRow')">
-                                        <td *ngIf="showWeek" [class]="cx('weekNumber')" [pBind]="ptm('weekNumber')">
-                                            <span [class]="cx('weekLabelContainer')" [pBind]="ptm('weekLabelContainer')">
+                                <tbody [vxBind]="ptm('tableBody')">
+                                    <tr *ngFor="let week of month.dates; let j = index" [vxBind]="ptm('tableBodyRow')">
+                                        <td *ngIf="showWeek" [class]="cx('weekNumber')" [vxBind]="ptm('weekNumber')">
+                                            <span [class]="cx('weekLabelContainer')" [vxBind]="ptm('weekLabelContainer')">
                                                 {{ month.weekNumbers[j] }}
                                             </span>
                                         </td>
-                                        <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })" [pBind]="ptm('dayCell')">
+                                        <td *ngFor="let date of week" [attr.aria-label]="date.day" [class]="cx('dayCell', { date })" [vxBind]="ptm('dayCell')">
                                             <ng-container *ngIf="date.otherMonth ? showOtherMonths : true">
                                                 <span
                                                     [ngClass]="dayClass(date)"
@@ -265,8 +265,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                     draggable="false"
                                                     [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
                                                     (keydown)="onDateCellKeydown($event, date, i)"
-                                                    pRipple
-                                                    [pBind]="ptm('day')"
+                                                    vxRipple
+                                                    [vxBind]="ptm('day')"
                                                 >
                                                     <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
                                                     <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
@@ -286,16 +286,16 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             </table>
                         </div>
                     </div>
-                    <div [class]="cx('monthView')" *ngIf="currentView === 'month'" [pBind]="ptm('monthView')">
-                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" pRipple [pBind]="ptm('month')">
+                    <div [class]="cx('monthView')" *ngIf="currentView === 'month'" [vxBind]="ptm('monthView')">
+                        <span *ngFor="let m of monthPickerValues(); let i = index" (click)="onMonthSelect($event, i)" (keydown)="onMonthCellKeydown($event, i)" [class]="cx('month', { month: m, index: i })" vxRipple [vxBind]="ptm('month')">
                             {{ m }}
                             <div *ngIf="isMonthSelected(i)" class="p-hidden-accessible" aria-live="polite">
                                 {{ m }}
                             </div>
                         </span>
                     </div>
-                    <div [class]="cx('yearView')" *ngIf="currentView === 'year'" [pBind]="ptm('yearView')">
-                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" pRipple [pBind]="ptm('year')">
+                    <div [class]="cx('yearView')" *ngIf="currentView === 'year'" [vxBind]="ptm('yearView')">
+                        <span *ngFor="let y of yearPickerValues()" (click)="onYearSelect($event, y)" (keydown)="onYearCellKeydown($event, y)" [class]="cx('year', { year: y })" vxRipple [vxBind]="ptm('year')">
                             {{ y }}
                             <div *ngIf="isYearSelected(y)" class="p-hidden-accessible" aria-live="polite">
                                 {{ y }}
@@ -303,9 +303,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         </span>
                     </div>
                 </ng-container>
-                <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'" [pBind]="ptm('timePicker')">
-                    <div [class]="cx('hourPicker')" [pBind]="ptm('hourPicker')">
-                        <p-button
+                <div [class]="cx('timePicker')" *ngIf="(showTime || timeOnly) && currentView === 'date'" [vxBind]="ptm('timePicker')">
+                    <div [class]="cx('hourPicker')" [vxBind]="ptm('hourPicker')">
+                        <vx-button
                             rounded
                             variant="text"
                             severity="secondary"
@@ -323,12 +323,12 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [vxBind]="ptm('pcIncrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
-                        <span [pBind]="ptm('hour')"><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
-                        <p-button
+                        </vx-button>
+                        <span [vxBind]="ptm('hour')"><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
+                        <vx-button
                             rounded
                             variant="text"
                             severity="secondary"
@@ -346,16 +346,16 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [vxBind]="ptm('pcDecrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
+                        </vx-button>
                     </div>
-                    <div class="p-datepicker-separator" [pBind]="ptm('separatorContainer')">
-                        <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
+                    <div class="p-datepicker-separator" [vxBind]="ptm('separatorContainer')">
+                        <span [vxBind]="ptm('separator')">{{ timeSeparator }}</span>
                     </div>
-                    <div [class]="cx('minutePicker')" [pBind]="ptm('minutePicker')">
-                        <p-button
+                    <div [class]="cx('minutePicker')" [vxBind]="ptm('minutePicker')">
+                        <vx-button
                             rounded
                             variant="text"
                             severity="secondary"
@@ -373,12 +373,12 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [vxBind]="ptm('pcIncrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
-                        <span [pBind]="ptm('minute')"><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
-                        <p-button
+                        </vx-button>
+                        <span [vxBind]="ptm('minute')"><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
+                        <vx-button
                             rounded
                             variant="text"
                             severity="secondary"
@@ -396,16 +396,16 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [vxBind]="ptm('pcDecrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
+                        </vx-button>
                     </div>
-                    <div [class]="cx('separator')" *ngIf="showSeconds" [pBind]="ptm('separatorContainer')">
-                        <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
+                    <div [class]="cx('separator')" *ngIf="showSeconds" [vxBind]="ptm('separatorContainer')">
+                        <span [vxBind]="ptm('separator')">{{ timeSeparator }}</span>
                     </div>
-                    <div [class]="cx('secondPicker')" *ngIf="showSeconds" [pBind]="ptm('secondPicker')">
-                        <p-button
+                    <div [class]="cx('secondPicker')" *ngIf="showSeconds" [vxBind]="ptm('secondPicker')">
+                        <vx-button
                             rounded
                             variant="text"
                             severity="secondary"
@@ -423,12 +423,12 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [vxBind]="ptm('pcIncrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
-                        <span [pBind]="ptm('second')"><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
-                        <p-button
+                        </vx-button>
+                        <span [vxBind]="ptm('second')"><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
+                        <vx-button
                             rounded
                             variant="text"
                             severity="secondary"
@@ -446,16 +446,16 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [vxBind]="ptm('pcDecrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
+                        </vx-button>
                     </div>
-                    <div [class]="cx('separator')" *ngIf="hourFormat == '12'" [pBind]="ptm('separatorContainer')">
-                        <span [pBind]="ptm('separator')">{{ timeSeparator }}</span>
+                    <div [class]="cx('separator')" *ngIf="hourFormat == '12'" [vxBind]="ptm('separatorContainer')">
+                        <span [vxBind]="ptm('separator')">{{ timeSeparator }}</span>
                     </div>
-                    <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'" [pBind]="ptm('ampmPicker')">
-                        <p-button
+                    <div [class]="cx('ampmPicker')" *ngIf="hourFormat == '12'" [vxBind]="ptm('ampmPicker')">
+                        <vx-button
                             text
                             rounded
                             severity="secondary"
@@ -468,12 +468,12 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [vxBind]="ptm('pcIncrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
-                        <span [pBind]="ptm('ampm')">{{ pm ? 'PM' : 'AM' }}</span>
-                        <p-button
+                        </vx-button>
+                        <span [vxBind]="ptm('ampm')">{{ pm ? 'PM' : 'AM' }}</span>
+                        <vx-button
                             text
                             rounded
                             severity="secondary"
@@ -486,17 +486,17 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [vxBind]="ptm('pcDecrementButton')['icon']" />
                                 <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
                             </ng-template>
-                        </p-button>
+                        </vx-button>
                     </div>
                 </div>
-                <div [class]="cx('buttonbar')" *ngIf="showButtonBar" [pBind]="ptm('buttonbar')">
+                <div [class]="cx('buttonbar')" *ngIf="showButtonBar" [vxBind]="ptm('buttonbar')">
                     @if (buttonBarTemplate || _buttonBarTemplate) {
                         <ng-container *ngTemplateOutlet="buttonBarTemplate || _buttonBarTemplate; context: { todayCallback: onTodayButtonClick.bind(this), clearCallback: onClearButtonClick.bind(this) }"></ng-container>
                     } @else {
-                        <p-button
+                        <vx-button
                             size="small"
                             [styleClass]="cx('pcTodayButton')"
                             [label]="getTranslation('today')"
@@ -509,7 +509,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [pt]="ptm('pcTodayButton')"
                             [attr.data-pc-group-section]="'button'"
                         />
-                        <p-button
+                        <vx-button
                             size="small"
                             [styleClass]="cx('pcClearButton')"
                             [label]="getTranslation('clear')"
@@ -524,10 +524,10 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         />
                     }
                 </div>
-                <ng-content select="p-footer"></ng-content>
+                <ng-content select="vx-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
-        </p-motion>
+        </vx-motion>
     `,
     providers: [DATEPICKER_VALUE_ACCESSOR, DatePickerStyle, { provide: DATEPICKER_INSTANCE, useExisting: DatePicker }, { provide: PARENT_INSTANCE, useExisting: DatePicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -13,12 +13,12 @@ ColorPicker is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" />
+            <vx-colorpicker [(ngModel)]="color" />
         </div>
     `,
     standalone: true,
@@ -36,12 +36,12 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" [disabled]="true" />
+            <vx-colorpicker [(ngModel)]="color" [disabled]="true" />
         </div>
     `,
     standalone: true,
@@ -59,24 +59,24 @@ Default color format to use in value binding is hex and other possible values ca
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
+                <vx-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
                 <span>{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
+                <vx-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
                 <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
+                <vx-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
                 <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
@@ -98,12 +98,12 @@ ColorPicker is displayed as a popup by default, add inline property to customize
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-colorpicker [(ngModel)]="color" [inline]="true" />
+            <vx-colorpicker [(ngModel)]="color" [inline]="true" />
         </div>
     `,
     standalone: true,
@@ -121,21 +121,21 @@ ColorPicker can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
+            <vx-toast />
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker formControlName="color" defaultColor="989898" />
+                    <vx-colorpicker formControlName="color" defaultColor="989898" />
                     @if (isInvalid('color')) {
-                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Color is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -177,21 +177,21 @@ export class ColorpickerReactiveformsDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
+            <vx-toast />
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col items-center gap-2">
-                    <p-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
+                    <vx-colorpicker name="color" [(ngModel)]="color" #colorModel="ngModel" required defaultColor="989898" />
                     @if (colorModel.invalid && (colorModel.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Color is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Color is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

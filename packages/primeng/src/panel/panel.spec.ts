@@ -2,15 +2,15 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'primeng/types/panel';
+import { ButtonModule } from 'voxx-ui/button';
+import { MinusIcon, PlusIcon } from 'voxx-ui/icons';
+import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'voxx-ui/types/panel';
 import { Panel } from './panel';
 
 @Component({
     standalone: false,
     template: `
-        <p-panel
+        <vx-panel
             [header]="header"
             [toggleable]="toggleable"
             [collapsed]="collapsed"
@@ -25,7 +25,7 @@ import { Panel } from './panel';
             (onAfterToggle)="onAfterToggle($event)"
         >
             <div class="panel-content">Panel content goes here</div>
-        </p-panel>
+        </vx-panel>
     `
 })
 class TestBasicPanelComponent {
@@ -59,7 +59,7 @@ class TestBasicPanelComponent {
 @Component({
     standalone: false,
     template: `
-        <p-panel header="Template Panel" [toggleable]="true">
+        <vx-panel header="Template Panel" [toggleable]="true">
             <ng-template #header>
                 <div class="custom-header">Custom Header Template</div>
             </ng-template>
@@ -75,7 +75,7 @@ class TestBasicPanelComponent {
             <ng-template #headericons let-collapsed>
                 <span class="custom-header-icon">{{ collapsed ? '➕' : '➖' }}</span>
             </ng-template>
-        </p-panel>
+        </vx-panel>
     `
 })
 class TestTemplatesPanelComponent {}
@@ -83,15 +83,15 @@ class TestTemplatesPanelComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-panel header="Facet Panel" [toggleable]="true">
-            <p-header>
+        <vx-panel header="Facet Panel" [toggleable]="true">
+            <vx-header>
                 <div class="header-facet">Header Facet Content</div>
-            </p-header>
+            </vx-header>
             <div class="main-content">Main panel content</div>
-            <p-footer>
+            <vx-footer>
                 <div class="footer-facet">Footer Facet Content</div>
-            </p-footer>
-        </p-panel>
+            </vx-footer>
+        </vx-panel>
     `
 })
 class TestFacetsPanelComponent {}
@@ -99,7 +99,7 @@ class TestFacetsPanelComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-panel header="Keyboard Panel" [toggleable]="true" [collapsed]="false">
+        <vx-panel header="Keyboard Panel" [toggleable]="true" [collapsed]="false">
             <div>
                 <input type="text" placeholder="Input 1" />
                 <button>Button 1</button>
@@ -110,7 +110,7 @@ class TestFacetsPanelComponent {}
                 <textarea placeholder="Textarea"></textarea>
                 <div tabindex="0">Focusable div</div>
             </div>
-        </p-panel>
+        </vx-panel>
     `
 })
 class TestKeyboardNavigationComponent {}
@@ -216,7 +216,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(toggleButton).toBeTruthy();
         });
 
@@ -226,7 +226,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             toggleButton.nativeElement.click();
             await testFixture.whenStable();
 
@@ -269,7 +269,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             toggleButton.nativeElement.click();
             await testFixture.whenStable();
 
@@ -284,7 +284,7 @@ describe('Panel', () => {
             testComponent.collapsed = false;
             testFixture.detectChanges();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
             spyOn(panelInstance, 'toggle');
@@ -298,7 +298,7 @@ describe('Panel', () => {
             testComponent.collapsed = false;
             testFixture.detectChanges();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
 
             spyOn(panelInstance, 'toggle');
@@ -311,7 +311,7 @@ describe('Panel', () => {
             testComponent.toggleable = true;
             testFixture.detectChanges();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             const escEvent = new KeyboardEvent('keydown', { code: 'Escape' });
 
             spyOn(panelInstance, 'toggle');
@@ -347,7 +347,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
 
             testComponent.collapsed = true;
@@ -388,7 +388,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(toggleButton).toBeTruthy();
         });
     });
@@ -399,12 +399,12 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+            const panelElement = testFixture.debugElement.query(By.css('vx-panel'));
             expect(panelElement.nativeElement.className).toContain('custom-panel-class');
         });
 
         it('should have correct CSS classes based on state', () => {
-            const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+            const panelElement = testFixture.debugElement.query(By.css('vx-panel'));
             expect(panelElement.nativeElement.className).toContain('p-panel');
         });
     });
@@ -475,7 +475,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
 
             expect(toggleButton.nativeElement.getAttribute('role')).toBe('button');
@@ -493,7 +493,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
 
             testComponent.collapsed = true;
@@ -567,7 +567,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(toggleButton).toBeTruthy();
         });
     });
@@ -880,7 +880,7 @@ describe('Panel', () => {
             testFixture.detectChanges();
 
             // Toggle to collapse
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             toggleButton.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
             await testFixture.whenStable();
@@ -917,7 +917,7 @@ describe('Panel', () => {
             expect(contentContainer).toBeTruthy();
 
             // Toggle to expand
-            const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+            const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
             toggleButton.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
             await testFixture.whenStable();
@@ -991,7 +991,7 @@ describe('Panel', () => {
             expect(computedStyle.overflow).toBe('hidden');
 
             // Panel should have p-panel-collapsed class
-            const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+            const panelElement = testFixture.debugElement.query(By.css('vx-panel'));
             expect(panelElement.nativeElement.className).toContain('p-panel-collapsed');
 
             // CSS selector .p-panel-collapsed .p-panel-content-container should match
@@ -1012,7 +1012,7 @@ describe('Panel', () => {
             expect(contentContainer).toBeTruthy();
 
             // Panel should have p-panel-expanded class
-            const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+            const panelElement = testFixture.debugElement.query(By.css('vx-panel'));
             expect(panelElement.nativeElement.className).toContain('p-panel-expanded');
 
             // Note: In expanded state, overflow may still be 'hidden' due to default styles,
@@ -1026,7 +1026,7 @@ describe('Panel', () => {
         //     testComponent.collapsed = true;
         //     testFixture.detectChanges();
 
-        //     const panelRoot = testFixture.debugElement.query(By.css('p-panel'));
+        //     const panelRoot = testFixture.debugElement.query(By.css('vx-panel'));
         //     const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
 
         //     // Verify DOM structure

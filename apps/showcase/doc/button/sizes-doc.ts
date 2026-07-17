@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'sizes-doc',
@@ -12,9 +12,9 @@ import { ButtonModule } from 'primeng/button';
             <p>Button provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4 items-center">
-            <p-button label="Small" icon="pi pi-check" size="small" />
-            <p-button label="Normal" icon="pi pi-check" />
-            <p-button label="Large" icon="pi pi-check" size="large" />
+            <vx-button label="Small" icon="pi pi-check" size="small" />
+            <vx-button label="Normal" icon="pi pi-check" />
+            <vx-button label="Large" icon="pi pi-check" size="large" />
         </div>
         <app-code></app-code>
     `

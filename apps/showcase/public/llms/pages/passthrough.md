@@ -8,7 +8,7 @@ Each component has a special pt property to define an object with keys correspon
 
 ## Global-
 
-PassThrough object can also be defined at a global level to apply all components in an application using the providePrimeNG provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.
+PassThrough object can also be defined at a global level to apply all components in an application using the provideVoxxUI provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.
 
 ## Instance-
 

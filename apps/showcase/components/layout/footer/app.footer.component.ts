@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     template: `
         <div class="layout-footer">
             <div>
-                <span>PrimeNG {{ version }} by </span>
+                <span>VoxxUI {{ version }} by </span>
                 <a href="https://www.primetek.com.tr">PrimeTek</a>
             </div>
         </div>

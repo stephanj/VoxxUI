@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BindModule } from 'primeng/bind'`
+        typescript: `import { BindModule } from 'voxx-ui/bind'`
     };
 }

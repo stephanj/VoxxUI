@@ -11,7 +11,7 @@ import { AppDoc } from '@/components/doc/app.doc';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="Contribution - PrimeNG" header="Contribution Guide" description="Welcome to the PrimeNG Contribution Guide and thank you for considering contributing." [docs]="docs"></app-doc> `
+    template: ` <app-doc docTitle="Contribution - VoxxUI" header="Contribution Guide" description="Welcome to the VoxxUI Contribution Guide and thank you for considering contributing." [docs]="docs"></app-doc> `
 })
 export class ContributionDemo {
     docs = [

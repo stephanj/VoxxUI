@@ -1,3 +1,3 @@
-export * from 'primeng/types/splitter';
+export * from 'voxx-ui/types/splitter';
 export * from './splitter';
 export * from './style/splitterstyle';

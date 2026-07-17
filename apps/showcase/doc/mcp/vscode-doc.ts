@@ -23,7 +23,7 @@ export class VSCodeDoc {
     "servers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }`

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as scrollpanel_style } from '@primeuix/styles/scrollpanel';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${scrollpanel_style}

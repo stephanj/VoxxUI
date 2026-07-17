@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -12,7 +12,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Message component requires a content to display.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-message>Message Content</p-message>
+            <vx-message>Message Content</vx-message>
         </div>
         <app-code></app-code>
     `

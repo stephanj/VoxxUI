@@ -12,18 +12,18 @@ ConfirmPopup is defined using p-confirmPopup tag and an instance of Confirmation
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmPopupModule } from 'voxx-ui/confirmpopup';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-confirmpopup />
-            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            <vx-toast />
+            <vx-confirmpopup />
+            <vx-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+            <vx-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
     `,
     standalone: true,
@@ -177,27 +177,27 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmPopupModule } from 'voxx-ui/confirmpopup';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmpopup #cp>
+            <vx-toast />
+            <vx-confirmpopup #cp>
                 <ng-template #headless let-message>
                     <div class="rounded p-4">
                         <span>{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
-                            <p-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
-                            <p-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
+                            <vx-button (onClick)="cp.onAccept()" label="Save" size="small" [autofocus]="true" />
+                            <vx-button (onClick)="cp.onReject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                         </div>
                     </div>
                 </ng-template>
-            </p-confirmpopup>
-            <p-button (onClick)="confirm($event)" label="Save" />
+            </vx-confirmpopup>
+            <vx-button (onClick)="confirm($event)" label="Save" />
         </div>
     `,
     standalone: true,
@@ -286,24 +286,24 @@ Content section can be customized using content template.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmPopupModule } from 'voxx-ui/confirmpopup';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmpopup>
+            <vx-toast />
+            <vx-confirmpopup>
                 <ng-template #content let-message>
                     <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700 p-4 mb-4 pb-0">
                         <i [class]="message.icon" class="!text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
                 </ng-template>
-            </p-confirmpopup>
-            <p-button (click)="confirm($event)" label="Save" />
+            </vx-confirmpopup>
+            <vx-button (click)="confirm($event)" label="Save" />
         </div>
     `,
     standalone: true,

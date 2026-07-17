@@ -6,12 +6,12 @@ import { ClassNamesModule } from './classnames';
 
 @Component({
     template: `
-        <div [pClass]="stringClass" data-testid="string"></div>
-        <div [pClass]="arrayClass" data-testid="array"></div>
-        <div [pClass]="objectClass" data-testid="object"></div>
-        <div [pClass]="mixedClass" data-testid="mixed"></div>
-        <div [pClass]="nullClass" data-testid="null"></div>
-        <div class="p-2 border border-surface-700" [ngClass]="ngClassExample" [pClass]="[combinedExample, 'string_class']" data-testid="combined"></div>
+        <div [vxClass]="stringClass" data-testid="string"></div>
+        <div [vxClass]="arrayClass" data-testid="array"></div>
+        <div [vxClass]="objectClass" data-testid="object"></div>
+        <div [vxClass]="mixedClass" data-testid="mixed"></div>
+        <div [vxClass]="nullClass" data-testid="null"></div>
+        <div class="p-2 border border-surface-700" [ngClass]="ngClassExample" [vxClass]="[combinedExample, 'string_class']" data-testid="combined"></div>
     `,
     standalone: true,
     imports: [ClassNamesModule, NgClass]
@@ -85,7 +85,7 @@ describe('PClass Directive', () => {
         expect(element.nativeElement.className).toBe('new-class');
     });
 
-    it('should combine static class, ngClass, and pClass correctly', () => {
+    it('should combine static class, ngClass, and vxClass correctly', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="combined"]'));
         const classList = element.nativeElement.className.split(' ');
 
@@ -107,8 +107,8 @@ describe('PClass Directive', () => {
 
 @Component({
     template: `
-        <div [pClass]="conditionalClasses()" data-testid="conditional"></div>
-        <div [pClass]="comboClasses()" data-testid="combo"></div>
+        <div [vxClass]="conditionalClasses()" data-testid="conditional"></div>
+        <div [vxClass]="comboClasses()" data-testid="combo"></div>
     `,
     standalone: true,
     imports: [ClassNamesModule]

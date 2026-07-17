@@ -4,17 +4,17 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Paginator, PaginatorModule } from './paginator';
-import { Select } from 'primeng/select';
-import { InputNumber } from 'primeng/inputnumber';
-import { Ripple } from 'primeng/ripple';
-import { SharedModule } from 'primeng/api';
-import { PaginatorState } from 'primeng/types/paginator';
+import { Select } from 'voxx-ui/select';
+import { InputNumber } from 'voxx-ui/inputnumber';
+import { Ripple } from 'voxx-ui/ripple';
+import { SharedModule } from 'voxx-ui/api';
+import { PaginatorState } from 'voxx-ui/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({
     standalone: false,
     template: `
-        <p-paginator
+        <vx-paginator
             [rows]="rows"
             [totalRecords]="totalRecords"
             [first]="first"
@@ -35,7 +35,7 @@ import { PaginatorState } from 'primeng/types/paginator';
             [templateRight]="rightTemplate"
             (onPageChange)="onPageChange($event)"
         >
-        </p-paginator>
+        </vx-paginator>
 
         <ng-template #leftTemplate let-state>
             <span class="custom-left-template">Left: Page {{ state.page + 1 }}</span>
@@ -72,42 +72,42 @@ class TestBasicPaginatorComponent {
     }
 }
 
-// Test component for template testing with pTemplate
+// Test component for template testing with vxTemplate
 @Component({
     standalone: false,
     template: `
-        <p-paginator [rows]="10" [totalRecords]="100" [first]="0">
-            <ng-template pTemplate="dropdownicon">
+        <vx-paginator [rows]="10" [totalRecords]="100" [first]="0">
+            <ng-template vxTemplate="dropdownicon">
                 <span class="custom-dropdown-icon">▼</span>
             </ng-template>
 
-            <ng-template pTemplate="firstpagelinkicon">
+            <ng-template vxTemplate="firstpagelinkicon">
                 <span class="custom-first-icon">⏮</span>
             </ng-template>
 
-            <ng-template pTemplate="previouspagelinkicon">
+            <ng-template vxTemplate="previouspagelinkicon">
                 <span class="custom-prev-icon">⏪</span>
             </ng-template>
 
-            <ng-template pTemplate="nextpagelinkicon">
+            <ng-template vxTemplate="nextpagelinkicon">
                 <span class="custom-next-icon">⏩</span>
             </ng-template>
 
-            <ng-template pTemplate="lastpagelinkicon">
+            <ng-template vxTemplate="lastpagelinkicon">
                 <span class="custom-last-icon">⏭</span>
             </ng-template>
-        </p-paginator>
+        </vx-paginator>
     `
 })
 class TestPTemplatePaginatorComponent {
-    // Component with pTemplate templates
+    // Component with vxTemplate templates
 }
 
 // Test component for ContentChild template references
 @Component({
     standalone: false,
     template: `
-        <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [rowsPerPageOptions]="[5, 10, 20]">
+        <vx-paginator [rows]="10" [totalRecords]="100" [first]="0" [rowsPerPageOptions]="[5, 10, 20]">
             <ng-template #dropdownicon>
                 <span class="contentchild-dropdown-icon">⬇</span>
             </ng-template>
@@ -127,7 +127,7 @@ class TestPTemplatePaginatorComponent {
             <ng-template #lastpagelinkicon>
                 <span class="contentchild-last-icon">⏭️</span>
             </ng-template>
-        </p-paginator>
+        </vx-paginator>
     `
 })
 class TestContentChildPaginatorComponent {
@@ -138,7 +138,7 @@ class TestContentChildPaginatorComponent {
 @Component({
     standalone: false,
     template: `
-        <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [showJumpToPageDropdown]="true" [jumpToPageItemTemplate]="jumpTemplate" [dropdownItemTemplate]="dropdownTemplate" [rowsPerPageOptions]="rowsPerPageOptions">
+        <vx-paginator [rows]="10" [totalRecords]="100" [first]="0" [showJumpToPageDropdown]="true" [jumpToPageItemTemplate]="jumpTemplate" [dropdownItemTemplate]="dropdownTemplate" [rowsPerPageOptions]="rowsPerPageOptions">
             <ng-template #jumpTemplate let-item>
                 <span class="custom-jump-item">Jump to {{ item.label }}</span>
             </ng-template>
@@ -146,7 +146,7 @@ class TestContentChildPaginatorComponent {
             <ng-template #dropdownTemplate let-item>
                 <span class="custom-dropdown-item">{{ item.label }} items</span>
             </ng-template>
-        </p-paginator>
+        </vx-paginator>
     `
 })
 class TestDropdownPaginatorComponent {
@@ -539,50 +539,50 @@ describe('Paginator', () => {
     });
 
     describe('Template and Content Projection', () => {
-        describe('pTemplate Approach', () => {
-            let pTemplateFixture: ComponentFixture<TestPTemplatePaginatorComponent>;
-            let pTemplatePaginator: Paginator;
+        describe('vxTemplate Approach', () => {
+            let vxTemplateFixture: ComponentFixture<TestPTemplatePaginatorComponent>;
+            let vxTemplatePaginator: Paginator;
 
             beforeEach(() => {
-                pTemplateFixture = TestBed.createComponent(TestPTemplatePaginatorComponent);
-                pTemplatePaginator = pTemplateFixture.debugElement.query(By.directive(Paginator)).componentInstance;
-                pTemplateFixture.detectChanges();
+                vxTemplateFixture = TestBed.createComponent(TestPTemplatePaginatorComponent);
+                vxTemplatePaginator = vxTemplateFixture.debugElement.query(By.directive(Paginator)).componentInstance;
+                vxTemplateFixture.detectChanges();
             });
 
-            it('should create component with pTemplate templates', () => {
-                expect(pTemplateFixture.componentInstance).toBeTruthy();
-                expect(pTemplatePaginator).toBeTruthy();
+            it('should create component with vxTemplate templates', () => {
+                expect(vxTemplateFixture.componentInstance).toBeTruthy();
+                expect(vxTemplatePaginator).toBeTruthy();
             });
 
-            it('should process pTemplate templates in ngAfterContentInit', async () => {
-                await pTemplateFixture.whenStable();
+            it('should process vxTemplate templates in ngAfterContentInit', async () => {
+                await vxTemplateFixture.whenStable();
 
-                expect(pTemplatePaginator._dropdownIconTemplate).toBeDefined();
-                expect(pTemplatePaginator._firstPageLinkIconTemplate).toBeDefined();
-                expect(pTemplatePaginator._previousPageLinkIconTemplate).toBeDefined();
-                expect(pTemplatePaginator._nextPageLinkIconTemplate).toBeDefined();
-                expect(pTemplatePaginator._lastPageLinkIconTemplate).toBeDefined();
+                expect(vxTemplatePaginator._dropdownIconTemplate).toBeDefined();
+                expect(vxTemplatePaginator._firstPageLinkIconTemplate).toBeDefined();
+                expect(vxTemplatePaginator._previousPageLinkIconTemplate).toBeDefined();
+                expect(vxTemplatePaginator._nextPageLinkIconTemplate).toBeDefined();
+                expect(vxTemplatePaginator._lastPageLinkIconTemplate).toBeDefined();
             });
 
             it('should apply custom icon templates', async () => {
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
-                const firstIcon = pTemplateFixture.debugElement.query(By.css('.custom-first-icon'));
+                const firstIcon = vxTemplateFixture.debugElement.query(By.css('.custom-first-icon'));
                 if (firstIcon) {
                     expect(firstIcon.nativeElement.textContent).toBe('⏮');
                 }
 
-                const prevIcon = pTemplateFixture.debugElement.query(By.css('.custom-prev-icon'));
+                const prevIcon = vxTemplateFixture.debugElement.query(By.css('.custom-prev-icon'));
                 if (prevIcon) {
                     expect(prevIcon.nativeElement.textContent).toBe('⏪');
                 }
 
-                const nextIcon = pTemplateFixture.debugElement.query(By.css('.custom-next-icon'));
+                const nextIcon = vxTemplateFixture.debugElement.query(By.css('.custom-next-icon'));
                 if (nextIcon) {
                     expect(nextIcon.nativeElement.textContent).toBe('⏩');
                 }
 
-                const lastIcon = pTemplateFixture.debugElement.query(By.css('.custom-last-icon'));
+                const lastIcon = vxTemplateFixture.debugElement.query(By.css('.custom-last-icon'));
                 if (lastIcon) {
                     expect(lastIcon.nativeElement.textContent).toBe('⏭');
                 }
@@ -698,7 +698,7 @@ describe('Paginator', () => {
 
     describe('CSS and Styling', () => {
         it('should apply correct CSS classes', () => {
-            const paginatorElement = fixture.debugElement.query(By.css('p-paginator'));
+            const paginatorElement = fixture.debugElement.query(By.css('vx-paginator'));
             expect(paginatorElement).toBeTruthy();
 
             const firstButton = fixture.debugElement.query(By.css('.p-paginator-first'));
@@ -1330,7 +1330,7 @@ describe('Paginator', () => {
 @Component({
     standalone: false,
     template: `
-        <p-paginator
+        <vx-paginator
             #paginator
             [totalRecords]="totalRecords"
             [rows]="rows"
@@ -1340,7 +1340,7 @@ describe('Paginator', () => {
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showCurrentPageReport]="true"
         >
-        </p-paginator>
+        </vx-paginator>
     `
 })
 class TestDynamicPaginatorComponent {

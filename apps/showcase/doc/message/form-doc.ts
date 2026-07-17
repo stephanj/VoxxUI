@@ -3,9 +3,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
+import { InputMaskModule } from 'voxx-ui/inputmask';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { MessageModule } from 'voxx-ui/message';
 
 @Component({
     selector: 'form-doc',
@@ -17,17 +17,17 @@ import { MessageModule } from 'primeng/message';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
-                <p-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</p-message>
+                <vx-message severity="error" icon="pi pi-times-circle" styleClass="mb-2">Validation Failed</vx-message>
                 <div class="flex flex-col gap-1">
-                    <input pInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
+                    <input vxInputText placeholder="Username" [(ngModel)]="username" aria-label="username" [invalid]="!username" />
                     @if (!username) {
-                        <p-message severity="error" variant="simple" size="small">Username is required</p-message>
+                        <vx-message severity="error" variant="simple" size="small">Username is required</vx-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <p-inputmask mask="(999) 999-9999" [(ngModel)]="phone" placeholder="Phone" [invalid]="!phone" />
+                    <vx-inputmask mask="(999) 999-9999" [(ngModel)]="phone" placeholder="Phone" [invalid]="!phone" />
                     @if (!phone) {
-                        <p-message severity="error" variant="simple" size="small">Phone number is required</p-message>
+                        <vx-message severity="error" variant="simple" size="small">Phone number is required</vx-message>
                     }
                 </div>
             </div>

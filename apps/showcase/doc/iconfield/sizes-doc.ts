@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -12,24 +12,24 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [AppDocSectionText, AppCodeModule, FormsModule, IconFieldModule, InputIconModule, InputTextModule],
     template: `
         <app-docsectiontext>
-            <p>IconField is compatible with the pSize setting of the input field.</p>
+            <p>IconField is compatible with the vxSize setting of the input field.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" />
-            </p-iconfield>
+            <vx-iconfield>
+                <vx-inputicon class="pi pi-search" />
+                <input vxInputText [(ngModel)]="value1" placeholder="Small" vxSize="small" />
+            </vx-iconfield>
 
-            <p-iconfield>
-                <input pInputText [(ngModel)]="value2" placeholder="Normal" />
-                <p-inputicon class="pi pi-user" />
-            </p-iconfield>
+            <vx-iconfield>
+                <input vxInputText [(ngModel)]="value2" placeholder="Normal" />
+                <vx-inputicon class="pi pi-user" />
+            </vx-iconfield>
 
-            <p-iconfield>
-                <p-inputicon class="pi pi-lock" />
-                <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" />
-                <p-inputicon class="pi pi-spin pi-spinner" />
-            </p-iconfield>
+            <vx-iconfield>
+                <vx-inputicon class="pi pi-lock" />
+                <input vxInputText [(ngModel)]="value3" placeholder="Large" vxSize="large" />
+                <vx-inputicon class="pi pi-spin pi-spinner" />
+            </vx-iconfield>
         </div>
         <app-code></app-code>
     `

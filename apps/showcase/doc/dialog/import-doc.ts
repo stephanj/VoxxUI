@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DialogModule } from 'primeng/dialog';`
+        typescript: `import { DialogModule } from 'voxx-ui/dialog';`
     };
 }

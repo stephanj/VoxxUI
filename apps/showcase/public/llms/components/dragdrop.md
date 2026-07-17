@@ -82,8 +82,8 @@ Drag and Drop to Table
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -103,13 +103,13 @@ import { Product } from '@/domain/product';
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{ product.price }}</h6>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
-                <p-table [value]="selectedProducts">
+                <vx-table [value]="selectedProducts">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>ID</th>
@@ -126,7 +126,7 @@ import { Product } from '@/domain/product';
                             <td>{{ product.price }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
         </div>
     `,
@@ -192,14 +192,14 @@ dragHandle is used to restrict dragging unless mousedown occurs on the specified
 
 ```typescript
 import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { PanelModule } from 'voxx-ui/panel';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
             <div pDraggable dragHandle=".p-panel-header" class="w-60">
-                <p-panel header="Drag Header"> Content </p-panel>
+                <vx-panel header="Drag Header"> Content </vx-panel>
             </div>
         </div>
     `,

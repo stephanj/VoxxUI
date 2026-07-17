@@ -5,8 +5,8 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { TableModule } from 'primeng/table';
+import { BadgeModule } from 'voxx-ui/badge';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'style-doc',
@@ -15,9 +15,9 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>Certain rows or cells can easily be styled based on conditions.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Code</th>
@@ -32,13 +32,13 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
+                                <vx-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

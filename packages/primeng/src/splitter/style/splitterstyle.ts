@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/splitter';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const classes = {
     root: ({ instance }) => ['p-splitter p-component', 'p-splitter-' + instance.layout],

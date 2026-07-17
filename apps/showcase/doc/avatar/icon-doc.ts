@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
     selector: 'icon-doc',
@@ -15,16 +15,16 @@ import { AvatarModule } from 'primeng/avatar';
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Icon</h5>
-                    <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" />
-                    <p-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" />
-                    <p-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="xlarge" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" />
+                    <vx-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" />
                 </div>
 
                 <div class="flex-auto">
                     <h5>Circle</h5>
-                    <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
-                    <p-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
+                    <vx-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
                 </div>
 
             </div>

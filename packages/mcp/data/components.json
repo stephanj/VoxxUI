@@ -44542,9 +44542,9 @@
         {
           "id": "provider-",
           "label": "Provider-",
-          "description": "Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
+          "description": "Add provideVoxxUI to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providePrimeNG({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideVoxxUI } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideVoxxUI({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44552,7 +44552,7 @@
           "label": "Theme-",
           "description": "Configure PrimeNG to use a theme like Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: Aura\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideVoxxUI } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideVoxxUI({\n            theme: Aura\n        })\n    ]\n};"
           }
         },
         {
@@ -44580,7 +44580,7 @@
           "label": "Csp-",
           "description": "The nonce value to use on dynamically generated style elements in core.",
           "examples": {
-            "typescript": "providePrimeNG({ \n    csp: {\n        nonce: '...'\n    }\n})"
+            "typescript": "provideVoxxUI({ \n    csp: {\n        nonce: '...'\n    }\n})"
           }
         },
         {
@@ -44630,7 +44630,7 @@
           "label": "Translation",
           "description": "A translation is specified using the translation property during initialization.",
           "examples": {
-            "typescript": "providePrimeNG({ \n    translation: {\n        accept: 'Aceptar',\n        reject: 'Rechazar',\n        //translations\n    }\n})"
+            "typescript": "provideVoxxUI({ \n    translation: {\n        accept: 'Aceptar',\n        reject: 'Rechazar',\n        //translations\n    }\n})"
           }
         },
         {
@@ -44642,9 +44642,9 @@
         {
           "id": "provider-",
           "label": "Provider-",
-          "description": "The initial configuration is defined by the providePrimeNG provider during application startup.",
+          "description": "The initial configuration is defined by the provideVoxxUI provider during application startup.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({ /* options */ })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideVoxxUI } from 'primeng/config';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideVoxxUI({ /* options */ })\n    ]\n};"
           }
         },
         {
@@ -44652,7 +44652,7 @@
           "label": "Ripple-",
           "description": "Ripple is an optional animation for the supported components such as buttons. It is disabled by default.",
           "examples": {
-            "typescript": "providePrimeNG({ \n    ripple: true\n})"
+            "typescript": "provideVoxxUI({ \n    ripple: true\n})"
           }
         },
         {
@@ -44660,7 +44660,7 @@
           "label": "Theme-",
           "description": "PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providePrimeNG } from 'primeng/config';\n\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providePrimeNG({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideVoxxUI } from 'primeng/config';\n\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideVoxxUI({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44822,7 +44822,7 @@
           "label": "Theme-",
           "description": "The theme property is used to customize the initial theme.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { providePrimeNG } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providePrimeNG({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideVoxxUI } from 'primeng/config';\nimport Aura from '@primeuix/themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideVoxxUI({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44874,7 +44874,7 @@
           "label": "Global-",
           "description": "A global configuration can be created at application level to avoid repetition via the global pt option so that the styles can be shared from a single location. A particular component can still override a global configuration with its own pt property.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providePrimeNG({\n            unstyled: true,\n            pt: {\n                button: {\n                    root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',\n                    label: 'text-white font-bold text-lg',\n                    icon: 'text-white !text-xl'\n                }\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideVoxxUI({\n            unstyled: true,\n            pt: {\n                button: {\n                    root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',\n                    label: 'text-white font-bold text-lg',\n                    icon: 'text-white !text-xl'\n                }\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -45006,7 +45006,7 @@
         {
           "id": "global-",
           "label": "Global-",
-          "description": "PassThrough object can also be defined at a global level to apply all components in an application using the providePrimeNG provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.",
+          "description": "PassThrough object can also be defined at a global level to apply all components in an application using the provideVoxxUI provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.",
           "examples": null
         },
         {
@@ -45140,7 +45140,7 @@
           "label": "Claudecode-",
           "description": "Add the PrimeNG MCP server using the CLI. After adding, start a new session and use /mcp to verify the connection.",
           "examples": {
-            "command": "# Add to user config (available in all projects)\nclaude mcp add primeng -s user -- npx -y @primeng/mcp\n\n# Or add to current project only\nclaude mcp add primeng -- npx -y @primeng/mcp"
+            "command": "# Add to user config (available in all projects)\nclaude mcp add primeng -s user -- npx -y @voxxui/mcp\n\n# Or add to current project only\nclaude mcp add primeng -- npx -y @voxxui/mcp"
           }
         },
         {
@@ -45148,7 +45148,7 @@
           "label": "Cursor-",
           "description": "Create .cursor/mcp.json in your project or ~/.cursor/mcp.json for global configuration.",
           "examples": {
-            "typescript": "{\n    \"mcpServers\": {\n        \"primeng\": {\n            \"command\": \"npx\",\n            \"args\": [\"-y\", \"@primeng/mcp\"]\n        }\n    }\n}"
+            "typescript": "{\n    \"mcpServers\": {\n        \"primeng\": {\n            \"command\": \"npx\",\n            \"args\": [\"-y\", \"@voxxui/mcp\"]\n        }\n    }\n}"
           }
         },
         {
@@ -45170,7 +45170,7 @@
           "label": "Openaicodex-",
           "description": "Add the PrimeNG MCP server using the CLI or edit ~/.codex/config.toml directly.",
           "examples": {
-            "command": "# Using the CLI\ncodex mcp add primeng -- npx -y @primeng/mcp\n\n# Or edit ~/.codex/config.toml\n[mcp_servers.primeng]\ncommand = \"npx\"\nargs = [\"-y\", \"@primeng/mcp\"]"
+            "command": "# Using the CLI\ncodex mcp add primeng -- npx -y @voxxui/mcp\n\n# Or edit ~/.codex/config.toml\n[mcp_servers.primeng]\ncommand = \"npx\"\nargs = [\"-y\", \"@voxxui/mcp\"]"
           }
         },
         {
@@ -45184,7 +45184,7 @@
           "label": "Vscode-",
           "description": "Create .vscode/mcp.json in your project or ~/Library/Application Support/Code/User/mcp.json for global configuration.",
           "examples": {
-            "typescript": "{\n    \"servers\": {\n        \"primeng\": {\n            \"command\": \"npx\",\n            \"args\": [\"-y\", \"@primeng/mcp\"]\n        }\n    }\n}"
+            "typescript": "{\n    \"servers\": {\n        \"primeng\": {\n            \"command\": \"npx\",\n            \"args\": [\"-y\", \"@voxxui/mcp\"]\n        }\n    }\n}"
           }
         },
         {
@@ -45192,7 +45192,7 @@
           "label": "Windsurf-",
           "description": "Edit ~/.codeium/windsurf/mcp_config.json to add the PrimeNG MCP server.",
           "examples": {
-            "typescript": "{\n    \"mcpServers\": {\n        \"primeng\": {\n            \"command\": \"npx\",\n            \"args\": [\"-y\", \"@primeng/mcp\"]\n        }\n    }\n}"
+            "typescript": "{\n    \"mcpServers\": {\n        \"primeng\": {\n            \"command\": \"npx\",\n            \"args\": [\"-y\", \"@voxxui/mcp\"]\n        }\n    }\n}"
           }
         },
         {
@@ -45200,7 +45200,7 @@
           "label": "Zed-",
           "description": "Add to your Zed settings at ~/.config/zed/settings.json (Linux) or ~/Library/Application Support/Zed/settings.json (macOS).",
           "examples": {
-            "typescript": "{\n    \"context_servers\": {\n        \"primeng\": {\n            \"command\": {\n                \"path\": \"npx\",\n                \"args\": [\"-y\", \"@primeng/mcp\"]\n            }\n        }\n    }\n}"
+            "typescript": "{\n    \"context_servers\": {\n        \"primeng\": {\n            \"command\": {\n                \"path\": \"npx\",\n                \"args\": [\"-y\", \"@voxxui/mcp\"]\n            }\n        }\n    }\n}"
           }
         }
       ]
@@ -45322,7 +45322,7 @@
         {
           "id": "breakingchanges",
           "label": "Breakingchanges",
-          "description": "Configuration The PrimeNGConfig has been replaced by PrimeNG and the initial configuration is now done via the providePrimeNG provider during startup. See the installation section for an example. SASS Themes The styled mode theming has been reimplemented from scratch based on an all-new architecture. The theme.css and the primeng/resources do not exist anymore, so any imports of these assets needs to be removed. If you had a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at styled mode for details. Removed Components TriStateCheckbox | Use Checkbox with indeterminate option. DataViewLayoutOptions | Use SelectButton instead. pAnimate | Use pAnimateOnScroll instead. Removed Files Themes under the primeng/resources path, migration to new styled mode is necessary. Messages and Message Messages component is deprecated due to unnecessary role of being just a wrapper around multiple message instances and it's replaced with the new Message . Instead of message, users now need to loop through their custom array to display multiple messages to achieve same behavior. The spacing, closable and life properties of the Message have breaking changes to provide Message functionality. Default margin is removed, closable is false by default and messages do not disappear automatically. Message Interface Message interface in primeng/api is renamed as ToastMessageOptions due to name collision with the Message component. Removed Features Sidebar/Drawer size property is removed, use a responsive class utilty as replacement, demos have new examples. Removed Style Classes .p-link , use a button in link mode. .p-highlight , each component have its own class such as .p-select-option-selected . .p-fluid , use the new built-in fluid property of the supported components or the Fluid component. PrimeFlex CSS In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with PrimeNG v18+",
+          "description": "Configuration The PrimeNGConfig has been replaced by PrimeNG and the initial configuration is now done via the provideVoxxUI provider during startup. See the installation section for an example. SASS Themes The styled mode theming has been reimplemented from scratch based on an all-new architecture. The theme.css and the primeng/resources do not exist anymore, so any imports of these assets needs to be removed. If you had a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at styled mode for details. Removed Components TriStateCheckbox | Use Checkbox with indeterminate option. DataViewLayoutOptions | Use SelectButton instead. pAnimate | Use pAnimateOnScroll instead. Removed Files Themes under the primeng/resources path, migration to new styled mode is necessary. Messages and Message Messages component is deprecated due to unnecessary role of being just a wrapper around multiple message instances and it's replaced with the new Message . Instead of message, users now need to loop through their custom array to display multiple messages to achieve same behavior. The spacing, closable and life properties of the Message have breaking changes to provide Message functionality. Default margin is removed, closable is false by default and messages do not disappear automatically. Message Interface Message interface in primeng/api is renamed as ToastMessageOptions due to name collision with the Message component. Removed Features Sidebar/Drawer size property is removed, use a responsive class utilty as replacement, demos have new examples. Removed Style Classes .p-link , use a button in link mode. .p-highlight , each component have its own class such as .p-select-option-selected . .p-fluid , use the new built-in fluid property of the supported components or the Fluid component. PrimeFlex CSS In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with PrimeNG v18+",
           "examples": null
         },
         {
@@ -45366,7 +45366,7 @@
         {
           "id": "deprecations",
           "label": "Deprecations",
-          "description": "The following items are marked as deprecated. API Deprecated Since Replacement Removal Status @primeng/themes v20 @primeuix/themes v22 pTemplate v20 ng-template with a template reference variable v22 styleClass *(for host enabled components) v20 class v22 Global inputStyle config v20 inputVariant v22 CamelCase Selectors v20 Kebab case v22 pButton iconPos, loadingIcon, icon and label properties v20 pButtonIcon and pButtonLabel directives v22 pButton buttonProps property v20 Use button properties directly on the element v22 p-button badgeClass property v20 badgeSeverity property v22 AutoComplete minLength property v20 minQueryLength v22 OrganizationChart preserveSpace property v20 Obselete property, had no use v22 Paginator dropdownAppendTo property v20 appendTo v22 Message text and escape properties v20 Content projection v22 Password maxLength property v20 maxlength property v22 TreeSelect containerStyle/containerStyleClass properties v20 style and class v22 Table responsiveLayout property v20 Always defaults to scroll, stack mode needs custom implementation v22 TreeSelect default template v20 value template v22 pBadge directive v20 OverlayBadge component v22 clearFilterIcon template of Table v20 Obsolete, not utilized. v22 Inplace closable property. v20 Use templating with closeCallback . v22",
+          "description": "The following items are marked as deprecated. API Deprecated Since Replacement Removal Status @voxxui/themes v20 @primeuix/themes v22 pTemplate v20 ng-template with a template reference variable v22 styleClass *(for host enabled components) v20 class v22 Global inputStyle config v20 inputVariant v22 CamelCase Selectors v20 Kebab case v22 pButton iconPos, loadingIcon, icon and label properties v20 pButtonIcon and pButtonLabel directives v22 pButton buttonProps property v20 Use button properties directly on the element v22 p-button badgeClass property v20 badgeSeverity property v22 AutoComplete minLength property v20 minQueryLength v22 OrganizationChart preserveSpace property v20 Obselete property, had no use v22 Paginator dropdownAppendTo property v20 appendTo v22 Message text and escape properties v20 Content projection v22 Password maxLength property v20 maxlength property v22 TreeSelect containerStyle/containerStyleClass properties v20 style and class v22 Table responsiveLayout property v20 Always defaults to scroll, stack mode needs custom implementation v22 TreeSelect default template v20 value template v22 pBadge directive v20 OverlayBadge component v22 clearFilterIcon template of Table v20 Obsolete, not utilized. v22 Inplace closable property. v20 Use templating with closeCallback . v22",
           "examples": null
         },
         {

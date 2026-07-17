@@ -3,14 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { MenuItem, OverlayService, SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { Menu } from './menu';
 
 @Component({
     standalone: false,
     template: `
-        <p-menu
+        <vx-menu
             [id]="id"
             [model]="model"
             [popup]="popup"
@@ -29,7 +29,7 @@ import { Menu } from './menu';
             (onBlur)="onBlur($event)"
             (onFocus)="onFocus($event)"
         >
-        </p-menu>
+        </vx-menu>
     `
 })
 class TestBasicMenuComponent {
@@ -72,7 +72,7 @@ class TestBasicMenuComponent {
 @Component({
     standalone: false,
     template: `
-        <p-menu #menu [model]="popupItems" [popup]="true"></p-menu>
+        <vx-menu #menu [model]="popupItems" [popup]="true"></vx-menu>
         <button #toggleButton (click)="menu.toggle($event)" class="toggle-button">Show Menu</button>
     `
 })
@@ -108,7 +108,7 @@ class TestPopupMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-router-menu',
-    template: ` <p-menu [model]="routerModel"></p-menu> `
+    template: ` <vx-menu [model]="routerModel"></vx-menu> `
 })
 class TestRouterMenuComponent {
     routerModel: MenuItem[] = [
@@ -126,7 +126,7 @@ class TestRouterMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-submenu-menu',
-    template: ` <p-menu [model]="submenuModel"></p-menu> `
+    template: ` <vx-menu [model]="submenuModel"></vx-menu> `
 })
 class TestSubmenuMenuComponent {
     submenuModel: MenuItem[] = [
@@ -151,14 +151,14 @@ class TestSubmenuMenuComponent {
     standalone: false,
     selector: 'test-item-template-menu',
     template: `
-        <p-menu [model]="model">
+        <vx-menu [model]="model">
             <ng-template #item let-item>
                 <div class="custom-menu-item">
                     <i [class]="item.icon" *ngIf="item.icon"></i>
                     <span class="custom-label">{{ item.label }}</span>
                 </div>
             </ng-template>
-        </p-menu>
+        </vx-menu>
     `
 })
 class TestItemTemplateMenuComponent {
@@ -172,17 +172,17 @@ class TestItemTemplateMenuComponent {
     standalone: false,
     selector: 'test-ptemplate-menu',
     template: `
-        <p-menu [model]="model">
-            <ng-template pTemplate="item" let-item>
+        <vx-menu [model]="model">
+            <ng-template vxTemplate="item" let-item>
                 <span class="p-template-item">{{ item.label }}</span>
             </ng-template>
-            <ng-template pTemplate="start">
+            <ng-template vxTemplate="start">
                 <div class="menu-start">Header Content</div>
             </ng-template>
-            <ng-template pTemplate="end">
+            <ng-template vxTemplate="end">
                 <div class="menu-end">Footer Content</div>
             </ng-template>
-        </p-menu>
+        </vx-menu>
     `
 })
 class TestPTemplateMenuComponent {
@@ -192,7 +192,7 @@ class TestPTemplateMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-disabled-items-menu',
-    template: ` <p-menu [model]="disabledModel"></p-menu> `
+    template: ` <vx-menu [model]="disabledModel"></vx-menu> `
 })
 class TestDisabledItemsMenuComponent {
     disabledModel: MenuItem[] = [{ label: 'Enabled Item', icon: 'pi pi-check' }, { label: 'Disabled Item', icon: 'pi pi-times', disabled: true }, { label: 'Function Disabled', icon: 'pi pi-question', disabled: () => true } as any];
@@ -201,7 +201,7 @@ class TestDisabledItemsMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-styled-menu',
-    template: ` <p-menu [model]="model" [styleClass]="customStyleClass" [style]="customStyle"></p-menu> `
+    template: ` <vx-menu [model]="model" [styleClass]="customStyleClass" [style]="customStyle"></vx-menu> `
 })
 class TestStyledMenuComponent {
     model: MenuItem[] = [{ label: 'Test', icon: 'pi pi-test' }];
@@ -212,14 +212,14 @@ class TestStyledMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-minimal-menu',
-    template: `<p-menu></p-menu>`
+    template: `<vx-menu></vx-menu>`
 })
 class TestMinimalMenuComponent {}
 
 @Component({
     standalone: false,
     selector: 'test-dynamic-menu',
-    template: ` <p-menu [model]="dynamicModel"></p-menu> `
+    template: ` <vx-menu [model]="dynamicModel"></vx-menu> `
 })
 class TestDynamicMenuComponent {
     dynamicModel: MenuItem[] = [];
@@ -240,7 +240,7 @@ class TestDynamicMenuComponent {
 @Component({
     standalone: false,
     selector: 'test-command-menu',
-    template: ` <p-menu [model]="commandModel"></p-menu> `
+    template: ` <vx-menu [model]="commandModel"></vx-menu> `
 })
 class TestCommandMenuComponent {
     commandExecuted: any;
@@ -606,37 +606,37 @@ describe('Menu', () => {
             expect(itemTemplateMenu.itemTemplate).toBeDefined();
         });
 
-        it('should handle pTemplate processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
-            await pTemplateFixture.whenStable();
+        it('should handle vxTemplate processing', async () => {
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+            vxTemplateFixture.detectChanges();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+            const vxTemplateMenu = vxTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
-            expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateMenu.templates).toBeDefined();
+            expect(() => vxTemplateMenu.ngAfterContentInit()).not.toThrow();
+            expect(vxTemplateMenu.templates).toBeDefined();
         });
 
         it('should process PrimeTemplate types correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+            vxTemplateFixture.changeDetectorRef.markForCheck();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+            const vxTemplateMenu = vxTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
 
-            pTemplateMenu.ngAfterContentInit();
+            vxTemplateMenu.ngAfterContentInit();
 
-            expect(pTemplateMenu.templates).toBeDefined();
-            expect(pTemplateMenu._startTemplate).toBeDefined();
-            expect(pTemplateMenu._endTemplate).toBeDefined();
+            expect(vxTemplateMenu.templates).toBeDefined();
+            expect(vxTemplateMenu._startTemplate).toBeDefined();
+            expect(vxTemplateMenu._endTemplate).toBeDefined();
         });
 
         it('should render start and end templates', () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.detectChanges();
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+            vxTemplateFixture.detectChanges();
 
-            const startContent = pTemplateFixture.debugElement.query(By.css('.menu-start'));
-            const endContent = pTemplateFixture.debugElement.query(By.css('.menu-end'));
+            const startContent = vxTemplateFixture.debugElement.query(By.css('.menu-start'));
+            const endContent = vxTemplateFixture.debugElement.query(By.css('.menu-end'));
 
             expect(startContent).toBeTruthy();
             expect(endContent).toBeTruthy();
@@ -657,14 +657,14 @@ describe('Menu', () => {
         });
 
         it('should render different template types correctly', async () => {
-            // Test pTemplate rendering
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+            // Test vxTemplate rendering
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+            vxTemplateFixture.changeDetectorRef.markForCheck();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
-            expect(pTemplateMenu.templates).toBeDefined();
-            expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
+            const vxTemplateMenu = vxTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+            expect(vxTemplateMenu.templates).toBeDefined();
+            expect(() => vxTemplateMenu.ngAfterContentInit()).not.toThrow();
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
@@ -1669,7 +1669,7 @@ describe('Menu', () => {
                 @Component({
                     standalone: true,
                     imports: [Menu],
-                    template: `<p-menu [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-menu>`
+                    template: `<vx-menu [pt]="{ root: 'INLINE_ROOT_CLASS' }"></vx-menu>`
                 })
                 class TestInlinePTStringComponent {}
 
@@ -1690,7 +1690,7 @@ describe('Menu', () => {
                 @Component({
                     standalone: true,
                     imports: [Menu],
-                    template: `<p-menu [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-menu>`
+                    template: `<vx-menu [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></vx-menu>`
                 })
                 class TestInlinePTObjectComponent {}
 
@@ -1708,13 +1708,13 @@ describe('Menu', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
                 standalone: true,
                 imports: [Menu],
                 template: `
-                    <p-menu></p-menu>
-                    <p-menu></p-menu>
+                    <vx-menu></vx-menu>
+                    <vx-menu></vx-menu>
                 `
             })
             class TestGlobalPTComponent {}
@@ -1725,7 +1725,7 @@ describe('Menu', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 menu: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1737,7 +1737,7 @@ describe('Menu', () => {
                 });
             });
 
-            it('should apply global PT configuration from PrimeNG config', () => {
+            it('should apply global PT configuration from VoxxUI config', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
                 globalFixture.detectChanges();
 
@@ -1764,7 +1764,7 @@ describe('Menu', () => {
                 @Component({
                     standalone: true,
                     imports: [Menu],
-                    template: `<p-menu [pt]="{ root: { class: 'LOCAL_CLASS' } }"></p-menu>`
+                    template: `<vx-menu [pt]="{ root: { class: 'LOCAL_CLASS' } }"></vx-menu>`
                 })
                 class TestMergedPTComponent {}
 

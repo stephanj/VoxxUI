@@ -30,21 +30,21 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@primeuix/utils';
-import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { unblockBodyScroll } from 'primeng/dom';
-import { IconField } from 'primeng/iconfield';
-import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
-import { InputIcon } from 'primeng/inputicon';
-import { InputText } from 'primeng/inputtext';
-import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
-import { Scroller } from 'primeng/scroller';
-import { Tooltip } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
+import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseInput } from 'voxx-ui/baseinput';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { unblockBodyScroll } from 'voxx-ui/dom';
+import { IconField } from 'voxx-ui/iconfield';
+import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'voxx-ui/icons';
+import { InputIcon } from 'voxx-ui/inputicon';
+import { InputText } from 'voxx-ui/inputtext';
+import { Overlay } from 'voxx-ui/overlay';
+import { Ripple } from 'voxx-ui/ripple';
+import { Scroller } from 'voxx-ui/scroller';
+import { Tooltip } from 'voxx-ui/tooltip';
+import { Nullable } from 'voxx-ui/ts-helpers';
 import {
     SelectChangeEvent,
     SelectFilterEvent,
@@ -57,7 +57,7 @@ import {
     SelectLoaderTemplateContext,
     SelectPassThrough,
     SelectSelectedItemTemplateContext
-} from 'primeng/types/select';
+} from 'voxx-ui/types/select';
 import { SelectStyle } from './style/selectstyle';
 
 const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');
@@ -70,17 +70,17 @@ export const SELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-selectItem',
+    selector: 'vx-selectItem',
     standalone: true,
     imports: [CommonModule, SharedModule, Ripple, CheckIcon, BlankIcon, BindModule],
     template: `
         <li
             [id]="id"
-            [pBind]="getPTOptions()"
+            [vxBind]="getPTOptions()"
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
             role="option"
-            pRipple
+            vxRipple
             [attr.aria-label]="label"
             [attr.aria-setsize]="ariaSetSize"
             [attr.aria-posinset]="ariaPosInset"
@@ -93,10 +93,10 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [class]="cx('option')"
         >
             <ng-container *ngIf="checkmark">
-                <svg data-p-icon="check" *ngIf="selected" [class]="cx('optionCheckIcon')" [pBind]="$pcSelect?.ptm('optionCheckIcon')" />
-                <svg data-p-icon="blank" *ngIf="!selected" [class]="cx('optionBlankIcon')" [pBind]="$pcSelect?.ptm('optionBlankIcon')" />
+                <svg data-p-icon="check" *ngIf="selected" [class]="cx('optionCheckIcon')" [vxBind]="$pcSelect?.ptm('optionCheckIcon')" />
+                <svg data-p-icon="blank" *ngIf="!selected" [class]="cx('optionBlankIcon')" [vxBind]="$pcSelect?.ptm('optionBlankIcon')" />
             </ng-container>
-            <span *ngIf="!template" [pBind]="$pcSelect?.ptm('optionLabel')">{{ label ?? 'empty' }}</span>
+            <span *ngIf="!template" [vxBind]="$pcSelect?.ptm('optionLabel')">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
@@ -172,7 +172,7 @@ export class SelectItem extends BaseComponent {
  */
 
 @Component({
-    selector: 'p-select',
+    selector: 'vx-select',
     standalone: true,
     imports: [CommonModule, SelectItem, Overlay, Tooltip, AutoFocus, TimesIcon, ChevronDownIcon, SearchIcon, InputText, IconField, InputIcon, Scroller, SharedModule, BindModule],
     template: `
@@ -180,9 +180,9 @@ export class SelectItem extends BaseComponent {
             #focusInput
             [class]="cx('label')"
             *ngIf="!editable"
-            [pBind]="ptm('label')"
-            [pTooltip]="tooltip"
-            [pTooltipUnstyled]="unstyled()"
+            [vxBind]="ptm('label')"
+            [vxTooltip]="tooltip"
+            [vxTooltipUnstyled]="unstyled()"
             [tooltipPosition]="tooltipPosition"
             [positionStyle]="tooltipPositionStyle"
             [tooltipStyleClass]="tooltipStyleClass"
@@ -195,7 +195,7 @@ export class SelectItem extends BaseComponent {
             [attr.aria-expanded]="overlayVisible ?? false"
             [attr.aria-controls]="overlayVisible ? id + '_list' : null"
             [attr.tabindex]="!$disabled() ? tabindex : -1"
-            [pAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -217,13 +217,13 @@ export class SelectItem extends BaseComponent {
             type="text"
             [attr.id]="inputId"
             [class]="cx('label')"
-            [pBind]="ptm('label')"
+            [vxBind]="ptm('label')"
             [attr.aria-haspopup]="'listbox'"
             [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
             [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
             (input)="onEditableInput($event)"
             (keydown)="onKeyDown($event)"
-            [pAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus"
             [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -240,35 +240,35 @@ export class SelectItem extends BaseComponent {
             [attr.data-p]="labelDataP"
         />
         <ng-container *ngIf="isVisibleClearIcon">
-            <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
-            <span [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="clearIconTemplate || _clearIconTemplate" [attr.data-pc-section]="'clearicon'">
+            <svg data-p-icon="times" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="!clearIconTemplate && !_clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
+            <span [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear($event)" *ngIf="clearIconTemplate || _clearIconTemplate" [attr.data-pc-section]="'clearicon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate; context: { class: cx('clearIcon') }"></ng-template>
             </span>
         </ng-container>
 
-        <div [class]="cx('dropdown')" [pBind]="ptm('dropdown')" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
+        <div [class]="cx('dropdown')" [vxBind]="ptm('dropdown')" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
             <ng-container *ngIf="loading; else elseBlock">
                 <ng-container *ngIf="loadingIconTemplate || _loadingIconTemplate">
                     <ng-container *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-container>
                 </ng-container>
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)" [pBind]="ptm('loadingIcon')" aria-hidden="true"></span>
-                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), 'pi pi-spinner pi-spin')" [pBind]="ptm('loadingIcon')" aria-hidden="true"></span>
+                    <span *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)" [vxBind]="ptm('loadingIcon')" aria-hidden="true"></span>
+                    <span *ngIf="!loadingIcon" [class]="cn(cx('loadingIcon'), 'pi pi-spinner pi-spin')" [vxBind]="ptm('loadingIcon')" aria-hidden="true"></span>
                 </ng-container>
             </ng-container>
 
             <ng-template #elseBlock>
                 <ng-container *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate">
-                    <span [class]="cn(cx('dropdownIcon'), dropdownIcon)" [pBind]="ptm('dropdownIcon')" *ngIf="dropdownIcon"></span>
-                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')" />
+                    <span [class]="cn(cx('dropdownIcon'), dropdownIcon)" [vxBind]="ptm('dropdownIcon')" *ngIf="dropdownIcon"></span>
+                    <svg data-p-icon="chevron-down" *ngIf="!dropdownIcon" [class]="cx('dropdownIcon')" [vxBind]="ptm('dropdownIcon')" />
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')">
+                <span *ngIf="dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [vxBind]="ptm('dropdownIcon')">
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate; context: { class: cx('dropdownIcon') }"></ng-template>
                 </span>
             </ng-template>
         </div>
 
-        <p-overlay
+        <vx-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
@@ -283,7 +283,7 @@ export class SelectItem extends BaseComponent {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
+                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -292,20 +292,20 @@ export class SelectItem extends BaseComponent {
                         (focus)="onFirstHiddenFocus($event)"
                         [attr.data-p-hidden-accessible]="true"
                         [attr.data-p-hidden-focusable]="true"
-                        [pBind]="ptm('hiddenFirstFocusableEl')"
+                        [vxBind]="ptm('hiddenFirstFocusableEl')"
                     >
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div [class]="cx('header')" *ngIf="filter" (click)="$event.stopPropagation()" [pBind]="ptm('header')">
+                    <div [class]="cx('header')" *ngIf="filter" (click)="$event.stopPropagation()" [vxBind]="ptm('header')">
                         <ng-container *ngIf="filterTemplate || _filterTemplate; else builtInFilterElement">
                             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: filterOptions }"></ng-container>
                         </ng-container>
                         <ng-template #builtInFilterElement>
-                            <p-iconfield [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
+                            <vx-iconfield [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
                                 <input
                                     #filter
-                                    pInputText
-                                    [pSize]="size()"
+                                    vxInputText
+                                    [vxSize]="size()"
                                     type="text"
                                     role="searchbox"
                                     autocomplete="off"
@@ -322,17 +322,17 @@ export class SelectItem extends BaseComponent {
                                     [pt]="ptm('pcFilter')"
                                     [unstyled]="unstyled()"
                                 />
-                                <p-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
-                                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [pBind]="ptm('filterIcon')" />
-                                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('filterIcon')">
+                                <vx-inputicon [pt]="ptm('pcFilterIconContainer')" [unstyled]="unstyled()">
+                                    <svg data-p-icon="search" *ngIf="!filterIconTemplate && !_filterIconTemplate" [vxBind]="ptm('filterIcon')" />
+                                    <span *ngIf="filterIconTemplate || _filterIconTemplate" [vxBind]="ptm('filterIcon')">
                                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                                     </span>
-                                </p-inputicon>
-                            </p-iconfield>
+                                </vx-inputicon>
+                            </vx-iconfield>
                         </ng-template>
                     </div>
-                    <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [pBind]="ptm('listContainer')">
-                        <p-scroller
+                    <div [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [vxBind]="ptm('listContainer')">
+                        <vx-scroller
                             *ngIf="virtualScroll"
                             hostName="select"
                             #scroller
@@ -353,22 +353,22 @@ export class SelectItem extends BaseComponent {
                                     <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>
-                        </p-scroller>
+                        </vx-scroller>
                         <ng-container *ngIf="!virtualScroll">
                             <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
                         </ng-container>
 
                         <ng-template #buildInItems let-items let-scrollerOptions="options">
-                            <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [pBind]="ptm('list')">
+                            <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [vxBind]="ptm('list')">
                                 <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                     <ng-container *ngIf="isOptionGroup(option)">
-                                        <li [class]="cx('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [pBind]="ptm('optionGroup')">
-                                            <span *ngIf="!groupTemplate && !_groupTemplate" [class]="cx('optionGroupLabel')" [pBind]="ptm('optionGroupLabel')">{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                        <li [class]="cx('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('optionGroup')">
+                                            <span *ngIf="!groupTemplate && !_groupTemplate" [class]="cx('optionGroupLabel')" [vxBind]="ptm('optionGroupLabel')">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                             <ng-container *ngTemplateOutlet="groupTemplate || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                         </li>
                                     </ng-container>
                                     <ng-container *ngIf="!isOptionGroup(option)">
-                                        <p-selectItem
+                                        <vx-selectItem
                                             [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                             [option]="option"
                                             [checkmark]="checkmark"
@@ -384,17 +384,17 @@ export class SelectItem extends BaseComponent {
                                             [scrollerOptions]="scrollerOptions"
                                             (onClick)="onOptionSelect($event, option)"
                                             (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
-                                        ></p-selectItem>
+                                        ></vx-selectItem>
                                     </ng-container>
                                 </ng-template>
-                                <li *ngIf="filterValue && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [pBind]="ptm('emptyMessage')">
+                                <li *ngIf="filterValue && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('emptyMessage')">
                                     @if (!emptyFilterTemplate && !_emptyFilterTemplate && !emptyTemplate) {
                                         {{ emptyFilterMessageLabel }}
                                     } @else {
                                         <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || _emptyFilterTemplate || emptyTemplate || _emptyTemplate"></ng-container>
                                     }
                                 </li>
-                                <li *ngIf="!filterValue && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [pBind]="ptm('emptyMessage')">
+                                <li *ngIf="!filterValue && isEmpty()" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('emptyMessage')">
                                     @if (!emptyTemplate && !_emptyTemplate) {
                                         {{ emptyMessageLabel || emptyFilterMessageLabel }}
                                     } @else {
@@ -409,7 +409,7 @@ export class SelectItem extends BaseComponent {
                         #lastHiddenFocusableEl
                         role="presentation"
                         class="p-hidden-accessible p-hidden-focusable"
-                        [pBind]="ptm('hiddenLastFocusableEl')"
+                        [vxBind]="ptm('hiddenLastFocusableEl')"
                         [attr.tabindex]="0"
                         (focus)="onLastHiddenFocus($event)"
                         [attr.data-p-hidden-accessible]="true"
@@ -417,7 +417,7 @@ export class SelectItem extends BaseComponent {
                     ></span>
                 </div>
             </ng-template>
-        </p-overlay>
+        </vx-overlay>
     `,
     host: {
         '[class]': "cn(cx('root'), styleClass)",

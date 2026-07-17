@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'llmsfulltxt-doc',
@@ -8,9 +8,9 @@ import { ButtonModule } from 'primeng/button';
     imports: [AppDocSectionText, ButtonModule],
     template: `
         <app-docsectiontext>
-            <p>The <code>llms-full.txt</code> file is a complete list of all the pages in the PrimeNG documentation. It is used to help AI models understand the entire documentation set.</p>
+            <p>The <code>llms-full.txt</code> file is a complete list of all the pages in the VoxxUI documentation. It is used to help AI models understand the entire documentation set.</p>
             <a href="/llms/llms-full.txt" target="_blank">
-                <p-button label="Open llms-full.txt" />
+                <vx-button label="Open llms-full.txt" />
             </a>
         </app-docsectiontext>
     `

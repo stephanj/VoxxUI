@@ -8,11 +8,11 @@ import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
 import Material from '@primeuix/themes/material';
 import Nora from '@primeuix/themes/nora';
-import { ButtonModule } from 'primeng/button';
-import { PrimeNG } from 'primeng/config';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButton } from 'primeng/selectbutton';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ButtonModule } from 'voxx-ui/button';
+import { VoxxUI } from 'voxx-ui/config';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
+import { SelectButton } from 'voxx-ui/selectbutton';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 const presets = {
     Aura,
@@ -62,19 +62,19 @@ const presets = {
 
             <div class="config-panel-settings">
                 <span class="config-panel-label">Presets</span>
-                <p-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
+                <vx-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [allowEmpty]="false" size="small" />
             </div>
             <div class="flex">
                 <div class="flex-1">
                     <div class="config-panel-settings">
                         <span class="config-panel-label">Ripple</span>
-                        <p-toggleswitch [(ngModel)]="ripple" />
+                        <vx-toggleswitch [(ngModel)]="ripple" />
                     </div>
                 </div>
                 <div class="flex-1">
                     <div class="config-panel-settings items-end">
                         <span class="config-panel-label">RTL</span>
-                        <p-toggleswitch [ngModel]="isRTL" (ngModelChange)="onRTLChange($event)" />
+                        <vx-toggleswitch [ngModel]="isRTL" (ngModelChange)="onRTLChange($event)" />
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ export class AppConfiguratorComponent {
         return this.configService.appState().RTL;
     }
 
-    config: PrimeNG = inject(PrimeNG);
+    config: VoxxUI = inject(VoxxUI);
 
     configService: AppConfigService = inject(AppConfigService);
 

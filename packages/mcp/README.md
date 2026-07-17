@@ -1,4 +1,4 @@
-# @primeng/mcp
+# @voxxui/mcp
 
 Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation, props, events, templates, theming, and code examples.
 
@@ -14,16 +14,16 @@ Add the PrimeNG MCP server using the CLI:
 
 ```bash
 # Add to your user config (available in all projects)
-claude mcp add primeng -s user -- npx -y @primeng/mcp
+claude mcp add primeng -s user -- npx -y @voxxui/mcp
 
 # Or add to current project only
-claude mcp add primeng -- npx -y @primeng/mcp
+claude mcp add primeng -- npx -y @voxxui/mcp
 ```
 
 Alternatively, use the JSON format for more control:
 
 ```bash
-claude mcp add-json primeng '{"command":"npx","args":["-y","@primeng/mcp"]}' -s user
+claude mcp add-json primeng '{"command":"npx","args":["-y","@voxxui/mcp"]}' -s user
 ```
 
 **Useful commands:**
@@ -51,7 +51,7 @@ Create `.vscode/mcp.json` in your project:
     "servers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -66,7 +66,7 @@ Create or edit `~/Library/Application Support/Code/User/mcp.json` (macOS) or `~/
     "servers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -89,7 +89,7 @@ Create `.cursor/mcp.json` in your project:
     "mcpServers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -104,7 +104,7 @@ Create or edit `~/.cursor/mcp.json` in your home directory:
     "mcpServers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -126,7 +126,7 @@ After adding, go to **Settings > MCP** and click the refresh button. The Compose
 **Option 1: Using the CLI**
 
 ```bash
-codex mcp add primeng -- npx -y @primeng/mcp
+codex mcp add primeng -- npx -y @voxxui/mcp
 ```
 
 **Option 2: Direct Configuration**
@@ -136,7 +136,7 @@ Edit `~/.codex/config.toml`:
 ```toml
 [mcp_servers.primeng]
 command = "npx"
-args = ["-y", "@primeng/mcp"]
+args = ["-y", "@voxxui/mcp"]
 ```
 
 After adding, the MCP server will be available in both the Codex CLI and VS Code extension.
@@ -162,7 +162,7 @@ Edit `~/.codeium/windsurf/mcp_config.json`:
     "mcpServers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -184,7 +184,7 @@ Add to your Zed settings (`~/.config/zed/settings.json` on Linux, `~/Library/App
         "primeng": {
             "command": {
                 "path": "npx",
-                "args": ["-y", "@primeng/mcp"]
+                "args": ["-y", "@voxxui/mcp"]
             }
         }
     }

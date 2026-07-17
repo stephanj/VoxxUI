@@ -20,16 +20,16 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { BindModule } from 'primeng/bind';
-import { StarFillIcon, StarIcon } from 'primeng/icons';
-import { Nullable } from 'primeng/ts-helpers';
-import { RatingIconTemplateContext, RatingPassThrough } from 'primeng/types/rating';
-import type { RatingRateEvent } from 'primeng/types/rating';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind } from 'voxx-ui/bind';
+import { BindModule } from 'voxx-ui/bind';
+import { StarFillIcon, StarIcon } from 'voxx-ui/icons';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { RatingIconTemplateContext, RatingPassThrough } from 'voxx-ui/types/rating';
+import type { RatingRateEvent } from 'voxx-ui/types/rating';
 import { RatingStyle } from './style/ratingstyle';
 
 const RATING_INSTANCE = new InjectionToken<Rating>('RATING_INSTANCE');
@@ -44,13 +44,13 @@ export const RATING_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-rating',
+    selector: 'vx-rating',
     imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
     standalone: true,
     template: `
         <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-            <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [pBind]="ptm('option')">
-                <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [pBind]="ptm('hiddenOptionInputContainer')">
+            <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [vxBind]="ptm('option')">
+                <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [vxBind]="ptm('hiddenOptionInputContainer')">
                     <input
                         type="radio"
                         [value]="star + 1"
@@ -64,23 +64,23 @@ export const RATING_VALUE_ACCESSOR: any = {
                         (focus)="onInputFocus($event, star + 1)"
                         (blur)="onInputBlur($event)"
                         (change)="onChange($event, star + 1)"
-                        [pAutoFocus]="autofocus"
-                        [pBind]="ptm('hiddenOptionInput')"
+                        [vxAutoFocus]="autofocus"
+                        [vxBind]="ptm('hiddenOptionInput')"
                     />
                 </span>
                 @if (star + 1 <= value) {
                     @if (onIconTemplate || _onIconTemplate) {
                         <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
                     } @else {
-                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [pBind]="ptm('onIcon')"></span>
-                        <svg data-p-icon="star-fill" *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [pBind]="ptm('onIcon')" />
+                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [vxBind]="ptm('onIcon')"></span>
+                        <svg data-p-icon="star-fill" *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [vxBind]="ptm('onIcon')" />
                     }
                 } @else {
                     @if (offIconTemplate || _offIconTemplate) {
                         <ng-container *ngTemplateOutlet="offIconTemplate || _offIconTemplate; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
                     } @else {
-                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [pBind]="ptm('offIcon')"></span>
-                        <svg data-p-icon="star" *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [pBind]="ptm('offIcon')" />
+                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [vxBind]="ptm('offIcon')"></span>
+                        <svg data-p-icon="star" *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [vxBind]="ptm('offIcon')" />
                     }
                 }
             </div>

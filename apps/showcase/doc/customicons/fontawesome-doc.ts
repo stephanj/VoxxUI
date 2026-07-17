@@ -16,10 +16,10 @@ import { Component } from '@angular/core';
 })
 export class FontAwesomeDoc {
     code: Code = {
-        html: `<p-select>
+        html: `<vx-select>
     <ng-template #dropdownicon>
         <i class="fa-light fa-chevron-down"></i>
     </ng-template>
-</p-select>`
+</vx-select>`
     };
 }

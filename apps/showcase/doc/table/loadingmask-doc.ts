@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'loadingmask-doc',
@@ -13,9 +13,9 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>The <i>loading</i> property displays a mask layer to indicate busy state. Use the paginator to display the mask.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+                <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                     <ng-template #header>
                         <tr>
                             <th style="width:25%">Code</th>
@@ -32,9 +32,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

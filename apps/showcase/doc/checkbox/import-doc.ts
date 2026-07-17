@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { CheckboxModule } from 'primeng/checkbox';`
+        typescript: `import { CheckboxModule } from 'voxx-ui/checkbox';`
     };
 }

@@ -1,10 +1,10 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { ScrollerOptions } from 'primeng/api';
-import type { ChipPassThrough } from 'primeng/types/chip';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { OverlayPassThrough } from 'primeng/types/overlay';
-import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import { ScrollerOptions } from 'voxx-ui/api';
+import type { ChipPassThrough } from 'voxx-ui/types/chip';
+import type { InputTextPassThrough } from 'voxx-ui/types/inputtext';
+import type { OverlayPassThrough } from 'voxx-ui/types/overlay';
+import type { VirtualScrollerPassThrough } from 'voxx-ui/types/scroller';
 
 /**
  * Custom pass-through(pt) options.

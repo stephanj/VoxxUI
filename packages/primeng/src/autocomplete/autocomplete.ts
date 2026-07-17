@@ -27,19 +27,19 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { Chip } from 'primeng/chip';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
-import { Scroller } from 'primeng/scroller';
-import { Nullable } from 'primeng/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseInput } from 'voxx-ui/baseinput';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Chip } from 'voxx-ui/chip';
+import { ConnectedOverlayScrollHandler } from 'voxx-ui/dom';
+import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'voxx-ui/icons';
+import { InputText } from 'voxx-ui/inputtext';
+import { Overlay } from 'voxx-ui/overlay';
+import { Ripple } from 'voxx-ui/ripple';
+import { Scroller } from 'voxx-ui/scroller';
+import { Nullable } from 'voxx-ui/ts-helpers';
 import {
     AutoCompleteAddEvent,
     AutoCompleteCompleteEvent,
@@ -53,7 +53,7 @@ import {
     AutoCompleteSelectedItemTemplateContext,
     AutoCompleteSelectEvent,
     AutoCompleteUnselectEvent
-} from 'primeng/types/autocomplete';
+} from 'voxx-ui/types/autocomplete';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 const AUTOCOMPLETE_INSTANCE = new InjectionToken<AutoComplete>('AUTOCOMPLETE_INSTANCE');
@@ -69,15 +69,15 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-autoComplete, p-autocomplete, p-auto-complete',
+    selector: 'vx-autoComplete, vx-autocomplete, vx-auto-complete',
     standalone: true,
     imports: [CommonModule, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, ChevronDownIcon, Chip, SharedModule, TimesIcon, BindModule],
     template: `
         <input
             *ngIf="!multiple"
             #focusInput
-            [pAutoFocus]="autofocus"
-            pInputText
+            [vxAutoFocus]="autofocus"
+            vxInputText
             [pt]="ptm('pcInputText')"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [ngStyle]="inputStyle"
@@ -92,7 +92,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.placeholder]="placeholder"
             [attr.name]="name()"
             [attr.minlength]="minlength()"
-            [pSize]="size()"
+            [vxSize]="size()"
             [attr.min]="min()"
             [attr.max]="max()"
             [attr.pattern]="pattern()"
@@ -116,11 +116,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             (paste)="onInputPaste($event)"
             (keyup)="onInputKeyUp($event)"
             [fluid]="hasFluid"
-            [pInputTextUnstyled]="unstyled()"
+            [vxInputTextUnstyled]="unstyled()"
         />
         <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
@@ -128,7 +128,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         <ul
             *ngIf="multiple"
             #multiContainer
-            [pBind]="ptm('inputMultiple')"
+            [vxBind]="ptm('inputMultiple')"
             [class]="cx('inputMultiple')"
             [attr.data-p]="inputMultipleDataP"
             [tabindex]="-1"
@@ -142,7 +142,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <li
                 #token
                 *ngFor="let option of modelValue(); let i = index"
-                [pBind]="ptm('chipItem')"
+                [vxBind]="ptm('chipItem')"
                 [class]="cx('chipItem', { i })"
                 [attr.id]="id + '_multiple_option_' + i"
                 role="option"
@@ -151,7 +151,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-posinset]="i + 1"
                 [attr.aria-selected]="true"
             >
-                <p-chip
+                <vx-chip
                     [pt]="ptm('pcChip')"
                     [class]="cx('pcChip')"
                     [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)"
@@ -162,21 +162,21 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <ng-template #removeicon>
-                        <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [pBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
+                        <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [vxBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
                             <svg data-p-icon="times-circle" [class]="cx('chipIcon')" [attr.aria-hidden]="true" />
                         </span>
-                        <span *ngIf="removeIconTemplate || _removeIconTemplate" [pBind]="ptm('chipIcon')" [attr.aria-hidden]="true">
+                        <span *ngIf="removeIconTemplate || _removeIconTemplate" [vxBind]="ptm('chipIcon')" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { removeCallback: removeOption.bind(this), index: i, class: cx('chipIcon') }"></ng-template>
                         </span>
                     </ng-template>
-                </p-chip>
+                </vx-chip>
             </li>
-            <li [pBind]="ptm('inputChip')" [class]="cx('inputChip')" role="option">
+            <li [vxBind]="ptm('inputChip')" [class]="cx('inputChip')" role="option">
                 <input
                     #focusInput
                     #multiIn
-                    [pAutoFocus]="autofocus"
-                    [pBind]="ptm('input')"
+                    [vxAutoFocus]="autofocus"
+                    [vxBind]="ptm('input')"
                     [class]="cx('pcInputText')"
                     [ngStyle]="inputStyle"
                     [attr.type]="type"
@@ -213,19 +213,19 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </li>
         </ul>
         <ng-container *ngIf="loading">
-            <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [pBind]="ptm('loader')" [class]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
-            <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [pBind]="ptm('loader')" [class]="cx('loader')" [attr.aria-hidden]="true">
+            <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [vxBind]="ptm('loader')" [class]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
+            <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [vxBind]="ptm('loader')" [class]="cx('loader')" [attr.aria-hidden]="true">
                 <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <button #ddBtn type="button" [pBind]="ptm('dropdown')" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="$disabled()" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
+        <button #ddBtn type="button" [vxBind]="ptm('dropdown')" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="$disabled()" vxRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
             <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
             <ng-container *ngIf="!dropdownIcon">
-                <svg data-p-icon="chevron-down" [pBind]="ptm('dropdown')" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
+                <svg data-p-icon="chevron-down" [vxBind]="ptm('dropdown')" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
             </ng-container>
         </button>
-        <p-overlay
+        <vx-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
@@ -240,10 +240,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
-                <div [pBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
+                <div [vxBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <div [pBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
-                        <p-scroller
+                    <div [vxBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
+                        <vx-scroller
                             *ngIf="virtualScroll"
                             #scroller
                             [tabindex]="-1"
@@ -264,25 +264,25 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                     <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
                                 </ng-template>
                             </ng-container>
-                        </p-scroller>
+                        </vx-scroller>
                         <ng-container *ngIf="!virtualScroll">
                             <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
                         </ng-container>
                     </div>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items [pBind]="ptm('list')" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
+                        <ul #items [vxBind]="ptm('list')" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
-                                    <li [pBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li [vxBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                         <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                     </li>
                                 </ng-container>
                                 <ng-container *ngIf="!isOptionGroup(option)">
                                     <li
-                                        pRipple
-                                        [pBind]="getPTOptions(option, scrollerOptions, i, 'option')"
+                                        vxRipple
+                                        [vxBind]="getPTOptions(option, scrollerOptions, i, 'option')"
                                         [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                         [class]="cx('option', { option, i, scrollerOptions })"
                                         [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
@@ -310,7 +310,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                     </li>
                                 </ng-container>
                             </ng-template>
-                            <li *ngIf="!items || (items && items.length === 0 && showEmptyMessage)" [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                            <li *ngIf="!items || (items && items.length === 0 && showEmptyMessage)" [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                 <ng-container *ngIf="!emptyTemplate && !_emptyTemplate; else empty">
                                     {{ searchResultMessageText }}
                                 </ng-container>
@@ -324,7 +324,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     {{ selectedMessageText }}
                 </span>
             </ng-template>
-        </p-overlay>
+        </vx-overlay>
     `,
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR, AutoCompleteStyle, { provide: AUTOCOMPLETE_INSTANCE, useExisting: AutoComplete }, { provide: PARENT_INSTANCE, useExisting: AutoComplete }],
     changeDetection: ChangeDetectionStrategy.OnPush,

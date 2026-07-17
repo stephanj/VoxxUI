@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { ButtonModule } from 'primeng/button';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'popup-doc',
@@ -14,8 +14,8 @@ import { ButtonModule } from 'primeng/button';
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button label="Toggle" (click)="menu.toggle($event)" />
-            <p-tieredmenu #menu [model]="items" [popup]="true" />
+            <vx-button label="Toggle" (click)="menu.toggle($event)" />
+            <vx-tieredmenu #menu [model]="items" [popup]="true" />
         </div>
         <app-code></app-code>
     `

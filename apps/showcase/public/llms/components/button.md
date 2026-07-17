@@ -12,13 +12,13 @@ Buttons have built-in badge support with badge and badgeClass properties.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-button label="Emails" badge="2" styleClass="m-0" />
-            <p-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />
+            <vx-button label="Emails" badge="2" styleClass="m-0" />
+            <vx-button label="Messages" icon="pi pi-users" badge="2" badgeSeverity="contrast" styleClass="m-0" [outlined]="true" />
         </div>
     `,
     standalone: true,
@@ -33,12 +33,12 @@ Text to display on a button is defined with the label property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button label="Submit" />
+            <vx-button label="Submit" />
         </div>
     `,
     standalone: true,
@@ -53,16 +53,16 @@ Multiple buttons are grouped when wrapped inside an element with ButtonGroup com
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-buttongroup>
-                <p-button label="Save" icon="pi pi-check" />
-                <p-button label="Delete" icon="pi pi-trash" />
-                <p-button label="Cancel" icon="pi pi-times" />
-            </p-buttongroup>
+            <vx-buttongroup>
+                <vx-button label="Save" icon="pi pi-check" />
+                <vx-button label="Delete" icon="pi pi-trash" />
+                <vx-button label="Cancel" icon="pi pi-times" />
+            </vx-buttongroup>
         </div>
     `,
     standalone: true,
@@ -77,8 +77,8 @@ Multiple buttons are grouped when wrapped inside an element with p-buttonset cla
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'voxx-ui/button';
+import { RippleModule } from 'voxx-ui/ripple';
 
 @Component({
     template: `
@@ -102,7 +102,7 @@ Button can also be used as directive using pButton along with pButtonLabel and p
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
@@ -125,12 +125,12 @@ When disabled is present, the element cannot be edited and focused.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button label="Submit" [disabled]="true" />
+            <vx-button label="Submit" [disabled]="true" />
         </div>
     `,
     standalone: true,
@@ -145,19 +145,19 @@ Icon of a button is specified with icon property and position is configured usin
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
             <div class="flex flex-wrap gap-4 justify-center">
-                <p-button icon="pi pi-home" aria-label="Save" />
-                <p-button label="Profile" icon="pi pi-user" />
-                <p-button label="Save" icon="pi pi-check" iconPos="right" />
+                <vx-button icon="pi pi-home" aria-label="Save" />
+                <vx-button label="Profile" icon="pi pi-user" />
+                <vx-button label="Save" icon="pi pi-check" iconPos="right" />
             </div>
             <div class="flex flex-wrap gap-4 justify-center">
-                <p-button label="Search" icon="pi pi-search" iconPos="top" />
-                <p-button label="Update" icon="pi pi-refresh" iconPos="bottom" />
+                <vx-button label="Search" icon="pi pi-search" iconPos="top" />
+                <vx-button label="Update" icon="pi pi-refresh" iconPos="bottom" />
             </div>
         </div>
     `,
@@ -173,55 +173,55 @@ Buttons can have icons without labels.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" />
-                <p-button icon="pi pi-bookmark" severity="secondary" />
-                <p-button icon="pi pi-search" severity="success" />
-                <p-button icon="pi pi-user" severity="info" />
-                <p-button icon="pi pi-bell" severity="warn" />
-                <p-button icon="pi pi-heart" severity="help" />
-                <p-button icon="pi pi-times" severity="danger" />
+                <vx-button icon="pi pi-check" />
+                <vx-button icon="pi pi-bookmark" severity="secondary" />
+                <vx-button icon="pi pi-search" severity="success" />
+                <vx-button icon="pi pi-user" severity="info" />
+                <vx-button icon="pi pi-bell" severity="warn" />
+                <vx-button icon="pi pi-heart" severity="help" />
+                <vx-button icon="pi pi-times" severity="danger" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
-                <p-button icon="pi pi-search" [rounded]="true" severity="success" />
-                <p-button icon="pi pi-user" [rounded]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
-                <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
-                <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
+                <vx-button icon="pi pi-check" [rounded]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
+                <vx-button icon="pi pi-search" [rounded]="true" severity="success" />
+                <vx-button icon="pi pi-user" [rounded]="true" severity="info" />
+                <vx-button icon="pi pi-bell" [rounded]="true" severity="warn" />
+                <vx-button icon="pi pi-heart" [rounded]="true" severity="help" />
+                <vx-button icon="pi pi-times" [rounded]="true" severity="danger" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
-                <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
-                <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
-                <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
-                <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
-                <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
+                <vx-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
+                <vx-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
+                <vx-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
+                <vx-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
+                <vx-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
+                <vx-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary" />
-                <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success" />
-                <p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
-                <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
-                <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
+                <vx-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary" />
+                <vx-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success" />
+                <vx-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info" />
+                <vx-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
+                <vx-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
+                <vx-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary" />
-                <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success" />
-                <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
-                <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
-                <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
+                <vx-button icon="pi pi-check" [rounded]="true" [text]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary" />
+                <vx-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success" />
+                <vx-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" />
+                <vx-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
+                <vx-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
+                <vx-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
             </div>
         </div>
     `,
@@ -237,12 +237,12 @@ A button can be rendered as a link when link property is present, while the pBut
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-button label="Link" link />
+            <vx-button label="Link" link />
             <a href="https://angular.dev/" pButton target="_blank" rel="noopener noreferrer">
                 <span pButtonLabel>Angular Website</span>
             </a>
@@ -263,12 +263,12 @@ Busy state is controlled with the loading property.
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
+            <vx-button label="Search" icon="pi pi-check" [loading]="loading()" (onClick)="load()" />
         </div>
     `,
     standalone: true,
@@ -293,19 +293,19 @@ Outlined buttons display a border without a background initially.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" variant="outlined" />
-            <p-button label="Secondary" variant="outlined" severity="secondary" />
-            <p-button label="Success" variant="outlined" severity="success" />
-            <p-button label="Info" variant="outlined" severity="info" />
-            <p-button label="Warn" variant="outlined" severity="warn" />
-            <p-button label="Help" variant="outlined" severity="help" />
-            <p-button label="Danger" variant="outlined" severity="danger" />
-            <p-button label="Contrast" variant="outlined" severity="contrast" />
+            <vx-button label="Primary" variant="outlined" />
+            <vx-button label="Secondary" variant="outlined" severity="secondary" />
+            <vx-button label="Success" variant="outlined" severity="success" />
+            <vx-button label="Info" variant="outlined" severity="info" />
+            <vx-button label="Warn" variant="outlined" severity="warn" />
+            <vx-button label="Help" variant="outlined" severity="help" />
+            <vx-button label="Danger" variant="outlined" severity="danger" />
+            <vx-button label="Contrast" variant="outlined" severity="contrast" />
         </div>
     `,
     standalone: true,
@@ -320,19 +320,19 @@ Raised buttons display a shadow to indicate elevation.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" [raised]="true" />
-            <p-button label="Secondary" [raised]="true" severity="secondary" />
-            <p-button label="Success" [raised]="true" severity="success" />
-            <p-button label="Info" [raised]="true" severity="info" />
-            <p-button label="Warn" [raised]="true" severity="warn" />
-            <p-button label="Help" [raised]="true" severity="help" />
-            <p-button label="Danger" [raised]="true" severity="danger" />
-            <p-button label="Contrast" [raised]="true" severity="contrast" />
+            <vx-button label="Primary" [raised]="true" />
+            <vx-button label="Secondary" [raised]="true" severity="secondary" />
+            <vx-button label="Success" [raised]="true" severity="success" />
+            <vx-button label="Info" [raised]="true" severity="info" />
+            <vx-button label="Warn" [raised]="true" severity="warn" />
+            <vx-button label="Help" [raised]="true" severity="help" />
+            <vx-button label="Danger" [raised]="true" severity="danger" />
+            <vx-button label="Contrast" [raised]="true" severity="contrast" />
         </div>
     `,
     standalone: true,
@@ -347,19 +347,19 @@ Text buttons can be displayed as raised for elevation.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" variant="text" [raised]="true" />
-            <p-button label="Secondary" variant="text" [raised]="true" severity="secondary" />
-            <p-button label="Success" variant="text" [raised]="true" severity="success" />
-            <p-button label="Info" variant="text" [raised]="true" severity="info" />
-            <p-button label="Warn" variant="text" [raised]="true" severity="warn" />
-            <p-button label="Help" variant="text" [raised]="true" severity="help" />
-            <p-button label="Danger" variant="text" [raised]="true" severity="danger" />
-            <p-button label="Plain" variant="text" [raised]="true" />
+            <vx-button label="Primary" variant="text" [raised]="true" />
+            <vx-button label="Secondary" variant="text" [raised]="true" severity="secondary" />
+            <vx-button label="Success" variant="text" [raised]="true" severity="success" />
+            <vx-button label="Info" variant="text" [raised]="true" severity="info" />
+            <vx-button label="Warn" variant="text" [raised]="true" severity="warn" />
+            <vx-button label="Help" variant="text" [raised]="true" severity="help" />
+            <vx-button label="Danger" variant="text" [raised]="true" severity="danger" />
+            <vx-button label="Plain" variant="text" [raised]="true" />
         </div>
     `,
     standalone: true,
@@ -374,19 +374,19 @@ Rounded buttons have a circular border radius.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" [rounded]="true" />
-            <p-button label="Secondary" [rounded]="true" severity="secondary" />
-            <p-button label="Success" [rounded]="true" severity="success" />
-            <p-button label="Info" [rounded]="true" severity="info" />
-            <p-button label="Warn" [rounded]="true" severity="warn" />
-            <p-button label="Help" [rounded]="true" severity="help" />
-            <p-button label="Danger" [rounded]="true" severity="danger" />
-            <p-button label="Contrast" [rounded]="true" severity="contrast" />
+            <vx-button label="Primary" [rounded]="true" />
+            <vx-button label="Secondary" [rounded]="true" severity="secondary" />
+            <vx-button label="Success" [rounded]="true" severity="success" />
+            <vx-button label="Info" [rounded]="true" severity="info" />
+            <vx-button label="Warn" [rounded]="true" severity="warn" />
+            <vx-button label="Help" [rounded]="true" severity="help" />
+            <vx-button label="Danger" [rounded]="true" severity="danger" />
+            <vx-button label="Contrast" [rounded]="true" severity="contrast" />
         </div>
     `,
     standalone: true,
@@ -401,19 +401,19 @@ Severity defines the type of button.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" />
-            <p-button label="Secondary" severity="secondary" />
-            <p-button label="Success" severity="success" />
-            <p-button label="Info" severity="info" />
-            <p-button label="Warn" severity="warn" />
-            <p-button label="Help" severity="help" />
-            <p-button label="Danger" severity="danger" />
-            <p-button label="Contrast" severity="contrast" />
+            <vx-button label="Primary" />
+            <vx-button label="Secondary" severity="secondary" />
+            <vx-button label="Success" severity="success" />
+            <vx-button label="Info" severity="info" />
+            <vx-button label="Warn" severity="warn" />
+            <vx-button label="Help" severity="help" />
+            <vx-button label="Danger" severity="danger" />
+            <vx-button label="Contrast" severity="contrast" />
         </div>
     `,
     standalone: true,
@@ -428,14 +428,14 @@ Button provides small and large sizes as alternatives to the standard.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4 items-center">
-            <p-button label="Small" icon="pi pi-check" size="small" />
-            <p-button label="Normal" icon="pi pi-check" />
-            <p-button label="Large" icon="pi pi-check" size="large" />
+            <vx-button label="Small" icon="pi pi-check" size="small" />
+            <vx-button label="Normal" icon="pi pi-check" />
+            <vx-button label="Large" icon="pi pi-check" size="large" />
         </div>
     `,
     standalone: true,
@@ -450,12 +450,12 @@ Custom content inside a button is defined as children.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button [outlined]="true">
+            <vx-button [outlined]="true">
                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                     <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -480,7 +480,7 @@ import { ButtonModule } from 'primeng/button';
                     <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                 </svg>
-            </p-button>
+            </vx-button>
         </div>
     `,
     standalone: true,
@@ -495,19 +495,19 @@ Text buttons are displayed as textual elements.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-button label="Primary" variant="text" />
-            <p-button label="Secondary" variant="text" severity="secondary" />
-            <p-button label="Success" variant="text" severity="success" />
-            <p-button label="Info" variant="text" severity="info" />
-            <p-button label="Warn" variant="text" severity="warn" />
-            <p-button label="Help" variant="text" severity="help" />
-            <p-button label="Danger" variant="text" severity="danger" />
-            <p-button label="Plain" variant="text" />
+            <vx-button label="Primary" variant="text" />
+            <vx-button label="Secondary" variant="text" severity="secondary" />
+            <vx-button label="Success" variant="text" severity="success" />
+            <vx-button label="Info" variant="text" severity="info" />
+            <vx-button label="Warn" variant="text" severity="warn" />
+            <vx-button label="Help" variant="text" severity="help" />
+            <vx-button label="Danger" variant="text" severity="danger" />
+            <vx-button label="Plain" variant="text" />
         </div>
     `,
     standalone: true,
@@ -559,9 +559,9 @@ Button is an extension to standard button element with icons and theming.
 
 | Name | Parameters | Description |
 |------|------------|-------------|
-| onClick | event: MouseEvent | Callback to execute when button is clicked. This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click). |
-| onFocus | event: FocusEvent | Callback to execute when button is focused. This event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus). |
-| onBlur | event: FocusEvent | Callback to execute when button loses focus. This event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur). |
+| onClick | event: MouseEvent | Callback to execute when button is clicked. This event is intended to be used with the <vx-button> component. Using a regular <button> element, use (click). |
+| onFocus | event: FocusEvent | Callback to execute when button is focused. This event is intended to be used with the <vx-button> component. Using a regular <button> element, use (focus). |
+| onBlur | event: FocusEvent | Callback to execute when button loses focus. This event is intended to be used with the <vx-button> component. Using a regular <button> element, use (blur). |
 
 ### Templates
 

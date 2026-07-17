@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
                     is a world renowned vendor of popular UI Component suites including
                     <a href="https://primefaces.org" class="text-primary font-medium hover:underline"> PrimeFaces </a>
                     ,
-                    <a href="https://primeng.org" class="text-primary font-medium hover:underline"> PrimeNG </a>
+                    <a href="https://primeng.org" class="text-primary font-medium hover:underline"> VoxxUI </a>
                     ,
                     <a href="https://primereact.org" class="text-primary font-medium hover:underline"> PrimeReact </a>
                     and

@@ -4,8 +4,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 
 describe('SelectButton', () => {
@@ -254,7 +254,7 @@ describe('SelectButton', () => {
     describe('Template and Content Projection', () => {
         it('should process templates in ngAfterContentInit', () => {
             const templateComponent = TestBed.createComponent(TestPrimeTemplateSelectButtonComponent);
-            const selectButtonInstance = templateComponent.debugElement.query(By.css('p-selectbutton')).componentInstance;
+            const selectButtonInstance = templateComponent.debugElement.query(By.css('vx-selectbutton')).componentInstance;
 
             templateComponent.detectChanges();
 
@@ -425,7 +425,7 @@ describe('SelectButton', () => {
     standalone: false,
     template: `
         <form [formGroup]="form">
-            <p-selectbutton [options]="options" formControlName="selectedValue"> </p-selectbutton>
+            <vx-selectbutton [options]="options" formControlName="selectedValue"> </vx-selectbutton>
         </form>
     `
 })
@@ -444,11 +444,11 @@ class TestFormSelectButtonComponent {
 @Component({
     standalone: false,
     template: `
-        <p-selectbutton [options]="options">
-            <ng-template pTemplate="item" let-option let-index="index">
+        <vx-selectbutton [options]="options">
+            <ng-template vxTemplate="item" let-option let-index="index">
                 <div class="prime-template-content">Prime: {{ option.label }}</div>
             </ng-template>
-        </p-selectbutton>
+        </vx-selectbutton>
     `
 })
 class TestPrimeTemplateSelectButtonComponent {
@@ -458,20 +458,20 @@ class TestPrimeTemplateSelectButtonComponent {
     ];
 }
 
-// SelectButton pTemplate component
+// SelectButton vxTemplate component
 @Component({
     standalone: true,
     imports: [SelectButton, FormsModule, CommonModule, SharedModule],
     template: `
-        <p-selectbutton [(ngModel)]="selectedValue" [options]="options">
-            <!-- Item template with pTemplate -->
-            <ng-template pTemplate="item" let-option let-index="index">
+        <vx-selectbutton [(ngModel)]="selectedValue" [options]="options">
+            <!-- Item template with vxTemplate -->
+            <ng-template vxTemplate="item" let-option let-index="index">
                 <span class="custom-template-item" [attr.data-testid]="'ptemplate-item-' + index" [title]="'Template item: ' + option.label + ' at index ' + index">
                     <i class="pi pi-star"></i>
                     {{ option.label }} ({{ option.value }})
                 </span>
             </ng-template>
-        </p-selectbutton>
+        </vx-selectbutton>
     `
 })
 class TestSelectButtonPTemplateComponent {
@@ -488,7 +488,7 @@ class TestSelectButtonPTemplateComponent {
     standalone: true,
     imports: [SelectButton, FormsModule, CommonModule, SharedModule],
     template: `
-        <p-selectbutton [(ngModel)]="selectedValue" [options]="options">
+        <vx-selectbutton [(ngModel)]="selectedValue" [options]="options">
             <!-- Item template with #template reference -->
             <ng-template #item let-option let-index="index">
                 <span class="custom-ref-item" [attr.data-testid]="'ref-item-' + index" [title]="'Reference item: ' + option.label + ' at index ' + index">
@@ -496,7 +496,7 @@ class TestSelectButtonPTemplateComponent {
                     {{ option.label }} [{{ option.value }}]
                 </span>
             </ng-template>
-        </p-selectbutton>
+        </vx-selectbutton>
     `
 })
 class TestSelectButtonRefTemplateComponent {
@@ -508,7 +508,7 @@ class TestSelectButtonRefTemplateComponent {
     ];
 }
 
-describe('SelectButton pTemplate Tests', () => {
+describe('SelectButton vxTemplate Tests', () => {
     let component: TestSelectButtonPTemplateComponent;
     let fixture: ComponentFixture<TestSelectButtonPTemplateComponent>;
     let selectButtonInstance: SelectButton;
@@ -525,7 +525,7 @@ describe('SelectButton pTemplate Tests', () => {
         fixture.detectChanges();
     });
 
-    it('should create component with pTemplate templates', async () => {
+    it('should create component with vxTemplate templates', async () => {
         expect(component).toBeTruthy();
         expect(selectButtonInstance).toBeTruthy();
         expect(() => selectButtonInstance.itemTemplate).not.toThrow();
@@ -573,7 +573,7 @@ describe('SelectButton pTemplate Tests', () => {
         expect(selectButtonInstance.isSelected(component.options![2])).toBe(true);
     });
 
-    it('should process pTemplates after content init', async () => {
+    it('should process vxTemplates after content init', async () => {
         if (selectButtonInstance.ngAfterContentInit) {
             selectButtonInstance.ngAfterContentInit();
             fixture.detectChanges();
@@ -877,7 +877,7 @@ describe('SelectButton PassThrough Tests', () => {
             const inlineFixture = TestBed.createComponent(TestInlineStringPTComponent);
             inlineFixture.detectChanges();
 
-            const inlineHostElement = inlineFixture.nativeElement.querySelector('p-selectbutton');
+            const inlineHostElement = inlineFixture.nativeElement.querySelector('vx-selectbutton');
             expect(inlineHostElement.classList.contains('INLINE_STRING')).toBe(true);
         });
 
@@ -885,20 +885,20 @@ describe('SelectButton PassThrough Tests', () => {
             const inlineFixture = TestBed.createComponent(TestInlineObjectPTComponent);
             inlineFixture.detectChanges();
 
-            const inlineHostElement = inlineFixture.nativeElement.querySelector('p-selectbutton');
+            const inlineHostElement = inlineFixture.nativeElement.querySelector('vx-selectbutton');
             expect(inlineHostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(inlineHostElement.getAttribute('data-inline')).toBe('true');
         });
     });
 
-    describe('PT Case 7: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 7: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration to all instances', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
@@ -927,7 +927,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, TestMultipleInstancesComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 root: {
@@ -943,7 +943,7 @@ describe('SelectButton PassThrough Tests', () => {
             const multiFixture = TestBed.createComponent(TestMultipleInstancesComponent);
             multiFixture.detectChanges();
 
-            const selectButtons = multiFixture.nativeElement.querySelectorAll('p-selectbutton');
+            const selectButtons = multiFixture.nativeElement.querySelectorAll('vx-selectbutton');
             expect(selectButtons.length).toBe(2);
 
             selectButtons.forEach((btn: HTMLElement) => {
@@ -961,7 +961,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -992,7 +992,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1023,7 +1023,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1056,7 +1056,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1089,7 +1089,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1140,7 +1140,7 @@ describe('SelectButton PassThrough Tests', () => {
             });
             fixture.detectChanges();
 
-            const toggleButtons = hostElement.querySelectorAll('p-togglebutton');
+            const toggleButtons = hostElement.querySelectorAll('vx-togglebutton');
             expect(toggleButtons.length).toBeGreaterThan(0);
         });
 
@@ -1155,7 +1155,7 @@ describe('SelectButton PassThrough Tests', () => {
             });
             fixture.detectChanges();
 
-            const toggleButtons = hostElement.querySelectorAll('p-togglebutton');
+            const toggleButtons = hostElement.querySelectorAll('vx-togglebutton');
             expect(toggleButtons.length).toBeGreaterThan(0);
         });
     });
@@ -1165,7 +1165,7 @@ describe('SelectButton PassThrough Tests', () => {
 @Component({
     standalone: true,
     imports: [SelectButton, FormsModule, CommonModule],
-    template: `<p-selectbutton [options]="options" [pt]="{ root: 'INLINE_STRING' }" />`
+    template: `<vx-selectbutton [options]="options" [pt]="{ root: 'INLINE_STRING' }" />`
 })
 class TestInlineStringPTComponent {
     options = ['One', 'Two'];
@@ -1174,7 +1174,7 @@ class TestInlineStringPTComponent {
 @Component({
     standalone: true,
     imports: [SelectButton, FormsModule, CommonModule],
-    template: `<p-selectbutton [options]="options" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }" />`
+    template: `<vx-selectbutton [options]="options" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }" />`
 })
 class TestInlineObjectPTComponent {
     options = ['One', 'Two'];
@@ -1184,8 +1184,8 @@ class TestInlineObjectPTComponent {
     standalone: true,
     imports: [SelectButton, FormsModule, CommonModule],
     template: `
-        <p-selectbutton [options]="options1" />
-        <p-selectbutton [options]="options2" />
+        <vx-selectbutton [options]="options1" />
+        <vx-selectbutton [options]="options2" />
     `
 })
 class TestMultipleInstancesComponent {

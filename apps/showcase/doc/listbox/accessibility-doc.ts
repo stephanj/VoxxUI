@@ -102,8 +102,8 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="lb">Options</span>
-<p-listbox ariaLabelledBy="lb"/>
+<vx-listbox ariaLabelledBy="lb"/>
 
-<p-listbox ariaLabel="City"/>`
+<vx-listbox ariaLabel="City"/>`
     };
 }

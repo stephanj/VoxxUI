@@ -7,7 +7,7 @@ import { Fluid, FluidModule } from './fluid';
 @Component({
     standalone: false,
     selector: 'test-basic-fluid',
-    template: `<p-fluid></p-fluid>`
+    template: `<vx-fluid></vx-fluid>`
 })
 class TestBasicFluidComponent {}
 
@@ -15,9 +15,9 @@ class TestBasicFluidComponent {}
     standalone: false,
     selector: 'test-fluid-with-content',
     template: `
-        <p-fluid>
+        <vx-fluid>
             <div class="test-content">Content inside fluid</div>
-        </p-fluid>
+        </vx-fluid>
     `
 })
 class TestFluidWithContentComponent {}
@@ -26,7 +26,7 @@ class TestFluidWithContentComponent {}
     standalone: false,
     selector: 'test-fluid-with-form-controls',
     template: `
-        <p-fluid>
+        <vx-fluid>
             <div class="form-group">
                 <label for="input1">Input 1</label>
                 <input type="text" id="input1" class="form-control" />
@@ -42,7 +42,7 @@ class TestFluidWithContentComponent {}
                 <label for="textarea1">Textarea 1</label>
                 <textarea id="textarea1" class="form-control"></textarea>
             </div>
-        </p-fluid>
+        </vx-fluid>
     `
 })
 class TestFluidWithFormControlsComponent {}
@@ -51,15 +51,15 @@ class TestFluidWithFormControlsComponent {}
     standalone: false,
     selector: 'test-nested-fluid',
     template: `
-        <p-fluid>
+        <vx-fluid>
             <div class="outer-container">
-                <p-fluid>
+                <vx-fluid>
                     <div class="inner-container">
                         <input type="text" class="nested-input" />
                     </div>
-                </p-fluid>
+                </vx-fluid>
             </div>
-        </p-fluid>
+        </vx-fluid>
     `
 })
 class TestNestedFluidComponent {}
@@ -68,7 +68,7 @@ class TestNestedFluidComponent {}
     standalone: false,
     selector: 'test-fluid-with-primeng-components',
     template: `
-        <p-fluid>
+        <vx-fluid>
             <div class="primeng-controls">
                 <div class="control-group">
                     <label>Button</label>
@@ -85,7 +85,7 @@ class TestNestedFluidComponent {}
                     </select>
                 </div>
             </div>
-        </p-fluid>
+        </vx-fluid>
     `
 })
 class TestFluidWithPrimeNGComponentsComponent {}
@@ -95,7 +95,7 @@ class TestFluidWithPrimeNGComponentsComponent {}
     selector: 'test-fluid-responsive',
     template: `
         <div class="responsive-container">
-            <p-fluid>
+            <vx-fluid>
                 <div class="grid-system">
                     <div class="col-12">
                         <input type="text" class="responsive-input" />
@@ -107,7 +107,7 @@ class TestFluidWithPrimeNGComponentsComponent {}
                         <button class="responsive-button">Button 2</button>
                     </div>
                 </div>
-            </p-fluid>
+            </vx-fluid>
         </div>
     `
 })
@@ -117,7 +117,7 @@ class TestFluidResponsiveComponent {}
     standalone: false,
     selector: 'test-fluid-dynamic-content',
     template: `
-        <p-fluid>
+        <vx-fluid>
             <div *ngIf="showFirstSection" class="first-section">
                 <input type="text" class="dynamic-input-1" />
                 <button class="dynamic-button-1">Button 1</button>
@@ -132,7 +132,7 @@ class TestFluidResponsiveComponent {}
                 <span>{{ item.label }}</span>
                 <input type="text" [value]="item.value" class="dynamic-list-input" />
             </div>
-        </p-fluid>
+        </vx-fluid>
     `
 })
 class TestFluidDynamicContentComponent {
@@ -149,7 +149,7 @@ class TestFluidDynamicContentComponent {
     selector: 'test-fluid-complex-layout',
     template: `
         <div class="complex-layout">
-            <p-fluid>
+            <vx-fluid>
                 <div class="header-section">
                     <h2>Form Header</h2>
                     <input type="text" placeholder="Search" class="header-search" />
@@ -171,7 +171,7 @@ class TestFluidDynamicContentComponent {
                     <div class="status-info">Status: Active</div>
                     <button class="footer-action">Footer Action</button>
                 </div>
-            </p-fluid>
+            </vx-fluid>
         </div>
     `
 })
@@ -220,7 +220,7 @@ describe('Fluid', () => {
         });
 
         it('should have correct selector', () => {
-            expect(element.tagName.toLowerCase()).toBe('p-fluid');
+            expect(element.tagName.toLowerCase()).toBe('vx-fluid');
         });
 
         it('should inject component style', () => {
@@ -335,8 +335,8 @@ describe('Fluid', () => {
         });
 
         it('should maintain proper hierarchy', () => {
-            const outerFluid = element.querySelector('p-fluid');
-            const innerFluid = outerFluid?.querySelector('p-fluid');
+            const outerFluid = element.querySelector('vx-fluid');
+            const innerFluid = outerFluid?.querySelector('vx-fluid');
 
             expect(outerFluid).toBeTruthy();
             expect(innerFluid).toBeTruthy();
@@ -348,7 +348,7 @@ describe('Fluid', () => {
         });
 
         it('should apply fluid styling to all levels', () => {
-            const fluidElements = element.querySelectorAll('p-fluid');
+            const fluidElements = element.querySelectorAll('vx-fluid');
             expect(fluidElements.length).toBe(2);
 
             fluidElements.forEach((fluidEl) => {
@@ -357,7 +357,7 @@ describe('Fluid', () => {
         });
     });
 
-    describe('PrimeNG Components Integration', () => {
+    describe('VoxxUI Components Integration', () => {
         let fixture: ComponentFixture<TestFluidWithPrimeNGComponentsComponent>;
         let element: HTMLElement;
 
@@ -367,7 +367,7 @@ describe('Fluid', () => {
             element = fixture.debugElement.query(By.directive(Fluid)).nativeElement;
         });
 
-        it('should work with PrimeNG styled components', () => {
+        it('should work with VoxxUI styled components', () => {
             const button = element.querySelector('.p-button');
             const input = element.querySelector('.p-inputtext');
             const dropdown = element.querySelector('.p-dropdown');
@@ -591,7 +591,7 @@ describe('Fluid', () => {
 
         it('should support styling inheritance', () => {
             // Fluid component should allow styling to cascade to children
-            expect(element.tagName.toLowerCase()).toBe('p-fluid');
+            expect(element.tagName.toLowerCase()).toBe('vx-fluid');
         });
     });
 
@@ -708,7 +708,7 @@ describe('Fluid', () => {
         @Component({
             standalone: true,
             imports: [Fluid],
-            template: `<p-fluid [pt]="pt()"><div class="test-content">Test Content</div></p-fluid>`
+            template: `<vx-fluid [pt]="pt()"><div class="test-content">Test Content</div></vx-fluid>`
         })
         class TestPTFluidComponent {
             pt = input<any>();

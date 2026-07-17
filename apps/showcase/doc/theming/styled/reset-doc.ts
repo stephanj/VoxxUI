@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                In case PrimeNG components have visual issues in your application, a Reset CSS may be the culprit. CSS layers would be an efficient solution that involves enabling the PrimeNG layer, wrapping the Reset CSS in another layer and
-                defining the layer order. This way, your Reset CSS does not get in the way of PrimeNG components.
+                In case VoxxUI components have visual issues in your application, a Reset CSS may be the culprit. CSS layers would be an efficient solution that involves enabling the VoxxUI layer, wrapping the Reset CSS in another layer and
+                defining the layer order. This way, your Reset CSS does not get in the way of VoxxUI components.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>

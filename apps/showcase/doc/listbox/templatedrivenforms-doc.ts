@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { ListboxModule } from 'voxx-ui/listbox';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -19,16 +19,16 @@ interface City {
     imports: [FormsModule, ListboxModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
+                    <vx-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
                     @if (city.invalid && exampleForm.submitted) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

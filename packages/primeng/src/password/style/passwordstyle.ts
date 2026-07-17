@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as password_style } from '@primeuix/styles/password';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
 ${password_style}
 
-/* For PrimeNG */
+/* For VoxxUI */
 .p-password-overlay {
     min-width: 100%;
 }

@@ -3,9 +3,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
+import { DatePickerModule } from 'voxx-ui/datepicker';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { SelectModule } from 'voxx-ui/select';
 
 @Component({
     selector: 'form-doc',
@@ -13,41 +13,41 @@ import { SelectModule } from 'primeng/select';
     imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule],
     template: `
         <app-docsectiontext>
-            <p>Using Tailwind utilities for the responsive layout of a form with PrimeNG components.</p>
+            <p>Using Tailwind utilities for the responsive layout of a form with VoxxUI components.</p>
         </app-docsectiontext>
         <div class="card flex sm:justify-center">
             <div class="flex flex-col gap-6 w-full sm:w-auto">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-6">
                     <div class="flex-auto">
                         <label for="firstname" class="block font-semibold mb-2">Firstname</label>
-                        <input type="text" pInputText id="firstname" class="w-full" />
+                        <input type="text" vxInputText id="firstname" class="w-full" />
                     </div>
                     <div class="flex-auto">
                         <label for="lastname" class="block font-semibold mb-2">Lastname</label>
-                        <input type="text" pInputText id="lastname" class="w-full" />
+                        <input type="text" vxInputText id="lastname" class="w-full" />
                     </div>
                 </div>
                 <div class="flex flex-col sm:flex-row sm:items-center gap-6">
                     <div class="flex-1">
                         <label for="date" class="block font-semibold mb-2">Date</label>
-                        <p-datepicker inputId="date" class="w-full" />
+                        <vx-datepicker inputId="date" class="w-full" />
                     </div>
                     <div class="flex-1">
                         <label for="country" class="block font-semibold mb-2">Country</label>
-                        <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
-                            <ng-template pTemplate="selectedItem">
+                        <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
+                            <ng-template vxTemplate="selectedItem">
                                 <div class="flex items-center gap-2" *ngIf="selectedCountry">
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ selectedCountry.name }}</div>
                                 </div>
                             </ng-template>
-                            <ng-template let-country pTemplate="item">
+                            <ng-template let-country vxTemplate="item">
                                 <div class="flex items-center gap-2">
                                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ country.name }}</div>
                                 </div>
                             </ng-template>
-                        </p-select>
+                        </vx-select>
                     </div>
                 </div>
                 <div class="flex-auto">

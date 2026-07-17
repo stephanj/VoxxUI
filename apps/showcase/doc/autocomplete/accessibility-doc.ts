@@ -140,11 +140,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="ac1">Username</label>
-<p-autocomplete inputId="ac1"/>
+<vx-autocomplete inputId="ac1"/>
 
 <span id="ac2">Email</span>
-<p-autocomplete ariaLabelledBy="ac2" />
+<vx-autocomplete ariaLabelledBy="ac2" />
 
-<p-autocomplete ariaLabel="City" />`
+<vx-autocomplete ariaLabel="City" />`
     };
 }

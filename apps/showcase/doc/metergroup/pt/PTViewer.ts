@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     selector: 'metergroup-pt-viewer',
@@ -9,7 +9,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
     imports: [CommonModule, AppDocPtViewer, MeterGroupModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-metergroup [value]="value" />
+            <vx-metergroup [value]="value" />
         </app-docptviewer>
     `
 })

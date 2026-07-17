@@ -12,9 +12,9 @@ import { Component } from '@angular/core';
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc
-        docTitle="Accessibility - PrimeNG"
+        docTitle="Accessibility - VoxxUI"
         header="Accessibility"
-        description="PrimeNG targets AA level compliance on WCAG specification, refer to the accessibility documentation of each component for detailed information."
+        description="VoxxUI targets AA level compliance on WCAG specification, refer to the accessibility documentation of each component for detailed information."
         [docs]="docs"
         docType="page"
     ></app-doc>`

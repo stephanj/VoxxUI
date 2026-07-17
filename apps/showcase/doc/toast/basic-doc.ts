@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'basic-doc',
@@ -17,8 +17,8 @@ import { ButtonModule } from 'primeng/button';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-button (onClick)="show()" label="Show" />
+            <vx-toast />
+            <vx-button (onClick)="show()" label="Show" />
         </div>
         <app-code></app-code>
     `,

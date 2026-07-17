@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ScrollPanelModule } from 'voxx-ui/scrollpanel';
 
 @Component({
     selector: 'custom-doc',
@@ -12,7 +12,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-scrollpanel [style]="{ width: '100%', height: '200px' }">
+            <vx-scrollpanel [style]="{ width: '100%', height: '200px' }">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -37,7 +37,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
                     officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                 </p>
-            </p-scrollpanel>
+            </vx-scrollpanel>
         </div>
 
         <app-code></app-code>

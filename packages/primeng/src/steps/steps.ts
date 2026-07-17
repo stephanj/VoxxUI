@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { find, findSingle } from '@primeuix/utils';
-import { MenuItem, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
+import { MenuItem, SharedModule } from 'voxx-ui/api';
+import { BaseComponent } from 'voxx-ui/basecomponent';
+import { TooltipModule } from 'voxx-ui/tooltip';
+import { Nullable } from 'voxx-ui/ts-helpers';
 import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
 
@@ -14,7 +14,7 @@ import { StepsStyle } from './style/stepsstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-steps',
+    selector: 'vx-steps',
     standalone: true,
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
     template: `
@@ -28,9 +28,9 @@ import { StepsStyle } from './style/stepsstyle';
                         [ngStyle]="item.style"
                         [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
                         [attr.id]="item.id"
-                        pTooltip
+                        vxTooltip
                         [tooltipOptions]="item.tooltipOptions"
-                        [pTooltipUnstyled]="unstyled()"
+                        [vxTooltipUnstyled]="unstyled()"
                         [attr.data-pc-section]="'menuitem'"
                     >
                         <a

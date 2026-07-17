@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { CheckboxModule } from 'primeng/checkbox';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputGroupModule } from 'voxx-ui/inputgroup';
+import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { CheckboxModule } from 'voxx-ui/checkbox';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -17,21 +17,21 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>
         </app-docsectiontext>
         <div class="card flex flex-col md:flex-row gap-4">
-            <p-inputgroup>
-                <input type="text" pInputText placeholder="Price" />
-                <p-inputgroup-addon><p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
-            </p-inputgroup>
+            <vx-inputgroup>
+                <input type="text" vxInputText placeholder="Price" />
+                <vx-inputgroup-addon><vx-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></vx-inputgroup-addon>
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Username" />
-            </p-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon><vx-checkbox [(ngModel)]="checked1" [binary]="true" /></vx-inputgroup-addon>
+                <input type="text" vxInputText placeholder="Username" />
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Website" />
-                <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
-            </p-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon><vx-checkbox [(ngModel)]="checked2" [binary]="true" /></vx-inputgroup-addon>
+                <input type="text" vxInputText placeholder="Website" />
+                <vx-inputgroup-addon><vx-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></vx-inputgroup-addon>
+            </vx-inputgroup>
         </div>
         <app-code></app-code>
     `

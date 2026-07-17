@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'radiobuttonselection-doc',
@@ -13,9 +13,9 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th style="width: 4rem"></th>
@@ -28,7 +28,7 @@ import { TableModule } from 'primeng/table';
                     <ng-template #body let-product>
                         <tr>
                             <td>
-                                <p-tableRadioButton [value]="product" />
+                                <vx-tableRadioButton [value]="product" />
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -36,9 +36,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,4 +1,4 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
 import { TemplateRef } from '@angular/core';
 
 /**

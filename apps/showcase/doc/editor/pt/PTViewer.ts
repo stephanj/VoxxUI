@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
+import { EditorModule } from 'voxx-ui/editor';
 
 @Component({
     selector: 'editor-pt-viewer',
@@ -10,7 +10,7 @@ import { EditorModule } from 'primeng/editor';
     imports: [CommonModule, AppDocPtViewer, EditorModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-editor [(ngModel)]="value" [style]="{ height: '320px' }"></p-editor>
+            <vx-editor [(ngModel)]="value" [style]="{ height: '320px' }"></vx-editor>
         </app-docptviewer>
     `
 })

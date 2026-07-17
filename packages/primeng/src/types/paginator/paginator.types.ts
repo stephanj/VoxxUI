@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { InputNumberPassThrough } from 'primeng/types/inputnumber';
-import { SelectPassThrough } from 'primeng/types/select';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import { InputNumberPassThrough } from 'voxx-ui/types/inputnumber';
+import { SelectPassThrough } from 'voxx-ui/types/select';
 
 /**
  * Custom pass-through(pt) options.

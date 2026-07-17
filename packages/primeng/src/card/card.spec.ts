@@ -6,16 +6,16 @@ import { Card, CardModule } from './card';
 
 @Component({
     standalone: false,
-    template: `<p-card></p-card>`
+    template: `<vx-card></vx-card>`
 })
 class TestBasicCardComponent {}
 
 @Component({
     standalone: false,
     template: `
-        <p-card [header]="header" [subheader]="subheader" [styleClass]="styleClass" [style]="style">
+        <vx-card [header]="header" [subheader]="subheader" [styleClass]="styleClass" [style]="style">
             <div class="card-content">Custom Card Content</div>
-        </p-card>
+        </vx-card>
     `
 })
 class TestCustomCardComponent {
@@ -28,23 +28,23 @@ class TestCustomCardComponent {
 @Component({
     standalone: false,
     template: `
-        <p-card>
-            <ng-template pTemplate="header">
+        <vx-card>
+            <ng-template vxTemplate="header">
                 <div class="custom-header">Custom Header Template</div>
             </ng-template>
-            <ng-template pTemplate="title">
+            <ng-template vxTemplate="title">
                 <h2 class="custom-title">Custom Title Template</h2>
             </ng-template>
-            <ng-template pTemplate="subtitle">
+            <ng-template vxTemplate="subtitle">
                 <p class="custom-subtitle">Custom Subtitle Template</p>
             </ng-template>
-            <ng-template pTemplate="content">
+            <ng-template vxTemplate="content">
                 <div class="custom-content">Custom Content Template</div>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="custom-footer">Custom Footer Template</div>
             </ng-template>
-        </p-card>
+        </vx-card>
     `
 })
 class TestTemplateCardComponent {}
@@ -52,15 +52,15 @@ class TestTemplateCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card>
-            <p-header>
+        <vx-card>
+            <vx-header>
                 <div class="facet-header">Header Facet Content</div>
-            </p-header>
+            </vx-header>
             <div class="main-content">Main Card Content</div>
-            <p-footer>
+            <vx-footer>
                 <div class="facet-footer">Footer Facet Content</div>
-            </p-footer>
-        </p-card>
+            </vx-footer>
+        </vx-card>
     `
 })
 class TestFacetCardComponent {}
@@ -68,7 +68,7 @@ class TestFacetCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card>
+        <vx-card>
             <ng-template #header>
                 <div class="contentchild-header">ContentChild Header</div>
             </ng-template>
@@ -84,7 +84,7 @@ class TestFacetCardComponent {}
             <ng-template #footer>
                 <div class="contentchild-footer">ContentChild Footer</div>
             </ng-template>
-        </p-card>
+        </vx-card>
     `
 })
 class TestContentChildCardComponent {
@@ -98,9 +98,9 @@ class TestContentChildCardComponent {
 @Component({
     standalone: false,
     template: `
-        <p-card header="Simple Header" subheader="Simple Subheader">
+        <vx-card header="Simple Header" subheader="Simple Subheader">
             <div class="simple-content">Simple card content with just text properties</div>
-        </p-card>
+        </vx-card>
     `
 })
 class TestSimpleTextCardComponent {}
@@ -108,11 +108,11 @@ class TestSimpleTextCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card [header]="header" [subheader]="subheader">
+        <vx-card [header]="header" [subheader]="subheader">
             <ng-container *ngIf="showContent">
                 <div class="dynamic-content">Dynamic Content</div>
             </ng-container>
-        </p-card>
+        </vx-card>
     `
 })
 class TestDynamicCardComponent {
@@ -124,8 +124,8 @@ class TestDynamicCardComponent {
 @Component({
     standalone: false,
     template: `
-        <p-card>
-            <ng-template pTemplate="header">
+        <vx-card>
+            <ng-template vxTemplate="header">
                 <div class="header-with-actions">
                     <h3>Card with Actions</h3>
                     <button class="header-action" type="button">Action</button>
@@ -139,13 +139,13 @@ class TestDynamicCardComponent {
                     <li>Item 3</li>
                 </ul>
             </div>
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="footer-buttons">
                     <button class="btn-primary" type="button">Save</button>
                     <button class="btn-secondary" type="button">Cancel</button>
                 </div>
             </ng-template>
-        </p-card>
+        </vx-card>
     `
 })
 class TestComplexCardComponent {}
@@ -153,9 +153,9 @@ class TestComplexCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card header="Header Only">
+        <vx-card header="Header Only">
             <div class="header-only-content">Content with header only</div>
-        </p-card>
+        </vx-card>
     `
 })
 class TestHeaderOnlyCardComponent {}
@@ -163,9 +163,9 @@ class TestHeaderOnlyCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card subheader="Subheader Only">
+        <vx-card subheader="Subheader Only">
             <div class="subheader-only-content">Content with subheader only</div>
-        </p-card>
+        </vx-card>
     `
 })
 class TestSubheaderOnlyCardComponent {}
@@ -173,12 +173,12 @@ class TestSubheaderOnlyCardComponent {}
 @Component({
     standalone: false,
     template: `
-        <p-card>
-            <ng-template pTemplate="footer">
+        <vx-card>
+            <ng-template vxTemplate="footer">
                 <div class="footer-only">Footer Only Content</div>
             </ng-template>
             <div class="content-with-footer">Content with footer only</div>
-        </p-card>
+        </vx-card>
     `
 })
 class TestFooterOnlyCardComponent {}
@@ -786,7 +786,7 @@ describe('Card', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply base component classes correctly', () => {
-            const cardElement = fixture.debugElement.query(By.css('p-card'));
+            const cardElement = fixture.debugElement.query(By.css('vx-card'));
             expect(cardElement.nativeElement.className).toContain('p-card');
             expect(cardElement.nativeElement.className).toContain('p-component');
         });
@@ -1277,11 +1277,11 @@ describe('Card', () => {
                 @Component({
                     standalone: false,
                     template: `
-                        <p-card [pt]="pt">
-                            <ng-template pTemplate="footer">
+                        <vx-card [pt]="pt">
+                            <ng-template vxTemplate="footer">
                                 <div>Footer Content</div>
                             </ng-template>
-                        </p-card>
+                        </vx-card>
                     `
                 })
                 class TestPTFooterComponent {
@@ -1307,11 +1307,11 @@ describe('Card', () => {
                 @Component({
                     standalone: false,
                     template: `
-                        <p-card [pt]="pt">
-                            <ng-template pTemplate="header">
+                        <vx-card [pt]="pt">
+                            <ng-template vxTemplate="header">
                                 <div>Header Content</div>
                             </ng-template>
-                        </p-card>
+                        </vx-card>
                     `
                 })
                 class TestPTHeaderComponent {
@@ -1334,13 +1334,13 @@ describe('Card', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
+            it('should apply global PT configuration from VoxxUIConfig', async () => {
                 @Component({
                     standalone: false,
                     template: `
-                        <p-card header="Card 1"></p-card>
-                        <p-card header="Card 2"></p-card>
+                        <vx-card header="Card 1"></vx-card>
+                        <vx-card header="Card 2"></vx-card>
                     `
                 })
                 class TestGlobalPTComponent {}
@@ -1352,7 +1352,7 @@ describe('Card', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideVoxxUI',
                             useValue: {
                                 pt: {
                                     card: {
@@ -1375,7 +1375,7 @@ describe('Card', () => {
             it('should merge local PT with global PT', async () => {
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="localPt" header="Test"></p-card>`
+                    template: `<vx-card [pt]="localPt" header="Test"></vx-card>`
                 })
                 class TestMergePTComponent {
                     localPt = { root: 'LOCAL_CLASS', title: 'LOCAL_TITLE_CLASS' };
@@ -1391,7 +1391,7 @@ describe('Card', () => {
                 const fixture = TestBed.createComponent(TestMergePTComponent);
                 await fixture.whenStable();
 
-                const cardEl = fixture.debugElement.query(By.css('p-card'));
+                const cardEl = fixture.debugElement.query(By.css('vx-card'));
                 expect(cardEl.nativeElement.className).toContain('LOCAL_CLASS');
 
                 const titleEl = fixture.debugElement.query(By.css('.p-card-title'));
@@ -1406,7 +1406,7 @@ describe('Card', () => {
 
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt"></p-card>`
+                    template: `<vx-card [pt]="pt"></vx-card>`
                 })
                 class TestPTHooksComponent {
                     pt = {
@@ -1437,7 +1437,7 @@ describe('Card', () => {
 
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt"></p-card>`
+                    template: `<vx-card [pt]="pt"></vx-card>`
                 })
                 class TestPTBeforeMountComponent {
                     pt = {
@@ -1467,7 +1467,7 @@ describe('Card', () => {
 
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt"></p-card>`
+                    template: `<vx-card [pt]="pt"></vx-card>`
                 })
                 class TestPTContentInitComponent {
                     pt = {
@@ -1497,7 +1497,7 @@ describe('Card', () => {
 
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt"></p-card>`
+                    template: `<vx-card [pt]="pt"></vx-card>`
                 })
                 class TestMultiplePTHooksComponent {
                     pt = {
@@ -1534,15 +1534,15 @@ describe('Card', () => {
                 @Component({
                     standalone: false,
                     template: `
-                        <p-card [pt]="pt" [header]="'Test Header'" [subheader]="'Test Subheader'">
-                            <ng-template pTemplate="header">
+                        <vx-card [pt]="pt" [header]="'Test Header'" [subheader]="'Test Subheader'">
+                            <ng-template vxTemplate="header">
                                 <div>Header Content</div>
                             </ng-template>
                             <div>Content</div>
-                            <ng-template pTemplate="footer">
+                            <ng-template vxTemplate="footer">
                                 <div>Footer Content</div>
                             </ng-template>
-                        </p-card>
+                        </vx-card>
                     `
                 })
                 class TestAllSectionsPTComponent {
@@ -1567,7 +1567,7 @@ describe('Card', () => {
                 const fixture = TestBed.createComponent(TestAllSectionsPTComponent);
                 await fixture.whenStable();
 
-                const cardEl = fixture.debugElement.query(By.css('p-card'));
+                const cardEl = fixture.debugElement.query(By.css('vx-card'));
                 expect(cardEl.nativeElement.className).toContain('PT_ROOT');
 
                 const headerEl = fixture.debugElement.query(By.css('.p-card-header'));
@@ -1592,7 +1592,7 @@ describe('Card', () => {
             it('should handle PT with function returning classes based on instance', async () => {
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt" [header]="header"></p-card>`
+                    template: `<vx-card [pt]="pt" [header]="header"></vx-card>`
                 })
                 class TestPTFunctionComponent {
                     header = 'Test Header';
@@ -1613,14 +1613,14 @@ describe('Card', () => {
                 const fixture = TestBed.createComponent(TestPTFunctionComponent);
                 await fixture.whenStable();
 
-                const cardEl = fixture.debugElement.query(By.css('p-card'));
+                const cardEl = fixture.debugElement.query(By.css('vx-card'));
                 expect(cardEl.nativeElement.className).toContain('HAS-HEADER');
             });
 
             it('should handle dynamic PT updates', async () => {
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt"></p-card>`
+                    template: `<vx-card [pt]="pt"></vx-card>`
                 })
                 class TestDynamicPTComponent {
                     pt = { root: 'INITIAL_CLASS' };
@@ -1637,7 +1637,7 @@ describe('Card', () => {
                 const component = fixture.componentInstance;
                 await fixture.whenStable();
 
-                let cardEl = fixture.debugElement.query(By.css('p-card'));
+                let cardEl = fixture.debugElement.query(By.css('vx-card'));
                 expect(cardEl.nativeElement.className).toContain('INITIAL_CLASS');
 
                 component.pt = { root: 'UPDATED_CLASS' };
@@ -1710,7 +1710,7 @@ describe('Card', () => {
             it('should handle PT function with instance-based styles', async () => {
                 @Component({
                     standalone: false,
-                    template: `<p-card [pt]="pt" [header]="header" [subheader]="subheader"></p-card>`
+                    template: `<vx-card [pt]="pt" [header]="header" [subheader]="subheader"></vx-card>`
                 })
                 class TestPTInstanceStyleComponent {
                     header = 'Header';

@@ -2,7 +2,7 @@ import { default as IconData } from '@/assets/data/icons.json';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     selector: 'list-doc',
@@ -16,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
             </p>
         </app-docsectiontext>
         <div>
-            <input class="p-inputtext p-component w-full p-4 mt-4 mb-6" (input)="onFilter($event)" pInputText placeholder="Search an icon" />
+            <input class="p-inputtext p-component w-full p-4 mt-4 mb-6" (input)="onFilter($event)" vxInputText placeholder="Search an icon" />
         </div>
         <div class="card">
             <div class="grid grid-cols-12 gap-4 text-center">

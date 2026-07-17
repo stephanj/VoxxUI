@@ -1,9 +1,9 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'app-doccopymarkdown',
@@ -11,8 +11,8 @@ import { ToastModule } from 'primeng/toast';
     imports: [CommonModule, SplitButtonModule, ToastModule],
     providers: [MessageService],
     template: `
-        <p-toast position="top-right" />
-        <p-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" outlined [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
+        <vx-toast position="top-right" />
+        <vx-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" outlined [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
     `
 })
 export class AppDocCopyMarkdown implements OnInit {

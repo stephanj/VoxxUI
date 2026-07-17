@@ -3,7 +3,7 @@ import { Component, ElementRef, provideZonelessChangeDetection, ViewChild } from
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { OverlayService, PrimeTemplate } from 'primeng/api';
+import { OverlayService, PrimeTemplate } from 'voxx-ui/api';
 import { Popover } from './popover';
 
 // function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
@@ -22,7 +22,7 @@ import { Popover } from './popover';
     standalone: false,
     template: `
         <button #targetButton (click)="popover.toggle($event)">Toggle</button>
-        <p-popover
+        <vx-popover
             #popover
             [dismissable]="dismissable"
             [style]="style"
@@ -40,7 +40,7 @@ import { Popover } from './popover';
             (onHide)="onHide($event)"
         >
             <div class="test-content">Basic content</div>
-        </p-popover>
+        </vx-popover>
     `
 })
 class TestBasicPopoverComponent {
@@ -76,14 +76,14 @@ class TestBasicPopoverComponent {
     standalone: false,
     template: `
         <button #targetButton (click)="popover.toggle($event)">Toggle</button>
-        <p-popover #popover>
+        <vx-popover #popover>
             <ng-template #content let-closeCallback="closeCallback">
                 <div class="template-content">
                     Template content
                     <button class="close-button" (click)="closeCallback()">Close</button>
                 </div>
             </ng-template>
-        </p-popover>
+        </vx-popover>
     `
 })
 class TestTemplatePopoverComponent {
@@ -95,14 +95,14 @@ class TestTemplatePopoverComponent {
     standalone: false,
     template: `
         <button #targetButton (click)="popover.toggle($event)">Toggle</button>
-        <p-popover #popover>
-            <ng-template pTemplate="content" let-closeCallback="closeCallback">
+        <vx-popover #popover>
+            <ng-template vxTemplate="content" let-closeCallback="closeCallback">
                 <div class="ptemplate-content">
                     PTemplate content
                     <button class="close-button" (click)="closeCallback()">Close</button>
                 </div>
             </ng-template>
-        </p-popover>
+        </vx-popover>
     `
 })
 class TestPTemplatePopoverComponent {
@@ -114,11 +114,11 @@ class TestPTemplatePopoverComponent {
     standalone: false,
     template: `
         <button #targetButton (click)="popover.toggle($event)">Toggle</button>
-        <p-popover #popover [focusOnShow]="true">
+        <vx-popover #popover [focusOnShow]="true">
             <input autofocus type="text" class="focus-input" />
             <button tabindex="0">Button</button>
             <div tabindex="0">Focusable div</div>
-        </p-popover>
+        </vx-popover>
     `
 })
 class TestKeyboardNavigationComponent {
@@ -376,7 +376,7 @@ describe('Popover', () => {
             });
         });
 
-        describe('pTemplate approach', () => {
+        describe('vxTemplate approach', () => {
             let fixture: ComponentFixture<TestPTemplatePopoverComponent>;
             let component: TestPTemplatePopoverComponent;
             let popoverInstance: Popover;
@@ -388,12 +388,12 @@ describe('Popover', () => {
                 popoverInstance = component.popover;
             });
 
-            it('should process pTemplate content in ngAfterContentInit', () => {
+            it('should process vxTemplate content in ngAfterContentInit', () => {
                 popoverInstance.ngAfterContentInit();
                 expect(popoverInstance._contentTemplate).toBeTruthy();
             });
 
-            it('should render pTemplate content correctly', async () => {
+            it('should render vxTemplate content correctly', async () => {
                 const mockEvent = new MouseEvent('click');
                 const target = component.targetButton.nativeElement;
 

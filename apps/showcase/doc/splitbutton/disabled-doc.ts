@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -18,8 +18,8 @@ import { RouterModule } from '@angular/router';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
+            <vx-toast />
+            <vx-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
         </div>
         <app-code></app-code>
     `,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PopoverModule } from 'primeng/popover';
-import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'voxx-ui/popover';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -16,13 +16,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+            <vx-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></vx-button>
             <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
                 <span>Target Element</span>
             </div>
-            <p-popover #op>
+            <vx-popover #op>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
-            </p-popover>
+            </vx-popover>
         </div>
         <app-code></app-code>
     `

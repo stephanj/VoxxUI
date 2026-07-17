@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
-import { FluidModule } from 'primeng/fluid';
+import { InputMaskModule } from 'voxx-ui/inputmask';
+import { InputText } from 'voxx-ui/inputtext';
+import { FluidModule } from 'voxx-ui/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -17,20 +17,20 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <i>)</i> , <i>-</i> are also accepted.
             </p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <span class="font-bold block mb-2">SSN</span>
-                <input pInputText pInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
+                <input vxInputText vxInputMask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Phone</span>
-                <input pInputText pInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
+                <input vxInputText vxInputMask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Serial Number</span>
-                <input pInputText pInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
+                <input vxInputText vxInputMask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
             </div>
-        </p-fluid>
+        </vx-fluid>
         <app-code></app-code>
     `
 })

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToastModule } from 'primeng/toast';`
+        typescript: `import { ToastModule } from 'voxx-ui/toast';`
     };
 }

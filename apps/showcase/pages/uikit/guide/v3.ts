@@ -21,7 +21,7 @@ import { CIPipelineDoc } from '@/doc/uikit/v3/workflow/cipipeline-doc';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'voxx-ui/ripple';
 
 @Component({
     standalone: true,

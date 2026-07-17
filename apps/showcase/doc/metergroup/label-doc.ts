@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -15,7 +15,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
+            <vx-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
         </div>
         <app-code></app-code>
     `

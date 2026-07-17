@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { effect, inject, Injectable, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 import type { ThemeConfigType } from './primeng.types';
 
 @Injectable({ providedIn: 'root' })

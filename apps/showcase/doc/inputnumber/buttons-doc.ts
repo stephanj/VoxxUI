@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FluidModule } from 'primeng/fluid';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { FluidModule } from 'voxx-ui/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -16,27 +16,27 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 up and down arrow keys can be used to spin the values with keyboard.
             </p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="stacked">Stacked</label>
-                <p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
+                <vx-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
-                <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
+                <vx-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
-                <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
+                <vx-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
                     </ng-template>
                     <ng-template #decrementbuttonicon>
                         <span class="pi pi-minus"></span>
                     </ng-template>
-                </p-inputnumber>
+                </vx-inputnumber>
             </div>
-        </p-fluid>
+        </vx-fluid>
         <app-code></app-code>
     `
 })

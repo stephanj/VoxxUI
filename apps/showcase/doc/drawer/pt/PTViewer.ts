@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DrawerModule } from 'primeng/drawer';
-import { TimesIcon } from 'primeng/icons';
+import { DrawerModule } from 'voxx-ui/drawer';
+import { TimesIcon } from 'voxx-ui/icons';
 
 @Component({
     selector: 'drawer-pt-viewer',
@@ -10,7 +10,7 @@ import { TimesIcon } from 'primeng/icons';
     imports: [CommonModule, AppDocPtViewer, DrawerModule, TimesIcon],
     template: `
         <app-docptviewer [docs]="docs" class="!justify-start" #docref>
-            <p-drawer [(visible)]="visible" styleClass="!relative !h-[450px] !w-80" header="Drawer" [appendTo]="docref?.nativeElement" [modal]="false">
+            <vx-drawer [(visible)]="visible" styleClass="!relative !h-[450px] !w-80" header="Drawer" [appendTo]="docref?.nativeElement" [modal]="false">
                 <ng-template #headless>
                     <span class="p-hidden-accessible p-hidden-focusable" tabindex="0" role="presentation" aria-hidden="true" data-p-hidden-accessible="true" data-p-hidden-focusable="true" data-pc-section="firstfocusableelement"></span>
                     <div class="p-drawer-header" data-pc-section="header">
@@ -38,7 +38,7 @@ import { TimesIcon } from 'primeng/icons';
                     <div class="p-drawer-footer" data-pc-section="footer">Footer</div>
                     <span class="p-hidden-accessible p-hidden-focusable" tabindex="0" role="presentation" aria-hidden="true" data-p-hidden-accessible="true" data-p-hidden-focusable="true" data-pc-section="lastfocusableelement"></span>
                 </ng-template>
-            </p-drawer>
+            </vx-drawer>
         </app-docptviewer>
     `
 })

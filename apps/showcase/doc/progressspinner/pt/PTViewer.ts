@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ProgressSpinnerModule } from 'voxx-ui/progressspinner';
 
 @Component({
     selector: 'progressspinner-pt-viewer',
@@ -9,7 +9,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     imports: [CommonModule, AppDocPtViewer, ProgressSpinnerModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-progressspinner />
+            <vx-progressspinner />
         </app-docptviewer>
     `
 })

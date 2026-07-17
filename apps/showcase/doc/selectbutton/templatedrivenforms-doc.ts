@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
+import { SelectButton } from 'voxx-ui/selectbutton';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageModule } from 'voxx-ui/message';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { CommonModule } from '@angular/common';
@@ -15,16 +15,16 @@ import { CommonModule } from '@angular/common';
     imports: [FormsModule, SelectButton, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode, CommonModule],
     template: `
         <app-docsectiontext> </app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
+                    <vx-selectbutton #model="ngModel" [(ngModel)]="value" [options]="stateOptions" optionLabel="label" optionValue="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" required name="value" />
                     @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Selection is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Selection is required.</vx-message>
                     }
                 </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

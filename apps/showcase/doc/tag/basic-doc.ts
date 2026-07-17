@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'basic-doc',
@@ -12,7 +12,7 @@ import { TagModule } from 'primeng/tag';
             <p>Label of the tag is defined with the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tag value="New" />
+            <vx-tag value="New" />
         </div>
         <app-code></app-code>
     `

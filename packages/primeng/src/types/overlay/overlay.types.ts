@@ -1,6 +1,6 @@
 import type { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
-import type { OverlayModeType, PassThrough, PassThroughOption } from 'primeng/api';
+import type { OverlayModeType, PassThrough, PassThroughOption } from 'voxx-ui/api';
 
 /**
  * Custom content template context.

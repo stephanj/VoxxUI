@@ -31,19 +31,19 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@primeuix/utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Fluid } from 'primeng/fluid';
-import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { Overlay } from 'primeng/overlay';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { PasswordIconTemplateContext, PasswordPassThrough } from 'primeng/types/password';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { BaseInput } from 'voxx-ui/baseinput';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'voxx-ui/dom';
+import { Fluid } from 'voxx-ui/fluid';
+import { EyeIcon, EyeSlashIcon, TimesIcon } from 'voxx-ui/icons';
+import { InputText } from 'voxx-ui/inputtext';
+import { Overlay } from 'voxx-ui/overlay';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import type { PasswordIconTemplateContext, PasswordPassThrough } from 'voxx-ui/types/password';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 
@@ -60,7 +60,7 @@ type Meter = {
  * @group Components
  */
 @Directive({
-    selector: '[pPassword]',
+    selector: '[vxPassword]',
     standalone: true,
     host: {
         '[class]': "cx('rootDirective')"
@@ -78,34 +78,34 @@ export class PasswordDirective extends BaseEditableHolder {
      * @defaultValue undefined
      * @group Props
      */
-    pPasswordPT = input<PasswordPassThrough | undefined>();
+    vxPasswordPT = input<PasswordPassThrough | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pPasswordUnstyled = input<boolean | undefined>();
+    vxPasswordUnstyled = input<boolean | undefined>();
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
     /**
-     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * Text to prompt password entry. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() promptLabel: string = 'Enter a password';
     /**
-     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * Text for a weak password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() weakLabel: string = 'Weak';
     /**
-     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * Text for a medium password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() mediumLabel: string = 'Medium';
     /**
-     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * Text for a strong password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() strongLabel: string = 'Strong';
@@ -140,7 +140,7 @@ export class PasswordDirective extends BaseEditableHolder {
      * @defaultValue undefined
      * @group Props
      */
-    size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
+    size = input<'large' | 'small' | undefined>(undefined, { alias: 'vxSize' });
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
@@ -172,12 +172,12 @@ export class PasswordDirective extends BaseEditableHolder {
         super();
 
         effect(() => {
-            const pt = this.pPasswordPT();
+            const pt = this.vxPasswordPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pPasswordUnstyled() && this.directiveUnstyled.set(this.pPasswordUnstyled());
+            this.vxPasswordUnstyled() && this.directiveUnstyled.set(this.vxPasswordUnstyled());
         });
     }
 
@@ -431,7 +431,7 @@ export const Password_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-password',
+    selector: 'vx-password',
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, Overlay, SharedModule, BindModule],
     template: `
@@ -442,8 +442,8 @@ export const Password_VALUE_ACCESSOR: any = {
             [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.id]="inputId"
             [attr.tabindex]="tabindex"
-            pInputText
-            [pSize]="size()"
+            vxInputText
+            [vxSize]="size()"
             [ngStyle]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [attr.type]="unmasked ? 'text' : 'password'"
@@ -461,51 +461,51 @@ export const Password_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keyup)="onKeyUp($event)"
-            [pAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus"
             [pt]="ptm('pcInputText')"
             [unstyled]="unstyled()"
         />
         <ng-container *ngIf="showClear && value != null">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
-            <span (click)="clear()" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [vxBind]="ptm('clearIcon')" />
+            <span (click)="clear()" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
 
         <ng-container *ngIf="toggleMask">
             <ng-container *ngIf="unmasked">
-                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
-                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
+                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [vxBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
+                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [vxBind]="ptm('maskIcon')">
                     <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                 </span>
             </ng-container>
             <ng-container *ngIf="!unmasked">
-                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
-                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('unmaskIcon')">
+                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [vxBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [vxBind]="ptm('unmaskIcon')">
                     <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                 </span>
             </ng-container>
         </ng-container>
 
-        <p-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
+        <vx-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
-                <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
+                <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultContent">
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                     </ng-container>
                     <ng-template #defaultContent>
-                        <div [class]="cx('content')" [pBind]="ptm('content')">
-                            <div [class]="cx('meter')" [pBind]="ptm('meter')">
-                                <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
+                        <div [class]="cx('content')" [vxBind]="ptm('content')">
+                            <div [class]="cx('meter')" [vxBind]="ptm('meter')">
+                                <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                             </div>
-                            <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
+                            <div [class]="cx('meterText')" [vxBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>
                     </ng-template>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 </div>
             </ng-template>
-        </p-overlay>
+        </vx-overlay>
     `,
     providers: [Password_VALUE_ACCESSOR, PasswordStyle, { provide: PASSWORD_INSTANCE, useExisting: Password }, { provide: PARENT_INSTANCE, useExisting: Password }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -544,7 +544,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Input() label: string | undefined;
     /**
-     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * Text to prompt password entry. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() promptLabel: string | undefined;
@@ -559,12 +559,12 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
     /**
-     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * Text for a weak password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() weakLabel: string | undefined;
     /**
-     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * Text for a medium password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() mediumLabel: string | undefined;
@@ -575,7 +575,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Input({ transform: numberAttribute }) maxLength: number | undefined;
     /**
-     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * Text for a strong password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
     @Input() strongLabel: string | undefined;

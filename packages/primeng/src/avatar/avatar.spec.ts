@@ -1,20 +1,20 @@
 import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'voxx-ui/api';
 import { Avatar, AvatarModule } from './avatar';
 
 @Component({
     standalone: false,
     selector: 'test-basic-avatar',
-    template: `<p-avatar></p-avatar>`
+    template: `<vx-avatar></vx-avatar>`
 })
 class TestBasicAvatarComponent {}
 
 @Component({
     standalone: false,
     selector: 'test-label-avatar',
-    template: `<p-avatar [label]="label"></p-avatar>`
+    template: `<vx-avatar [label]="label"></vx-avatar>`
 })
 class TestLabelAvatarComponent {
     label = 'JD';
@@ -23,7 +23,7 @@ class TestLabelAvatarComponent {
 @Component({
     standalone: false,
     selector: 'test-icon-avatar',
-    template: `<p-avatar [icon]="icon"></p-avatar>`
+    template: `<vx-avatar [icon]="icon"></vx-avatar>`
 })
 class TestIconAvatarComponent {
     icon = 'pi pi-user';
@@ -32,7 +32,7 @@ class TestIconAvatarComponent {
 @Component({
     standalone: false,
     selector: 'test-image-avatar',
-    template: `<p-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></p-avatar>`
+    template: `<vx-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></vx-avatar>`
 })
 class TestImageAvatarComponent {
     image = '/path/to/avatar.jpg';
@@ -47,7 +47,7 @@ class TestImageAvatarComponent {
 @Component({
     standalone: false,
     selector: 'test-size-avatar',
-    template: `<p-avatar [label]="label" [size]="size"></p-avatar>`
+    template: `<vx-avatar [label]="label" [size]="size"></vx-avatar>`
 })
 class TestSizeAvatarComponent {
     label = 'AB';
@@ -57,7 +57,7 @@ class TestSizeAvatarComponent {
 @Component({
     standalone: false,
     selector: 'test-shape-avatar',
-    template: `<p-avatar [label]="label" [shape]="shape"></p-avatar>`
+    template: `<vx-avatar [label]="label" [shape]="shape"></vx-avatar>`
 })
 class TestShapeAvatarComponent {
     label = 'CD';
@@ -67,7 +67,7 @@ class TestShapeAvatarComponent {
 @Component({
     standalone: false,
     selector: 'test-style-class-avatar',
-    template: `<p-avatar [label]="label" [styleClass]="styleClass"></p-avatar>`
+    template: `<vx-avatar [label]="label" [styleClass]="styleClass"></vx-avatar>`
 })
 class TestStyleClassAvatarComponent {
     label = 'EF';
@@ -77,7 +77,7 @@ class TestStyleClassAvatarComponent {
 @Component({
     standalone: false,
     selector: 'test-aria-avatar',
-    template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></p-avatar>`
+    template: `<vx-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></vx-avatar>`
 })
 class TestAriaAvatarComponent {
     label = 'GH';
@@ -89,9 +89,9 @@ class TestAriaAvatarComponent {
     standalone: false,
     selector: 'test-content-avatar',
     template: `
-        <p-avatar>
+        <vx-avatar>
             <span class="custom-content">Custom</span>
-        </p-avatar>
+        </vx-avatar>
     `
 })
 class TestContentAvatarComponent {}
@@ -99,7 +99,7 @@ class TestContentAvatarComponent {}
 @Component({
     standalone: false,
     selector: 'test-dynamic-avatar',
-    template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `
+    template: ` <vx-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </vx-avatar> `
 })
 class TestDynamicAvatarComponent {
     label: string | undefined;
@@ -120,7 +120,7 @@ class TestDynamicAvatarComponent {
 @Component({
     standalone: true,
     imports: [Avatar],
-    template: `<p-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [ariaLabel]="ariaLabel()" [pt]="pt()"></p-avatar>`
+    template: `<vx-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [ariaLabel]="ariaLabel()" [pt]="pt()"></vx-avatar>`
 })
 class TestPTAvatarComponent {
     label = input<string | undefined>('PT');

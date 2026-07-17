@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
     imports: [AppDocSectionText, RouterModule],
     template: `
         <app-docsectiontext>
-            <p>PrimeNG v21 represents a major advancement in PrimeTek's product vision. Key highlights of this release include:</p>
+            <p>VoxxUI v21 represents a major advancement in PrimeTek's product vision. Key highlights of this release include:</p>
             <ul class="leading-normal px-10 list-disc">
                 <li class="py-1"><a routerLink="/passthrough" class="text-primary font-medium hover:underline">PassThrough attributes</a> for enhanced customization.</li>
                 <li class="py-1"><a routerLink="/theming/unstyled" class="text-primary font-medium hover:underline">Unstyled Mode</a> for complete styling flexibility.</li>

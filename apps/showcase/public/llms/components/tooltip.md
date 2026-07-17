@@ -12,8 +12,8 @@ Tooltip is hidden when mouse leaves the target element, in cases where tooltip n
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     template: `
@@ -34,13 +34,13 @@ Tooltip can use either a string or a TemplateRef .
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'voxx-ui/button';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
+            <vx-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
             <ng-template #tooltipContent>
                 <div class="flex items-center">
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
@@ -89,13 +89,13 @@ Adding delays to the show and hide events are defined with showDelay and hideDel
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'voxx-ui/button';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
+            <vx-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
         </div>
     `,
     standalone: true,
@@ -110,8 +110,8 @@ Tooltip gets displayed on hover event of its target by default, other option is 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     template: `
@@ -131,8 +131,8 @@ Tooltip is also configurable by using tooltipOptions property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     template: `
@@ -154,8 +154,8 @@ Position of the tooltip is specified using tooltipPosition attribute. Valid valu
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     template: `

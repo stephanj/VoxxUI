@@ -13,12 +13,12 @@ Two-way value binding is defined using ngModel . The number of characters is def
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpModule } from 'voxx-ui/inputotp';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" />
+            <vx-inputotp [(ngModel)]="value" />
         </div>
     `,
     standalone: true,
@@ -36,12 +36,12 @@ When integerOnly is present, only integers can be accepted as input.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpModule } from 'voxx-ui/inputotp';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" [integerOnly]="true" />
+            <vx-inputotp [(ngModel)]="value" [integerOnly]="true" />
         </div>
     `,
     standalone: true,
@@ -59,12 +59,12 @@ Enable the mask option to hide the values in the input fields.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpModule } from 'voxx-ui/inputotp';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value" [mask]="true" />
+            <vx-inputotp [(ngModel)]="value" [mask]="true" />
         </div>
     `,
     standalone: true,
@@ -82,21 +82,21 @@ InputOtp can also be used with reactive forms. In this case, the formControlName
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { InputOtpModule } from 'voxx-ui/inputotp';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-inputotp formControlName="value" [invalid]="isInvalid('value')" />
+                    <vx-inputotp formControlName="value" [invalid]="isInvalid('value')" />
                     @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Passcode is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -140,8 +140,8 @@ A sample UI implementation with templating and additional elements.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputOtpModule } from 'primeng/inputotp';
+import { ButtonModule } from 'voxx-ui/button';
+import { InputOtpModule } from 'voxx-ui/inputotp';
 
 @Component({
     template: `
@@ -149,17 +149,17 @@ import { InputOtpModule } from 'primeng/inputotp';
             <div class="flex flex-col items-center">
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
                 <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-                <p-inputotp [(ngModel)]="value" [length]="6">
+                <vx-inputotp [(ngModel)]="value" [length]="6">
                     <ng-template #input let-token let-events="events" let-index="index">
                         <input type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
                         <div *ngIf="index === 3" class="px-4">
                             <i class="pi pi-minus"></i>
                         </div>
                     </ng-template>
-                </p-inputotp>
+                </vx-inputotp>
                 <div class="flex justify-between mt-8 self-stretch">
-                    <p-button label="Resend Code" [link]="true" class="p-0" />
-                    <p-button label="Submit Code" />
+                    <vx-button label="Resend Code" [link]="true" class="p-0" />
+                    <vx-button label="Submit Code" />
                 </div>
             </div>
         </div>
@@ -179,14 +179,14 @@ InputOtp provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpModule } from 'voxx-ui/inputotp';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-inputotp [(ngModel)]="value1" size="small" />
-            <p-inputotp [(ngModel)]="value2" />
-            <p-inputotp [(ngModel)]="value3" size="large" />
+            <vx-inputotp [(ngModel)]="value1" size="small" />
+            <vx-inputotp [(ngModel)]="value2" />
+            <vx-inputotp [(ngModel)]="value3" size="large" />
         </div>
     `,
     standalone: true,
@@ -206,16 +206,16 @@ Define a template with your own UI elements with bindings to the provided events
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
+import { InputOtpModule } from 'voxx-ui/inputotp';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputotp [(ngModel)]="value">
+            <vx-inputotp [(ngModel)]="value">
                 <ng-template #input let-token let-events="events">
                     <input class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
                 </ng-template>
-            </p-inputotp>
+            </vx-inputotp>
         </div>
     `,
     standalone: true,
@@ -231,21 +231,21 @@ export class InputotpTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'primeng/inputotp';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { InputOtpModule } from 'voxx-ui/inputotp';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
+                    <vx-inputotp #otpModel="ngModel" [(ngModel)]="value" [invalid]="otpModel.invalid && (otpModel.touched || exampleForm.submitted)" name="value" required [minlength]="4" />
                     @if (otpModel.invalid && (otpModel.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Passcode is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Passcode is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThrough } from 'primeng/types/button';
-import type { ListBoxPassThrough } from 'primeng/types/listbox';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import type { ButtonPassThrough } from 'voxx-ui/types/button';
+import type { ListBoxPassThrough } from 'voxx-ui/types/listbox';
 
 /**
  * Custom pass-through(pt) options.

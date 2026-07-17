@@ -6,7 +6,7 @@ import { cn, equals } from '@primeuix/utils';
  * @group Components
  */
 @Directive({
-    selector: '[pBind]',
+    selector: '[vxBind]',
     standalone: true,
     host: {
         '[style]': 'styles()',
@@ -18,10 +18,10 @@ export class Bind {
      * Dynamic attributes, properties, and event listeners to be applied to the host element.
      * @group Props
      */
-    pBind = input<{ [key: string]: any } | undefined>(undefined);
+    vxBind = input<{ [key: string]: any } | undefined>(undefined);
 
     private _attrs = signal<{ [key: string]: any } | undefined>(undefined);
-    private attrs = computed(() => this._attrs() || this.pBind());
+    private attrs = computed(() => this._attrs() || this.vxBind());
 
     styles = computed(() => this.attrs()?.style);
     classes = computed(() => cn(this.attrs()?.class));

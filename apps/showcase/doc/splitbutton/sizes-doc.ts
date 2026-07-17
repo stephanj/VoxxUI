@@ -2,9 +2,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'sizes-doc',
@@ -15,10 +15,10 @@ import { ToastModule } from 'primeng/toast';
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-center gap-4">
-            <p-toast />
-            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
-            <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
-            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
+            <vx-toast />
+            <vx-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
+            <vx-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
+            <vx-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
         </div>
         <app-code></app-code>
     `,

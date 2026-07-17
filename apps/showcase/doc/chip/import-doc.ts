@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ChipModule } from 'primeng/chip';`
+        typescript: `import { ChipModule } from 'voxx-ui/chip';`
     };
 }

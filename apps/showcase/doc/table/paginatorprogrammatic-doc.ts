@@ -4,8 +4,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'paginatorprogrammatic-doc',
@@ -15,14 +15,14 @@ import { TableModule } from 'primeng/table';
         <app-docsectiontext>
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="mb-4 flex gap-1">
-                    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
-                    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
-                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
+                    <vx-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+                    <vx-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+                    <vx-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
                 </div>
-                <p-table
+                <vx-table
                     [value]="customers"
                     [paginator]="true"
                     [rows]="rows"
@@ -49,9 +49,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ customer.representative.name }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush

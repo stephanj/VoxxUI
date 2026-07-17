@@ -2,7 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 
 @Component({
-    selector: 'p-deferred-demo',
+    selector: 'vx-deferred-demo',
     standalone: true,
     imports: [CommonModule],
     template: `

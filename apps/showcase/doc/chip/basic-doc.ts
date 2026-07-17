@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     selector: 'basic-doc',
@@ -15,10 +15,10 @@ import { ChipModule } from 'primeng/chip';
             </p>
         </app-docsectiontext>
         <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Action" />
-            <p-chip label="Comedy" />
-            <p-chip label="Mystery" />
-            <p-chip label="Thriller" [removable]="true" />
+            <vx-chip label="Action" />
+            <vx-chip label="Comedy" />
+            <vx-chip label="Mystery" />
+            <vx-chip label="Thriller" [removable]="true" />
         </div>
         <app-code></app-code>
     `

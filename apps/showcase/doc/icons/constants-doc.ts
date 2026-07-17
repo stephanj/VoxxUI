@@ -1,9 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, PrimeIcons } from 'primeng/api';
+import { MenuItem, PrimeIcons } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { MenuModule } from 'primeng/menu';
+import { MenuModule } from 'voxx-ui/menu';
 
 @Component({
     selector: 'constants-doc',
@@ -14,7 +14,7 @@ import { MenuModule } from 'primeng/menu';
             <p>Constants API is available to reference icons easily when used programmatically.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-menu [model]="items"></p-menu>
+            <vx-menu [model]="items"></vx-menu>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
@@ -38,7 +38,7 @@ export class ConstantsDoc implements OnInit {
     code: Code = {
         typescript: `
 import { Component } from '@angular/core';
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons, MenuItem } from 'voxx-ui/api';
 
 @Component({
     selector: 'prime-icons-constants-demo',

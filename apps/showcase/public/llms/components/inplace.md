@@ -12,12 +12,12 @@ Inplace component requires display and content templates to define the content o
 
 ```typescript
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
+import { InplaceModule } from 'voxx-ui/inplace';
 
 @Component({
     template: `
         <div class="card">
-            <p-inplace>
+            <vx-inplace>
                 <ng-template #display>
                     <span>View Content</span>
                 </ng-template>
@@ -27,7 +27,7 @@ import { InplaceModule } from 'primeng/inplace';
                         consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     </p>
                 </ng-template>
-            </p-inplace>
+            </vx-inplace>
         </div>
     `,
     standalone: true,
@@ -42,13 +42,13 @@ Any content such as an image can be placed inside an Inplace.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
+import { InplaceModule } from 'voxx-ui/inplace';
 import { Photo } from '@/domain/photo';
 
 @Component({
     template: `
         <div class="card">
-            <p-inplace>
+            <vx-inplace>
                 <ng-template #display>
                     <span class="inline-flex items-center gap-2">
                         <span class="pi pi-image" style="vertical-align: middle"></span>
@@ -58,7 +58,7 @@ import { Photo } from '@/domain/photo';
                 <ng-template #content>
                     <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
                 </ng-template>
-            </p-inplace>
+            </vx-inplace>
         </div>
     `,
     standalone: true,
@@ -73,14 +73,14 @@ The closeCallback switches the state back to display mode when called from an ev
 
 ```typescript
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { InplaceModule } from 'voxx-ui/inplace';
+import { ButtonModule } from 'voxx-ui/button';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card">
-            <p-inplace>
+            <vx-inplace>
                 <ng-template #display>
                     <span>Click to Edit</span>
                 </ng-template>
@@ -92,7 +92,7 @@ import { InputTextModule } from 'primeng/inputtext';
                         </button>
                     </span>
                 </ng-template>
-            </p-inplace>
+            </vx-inplace>
         </div>
     `,
     standalone: true,
@@ -107,20 +107,20 @@ Using the onActivate event, data can be loaded in a lazy manner before displayin
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-import { TableModule } from 'primeng/table';
+import { InplaceModule } from 'voxx-ui/inplace';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-inplace (onActivate)="loadData()">
+            <vx-inplace (onActivate)="loadData()">
                 <ng-template #display>
                     <span>View Data</span>
                 </ng-template>
                 <ng-template #content>
-                    <p-table [value]="products" responsiveLayout="scroll">
+                    <vx-table [value]="products" responsiveLayout="scroll">
                         <ng-template #header>
                             <tr>
                                 <th>Code</th>
@@ -137,9 +137,9 @@ import { Product } from '@/domain/product';
                                 <td>{{ product.quantity }}</td>
                             </tr>
                         </ng-template>
-                    </p-table>
+                    </vx-table>
                 </ng-template>
-            </p-inplace>
+            </vx-inplace>
         </div>
     `,
     standalone: true,

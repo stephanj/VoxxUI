@@ -12,18 +12,18 @@ ConfirmDialog is defined using p-confirmdialog tag and an instance of Confirmati
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-confirmdialog />
-            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            <vx-toast />
+            <vx-confirmdialog />
+            <vx-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+            <vx-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
     `,
     standalone: true,
@@ -68,16 +68,16 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmdialog #cd>
+            <vx-toast />
+            <vx-confirmdialog #cd>
                 <ng-template #headless let-message let-onAccept="onAccept" let-onReject="onReject">
                     @if (message) {
                         <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
@@ -87,14 +87,14 @@ import { MessageService, ConfirmationService } from 'primeng/api';
                             <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
                             <p class="mb-0">{{ message.message }}</p>
                             <div class="flex items-center gap-2 mt-6">
-                                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
+                                <vx-button label="Save" (onClick)="onAccept()" styleClass="w-32"></vx-button>
+                                <vx-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></vx-button>
                             </div>
                         </div>
                     }
                 </ng-template>
-            </p-confirmdialog>
-            <p-button (click)="confirm()" label="Save" />
+            </vx-confirmdialog>
+            <vx-button (click)="confirm()" label="Save" />
         </div>
     `,
     standalone: true,
@@ -113,30 +113,30 @@ The position property of the confirm options is used to display a Dialog at all 
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
+import { Dialog } from 'voxx-ui/dialog';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-confirmdialog key="positionDialog" [position]="position" />
+            <vx-toast />
+            <vx-confirmdialog key="positionDialog" [position]="position" />
             <div class="flex flex-wrap justify-center gap-2 mb-4">
-                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2 mb-4">
-                <p-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('topleft')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('topright')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2">
-                <p-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('bottomleft')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="confirmPosition('bottomright')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" styleClass="min-w-40" />
             </div>
         </div>
     `,
@@ -156,16 +156,16 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmdialog>
+            <vx-toast />
+            <vx-confirmdialog>
                 <ng-template #message let-message>
                     @if (message) {
                         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
@@ -174,8 +174,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
                         </div>
                     }
                 </ng-template>
-            </p-confirmdialog>
-            <p-button (click)="confirm()" label="Save" />
+            </vx-confirmdialog>
+            <vx-button (click)="confirm()" label="Save" />
         </div>
     `,
     standalone: true,

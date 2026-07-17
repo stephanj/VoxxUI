@@ -3,17 +3,17 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { IconField } from './iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { providePrimeNG } from 'primeng/config';
+import { InputIcon } from 'voxx-ui/inputicon';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 @Component({
     standalone: true,
     imports: [IconField, InputIcon, FormsModule],
     template: `
-        <p-iconfield>
-            <p-inputicon class="pi pi-search" />
+        <vx-iconfield>
+            <vx-inputicon class="pi pi-search" />
             <input type="text" [(ngModel)]="value" placeholder="Search" />
-        </p-iconfield>
+        </vx-iconfield>
     `
 })
 class TestBasicIconFieldComponent {
@@ -24,10 +24,10 @@ class TestBasicIconFieldComponent {
     standalone: true,
     imports: [IconField, InputIcon, FormsModule],
     template: `
-        <p-iconfield [iconPosition]="position">
-            <p-inputicon class="pi pi-user" />
+        <vx-iconfield [iconPosition]="position">
+            <vx-inputicon class="pi pi-user" />
             <input type="text" [(ngModel)]="username" />
-        </p-iconfield>
+        </vx-iconfield>
     `
 })
 class TestPositionIconFieldComponent {
@@ -39,10 +39,10 @@ class TestPositionIconFieldComponent {
     standalone: true,
     imports: [IconField, InputIcon, FormsModule],
     template: `
-        <p-iconfield [styleClass]="customClass">
+        <vx-iconfield [styleClass]="customClass">
             <input type="email" [(ngModel)]="email" />
-            <p-inputicon class="pi pi-envelope" />
-        </p-iconfield>
+            <vx-inputicon class="pi pi-envelope" />
+        </vx-iconfield>
     `
 })
 class TestStyledIconFieldComponent {
@@ -290,14 +290,14 @@ describe('IconField PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 5: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 5: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [IconField, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             iconField: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -325,7 +325,7 @@ describe('IconField PassThrough Tests', () => {
                 imports: [IconField, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             iconField: {
                                 hooks: {
@@ -364,7 +364,7 @@ describe('IconField PassThrough Tests', () => {
 @Component({
     standalone: true,
     imports: [IconField, FormsModule],
-    template: `<p-iconfield [pt]="{ root: 'INLINE_STRING' }"><input /></p-iconfield>`
+    template: `<vx-iconfield [pt]="{ root: 'INLINE_STRING' }"><input /></vx-iconfield>`
 })
 class TestInlineStringPTComponent {}
 
@@ -372,8 +372,8 @@ class TestInlineStringPTComponent {}
     standalone: true,
     imports: [IconField, FormsModule],
     template: `
-        <p-iconfield><input /></p-iconfield>
-        <p-iconfield><input /></p-iconfield>
+        <vx-iconfield><input /></vx-iconfield>
+        <vx-iconfield><input /></vx-iconfield>
     `
 })
 class TestMultipleInstancesComponent {}

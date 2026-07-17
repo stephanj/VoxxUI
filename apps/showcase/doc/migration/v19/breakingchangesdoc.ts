@@ -10,7 +10,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext>
             <h4>Configuration</h4>
             <p>
-                The <i>PrimeNGConfig</i> has been replaced by <i>PrimeNG</i> and the initial configuration is now done via the <i>providePrimeNG</i> provider during startup. See the <a href="/installation" class="">installation</a> section for an
+                The <i>VoxxUIConfig</i> has been replaced by <i>VoxxUI</i> and the initial configuration is now done via the <i>provideVoxxUI</i> provider during startup. See the <a href="/installation" class="">installation</a> section for an
                 example.
             </p>
 
@@ -23,7 +23,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <ul class="flex flex-col gap-2 leading-normal">
                 <li><i class="mark">TriStateCheckbox</i> | Use Checkbox with indeterminate option.</li>
                 <li><i class="mark">DataViewLayoutOptions</i> | Use SelectButton instead.</li>
-                <li><i class="mark">pAnimate</i> | Use pAnimateOnScroll instead.</li>
+                <li><i class="mark">vxAnimate</i> | Use vxAnimateOnScroll instead.</li>
             </ul>
             <h4>Removed Files</h4>
             <li>Themes under the <i class="mark">primeng/resources</i> path, migration to new styled mode is necessary.</li>
@@ -46,7 +46,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <li><i class="mark">.p-fluid</i>, use the new built-in <i class="mark">fluid</i> property of the supported components or the <i class="mark">Fluid</i> component.</li>
             </ul>
             <h4>PrimeFlex CSS</h4>
-            <p>In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with PrimeNG v18+</p>
+            <p>In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with VoxxUI v18+</p>
         </app-docsectiontext>
     `
 })

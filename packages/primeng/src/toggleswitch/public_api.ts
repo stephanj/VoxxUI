@@ -1,3 +1,3 @@
-export * from 'primeng/types/toggleswitch';
+export * from 'voxx-ui/types/toggleswitch';
 export * from './toggleswitch';
 export * from './style/toggleswitchstyle';

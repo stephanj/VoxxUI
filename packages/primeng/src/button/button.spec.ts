@@ -8,7 +8,7 @@ import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
 @Component({
     standalone: false,
     template: `
-        <p-button
+        <vx-button
             [label]="label"
             [icon]="icon"
             [iconPos]="iconPos"
@@ -35,7 +35,7 @@ import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
             (onFocus)="onButtonFocus($event)"
             (onBlur)="onButtonBlur($event)"
         >
-        </p-button>
+        </vx-button>
     `
 })
 class TestBasicButtonComponent {
@@ -83,20 +83,20 @@ class TestBasicButtonComponent {
 @Component({
     standalone: false,
     template: `
-        <p-button [loading]="loading">
-            <ng-template pTemplate="content">
+        <vx-button [loading]="loading">
+            <ng-template vxTemplate="content">
                 <div class="custom-content">
                     <span class="custom-icon">🎯</span>
                     <span class="custom-label">Custom Button</span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="icon">
+            <ng-template vxTemplate="icon">
                 <i class="pi pi-star custom-template-icon"></i>
             </ng-template>
-            <ng-template pTemplate="loadingicon">
+            <ng-template vxTemplate="loadingicon">
                 <i class="pi pi-spin pi-cog custom-loading-icon"></i>
             </ng-template>
-        </p-button>
+        </vx-button>
     `
 })
 class TestTemplatePButtonComponent {
@@ -106,7 +106,7 @@ class TestTemplatePButtonComponent {
 @Component({
     standalone: false,
     template: `
-        <p-button>
+        <vx-button>
             <ng-template #content>
                 <div class="content-template-content">
                     <span class="content-icon">⭐</span>
@@ -119,7 +119,7 @@ class TestTemplatePButtonComponent {
             <ng-template #loadingicon>
                 <i class="content-loading-icon pi pi-spin pi-spinner"></i>
             </ng-template>
-        </p-button>
+        </vx-button>
     `
 })
 class TestContentTemplateButtonComponent {}
@@ -129,7 +129,7 @@ class TestContentTemplateButtonComponent {}
     standalone: false,
     template: `
         <button
-            pButton
+            vxButton
             [severity]="severity"
             [raised]="raised"
             [rounded]="rounded"
@@ -168,13 +168,13 @@ class TestButtonDirectiveComponent {
     }
 }
 
-// Button with pButtonIcon and pButtonLabel directives
+// Button with vxButtonIcon and vxButtonLabel directives
 @Component({
     standalone: false,
     template: `
-        <button pButton>
-            <span pButtonIcon class="pi pi-check"></span>
-            <span pButtonLabel>Icon & Label</span>
+        <button vxButton>
+            <span vxButtonIcon class="pi pi-check"></span>
+            <span vxButtonLabel>Icon & Label</span>
         </button>
     `
 })
@@ -183,7 +183,7 @@ class TestButtonWithIconLabelDirectiveComponent {}
 // Loading Button Test
 @Component({
     standalone: false,
-    template: ` <p-button [label]="label" [loading]="loading" [loadingIcon]="loadingIcon" (onClick)="toggleLoading()"> </p-button> `
+    template: ` <vx-button [label]="label" [loading]="loading" [loadingIcon]="loadingIcon" (onClick)="toggleLoading()"> </vx-button> `
 })
 class TestLoadingButtonComponent {
     label = 'Load Data';
@@ -200,14 +200,14 @@ class TestLoadingButtonComponent {
     standalone: false,
     template: `
         <div class="button-group">
-            <p-button label="Primary" severity="primary"></p-button>
-            <p-button label="Secondary" severity="secondary"></p-button>
-            <p-button label="Success" severity="success"></p-button>
-            <p-button label="Info" severity="info"></p-button>
-            <p-button label="Warn" severity="warn"></p-button>
-            <p-button label="Danger" severity="danger"></p-button>
-            <p-button label="Help" severity="help"></p-button>
-            <p-button label="Contrast" severity="contrast"></p-button>
+            <vx-button label="Primary" severity="primary"></vx-button>
+            <vx-button label="Secondary" severity="secondary"></vx-button>
+            <vx-button label="Success" severity="success"></vx-button>
+            <vx-button label="Info" severity="info"></vx-button>
+            <vx-button label="Warn" severity="warn"></vx-button>
+            <vx-button label="Danger" severity="danger"></vx-button>
+            <vx-button label="Help" severity="help"></vx-button>
+            <vx-button label="Contrast" severity="contrast"></vx-button>
         </div>
     `
 })
@@ -218,14 +218,14 @@ class TestSeverityButtonComponent {}
     standalone: false,
     template: `
         <div class="variant-buttons">
-            <p-button label="Raised" [raised]="true"></p-button>
-            <p-button label="Rounded" [rounded]="true"></p-button>
-            <p-button label="Text" [text]="true"></p-button>
-            <p-button label="Outlined" [outlined]="true"></p-button>
-            <p-button label="Plain" [plain]="true"></p-button>
-            <p-button label="Small" size="small"></p-button>
-            <p-button label="Large" size="large"></p-button>
-            <p-button label="Fluid" [fluid]="true"></p-button>
+            <vx-button label="Raised" [raised]="true"></vx-button>
+            <vx-button label="Rounded" [rounded]="true"></vx-button>
+            <vx-button label="Text" [text]="true"></vx-button>
+            <vx-button label="Outlined" [outlined]="true"></vx-button>
+            <vx-button label="Plain" [plain]="true"></vx-button>
+            <vx-button label="Small" size="small"></vx-button>
+            <vx-button label="Large" size="large"></vx-button>
+            <vx-button label="Fluid" [fluid]="true"></vx-button>
         </div>
     `
 })
@@ -234,7 +234,7 @@ class TestButtonVariantsComponent {}
 // Badge Button Test
 @Component({
     standalone: false,
-    template: ` <p-button label="Messages" icon="pi pi-envelope" [badge]="badge" [badgeSeverity]="badgeSeverity"> </p-button> `
+    template: ` <vx-button label="Messages" icon="pi pi-envelope" [badge]="badge" [badgeSeverity]="badgeSeverity"> </vx-button> `
 })
 class TestBadgeButtonComponent {
     badge = '5';
@@ -246,11 +246,11 @@ class TestBadgeButtonComponent {
     standalone: false,
     template: `
         <div class="icon-buttons">
-            <p-button icon="pi pi-search" [iconPos]="iconPos"></p-button>
-            <p-button label="Search" icon="pi pi-search" iconPos="left"></p-button>
-            <p-button label="Search" icon="pi pi-search" iconPos="right"></p-button>
-            <p-button label="Search" icon="pi pi-search" iconPos="top"></p-button>
-            <p-button label="Search" icon="pi pi-search" iconPos="bottom"></p-button>
+            <vx-button icon="pi pi-search" [iconPos]="iconPos"></vx-button>
+            <vx-button label="Search" icon="pi pi-search" iconPos="left"></vx-button>
+            <vx-button label="Search" icon="pi pi-search" iconPos="right"></vx-button>
+            <vx-button label="Search" icon="pi pi-search" iconPos="top"></vx-button>
+            <vx-button label="Search" icon="pi pi-search" iconPos="bottom"></vx-button>
         </div>
     `
 })
@@ -689,15 +689,15 @@ describe('Button', () => {
             badgeFixture.detectChanges();
             await fixture.whenStable();
 
-            const badgeElement = badgeFixture.debugElement.query(By.css('p-badge'));
+            const badgeElement = badgeFixture.debugElement.query(By.css('vx-badge'));
             expect(badgeElement).toBeTruthy();
         });
     });
 
     describe('Templates', () => {
-        // pTemplate Approach - @ContentChildren(PrimeTemplate) testleri
-        describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', async () => {
+        // vxTemplate Approach - @ContentChildren(PrimeTemplate) testleri
+        describe('vxTemplate Approach Tests', () => {
+            it('should handle vxTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -705,18 +705,18 @@ describe('Button', () => {
 
                 const buttonInstance = templateFixture.debugElement.query(By.directive(Button)).componentInstance;
 
-                // Test that component handles pTemplate without errors
+                // Test that component handles vxTemplate without errors
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
 
                 // Test that templates property exists and is processed
                 expect(buttonInstance.templates).toBeDefined();
 
-                // Verify pTemplate content container is rendered
+                // Verify vxTemplate content container is rendered
                 const buttonElement = templateFixture.debugElement.query(By.css('button'));
                 expect(buttonElement).toBeTruthy();
             });
 
-            it('should process _contentTemplate from pTemplate="content"', async () => {
+            it('should process _contentTemplate from vxTemplate="content"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -731,7 +731,7 @@ describe('Button', () => {
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _iconTemplate from pTemplate="icon"', async () => {
+            it('should process _iconTemplate from vxTemplate="icon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -746,7 +746,7 @@ describe('Button', () => {
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _loadingIconTemplate from pTemplate="loadingicon"', async () => {
+            it('should process _loadingIconTemplate from vxTemplate="loadingicon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 const templateComponent = templateFixture.componentInstance;
                 templateComponent.loading = true;
@@ -765,7 +765,7 @@ describe('Button', () => {
                 expect(() => buttonInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should render custom content template with pTemplate', async () => {
+            it('should render custom content template with vxTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
                 await fixture.whenStable();
@@ -776,7 +776,7 @@ describe('Button', () => {
                 expect(customContent.length + customLabels.length).toBeGreaterThanOrEqual(0);
             });
 
-            it('should render custom icon template with pTemplate', async () => {
+            it('should render custom icon template with vxTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 templateFixture.detectChanges();
                 await fixture.whenStable();
@@ -863,17 +863,17 @@ describe('Button', () => {
         // Template comparison and integration tests
         describe('Template Integration Tests', () => {
             it('should render different template types correctly', async () => {
-                // Test both pTemplate and #content template approaches
+                // Test both vxTemplate and #content template approaches
 
-                // Test pTemplate rendering
-                const pTemplateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
-                pTemplateFixture.detectChanges();
+                // Test vxTemplate rendering
+                const vxTemplateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+                vxTemplateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const pTemplateButton = pTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
-                expect(pTemplateButton.templates).toBeDefined();
-                expect(() => pTemplateButton.ngAfterContentInit()).not.toThrow();
+                const vxTemplateButton = vxTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
+                expect(vxTemplateButton.templates).toBeDefined();
+                expect(() => vxTemplateButton.ngAfterContentInit()).not.toThrow();
 
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);

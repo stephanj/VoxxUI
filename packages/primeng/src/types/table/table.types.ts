@@ -1,13 +1,13 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThrough, ButtonProps } from 'primeng/types/button';
-import type { CheckboxPassThrough } from 'primeng/types/checkbox';
-import type { PaginatorPassThrough } from 'primeng/types/paginator';
-import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { SelectPassThrough } from 'primeng/types/select';
-import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
-import type { DatePickerPassThrough } from 'primeng/types/datepicker';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from 'voxx-ui/api';
+import type { ButtonPassThrough, ButtonProps } from 'voxx-ui/types/button';
+import type { CheckboxPassThrough } from 'voxx-ui/types/checkbox';
+import type { PaginatorPassThrough } from 'voxx-ui/types/paginator';
+import type { VirtualScrollerPassThrough } from 'voxx-ui/types/scroller';
+import type { InputTextPassThrough } from 'voxx-ui/types/inputtext';
+import type { SelectPassThrough } from 'voxx-ui/types/select';
+import type { InputNumberPassThrough } from 'voxx-ui/types/inputnumber';
+import type { DatePickerPassThrough } from 'voxx-ui/types/datepicker';
 import type { MotionOptions } from '@primeuix/motion';
 
 /**

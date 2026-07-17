@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'voxx-ui/button';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     selector: 'delay-doc',
@@ -13,7 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <p>Adding delays to the show and hide events are defined with <i>showDelay</i> and <i>hideDelay</i> options respectively.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
+            <vx-button vxTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
         </div>
         <app-code></app-code>
     `

@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'voxx-ui/api';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
 
 @Component({
     selector: 'confirmdialog-pt-viewer',
@@ -12,7 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     template: `
         <app-docptviewer [docs]="docs">
             <span style="visiblity: hidden;" #anchorElement></span>
-            <p-confirmdialog [style]="{ width: '25rem' }" maskStyleClass="!relative !rounded-[2rem]" styleClass="!relative" [draggable]="false" [appendTo]="anchorElement" [autoZIndex]="false" [baseZIndex]="2" [modal]="false"></p-confirmdialog>
+            <vx-confirmdialog [style]="{ width: '25rem' }" maskStyleClass="!relative !rounded-[2rem]" styleClass="!relative" [draggable]="false" [appendTo]="anchorElement" [autoZIndex]="false" [baseZIndex]="2" [modal]="false"></vx-confirmdialog>
         </app-docptviewer>
     `
 })

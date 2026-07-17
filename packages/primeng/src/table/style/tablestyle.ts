@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as datatable_style } from '@primeuix/styles/datatable';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
 ${datatable_style}
 
-/* For PrimeNG */
+/* For VoxxUI */
 .p-datatable-scrollable-table > .p-datatable-thead {
     top: 0;
     z-index: 2;

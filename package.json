@@ -1,15 +1,15 @@
 {
-    "name": "@primeng/monorepo",
+    "name": "@voxxui/monorepo",
     "version": "21.1.9",
     "author": "PrimeTek Informatics",
-    "homepage": "https://primeng.org/",
+    "homepage": "https://github.com/stephanj/VoxxUI",
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng.git"
+        "url": "https://github.com/stephanj/VoxxUI.git"
     },
     "license": "SEE LICENSE IN LICENSE.md",
     "bugs": {
-        "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/stephanj/VoxxUI/issues"
     },
     "scripts": {
         "setup": "pnpm run clean && pnpm run init",
@@ -22,7 +22,7 @@
         "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:packages",
         "build:check": "pnpm run format:check && pnpm run security:check",
         "build:packages": "pnpm run build:lib && pnpm run build:themes && pnpm run build:mcp && pnpm run build:docs && pnpm run build:showcase",
-        "build:lib": "pnpm --filter primeng build",
+        "build:lib": "pnpm --filter voxx-ui build",
         "build:themes": "pnpm --filter themes build",
         "build:mcp": "pnpm --filter mcp build",
         "build:showcase": "pnpm --filter showcase build",
@@ -34,8 +34,8 @@
         "format:check": "prettier --check \"packages/**/*.{js,mjs,ts,mts,d.ts,html}\" \"apps/**/*.{js,mjs,ts,mts,d.ts,html}\"",
         "lint": "eslint --ext \".js,.mjs,.ts,.mts\" --ignore-path .gitignore . --cache",
         "lint:fix": "eslint --fix --ext \".js,.mjs,.ts,.mts\" --ignore-path .gitignore .",
-        "test:unit": "pnpm --filter primeng test:unit",
-        "test:coverage": "pnpm --filter primeng test:unit --code-coverage"
+        "test:unit": "pnpm --filter voxx-ui test:unit",
+        "test:coverage": "pnpm --filter voxx-ui test:unit --code-coverage"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "catalog:angular21",
@@ -80,7 +80,11 @@
     },
     "packageManager": "pnpm@9.6.0",
     "lint-staged": {
-        "packages/**/*.{js,mjs,ts,mts,d.ts,html}": ["prettier --write"],
-        "apps/**/*.{js,mjs,ts,mts,d.ts,html}": ["prettier --write"]
+        "packages/**/*.{js,mjs,ts,mts,d.ts,html}": [
+            "prettier --write"
+        ],
+        "apps/**/*.{js,mjs,ts,mts,d.ts,html}": [
+            "prettier --write"
+        ]
     }
 }

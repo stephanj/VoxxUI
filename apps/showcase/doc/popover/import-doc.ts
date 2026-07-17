@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { PopoverModule } from 'primeng/popover';`
+        typescript: `import { PopoverModule } from 'voxx-ui/popover';`
     };
 }

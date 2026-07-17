@@ -22,15 +22,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { addClass, createElement, findSingle, isEmpty } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Fluid } from 'primeng/fluid';
-import { SpinnerIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
-import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'primeng/types/button';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { BadgeModule } from 'voxx-ui/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { Fluid } from 'voxx-ui/fluid';
+import { SpinnerIcon } from 'voxx-ui/icons';
+import { Ripple } from 'voxx-ui/ripple';
+import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'voxx-ui/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');
@@ -53,7 +53,7 @@ const INTERNAL_BUTTON_CLASSES = {
 } as const;
 
 @Directive({
-    selector: '[pButtonLabel]',
+    selector: '[vxButtonLabel]',
     providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
     standalone: true,
     host: {
@@ -65,24 +65,24 @@ export class ButtonLabel extends BaseComponent {
     componentName = 'ButtonLabel';
 
     /**
-     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * Used to pass attributes to DOM elements inside the vxButtonLabel.
      * @defaultValue undefined
-     * @deprecated use pButtonLabelPT instead.
+     * @deprecated use vxButtonLabelPT instead.
      * @group Props
      */
     ptButtonLabel = input<any>();
     /**
-     * Used to pass attributes to DOM elements inside the pButtonLabel.
+     * Used to pass attributes to DOM elements inside the vxButtonLabel.
      * @defaultValue undefined
      * @group Props
      */
-    pButtonLabelPT = input<any>();
+    vxButtonLabelPT = input<any>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pButtonLabelUnstyled = input<boolean | undefined>();
+    vxButtonLabelUnstyled = input<boolean | undefined>();
 
     $pcButtonLabel: ButtonLabel | undefined = inject(BUTTON_LABEL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -91,12 +91,12 @@ export class ButtonLabel extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptButtonLabel() || this.pButtonLabelPT();
+            const pt = this.ptButtonLabel() || this.vxButtonLabelPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pButtonLabelUnstyled() && this.directiveUnstyled.set(this.pButtonLabelUnstyled());
+            this.vxButtonLabelUnstyled() && this.directiveUnstyled.set(this.vxButtonLabelUnstyled());
         });
     }
 
@@ -106,7 +106,7 @@ export class ButtonLabel extends BaseComponent {
 }
 
 @Directive({
-    selector: '[pButtonIcon]',
+    selector: '[vxButtonIcon]',
     providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
     standalone: true,
     host: {
@@ -118,24 +118,24 @@ export class ButtonIcon extends BaseComponent {
     componentName = 'ButtonIcon';
 
     /**
-     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * Used to pass attributes to DOM elements inside the vxButtonIcon.
      * @defaultValue undefined
-     * @deprecated use pButtonIconPT instead.
+     * @deprecated use vxButtonIconPT instead.
      * @group Props
      */
     ptButtonIcon = input<any>();
     /**
-     * Used to pass attributes to DOM elements inside the pButtonIcon.
+     * Used to pass attributes to DOM elements inside the vxButtonIcon.
      * @defaultValue undefined
      * @group Props
      */
-    pButtonIconPT = input<any>();
+    vxButtonIconPT = input<any>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pButtonUnstyled = input<boolean | undefined>();
+    vxButtonUnstyled = input<boolean | undefined>();
 
     $pcButtonIcon: ButtonIcon | undefined = inject(BUTTON_ICON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -144,12 +144,12 @@ export class ButtonIcon extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptButtonIcon() || this.pButtonIconPT();
+            const pt = this.ptButtonIcon() || this.vxButtonIconPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pButtonUnstyled() && this.directiveUnstyled.set(this.pButtonUnstyled());
+            this.vxButtonUnstyled() && this.directiveUnstyled.set(this.vxButtonUnstyled());
         });
     }
 
@@ -162,7 +162,7 @@ export class ButtonIcon extends BaseComponent {
  * @group Components
  */
 @Directive({
-    selector: '[pButton]',
+    selector: '[vxButton]',
     standalone: true,
     providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
@@ -183,7 +183,7 @@ export class ButtonDirective extends BaseComponent {
     /**
      * Used to pass attributes to DOM elements inside the Button component.
      * @defaultValue undefined
-     * @deprecated use pButtonPT instead.
+     * @deprecated use vxButtonPT instead.
      * @group Props
      */
     ptButtonDirective = input<ButtonPassThrough>();
@@ -192,13 +192,13 @@ export class ButtonDirective extends BaseComponent {
      * @defaultValue undefined
      * @group Props
      */
-    pButtonPT = input<ButtonPassThrough>();
+    vxButtonPT = input<ButtonPassThrough>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pButtonUnstyled = input<boolean | undefined>();
+    vxButtonUnstyled = input<boolean | undefined>();
 
     @Input() hostName: any = '';
 
@@ -209,12 +209,12 @@ export class ButtonDirective extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptButtonDirective() || this.pButtonPT();
+            const pt = this.ptButtonDirective() || this.vxButtonPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pButtonUnstyled() && this.directiveUnstyled.set(this.pButtonUnstyled());
+            this.vxButtonUnstyled() && this.directiveUnstyled.set(this.vxButtonUnstyled());
         });
 
         effect(() => {
@@ -311,7 +311,7 @@ export class ButtonDirective extends BaseComponent {
 
     /**
      * Text of the button.
-     * @deprecated use pButtonLabel directive instead.
+     * @deprecated use vxButtonLabel directive instead.
      * @group Props
      */
     @Input() get label(): string | undefined {
@@ -330,7 +330,7 @@ export class ButtonDirective extends BaseComponent {
 
     /**
      * Name of the icon.
-     * @deprecated use pButtonIcon directive instead
+     * @deprecated use vxButtonIcon directive instead
      * @group Props
      */
     @Input() get icon(): string {
@@ -574,7 +574,7 @@ export class ButtonDirective extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-button',
+    selector: 'vx-button',
     standalone: true,
     imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule, Bind],
     template: `
@@ -587,10 +587,10 @@ export class ButtonDirective extends BaseComponent {
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
-            pRipple
+            vxRipple
             [attr.tabindex]="tabindex || buttonProps?.tabindex"
-            [pAutoFocus]="autofocus || buttonProps?.autofocus"
-            [pBind]="ptm('root')"
+            [vxAutoFocus]="autofocus || buttonProps?.autofocus"
+            [vxBind]="ptm('root')"
             [attr.data-p]="dataP"
             [attr.data-p-disabled]="disabled || loading || buttonProps?.disabled"
             [attr.data-p-severity]="severity || buttonProps?.severity"
@@ -599,30 +599,30 @@ export class ButtonDirective extends BaseComponent {
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             <ng-container *ngIf="loading || buttonProps?.loading">
                 <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon || buttonProps?.loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [pBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
-                    <svg data-p-icon="spinner" *ngIf="!(loadingIcon || buttonProps?.loadingIcon)" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
+                    <span *ngIf="loadingIcon || buttonProps?.loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [vxBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
+                    <svg data-p-icon="spinner" *ngIf="!(loadingIcon || buttonProps?.loadingIcon)" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [vxBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
                 </ng-container>
                 <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!(loading || buttonProps?.loading)">
-                <span *ngIf="(icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate" [class]="cn(cx('icon'), icon || buttonProps?.icon)" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
+                <span *ngIf="(icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate" [class]="cn(cx('icon'), icon || buttonProps?.icon)" [vxBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
                 <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
             </ng-container>
             <span
                 [class]="cx('label')"
                 [attr.aria-hidden]="(icon || buttonProps?.icon) && !(label || buttonProps?.label)"
                 *ngIf="!contentTemplate && !_contentTemplate && (label || buttonProps?.label)"
-                [pBind]="ptm('label')"
+                [vxBind]="ptm('label')"
                 [attr.data-p]="dataLabelP"
                 >{{ label || buttonProps?.label }}</span
             >
-            <p-badge
+            <vx-badge
                 *ngIf="!contentTemplate && !_contentTemplate && (badge || buttonProps?.badge)"
                 [value]="badge || buttonProps?.badge"
                 [severity]="badgeSeverity || buttonProps?.badgeSeverity"
                 [pt]="ptm('pcBadge')"
                 [unstyled]="unstyled()"
-            ></p-badge>
+            ></vx-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -806,7 +806,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
 
     /**
      * Callback to execute when button is clicked.
-     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
+     * This event is intended to be used with the <vx-button> component. Using a regular <button> element, use (click).
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
@@ -814,7 +814,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
 
     /**
      * Callback to execute when button is focused.
-     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (focus).
+     * This event is intended to be used with the <vx-button> component. Using a regular <button> element, use (focus).
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
@@ -822,7 +822,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
 
     /**
      * Callback to execute when button loses focus.
-     * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (blur).
+     * This event is intended to be used with the <vx-button> component. Using a regular <button> element, use (blur).
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */

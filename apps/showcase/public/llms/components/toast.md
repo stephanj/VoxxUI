@@ -12,15 +12,15 @@ Toasts are displayed by calling the add and addAll method provided by the messag
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-button (onClick)="show()" label="Show" />
+            <vx-toast />
+            <vx-button (onClick)="show()" label="Show" />
         </div>
     `,
     standalone: true,
@@ -38,16 +38,16 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-toast key="myKey" />
-            <p-button (click)="show()" label="Show" />
-            <p-button (click)="clear()" label="Clear" severity="secondary" />
+            <vx-toast key="myKey" />
+            <vx-button (click)="show()" label="Show" />
+            <vx-button (click)="clear()" label="Clear" severity="secondary" />
         </div>
     `,
     standalone: true,
@@ -69,15 +69,15 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
+            <vx-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
                 <ng-template let-message #headless let-closeFn="closeFn">
                     <section class="flex flex-col p-4 gap-4 w-full bg-primary/70 rounded-xl">
                         <div class="flex items-center gap-5">
@@ -85,17 +85,17 @@ import { MessageService } from 'primeng/api';
                             <span class="font-bold text-base text-white dark:text-black">{{ message.summary }}</span>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <p-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
+                            <vx-progressbar [value]="progress()" [showValue]="false" [style]="{ height: '4px' }" class="!bg-primary/80" />
                             <label class="text-sm font-bold text-white dark:text-black">{{ progress() }}% uploaded</label>
                         </div>
                         <div class="flex gap-4 mb-4 justify-end">
-                            <p-button label="Another Upload?" (click)="closeFn($event)" size="small" />
-                            <p-button label="Cancel" (click)="closeFn($event)" size="small" />
+                            <vx-button label="Another Upload?" (click)="closeFn($event)" size="small" />
+                            <vx-button label="Cancel" (click)="closeFn($event)" size="small" />
                         </div>
                     </section>
                 </ng-template>
-            </p-toast>
-            <p-button (click)="showConfirm()" label="Confirm" />
+            </vx-toast>
+            <vx-button (click)="showConfirm()" label="Confirm" />
         </div>
     `,
     standalone: true,
@@ -149,16 +149,16 @@ A toast disappears after 3000ms by default, set the life option on either the me
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-toast [life]="10000" />
-            <p-button (click)="showLife()" label="Show Life" />
-            <p-button (click)="showLifeLong()" label="Show Life Long" />
+            <vx-toast [life]="10000" />
+            <vx-button (click)="showLife()" label="Show Life" />
+            <vx-button (click)="showLifeLong()" label="Show Life Long" />
         </div>
     `,
     standalone: true,
@@ -180,16 +180,16 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
+            <vx-toast />
+            <vx-button pRipple (click)="show()" label="Multiple" severity="warn" />
         </div>
     `,
     standalone: true,
@@ -207,21 +207,21 @@ Location of the toast is customized with the position property. Valid values are
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast position="top-left" key="tl" />
-            <p-toast position="bottom-left" key="bl" />
-            <p-toast position="bottom-right" key="br" />
+            <vx-toast position="top-left" key="tl" />
+            <vx-toast position="bottom-left" key="bl" />
+            <vx-toast position="bottom-right" key="br" />
             <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="showTopLeft()" label="Top Left" />
-                <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
-                <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+                <vx-button pRipple (click)="showTopLeft()" label="Top Left" />
+                <vx-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
+                <vx-button pRipple (click)="showBottomRight()" label="Bottom Right" />
             </div>
         </div>
     `,
@@ -260,15 +260,15 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
-            <p-button (click)="show()" label="Show" />
+            <vx-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
+            <vx-button (click)="show()" label="Show" />
         </div>
     `,
     standalone: true,
@@ -286,21 +286,21 @@ The severity option specifies the type of the message. There are four types of m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
-            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
-            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
-            <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
-            <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
-            <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
+            <vx-toast />
+            <vx-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
+            <vx-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
+            <vx-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warn" />
+            <vx-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
+            <vx-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+            <vx-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
         </div>
     `,
     standalone: true,
@@ -338,18 +338,18 @@ A toast disappears after the time defined by the life option, set sticky option 
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
+            <vx-toast />
             <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="show()" label="Sticky" />
-                <p-button pRipple (click)="clear()" severity="secondary" label="Clear" />
+                <vx-button pRipple (click)="show()" label="Sticky" />
+                <vx-button pRipple (click)="clear()" severity="secondary" label="Clear" />
             </div>
         </div>
     `,
@@ -372,17 +372,17 @@ A page may have multiple toast components, in case you'd like to target a specif
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-toast key="toast1" />
-            <p-toast key="toast2" />
-            <p-button (click)="showToast1()" label="Show Success" />
-            <p-button (click)="showToast2()" label="Show Warning" severity="warn" />
+            <vx-toast key="toast1" />
+            <vx-toast key="toast2" />
+            <vx-button (click)="showToast1()" label="Show Success" />
+            <vx-button (click)="showToast2()" label="Show Warning" severity="warn" />
         </div>
     `,
     standalone: true,
@@ -405,27 +405,27 @@ Templating allows customizing the content where the message instance is availabl
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+            <vx-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
                 <ng-template let-message #message>
                     <div class="flex flex-col items-start flex-auto">
                         <div class="flex items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                             <span class="font-bold">Amy Elsner</span>
                         </div>
                         <div class="font-medium text-lg my-4">{{ message.summary }}</div>
-                        <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+                        <vx-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
                     </div>
                 </ng-template>
-            </p-toast>
-            <p-button (click)="showConfirm()" label="View" />
+            </vx-toast>
+            <vx-button (click)="showConfirm()" label="View" />
         </div>
     `,
     standalone: true,

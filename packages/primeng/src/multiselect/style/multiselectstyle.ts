@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as multiselect_style } from '@primeuix/styles/multiselect';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${multiselect_style}
 
-    /* For PrimeNG */
+    /* For VoxxUI */
    .p-multiselect.ng-invalid.ng-dirty {
         border-color: dt('multiselect.invalid.border.color');
     }

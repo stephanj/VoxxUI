@@ -4,14 +4,14 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { RadioButton } from './radiobutton';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 // Basic RadioButton test component
 @Component({
     standalone: true,
     imports: [RadioButton, FormsModule],
     template: `
-        <p-radiobutton
+        <vx-radiobutton
             name="test"
             value="option1"
             [(ngModel)]="selectedValue"
@@ -58,9 +58,9 @@ class TestBasicRadioComponent {
     standalone: true,
     imports: [RadioButton, FormsModule],
     template: `
-        <p-radiobutton name="group" value="option1" [(ngModel)]="selectedOption" inputId="option1" />
-        <p-radiobutton name="group" value="option2" [(ngModel)]="selectedOption" inputId="option2" />
-        <p-radiobutton name="group" value="option3" [(ngModel)]="selectedOption" inputId="option3" />
+        <vx-radiobutton name="group" value="option1" [(ngModel)]="selectedOption" inputId="option1" />
+        <vx-radiobutton name="group" value="option2" [(ngModel)]="selectedOption" inputId="option2" />
+        <vx-radiobutton name="group" value="option3" [(ngModel)]="selectedOption" inputId="option3" />
     `
 })
 class TestRadioGroupComponent {
@@ -73,9 +73,9 @@ class TestRadioGroupComponent {
     imports: [RadioButton, ReactiveFormsModule],
     template: `
         <form [formGroup]="radioForm">
-            <p-radiobutton formControlName="selectedValue" name="radioGroup" value="value1" inputId="radio1" [invalid]="isInvalid" />
-            <p-radiobutton formControlName="selectedValue" name="radioGroup" value="value2" inputId="radio2" [invalid]="isInvalid" />
-            <p-radiobutton formControlName="selectedValue" name="radioGroup" value="value3" inputId="radio3" [invalid]="isInvalid" />
+            <vx-radiobutton formControlName="selectedValue" name="radioGroup" value="value1" inputId="radio1" [invalid]="isInvalid" />
+            <vx-radiobutton formControlName="selectedValue" name="radioGroup" value="value2" inputId="radio2" [invalid]="isInvalid" />
+            <vx-radiobutton formControlName="selectedValue" name="radioGroup" value="value3" inputId="radio3" [invalid]="isInvalid" />
         </form>
     `
 })
@@ -91,7 +91,7 @@ class TestReactiveRadioComponent {
 @Component({
     standalone: true,
     imports: [RadioButton, FormsModule],
-    template: ` <p-radiobutton name="advanced" [value]="radioValue" [(ngModel)]="selectedValue" [disabled]="isDisabled" [binary]="binary" [variant]="variant" [size]="size" [autofocus]="autofocus" (onClick)="onAdvancedClick($event)" /> `
+    template: ` <vx-radiobutton name="advanced" [value]="radioValue" [(ngModel)]="selectedValue" [disabled]="isDisabled" [binary]="binary" [variant]="variant" [size]="size" [autofocus]="autofocus" (onClick)="onAdvancedClick($event)" /> `
 })
 class TestAdvancedRadioComponent {
     selectedValue: any = null as any;
@@ -113,7 +113,7 @@ class TestAdvancedRadioComponent {
 @Component({
     standalone: true,
     imports: [RadioButton, FormsModule],
-    template: ` <p-radiobutton name="binary" value="binary-value" [(ngModel)]="binaryValue" [binary]="true" /> `
+    template: ` <vx-radiobutton name="binary" value="binary-value" [(ngModel)]="binaryValue" [binary]="true" /> `
 })
 class TestBinaryRadioComponent {
     binaryValue: any = false;
@@ -738,7 +738,7 @@ describe('RadioButton', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCase1Component {
                 selectedValue: any = 'option1';
@@ -778,7 +778,7 @@ describe('RadioButton', () => {
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCase2Component {
                 selectedValue: any = 'option1';
@@ -820,7 +820,7 @@ describe('RadioButton', () => {
         describe('Case 3: Mixed object and string values', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCase3Component {
                 selectedValue: any = 'option1';
@@ -856,7 +856,7 @@ describe('RadioButton', () => {
         describe('Case 4: Use variables from instance', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCase4Component {
                 selectedValue: any = 'option1';
@@ -901,7 +901,7 @@ describe('RadioButton', () => {
         describe('Case 5: Event binding', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCase5Component {
                 selectedValue: any = null;
@@ -947,7 +947,7 @@ describe('RadioButton', () => {
         describe('Case 6: Inline PT', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: 'INLINE_ROOT_CLASS', box: 'INLINE_BOX_CLASS' }"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: 'INLINE_ROOT_CLASS', box: 'INLINE_BOX_CLASS' }"></vx-radiobutton>`
             })
             class TestPTCase6InlineComponent {
                 selectedValue: any = 'option1';
@@ -974,7 +974,7 @@ describe('RadioButton', () => {
 
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' }, box: { class: 'BOX_INLINE_CLASS' } }"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' }, box: { class: 'BOX_INLINE_CLASS' } }"></vx-radiobutton>`
             })
             class TestPTCase6InlineObjectComponent {
                 selectedValue: any = 'option1';
@@ -1000,10 +1000,10 @@ describe('RadioButton', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></vx-radiobutton>`
             })
             class TestPTCase7GlobalComponent {
                 selectedValue: any = 'option1';
@@ -1016,7 +1016,7 @@ describe('RadioButton', () => {
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 radioButton: {
                                     root: 'GLOBAL_ROOT_CLASS',
@@ -1042,7 +1042,7 @@ describe('RadioButton', () => {
         describe('Case 8: PT Hooks', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCase8HooksComponent {
                 selectedValue: any = 'option1';
@@ -1087,7 +1087,7 @@ describe('RadioButton', () => {
         describe('PT Section Coverage', () => {
             @Component({
                 standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<vx-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></vx-radiobutton>`
             })
             class TestPTCoverageComponent {
                 selectedValue: any = 'option1';

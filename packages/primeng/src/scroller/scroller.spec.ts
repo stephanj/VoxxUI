@@ -3,14 +3,14 @@ import { Component, DebugElement, input, provideZonelessChangeDetection } from '
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
-import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from 'primeng/types/scroller';
+import { provideVoxxUI } from 'voxx-ui/config';
+import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from 'voxx-ui/types/scroller';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Scroller } from './scroller';
 @Component({
     standalone: false,
     template: `
-        <p-scroller
+        <vx-scroller
             [id]="id"
             [style]="style"
             [styleClass]="styleClass"
@@ -40,7 +40,7 @@ import { Scroller } from './scroller';
             (onScroll)="onScroll($event)"
             (onScrollIndexChange)="onScrollIndexChange($event)"
         >
-        </p-scroller>
+        </vx-scroller>
     `
 })
 class TestBasicScrollerComponent {
@@ -91,7 +91,7 @@ class TestBasicScrollerComponent {
 @Component({
     standalone: false,
     template: `
-        <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+        <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
             <ng-template #content let-items="items" let-options="options">
                 <div class="custom-content">
                     <div *ngFor="let item of items; let i = index" class="custom-item" [attr.data-index]="i">
@@ -99,7 +99,7 @@ class TestBasicScrollerComponent {
                     </div>
                 </div>
             </ng-template>
-        </p-scroller>
+        </vx-scroller>
     `
 })
 class TestContentTemplateComponent {
@@ -117,7 +117,7 @@ class TestContentTemplateComponent {
 @Component({
     standalone: false,
     template: `
-        <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+        <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
             <ng-template #item let-item="item" let-options="options">
                 <div class="item-template" [attr.data-index]="options.index">
                     <span class="item-label">{{ item.label }}</span>
@@ -129,7 +129,7 @@ class TestContentTemplateComponent {
                     <span class="item-odd" *ngIf="options.odd">Odd</span>
                 </div>
             </ng-template>
-        </p-scroller>
+        </vx-scroller>
     `
 })
 class TestItemTemplateComponent {
@@ -147,7 +147,7 @@ class TestItemTemplateComponent {
 @Component({
     standalone: false,
     template: `
-        <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [lazy]="true" [showLoader]="true">
+        <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [lazy]="true" [showLoader]="true">
             <ng-template #loader let-options="options">
                 <div class="custom-loader" [attr.data-index]="options.index">
                     <span class="loader-text">Loading item {{ options.index }}...</span>
@@ -158,7 +158,7 @@ class TestItemTemplateComponent {
                     <i class="custom-spinner"></i>
                 </div>
             </ng-template>
-        </p-scroller>
+        </vx-scroller>
     `
 })
 class TestLoaderTemplateComponent {
@@ -169,7 +169,7 @@ class TestLoaderTemplateComponent {
 
 @Component({
     standalone: false,
-    template: ` <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [orientation]="'both'" [columns]="columns"> </p-scroller> `
+    template: ` <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [orientation]="'both'" [columns]="columns"> </vx-scroller> `
 })
 class TestBothOrientationComponent {
     items = [
@@ -185,7 +185,7 @@ class TestBothOrientationComponent {
 
 @Component({
     standalone: false,
-    template: ` <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [lazy]="true" [step]="step" (onLazyLoad)="onLazyLoad($event)"> </p-scroller> `
+    template: ` <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [lazy]="true" [step]="step" (onLazyLoad)="onLazyLoad($event)"> </vx-scroller> `
 })
 class TestLazyLoadingComponent {
     items: any[] = [];
@@ -206,7 +206,7 @@ class TestLazyLoadingComponent {
 
 @Component({
     standalone: false,
-    template: ` <p-scroller [items]="dynamicItems$ | async" [itemSize]="dynamicItemSize" [scrollHeight]="dynamicScrollHeight" [orientation]="dynamicOrientation" [loading]="dynamicLoading" [disabled]="dynamicDisabled"> </p-scroller> `
+    template: ` <vx-scroller [items]="dynamicItems$ | async" [itemSize]="dynamicItemSize" [scrollHeight]="dynamicScrollHeight" [orientation]="dynamicOrientation" [loading]="dynamicLoading" [disabled]="dynamicDisabled"> </vx-scroller> `
 })
 class TestDynamicPropertiesComponent {
     dynamicItems$: Observable<any[]> = of([]);
@@ -1213,9 +1213,9 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [disabled]="true">
+                    <vx-scroller [disabled]="true">
                         <div class="disabled-content">Disabled Scroller Content</div>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestDisabledComponent {}
@@ -2620,7 +2620,7 @@ describe('Scroller', () => {
         @Component({
             standalone: false,
             template: `
-                <p-scroller
+                <vx-scroller
                     [id]="dynamicId$ | async"
                     [style]="dynamicStyle$ | async"
                     [styleClass]="dynamicStyleClass$ | async"
@@ -2647,7 +2647,7 @@ describe('Scroller', () => {
                     [trackBy]="dynamicTrackBy$ | async"
                     [options]="dynamicOptions$ | async"
                 >
-                </p-scroller>
+                </vx-scroller>
             `
         })
         class TestDynamicInputsComponent {
@@ -3285,12 +3285,12 @@ describe('Scroller', () => {
     });
 
     describe('Complete Content Projection Tests', () => {
-        describe('pTemplate Content Projection Tests', () => {
+        describe('vxTemplate Content Projection Tests', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
-                        <ng-template pTemplate="content" let-items let-options="options">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+                        <ng-template vxTemplate="content" let-items let-options="options">
                             <div
                                 class="p-template-content"
                                 [attr.data-items-count]="items?.length"
@@ -3306,7 +3306,7 @@ describe('Scroller', () => {
                                 <div class="content-options" [attr.data-orientation]="options.orientation" [attr.data-both]="options.both" [attr.data-horizontal]="options.horizontal" [attr.data-vertical]="options.vertical"></div>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestPTemplateContentComponent {
@@ -3324,8 +3324,8 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
-                        <ng-template pTemplate="item" let-item let-options="options">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+                        <ng-template vxTemplate="item" let-item let-options="options">
                             <div
                                 class="p-template-item"
                                 [attr.data-index]="options.index"
@@ -3344,7 +3344,7 @@ describe('Scroller', () => {
                                 <span class="item-meta">{{ options.index + 1 }}/{{ options.count }}</span>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestPTemplateItemComponent {
@@ -3362,8 +3362,8 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
-                        <ng-template pTemplate="loader" let-options="options">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
+                        <ng-template vxTemplate="loader" let-options="options">
                             <div
                                 class="p-template-loader"
                                 [attr.data-index]="options.index"
@@ -3378,7 +3378,7 @@ describe('Scroller', () => {
                                 <div class="loader-meta">{{ options.index + 1 }}/{{ options.count }}</div>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestPTemplateLoaderComponent {
@@ -3391,14 +3391,14 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
-                        <ng-template pTemplate="loadericon" let-options="options">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
+                        <ng-template vxTemplate="loadericon" let-options="options">
                             <div class="p-template-loader-icon" [class]="options.styleClass" [attr.data-style-class]="options.styleClass">
                                 <i class="custom-loading-icon pi pi-spin pi-spinner"></i>
                                 <span class="loading-text">Loading...</span>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestPTemplateLoaderIconComponent {
@@ -3408,7 +3408,7 @@ describe('Scroller', () => {
                 loading = true;
             }
 
-            it('should render pTemplate="content" with correct context objects', async () => {
+            it('should render vxTemplate="content" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
                     imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
@@ -3436,7 +3436,7 @@ describe('Scroller', () => {
                 expect(contentOptions.scrollableElement).toBeDefined();
             });
 
-            it('should render pTemplate="item" with correct context objects', async () => {
+            it('should render vxTemplate="item" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
                     imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
@@ -3474,7 +3474,7 @@ describe('Scroller', () => {
                 }
             });
 
-            it('should render pTemplate="loader" with correct context objects', async () => {
+            it('should render vxTemplate="loader" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
                     imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
@@ -3503,7 +3503,7 @@ describe('Scroller', () => {
                 expect(scroller._showLoader).toBe(true);
             });
 
-            it('should render pTemplate="loadericon" with correct context objects', async () => {
+            it('should render vxTemplate="loadericon" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
                     imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
@@ -3530,7 +3530,7 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template #content let-items let-options="options">
                             <div class="hash-template-content" [attr.data-items-count]="items?.length" [attr.data-has-scroll-to]="!options.scrollTo" [attr.data-orientation]="options.orientation">
                                 <div class="hash-content-list">
@@ -3539,7 +3539,7 @@ describe('Scroller', () => {
                                 <div class="hash-content-meta" [attr.data-scrollable-element]="options.scrollableElement">Content rendered via #content template</div>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestHashTemplateContentComponent {
@@ -3555,7 +3555,7 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
                         <ng-template #item let-item let-options="options">
                             <div class="hash-template-item" [attr.data-index]="options.index" [attr.data-first]="options.first" [attr.data-last]="options.last">
                                 <span class="hash-item-name">{{ item.name }}</span>
@@ -3564,7 +3564,7 @@ describe('Scroller', () => {
                                 <span class="hash-item-position">{{ options.index }}/{{ options.count - 1 }}</span>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestHashTemplateItemComponent {
@@ -3581,7 +3581,7 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
                         <ng-template #loader let-options="options">
                             <div class="hash-template-loader" [attr.data-index]="options.index" [attr.data-loading]="options.loading">
                                 <div class="hash-loader-content">
@@ -3590,7 +3590,7 @@ describe('Scroller', () => {
                                 </div>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestHashTemplateLoaderComponent {
@@ -3603,14 +3603,14 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [showLoader]="true" [loading]="loading">
                         <ng-template #loadericon let-options="options">
                             <div class="hash-template-loader-icon" [class]="options.styleClass">
                                 <i class="hash-loading-icon fas fa-spinner fa-spin"></i>
                                 <span class="hash-loading-label">#Loading Icon</span>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestHashTemplateLoaderIconComponent {
@@ -3712,11 +3712,11 @@ describe('Scroller', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
-                        <!-- Both pTemplate and #template should work together -->
-                        <ng-template pTemplate="content" let-items let-options="options">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight">
+                        <!-- Both vxTemplate and #template should work together -->
+                        <ng-template vxTemplate="content" let-items let-options="options">
                             <div class="mixed-p-template-content">
-                                <h3>pTemplate Content ({{ items?.length }} items)</h3>
+                                <h3>vxTemplate Content ({{ items?.length }} items)</h3>
                                 <div class="p-content-items">
                                     <div *ngFor="let item of items" class="p-content-item">{{ item.name }}</div>
                                 </div>
@@ -3728,7 +3728,7 @@ describe('Scroller', () => {
                                 <span>#Hash Item: {{ item.name }} ({{ options.index }})</span>
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestMixedTemplateComponent {
@@ -3741,7 +3741,7 @@ describe('Scroller', () => {
                 scrollHeight = '200px';
             }
 
-            it('should handle mixed pTemplate and #template projections', async () => {
+            it('should handle mixed vxTemplate and #template projections', async () => {
                 await TestBed.configureTestingModule({
                     imports: [Scroller],
                     providers: [provideZonelessChangeDetection()],
@@ -3773,13 +3773,13 @@ describe('Scroller', () => {
                 standalone: true,
                 imports: [Scroller],
                 template: `
-                    <p-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [orientation]="orientation">
-                        <ng-template pTemplate="content" let-items let-options="options">
+                    <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [orientation]="orientation">
+                        <ng-template vxTemplate="content" let-items let-options="options">
                             <div class="context-test-content" [attr.data-orientation]="options.orientation" [attr.data-both]="options.both" [attr.data-horizontal]="options.horizontal" [attr.data-vertical]="options.vertical">
                                 Items: {{ items?.length }}
                             </div>
                         </ng-template>
-                        <ng-template pTemplate="item" let-item let-options="options">
+                        <ng-template vxTemplate="item" let-item let-options="options">
                             <div
                                 class="context-test-item"
                                 [attr.data-index]="options.index"
@@ -3792,7 +3792,7 @@ describe('Scroller', () => {
                                 {{ item.name }}
                             </div>
                         </ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestContextValidationComponent {
@@ -3920,11 +3920,11 @@ describe('Scroller', () => {
             standalone: true,
             imports: [CommonModule, Scroller],
             template: `
-                <p-scroller [items]="items()" [itemSize]="itemSize()" [pt]="pt()" [showLoader]="showLoader()" [loading]="loading()">
+                <vx-scroller [items]="items()" [itemSize]="itemSize()" [pt]="pt()" [showLoader]="showLoader()" [loading]="loading()">
                     <ng-template #item let-item>
                         <div class="item">{{ item }}</div>
                     </ng-template>
-                </p-scroller>
+                </vx-scroller>
             `
         })
         class TestPTScrollerComponent {
@@ -3948,7 +3948,7 @@ describe('Scroller', () => {
 
             fixture = TestBed.createComponent(TestPTScrollerComponent);
             component = fixture.componentInstance;
-            scrollerElement = fixture.debugElement.query(By.css('p-scroller'));
+            scrollerElement = fixture.debugElement.query(By.css('vx-scroller'));
             scrollerInstance = scrollerElement.componentInstance;
             fixture.detectChanges();
         });
@@ -4128,9 +4128,9 @@ describe('Scroller', () => {
             @Component({
                 standalone: true,
                 imports: [CommonModule, Scroller],
-                template: `<p-scroller [items]="items" [itemSize]="50" [pt]="{ root: 'INLINE_TEST_CLASS' }">
+                template: `<vx-scroller [items]="items" [itemSize]="50" [pt]="{ root: 'INLINE_TEST_CLASS' }">
                     <ng-template #item let-item>{{ item }}</ng-template>
-                </p-scroller>`
+                </vx-scroller>`
             })
             class TestInlinePTComponent {
                 items = ['Item 1', 'Item 2', 'Item 3'];
@@ -4148,9 +4148,9 @@ describe('Scroller', () => {
                 @Component({
                     standalone: true,
                     imports: [CommonModule, Scroller],
-                    template: `<p-scroller [items]="items" [itemSize]="50" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }">
+                    template: `<vx-scroller [items]="items" [itemSize]="50" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }">
                         <ng-template #item let-item>{{ item }}</ng-template>
-                    </p-scroller>`
+                    </vx-scroller>`
                 })
                 class TestInlineObjectPTComponent {
                     items = ['Item 1', 'Item 2', 'Item 3'];
@@ -4164,17 +4164,17 @@ describe('Scroller', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             @Component({
                 standalone: true,
                 imports: [CommonModule, Scroller],
                 template: `
-                    <p-scroller [items]="items1" [itemSize]="50">
+                    <vx-scroller [items]="items1" [itemSize]="50">
                         <ng-template #item let-item>{{ item }}</ng-template>
-                    </p-scroller>
-                    <p-scroller [items]="items2" [itemSize]="50">
+                    </vx-scroller>
+                    <vx-scroller [items]="items2" [itemSize]="50">
                         <ng-template #item let-item>{{ item }}</ng-template>
-                    </p-scroller>
+                    </vx-scroller>
                 `
             })
             class TestGlobalPTComponent {
@@ -4182,13 +4182,13 @@ describe('Scroller', () => {
                 items2 = ['B1', 'B2'];
             }
 
-            it('should apply global PT from PrimeNGConfig', async () => {
+            it('should apply global PT from VoxxUIConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 virtualScroller: {
                                     root: { 'aria-label': 'GLOBAL_SCROLLER_LABEL', class: 'GLOBAL_CLASS' }
@@ -4216,7 +4216,7 @@ describe('Scroller', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 virtualScroller: {
                                     root: { class: 'GLOBAL_ROOT' },

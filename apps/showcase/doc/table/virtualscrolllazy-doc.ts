@@ -5,7 +5,7 @@ import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'voxx-ui/table';
 
 interface Column {
     field: string;
@@ -22,9 +22,9 @@ interface Column {
                 suggested to use the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+                <vx-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                     <ng-template #header let-columns>
                         <tr>
                             <th *ngFor="let col of columns" style="width: 20%;">
@@ -46,9 +46,9 @@ interface Column {
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Car']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

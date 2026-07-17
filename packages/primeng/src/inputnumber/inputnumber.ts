@@ -23,15 +23,15 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { Nullable } from 'primeng/ts-helpers';
-import type { InputNumberInputEvent, InputNumberPassThrough } from 'primeng/types/inputnumber';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseInput } from 'voxx-ui/baseinput';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'voxx-ui/icons';
+import { InputText } from 'voxx-ui/inputtext';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import type { InputNumberInputEvent, InputNumberPassThrough } from 'voxx-ui/types/inputnumber';
 import { InputNumberStyle } from './style/inputnumberstyle';
 
 const INPUTNUMBER_INSTANCE = new InjectionToken<InputNumber>('INPUTNUMBER_INSTANCE');
@@ -46,12 +46,12 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputNumber, p-inputnumber, p-input-number',
+    selector: 'vx-inputNumber, vx-inputnumber, vx-input-number',
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule, BindModule],
     template: `
         <input
-            pInputText
+            vxInputText
             #input
             [attr.id]="inputId"
             role="spinbutton"
@@ -68,7 +68,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-describedby]="ariaDescribedBy"
             [attr.title]="title"
-            [pSize]="size()"
+            [vxSize]="size()"
             [attr.size]="inputSize()"
             [attr.name]="name()"
             [attr.autocomplete]="autocomplete"
@@ -92,20 +92,20 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (blur)="onInputBlur($event)"
             [pt]="ptm('pcInputText')"
             [unstyled]="unstyled()"
-            [pAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus"
             [fluid]="hasFluid"
             [attr.data-p]="dataP"
         />
         <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [pBind]="ptm('clearIcon')" (click)="clear()" [class]="cx('clearIcon')">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [vxBind]="ptm('clearIcon')" (click)="clear()" [class]="cx('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>
-        <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-p]="dataP">
+        <span [vxBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-p]="dataP">
             <button
                 type="button"
-                [pBind]="ptm('incrementButton')"
+                [vxBind]="ptm('incrementButton')"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
@@ -117,16 +117,16 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.aria-hidden]="true"
                 [attr.data-p]="dataP"
             >
-                <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
+                <span *ngIf="incrementButtonIcon" [vxBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
                 <ng-container *ngIf="!incrementButtonIcon">
-                    <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
+                    <svg data-p-icon="angle-up" [vxBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
 
             <button
                 type="button"
-                [pBind]="ptm('decrementButton')"
+                [vxBind]="ptm('decrementButton')"
                 [class]="cn(cx('decrementButton'), decrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
@@ -138,9 +138,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keyup)="onDownButtonKeyUp()"
                 [attr.data-p]="dataP"
             >
-                <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
+                <span *ngIf="decrementButtonIcon" [vxBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
                 <ng-container *ngIf="!decrementButtonIcon">
-                    <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
+                    <svg data-p-icon="angle-down" [vxBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
                     <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
                 </ng-container>
             </button>
@@ -148,7 +148,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [pBind]="ptm('incrementButton')"
+            [vxBind]="ptm('incrementButton')"
             [class]="cn(cx('incrementButton'), incrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
@@ -160,16 +160,16 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (keyup)="onUpButtonKeyUp()"
             [attr.data-p]="dataP"
         >
-            <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
+            <span *ngIf="incrementButtonIcon" [vxBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
             <ng-container *ngIf="!incrementButtonIcon">
-                <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
+                <svg data-p-icon="angle-up" [vxBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
                 <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>
         <button
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
-            [pBind]="ptm('decrementButton')"
+            [vxBind]="ptm('decrementButton')"
             [class]="cn(cx('decrementButton'), decrementButtonClass)"
             [attr.disabled]="$disabled() ? '' : undefined"
             tabindex="-1"
@@ -181,9 +181,9 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             (keyup)="onDownButtonKeyUp()"
             [attr.data-p]="dataP"
         >
-            <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
+            <span *ngIf="decrementButtonIcon" [vxBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
             <ng-container *ngIf="!decrementButtonIcon">
-                <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
+                <svg data-p-icon="angle-down" [vxBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
                 <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
             </ng-container>
         </button>

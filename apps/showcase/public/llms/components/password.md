@@ -13,12 +13,12 @@ Two-way value binding is defined using ngModel .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
+            <vx-password [(ngModel)]="value" [feedback]="false" autocomplete="off" />
         </div>
     `,
     standalone: true,
@@ -36,12 +36,12 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" [showClear]="true" inputStyleClass="w-56" />
+            <vx-password [(ngModel)]="value" [feedback]="false" autocomplete="off" [showClear]="true" inputStyleClass="w-56" />
         </div>
     `,
     standalone: true,
@@ -59,12 +59,12 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
+            <vx-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" autocomplete="off" />
         </div>
     `,
     standalone: true,
@@ -82,12 +82,12 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [feedback]="false" variant="filled" autocomplete="off" />
+            <vx-password [(ngModel)]="value" [feedback]="false" variant="filled" autocomplete="off" />
         </div>
     `,
     standalone: true,
@@ -105,24 +105,24 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { PasswordModule } from 'primeng/password';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-password [(ngModel)]="value1" inputId="over_label" autocomplete="off" />
+            <vx-floatlabel>
+                <vx-password [(ngModel)]="value1" inputId="over_label" autocomplete="off" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <p-password [(ngModel)]="value2" inputId="in_label" autocomplete="off" />
+            </vx-floatlabel>
+            <vx-floatlabel variant="in">
+                <vx-password [(ngModel)]="value2" inputId="in_label" autocomplete="off" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <p-password [(ngModel)]="value3" inputId="on_label" autocomplete="off" />
+            </vx-floatlabel>
+            <vx-floatlabel variant="on">
+                <vx-password [(ngModel)]="value3" inputId="on_label" autocomplete="off" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
     `,
     standalone: true,
@@ -142,12 +142,12 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card">
-            <p-password [(ngModel)]="value" [feedback]="false" autocomplete="off" fluid />
+            <vx-password [(ngModel)]="value" [feedback]="false" autocomplete="off" fluid />
         </div>
     `,
     standalone: true,
@@ -165,16 +165,16 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { PasswordModule } from 'primeng/password';
+import { IftaLabelModule } from 'voxx-ui/iftalabel';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-password [(ngModel)]="value" inputId="password" autocomplete="off" />
+            <vx-iftalabel>
+                <vx-password [(ngModel)]="value" inputId="password" autocomplete="off" />
                 <label for="password">Password</label>
-            </p-iftalabel>
+            </vx-iftalabel>
         </div>
     `,
     standalone: true,
@@ -192,13 +192,13 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
-            <p-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
-            <p-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
+            <vx-password [(ngModel)]="value1" [invalid]="!value1" placeholder="Password" />
+            <vx-password [(ngModel)]="value2" [invalid]="!value2" variant="filled" placeholder="Password" />
         </div>
     `,
     standalone: true,
@@ -217,12 +217,12 @@ Labels are translated at component level by promptLabel , weakLabel , mediumLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
+            <vx-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" autocomplete="off" />
         </div>
     `,
     standalone: true,
@@ -240,12 +240,12 @@ Strength meter is displayed as a popup while a value is being entered.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" autocomplete="off" />
+            <vx-password [(ngModel)]="value" autocomplete="off" />
         </div>
     `,
     standalone: true,
@@ -263,21 +263,21 @@ Password can also be used with reactive forms. In this case, the formControlName
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { PasswordModule } from 'primeng/password';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'voxx-ui/message';
+import { PasswordModule } from 'voxx-ui/password';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-password formControlName="value" [invalid]="isInvalid('value')" [feedback]="false" autocomplete="off" fluid />
+                    <vx-password formControlName="value" [invalid]="isInvalid('value')" [feedback]="false" autocomplete="off" fluid />
                     @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Password is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -323,14 +323,14 @@ Password provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-password [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
-            <p-password [(ngModel)]="value2" type="text" placeholder="Normal" />
-            <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
+            <vx-password [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
+            <vx-password [(ngModel)]="value2" type="text" placeholder="Normal" />
+            <vx-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
         </div>
     `,
     standalone: true,
@@ -350,18 +350,18 @@ export class PasswordSizesDemo {
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DividerModule } from 'primeng/divider';
-import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'voxx-ui/divider';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" autocomplete="off">
+            <vx-password [(ngModel)]="value" autocomplete="off">
                 <ng-template #header>
                     <div class="font-semibold text-xm mb-4">Reset Password</div>
                 </ng-template>
                 <ng-template #footer>
-                    <p-divider />
+                    <vx-divider />
                     <ul class="pl-2 my-0 leading-normal text-sm">
                         <li>At least one lowercase</li>
                         <li>At least one uppercase</li>
@@ -369,7 +369,7 @@ import { PasswordModule } from 'primeng/password';
                         <li>Minimum 8 characters</li>
                     </ul>
                 </ng-template>
-            </p-password>
+            </vx-password>
         </div>
     `,
     standalone: true,
@@ -385,21 +385,21 @@ export class PasswordTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { PasswordModule } from 'primeng/password';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'voxx-ui/message';
+import { PasswordModule } from 'voxx-ui/password';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required fluid />
+                    <vx-password #model="ngModel" [(ngModel)]="value" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="password" [feedback]="false" autocomplete="off" required fluid />
                     @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Password is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Password is required.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -431,12 +431,12 @@ When toggleMask is present, an icon is displayed to show the value as plain text
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-password [(ngModel)]="value" [toggleMask]="true" autocomplete="off" />
+            <vx-password [(ngModel)]="value" [toggleMask]="true" autocomplete="off" />
         </div>
     `,
     standalone: true,

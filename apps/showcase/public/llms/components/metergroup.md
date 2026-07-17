@@ -12,12 +12,12 @@ MeterGroup requires a value as the data to display where each item in the collec
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card">
-            <p-metergroup [value]="value" />
+            <vx-metergroup [value]="value" />
         </div>
     `,
     standalone: true,
@@ -34,12 +34,12 @@ Icons can be displayed next to the labels instead of the default marker.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card">
-            <p-metergroup [value]="value" />
+            <vx-metergroup [value]="value" />
         </div>
     `,
     standalone: true,
@@ -56,12 +56,12 @@ The position of the labels relative to the meters is defined using the labelPosi
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card">
-            <p-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
+            <vx-metergroup [value]="value" labelPosition="start" labelOrientation="vertical" />
         </div>
     `,
     standalone: true,
@@ -78,12 +78,12 @@ Boundaries are configured with the min and max values whose defaults are 0 and 1
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card">
-            <p-metergroup [value]="value" [max]="200" />
+            <vx-metergroup [value]="value" [max]="200" />
         </div>
     `,
     standalone: true,
@@ -100,12 +100,12 @@ Adding more items to the array displays the meters in a group.
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card">
-            <p-metergroup [value]="value" />
+            <vx-metergroup [value]="value" />
         </div>
     `,
     standalone: true,
@@ -122,18 +122,18 @@ MeterGroup provides templating support for labels, meter items, and content arou
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { ButtonModule } from 'voxx-ui/button';
+import { CardModule } from 'voxx-ui/card';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card">
-            <p-metergroup [value]="value" labelPosition="start">
+            <vx-metergroup [value]="value" labelPosition="start">
                 <ng-template #label>
                     <div class="flex flex-wrap gap-4">
                         <ng-container *ngFor="let meterItem of value; let index = index">
-                            <p-card class="flex-1" styleClass="border border-surface shadow-none">
+                            <vx-card class="flex-1" styleClass="border border-surface shadow-none">
                                 <div class="flex justify-between gap-8">
                                     <div class="flex flex-col gap-1">
                                         <span class="text-surface-500 dark:text-surface-400 text-sm">{{ meterItem.label }}</span>
@@ -143,7 +143,7 @@ import { MeterGroupModule } from 'primeng/metergroup';
                                         <i [class]="meterItem.icon"></i>
                                     </span>
                                 </div>
-                            </p-card>
+                            </vx-card>
                         </ng-container>
                     </div>
                 </ng-template>
@@ -159,11 +159,11 @@ import { MeterGroupModule } from 'primeng/metergroup';
                 </ng-template>
                 <ng-template #end>
                     <div class="flex justify-between mt-4">
-                        <p-button label="Manage Storage" [outlined]="true" size="small" />
-                        <p-button label="Update Plan" size="small" />
+                        <vx-button label="Manage Storage" [outlined]="true" size="small" />
+                        <vx-button label="Update Plan" size="small" />
                     </div>
                 </ng-template>
-            </p-metergroup>
+            </vx-metergroup>
         </div>
     `,
     standalone: true,
@@ -180,12 +180,12 @@ Layout of the MeterGroup is configured with the orientation property that accept
 
 ```typescript
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
+            <vx-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
         </div>
     `,
     standalone: true,

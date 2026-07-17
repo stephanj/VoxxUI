@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -12,12 +12,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Configure the <i>variant</i> value as <i>outlined</i> for messages with borders and no background.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-4 justify-center">
-            <p-message severity="success" variant="outlined">Success Message</p-message>
-            <p-message severity="info" variant="outlined">Info Message</p-message>
-            <p-message severity="warn" variant="outlined">Warn Message</p-message>
-            <p-message severity="error" variant="outlined">Error Message</p-message>
-            <p-message severity="secondary" variant="outlined">Secondary Message</p-message>
-            <p-message severity="contrast" variant="outlined">Contrast Message</p-message>
+            <vx-message severity="success" variant="outlined">Success Message</vx-message>
+            <vx-message severity="info" variant="outlined">Info Message</vx-message>
+            <vx-message severity="warn" variant="outlined">Warn Message</vx-message>
+            <vx-message severity="error" variant="outlined">Error Message</vx-message>
+            <vx-message severity="secondary" variant="outlined">Secondary Message</vx-message>
+            <vx-message severity="contrast" variant="outlined">Contrast Message</vx-message>
         </div>
         <app-code></app-code>
     `

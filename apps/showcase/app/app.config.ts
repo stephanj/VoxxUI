@@ -5,8 +5,8 @@ import Noir from '@/themes/app-theme';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { ConfirmationService, MessageService } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 function initializeDemoCode(demoCodeService: DemoCodeService) {
     return () => demoCodeService.loadDemos();
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
         provideZonelessChangeDetection(),
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })), // withEnabledBlockingInitialNavigation()
         provideHttpClient(withFetch()),
-        providePrimeNG({
+        provideVoxxUI({
             theme: Noir,
             ripple: false
         }),

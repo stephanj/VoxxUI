@@ -8,10 +8,10 @@ Add the PrimeNG MCP server using the CLI. After adding, start a new session and 
 
 ```bash
 # Add to user config (available in all projects)
-claude mcp add primeng -s user -- npx -y @primeng/mcp
+claude mcp add primeng -s user -- npx -y @voxxui/mcp
 
 # Or add to current project only
-claude mcp add primeng -- npx -y @primeng/mcp
+claude mcp add primeng -- npx -y @voxxui/mcp
 ```
 
 ## Cursor-
@@ -23,7 +23,7 @@ Create .cursor/mcp.json in your project or ~/.cursor/mcp.json for global configu
     "mcpServers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -52,12 +52,12 @@ Add the PrimeNG MCP server using the CLI or edit ~/.codex/config.toml directly.
 
 ```bash
 # Using the CLI
-codex mcp add primeng -- npx -y @primeng/mcp
+codex mcp add primeng -- npx -y @voxxui/mcp
 
 # Or edit ~/.codex/config.toml
 [mcp_servers.primeng]
 command = "npx"
-args = ["-y", "@primeng/mcp"]
+args = ["-y", "@voxxui/mcp"]
 ```
 
 ## Tools-
@@ -73,7 +73,7 @@ Create .vscode/mcp.json in your project or ~/Library/Application Support/Code/Us
     "servers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -88,7 +88,7 @@ Edit ~/.codeium/windsurf/mcp_config.json to add the PrimeNG MCP server.
     "mcpServers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }
@@ -104,7 +104,7 @@ Add to your Zed settings at ~/.config/zed/settings.json (Linux) or ~/Library/App
         "primeng": {
             "command": {
                 "path": "npx",
-                "args": ["-y", "@primeng/mcp"]
+                "args": ["-y", "@voxxui/mcp"]
             }
         }
     }

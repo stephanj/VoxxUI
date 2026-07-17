@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     selector: 'options-doc',
@@ -13,7 +13,7 @@ import { TooltipModule } from 'primeng/tooltip';
             <p>Tooltip is also configurable by using <i>tooltipOptions</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
+            <input type="text" vxInputText vxTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
         </div>
         <app-code></app-code>
     `

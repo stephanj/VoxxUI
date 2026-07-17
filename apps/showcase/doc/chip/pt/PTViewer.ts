@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
     selector: 'chip-pt-viewer',
@@ -10,10 +10,10 @@ import { ChipModule } from 'primeng/chip';
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-4">
-                <p-chip label="Action"></p-chip>
-                <p-chip label="Comedy"></p-chip>
-                <p-chip label="Mystery"></p-chip>
-                <p-chip label="Thriller" [removable]="true"></p-chip>
+                <vx-chip label="Action"></vx-chip>
+                <vx-chip label="Comedy"></vx-chip>
+                <vx-chip label="Mystery"></vx-chip>
+                <vx-chip label="Thriller" [removable]="true"></vx-chip>
             </div>
         </app-docptviewer>
     `

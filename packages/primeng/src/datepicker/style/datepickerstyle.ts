@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as datepicker_style } from '@primeuix/styles/datepicker';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
 ${datepicker_style}
 
-/* For PrimeNG */
+/* For VoxxUI */
 .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
     border-color: dt('inputtext.invalid.border.color');
 }

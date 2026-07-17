@@ -6,7 +6,7 @@
         "types": ["node"],
         "strict": false,
         "paths": {
-            "primeng/*": ["../../packages/primeng/src/*/public_api"],
+            "voxx-ui/*": ["../../packages/primeng/src/*/public_api"],
             "@primeuix/styled/*": ["../../../../packages/styled/dist/*"],
             "@primeuix/styles/*": ["../../../../packages/styles/dist/*"],
             "@primeuix/themes/*": ["../../../../packages/themes/dist/*"],

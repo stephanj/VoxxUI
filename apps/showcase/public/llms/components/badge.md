@@ -12,12 +12,12 @@ Content of the badge is specified using the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
+import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-badge value="2" />
+            <vx-badge value="2" />
         </div>
     `,
     standalone: true,
@@ -32,13 +32,13 @@ Buttons have built-in support for badges to display a badge inline.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
-            <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
+            <vx-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
+            <vx-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
         </div>
     `,
     standalone: true,
@@ -72,20 +72,20 @@ A badge can be added to any element by encapsulating the content with the Overla
 
 ```typescript
 import { Component } from '@angular/core';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { OverlayBadgeModule } from 'voxx-ui/overlaybadge';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-6">
-            <p-overlaybadge value="2">
+            <vx-overlaybadge value="2">
                 <i class="pi pi-bell" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge value="4" severity="danger">
+            </vx-overlaybadge>
+            <vx-overlaybadge value="4" severity="danger">
                 <i class="pi pi-calendar" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge severity="danger">
+            </vx-overlaybadge>
+            <vx-overlaybadge severity="danger">
                 <i class="pi pi-envelope" style="font-size: 2rem"></i>
-            </p-overlaybadge>
+            </vx-overlaybadge>
         </div>
     `,
     standalone: true,
@@ -121,18 +121,18 @@ Severity defines the color of the badge, possible values are success , info , wa
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
+import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-badge value="2" />
-            <p-badge value="6" severity="secondary" />
-            <p-badge value="8" severity="success" />
-            <p-badge value="4" severity="info" />
-            <p-badge value="9" severity="warn" />
-            <p-badge value="3" severity="danger" />
-            <p-badge value="5" severity="contrast" />
+            <vx-badge value="2" />
+            <vx-badge value="6" severity="secondary" />
+            <vx-badge value="8" severity="success" />
+            <vx-badge value="4" severity="info" />
+            <vx-badge value="9" severity="warn" />
+            <vx-badge value="3" severity="danger" />
+            <vx-badge value="5" severity="contrast" />
         </div>
     `,
     standalone: true,
@@ -147,15 +147,15 @@ Badge sizes are adjusted with the badgeSize property that accepts small , large 
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
+import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-1 items-end">
-            <p-badge value="8" badgeSize="xlarge" severity="success" />
-            <p-badge value="6" badgeSize="large" severity="warn" />
-            <p-badge value="4" severity="info" />
-            <p-badge value="2" badgeSize="small" />
+            <vx-badge value="8" badgeSize="xlarge" severity="success" />
+            <vx-badge value="6" badgeSize="large" severity="warn" />
+            <vx-badge value="4" severity="info" />
+            <vx-badge value="2" badgeSize="small" />
         </div>
     `,
     standalone: true,

@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { Nullable } from 'primeng/ts-helpers';
-import { ScrollPanelPassThrough } from 'primeng/types/scrollpanel';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { ScrollPanelPassThrough } from 'voxx-ui/types/scrollpanel';
 import { ScrollPanelStyle } from './style/scrollpanelstyle';
 
 const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTANCE');
@@ -15,12 +15,12 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-scroll-panel, p-scrollPanel, p-scrollpanel',
+    selector: 'vx-scroll-panel, vx-scrollPanel, vx-scrollpanel',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div [pBind]="ptm('contentContainer')" [class]="cx('contentContainer')">
-            <div #content [pBind]="ptm('content')" [class]="cx('content')" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
+        <div [vxBind]="ptm('contentContainer')" [class]="cx('contentContainer')">
+            <div #content [vxBind]="ptm('content')" [class]="cx('content')" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
                 @if (!contentTemplate && !_contentTemplate) {
                     <ng-content></ng-content>
                 }
@@ -29,7 +29,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
         </div>
         <div
             #xBar
-            [pBind]="ptm('barX')"
+            [vxBind]="ptm('barX')"
             [class]="cx('barX')"
             tabindex="0"
             role="scrollbar"
@@ -45,7 +45,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
         ></div>
         <div
             #yBar
-            [pBind]="ptm('barY')"
+            [vxBind]="ptm('barY')"
             [class]="cx('barY')"
             tabindex="0"
             role="scrollbar"

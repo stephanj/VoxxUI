@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FluidModule } from 'primeng/fluid';
-import { InputTextModule } from 'primeng/inputtext';
+import { FluidModule } from 'voxx-ui/fluid';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     selector: 'fluid-pt-viewer',
@@ -10,9 +10,9 @@ import { InputTextModule } from 'primeng/inputtext';
     imports: [CommonModule, AppDocPtViewer, FluidModule, InputTextModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-fluid>
-                <input type="text" pInputText />
-            </p-fluid>
+            <vx-fluid>
+                <input type="text" vxInputText />
+            </vx-fluid>
         </app-docptviewer>
     `
 })

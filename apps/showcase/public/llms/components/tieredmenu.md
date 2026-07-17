@@ -12,13 +12,13 @@ TieredMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { MenuItem } from 'primeng/api';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items" />
+            <vx-tieredmenu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -107,15 +107,15 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-tieredmenu [model]="items" />
+            <vx-toast />
+            <vx-tieredmenu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -194,15 +194,15 @@ Popup mode is enabled by adding popup property and calling toggle method with an
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button label="Toggle" (click)="menu.toggle($event)" />
-            <p-tieredmenu #menu [model]="items" [popup]="true" />
+            <vx-button label="Toggle" (click)="menu.toggle($event)" />
+            <vx-tieredmenu #menu [model]="items" [popup]="true" />
         </div>
     `,
     standalone: true,
@@ -291,13 +291,13 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { MenuItem } from 'primeng/api';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items" />
+            <vx-tieredmenu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -354,25 +354,25 @@ TieredMenu offers item customization with the item template that receives the me
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'voxx-ui/badge';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items">
+            <vx-tieredmenu [model]="items">
                 <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                     <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
                     </a>
                 </ng-template>
-            </p-tieredmenu>
+            </vx-tieredmenu>
         </div>
     `,
     standalone: true,

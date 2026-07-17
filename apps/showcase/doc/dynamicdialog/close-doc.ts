@@ -1,8 +1,8 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'voxx-ui/api';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -49,17 +49,17 @@ export class CloseDoc {
     code: Code = {
         typescript: `
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'voxx-ui/api';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { Product } from '@/domain/product';
 import { ProductListDemo } from './productlistdemo';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     template: \`
-        <p-toast />
-        <p-button (click)="show()" label="Show" />
+        <vx-toast />
+        <vx-button (click)="show()" label="Show" />
     \`,
     imports: [ButtonModule, ToastModule],
     providers: [DialogService, MessageService]

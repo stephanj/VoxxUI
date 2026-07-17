@@ -12,14 +12,14 @@ DataTable requires a collection to display along with column components for the 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -36,7 +36,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -62,15 +62,15 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'voxx-ui/table';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th style="width:25%">Code</th>
@@ -82,48 +82,48 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product let-editing="editing">
                     <tr>
                         <td [pEditableColumn]="product.code" pEditableColumnField="code">
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.code" fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.code }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td [pEditableColumn]="product.name" pEditableColumnField="name">
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.name" required fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.name }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText [(ngModel)]="product.quantity" fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.quantity }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td [pEditableColumn]="product.price" pEditableColumnField="price">
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.price" fluid />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.price | currency: 'USD' }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -148,18 +148,18 @@ Multiple selection can also be handled using checkboxes by enabling the selectio
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th style="width: 4rem">
-                            <p-tableHeaderCheckbox />
+                            <vx-tableHeaderCheckbox />
                         </th>
                         <th>Code</th>
                         <th>Name</th>
@@ -170,7 +170,7 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product>
                     <tr>
                         <td>
-                            <p-tableCheckbox [value]="product" />
+                            <vx-tableCheckbox [value]="product" />
                         </td>
                         <td>{{ product.code }}</td>
                         <td>{{ product.name }}</td>
@@ -178,7 +178,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -204,13 +204,13 @@ Columns can be grouped using rowspan and colspan properties.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th rowspan="3">Product</th>
@@ -243,7 +243,7 @@ import { Product } from '@/domain/product';
                         <td class="font-bold p-3 pb-0">{{ thisYearTotal | currency: 'USD' }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -342,14 +342,14 @@ Setting columnResizeMode as expand changes the table width as well.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th pResizableColumn>Code</th>
@@ -366,7 +366,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -391,14 +391,14 @@ Columns can be resized using drag drop by setting the resizableColumns to true .
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" showGridlines [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" showGridlines [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th pResizableColumn>Code</th>
@@ -415,7 +415,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -438,14 +438,14 @@ export class TableColumnresizefitmodeDemo implements OnInit {
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th pResizableColumn>Name</th>
@@ -462,7 +462,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ customer.representative.name }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -487,18 +487,18 @@ Row selection with an element inside a column is implemented with templating.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
+import { ToastModule } from 'voxx-ui/toast';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-toast />
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -515,11 +515,11 @@ import { Product } from '@/domain/product';
                         <td>{{ product.category }}</td>
                         <td>{{ product.quantity }}</td>
                         <td>
-                            <p-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
+                            <vx-button icon="pi pi-search" (click)="selectProduct(product)" severity="secondary" rounded />
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -551,8 +551,8 @@ This demo uses a multiselect component to implement toggleable columns.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -564,9 +564,9 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #caption>
-                    <p-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
+                    <vx-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
                 </ng-template>
                 <ng-template #header let-columns>
                     <tr>
@@ -584,7 +584,7 @@ interface Column {
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -617,18 +617,18 @@ Table has exclusive integration with contextmenu component. In order to attach a
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { Table, TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { ContextMenuModule } from 'voxx-ui/contextmenu';
+import { Table, TableModule } from 'voxx-ui/table';
+import { ToastModule } from 'voxx-ui/toast';
 import { ProductService } from '@/service/productservice';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
-            <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
+            <vx-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -645,8 +645,8 @@ import { Product } from '@/domain/product';
                         <td>{{ product.price | currency: 'USD' }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
-            <p-toast />
+            </vx-table>
+            <vx-toast />
         </div>
     `,
     standalone: true,
@@ -689,23 +689,23 @@ DataTable with selection, pagination, filtering, sorting and templating.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { SelectModule } from 'voxx-ui/select';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { SliderModule } from 'voxx-ui/slider';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table
+            <vx-table
                 #dt
                 [value]="customers"
                 [(selection)]="selectedCustomers"
@@ -722,94 +722,94 @@ import { Customer, Representative, Country } from '@/domain/customer';
             >
                 <ng-template #caption>
                     <div class="flex justify-between">
-                        <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
-                        <p-iconField iconPosition="left">
-                            <p-inputIcon>
+                        <vx-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+                        <vx-iconField iconPosition="left">
+                            <vx-inputIcon>
                                 <i class="pi pi-search"></i>
-                            </p-inputIcon>
+                            </vx-inputIcon>
                             <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
-                        </p-iconField>
+                        </vx-iconField>
                     </div>
                 </ng-template>
                 <ng-template #header>
                     <tr>
                         <th style="width: 4rem">
-                            <p-tableHeaderCheckbox />
+                            <vx-tableHeaderCheckbox />
                         </th>
                         <th pSortableColumn="name" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
-                                <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                                <vx-sortIcon field="name" />
+                                <vx-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="country.name" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Country
-                                <p-sortIcon field="country.name" />
-                                <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                                <vx-sortIcon field="country.name" />
+                                <vx-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="representative.name" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Agent
-                                <p-sortIcon field="representative.name" />
-                                <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                <vx-sortIcon field="representative.name" />
+                                <vx-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
+                                        <vx-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
                                             <ng-template let-option #item>
                                                 <div class="flex items-center gap-2">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                     <span>{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
-                                        </p-multiselect>
+                                        </vx-multiselect>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="date" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Date
-                                <p-sortIcon field="date" />
-                                <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                                <vx-sortIcon field="date" />
+                                <vx-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="balance" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Balance
-                                <p-sortIcon field="balance" />
-                                <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                                <vx-sortIcon field="balance" />
+                                <vx-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                             </div>
                         </th>
                         <th pSortableColumn="status" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Status
-                                <p-sortIcon field="status" />
-                                <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                                <vx-sortIcon field="status" />
+                                <vx-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                        <vx-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                             <ng-template let-option #item>
-                                                <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
+                                                <vx-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                             </ng-template>
-                                        </p-select>
+                                        </vx-select>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </div>
                         </th>
                         <th pSortableColumn="activity" style="min-width: 14rem">
                             <div class="flex justify-between items-center gap-2">
                                 Activity
-                                <p-sortIcon field="activity" />
-                                <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                <vx-sortIcon field="activity" />
+                                <vx-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                     <ng-template #filter let-filter="filterCallback">
-                                        <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
+                                        <vx-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></vx-slider>
                                         <div class="flex items-center justify-between px-2">
                                             <span>{{ activityValues[0] }}</span>
                                             <span>{{ activityValues[1] }}</span>
                                         </div>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </div>
                         </th>
                         <th style="width: 5rem"></th>
@@ -818,7 +818,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                 <ng-template #body let-customer>
                     <tr class="p-selectable-row">
                         <td>
-                            <p-tableCheckbox [value]="customer" />
+                            <vx-tableCheckbox [value]="customer" />
                         </td>
                         <td>
                             {{ customer.name }}
@@ -842,13 +842,13 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             {{ customer.balance | currency: 'USD' : 'symbol' }}
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                         <td>
-                            <p-progressBar [value]="customer.activity" [showValue]="false" />
+                            <vx-progressBar [value]="customer.activity" [showValue]="false" />
                         </td>
                         <td style="text-align: center">
-                            <p-button rounded icon="pi pi-cog" />
+                            <vx-button rounded icon="pi pi-cog" />
                         </td>
                     </tr>
                 </ng-template>
@@ -857,7 +857,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td colspan="8">No customers found.</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -934,7 +934,7 @@ Columns can be defined dynamically using the *ngFor directive.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -946,7 +946,7 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header let-columns>
                     <tr>
                         @for (col of columns; track col) {
@@ -965,7 +965,7 @@ interface Column {
                         }
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -997,17 +997,17 @@ When expandableRowGroups is present in subheader based row grouping, groups can 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { RippleModule } from 'voxx-ui/ripple';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '70rem' }">
+            <vx-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '70rem' }">
                 <ng-template #header>
                     <tr>
                         <th style="width:20%">Name</th>
@@ -1047,14 +1047,14 @@ import { Customer, Country } from '@/domain/customer';
                             {{ customer.company }}
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                         <td>
                             {{ customer.date }}
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1112,8 +1112,8 @@ Table can export its data to CSV format.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -1131,10 +1131,10 @@ interface ExportColumn {
 @Component({
     template: `
         <div class="card">
-            <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #caption>
                     <div class="text-end pb-4">
-                        <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
+                        <vx-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
                     </div>
                 </ng-template>
                 <ng-template #header let-columns>
@@ -1151,7 +1151,7 @@ interface ExportColumn {
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1185,32 +1185,32 @@ Filters are displayed in an overlay.
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { SelectModule } from 'voxx-ui/select';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { SliderModule } from 'voxx-ui/slider';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
+            <vx-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
                 <ng-template #caption>
                     <div class="flex">
-                        <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-                        <p-iconfield iconPosition="left" class="ml-auto">
-                            <p-inputicon>
+                        <vx-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
+                        <vx-iconfield iconPosition="left" class="ml-auto">
+                            <vx-inputicon>
                                 <i class="pi pi-search"></i>
-                            </p-inputicon>
+                            </vx-inputicon>
                             <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                        </p-iconfield>
+                        </vx-iconfield>
                     </div>
                 </ng-template>
                 <ng-template #header>
@@ -1218,76 +1218,76 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <th style="min-width:15rem">
                             <div class="flex items-center justify-between">
                                 Name
-                                <p-columnFilter type="text" field="name" display="menu" />
+                                <vx-columnFilter type="text" field="name" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:15rem">
                             <div class="flex items-center justify-between">
                                 Country
-                                <p-columnFilter type="text" field="country.name" display="menu" />
+                                <vx-columnFilter type="text" field="country.name" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:15rem">
                             <div class="flex items-center justify-between">
                                 Agent
-                                <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <vx-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-multiselect [(ngModel)]="value" [options]="representatives()" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
+                                        <vx-multiselect [(ngModel)]="value" [options]="representatives()" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                             <ng-template let-option #item>
                                                 <div class="flex items-center gap-2">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                     <span>{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
-                                        </p-multiselect>
+                                        </vx-multiselect>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Date
-                                <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                                <vx-columnFilter type="date" field="date" display="menu"></vx-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Balance
-                                <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
+                                <vx-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Status
-                                <p-columnFilter field="status" matchMode="equals" display="menu">
+                                <vx-columnFilter field="status" matchMode="equals" display="menu">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-select [(ngModel)]="value" [options]="statuses()" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
+                                        <vx-select [(ngModel)]="value" [options]="statuses()" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
                                             <ng-template let-option #item>
-                                                <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
+                                                <vx-tag [value]="option.value" [severity]="getSeverity(option.value)"></vx-tag>
                                             </ng-template>
-                                        </p-select>
+                                        </vx-select>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </div>
                         </th>
                         <th style="min-width:10rem">
                             <div class="flex items-center justify-between">
                                 Activity
-                                <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                <vx-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                     <ng-template #filter let-value let-filter="filterCallback">
-                                        <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
+                                        <vx-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                                         <div class="flex items-center px-2">
                                             <span *ngIf="!value">0</span>
                                             <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                         </div>
                                     </ng-template>
-                                </p-columnFilter>
+                                </vx-columnFilter>
                             </div>
                         </th>
                         <th style="width: 3rem">
                             <div class="flex items-center justify-between">
                                 Verified
-                                <p-columnFilter type="boolean" field="verified" display="menu" />
+                                <vx-columnFilter type="boolean" field="verified" display="menu" />
                             </div>
                         </th>
                     </tr>
@@ -1316,10 +1316,10 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             {{ customer.balance | currency: 'USD' : 'symbol' }}
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                         <td>
-                            <p-progressbar [value]="customer.activity" [showValue]="false" />
+                            <vx-progressbar [value]="customer.activity" [showValue]="false" />
                         </td>
                         <td class="text-center">
                             <i
@@ -1337,7 +1337,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td colspan="7">No customers found.</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1415,20 +1415,20 @@ Data filtering is enabled by defining the filters property referring to a DataTa
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'voxx-ui/select';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table
+            <vx-table
                 #dt2
                 [value]="customers"
                 dataKey="id"
@@ -1441,12 +1441,12 @@ import { Customer, Representative, Country } from '@/domain/customer';
             >
                 <ng-template #caption>
                     <div class="flex">
-                        <p-iconfield iconPosition="left" class="ml-auto">
-                            <p-inputicon>
+                        <vx-iconfield iconPosition="left" class="ml-auto">
+                            <vx-inputicon>
                                 <i class="pi pi-search"></i>
-                            </p-inputicon>
+                            </vx-inputicon>
                             <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                        </p-iconfield>
+                        </vx-iconfield>
                     </div>
                 </ng-template>
                 <ng-template #header>
@@ -1459,38 +1459,38 @@ import { Customer, Representative, Country } from '@/domain/customer';
                     </tr>
                     <tr>
                         <th>
-                            <p-columnFilter type="text" field="name" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
+                            <vx-columnFilter type="text" field="name" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></vx-columnFilter>
                         </th>
                         <th>
-                            <p-columnFilter type="text" field="country.name" placeholder="Enter key to search" ariaLabel="Filter Country"></p-columnFilter>
+                            <vx-columnFilter type="text" field="country.name" placeholder="Enter key to search" ariaLabel="Filter Country"></vx-columnFilter>
                         </th>
                         <th>
-                            <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
+                            <vx-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                 <ng-template #filter let-value let-filter="filterCallback">
-                                    <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
+                                    <vx-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                         <ng-template let-option #item>
                                             <div class="flex items-center gap-2">
                                                 <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                 <span>{{ option.name }}</span>
                                             </div>
                                         </ng-template>
-                                    </p-multiselect>
+                                    </vx-multiselect>
                                 </ng-template>
-                            </p-columnFilter>
+                            </vx-columnFilter>
                         </th>
                         <th>
-                            <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
+                            <vx-columnFilter field="status" matchMode="equals" [showMenu]="false">
                                 <ng-template #filter let-value let-filter="filterCallback">
-                                    <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true" style="min-width: 12rem">
+                                    <vx-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true" style="min-width: 12rem">
                                         <ng-template let-option #item>
-                                            <p-tag [value]="option.value" [severity]="getSeverity(option.value)" />
+                                            <vx-tag [value]="option.value" [severity]="getSeverity(option.value)" />
                                         </ng-template>
-                                    </p-select>
+                                    </vx-select>
                                 </ng-template>
-                            </p-columnFilter>
+                            </vx-columnFilter>
                         </th>
                         <th>
-                            <p-columnFilter type="boolean" field="verified"></p-columnFilter>
+                            <vx-columnFilter type="boolean" field="verified"></vx-columnFilter>
                         </th>
                     </tr>
                 </ng-template>
@@ -1512,7 +1512,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             </div>
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                         <td>
                             <i
@@ -1530,7 +1530,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td colspan="5">No customers found.</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1604,9 +1604,9 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { TableModule } from 'voxx-ui/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1616,8 +1616,8 @@ import { Customer, Representative, Country } from '@/domain/customer';
             <div class="flex justify-center">
                 <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
             </div>
-            <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
-                <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
+                <vx-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Name</th>
@@ -1634,11 +1634,11 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             <td>{{ customer.representative.name }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
                 <ng-template #footer>
-                    <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+                    <vx-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                 </ng-template>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -1669,16 +1669,16 @@ Certain columns can be frozen by using the pFrozenColumn directive of the table 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TableModule } from 'voxx-ui/table';
+import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
-            <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
+            <vx-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
+            <vx-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
                 <ng-template #header>
                     <tr>
                         <th style="min-width:200px" pFrozenColumn class="font-bold">Name</th>
@@ -1707,7 +1707,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1737,16 +1737,16 @@ Frozen rows are used to fix certain rows while scrolling, this data is defined w
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'voxx-ui/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { RippleModule } from 'voxx-ui/ripple';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
+            <vx-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
@@ -1778,7 +1778,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1836,14 +1836,14 @@ Enabling showGridlines displays borders between cells.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -1860,7 +1860,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1885,14 +1885,14 @@ Horizontal scrollbar is displayed when table width exceeds the parent width.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
+            <vx-table [value]="customers" [scrollable]="true" scrollHeight="400px">
                 <ng-template #header>
                     <tr>
                         <th style="min-width:100px">Id</th>
@@ -1932,7 +1932,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>Representative</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -1961,14 +1961,14 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                 <ng-template #header>
                     <tr>
                         <th style="width:25%">Code</th>
@@ -1985,7 +1985,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2010,14 +2010,14 @@ Skeleton component can be used as a placeholder during the loading process.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'voxx-ui/skeleton';
+import { TableModule } from 'voxx-ui/table';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -2028,13 +2028,13 @@ import { Product } from '@/domain/product';
                 </ng-template>
                 <ng-template #body let-product>
                     <tr>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2055,38 +2055,38 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }" sortMode="multiple">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }" sortMode="multiple">
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="code" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <vx-sortIcon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <vx-sortIcon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <vx-sortIcon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <vx-sortIcon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -2099,7 +2099,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2125,8 +2125,8 @@ More than one row is selectable by setting selectionMode to multiple . By defaul
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'voxx-ui/table';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2134,10 +2134,10 @@ import { Product } from '@/domain/product';
     template: `
         <div class="card">
             <div class="flex justify-center items-center mb-6 gap-2">
-                <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                <vx-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -2154,7 +2154,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2181,14 +2181,14 @@ Pagination is enabled by setting paginator property to true and defining a rows 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
+            <vx-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
                 <ng-template #header>
                     <tr>
                         <th style="width:25%">Name</th>
@@ -2205,7 +2205,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ customer.representative.name }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2230,8 +2230,8 @@ Paginator can also be controlled via model using a binding to the first property
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -2239,11 +2239,11 @@ import { Customer, Representative, Country } from '@/domain/customer';
     template: `
         <div class="card">
             <div class="mb-4 flex gap-1">
-                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
-                <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
+                <vx-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+                <vx-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+                <vx-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
             </div>
-            <p-table
+            <vx-table
                 [value]="customers"
                 [paginator]="true"
                 [rows]="rows"
@@ -2270,7 +2270,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ customer.representative.name }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2322,44 +2322,44 @@ Defining a default sortField and sortOrder displays data as sorted initially in 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
+            <vx-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="code" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <vx-sortIcon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <vx-sortIcon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="price" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Price
-                                <p-sortIcon field="price" />
+                                <vx-sortIcon field="price" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <vx-sortIcon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <vx-sortIcon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -2373,7 +2373,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2399,23 +2399,23 @@ CRUD implementation example with a Dialog.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { SelectModule } from 'primeng/select';
-import { FileUploadModule } from 'primeng/fileupload';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { SelectModule } from 'voxx-ui/select';
+import { FileUploadModule } from 'voxx-ui/fileupload';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
+import { RatingModule } from 'voxx-ui/rating';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { ToastModule } from 'voxx-ui/toast';
+import { ToolbarModule } from 'voxx-ui/toolbar';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { ProductService } from '@/service/productservice';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 interface Column {
@@ -2432,18 +2432,18 @@ interface ExportColumn {
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-toolbar class="mb-6">
+            <vx-toast />
+            <vx-toolbar class="mb-6">
                 <ng-template #start>
-                    <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
-                    <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
+                    <vx-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+                    <vx-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
                 </ng-template>
                 <ng-template #end>
-                    <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-                    <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
+                    <vx-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
+                    <vx-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
                 </ng-template>
-            </p-toolbar>
-            <p-table
+            </vx-toolbar>
+            <vx-table
                 #dt
                 [value]="products"
                 [rows]="10"
@@ -2460,47 +2460,47 @@ interface ExportColumn {
                 <ng-template #caption>
                     <div class="flex items-center justify-between">
                         <h5 class="m-0">Manage Products</h5>
-                        <p-iconfield>
-                            <p-inputicon class="pi pi-search" />
+                        <vx-iconfield>
+                            <vx-inputicon class="pi pi-search" />
                             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
-                        </p-iconfield>
+                        </vx-iconfield>
                     </div>
                 </ng-template>
                 <ng-template #header>
                     <tr>
                         <th style="width: 3rem">
-                            <p-tableHeaderCheckbox />
+                            <vx-tableHeaderCheckbox />
                         </th>
                         <th style="min-width: 16rem">Code</th>
                         <th pSortableColumn="name" style="min-width:16rem">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <vx-sortIcon field="name" />
                             </div>
                         </th>
                         <th>Image</th>
                         <th pSortableColumn="price" style="min-width: 8rem">
                             <div class="flex items-center gap-2">
                                 Price
-                                <p-sortIcon field="price" />
+                                <vx-sortIcon field="price" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="min-width:10rem">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <vx-sortIcon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="rating" style="min-width: 12rem">
                             <div class="flex items-center gap-2">
                                 Reviews
-                                <p-sortIcon field="rating" />
+                                <vx-sortIcon field="rating" />
                             </div>
                         </th>
                         <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
                             <div class="flex items-center gap-2">
                                 Status
-                                <p-sortIcon field="inventoryStatus" />
+                                <vx-sortIcon field="inventoryStatus" />
                             </div>
                         </th>
                         <th style="min-width: 12rem"></th>
@@ -2509,7 +2509,7 @@ interface ExportColumn {
                 <ng-template #body let-product>
                     <tr>
                         <td style="width: 3rem">
-                            <p-tableCheckbox [value]="product" />
+                            <vx-tableCheckbox [value]="product" />
                         </td>
                         <td style="min-width: 12rem">{{ product.code }}</td>
                         <td style="min-width: 16rem">{{ product.name }}</td>
@@ -2519,19 +2519,19 @@ interface ExportColumn {
                         <td>{{ product.price | currency: 'USD' }}</td>
                         <td>{{ product.category }}</td>
                         <td>
-                            <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+                            <vx-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                         </td>
                         <td>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                         </td>
                         <td>
-                            <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
-                            <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
+                            <vx-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
+                            <vx-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
-            <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
+            </vx-table>
+            <vx-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
                 <ng-template #content>
                     <div class="flex flex-col gap-6">
                         <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
@@ -2546,25 +2546,25 @@ interface ExportColumn {
                         </div>
                         <div>
                             <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                            <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
+                            <vx-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                         </div>
                         <div>
                             <span class="block font-bold mb-4">Category</span>
                             <div class="grid grid-cols-12 gap-4">
                                 <div class="flex items-center gap-2 col-span-6">
-                                    <p-radiobutton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
+                                    <vx-radiobutton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
                                     <label for="category1">Accessories</label>
                                 </div>
                                 <div class="flex items-center gap-2 col-span-6">
-                                    <p-radiobutton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
+                                    <vx-radiobutton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
                                     <label for="category2">Clothing</label>
                                 </div>
                                 <div class="flex items-center gap-2 col-span-6">
-                                    <p-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
+                                    <vx-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
                                     <label for="category3">Electronics</label>
                                 </div>
                                 <div class="flex items-center gap-2 col-span-6">
-                                    <p-radiobutton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
+                                    <vx-radiobutton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
                                     <label for="category4">Fitness</label>
                                 </div>
                             </div>
@@ -2572,21 +2572,21 @@ interface ExportColumn {
                         <div class="grid grid-cols-12 gap-4">
                             <div class="col-span-6">
                                 <label for="price" class="block font-bold mb-3">Price</label>
-                                <p-inputnumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" fluid />
+                                <vx-inputnumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" fluid />
                             </div>
                             <div class="col-span-6">
                                 <label for="quantity" class="block font-bold mb-3">Quantity</label>
-                                <p-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
+                                <vx-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
                             </div>
                         </div>
                     </div>
                 </ng-template>
                 <ng-template #footer>
-                    <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
-                    <p-button label="Save" icon="pi pi-check" (click)="saveProduct()" />
+                    <vx-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+                    <vx-button label="Save" icon="pi pi-check" (click)="saveProduct()" />
                 </ng-template>
-            </p-dialog>
-            <p-confirmdialog [style]="{ width: '450px' }" />
+            </vx-dialog>
+            <vx-confirmdialog [style]="{ width: '450px' }" />
         </div>
     `,
     standalone: true,
@@ -2766,14 +2766,14 @@ Single selection can also be handled using radio buttons.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th style="width: 4rem"></th>
@@ -2786,7 +2786,7 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product>
                     <tr>
                         <td>
-                            <p-tableRadioButton [value]="product" />
+                            <vx-tableRadioButton [value]="product" />
                         </td>
                         <td>{{ product.code }}</td>
                         <td>{{ product.name }}</td>
@@ -2794,7 +2794,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2820,39 +2820,39 @@ The removable sort can be implemented using the customSort property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
-import { SortEvent } from 'primeng/api';
+import { SortEvent } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
+            <vx-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="code">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <vx-sortIcon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <vx-sortIcon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="category">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <vx-sortIcon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <vx-sortIcon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -2865,7 +2865,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2922,7 +2922,7 @@ Order of the columns and rows can be changed using drag and drop. Column reorder
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2934,7 +2934,7 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header let-columns>
                     <tr>
                         <th style="width:3rem"></th>
@@ -2953,7 +2953,7 @@ interface Column {
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -2986,22 +2986,22 @@ Row editing toggles the visibility of all the editors in the row at once and pro
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { RippleModule } from 'primeng/ripple';
+import { SelectModule } from 'voxx-ui/select';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { RippleModule } from 'voxx-ui/ripple';
 import { ProductService } from '@/service/productservice';
-import { SelectItem, MessageService } from 'primeng/api';
+import { SelectItem, MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-toast />
+            <vx-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th style="width:22%">Code</th>
@@ -3014,44 +3014,44 @@ import { Product } from '@/domain/product';
                 <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
                     <tr [pEditableRow]="product">
                         <td>
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.code" />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.code }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td>
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.name" required />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.name }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td>
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
-                                    <p-select [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
+                                    <vx-select [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
                                 </ng-template>
                                 <ng-template #output>
-                                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                                    <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td>
-                            <p-cellEditor>
+                            <vx-cellEditor>
                                 <ng-template #input>
                                     <input pInputText type="text" [(ngModel)]="product.price" />
                                 </ng-template>
                                 <ng-template #output>
                                     {{ product.price | currency: 'USD' }}
                                 </ng-template>
-                            </p-cellEditor>
+                            </vx-cellEditor>
                         </td>
                         <td>
                             <div class="flex items-center justify-center gap-2">
@@ -3062,7 +3062,7 @@ import { Product } from '@/domain/product';
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3124,26 +3124,26 @@ Row expansion allows displaying detailed content for a particular row. To use th
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'voxx-ui/button';
+import { RatingModule } from 'voxx-ui/rating';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { ToastModule } from 'voxx-ui/toast';
+import { RippleModule } from 'voxx-ui/ripple';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 import { Customer } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+            <vx-toast />
+            <vx-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
                 <ng-template #caption>
                     <div class="flex flex-wrap justify-end gap-2">
-                        <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
-                        <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+                        <vx-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+                        <vx-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
                     </div>
                 </ng-template>
                 <ng-template #header>
@@ -3160,7 +3160,7 @@ import { Customer } from '@/domain/customer';
                 <ng-template #body let-product let-expanded="expanded">
                     <tr>
                         <td>
-                            <p-button type="button" pRipple [pRowToggler]="product" [text]="true" severity="secondary" [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                            <vx-button type="button" pRipple [pRowToggler]="product" [text]="true" severity="secondary" [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                         </td>
                         <td>{{ product.name }}</td>
                         <td>
@@ -3169,10 +3169,10 @@ import { Customer } from '@/domain/customer';
                         <td>{{ product.price | currency: 'USD' }}</td>
                         <td>{{ product.category }}</td>
                         <td>
-                            <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+                            <vx-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                         </td>
                         <td>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                         </td>
                     </tr>
                 </ng-template>
@@ -3181,37 +3181,37 @@ import { Customer } from '@/domain/customer';
                         <td colspan="7">
                             <div class="p-4">
                                 <h5>Orders for {{ product.name }}</h5>
-                                <p-table [value]="product.orders" dataKey="id">
+                                <vx-table [value]="product.orders" dataKey="id">
                                     <ng-template #header>
                                         <tr>
                                             <th pSortableColumn="id">
                                                 <div class="flex items-center gap-2">
                                                     Id
-                                                    <p-sortIcon field="price" />
+                                                    <vx-sortIcon field="price" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="customer">
                                                 <div class="flex items-center gap-2">
                                                     Customer
-                                                    <p-sortIcon field="customer" />
+                                                    <vx-sortIcon field="customer" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="date">
                                                 <div class="flex items-center gap-2">
                                                     Date
-                                                    <p-sortIcon field="date" />
+                                                    <vx-sortIcon field="date" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="amount">
                                                 <div class="flex items-center gap-2">
                                                     Amount
-                                                    <p-sortIcon field="amount" />
+                                                    <vx-sortIcon field="amount" />
                                                 </div>
                                             </th>
                                             <th pSortableColumn="status">
                                                 <div class="flex items-center gap-2">
                                                     Status
-                                                    <p-sortIcon field="status" />
+                                                    <vx-sortIcon field="status" />
                                                 </div>
                                             </th>
                                             <th style="width: 4rem"></th>
@@ -3224,10 +3224,10 @@ import { Customer } from '@/domain/customer';
                                             <td>{{ order.date }}</td>
                                             <td>{{ order.amount | currency: 'USD' }}</td>
                                             <td>
-                                                <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
+                                                <vx-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                             </td>
                                             <td>
-                                                <p-button type="button" icon="pi pi-search" />
+                                                <vx-button type="button" icon="pi pi-search" />
                                             </td>
                                         </tr>
                                     </ng-template>
@@ -3236,12 +3236,12 @@ import { Customer } from '@/domain/customer';
                                             <td colspan="6">There are no order for this product yet.</td>
                                         </tr>
                                     </ng-template>
-                                </p-table>
+                                </vx-table>
                             </div>
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3311,15 +3311,15 @@ When rowGroupMode is configured to be rowspan , the grouping column spans multip
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
+            <vx-table [value]="customers" rowGroupMode="rowspan" groupRowsBy="representative.name" sortField="representative.name" sortMode="single" [tableStyle]="{ 'min-width': '75rem' }">
                 <ng-template #header>
                     <tr>
                         <th style="width:3rem">#</th>
@@ -3352,11 +3352,11 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             {{ customer.company }}
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3414,17 +3414,17 @@ Table provides onRowSelect and onRowUnselect events to listen selection events.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'voxx-ui/table';
+import { ToastModule } from 'voxx-ui/toast';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-toast />
+            <vx-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -3441,7 +3441,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3476,38 +3476,38 @@ A column can be made sortable by adding the pSortableColumn directive whose valu
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="code" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Code
-                                <p-sortIcon field="code" />
+                                <vx-sortIcon field="code" />
                             </div>
                         </th>
                         <th pSortableColumn="name" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <vx-sortIcon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="category" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Category
-                                <p-sortIcon field="category" />
+                                <vx-sortIcon field="category" />
                             </div>
                         </th>
                         <th pSortableColumn="quantity" style="width:20%">
                             <div class="flex items-center gap-2">
                                 Quantity
-                                <p-sortIcon field="quantity" />
+                                <vx-sortIcon field="quantity" />
                             </div>
                         </th>
                     </tr>
@@ -3520,7 +3520,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3546,8 +3546,8 @@ Single row selection is enabled by defining selectionMode as single along with a
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'voxx-ui/table';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -3555,10 +3555,10 @@ import { Product } from '@/domain/product';
     template: `
         <div class="card">
             <div class="flex justify-center items-center mb-6 gap-2">
-                <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                <vx-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -3575,7 +3575,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3603,8 +3603,8 @@ In addition to a regular table, alternatives with alternative sizes are availabl
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TableModule } from 'primeng/table';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -3612,9 +3612,9 @@ import { Product } from '@/domain/product';
     template: `
         <div class="card">
             <div class="flex justify-center mb-4">
-                <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
+                <vx-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />
             </div>
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -3631,7 +3631,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3663,18 +3663,18 @@ Stateful table allows keeping the state such as page, sort and filtering either 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table
+            <vx-table
                 #dt1
                 [value]="customers"
                 [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
@@ -3688,37 +3688,37 @@ import { Customer, Representative, Country } from '@/domain/customer';
                 stateKey="statedemo-session"
             >
                 <ng-template #caption>
-                    <p-iconfield iconPosition="left">
-                        <p-inputicon>
+                    <vx-iconfield iconPosition="left">
+                        <vx-inputicon>
                             <i class="pi pi-search"></i>
-                        </p-inputicon>
+                        </vx-inputicon>
                         <input pInputText type="text" [value]="dt1.filters['global']?.value" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-                    </p-iconfield>
+                    </vx-iconfield>
                 </ng-template>
                 <ng-template #header>
                     <tr>
                         <th pSortableColumn="name" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Name
-                                <p-sortIcon field="name" />
+                                <vx-sortIcon field="name" />
                             </div>
                         </th>
                         <th pSortableColumn="country.name" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Country
-                                <p-sortIcon field="country.name" />
+                                <vx-sortIcon field="country.name" />
                             </div>
                         </th>
                         <th pSortableColumn="representative.name" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Representative
-                                <p-sortIcon field="representative.name" />
+                                <vx-sortIcon field="representative.name" />
                             </div>
                         </th>
                         <th pSortableColumn="status" style="width:25%">
                             <div class="flex items-center gap-2">
                                 Status
-                                <p-sortIcon field="status" />
+                                <vx-sortIcon field="status" />
                             </div>
                         </th>
                     </tr>
@@ -3741,7 +3741,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             </div>
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                     </tr>
                 </ng-template>
@@ -3759,7 +3759,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                     </tr>
                 </ng-template>
@@ -3768,7 +3768,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td colspan="4">No customers found.</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3794,14 +3794,14 @@ Alternating rows are displayed when stripedRows property is present.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" stripedRows [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="products" stripedRows [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Code</th>
@@ -3818,7 +3818,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.quantity }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -3941,15 +3941,15 @@ Rows are grouped with the groupRowsBy property. When rowGroupMode is set as subh
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '60rem' }">
+            <vx-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
@@ -3991,14 +3991,14 @@ import { Customer, Country } from '@/domain/customer';
                             {{ customer.company }}
                         </td>
                         <td>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                            <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                         </td>
                         <td>
                             {{ customer.date }}
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -4057,10 +4057,10 @@ Custom content at header , body and footer sections are supported via templating
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { RatingModule } from 'voxx-ui/rating';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -4072,11 +4072,11 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+            <vx-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template #caption>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold">Products</span>
-                        <p-button icon="pi pi-refresh" rounded raised />
+                        <vx-button icon="pi pi-refresh" rounded raised />
                     </div>
                 </ng-template>
                 <ng-template #header>
@@ -4097,9 +4097,9 @@ interface Column {
                         </td>
                         <td>{{ product.price | currency: 'USD' }}</td>
                         <td>{{ product.category }}</td>
-                        <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                        <td><vx-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                         <td>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                         </td>
                     </tr>
                 </ng-template>
@@ -4108,7 +4108,7 @@ interface Column {
                         <td colspan="6">In total there are {{ products ? products.length : 0 }} products.</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -4149,14 +4149,14 @@ export class TableTemplateDemo implements OnInit {
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
@@ -4173,7 +4173,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ customer.representative.name }}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -4198,7 +4198,7 @@ Virtual Scrolling is an efficient way to render large amount data. Usage is simi
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule } from 'voxx-ui/table';
 import { CarService } from '@/service/carservice';
 import { Car } from '@/domain/car';
 
@@ -4210,7 +4210,7 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+            <vx-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                 <ng-template #header let-columns>
                     <tr>
                         <th *ngFor="let col of columns" style="width: 20%;">
@@ -4225,7 +4225,7 @@ interface Column {
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,
@@ -4258,10 +4258,10 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'voxx-ui/skeleton';
+import { TableModule } from 'voxx-ui/table';
 import { CarService } from '@/service/carservice';
-import { TableLazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'voxx-ui/api';
 import { Car } from '@/domain/car';
 
 interface Column {
@@ -4272,7 +4272,7 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+            <vx-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                 <ng-template #header let-columns>
                     <tr>
                         <th *ngFor="let col of columns" style="width: 20%;">
@@ -4290,11 +4290,11 @@ interface Column {
                 <ng-template #loadingbody let-columns="columns">
                     <tr style="height:46px">
                         <td *ngFor="let col of columns; let even = even">
-                            <p-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }" />
+                            <vx-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }" />
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </div>
     `,
     standalone: true,

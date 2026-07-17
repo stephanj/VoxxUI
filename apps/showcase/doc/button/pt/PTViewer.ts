@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'button-pt-viewer',
@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
     imports: [CommonModule, AppDocPtViewer, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-button label="Profile" icon="pi pi-user" severity="secondary" badge="2" badgeSeverity="contrast" />
+            <vx-button label="Profile" icon="pi pi-user" severity="secondary" badge="2" badgeSeverity="contrast" />
         </app-docptviewer>
     `
 })

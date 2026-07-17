@@ -2,14 +2,14 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate } from 'voxx-ui/api';
 import { Drawer } from './drawer';
 
 @Component({
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer
+        <vx-drawer
             [(visible)]="visible"
             [position]="position"
             [modal]="modal"
@@ -34,7 +34,7 @@ import { Drawer } from './drawer';
             (visibleChange)="onVisibleChange($event)"
         >
             <p>Basic drawer content</p>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerBasicComponent {
@@ -83,20 +83,20 @@ class TestDrawerBasicComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible" [header]="header">
-            <ng-template pTemplate="header">
+        <vx-drawer [(visible)]="visible" [header]="header">
+            <ng-template vxTemplate="header">
                 <div class="custom-header">Custom Header Template</div>
             </ng-template>
-            <ng-template pTemplate="content">
+            <ng-template vxTemplate="content">
                 <div class="custom-content">Custom Content Template</div>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="custom-footer">Custom Footer Template</div>
             </ng-template>
-            <ng-template pTemplate="closeicon">
+            <ng-template vxTemplate="closeicon">
                 <i class="pi pi-times custom-close-icon"></i>
             </ng-template>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerTemplatesComponent {
@@ -108,7 +108,7 @@ class TestDrawerTemplatesComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible">
+        <vx-drawer [(visible)]="visible">
             <ng-template #header>
                 <div class="ref-header">Template Ref Header</div>
             </ng-template>
@@ -121,7 +121,7 @@ class TestDrawerTemplatesComponent {
             <ng-template #closeicon>
                 <i class="pi pi-close ref-close-icon"></i>
             </ng-template>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerTemplateRefsComponent {
@@ -132,15 +132,15 @@ class TestDrawerTemplateRefsComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible">
-            <ng-template pTemplate="headless">
+        <vx-drawer [(visible)]="visible">
+            <ng-template vxTemplate="headless">
                 <div class="headless-template">
                     <div class="headless-header">Headless Header</div>
                     <div class="headless-content">Headless Content</div>
                     <div class="headless-footer">Headless Footer</div>
                 </div>
             </ng-template>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerHeadlessComponent {
@@ -151,9 +151,9 @@ class TestDrawerHeadlessComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible" [position]="position">
+        <vx-drawer [(visible)]="visible" [position]="position">
             <p>Position test content</p>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerPositionComponent {
@@ -165,9 +165,9 @@ class TestDrawerPositionComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible" [fullScreen]="fullScreen">
+        <vx-drawer [(visible)]="visible" [fullScreen]="fullScreen">
             <p>Full screen test content</p>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerFullScreenComponent {
@@ -179,9 +179,9 @@ class TestDrawerFullScreenComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible" [modal]="modal" [dismissible]="dismissible">
+        <vx-drawer [(visible)]="visible" [modal]="modal" [dismissible]="dismissible">
             <p>Modal test content</p>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerModalComponent {
@@ -194,9 +194,9 @@ class TestDrawerModalComponent {
     standalone: false,
     imports: [Drawer],
     template: `
-        <p-drawer [(visible)]="visible" [closable]="closable" [closeOnEscape]="closeOnEscape" [ariaCloseLabel]="ariaCloseLabel">
+        <vx-drawer [(visible)]="visible" [closable]="closable" [closeOnEscape]="closeOnEscape" [ariaCloseLabel]="ariaCloseLabel">
             <p>Accessibility test content</p>
-        </p-drawer>
+        </vx-drawer>
     `
 })
 class TestDrawerAccessibilityComponent {
@@ -264,7 +264,7 @@ describe('Drawer', () => {
         });
 
         it('should initialize component correctly', () => {
-            const drawerElement = testFixture.debugElement.query(By.css('p-drawer'));
+            const drawerElement = testFixture.debugElement.query(By.css('vx-drawer'));
             expect(drawerElement).toBeTruthy();
         });
 
@@ -490,7 +490,7 @@ describe('Drawer', () => {
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
-            const closeButton = testFixture.debugElement.query(By.css('p-button'));
+            const closeButton = testFixture.debugElement.query(By.css('vx-button'));
             if (closeButton) {
                 closeButton.triggerEventHandler('onClick', new Event('click'));
                 testFixture.changeDetectorRef.markForCheck();
@@ -561,7 +561,7 @@ describe('Drawer', () => {
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
-            const closeButton = testFixture.debugElement.query(By.css('p-button'));
+            const closeButton = testFixture.debugElement.query(By.css('vx-button'));
             if (closeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
                 closeButton.triggerEventHandler('keydown.enter', enterEvent);
@@ -578,7 +578,7 @@ describe('Drawer', () => {
     });
 
     describe('Template Support', () => {
-        it('should support pTemplate header template', async () => {
+        it('should support vxTemplate header template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -601,7 +601,7 @@ describe('Drawer', () => {
             expect(true).toBe(true);
         });
 
-        it('should support pTemplate content template', async () => {
+        it('should support vxTemplate content template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -623,7 +623,7 @@ describe('Drawer', () => {
             expect(true).toBe(true);
         });
 
-        it('should support pTemplate footer template', async () => {
+        it('should support vxTemplate footer template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -645,7 +645,7 @@ describe('Drawer', () => {
             expect(true).toBe(true);
         });
 
-        it('should support pTemplate closeicon template', async () => {
+        it('should support vxTemplate closeicon template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
             testFixture.changeDetectorRef.markForCheck();
@@ -856,7 +856,7 @@ describe('Drawer', () => {
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
             expect(drawerComponent.ariaCloseLabel).toBe('Close drawer');
 
-            const closeButton = testFixture.debugElement.query(By.css('p-button'));
+            const closeButton = testFixture.debugElement.query(By.css('vx-button'));
             if (closeButton) {
                 const ariaLabel = closeButton.componentInstance.ariaLabel || closeButton.nativeElement.getAttribute('aria-label') || closeButton.nativeElement.getAttribute('ng-reflect-aria-label');
                 // Check that some form of aria label is set
@@ -871,7 +871,7 @@ describe('Drawer', () => {
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
-            const closeButton = testFixture.debugElement.query(By.css('p-button'));
+            const closeButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(closeButton).toBeTruthy();
         });
 
@@ -882,7 +882,7 @@ describe('Drawer', () => {
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
-            const closeButton = testFixture.debugElement.query(By.css('p-button'));
+            const closeButton = testFixture.debugElement.query(By.css('vx-button'));
             expect(closeButton).toBeFalsy();
         });
 
@@ -1063,7 +1063,7 @@ describe('Drawer', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase1Component {
                 visible = true;
@@ -1110,7 +1110,7 @@ describe('Drawer', () => {
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase2Component {
                 visible = true;
@@ -1168,7 +1168,7 @@ describe('Drawer', () => {
         describe('Case 3: Mixed object and string values', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase3Component {
                 visible = true;
@@ -1216,7 +1216,7 @@ describe('Drawer', () => {
         describe('Case 4: Use variables from instance', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" [position]="position" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="pt" [(visible)]="visible" [position]="position" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase4Component {
                 visible = true;
@@ -1265,7 +1265,7 @@ describe('Drawer', () => {
         describe('Case 5: Event binding', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase5Component {
                 visible = true;
@@ -1315,7 +1315,7 @@ describe('Drawer', () => {
         describe('Case 6: Inline test', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase6InlineComponent {
                 visible = true;
@@ -1323,7 +1323,7 @@ describe('Drawer', () => {
 
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase6InlineObjectComponent {
                 visible = true;
@@ -1378,12 +1378,12 @@ describe('Drawer', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
                 standalone: false,
                 template: `
-                    <p-drawer [(visible)]="visible1" header="Drawer 1">Content 1</p-drawer>
-                    <p-drawer [(visible)]="visible2" header="Drawer 2">Content 2</p-drawer>
+                    <vx-drawer [(visible)]="visible1" header="Drawer 1">Content 1</vx-drawer>
+                    <vx-drawer [(visible)]="visible2" header="Drawer 2">Content 2</vx-drawer>
                 `
             })
             class TestPTCase7GlobalComponent {
@@ -1391,7 +1391,7 @@ describe('Drawer', () => {
                 visible2 = true;
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from VoxxUIConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
@@ -1399,7 +1399,7 @@ describe('Drawer', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideVoxxUI',
                             useValue: {
                                 pt: {
                                     drawer: {
@@ -1425,7 +1425,7 @@ describe('Drawer', () => {
         describe('Case 8: Test hooks', () => {
             @Component({
                 standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<vx-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</vx-drawer>`
             })
             class TestPTCase8HooksComponent {
                 visible = true;

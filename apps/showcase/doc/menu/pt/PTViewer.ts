@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
+import { MenuModule } from 'voxx-ui/menu';
 
 @Component({
     selector: 'menu-pt-viewer',
@@ -9,7 +9,7 @@ import { MenuModule } from 'primeng/menu';
     imports: [CommonModule, AppDocPtViewer, MenuModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-menu [model]="items" />
+            <vx-menu [model]="items" />
         </app-docptviewer>
     `
 })

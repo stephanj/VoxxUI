@@ -100,12 +100,12 @@ The theme property is used to customize the initial theme.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNG({
+        provideVoxxUI({
             theme: {
                 preset: Aura
             }

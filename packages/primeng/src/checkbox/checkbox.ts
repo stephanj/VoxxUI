@@ -25,14 +25,14 @@ import {
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { CheckIcon } from 'primeng/icons/check';
-import { MinusIcon } from 'primeng/icons/minus';
-import { Nullable } from 'primeng/ts-helpers';
-import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'primeng/types/checkbox';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { CheckIcon } from 'voxx-ui/icons/check';
+import { MinusIcon } from 'voxx-ui/icons/minus';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'voxx-ui/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 
 const CHECKBOX_INSTANCE = new InjectionToken<Checkbox>('CHECKBOX_INSTANCE');
@@ -47,7 +47,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-checkbox, p-checkBox, p-check-box',
+    selector: 'vx-checkbox, vx-checkBox, vx-check-box',
     standalone: true,
     imports: [CommonModule, SharedModule, CheckIcon, MinusIcon, BindModule],
     template: `
@@ -66,18 +66,18 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [style]="inputStyle"
             [class]="cn(cx('input'), inputClass)"
-            [pBind]="ptm('input')"
+            [vxBind]="ptm('input')"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="handleChange($event)"
         />
-        <div [class]="cx('box')" [pBind]="ptm('box')" [attr.data-p]="dataP">
+        <div [class]="cx('box')" [vxBind]="ptm('box')" [attr.data-p]="dataP">
             <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
                 <ng-container *ngIf="checked">
-                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [pBind]="ptm('icon')" [attr.data-p]="dataP"></span>
-                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP" />
+                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
+                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
                 </ng-container>
-                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [pBind]="ptm('icon')" [attr.data-p]="dataP" />
+                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
             </ng-container>
             <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
         </div>

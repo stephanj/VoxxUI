@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'life-doc',
@@ -14,9 +14,9 @@ import { ButtonModule } from 'primeng/button';
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
-            <p-toast [life]="10000" />
-            <p-button (click)="showLife()" label="Show Life" />
-            <p-button (click)="showLifeLong()" label="Show Life Long" />
+            <vx-toast [life]="10000" />
+            <vx-button (click)="showLife()" label="Show Life" />
+            <vx-button (click)="showLifeLong()" label="Show Life Long" />
         </div>
         <app-code></app-code>
     `,

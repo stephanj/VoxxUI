@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { AvatarGroupModule } from 'voxx-ui/avatargroup';
 
 @Component({
     selector: 'avatar-pt-viewer',
@@ -11,11 +11,11 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-8">
-                <p-avatargroup>
-                    <p-avatar label="P" size="xlarge" shape="circle"></p-avatar>
-                    <p-avatar icon="pi pi-user" size="xlarge" shape="circle"></p-avatar>
-                    <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" styleClass="flex items-center justify-center" size="xlarge" shape="circle"></p-avatar>
-                </p-avatargroup>
+                <vx-avatargroup>
+                    <vx-avatar label="P" size="xlarge" shape="circle"></vx-avatar>
+                    <vx-avatar icon="pi pi-user" size="xlarge" shape="circle"></vx-avatar>
+                    <vx-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" styleClass="flex items-center justify-center" size="xlarge" shape="circle"></vx-avatar>
+                </vx-avatargroup>
             </div>
         </app-docptviewer>
     `

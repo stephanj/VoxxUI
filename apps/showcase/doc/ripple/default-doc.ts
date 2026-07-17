@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'voxx-ui/ripple';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <span class="mx-1 h-8 w-8 rounded-border inline-flex items-center justify-center bg-primary text-primary-contrast"><i class="pi pi-palette"></i></span>
                 configurator needs to be turned on for the demo.</span
             >
-            <div pRipple class="ripple-box">Default</div>
+            <div vxRipple class="ripple-box">Default</div>
         </div>
         <app-code></app-code>
     `,

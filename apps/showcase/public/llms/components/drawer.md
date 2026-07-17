@@ -12,19 +12,19 @@ Drawer is used as a container and visibility is controlled with a binding to vis
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'voxx-ui/button';
+import { DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-drawer [(visible)]="visible" header="Drawer">
+            <vx-drawer [(visible)]="visible" header="Drawer">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
-            <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+            </vx-drawer>
+            <vx-button (click)="visible = true" icon="pi pi-arrow-right" />
         </div>
     `,
     standalone: true,
@@ -41,19 +41,19 @@ Drawer can cover the whole page when fullScreen property is enabled.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'voxx-ui/button';
+import { DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
+            <vx-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
-            <p-button (click)="visible = true" icon="pi pi-window-maximize" />
+            </vx-drawer>
+            <vx-button (click)="visible = true" icon="pi pi-window-maximize" />
         </div>
     `,
     standalone: true,
@@ -70,15 +70,15 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { Drawer, DrawerModule } from 'primeng/drawer';
-import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { ButtonModule } from 'voxx-ui/button';
+import { Drawer, DrawerModule } from 'voxx-ui/drawer';
+import { RippleModule } from 'voxx-ui/ripple';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-drawer #drawerRef [(visible)]="visible">
+            <vx-drawer #drawerRef [(visible)]="visible">
                 <ng-template #headless>
                     <div class="flex flex-col h-full">
                         <div class="flex items-center justify-between px-6 pt-4 shrink-0">
@@ -115,7 +115,7 @@ import { RippleModule } from 'primeng/ripple';
                                 <span class="font-semibold text-2xl text-primary">Your Logo</span>
                             </span>
                             <span>
-                                <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
+                                <vx-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></vx-button>
                             </span>
                         </div>
                         <div class="overflow-y-auto">
@@ -272,14 +272,14 @@ import { RippleModule } from 'primeng/ripple';
                         <div class="mt-auto">
                             <hr class="mb-4 mx-4 border-t border-0 border-surface" />
                             <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
                         </div>
                     </div>
                 </ng-template>
-            </p-drawer>
-            <p-button (click)="visible = true" icon="pi pi-bars" />
+            </vx-drawer>
+            <vx-button (click)="visible = true" icon="pi pi-bars" />
         </div>
     `,
     standalone: true,
@@ -300,41 +300,41 @@ Drawer location is configured with the position property that can take left , ri
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Drawer, DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'voxx-ui/button';
+import { Drawer, DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
         <div class="card">
-            <p-drawer header="Left Drawer" [(visible)]="visible1" position="left">
+            <vx-drawer header="Left Drawer" [(visible)]="visible1" position="left">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
-            <p-drawer header="Right Drawer" [(visible)]="visible2" position="right">
+            </vx-drawer>
+            <vx-drawer header="Right Drawer" [(visible)]="visible2" position="right">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
-            <p-drawer header="Top Drawer" [(visible)]="visible3" position="top" [style]="{ height: 'auto' }">
+            </vx-drawer>
+            <vx-drawer header="Top Drawer" [(visible)]="visible3" position="top" [style]="{ height: 'auto' }">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
-            <p-drawer header="Bottom Drawer" [(visible)]="visible4" position="bottom" [style]="{ height: 'auto' }">
+            </vx-drawer>
+            <vx-drawer header="Bottom Drawer" [(visible)]="visible4" position="bottom" [style]="{ height: 'auto' }">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
+            </vx-drawer>
             <div class="flex gap-2 justify-center">
-                <p-button type="button" (click)="visible1 = true" icon="pi pi-arrow-right" />
-                <p-button type="button" (click)="visible2 = true" icon="pi pi-arrow-left" />
-                <p-button type="button" (click)="visible3 = true" icon="pi pi-arrow-down" />
-                <p-button type="button" (click)="visible4 = true" icon="pi pi-arrow-up" />
+                <vx-button type="button" (click)="visible1 = true" icon="pi pi-arrow-right" />
+                <vx-button type="button" (click)="visible2 = true" icon="pi pi-arrow-left" />
+                <vx-button type="button" (click)="visible3 = true" icon="pi pi-arrow-down" />
+                <vx-button type="button" (click)="visible4 = true" icon="pi pi-arrow-up" />
             </div>
         </div>
     `,
@@ -355,19 +355,19 @@ Drawer dimension can be defined with style or class properties, this responsive 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'voxx-ui/button';
+import { DrawerModule } from 'voxx-ui/drawer';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
+            <vx-drawer header="Drawer" [(visible)]="visible" styleClass="!w-full md:!w-80 lg:!w-[30rem]">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-drawer>
-            <p-button (click)="visible = true" icon="pi pi-arrow-right" />
+            </vx-drawer>
+            <vx-button (click)="visible = true" icon="pi pi-arrow-right" />
         </div>
     `,
     standalone: true,
@@ -384,17 +384,17 @@ Drawer is customizable by header , content , footer templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { DrawerModule } from 'voxx-ui/drawer';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-drawer [(visible)]="visible" [closable]="false">
+            <vx-drawer [(visible)]="visible" [closable]="false">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -408,7 +408,7 @@ import { ButtonModule } from 'primeng/button';
                         <button pButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
                     </div>
                 </ng-template>
-            </p-drawer>
+            </vx-drawer>
             <button pButton (click)="visible = true" icon="pi pi-plus"></button>
         </div>
     `,

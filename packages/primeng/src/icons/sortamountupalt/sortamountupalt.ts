@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { BaseIcon } from 'primeng/icons/baseicon';
+import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
     selector: '[data-p-icon="sort-amount-up-alt"]',

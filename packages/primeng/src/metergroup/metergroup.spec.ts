@@ -2,13 +2,13 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MeterItem } from 'primeng/types/metergroup';
+import { MeterItem } from 'voxx-ui/types/metergroup';
 import { MeterGroup, MeterGroupLabel, MeterGroupModule } from './metergroup';
 
 @Component({
     standalone: false,
     selector: 'test-basic-metergroup',
-    template: `<p-metergroup [value]="value" [min]="min" [max]="max"></p-metergroup>`
+    template: `<vx-metergroup [value]="value" [min]="min" [max]="max"></vx-metergroup>`
 })
 class TestBasicMeterGroupComponent {
     value: MeterItem[] = [
@@ -24,7 +24,7 @@ class TestBasicMeterGroupComponent {
 @Component({
     standalone: false,
     selector: 'test-metergroup-orientations',
-    template: ` <p-metergroup [value]="value" [orientation]="orientation" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation"> </p-metergroup> `
+    template: ` <vx-metergroup [value]="value" [orientation]="orientation" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation"> </vx-metergroup> `
 })
 class TestMeterGroupOrientationsComponent {
     value: MeterItem[] = [
@@ -40,7 +40,7 @@ class TestMeterGroupOrientationsComponent {
     standalone: false,
     selector: 'test-metergroup-templates',
     template: `
-        <p-metergroup [value]="value">
+        <vx-metergroup [value]="value">
             <ng-template #label let-value let-totalPercent="totalPercent">
                 <div class="custom-label">
                     <span>Total: {{ totalPercent }}%</span>
@@ -60,7 +60,7 @@ class TestMeterGroupOrientationsComponent {
             <ng-template #icon let-item>
                 <i class="custom-icon">{{ item.label[0] }}</i>
             </ng-template>
-        </p-metergroup>
+        </vx-metergroup>
     `
 })
 class TestMeterGroupTemplatesComponent {
@@ -73,7 +73,7 @@ class TestMeterGroupTemplatesComponent {
 @Component({
     standalone: false,
     selector: 'test-metergroup-with-icons',
-    template: ` <p-metergroup [value]="value" [min]="min" [max]="max"> </p-metergroup> `
+    template: ` <vx-metergroup [value]="value" [min]="min" [max]="max"> </vx-metergroup> `
 })
 class TestMeterGroupWithIconsComponent {
     value: MeterItem[] = [
@@ -88,7 +88,7 @@ class TestMeterGroupWithIconsComponent {
 @Component({
     standalone: false,
     selector: 'test-metergroup-empty',
-    template: `<p-metergroup [value]="value"></p-metergroup>`
+    template: `<vx-metergroup [value]="value"></vx-metergroup>`
 })
 class TestMeterGroupEmptyComponent {
     value: MeterItem[] = [];
@@ -97,7 +97,7 @@ class TestMeterGroupEmptyComponent {
 @Component({
     standalone: false,
     selector: 'test-metergroup-dynamic',
-    template: ` <p-metergroup [value]="value" [min]="min" [max]="max" [styleClass]="styleClass"> </p-metergroup> `
+    template: ` <vx-metergroup [value]="value" [min]="min" [max]="max" [styleClass]="styleClass"> </vx-metergroup> `
 })
 class TestMeterGroupDynamicComponent {
     value: MeterItem[] = [{ label: 'Dynamic 1', value: 10, color: '#ff6b6b' }];

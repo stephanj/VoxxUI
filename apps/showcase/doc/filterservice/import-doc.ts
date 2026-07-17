@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FilterService } from 'primeng/api';`
+        typescript: `import { FilterService } from 'voxx-ui/api';`
     };
 }

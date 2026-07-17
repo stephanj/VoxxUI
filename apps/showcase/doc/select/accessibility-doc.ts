@@ -177,8 +177,8 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="dd1">Options</span>
-<p-select ariaLabelledBy="dd1"/>
+<vx-select ariaLabelledBy="dd1"/>
 
-<p-select ariaLabel="Options"/>`
+<vx-select ariaLabel="Options"/>`
     };
 }

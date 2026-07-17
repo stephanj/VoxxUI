@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -17,14 +17,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-4">
-            <p-iconfield>
-                <p-inputicon class="pi pi-search" />
-                <input type="text" pInputText placeholder="Search" />
-            </p-iconfield>
-            <p-iconfield>
-                <input type="text" pInputText />
-                <p-inputicon class="pi pi-spinner pi-spin" />
-            </p-iconfield>
+            <vx-iconfield>
+                <vx-inputicon class="pi pi-search" />
+                <input type="text" vxInputText placeholder="Search" />
+            </vx-iconfield>
+            <vx-iconfield>
+                <input type="text" vxInputText />
+                <vx-inputicon class="pi pi-spinner pi-spin" />
+            </vx-iconfield>
         </div>
         <app-code></app-code>
     `

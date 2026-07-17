@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FluidModule } from 'primeng/fluid';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { FluidModule } from 'voxx-ui/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -13,24 +13,24 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext>
             <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="mile">Mile</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
+                <vx-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="percent">Percent</label>
-                <p-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
+                <vx-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="expiry">Expiry</label>
-                <p-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
+                <vx-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="temperature">Temperature</label>
-                <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
+                <vx-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
             </div>
-        </p-fluid>
+        </vx-fluid>
         <app-code></app-code>
     `
 })

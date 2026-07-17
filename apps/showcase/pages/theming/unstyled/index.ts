@@ -7,7 +7,7 @@ import { VoltUIDoc } from '@/doc/theming/unstyled/voltui-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Unstyled Mode" header="Unstyled" description="Theming PrimeNG with alternative styling approaches." [docs]="docs" docType="page"></app-doc>`,
+    template: `<app-doc docTitle="Unstyled Mode" header="Unstyled" description="Theming VoxxUI with alternative styling approaches." [docs]="docs" docType="page"></app-doc>`,
     imports: [AppDoc],
     standalone: true
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -14,8 +14,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-iconfield iconPosition="left">
-                <p-inputicon>
+            <vx-iconfield iconPosition="left">
+                <vx-inputicon>
                     <svg width="14" height="16" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                         <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -45,9 +45,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
-                </p-inputicon>
-                <input type="text" pInputText placeholder="Search" />
-            </p-iconfield>
+                </vx-inputicon>
+                <input type="text" vxInputText placeholder="Search" />
+            </vx-iconfield>
         </div>
         <app-code></app-code>
     `

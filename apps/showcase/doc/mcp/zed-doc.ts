@@ -22,7 +22,7 @@ export class ZedDoc {
         "primeng": {
             "command": {
                 "path": "npx",
-                "args": ["-y", "@primeng/mcp"]
+                "args": ["-y", "@voxxui/mcp"]
             }
         }
     }

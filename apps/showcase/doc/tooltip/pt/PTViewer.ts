@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'voxx-ui/button';
+import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
     selector: 'tooltip-pt-viewer',
@@ -10,7 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
     imports: [CommonModule, AppDocPtViewer, ButtonModule, TooltipModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-button pTooltip="Confirm to proceed" [hideDelay]="300000" severity="secondary" label="Tooltip" />
+            <vx-button vxTooltip="Confirm to proceed" [hideDelay]="300000" severity="secondary" label="Tooltip" />
         </app-docptviewer>
     `
 })

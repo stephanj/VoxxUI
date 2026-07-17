@@ -13,12 +13,12 @@ Two-way binding is defined using the standard ngModel directive.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" class="w-56" />
+            <vx-slider [(ngModel)]="value" class="w-56" />
         </div>
     `,
     standalone: true,
@@ -36,16 +36,16 @@ Image filter implementation using multiple sliders.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col items-center">
                 <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
-                <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
-                <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+                <vx-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
+                <vx-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
             </div>
         </div>
     `,
@@ -66,15 +66,15 @@ Slider is connected to an input field using two-way binding.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-import { InputTextModule } from 'primeng/inputtext';
+import { SliderModule } from 'voxx-ui/slider';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div>
                 <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
-                <p-slider [(ngModel)]="value" class="w-full" />
+                <vx-slider [(ngModel)]="value" class="w-full" />
             </div>
         </div>
     `,
@@ -93,12 +93,12 @@ When range property is present, slider provides two handles to define two values
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
+            <vx-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
         </div>
     `,
     standalone: true,
@@ -116,21 +116,21 @@ Slider can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { SliderModule } from 'primeng/slider';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'voxx-ui/message';
+import { SliderModule } from 'voxx-ui/slider';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-4">
-                    <p-slider formControlName="value" styleClass="w-56" />
+                    <vx-slider formControlName="value" styleClass="w-56" />
                     @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Must be greater than 25.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -174,12 +174,12 @@ Size of each movement is defined with the step property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
+            <vx-slider [(ngModel)]="value" [step]="20" class="w-56" />
         </div>
     `,
     standalone: true,
@@ -195,21 +195,21 @@ export class SliderStepDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { SliderModule } from 'primeng/slider';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'voxx-ui/message';
+import { SliderModule } from 'voxx-ui/slider';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4">
                 <div class="flex flex-col gap-4">
-                    <p-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
+                    <vx-slider #model="ngModel" [(ngModel)]="value" class="w-56" required [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="slider" />
                     @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Must be greater than 25.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Must be greater than 25.</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -239,12 +239,12 @@ Default layout of slider is horizontal , use orientation property for the altern
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'voxx-ui/slider';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
+            <vx-slider [(ngModel)]="value" orientation="vertical" class="h-56" />
         </div>
     `,
     standalone: true,

@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'voxx-ui/checkbox';
 
 @Component({
     selector: 'checkbox-pt-viewer',
@@ -10,7 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     imports: [CommonModule, AppDocPtViewer, CheckboxModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" />
+            <vx-checkbox [(ngModel)]="checked" [binary]="true" />
         </app-docptviewer>
     `
 })

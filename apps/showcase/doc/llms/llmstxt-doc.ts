@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'llmstxt-doc',
@@ -9,11 +9,11 @@ import { ButtonModule } from 'primeng/button';
     template: `
         <app-docsectiontext>
             <p>
-                The <a href="https://llmstxt.org/" target="_blank" rel="noopener noreferrer">llms.txt</a> file is an industry standard that helps AI models better understand and navigate the PrimeNG documentation. It lists key pages in a structured
+                The <a href="https://llmstxt.org/" target="_blank" rel="noopener noreferrer">llms.txt</a> file is an industry standard that helps AI models better understand and navigate the VoxxUI documentation. It lists key pages in a structured
                 format, making it easier for LLMs to retrieve relevant information.
             </p>
             <a href="/llms/llms.txt" target="_blank">
-                <p-button label="Open llms.txt" />
+                <vx-button label="Open llms.txt" />
             </a>
         </app-docsectiontext>
     `

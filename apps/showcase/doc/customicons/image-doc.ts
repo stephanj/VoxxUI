@@ -16,10 +16,10 @@ import { Component } from '@angular/core';
 })
 export class ImageDoc {
     code: Code = {
-        html: `<p-select>
+        html: `<vx-select>
     <ng-template #dropdownicon>
         <img alt="dropdown icon" src="/assets/icons/arrow_down.png">
     </ng-template>
-</p-select>`
+</vx-select>`
     };
 }

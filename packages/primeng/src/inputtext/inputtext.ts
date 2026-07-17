@@ -1,10 +1,10 @@
 import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseModelHolder } from 'primeng/basemodelholder';
-import { Bind } from 'primeng/bind';
-import { Fluid } from 'primeng/fluid';
-import { InputTextPassThrough } from 'primeng/types/inputtext';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseModelHolder } from 'voxx-ui/basemodelholder';
+import { Bind } from 'voxx-ui/bind';
+import { Fluid } from 'voxx-ui/fluid';
+import { InputTextPassThrough } from 'voxx-ui/types/inputtext';
 import { InputTextStyle } from './style/inputtextstyle';
 
 const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
@@ -14,7 +14,7 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
  * @group Components
  */
 @Directive({
-    selector: '[pInputText]',
+    selector: '[vxInputText]',
     standalone: true,
     host: {
         '[class]': "cx('root')",
@@ -31,7 +31,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
     /**
      * Used to pass attributes to DOM elements inside the InputText component.
      * @defaultValue undefined
-     * @deprecated use pInputTextPT instead.
+     * @deprecated use vxInputTextPT instead.
      * @group Props
      */
     ptInputText = input<InputTextPassThrough>();
@@ -40,13 +40,13 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    pInputTextPT = input<InputTextPassThrough>();
+    vxInputTextPT = input<InputTextPassThrough>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pInputTextUnstyled = input<boolean | undefined>();
+    vxInputTextUnstyled = input<boolean | undefined>();
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
@@ -60,7 +60,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('pSize') pSize: 'large' | 'small' | undefined;
+    @Input('vxSize') vxSize: 'large' | 'small' | undefined;
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -87,12 +87,12 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptInputText() || this.pInputTextPT();
+            const pt = this.ptInputText() || this.vxInputTextPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pInputTextUnstyled() && this.directiveUnstyled.set(this.pInputTextUnstyled());
+            this.vxInputTextUnstyled() && this.directiveUnstyled.set(this.vxInputTextUnstyled());
         });
     }
 
@@ -123,7 +123,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
             invalid: this.invalid(),
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            [this.pSize as string]: this.pSize
+            [this.vxSize as string]: this.vxSize
         });
     }
 }

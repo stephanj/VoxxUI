@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
 
 @Component({
     selector: 'progressbar-pt-viewer',
@@ -10,7 +10,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">
-                <p-progressbar [value]="50"></p-progressbar>
+                <vx-progressbar [value]="50"></vx-progressbar>
             </div>
         </app-docptviewer>
     `

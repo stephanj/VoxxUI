@@ -12,12 +12,12 @@ OrganizationChart requires a collection of TreeNode instances as a value .
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center overflow-x-auto">
-            <p-organization-chart [value]="data" />
+            <vx-organization-chart [value]="data" />
         </div>
     `,
     standalone: true,
@@ -32,7 +32,7 @@ export class OrganizationchartBasicDemo {
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
@@ -40,7 +40,7 @@ import { TreeNode } from 'primeng/api';
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
         <div class="card overflow-x-auto">
-            <p-organization-chart [value]="data" [collapsible]="true">
+            <vx-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="flex flex-col">
                         <div class="flex flex-col items-center">
@@ -50,7 +50,7 @@ import { TreeNode } from 'primeng/api';
                         </div>
                     </div>
                 </ng-template>
-            </p-organization-chart>
+            </vx-organization-chart>
         </div>
     `,
     standalone: true,
@@ -65,7 +65,7 @@ export class OrganizationchartColored.Demo {
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
@@ -75,7 +75,7 @@ import { TreeNode } from 'primeng/api';
             </p></app-docsectiontext
         >
         <div class="card flex justify-center overflow-x-auto">
-            <p-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
+            <vx-organization-chart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="flex flex-col">
                         <div class="flex flex-col items-center">
@@ -85,7 +85,7 @@ import { TreeNode } from 'primeng/api';
                         </div>
                     </div>
                 </ng-template>
-            </p-organization-chart>
+            </vx-organization-chart>
         </div>
     `,
     standalone: true,
@@ -103,19 +103,19 @@ Custom content instead of a node label is defined using the pTemplate property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card overflow-x-auto">
-            <p-organization-chart [value]="data" [collapsible]="true">
+            <vx-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
                     <div class="flex flex-col items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
                         <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
                     </div>
                 </ng-template>
-            </p-organization-chart>
+            </vx-organization-chart>
         </div>
     `,
     standalone: true,

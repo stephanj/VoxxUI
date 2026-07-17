@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'voxx-ui/button';
+import { CardModule } from 'voxx-ui/card';
 
 @Component({
     selector: 'card-pt-viewer',
@@ -10,7 +10,7 @@ import { CardModule } from 'primeng/card';
     imports: [CommonModule, AppDocPtViewer, CardModule, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-card [style]="{ width: '25rem' }">
+            <vx-card [style]="{ width: '25rem' }">
                 <ng-template #title>Advanced Card</ng-template>
                 <ng-template #subtitle>Card subtitle</ng-template>
                 <p class="m-0">
@@ -19,11 +19,11 @@ import { CardModule } from 'primeng/card';
                 </p>
                 <ng-template #footer>
                     <div class="flex gap-4 mt-1">
-                        <button pButton label="Cancel" severity="secondary" [outlined]="true" class="w-full"></button>
-                        <button pButton label="Save" class="w-full"></button>
+                        <button vxButton label="Cancel" severity="secondary" [outlined]="true" class="w-full"></button>
+                        <button vxButton label="Save" class="w-full"></button>
                     </div>
                 </ng-template>
-            </p-card>
+            </vx-card>
         </app-docptviewer>
     `
 })

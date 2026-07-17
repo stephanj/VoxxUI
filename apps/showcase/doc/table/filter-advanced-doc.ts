@@ -6,16 +6,16 @@ import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SelectModule } from 'primeng/select';
-import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { SelectModule } from 'voxx-ui/select';
+import { SliderModule } from 'voxx-ui/slider';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'filter-advanced-doc',
@@ -24,18 +24,18 @@ import { TagModule } from 'primeng/tag';
     template: ` <app-docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
+                <vx-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
                     <ng-template #caption>
                         <div class="flex">
-                            <p-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
-                            <p-iconfield iconPosition="left" class="ml-auto">
-                                <p-inputicon>
+                            <vx-button label="Clear" [outlined]="true" icon="pi pi-filter-slash" (click)="clear(dt1)" />
+                            <vx-iconfield iconPosition="left" class="ml-auto">
+                                <vx-inputicon>
                                     <i class="pi pi-search"></i>
-                                </p-inputicon>
-                                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                            </p-iconfield>
+                                </vx-inputicon>
+                                <input vxInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                            </vx-iconfield>
                         </div>
                     </ng-template>
                     <ng-template #header>
@@ -43,76 +43,76 @@ import { TagModule } from 'primeng/tag';
                             <th style="min-width:15rem">
                                 <div class="flex items-center justify-between">
                                     Name
-                                    <p-columnFilter type="text" field="name" display="menu" />
+                                    <vx-columnFilter type="text" field="name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
                                 <div class="flex items-center justify-between">
                                     Country
-                                    <p-columnFilter type="text" field="country.name" display="menu" />
+                                    <vx-columnFilter type="text" field="country.name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
                                 <div class="flex items-center justify-between">
                                     Agent
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <vx-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-multiselect [(ngModel)]="value" [options]="representatives()" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
+                                            <vx-multiselect [(ngModel)]="value" [options]="representatives()" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                                 <ng-template let-option #item>
                                                     <div class="flex items-center gap-2">
                                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                         <span>{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
-                                            </p-multiselect>
+                                            </vx-multiselect>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </vx-columnFilter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Date
-                                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                                    <vx-columnFilter type="date" field="date" display="menu"></vx-columnFilter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Balance
-                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
+                                    <vx-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Status
-                                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                                    <vx-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-select [(ngModel)]="value" [options]="statuses()" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
+                                            <vx-select [(ngModel)]="value" [options]="statuses()" (onChange)="filter($event.value)" placeholder="Select One" class="w-full">
                                                 <ng-template let-option #item>
-                                                    <p-tag [value]="option.value" [severity]="getSeverity(option.value)"></p-tag>
+                                                    <vx-tag [value]="option.value" [severity]="getSeverity(option.value)"></vx-tag>
                                                 </ng-template>
-                                            </p-select>
+                                            </vx-select>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </vx-columnFilter>
                                 </div>
                             </th>
                             <th style="min-width:10rem">
                                 <div class="flex items-center justify-between">
                                     Activity
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                                    <vx-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
+                                            <vx-slider [(ngModel)]="value" [range]="true" class="m-4" (onSlideEnd)="filter($event.values)" />
                                             <div class="flex items-center px-2">
                                                 <span *ngIf="!value">0</span>
                                                 <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                             </div>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </vx-columnFilter>
                                 </div>
                             </th>
                             <th style="width: 3rem">
                                 <div class="flex items-center justify-between">
                                     Verified
-                                    <p-columnFilter type="boolean" field="verified" display="menu" />
+                                    <vx-columnFilter type="boolean" field="verified" display="menu" />
                                 </div>
                             </th>
                         </tr>
@@ -141,10 +141,10 @@ import { TagModule } from 'primeng/tag';
                                 {{ customer.balance | currency: 'USD' : 'symbol' }}
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                                <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
-                                <p-progressbar [value]="customer.activity" [showValue]="false" />
+                                <vx-progressbar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td class="text-center">
                                 <i
@@ -162,9 +162,9 @@ import { TagModule } from 'primeng/tag';
                             <td colspan="7">No customers found.</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

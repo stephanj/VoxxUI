@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'voxx-ui/inputgroup';
+import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { SelectModule } from 'voxx-ui/select';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -21,30 +21,30 @@ interface City {
             <p>A group is created by wrapping the input and add-ons with the <i>p-inputgroup</i> component. Each add-on element is defined as a child of <i>p-inputgroup-addon</i> component.</p>
         </app-docsectiontext>
         <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text1" placeholder="Username" />
-            </p-inputgroup>
+                </vx-inputgroup-addon>
+                <input vxInputText [(ngModel)]="text1" placeholder="Username" />
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputnumber [(ngModel)]="number" placeholder="Price" />
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>$</vx-inputgroup-addon>
+                <vx-inputnumber [(ngModel)]="number" placeholder="Price" />
+                <vx-inputgroup-addon>.00</vx-inputgroup-addon>
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text2" placeholder="Website" />
-            </p-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>www</vx-inputgroup-addon>
+                <input vxInputText [(ngModel)]="text2" placeholder="Website" />
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-map"></i>
-                </p-inputgroup-addon>
-                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
-            </p-inputgroup>
+                </vx-inputgroup-addon>
+                <vx-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
+            </vx-inputgroup>
         </div>
         <app-code></app-code>
     `

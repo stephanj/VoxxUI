@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'icon-doc',
@@ -12,13 +12,13 @@ import { TagModule } from 'primeng/tag';
             <p>A font icon next to the value can be displayed with the <i>icon</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-2">
-            <p-tag icon="pi pi-user" value="Primary" />
-            <p-tag icon="pi pi-search" severity="secondary" value="Secondary" />
-            <p-tag icon="pi pi-check" severity="success" value="Success" />
-            <p-tag icon="pi pi-info-circle" severity="info" value="Info" />
-            <p-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
-            <p-tag icon="pi pi-times" severity="danger" value="Danger" />
-            <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
+            <vx-tag icon="pi pi-user" value="Primary" />
+            <vx-tag icon="pi pi-search" severity="secondary" value="Secondary" />
+            <vx-tag icon="pi pi-check" severity="success" value="Success" />
+            <vx-tag icon="pi pi-info-circle" severity="info" value="Info" />
+            <vx-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
+            <vx-tag icon="pi pi-times" severity="danger" value="Danger" />
+            <vx-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
         </div>
         <app-code></app-code>
     `

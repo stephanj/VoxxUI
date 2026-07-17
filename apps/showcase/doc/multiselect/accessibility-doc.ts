@@ -227,8 +227,8 @@ import { RouterModule } from '@angular/router';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="dd1">Options</span>
-<p-multiselect ariaLabelledBy="dd1"/>
+<vx-multiselect ariaLabelledBy="dd1"/>
 
-<p-multiselect ariaLabel="Options"/>`
+<vx-multiselect ariaLabel="Options"/>`
     };
 }

@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem } from 'voxx-ui/api';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'splitbutton-pt-viewer',
@@ -11,8 +11,8 @@ import { ToastModule } from 'primeng/toast';
     imports: [CommonModule, AppDocPtViewer, SplitButtonModule, ToastModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
+            <vx-toast />
+            <vx-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
         </app-docptviewer>
     `
 })

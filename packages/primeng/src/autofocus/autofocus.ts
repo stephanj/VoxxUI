@@ -1,14 +1,14 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, inject, Input, NgModule, PLATFORM_ID } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent } from 'voxx-ui/basecomponent';
+import { DomHandler } from 'voxx-ui/dom';
 
 /**
  * AutoFocus manages focus on focusable element on load.
  * @group Components
  */
 @Directive({
-    selector: '[pAutoFocus]',
+    selector: '[vxAutoFocus]',
     standalone: true
 })
 export class AutoFocus extends BaseComponent {
@@ -16,7 +16,7 @@ export class AutoFocus extends BaseComponent {
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input('pAutoFocus') autofocus: boolean = false;
+    @Input('vxAutoFocus') autofocus: boolean = false;
 
     focused: boolean = false;
 

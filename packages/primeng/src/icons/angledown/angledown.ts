@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseIcon } from 'primeng/icons/baseicon';
+import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
     selector: '[data-p-icon="angle-down"]',

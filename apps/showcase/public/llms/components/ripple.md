@@ -12,7 +12,7 @@ Styling Demo Content.
 
 ```typescript
 import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'voxx-ui/ripple';
 
 @Component({
     template: `
@@ -41,7 +41,7 @@ Default Demo Content.
 
 ```typescript
 import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'voxx-ui/ripple';
 
 @Component({
     template: `

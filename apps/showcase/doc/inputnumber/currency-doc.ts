@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FluidModule } from 'primeng/fluid';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { FluidModule } from 'voxx-ui/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -16,24 +16,24 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 "code".
             </p>
         </app-docsectiontext>
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-us">United States</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
+                <vx-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-germany">Germany</label>
-                <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
+                <vx-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-india">India</label>
-                <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
+                <vx-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-japan">Japan</label>
-                <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
+                <vx-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
             </div>
-        </p-fluid>
+        </vx-fluid>
         <app-code></app-code>
     `
 })

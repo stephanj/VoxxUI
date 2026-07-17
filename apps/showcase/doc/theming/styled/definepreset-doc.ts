@@ -9,7 +9,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>The <i>definePreset</i> utility is used to customize an existing preset during the PrimeNG setup. The first parameter is the preset to customize and the second is the design tokens to override.</p>
+            <p>The <i>definePreset</i> utility is used to customize an existing preset during the VoxxUI setup. The first parameter is the preset to customize and the second is the design tokens to override.</p>
         </app-docsectiontext>
         <app-code [code]="code1" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code2" [hideToggleCode]="true"></app-code>
@@ -30,12 +30,12 @@ export MyPreset;`
 
     code2: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 import MyPreset from './mypreset';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNG({
+        provideVoxxUI({
             theme: {
                 preset: MyPreset
             }

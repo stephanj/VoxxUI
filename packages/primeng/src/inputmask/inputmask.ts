@@ -52,16 +52,16 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { Nullable } from 'primeng/ts-helpers';
-import type { Caret } from 'primeng/types/inputmask';
-import { InputMaskPassThrough } from 'primeng/types/inputmask';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseInput } from 'voxx-ui/baseinput';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { TimesIcon } from 'voxx-ui/icons';
+import { InputText } from 'voxx-ui/inputtext';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import type { Caret } from 'voxx-ui/types/inputmask';
+import { InputMaskPassThrough } from 'voxx-ui/types/inputmask';
 import { InputMaskStyle } from './style/inputmaskstyle';
 
 const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');
@@ -73,7 +73,7 @@ const INPUTMASK_DIRECTIVE_INSTANCE = new InjectionToken<InputMaskDirective>('INP
  * @group Components
  */
 @Directive({
-    selector: '[pInputMask]',
+    selector: '[vxInputMask]',
     standalone: true,
     providers: [InputMaskStyle, { provide: INPUTMASK_DIRECTIVE_INSTANCE, useExisting: InputMaskDirective }, { provide: PARENT_INSTANCE, useExisting: InputMaskDirective }],
     host: {
@@ -90,20 +90,20 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    pInputMaskPT = input<any>();
+    vxInputMaskPT = input<any>();
 
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pInputMaskUnstyled = input<boolean | undefined>();
+    vxInputMaskUnstyled = input<boolean | undefined>();
 
     /**
      * Mask pattern.
      * @group Props
      */
-    pInputMask = input<string>();
+    vxInputMask = input<string>();
 
     /**
      * Placeholder character in mask, default is underscore.
@@ -175,16 +175,16 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         super();
 
         effect(() => {
-            const pt = this.pInputMaskPT();
+            const pt = this.vxInputMaskPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pInputMaskUnstyled() && this.directiveUnstyled.set(this.pInputMaskUnstyled());
+            this.vxInputMaskUnstyled() && this.directiveUnstyled.set(this.vxInputMaskUnstyled());
         });
 
         effect(() => {
-            const maskValue = this.pInputMask();
+            const maskValue = this.vxInputMask();
             if (maskValue) {
                 this.initMask();
             }
@@ -219,7 +219,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     initMask() {
-        const maskValue = this.pInputMask();
+        const maskValue = this.vxInputMask();
         if (!maskValue) {
             return;
         }
@@ -265,7 +265,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     onInputFocus(event: Event) {
-        if (this.inputElement.readOnly || !this.pInputMask()) {
+        if (this.inputElement.readOnly || !this.vxInputMask()) {
             return;
         }
 
@@ -280,7 +280,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                 return;
             }
             this.writeBuffer();
-            if (pos == this.pInputMask()?.replace('?', '').length) {
+            if (pos == this.vxInputMask()?.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
                 this.caret(pos);
@@ -289,7 +289,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     onInputBlur(e: Event) {
-        if (!this.pInputMask()) {
+        if (!this.vxInputMask()) {
             return;
         }
 
@@ -308,7 +308,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     onInputKeydown(e: KeyboardEvent) {
-        if (this.inputElement.readOnly || !this.pInputMask()) {
+        if (this.inputElement.readOnly || !this.vxInputMask()) {
             return;
         }
 
@@ -358,7 +358,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     onKeyPress(e: KeyboardEvent) {
-        if (this.inputElement.readOnly || !this.pInputMask()) {
+        if (this.inputElement.readOnly || !this.vxInputMask()) {
             return;
         }
 
@@ -414,7 +414,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     onInputChange(event: Event) {
-        if (!this.pInputMask()) {
+        if (!this.vxInputMask()) {
             return;
         }
 
@@ -428,7 +428,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     }
 
     onPaste(event: Event) {
-        if (!this.pInputMask()) {
+        if (!this.vxInputMask()) {
             return;
         }
 
@@ -690,13 +690,13 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputmask, p-inputMask, p-input-mask',
+    selector: 'vx-inputmask, vx-inputMask, vx-input-mask',
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule, BindModule],
     template: `
         <input
             #input
-            pInputText
+            vxInputText
             [pt]="ptm('pcInputText', ptmParams())"
             [unstyled]="unstyled()"
             [attr.id]="inputId"
@@ -707,7 +707,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [ngStyle]="style"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
-            [pSize]="size()"
+            [vxSize]="size()"
             [attr.size]="inputSize()"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength()"
@@ -724,14 +724,14 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
             [variant]="$variant()"
-            [pAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [fluid]="hasFluid"
         />
         <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()">
+            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear()" />
+            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear()">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
         </ng-container>

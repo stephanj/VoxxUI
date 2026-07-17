@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style } from '@primeuix/styles/orderlist';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const theme = /*css*/ `
     ${style}
 
-    /* For PrimeNG */
+    /* For VoxxUI */
     .p-orderlist-controls-right .p-orderlist-controls {
         order: 2;
     }

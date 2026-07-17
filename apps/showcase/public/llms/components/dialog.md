@@ -12,15 +12,15 @@ Dialog is used as a container and visibility is controlled with visible property
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
@@ -31,10 +31,10 @@ import { InputTextModule } from 'primeng/inputtext';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
+                    <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <vx-button label="Save" (click)="visible = false" />
                 </div>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -55,15 +55,15 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
-            <p-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
+            <vx-button (click)="showDialog()" icon="pi pi-user" label="Login" />
+            <vx-dialog maskStyleClass="backdrop-blur-sm" [(visible)]="visible" styleClass="!border-0 !bg-transparent">
                 <ng-template #headless>
                     <div class="flex flex-col px-8 py-8 gap-6 rounded-2xl" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -104,12 +104,12 @@ import { InputTextModule } from 'primeng/inputtext';
                             <input pInputText id="password" class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80" type="password" />
                         </div>
                         <div class="flex items-center gap-4">
-                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
-                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
+                            <vx-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
+                            <vx-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10" class="w-full" />
                         </div>
                     </div>
                 </ng-template>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -134,14 +134,14 @@ Dialog automatically displays a scroller when content exceeds viewport.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
                 <p class="mb-8">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -174,7 +174,7 @@ import { DialogModule } from 'primeng/dialog';
                     placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
                     recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
                 </p>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -195,19 +195,19 @@ Setting maximizable property to true enables the full screen mode.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -228,19 +228,19 @@ Mask layer behind the Dialog can be turned on by setting the modal property to t
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'voxx-ui/button';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+            <vx-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></vx-button>
+            <vx-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -262,9 +262,9 @@ When dialog includes other components with overlays such as dropdown, the overla
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -274,12 +274,12 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-            <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
+            <vx-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></vx-button>
+            <vx-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
                 <div class="flex py-2 justify-center">
-                    <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
+                    <vx-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></vx-select>
                 </div>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -312,28 +312,28 @@ The position property is used to display a Dialog at all edges and corners of th
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex flex-wrap justify-center gap-2 mb-2">
-                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2 mb-2">
-                <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40" />
             </div>
             <div class="flex flex-wrap justify-center gap-2">
-                <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
-                <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40" />
+                <vx-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40" />
             </div>
-            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
+            <vx-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
                 <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
@@ -344,10 +344,10 @@ import { InputTextModule } from 'primeng/inputtext';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
+                    <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <vx-button label="Save" (click)="visible = false" />
                 </div>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -369,19 +369,19 @@ Dialog width can be adjusted per screen size with the breakpoints option where a
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'voxx-ui/button';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -402,19 +402,19 @@ Dialog can be customized using header and footer templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
                 <ng-template #header>
                     <div class="inline-flex items-center justify-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -428,10 +428,10 @@ import { InputTextModule } from 'primeng/inputtext';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <ng-template #footer>
-                    <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
+                    <vx-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+                    <vx-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
                 </ng-template>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,
@@ -452,15 +452,15 @@ Mask layer behind the Dialog is configured with the modal property. By default, 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
@@ -471,10 +471,10 @@ import { InputTextModule } from 'primeng/inputtext';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
+                    <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <vx-button label="Save" (click)="visible = false" />
                 </div>
-            </p-dialog>
+            </vx-dialog>
         </div>
     `,
     standalone: true,

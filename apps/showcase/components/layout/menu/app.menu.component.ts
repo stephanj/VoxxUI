@@ -3,9 +3,9 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { afterNextRender, Component, computed, ElementRef, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AutoComplete } from 'primeng/autocomplete';
-import { DomHandler } from 'primeng/dom';
-import { StyleClass } from 'primeng/styleclass';
+import { AutoComplete } from 'voxx-ui/autocomplete';
+import { DomHandler } from 'voxx-ui/dom';
+import { StyleClass } from 'voxx-ui/styleclass';
 import { Subscription } from 'rxjs';
 import { AppMenuItemComponent } from './app.menuitem.component';
 

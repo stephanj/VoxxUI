@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
             <h4>PrimeUIX Themes</h4>
             <p>
                 PrimeUIX is a shared package between all Prime libraries, this shared approach allows PrimeTek teams to share theming and the Design team who is responsible for the Figma UI Kit to work on a single design file, which is the single
-                source of truth. Prior to v20, PrimeNG has its own fork in default styles and for the design tokens <i>{{ '@' }}primeng/themes</i> package is required. With v20, PrimeNG receives the styles from <i>{{ '@' }}primeuix/styles</i> under
+                source of truth. Prior to v20, VoxxUI has its own fork in default styles and for the design tokens <i>{{ '@' }}primeng/themes</i> package is required. With v20, VoxxUI receives the styles from <i>{{ '@' }}primeuix/styles</i> under
                 the hood and the design tokens as theme presets are loaded from <i>{{ '@' }}primeuix/themes</i>.
             </p>
             <p>
@@ -53,9 +53,9 @@ export class BackwardCompatibleDoc {
 
     code3: Code = {
         html: `<!-- Deprecated -->
-<p-select styleClass="mx-auto" />
+<vx-select styleClass="mx-auto" />
 
 <!-- New -->
-<p-select class="mx-auto" />`
+<vx-select class="mx-auto" />`
     };
 }

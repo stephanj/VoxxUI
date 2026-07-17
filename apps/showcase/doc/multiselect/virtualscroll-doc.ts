@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MultiSelect, MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelect, MultiSelectModule } from 'voxx-ui/multiselect';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -17,7 +17,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect
+            <vx-multiselect
                 [options]="items"
                 [showToggleAll]="true"
                 [selectAll]="selectAll"
@@ -35,7 +35,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <i class="pi pi-check" *ngIf="allSelected"></i>
                     <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
                 </ng-template>
-            </p-multiselect>
+            </vx-multiselect>
         </div>
         <app-code></app-code>
     `

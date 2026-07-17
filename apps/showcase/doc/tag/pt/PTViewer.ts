@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'tag-pt-viewer',
@@ -9,7 +9,7 @@ import { TagModule } from 'primeng/tag';
     imports: [CommonModule, AppDocPtViewer, TagModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-tag icon="pi pi-user" value="Primary"></p-tag>
+            <vx-tag icon="pi pi-user" value="Primary"></vx-tag>
         </app-docptviewer>
     `
 })

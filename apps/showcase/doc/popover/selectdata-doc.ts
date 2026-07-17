@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Popover, PopoverModule } from 'primeng/popover';
-import { ButtonModule } from 'primeng/button';
+import { Popover, PopoverModule } from 'voxx-ui/popover';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -14,9 +14,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>In this sample, data is retrieved from the content inside the popover.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
+            <vx-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
 
-            <p-popover #op>
+            <vx-popover #op>
                 <div class="flex flex-col gap-4">
                     <div>
                         <span class="font-medium block mb-2">Team Members</span>
@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         </ul>
                     </div>
                 </div>
-            </p-popover>
+            </vx-popover>
         </div>
 
         <app-code></app-code>

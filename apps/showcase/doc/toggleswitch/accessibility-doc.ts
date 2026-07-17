@@ -48,11 +48,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="switch1">Remember Me</label>
-<p-toggleswitch inputId="switch1" />
+<vx-toggleswitch inputId="switch1" />
 
 <span id="switch2">Remember Me</span>
-<p-toggleswitch ariaLabelledBy="switch2" />
+<vx-toggleswitch ariaLabelledBy="switch2" />
 
-<p-toggleswitch ariaLabel="Remember Me" />`
+<vx-toggleswitch ariaLabel="Remember Me" />`
     };
 }

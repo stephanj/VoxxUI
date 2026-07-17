@@ -3,12 +3,12 @@ import { Component, ViewChild, signal, provideZonelessChangeDetection } from '@a
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DataView } from './dataview';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'voxx-ui/paginator';
 
 @Component({
     standalone: false,
     template: `
-        <p-dataview
+        <vx-dataview
             [value]="products"
             [paginator]="paginator"
             [rows]="rows"
@@ -54,7 +54,7 @@ import { PaginatorModule } from 'primeng/paginator';
                     <div *ngFor="let item of items" class="grid-item">{{ item.name }} - {{ item.price }}</div>
                 </div>
             </ng-template>
-        </p-dataview>
+        </vx-dataview>
     `
 })
 class TestBasicDataViewComponent {
@@ -120,10 +120,10 @@ class TestBasicDataViewComponent {
 @Component({
     standalone: false,
     template: `
-        <p-dataview [value]="products">
-            <p-header>
+        <vx-dataview [value]="products">
+            <vx-header>
                 <div class="custom-header">Custom Header Content</div>
-            </p-header>
+            </vx-header>
             <ng-template #list let-items>
                 <div class="list-container">
                     <div *ngFor="let item of items" class="list-item">
@@ -131,10 +131,10 @@ class TestBasicDataViewComponent {
                     </div>
                 </div>
             </ng-template>
-            <p-footer>
+            <vx-footer>
                 <div class="custom-footer">Custom Footer Content</div>
-            </p-footer>
-        </p-dataview>
+            </vx-footer>
+        </vx-dataview>
     `
 })
 class TestHeaderFooterDataViewComponent {
@@ -147,7 +147,7 @@ class TestHeaderFooterDataViewComponent {
 @Component({
     standalone: false,
     template: `
-        <p-dataview [value]="products" [paginator]="true" [rows]="2">
+        <vx-dataview [value]="products" [paginator]="true" [rows]="2">
             <ng-template #list let-items>
                 <div class="list-container">
                     <div *ngFor="let item of items" class="list-item">
@@ -170,7 +170,7 @@ class TestHeaderFooterDataViewComponent {
             <ng-template #paginatorright>
                 <span class="paginator-right">Right Content</span>
             </ng-template>
-        </p-dataview>
+        </vx-dataview>
     `
 })
 class TestTemplatesDataViewComponent {
@@ -180,7 +180,7 @@ class TestTemplatesDataViewComponent {
 @Component({
     standalone: false,
     template: `
-        <p-dataview [value]="products()" [layout]="layout">
+        <vx-dataview [value]="products()" [layout]="layout">
             <ng-template #list let-items>
                 <div class="list-container">
                     <div *ngFor="let item of items" class="list-item">List: {{ item.name }}</div>
@@ -191,7 +191,7 @@ class TestTemplatesDataViewComponent {
                     <div *ngFor="let item of items" class="grid-item">Grid: {{ item.name }}</div>
                 </div>
             </ng-template>
-        </p-dataview>
+        </vx-dataview>
     `
 })
 class TestLayoutDataViewComponent {
@@ -648,14 +648,14 @@ describe('DataView', () => {
         });
 
         it('should render paginator when enabled', () => {
-            const paginator = fixture.debugElement.query(By.css('p-paginator'));
+            const paginator = fixture.debugElement.query(By.css('vx-paginator'));
             expect(paginator).toBeTruthy();
         });
 
         it('should render paginator at bottom by default', () => {
             const content = fixture.debugElement.query(By.css('[class*="content"]'));
             const paginator = content.nativeElement.nextElementSibling;
-            expect(paginator.tagName.toLowerCase()).toBe('p-paginator');
+            expect(paginator.tagName.toLowerCase()).toBe('vx-paginator');
         });
 
         it('should render paginator at top when position is top', async () => {
@@ -665,7 +665,7 @@ describe('DataView', () => {
 
             const content = fixture.debugElement.query(By.css('[class*="content"]'));
             const paginator = content.nativeElement.previousElementSibling;
-            expect(paginator.tagName.toLowerCase()).toBe('p-paginator');
+            expect(paginator.tagName.toLowerCase()).toBe('vx-paginator');
         });
 
         it('should render paginator at both positions when position is both', async () => {
@@ -673,7 +673,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const paginators = fixture.debugElement.queryAll(By.css('p-paginator'));
+            const paginators = fixture.debugElement.queryAll(By.css('vx-paginator'));
             expect(paginators.length).toBe(2);
         });
 
@@ -703,7 +703,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const paginator = fixture.debugElement.query(By.css('p-paginator')).componentInstance;
+            const paginator = fixture.debugElement.query(By.css('vx-paginator')).componentInstance;
             expect(paginator.rows).toBe(2);
             expect(paginator.totalRecords).toBe(5);
             expect(paginator.rowsPerPageOptions).toEqual([2, 5, 10]);
@@ -958,7 +958,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const dataviewElement = fixture.debugElement.query(By.css('p-dataview'));
+            const dataviewElement = fixture.debugElement.query(By.css('vx-dataview'));
             expect(dataviewElement.nativeElement.className).toContain('custom-dataview-class');
         });
 
@@ -1627,7 +1627,7 @@ describe('DataView', () => {
 @Component({
     standalone: false,
     template: `
-        <p-dataview
+        <vx-dataview
             #dataView
             [value]="value"
             [paginator]="paginator"
@@ -1652,7 +1652,7 @@ describe('DataView', () => {
                     <div *ngFor="let item of items" class="dynamic-grid-item">{{ item.name }} - {{ item.price }}</div>
                 </div>
             </ng-template>
-        </p-dataview>
+        </vx-dataview>
     `
 })
 class TestDynamicDataViewComponent {

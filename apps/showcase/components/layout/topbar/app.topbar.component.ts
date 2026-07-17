@@ -6,8 +6,8 @@ import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Inj
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
-import { DomHandler } from 'primeng/dom';
-import { StyleClass } from 'primeng/styleclass';
+import { DomHandler } from 'voxx-ui/dom';
+import { StyleClass } from 'voxx-ui/styleclass';
 
 @Component({
     selector: 'app-topbar',
@@ -16,7 +16,7 @@ import { StyleClass } from 'primeng/styleclass';
     template: `<div class="layout-topbar">
         <div class="layout-topbar-inner">
             <div class="layout-topbar-logo-container">
-                <a [routerLink]="['/']" class="layout-topbar-logo" aria-label="PrimeNG Logo">
+                <a [routerLink]="['/']" class="layout-topbar-logo" aria-label="VoxxUI Logo">
                     <svg width="120" height="33" viewBox="0 0 120 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             fill-rule="evenodd"
@@ -59,7 +59,7 @@ import { StyleClass } from 'primeng/styleclass';
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
                 </a>
-                <a [routerLink]="['/']" class="layout-topbar-icon" aria-label="PrimeNG Logo">
+                <a [routerLink]="['/']" class="layout-topbar-icon" aria-label="VoxxUI Logo">
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                         <mask id="mask0_1_52" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -124,7 +124,7 @@ import { StyleClass } from 'primeng/styleclass';
                         enterFromClass="hidden"
                         leaveActiveClass="px-overlay-leave-active"
                         leaveToClass="hidden"
-                        pStyleClass="@next"
+                        vxStyleClass="@next"
                         [hideOnOutsideClick]="true"
                     >
                         <i class="pi pi-palette"></i>
@@ -143,7 +143,7 @@ import { StyleClass } from 'primeng/styleclass';
                 </li>
                 <li>
                     <button
-                        pStyleClass="@next"
+                        vxStyleClass="@next"
                         enterFromClass="hidden"
                         enterActiveClass="px-overlay-enter-active"
                         leaveToClass="hidden"

@@ -2,11 +2,11 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { MenuModule } from 'primeng/menu';
-import { Ripple } from 'primeng/ripple';
+import { MenuItem } from 'voxx-ui/api';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { BadgeModule } from 'voxx-ui/badge';
+import { MenuModule } from 'voxx-ui/menu';
+import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
     selector: 'template-doc',
@@ -20,7 +20,7 @@ import { Ripple } from 'primeng/ripple';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
+            <vx-menu [model]="items" class="flex justify-center" styleClass="w-full md:w-60">
                 <ng-template #start>
                     <span class="inline-flex items-center gap-1 px-2 py-2">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
@@ -59,23 +59,23 @@ import { Ripple } from 'primeng/ripple';
                     <span class="text-primary font-bold">{{ item.label }}</span>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a pRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
+                    <a vxRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
                 <ng-template #end>
-                    <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                    <button vxRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
                         </span>
                     </button>
                 </ng-template>
-            </p-menu>
+            </vx-menu>
         </div>
         <app-code></app-code>
     `

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 @Component({
     selector: 'animations-doc',
@@ -16,7 +16,7 @@ import { SelectModule } from 'primeng/select';
             <p>The plugin also adds extended animation utilities that can be used with the <a routerLink="/styleclass">styleclass</a> and <a routerLink="/animateonscroll">animateonscroll</a> directives.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
+            <vx-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
             <div class="py-8 overflow-hidden">
                 <div [ngClass]="dynamicAnimationClasses"></div>
             </div>
@@ -434,7 +434,7 @@ export class AnimationsDoc implements OnInit {
     }
 
     code: Code = {
-        html: `<p-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
+        html: `<vx-select [(ngModel)]="animation" [options]="animations" placeholder="Select One" class="w-full sm:w-44" />
 <div class="py-8 overflow-hidden">
    <div [ngClass]="dynamicAnimationClasses"></div>
 </div>`

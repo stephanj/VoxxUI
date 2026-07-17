@@ -1,15 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
-import { TooltipOptions } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
-import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
-import { ZIndexUtils } from 'primeng/utils';
+import { TooltipOptions } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BindModule } from 'voxx-ui/bind';
+import { ConnectedOverlayScrollHandler } from 'voxx-ui/dom';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { TooltipPassThroughOptions } from 'voxx-ui/types/tooltip';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import type { TooltipPassThrough } from 'primeng/types/tooltip';
+import type { TooltipPassThrough } from 'voxx-ui/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 
@@ -18,7 +18,7 @@ const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
  * @group Components
  */
 @Directive({
-    selector: '[pTooltip]',
+    selector: '[vxTooltip]',
     standalone: true,
     providers: [TooltipStyle, { provide: TOOLTIP_INSTANCE, useExisting: Tooltip }, { provide: PARENT_INSTANCE, useExisting: Tooltip }]
 })
@@ -106,7 +106,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * Content of the tooltip.
      * @group Props
      */
-    @Input('pTooltip') content: string | TemplateRef<HTMLElement> | undefined;
+    @Input('vxTooltip') content: string | TemplateRef<HTMLElement> | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @defaultValue false
@@ -201,7 +201,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     /**
      * Used to pass attributes to DOM elements inside the Tooltip component.
      * @defaultValue undefined
-     * @deprecated use pTooltipPT instead.
+     * @deprecated use vxTooltipPT instead.
      * @group Props
      */
     ptTooltip = input<TooltipPassThrough | undefined>();
@@ -210,13 +210,13 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * @defaultValue undefined
      * @group Props
      */
-    pTooltipPT = input<TooltipPassThrough | undefined>();
+    vxTooltipPT = input<TooltipPassThrough | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pTooltipUnstyled = input<boolean | undefined>();
+    vxTooltipUnstyled = input<boolean | undefined>();
 
     constructor(
         public zone: NgZone,
@@ -224,12 +224,12 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     ) {
         super();
         effect(() => {
-            const pt = this.ptTooltip() || this.pTooltipPT();
+            const pt = this.ptTooltip() || this.vxTooltipPT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pTooltipUnstyled() && this.directiveUnstyled.set(this.pTooltipUnstyled());
+            this.vxTooltipUnstyled() && this.directiveUnstyled.set(this.vxTooltipUnstyled());
         });
     }
 
@@ -553,9 +553,9 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         this.create();
 
         const nativeElement = this.el.nativeElement;
-        const pDialogWrapper = nativeElement.closest('p-dialog');
+        const vxDialogWrapper = nativeElement.closest('p-dialog');
 
-        if (pDialogWrapper) {
+        if (vxDialogWrapper) {
             setTimeout(() => {
                 this.container && (this.container.style.display = 'inline-block');
                 this.container && this.align();

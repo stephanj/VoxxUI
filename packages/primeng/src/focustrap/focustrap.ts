@@ -1,14 +1,14 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, inject, Input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'voxx-ui/basecomponent';
 
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.
  * @group Components
  */
 @Directive({
-    selector: '[pFocusTrap]',
+    selector: '[vxFocusTrap]',
     standalone: true
 })
 export class FocusTrap extends BaseComponent {
@@ -16,7 +16,7 @@ export class FocusTrap extends BaseComponent {
      * When set as true, focus wouldn't be managed.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) pFocusTrapDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) vxFocusTrapDisabled: boolean = false;
 
     platformId = inject(PLATFORM_ID);
 
@@ -27,14 +27,14 @@ export class FocusTrap extends BaseComponent {
     lastHiddenFocusableElement!: HTMLElement;
 
     onInit() {
-        if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled) {
+        if (isPlatformBrowser(this.platformId) && !this.vxFocusTrapDisabled) {
             !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
         }
     }
 
     onChanges(changes: SimpleChanges) {
-        if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
-            if (changes.pFocusTrapDisabled.currentValue) {
+        if (changes.vxFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
+            if (changes.vxFocusTrapDisabled.currentValue) {
                 this.removeHiddenFocusableElements();
             } else {
                 this.createHiddenFocusableElements();

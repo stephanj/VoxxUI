@@ -12,12 +12,12 @@ ProgressBar is used with the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
 
 @Component({
     template: `
         <div class="card">
-            <p-progressbar [value]="50" />
+            <vx-progressbar [value]="50" />
         </div>
     `,
     standalone: true,
@@ -32,15 +32,15 @@ Value is reactive so updating it dynamically changes the bar as well.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-progressbar [value]="value" />
+            <vx-toast />
+            <vx-progressbar [value]="value" />
         </div>
     `,
     standalone: true,
@@ -81,13 +81,13 @@ For progresses with no value to track, set the mode property to indeterminate .
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { MessageService } from 'primeng/api';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
+            <vx-progressbar mode="indeterminate" [style]="{ height: '6px' }" />
         </div>
     `,
     standalone: true,
@@ -105,16 +105,16 @@ content template allows displaying custom content inside the progressbar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
 
 @Component({
     template: `
         <div class="card">
-            <p-progressbar [value]="50">
+            <vx-progressbar [value]="50">
                 <ng-template #content let-value>
                     <span>{{ value }}/100</span>
                 </ng-template>
-            </p-progressbar>
+            </vx-progressbar>
         </div>
     `,
     standalone: true,

@@ -147,31 +147,31 @@ export const ROUTE_FILE_DEFINITIONS: Record<string, RouteFileDefinition> = {
         content: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'voxx-ui/api';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { InfoDemo } from './infodemo';
-import { TableModule } from 'primeng/table'
-import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'voxx-ui/table'
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     providers: [DialogService, MessageService, ProductService],
     standalone: true,
     imports: [TableModule, ButtonModule],
     template: \`<div class="flex justify-end mt-1 mb-4">
-            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
+            <vx-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products" responsiveLayout="scroll" [rows]="5">
-            <ng-template pTemplate="header">
+        <vx-table [value]="products" responsiveLayout="scroll" [rows]="5">
+            <ng-template vxTemplate="header">
                 <tr>
-                    <th pSortableColumn="code">Code</th>
-                    <th pSortableColumn="name">Name</th>
-                    <th pSortableColumn="year">Image</th>
-                    <th pSortableColumn="price">Category</th>
-                    <th pSortableColumn="inventoryStatus">Quantity</th>
+                    <th vxSortableColumn="code">Code</th>
+                    <th vxSortableColumn="name">Name</th>
+                    <th vxSortableColumn="year">Image</th>
+                    <th vxSortableColumn="price">Category</th>
+                    <th vxSortableColumn="inventoryStatus">Quantity</th>
                     <th style="width:4em"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template vxTemplate="body" let-product>
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
@@ -181,11 +181,11 @@ import { ButtonModule } from 'primeng/button';
                         {{ product.quantity }}
                     </td>
                     <td>
-                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)" />
+                        <vx-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)" />
                     </td>
                 </tr>
             </ng-template>
-        </p-table>\`
+        </vx-table>\`
 })
 export class ProductListDemo implements OnInit {
     products: Product[];
@@ -231,9 +231,9 @@ export class ProductListDemo implements OnInit {
         path: 'src/app/demo/infodemo.ts',
         name: 'InfoDemo',
         content: `import { Component} from '@angular/core';
-import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialog, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     providers: [DialogService, MessageService],
@@ -244,7 +244,7 @@ import { ButtonModule } from 'primeng/button';
         There are <strong>{{ totalProducts }}</strong> products in total in this list.
     </p>
     <div class="flex justify-end">
-        <p-button type="button" label="Close" (click)="close()" />
+        <vx-button type="button" label="Close" (click)="close()" />
     </div>
 </div>\`
 })
@@ -278,8 +278,8 @@ export class InfoDemo {
         path: 'src/app/demo/footer.ts',
         name: 'Footer',
         content: `import { Component } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ButtonModule } from 'primeng/button';
+import { DynamicDialogRef } from 'voxx-ui/dynamicdialog';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
     selector: 'footer',
@@ -287,7 +287,7 @@ import { ButtonModule } from 'primeng/button';
     imports: [ButtonModule],
     template:  \`
         <div class="flex w-full justify-end mt-4">
-            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" />
+            <vx-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" />
         </div> \`
 })
 export class Footer {

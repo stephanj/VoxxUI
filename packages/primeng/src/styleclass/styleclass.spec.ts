@@ -8,7 +8,7 @@ import { StyleClass } from './styleclass';
     standalone: false,
     template: `
         <button
-            pStyleClass="@next"
+            vxStyleClass="@next"
             [enterFromClass]="enterFromClass"
             [enterActiveClass]="enterActiveClass"
             [enterToClass]="enterToClass"
@@ -45,10 +45,10 @@ class TestBasicStyleClassComponent {
     standalone: false,
     template: `
         <div class="container target-parent">
-            <button pStyleClass="@parent" [toggleClass]="toggleClass">Parent Toggle</button>
+            <button vxStyleClass="@parent" [toggleClass]="toggleClass">Parent Toggle</button>
             <div class="sibling">
                 <div class="target">Target for Previous</div>
-                <button pStyleClass="@prev" [toggleClass]="toggleClass">Previous Toggle</button>
+                <button vxStyleClass="@prev" [toggleClass]="toggleClass">Previous Toggle</button>
             </div>
         </div>
     `
@@ -62,7 +62,7 @@ class TestSelectorStyleClassComponent {
     template: `
         <div class="grandparent">
             <div class="parent">
-                <button pStyleClass="@grandparent" [toggleClass]="toggleClass">Grandparent Toggle</button>
+                <button vxStyleClass="@grandparent" [toggleClass]="toggleClass">Grandparent Toggle</button>
             </div>
         </div>
     `
@@ -74,7 +74,7 @@ class TestGrandparentSelectorComponent {
 @Component({
     standalone: false,
     template: `
-        <button pStyleClass="@next" enterActiveClass="slide-down-enter" leaveActiveClass="slide-up-leave" [hideOnOutsideClick]="true" [hideOnEscape]="true">Animated Toggle</button>
+        <button vxStyleClass="@next" enterActiveClass="slide-down-enter" leaveActiveClass="slide-up-leave" [hideOnOutsideClick]="true" [hideOnEscape]="true">Animated Toggle</button>
         <div class="animated-target">Animated Content</div>
     `
 })
@@ -83,7 +83,7 @@ class TestAnimationStyleClassComponent {}
 @Component({
     standalone: false,
     template: `
-        <button pStyleClass="@next" enterActiveClass="slidedown" enterFromClass="hidden" enterToClass="visible" leaveFromClass="visible" leaveActiveClass="slideup" leaveToClass="hidden">Slidedown Animation</button>
+        <button vxStyleClass="@next" enterActiveClass="slidedown" enterFromClass="hidden" enterToClass="visible" leaveFromClass="visible" leaveActiveClass="slideup" leaveToClass="hidden">Slidedown Animation</button>
         <div class="slidedown-target">Slidedown Content</div>
     `
 })
@@ -92,7 +92,7 @@ class TestSlidedownStyleClassComponent {}
 @Component({
     standalone: false,
     template: `
-        <button pStyleClass="#resize-target" [hideOnResize]="true" [toggleClass]="toggleClass">Resize Toggle</button>
+        <button vxStyleClass="#resize-target" [hideOnResize]="true" [toggleClass]="toggleClass">Resize Toggle</button>
         <div id="resize-target" class="resize-target">Resize Target</div>
     `
 })
@@ -562,7 +562,7 @@ describe('StyleClass', () => {
             selectorFixture.changeDetectorRef.markForCheck();
             await selectorFixture.whenStable();
 
-            const parentButton = selectorFixture.debugElement.query(By.css('button[pStyleClass="@parent"]'));
+            const parentButton = selectorFixture.debugElement.query(By.css('button[vxStyleClass="@parent"]'));
             const parentButtonInstance = parentButton.injector.get(StyleClass);
 
             parentButton.nativeElement.click();
@@ -576,7 +576,7 @@ describe('StyleClass', () => {
             selectorFixture.changeDetectorRef.markForCheck();
             await selectorFixture.whenStable();
 
-            const prevButton = selectorFixture.debugElement.query(By.css('button[pStyleClass="@prev"]'));
+            const prevButton = selectorFixture.debugElement.query(By.css('button[vxStyleClass="@prev"]'));
             const prevButtonInstance = prevButton.injector.get(StyleClass);
 
             prevButton.nativeElement.click();

@@ -22,25 +22,25 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
-import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
+import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { ConnectedOverlayScrollHandler } from 'voxx-ui/dom';
+import { MotionModule } from 'voxx-ui/motion';
 import { Subscription } from 'rxjs';
-import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { OverlayContentTemplateContext } from 'primeng/types/overlay';
+import { VoidListener } from 'voxx-ui/ts-helpers';
+import { ObjectUtils, ZIndexUtils } from 'voxx-ui/utils';
+import { OverlayContentTemplateContext } from 'voxx-ui/types/overlay';
 import { OverlayStyle } from './style/overlaystyle';
 
 const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
 
 /**
- * This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+ * This API allows overlay components to be controlled from the VoxxUI. In this way, all overlay components in the application can have the same behavior.
  * @group Components
  */
 @Component({
-    selector: 'p-overlay',
+    selector: 'vx-overlay',
     standalone: true,
     imports: [CommonModule, SharedModule, Bind, MotionModule],
     hostDirectives: [Bind],
@@ -49,8 +49,8 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: null } }"></ng-container>
         } @else {
-            <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [pBind]="ptm('root')" (click)="onOverlayClick()">
-                <p-motion
+            <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [vxBind]="ptm('root')" (click)="onOverlayClick()">
+                <vx-motion
                     [visible]="visible"
                     name="p-anchored-overlay"
                     [appear]="true"
@@ -62,11 +62,11 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
                     (onLeave)="onOverlayLeave($event)"
                     (onAfterLeave)="onOverlayAfterLeave($event)"
                 >
-                    <div #content [class]="cn(cx('content'), contentStyleClass)" [pBind]="ptm('content')" (click)="onOverlayContentClick($event)">
+                    <div #content [class]="cn(cx('content'), contentStyleClass)" [vxBind]="ptm('content')" (click)="onOverlayContentClick($event)">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
                     </div>
-                </p-motion>
+                </vx-motion>
             </div>
         }
     `,

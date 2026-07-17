@@ -6,16 +6,16 @@ import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SelectModule } from 'primeng/select';
-import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { SelectModule } from 'voxx-ui/select';
+import { SliderModule } from 'voxx-ui/slider';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'customers-doc',
@@ -24,9 +24,9 @@ import { TagModule } from 'primeng/tag';
     template: ` <app-docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
+                <vx-table
                     #dt
                     [value]="customers"
                     [(selection)]="selectedCustomers"
@@ -43,94 +43,94 @@ import { TagModule } from 'primeng/tag';
                 >
                     <ng-template #caption>
                         <div class="flex justify-between">
-                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
-                            <p-iconField iconPosition="left">
-                                <p-inputIcon>
+                            <vx-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+                            <vx-iconField iconPosition="left">
+                                <vx-inputIcon>
                                     <i class="pi pi-search"></i>
-                                </p-inputIcon>
-                                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
-                            </p-iconField>
+                                </vx-inputIcon>
+                                <input vxInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
+                            </vx-iconField>
                         </div>
                     </ng-template>
                     <ng-template #header>
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox />
+                                <vx-tableHeaderCheckbox />
                             </th>
-                            <th pSortableColumn="name" style="min-width: 14rem">
+                            <th vxSortableColumn="name" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
-                                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto" />
+                                    <vx-sortIcon field="name" />
+                                    <vx-columnFilter type="text" field="name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="country.name" style="min-width: 14rem">
+                            <th vxSortableColumn="country.name" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Country
-                                    <p-sortIcon field="country.name" />
-                                    <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
+                                    <vx-sortIcon field="country.name" />
+                                    <vx-columnFilter type="text" field="country.name" display="menu" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="representative.name" style="min-width: 14rem">
+                            <th vxSortableColumn="representative.name" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Agent
-                                    <p-sortIcon field="representative.name" />
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <vx-sortIcon field="representative.name" />
+                                    <vx-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
+                                            <vx-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
                                                 <ng-template let-option #item>
                                                     <div class="flex items-center gap-2">
                                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                         <span>{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
-                                            </p-multiselect>
+                                            </vx-multiselect>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </vx-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="date" style="min-width: 14rem">
+                            <th vxSortableColumn="date" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Date
-                                    <p-sortIcon field="date" />
-                                    <p-columnFilter type="date" field="date" display="menu" class="ml-auto" />
+                                    <vx-sortIcon field="date" />
+                                    <vx-columnFilter type="date" field="date" display="menu" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="balance" style="min-width: 14rem">
+                            <th vxSortableColumn="balance" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Balance
-                                    <p-sortIcon field="balance" />
-                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                                    <vx-sortIcon field="balance" />
+                                    <vx-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
                                 </div>
                             </th>
-                            <th pSortableColumn="status" style="min-width: 14rem">
+                            <th vxSortableColumn="status" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Status
-                                    <p-sortIcon field="status" />
-                                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                                    <vx-sortIcon field="status" />
+                                    <vx-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                                         <ng-template #filter let-value let-filter="filterCallback">
-                                            <p-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <vx-select [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                                 <ng-template let-option #item>
-                                                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
+                                                    <vx-tag [value]="option.label" [severity]="getSeverity(option.label)" />
                                                 </ng-template>
-                                            </p-select>
+                                            </vx-select>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </vx-columnFilter>
                                 </div>
                             </th>
-                            <th pSortableColumn="activity" style="min-width: 14rem">
+                            <th vxSortableColumn="activity" style="min-width: 14rem">
                                 <div class="flex justify-between items-center gap-2">
                                     Activity
-                                    <p-sortIcon field="activity" />
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <vx-sortIcon field="activity" />
+                                    <vx-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
                                         <ng-template #filter let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></p-slider>
+                                            <vx-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" class="m-4"></vx-slider>
                                             <div class="flex items-center justify-between px-2">
                                                 <span>{{ activityValues[0] }}</span>
                                                 <span>{{ activityValues[1] }}</span>
                                             </div>
                                         </ng-template>
-                                    </p-columnFilter>
+                                    </vx-columnFilter>
                                 </div>
                             </th>
                             <th style="width: 5rem"></th>
@@ -139,7 +139,7 @@ import { TagModule } from 'primeng/tag';
                     <ng-template #body let-customer>
                         <tr class="p-selectable-row">
                             <td>
-                                <p-tableCheckbox [value]="customer" />
+                                <vx-tableCheckbox [value]="customer" />
                             </td>
                             <td>
                                 {{ customer.name }}
@@ -163,13 +163,13 @@ import { TagModule } from 'primeng/tag';
                                 {{ customer.balance | currency: 'USD' : 'symbol' }}
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                                <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
-                                <p-progressBar [value]="customer.activity" [showValue]="false" />
+                                <vx-progressBar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td style="text-align: center">
-                                <p-button rounded icon="pi pi-cog" />
+                                <vx-button rounded icon="pi pi-cog" />
                             </td>
                         </tr>
                     </ng-template>
@@ -178,9 +178,9 @@ import { TagModule } from 'primeng/tag';
                             <td colspan="8">No customers found.</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

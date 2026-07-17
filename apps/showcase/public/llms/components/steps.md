@@ -11,7 +11,7 @@ Screen Reader Steps component uses the nav element and since any attribute is pa
 Steps requires a collection of menuitems as its model .
 
 ```html
-<p-steps [model]="items" [readonly]="true" />
+<vx-steps [model]="items" [readonly]="true" />
 ```
 
 ## Controlled
@@ -20,11 +20,11 @@ Steps can be controlled programmatically using activeIndex property.
 
 ```html
 <div class="flex mb-8 gap-2 justify-end">
-    <p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
-    <p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
-    <p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
+    <vx-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
+    <vx-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
+    <vx-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
 </div>
-<p-steps [activeIndex]="active" [model]="items" />
+<vx-steps [activeIndex]="active" [model]="items" />
 ```
 
 <details>
@@ -32,19 +32,19 @@ Steps can be controlled programmatically using activeIndex property.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepsModule } from 'primeng/steps';
-import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { StepsModule } from 'voxx-ui/steps';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex mb-8 gap-2 justify-end">
-                <p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
-                <p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
-                <p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
+                <vx-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
+                <vx-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
+                <vx-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
             </div>
-            <p-steps [activeIndex]="active" [model]="items" />
+            <vx-steps [activeIndex]="active" [model]="items" />
         </div>
     `,
     standalone: true,
@@ -76,8 +76,8 @@ export class StepsControlledDemo implements OnInit {
 In order to add interactivity to the component, disable readonly and use a binding to activeIndex along with activeIndexChange to control the Steps.
 
 ```html
-<p-toast />
-<p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
+<vx-toast />
+<vx-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
 ```
 
 <details>
@@ -85,15 +85,15 @@ In order to add interactivity to the component, disable readonly and use a bindi
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Steps, StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { Steps, StepsModule } from 'voxx-ui/steps';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
+            <vx-toast />
+            <vx-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
         </div>
     `,
     standalone: true,
@@ -134,8 +134,8 @@ export class StepsInteractiveDemo implements OnInit {
 Example below uses nested routes with Steps.
 
 ```html
-<p-toast />
-<p-steps [model]="items" [readonly]="false" />
+<vx-toast />
+<vx-steps [model]="items" [readonly]="false" />
 ```
 
 <details>
@@ -143,16 +143,16 @@ Example below uses nested routes with Steps.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Steps, StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
+import { Steps, StepsModule } from 'voxx-ui/steps';
+import { ToastModule } from 'voxx-ui/toast';
 import { TicketService } from '@/service/ticketservice';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-steps [model]="items" [readonly]="false" />
+            <vx-toast />
+            <vx-steps [model]="items" [readonly]="false" />
         </div>
         <router-outlet></router-outlet>
     `,

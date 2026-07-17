@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Directive, effect, inject, NgModule, NgZone } from '@angular/core';
 import { addClass, getHeight, getOffset, getOuterHeight, getOuterWidth, getWidth, removeClass, remove as utils_remove } from '@primeuix/utils';
-import { BaseComponent } from 'primeng/basecomponent';
-import { VoidListener } from 'primeng/ts-helpers';
+import { BaseComponent } from 'voxx-ui/basecomponent';
+import { VoidListener } from 'voxx-ui/ts-helpers';
 import { RippleStyle } from './style/ripplestyle';
 
 /**
@@ -10,7 +10,7 @@ import { RippleStyle } from './style/ripplestyle';
  * @group Components
  */
 @Directive({
-    selector: '[pRipple]',
+    selector: '[vxRipple]',
     host: {
         class: 'p-ripple'
     },
