@@ -27,6 +27,8 @@ Styling still builds on the [PrimeUIX](https://github.com/primefaces/primeuix) t
 
 ## Development
 
+Requires Node.js `^22.22.3 || ^24.15.0 || >=26` (the Angular 22 CLI floor) and pnpm 9+.
+
 ```bash
 pnpm install
 pnpm run build:lib        # build the voxx-ui package
