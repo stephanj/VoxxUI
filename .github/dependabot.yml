@@ -1,0 +1,42 @@
+version: 2
+updates:
+  # pnpm workspace (root manifest + pnpm-workspace.yaml catalogs)
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      angular:
+        patterns:
+          - '@angular*'
+          - 'ng-packagr'
+          - 'zone.js'
+      primeuix:
+        patterns:
+          - '@primeuix/*'
+          - 'primeicons'
+          - 'tailwindcss-primeui'
+      dev-tooling:
+        dependency-type: development
+        exclude-patterns:
+          - '@angular*'
+          - 'ng-packagr'
+          - 'typescript'
+    ignore:
+      # Angular majors are hand-migrated (see the v22 migration commit);
+      # TypeScript majors/minors are pinned to what Angular supports.
+      - dependency-name: '@angular*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'ng-packagr'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major', 'version-update:semver-minor']
+
+  # GitHub Actions used by .github/workflows/ci.yml
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
