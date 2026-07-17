@@ -9,7 +9,6 @@ import { ColumnResizeFitModeDoc } from '@/doc/table/columnresizefitmode-doc';
 import { ColumnResizeScrollableModeDoc } from '@/doc/table/columnresizescrollablemode-doc';
 import { ColumnSelectionDoc } from '@/doc/table/columnselection-doc';
 import { ColumnToggleDoc } from '@/doc/table/columntoggle-doc';
-import { ContextMenuDoc } from '@/doc/table/contextmenu-doc';
 import { CustomersDoc } from '@/doc/table/customers-doc';
 import { DynamicDoc } from '@/doc/table/dynamic-doc';
 import { ExpandableRowGroupDoc } from '@/doc/table/expandablerowgroup-doc';
@@ -23,7 +22,6 @@ import { GridlinesDoc } from '@/doc/table/gridlines-doc';
 import { HorizontalScrollDoc } from '@/doc/table/horizontalscroll-doc';
 import { ImportDoc } from '@/doc/table/import-doc';
 import { LoadingMaskDoc } from '@/doc/table/loadingmask-doc';
-import { LoadingSkeletonDoc } from '@/doc/table/loadingskeleton-doc';
 import { MultipleColumnsSortDoc } from '@/doc/table/multiplecolumnssort-doc';
 import { MultipleSelectionDoc } from '@/doc/table/multipleselection-doc';
 import { PaginatorBasicDoc } from '@/doc/table/paginatorbasic-doc';
@@ -107,11 +105,6 @@ export class TableDemo {
                     id: 'loading-mask',
                     label: 'Mask',
                     component: LoadingMaskDoc
-                },
-                {
-                    id: 'loading-skeleton',
-                    label: 'Skeleton',
-                    component: LoadingSkeletonDoc
                 }
             ]
         },
@@ -338,11 +331,6 @@ export class TableDemo {
             id: 'export',
             label: 'Export',
             component: ExportDoc
-        },
-        {
-            id: 'context-menu',
-            label: 'Context Menu',
-            component: ContextMenuDoc
         },
         {
             id: 'stateful',

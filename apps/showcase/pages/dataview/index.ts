@@ -2,7 +2,6 @@ import { AccessibilityDoc } from '@/doc/dataview/accessibility-doc';
 import { BasicDoc } from '@/doc/dataview/basic-doc';
 import { ImportDoc } from '@/doc/dataview/import-doc';
 import { LayoutDoc } from '@/doc/dataview/layout-doc';
-import { LoadingDoc } from '@/doc/dataview/loading-doc';
 import { PaginationDoc } from '@/doc/dataview/pagination-doc';
 import { SortingDoc } from '@/doc/dataview/sorting-doc';
 import { PTComponent } from '@/doc/dataview/pt/PTComponent';
@@ -53,11 +52,6 @@ export class DataViewDemo {
             id: 'layout',
             label: 'Layout',
             component: LayoutDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
-            component: LoadingDoc
         },
         {
             id: 'accessibility',

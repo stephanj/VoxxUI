@@ -9,7 +9,6 @@ import { FilterDoc } from '@/doc/select/filter-doc';
 import { FloatLabelDoc } from '@/doc/select/floatlabel-doc';
 import { FluidDoc } from '@/doc/select/fluid-doc';
 import { GroupDoc } from '@/doc/select/group-doc';
-import { IftaLabelDoc } from '@/doc/select/iftalabel-doc';
 import { ImportDoc } from '@/doc/select/import-doc';
 import { InvalidDoc } from '@/doc/select/invalid-doc';
 import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscroll-doc';
@@ -91,11 +90,6 @@ export class SelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

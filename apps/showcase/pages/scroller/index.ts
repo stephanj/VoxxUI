@@ -5,7 +5,6 @@ import { GridDoc } from '@/doc/scroller/grid-doc';
 import { HorizontalDoc } from '@/doc/scroller/horizontal-doc';
 import { ImportDoc } from '@/doc/scroller/import-doc';
 import { LazyLoadDoc } from '@/doc/scroller/lazyload-doc';
-import { LoaderDoc } from '@/doc/scroller/loader-doc';
 import { PTComponent } from '@/doc/scroller/pt/PTComponent';
 import { ProgrammaticDoc } from '@/doc/scroller/programmatic-doc';
 import { ScrollOptionsDoc } from '@/doc/scroller/scrolloptions-doc';
@@ -54,11 +53,6 @@ export class VirtualScrollerDemo {
             id: 'delay',
             label: 'Delay',
             component: DelayDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
-            component: LoaderDoc
         },
         {
             id: 'lazy',

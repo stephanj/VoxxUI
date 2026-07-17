@@ -4,7 +4,6 @@ import { BasicDoc } from '@/doc/inputgroup/basic-doc';
 import { ButtonDoc } from '@/doc/inputgroup/button-doc';
 import { CheckboxDoc } from '@/doc/inputgroup/checkbox-doc';
 import { FloatLabelDoc } from '@/doc/inputgroup/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/inputgroup/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputgroup/import-doc';
 import { MultipleDoc } from '@/doc/inputgroup/multiple-doc';
 import { PTComponent } from '@/doc/inputgroup/pt/PTComponent';
@@ -48,11 +47,6 @@ export class InputGroupDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'accessibility',

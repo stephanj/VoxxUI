@@ -2,7 +2,6 @@ import { AccessibilityDoc } from '@/doc/badge/accessibility-doc';
 import { BasicDoc } from '@/doc/badge/basic-doc';
 import { ButtonDoc } from '@/doc/badge/button-doc';
 import { ImportDoc } from '@/doc/badge/import-doc';
-import { OverlayDoc } from '@/doc/badge/overlay-doc';
 import { SeverityDoc } from '@/doc/badge/severity-doc';
 import { SizeDoc } from '@/doc/badge/size-doc';
 import { PTComponent } from '@/doc/badge/pt/PTComponent';
@@ -36,11 +35,6 @@ export class BadgeDemo {
             id: 'size',
             label: 'Size',
             component: SizeDoc
-        },
-        {
-            id: 'overlay',
-            label: 'Overlay',
-            component: OverlayDoc
         },
         {
             id: 'button',

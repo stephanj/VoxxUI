@@ -6,7 +6,6 @@ import { DisabledDoc } from '@/doc/inputnumber/disabled-doc';
 import { FilledDoc } from '@/doc/inputnumber/filled-doc';
 import { FloatlabelDoc } from '@/doc/inputnumber/floatlabel-doc';
 import { FluidDoc } from '@/doc/inputnumber/fluid-doc';
-import { IftaLabelDoc } from '@/doc/inputnumber/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputnumber/import-doc';
 import { InvalidDoc } from '@/doc/inputnumber/invalid-doc';
 import { LocaleDoc } from '@/doc/inputnumber/locale-doc';
@@ -74,11 +73,6 @@ export class InputNumberDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

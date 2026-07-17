@@ -3,7 +3,6 @@ import { BasicDoc } from '@/doc/password/basic-doc';
 import { DisabledDoc } from '@/doc/password/disabled-doc';
 import { FilledDoc } from '@/doc/password/filled-doc';
 import { FloatLabelDoc } from '@/doc/password/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/password/iftalabel-doc';
 import { ImportDoc } from '@/doc/password/import-doc';
 import { InvalidDoc } from '@/doc/password/invalid-doc';
 import { LocaleDoc } from '@/doc/password/locale-doc';
@@ -70,11 +69,6 @@ export class PasswordDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

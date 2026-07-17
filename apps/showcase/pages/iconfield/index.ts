@@ -1,7 +1,6 @@
 import { AccessibilityDoc } from '@/doc/iconfield/accessibility-doc';
 import { BasicDoc } from '@/doc/iconfield/basic-doc';
 import { FloatLabelDoc } from '@/doc/iconfield/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/iconfield/iftalabel-doc';
 import { ImportDoc } from '@/doc/iconfield/import-doc';
 import { SizesDoc } from '@/doc/iconfield/sizes-doc';
 import { TemplateDoc } from '@/doc/iconfield/template-doc';
@@ -36,11 +35,6 @@ export class IconFieldDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'sizes',

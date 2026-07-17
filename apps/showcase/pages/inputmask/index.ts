@@ -3,7 +3,6 @@ import { BasicDoc } from '@/doc/inputmask/basic-doc';
 import { DisabledDoc } from '@/doc/inputmask/disabled-doc';
 import { FilledDoc } from '@/doc/inputmask/filled-doc';
 import { FloatlabelDoc } from '@/doc/inputmask/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/inputmask/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputmask/import-doc';
 import { InvalidDoc } from '@/doc/inputmask/invalid-doc';
 import { MaskDoc } from '@/doc/inputmask/mask-doc';
@@ -68,11 +67,6 @@ export class InputMaskDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'sizes',

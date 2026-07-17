@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { AvatarModule } from 'primeng/avatar';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'icon-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
+    imports: [AppDocSectionText, AppCode, AvatarModule],
     template: `
         <app-docsectiontext>
             <p>A font icon is displayed as an Avatar with the <i>icon</i> property.</p>
@@ -28,12 +27,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <p-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
                 </div>
 
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <p-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <p-avatar icon="pi pi-user" size="xlarge" />
-                    </p-overlay-badge>
-                </div>
             </div>
         </div>
         <app-code></app-code>

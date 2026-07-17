@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { PaginatorState, PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
 import { SelectModule } from 'primeng/select';
 import { SliderModule } from 'primeng/slider';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +10,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 @Component({
     selector: 'template-doc',
     standalone: true,
-    imports: [PaginatorModule, ButtonModule, DividerModule, SelectModule, SliderModule, FormsModule, AppCode, AppDocSectionText],
+    imports: [PaginatorModule, ButtonModule, SelectModule, SliderModule, FormsModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>
@@ -28,7 +27,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <p-button icon="pi pi-search" />
                 </div>
             </div>
-            <p-divider />
             <div class="flex items-center justify-end">
                 <span class="mx-1 text-color">Items per page: </span>
                 <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
@@ -43,7 +41,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     [showFirstLastIcon]="false"
                 ></p-paginator>
             </div>
-            <p-divider />
             <div class="flex items-center justify-start">
                 <div class="flex justify-center items-center gap-4">
                     <span>Items per page: </span>

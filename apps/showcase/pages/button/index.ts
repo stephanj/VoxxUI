@@ -1,7 +1,6 @@
 import { AccessibilityDoc } from '@/doc/button/accessibility-doc';
 import { BadgeDoc } from '@/doc/button/badge-doc';
 import { BasicDoc } from '@/doc/button/basic-doc';
-import { ButtonGroupDoc } from '@/doc/button/buttongroup-doc';
 import { DirectiveDoc } from '@/doc/button/directive-doc';
 import { DisabledDoc } from '@/doc/button/disabled-doc';
 import { IconsDoc } from '@/doc/button/icons-doc';
@@ -113,11 +112,6 @@ export class ButtonDemo {
             id: 'badge',
             label: 'Badge',
             component: BadgeDoc
-        },
-        {
-            id: 'buttongroup',
-            label: 'Button Group',
-            component: ButtonGroupDoc
         },
         {
             id: 'sizes',

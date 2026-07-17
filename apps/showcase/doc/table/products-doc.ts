@@ -20,9 +20,7 @@ import { RatingModule } from 'primeng/rating';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
 
 interface Column {
     field: string;
@@ -45,7 +43,6 @@ interface ExportColumn {
         FormsModule,
         TableModule,
         ToastModule,
-        ToolbarModule,
         ButtonModule,
         FileUploadModule,
         RatingModule,
@@ -58,8 +55,7 @@ interface ExportColumn {
         AppDocSectionText,
         AppCode,
         DeferredDemo,
-        ConfirmDialogModule,
-        TextareaModule
+        ConfirmDialogModule
     ],
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
@@ -67,17 +63,17 @@ interface ExportColumn {
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
-                <p-toolbar class="mb-6">
-                    <ng-template #start>
+                <div class="mb-6 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center">
                         <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
                         <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
-                    </ng-template>
+                    </div>
 
-                    <ng-template #end>
+                    <div class="flex items-center">
                         <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-                        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
-                    </ng-template>
-                </p-toolbar>
+                        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+                    </div>
+                </div>
 
                 <p-table
                     #dt
@@ -179,7 +175,7 @@ interface ExportColumn {
                             </div>
                             <div>
                                 <label for="description" class="block font-bold mb-3">Description</label>
-                                <textarea id="description" pTextarea [(ngModel)]="product.description" required rows="3" cols="20" fluid></textarea>
+                                <textarea id="description" [(ngModel)]="product.description" required rows="3" cols="20" class="w-full"></textarea>
                             </div>
 
                             <div>

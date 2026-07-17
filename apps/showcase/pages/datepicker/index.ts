@@ -7,7 +7,6 @@ import { FilledDoc } from '@/doc/datepicker/filled-doc';
 import { FloatLabelDoc } from '@/doc/datepicker/floatlabel-doc';
 import { FormatDoc } from '@/doc/datepicker/format-doc';
 import { IconDoc } from '@/doc/datepicker/icon-doc';
-import { IftaLabelDoc } from '@/doc/datepicker/iftalabel-doc';
 import { ImportDoc } from '@/doc/datepicker/import-doc';
 import { InlineDoc } from '@/doc/datepicker/inline-doc';
 import { InvalidDoc } from '@/doc/datepicker/invalid-doc';
@@ -122,11 +121,6 @@ export class DatePickerDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

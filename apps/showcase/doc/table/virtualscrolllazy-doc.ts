@@ -5,7 +5,6 @@ import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 
 interface Column {
@@ -16,7 +15,7 @@ interface Column {
 @Component({
     selector: 'virtualscrolllazy-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo, SkeletonModule],
+    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
@@ -43,7 +42,7 @@ interface Column {
                     <ng-template #loadingbody let-columns="columns">
                         <tr style="height:46px">
                             <td *ngFor="let col of columns; let even = even">
-                                <p-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }" />
+                                <div class="h-4 rounded bg-surface-200 dark:bg-surface-700 animate-pulse" [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }"></div>
                             </td>
                         </tr>
                     </ng-template>

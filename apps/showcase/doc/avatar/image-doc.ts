@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { AvatarModule } from 'primeng/avatar';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'image-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
+    imports: [AppDocSectionText, AppCode, AvatarModule],
     template: `
         <app-docsectiontext>
             <p>Use the <i>image</i> property to display an image as an Avatar.</p>
@@ -21,12 +20,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
                 </div>
 
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <p-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <p-avatar class="p-overlay-badge" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" />
-                    </p-overlay-badge>
-                </div>
 
                 <div class="flex-auto">
                     <h5>Gravatar</h5>

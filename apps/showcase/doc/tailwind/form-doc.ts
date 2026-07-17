@@ -6,12 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
-import { TextareaModule } from 'primeng/textarea';
 
 @Component({
     selector: 'form-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule, TextareaModule],
+    imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule],
     template: `
         <app-docsectiontext>
             <p>Using Tailwind utilities for the responsive layout of a form with PrimeNG components.</p>
@@ -53,7 +52,7 @@ import { TextareaModule } from 'primeng/textarea';
                 </div>
                 <div class="flex-auto">
                     <label for="message" class="block font-semibold mb-2">Message</label>
-                    <textarea pTextarea id="message" class="w-full" rows="4"></textarea>
+                    <textarea id="message" class="w-full" rows="4"></textarea>
                 </div>
             </div>
         </div>

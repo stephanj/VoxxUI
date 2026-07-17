@@ -6,7 +6,6 @@ import { FilledDoc } from '@/doc/multiselect/filled-doc';
 import { FilterDoc } from '@/doc/multiselect/filter-doc';
 import { FloatLabelDoc } from '@/doc/multiselect/floatlabel-doc';
 import { GroupDoc } from '@/doc/multiselect/group-doc';
-import { IftaLabelDoc } from '@/doc/multiselect/iftalabel-doc';
 import { ImportDoc } from '@/doc/multiselect/import-doc';
 import { InvalidDoc } from '@/doc/multiselect/invalid-doc';
 import { LoadingStateDoc } from '@/doc/multiselect/loadingstate-doc';
@@ -81,11 +80,6 @@ export class MultiSelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',
