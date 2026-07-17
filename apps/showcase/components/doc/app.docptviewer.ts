@@ -1,6 +1,6 @@
 import APIDoc from '@/doc/apidoc/index.json';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@primeuix/utils/dom';
 import { VoxxUI } from 'voxx-ui/config';
@@ -77,6 +77,7 @@ export const getPTOptions = (name) => {
 };
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-docptviewer',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, RouterModule],

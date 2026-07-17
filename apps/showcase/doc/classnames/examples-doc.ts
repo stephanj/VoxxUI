@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { ClassNamesModule } from 'voxx-ui/classnames';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'examples-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ClassNamesModule, CommonModule],

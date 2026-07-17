@@ -1,9 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'loading-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule],

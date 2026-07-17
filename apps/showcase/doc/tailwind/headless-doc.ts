@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { DialogModule } from 'voxx-ui/dialog';
 import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'headless-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ButtonModule, DialogModule, InputTextModule],

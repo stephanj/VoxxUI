@@ -1,9 +1,10 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PaginatorModule } from 'voxx-ui/paginator';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'paginator-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, PaginatorModule],

@@ -1,13 +1,14 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'voxx-ui/inputmask';
 import { InputTextModule } from 'voxx-ui/inputtext';
 import { MessageModule } from 'voxx-ui/message';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'form-doc',
     standalone: true,
     imports: [FormsModule, MessageModule, InputTextModule, InputMaskModule, AppCodeModule, AppDocSectionText, CommonModule],

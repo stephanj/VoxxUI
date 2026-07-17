@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ngx-translate-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -22,6 +23,7 @@ import { VoxxUI } from 'voxx-ui/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-root',
     templateUrl: './app.component.html'
 })

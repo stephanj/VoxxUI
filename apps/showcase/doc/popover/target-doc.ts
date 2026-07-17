@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PopoverModule } from 'voxx-ui/popover';
 import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'target-doc',
     standalone: true,
     imports: [PopoverModule, ButtonModule, AppCode, AppDocSectionText],

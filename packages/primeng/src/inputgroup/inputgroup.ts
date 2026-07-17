@@ -1,4 +1,4 @@
-import { Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
@@ -12,6 +12,7 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
  * @group Components
  */
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-inputgroup, vx-inputGroup, vx-input-group',
     standalone: true,
     imports: [BindModule],

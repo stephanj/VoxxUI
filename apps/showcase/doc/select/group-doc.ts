@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SelectItemGroup } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,6 +7,7 @@ import { SelectModule } from 'voxx-ui/select';
 import { CommonModule } from '@angular/common';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'group-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule],

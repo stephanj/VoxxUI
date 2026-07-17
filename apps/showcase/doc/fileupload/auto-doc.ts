@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -11,6 +11,7 @@ interface UploadEvent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'auto-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],

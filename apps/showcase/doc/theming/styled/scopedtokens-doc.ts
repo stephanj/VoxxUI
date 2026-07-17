@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'scopedtokens-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, ToggleSwitchModule],
@@ -61,6 +62,7 @@ import { FormsModule } from '@angular/forms';
 import { ToggleSwitch } from 'voxx-ui/toggleswitch';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: \`
         <vx-toggleswitch [(ngModel)]="checked1"/>
         <vx-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch"/>

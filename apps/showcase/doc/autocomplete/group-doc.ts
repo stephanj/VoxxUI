@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'voxx-ui/api';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'group-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],

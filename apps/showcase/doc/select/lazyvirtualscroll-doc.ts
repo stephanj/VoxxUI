@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ScrollerOptions, SelectItem } from 'voxx-ui/api';
 import { SelectModule } from 'voxx-ui/select';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'lazyvirtualscroll-doc',
     standalone: true,
     imports: [AppCode, FormsModule, SelectModule],

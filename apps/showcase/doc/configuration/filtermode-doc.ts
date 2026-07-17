@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'filtermode-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -19,6 +20,7 @@ export class FilterModeDoc {
         typescript: `import { VoxxUIConfig } from 'voxx-ui/api';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-root',
     templateUrl: './app.component.html'
 })

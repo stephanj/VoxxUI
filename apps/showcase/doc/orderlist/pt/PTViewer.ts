@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
 
@@ -18,6 +18,7 @@ interface Product {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'orderlist-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, OrderListModule],

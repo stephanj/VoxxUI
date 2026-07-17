@@ -1,10 +1,11 @@
-import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'voxx-ui/api';
 import { Badge, BadgeDirective, BadgeModule } from './badge';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-badge',
     template: `<vx-badge></vx-badge>`
@@ -12,6 +13,7 @@ import { Badge, BadgeDirective, BadgeModule } from './badge';
 class TestBasicBadgeComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-value-badge',
     template: `<vx-badge [value]="value"></vx-badge>`
@@ -21,6 +23,7 @@ class TestValueBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-size-badge',
     template: `<vx-badge [badgeSize]="badgeSize" value="1"></vx-badge>`
@@ -30,6 +33,7 @@ class TestSizeBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-severity-badge',
     template: `<vx-badge [severity]="severity" value="1"></vx-badge>`
@@ -39,6 +43,7 @@ class TestSeverityBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-disabled-badge',
     template: `<vx-badge [badgeDisabled]="disabled" value="1"></vx-badge>`
@@ -48,6 +53,7 @@ class TestDisabledBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-style-class-badge',
     template: `<vx-badge [styleClass]="styleClass" value="1"></vx-badge>`
@@ -57,6 +63,7 @@ class TestStyleClassBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-directive-badge',
     template: `<button #button vxBadge [value]="value">Button</button>`
@@ -67,6 +74,7 @@ class TestDirectiveBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-directive-size-badge',
     template: `<button vxBadge [value]="value" [size]="size">Button</button>`
@@ -77,6 +85,7 @@ class TestDirectiveSizeBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-directive-severity-badge',
     template: `<button vxBadge [value]="value" [severity]="severity">Button</button>`
@@ -87,6 +96,7 @@ class TestDirectiveSeverityBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-directive-disabled-badge',
     template: `<button vxBadge [value]="value" [badgeDisabled]="disabled">Button</button>`
@@ -97,6 +107,7 @@ class TestDirectiveDisabledBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-directive-style-badge',
     template: `<button vxBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`
@@ -108,6 +119,7 @@ class TestDirectiveStyleBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-deprecated-size-badge',
     template: `<button vxBadge [value]="value" [size]="size">Button</button>`
@@ -118,6 +130,7 @@ class TestDeprecatedSizeBadgeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-dynamic-badge',
     template: ` <vx-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </vx-badge> `
@@ -942,6 +955,7 @@ describe('Badge', () => {
 
     describe('PassThrough API', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [Badge],
             template: `<vx-badge [value]="value()" [badgeSize]="badgeSize()" [severity]="severity()" [pt]="pt()"></vx-badge>`

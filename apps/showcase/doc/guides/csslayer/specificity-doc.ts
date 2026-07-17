@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputSwitchModule } from 'voxx-ui/inputswitch';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'specificity-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, InputSwitchModule, FormsModule],

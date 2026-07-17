@@ -1,9 +1,10 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { ExamplesDoc } from '@/doc/classnames/examples-doc';
 import { ImportDoc } from '@/doc/classnames/import-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular ClassNames Directive"
         header="ClassNames"

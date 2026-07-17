@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'v20-migration-overview-doc',
     standalone: true,
     imports: [AppDocSectionText],

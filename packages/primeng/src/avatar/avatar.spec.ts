@@ -1,10 +1,11 @@
-import { Component, input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'voxx-ui/api';
 import { Avatar, AvatarModule } from './avatar';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-avatar',
     template: `<vx-avatar></vx-avatar>`
@@ -12,6 +13,7 @@ import { Avatar, AvatarModule } from './avatar';
 class TestBasicAvatarComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-label-avatar',
     template: `<vx-avatar [label]="label"></vx-avatar>`
@@ -21,6 +23,7 @@ class TestLabelAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-icon-avatar',
     template: `<vx-avatar [icon]="icon"></vx-avatar>`
@@ -30,6 +33,7 @@ class TestIconAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-image-avatar',
     template: `<vx-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></vx-avatar>`
@@ -45,6 +49,7 @@ class TestImageAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-size-avatar',
     template: `<vx-avatar [label]="label" [size]="size"></vx-avatar>`
@@ -55,6 +60,7 @@ class TestSizeAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-shape-avatar',
     template: `<vx-avatar [label]="label" [shape]="shape"></vx-avatar>`
@@ -65,6 +71,7 @@ class TestShapeAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-style-class-avatar',
     template: `<vx-avatar [label]="label" [styleClass]="styleClass"></vx-avatar>`
@@ -75,6 +82,7 @@ class TestStyleClassAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-aria-avatar',
     template: `<vx-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></vx-avatar>`
@@ -86,6 +94,7 @@ class TestAriaAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-content-avatar',
     template: `
@@ -97,6 +106,7 @@ class TestAriaAvatarComponent {
 class TestContentAvatarComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-dynamic-avatar',
     template: ` <vx-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </vx-avatar> `
@@ -118,6 +128,7 @@ class TestDynamicAvatarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Avatar],
     template: `<vx-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [ariaLabel]="ariaLabel()" [pt]="pt()"></vx-avatar>`

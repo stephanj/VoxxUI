@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'llmstxt-doc',
     standalone: true,
     imports: [AppDocSectionText, ButtonModule],

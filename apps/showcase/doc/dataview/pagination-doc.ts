@@ -3,13 +3,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'voxx-ui/button';
 import { DataViewModule } from 'voxx-ui/dataview';
 import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'pagination-doc',
     standalone: true,
     imports: [CommonModule, RouterModule, DataViewModule, ButtonModule, TagModule, AppCode, AppDocSectionText],

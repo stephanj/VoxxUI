@@ -15,10 +15,11 @@ import { ToggleMaskDoc } from '@/doc/password/togglemask-doc';
 import { FluidDoc } from '@/doc/password/fluid-doc';
 import { ClearIconDoc } from '@/doc/password/clearicon-doc';
 import { PTComponent } from '@/doc/password/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Password Component"
         header="Password"

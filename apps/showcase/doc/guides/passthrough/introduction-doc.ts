@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'introduction-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, PanelModule, RouterLink],

@@ -1,11 +1,12 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { InfoDemo } from './infodemo';
 import { ButtonModule } from 'voxx-ui/button';
 import { TableModule } from 'voxx-ui/table';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ButtonModule, TableModule],
     template: ` <div class="flex justify-end mt-1 mb-4">

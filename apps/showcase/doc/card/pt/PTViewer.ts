@@ -1,10 +1,11 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { CardModule } from 'voxx-ui/card';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'card-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, CardModule, ButtonModule],

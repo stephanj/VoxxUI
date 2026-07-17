@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'floatlabel-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, FloatLabelModule, RouterModule],

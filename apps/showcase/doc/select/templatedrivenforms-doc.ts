@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -15,6 +15,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'templatedrivenforms-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule, CommonModule],

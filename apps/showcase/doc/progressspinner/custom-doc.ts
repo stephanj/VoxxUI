@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ProgressSpinnerModule } from 'voxx-ui/progressspinner';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'custom-doc',
     standalone: true,
     imports: [ProgressSpinnerModule, AppCode, AppDocSectionText],

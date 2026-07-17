@@ -13,10 +13,11 @@ import { SlotCharDoc } from '@/doc/inputmask/slotchar-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenforms-doc';
 import { FluidDoc } from '@/doc/inputmask/fluid-doc';
 import { PTComponent } from '@/doc/inputmask/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular InputMask Component"
         header="InputMask"

@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'voxx-ui/datepicker';
 import { FluidModule } from 'voxx-ui/fluid';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'icon-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, FluidModule, AppCode, AppDocSectionText],

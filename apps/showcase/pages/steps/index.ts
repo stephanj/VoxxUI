@@ -5,9 +5,10 @@ import { ImportDoc } from '@/doc/steps/import-doc';
 import { InteractiveDoc } from '@/doc/steps/interactive-doc';
 import { RoutingDoc } from '@/doc/steps/routing-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Steps Component"
         header="Steps"

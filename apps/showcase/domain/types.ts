@@ -144,7 +144,7 @@ export const ROUTE_FILE_DEFINITIONS: Record<string, RouteFileDefinition> = {
         path: 'src/app/demo/productlistdemo.ts',
         name: 'ProductListDemo',
         services: ['ProductService'],
-        content: `import { Component, OnInit } from '@angular/core';
+        content: `import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { MessageService } from 'voxx-ui/api';
@@ -154,6 +154,7 @@ import { TableModule } from 'voxx-ui/table'
 import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [DialogService, MessageService, ProductService],
     standalone: true,
     imports: [TableModule, ButtonModule],
@@ -236,6 +237,7 @@ import { MessageService } from 'voxx-ui/api';
 import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [DialogService, MessageService],
     standalone: true,
     imports:[ButtonModule],
@@ -282,6 +284,7 @@ import { DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'footer',
     standalone: true,
     imports: [ButtonModule],

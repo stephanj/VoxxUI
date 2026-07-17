@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -20,6 +21,7 @@ export class DynamicDoc {
 import { VoxxUI } from 'voxx-ui/config';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-root',
     templateUrl: './app.component.html'
 })

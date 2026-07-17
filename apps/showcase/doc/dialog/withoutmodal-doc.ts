@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DialogModule } from 'voxx-ui/dialog';
 import { ButtonModule } from 'voxx-ui/button';
 import { InputTextModule } from 'voxx-ui/inputtext';
@@ -6,6 +6,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'withoutmodal-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, InputTextModule, AppCode, AppDocSectionText],

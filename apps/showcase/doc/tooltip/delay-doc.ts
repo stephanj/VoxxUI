@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'voxx-ui/button';
 import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'delay-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule, TooltipModule],

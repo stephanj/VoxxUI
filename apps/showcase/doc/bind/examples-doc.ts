@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { BindModule } from 'voxx-ui/bind';
 import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'examples-doc',
     standalone: true,
     imports: [AppCode, BindModule, TooltipModule, CommonModule, AppDocSectionText],

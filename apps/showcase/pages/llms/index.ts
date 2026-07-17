@@ -1,10 +1,11 @@
 import { LlmsTxtDoc } from '@/doc/llms/llmstxt-doc';
 import { LlmsFullTxtDoc } from '@/doc/llms/llmsfulltxt-doc';
 import { MarkdownExtensionDoc } from '@/doc/llms/markdownextension-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'llms-demo',
     standalone: true,
     imports: [AppDoc],

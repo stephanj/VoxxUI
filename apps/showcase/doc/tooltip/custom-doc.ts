@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -6,6 +6,7 @@ import { ButtonModule } from 'voxx-ui/button';
 import { TooltipModule } from 'voxx-ui/tooltip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'custom-doc',
     standalone: true,
     imports: [CommonModule, AppCode, AppDocSectionText, ButtonModule, TooltipModule],

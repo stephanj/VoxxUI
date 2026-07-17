@@ -1,9 +1,10 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PanelModule } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'panel-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, PanelModule],

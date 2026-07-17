@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SelectItemGroup } from 'voxx-ui/api';
 import { FormsModule } from '@angular/forms';
 import { ListboxModule } from 'voxx-ui/listbox';
@@ -11,6 +11,7 @@ interface Country {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'group-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],

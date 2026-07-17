@@ -47,9 +47,10 @@ import { TemplateDoc } from '@/doc/table/template-doc';
 import { VerticalScrollDoc } from '@/doc/table/verticalscroll-doc';
 import { VirtualScrollDoc } from '@/doc/table/virtualscroll-doc';
 import { VirtualScrollLazyDoc } from '@/doc/table/virtualscrolllazy-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Table Component" header="Table" description="Table displays data in tabular format." [docs]="docs" [apiDocs]="['Table', 'ColumnFilter']" themeDocs="table" [ptDocs]="ptComponent"></app-doc>`,
     standalone: true,
     imports: [AppDoc],

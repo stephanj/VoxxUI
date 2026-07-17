@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessageModule } from 'voxx-ui/message';
 import { ButtonModule } from 'voxx-ui/button';
@@ -6,6 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [CommonModule, MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],

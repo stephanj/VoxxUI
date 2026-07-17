@@ -1,10 +1,11 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DrawerModule } from 'voxx-ui/drawer';
 import { TimesIcon } from 'voxx-ui/icons';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'drawer-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, DrawerModule, TimesIcon],

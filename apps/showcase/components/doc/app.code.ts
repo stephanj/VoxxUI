@@ -2,13 +2,14 @@ import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { resolveDomainTypes, ResolvedRouteFiles, resolveRouteFiles } from '@/domain/types';
 import { DemoCodeService } from '@/service/democodeservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'voxx-ui/button';
 import { TooltipModule } from 'voxx-ui/tooltip';
 import { useCodeSandbox, useStackBlitz } from './codeeditor';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-code',
     standalone: true,
     imports: [CommonModule, ButtonModule, TooltipModule],

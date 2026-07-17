@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'voxx-ui/api';
 import { SelectButtonModule } from 'voxx-ui/selectbutton';
@@ -10,6 +10,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { CommonModule } from '@angular/common';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, SelectButtonModule, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode, CommonModule],

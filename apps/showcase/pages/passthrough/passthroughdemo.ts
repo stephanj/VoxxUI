@@ -5,9 +5,10 @@ import { IntroductionDoc } from '@/doc/guides/passthrough/introduction-doc';
 import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycle-doc';
 import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefix-doc';
 import { PTOptionsDoc } from '@/doc/guides/passthrough/ptoptions-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'passthrough',
     standalone: true,
     imports: [AppDoc],

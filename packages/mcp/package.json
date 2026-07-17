@@ -1,6 +1,6 @@
 {
     "name": "@voxxui/mcp",
-    "version": "21.1.9",
+    "version": "22.0.0",
     "author": "Stephan Janssen",
     "description": "Model Context Protocol (MCP) server for the VoxxUI component library",
     "homepage": "https://github.com/stephanj/VoxxUI",

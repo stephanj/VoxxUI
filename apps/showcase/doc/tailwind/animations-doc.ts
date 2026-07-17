@@ -2,12 +2,13 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SelectModule } from 'voxx-ui/select';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'animations-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, SelectModule, RouterModule],

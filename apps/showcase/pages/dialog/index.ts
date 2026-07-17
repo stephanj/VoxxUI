@@ -9,10 +9,11 @@ import { PTComponent } from '@/doc/dialog/pt/PTComponent';
 import { ResponsiveDoc } from '@/doc/dialog/responsive-doc';
 import { TemplateDoc } from '@/doc/dialog/template-doc';
 import { WithoutModalDoc } from '@/doc/dialog/withoutmodal-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Dialog Component" header="Dialog" description="Dialog is a container to display content in an overlay window." [docs]="docs" [apiDocs]="['Dialog']" [ptDocs]="ptComponent" themeDocs="dialog"></app-doc> `

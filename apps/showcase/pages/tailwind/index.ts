@@ -6,11 +6,12 @@ import { HeadlessDoc } from '@/doc/tailwind/headless-doc';
 import { OverrideDoc } from '@/doc/tailwind/override-doc';
 import { OverviewDoc } from '@/doc/tailwind/overview-doc';
 import { PluginDoc } from '@/doc/tailwind/plugin-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DarkModeDoc } from '@/doc/tailwind/darkmode-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Tailwind CSS - VoxxUI" header="Tailwind CSS" description="Integration between VoxxUI and Tailwind CSS." [docs]="docs" docType="page"></app-doc>`,
     standalone: true,
     imports: [AppDoc]

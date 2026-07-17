@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'voxx-ui/inputnumber';
 import { FluidModule } from 'voxx-ui/fluid';
@@ -6,6 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'currency-doc',
     standalone: true,
     imports: [FormsModule, InputNumberModule, FluidModule, AppCodeModule, AppDocSectionText],

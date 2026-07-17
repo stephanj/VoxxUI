@@ -1,4 +1,4 @@
-import { Component, input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -7,6 +7,7 @@ import { ChipProps } from 'voxx-ui/types/chip';
 import { Chip, ChipModule } from './chip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-chip',
     template: `<vx-chip></vx-chip>`
@@ -14,6 +15,7 @@ import { Chip, ChipModule } from './chip';
 class TestBasicChipComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-label-chip',
     template: `<vx-chip [label]="label"></vx-chip>`
@@ -23,6 +25,7 @@ class TestLabelChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-icon-chip',
     template: `<vx-chip [icon]="icon" [label]="label"></vx-chip>`
@@ -33,6 +36,7 @@ class TestIconChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-image-chip',
     template: `<vx-chip [image]="image" [alt]="alt" [label]="label" (onImageError)="onImageError($event)"></vx-chip>`
@@ -49,6 +53,7 @@ class TestImageChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-removable-chip',
     template: `<vx-chip [label]="label" [removable]="removable" (onRemove)="onRemove($event)"></vx-chip>`
@@ -66,6 +71,7 @@ class TestRemovableChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-custom-remove-icon-chip',
     template: `<vx-chip [label]="label" [removable]="removable" [removeIcon]="removeIcon" (onRemove)="onRemove($event)"></vx-chip>`
@@ -82,6 +88,7 @@ class TestCustomRemoveIconChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-template-chip',
     template: `
@@ -103,6 +110,7 @@ class TestTemplateChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-content-chip',
     template: `
@@ -114,6 +122,7 @@ class TestTemplateChipComponent {
 class TestContentChipComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-style-class-chip',
     template: `<vx-chip [label]="label" [styleClass]="styleClass"></vx-chip>`
@@ -124,6 +133,7 @@ class TestStyleClassChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-chip-props',
     template: `<vx-chip [chipProps]="chipProps"></vx-chip>`
@@ -138,6 +148,7 @@ class TestChipPropsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-dynamic-chip',
     template: `
@@ -170,6 +181,7 @@ class TestDynamicChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-visibility-chip',
     template: `<vx-chip [label]="label"></vx-chip>`
@@ -1028,6 +1040,7 @@ describe('Chip', () => {
 
     describe('PassThrough API', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [Chip],
             template: `<vx-chip [label]="label()" [icon]="icon()" [image]="image()" [removable]="removable()" [removeIcon]="removeIcon()" [pt]="pt()"></vx-chip>`

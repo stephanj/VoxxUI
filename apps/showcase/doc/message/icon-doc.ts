@@ -1,10 +1,11 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AvatarModule } from 'voxx-ui/avatar';
 import { MessageModule } from 'voxx-ui/message';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'icon-doc',
     standalone: true,
     imports: [MessageModule, AvatarModule, AppCodeModule, AppDocSectionText],

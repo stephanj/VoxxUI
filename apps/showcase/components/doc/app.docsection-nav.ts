@@ -1,6 +1,6 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
-import { Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'voxx-ui/button';
@@ -9,6 +9,7 @@ import { ObjectUtils } from 'voxx-ui/utils';
 import { fromEvent } from 'rxjs';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-docsection-nav',
     standalone: true,
     imports: [CommonModule, ButtonModule, RouterLink],

@@ -1,12 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'voxx-ui/button';
 import { DialogModule } from 'voxx-ui/dialog';
 import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dialog-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, DialogModule, ButtonModule, InputTextModule, FormsModule],

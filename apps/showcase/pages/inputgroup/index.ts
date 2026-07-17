@@ -7,9 +7,10 @@ import { FloatLabelDoc } from '@/doc/inputgroup/floatlabel-doc';
 import { ImportDoc } from '@/doc/inputgroup/import-doc';
 import { MultipleDoc } from '@/doc/inputgroup/multiple-doc';
 import { PTComponent } from '@/doc/inputgroup/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" [ptDocs]="ptComponent" themeDocs="inputgroup"></app-doc> `,
     standalone: true,
     imports: [AppDoc]

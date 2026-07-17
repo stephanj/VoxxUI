@@ -7,10 +7,11 @@ import { ImportDoc } from '@/doc/icons/import-doc';
 import { ListDoc } from '@/doc/icons/list-doc';
 import { SizeDoc } from '@/doc/icons/size-doc';
 import { SpinDoc } from '@/doc/icons/spin-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

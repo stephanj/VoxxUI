@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { TabsModule } from 'voxx-ui/tabs';
@@ -6,6 +6,7 @@ import { AvatarModule } from 'voxx-ui/avatar';
 import { BadgeModule } from 'voxx-ui/badge';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'customtemplate-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TabsModule, AvatarModule, BadgeModule],

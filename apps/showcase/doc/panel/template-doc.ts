@@ -1,12 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AvatarModule } from 'voxx-ui/avatar';
 import { ButtonModule } from 'voxx-ui/button';
 import { MenuModule } from 'voxx-ui/menu';
 import { PanelModule } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, AppCode, AppDocSectionText],

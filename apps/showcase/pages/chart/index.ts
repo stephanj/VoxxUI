@@ -13,10 +13,11 @@ import { PolarAreaDoc } from '@/doc/chart/polararea-doc';
 import { RadarDoc } from '@/doc/chart/radar-doc';
 import { StackedBarDoc } from '@/doc/chart/stackedbar-doc';
 import { VerticalBarDoc } from '@/doc/chart/verticalbar-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 import { PTComponent } from '@/doc/chart/pt/PTComponent';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

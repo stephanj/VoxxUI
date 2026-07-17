@@ -8,10 +8,11 @@ import { MultipleDoc } from '@/doc/accordion/multiple-doc';
 import { TemplateDoc } from '@/doc/accordion/template-doc';
 import { PTComponent } from '@/doc/accordion/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocService } from '@/components/doc/app.doc.service';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Accordion Component"
         header="Accordion"

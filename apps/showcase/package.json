@@ -1,6 +1,6 @@
 {
     "name": "showcase",
-    "version": "21.1.9",
+    "version": "22.0.0",
     "license": "MIT",
     "type": "module",
     "scripts": {
@@ -23,9 +23,9 @@
     },
     "devDependencies": {
         "@algolia/client-search": "^4.19.1",
-        "@angular/ssr": "catalog:angular21",
+        "@angular/ssr": "catalog:angular22",
         "@primeuix/themes": "catalog:",
-        "@angular/cdk": "catalog:angular21",
+        "@angular/cdk": "catalog:angular22",
         "@stackblitz/sdk": "1.9.0",
         "@types/express": "^4.17.17",
         "@types/jasmine": "~4.3.1",

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterLink } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ci-pipeline-doc',
     standalone: true,
     imports: [AppDocSectionText, RouterLink],

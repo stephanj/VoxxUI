@@ -8,10 +8,11 @@ import { MultipleDoc } from '@/doc/metergroup/multiple-doc';
 import { PTComponent } from '@/doc/metergroup/pt/PTComponent';
 import { TemplateDoc } from '@/doc/metergroup/template-doc';
 import { VerticalDoc } from '@/doc/metergroup/vertical-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc

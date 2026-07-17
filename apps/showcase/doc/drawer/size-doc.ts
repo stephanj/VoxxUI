@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { DrawerModule } from 'voxx-ui/drawer';
@@ -6,6 +6,7 @@ import { ButtonModule } from 'voxx-ui/button';
 import { FormsModule } from '@angular/forms';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'size-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, DrawerModule, ButtonModule, FormsModule],

@@ -9,10 +9,11 @@ import { SizesDoc } from '@/doc/togglebutton/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenforms-doc';
 import { FluidDoc } from '@/doc/togglebutton/fluid-doc';
 import { PTComponent } from '@/doc/togglebutton/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular ToggleButton Component"
         header="ToggleButton"

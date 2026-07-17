@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { ProgressBarModule } from 'voxx-ui/progressbar';
 import { ToastModule } from 'voxx-ui/toast';
@@ -6,6 +6,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [ProgressBarModule, ToastModule, AppCode, AppDocSectionText],

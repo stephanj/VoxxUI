@@ -1,7 +1,7 @@
 import { default as MenuData } from '@/assets/data/menu.json';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
-import { afterNextRender, Component, computed, ElementRef, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, afterNextRender, Component, computed, ElementRef, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AutoComplete } from 'voxx-ui/autocomplete';
 import { DomHandler } from 'voxx-ui/dom';
@@ -18,6 +18,7 @@ export interface MenuItem {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-menu',
     template: ` <aside>
         <nav>

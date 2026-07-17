@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -6,6 +6,7 @@ import { FileUploadModule } from 'voxx-ui/fileupload';
 import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'custom-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],

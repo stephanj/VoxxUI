@@ -1,10 +1,11 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ClassNamesModule } from 'voxx-ui/classnames';
 import { ScrollerModule } from 'voxx-ui/scroller';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'scroller-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, ClassNamesModule, ScrollerModule],

@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 
@@ -11,6 +11,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],

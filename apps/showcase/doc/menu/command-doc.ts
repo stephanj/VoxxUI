@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 import { MenuModule } from 'voxx-ui/menu';
 import { ToastModule } from 'voxx-ui/toast';
@@ -6,6 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'command-doc',
     standalone: true,
     imports: [MenuModule, ToastModule, AppCodeModule, AppDocSectionText],

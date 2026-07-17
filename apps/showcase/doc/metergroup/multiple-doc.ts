@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MeterGroupModule } from 'voxx-ui/metergroup';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'multiple-doc',
     standalone: true,
     imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],

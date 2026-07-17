@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'voxx-ui/dialog';
 import { ButtonModule } from 'voxx-ui/button';
@@ -12,6 +12,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'overlaysinside-doc',
     standalone: true,
     imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDocSectionText],

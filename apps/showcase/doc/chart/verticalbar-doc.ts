@@ -1,12 +1,13 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'verticalbar-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule],

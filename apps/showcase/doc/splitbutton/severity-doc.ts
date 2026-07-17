@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -7,6 +7,7 @@ import { ToastModule } from 'voxx-ui/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'severity-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],

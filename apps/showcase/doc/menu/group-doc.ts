@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 import { MenuModule } from 'voxx-ui/menu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'group-doc',
     standalone: true,
     imports: [MenuModule, AppCodeModule, AppDocSectionText],

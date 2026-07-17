@@ -4,8 +4,9 @@ import { BreakingDoc } from '@/doc/migration/v20/breakingdoc';
 import { DeprecationsDoc } from '@/doc/migration/v20/deprecationsdoc';
 import { OverviewDoc } from '@/doc/migration/v20/overviewdoc';
 import { RemovalsDoc } from '@/doc/migration/v20/removalsdoc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [AppDoc],
     standalone: true,
     template: `<app-doc docTitle="Migration - VoxxUI v20" header="Migration to v20" description="Migration guide to VoxxUI v20." [docs]="docs" docType="page"></app-doc>`

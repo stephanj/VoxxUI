@@ -1,5 +1,5 @@
 import { CountryService } from '@/service/countryservice';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -11,6 +11,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'objects-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],

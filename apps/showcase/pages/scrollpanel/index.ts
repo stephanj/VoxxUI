@@ -4,9 +4,10 @@ import { BasicDoc } from '@/doc/scrollpanel/basic-doc';
 import { CusstomDoc } from '@/doc/scrollpanel/custom-doc';
 import { ImportDoc } from '@/doc/scrollpanel/import-doc';
 import { PTComponent } from '@/doc/scrollpanel/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Scroll Panel Component"
         header="ScrollPanel"

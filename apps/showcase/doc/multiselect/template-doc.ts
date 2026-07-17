@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'voxx-ui/multiselect';
 import { ButtonModule } from 'voxx-ui/button';
@@ -11,6 +11,7 @@ interface Country {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, ButtonModule, AppCodeModule, AppDocSectionText],

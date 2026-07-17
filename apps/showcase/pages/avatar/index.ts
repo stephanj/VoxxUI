@@ -9,10 +9,11 @@ import { ShapeDoc } from '@/doc/avatar/shape-doc';
 import { SizeDoc } from '@/doc/avatar/size-doc';
 import { TemplateDoc } from '@/doc/avatar/template-doc';
 import { PTComponent } from '@/doc/avatar/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc

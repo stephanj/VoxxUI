@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
@@ -8,6 +8,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'close-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -57,6 +58,7 @@ import { ButtonModule } from 'voxx-ui/button';
 import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: \`
         <vx-toast />
         <vx-button (click)="show()" label="Show" />

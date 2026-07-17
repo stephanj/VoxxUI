@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BenefitsDoc } from '@/doc/contribution/benefits-doc';
 import { IntroductionDoc } from '@/doc/contribution/introduction-doc';
 import { HelpNeededDoc } from '@/doc/contribution/helpneeded-doc';
@@ -9,6 +9,7 @@ import { ClaDoc } from '@/doc/contribution/cla-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="Contribution - VoxxUI" header="Contribution Guide" description="Welcome to the VoxxUI Contribution Guide and thank you for considering contributing." [docs]="docs"></app-doc> `

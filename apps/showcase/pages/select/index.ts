@@ -20,9 +20,10 @@ import { TemplateDoc } from '@/doc/select/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenforms-doc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscroll-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" [ptDocs]="ptComponent" themeDocs="select"></app-doc> `,
     standalone: true,
     imports: [AppDoc],

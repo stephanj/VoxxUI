@@ -1,8 +1,9 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'v21-breaking-doc',
     standalone: true,
     imports: [AppDocSectionText, RouterModule],

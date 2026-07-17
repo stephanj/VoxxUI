@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'voxx-ui/select';
 
@@ -16,6 +16,7 @@ interface Country {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'select-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, SelectModule, FormsModule],

@@ -1,7 +1,7 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuItem } from 'voxx-ui/api';
 import { AvatarModule } from 'voxx-ui/avatar';
 import { BadgeModule } from 'voxx-ui/badge';
@@ -9,6 +9,7 @@ import { MenuModule } from 'voxx-ui/menu';
 import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [CommonModule, MenuModule, BadgeModule, AvatarModule, Ripple, AppCodeModule, AppDocSectionText],

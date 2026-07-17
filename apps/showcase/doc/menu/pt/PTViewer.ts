@@ -1,9 +1,10 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuModule } from 'voxx-ui/menu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'menu-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, MenuModule],

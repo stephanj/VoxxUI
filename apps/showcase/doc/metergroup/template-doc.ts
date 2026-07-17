@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeterGroupModule } from 'voxx-ui/metergroup';
 import { CardModule } from 'voxx-ui/card';
@@ -7,6 +7,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [CommonModule, MeterGroupModule, CardModule, ButtonModule, AppCodeModule, AppDocSectionText],

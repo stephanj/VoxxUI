@@ -1,8 +1,9 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCodeModule } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'import-doc',
     standalone: true,
     imports: [AppCodeModule],

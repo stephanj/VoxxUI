@@ -2,9 +2,10 @@ import { AccessibilityDoc } from '@/doc/ripple/accessibility-doc';
 import { CustomDoc } from '@/doc/ripple/custom-doc';
 import { DefaultDoc } from '@/doc/ripple/default-doc';
 import { ImportDoc } from '@/doc/ripple/import-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Ripple Component" header="Ripple" description="Ripple directive adds ripple effect to the host element." [docs]="docs" themeDocs="ripple"></app-doc>`,
     standalone: true,
     imports: [AppDoc],

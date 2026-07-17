@@ -5,10 +5,11 @@ import { LayoutDoc } from '@/doc/dataview/layout-doc';
 import { PaginationDoc } from '@/doc/dataview/pagination-doc';
 import { SortingDoc } from '@/doc/dataview/sorting-doc';
 import { PTComponent } from '@/doc/dataview/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

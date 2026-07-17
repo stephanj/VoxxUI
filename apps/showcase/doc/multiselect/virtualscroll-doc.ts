@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MultiSelect, MultiSelectModule } from 'voxx-ui/multiselect';
@@ -6,6 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'virtualscroll-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],

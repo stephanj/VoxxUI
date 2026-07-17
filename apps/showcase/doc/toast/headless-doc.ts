@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,6 +7,7 @@ import { ButtonModule } from 'voxx-ui/button';
 import { ProgressBar } from 'voxx-ui/progressbar';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'headless-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, ProgressBar],

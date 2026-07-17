@@ -1,4 +1,4 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -625,6 +625,7 @@ describe('ToggleSwitch', () => {
 
 // Test Components
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <vx-toggleswitch [(ngModel)]="checked" [readonly]="readonly" [disabled]="disabled" [autofocus]="autofocus" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [tabindex]="tabindex" (onChange)="onToggleChange($event)"> </vx-toggleswitch>
@@ -643,6 +644,7 @@ class TestBasicToggleSwitchComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <form [formGroup]="form">
@@ -657,6 +659,7 @@ class TestFormToggleSwitchComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <vx-toggleswitch [(ngModel)]="checked">
@@ -671,6 +674,7 @@ class TestTemplateToggleSwitchComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <vx-toggleswitch [(ngModel)]="checked">
@@ -685,6 +689,7 @@ class TestPrimeTemplateToggleSwitchComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: ` <vx-toggleswitch [required]="required"></vx-toggleswitch> `
 })
@@ -693,6 +698,7 @@ class TestRequiredToggleSwitchComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: ` <vx-toggleswitch [name]="name"></vx-toggleswitch> `
 })
@@ -702,6 +708,7 @@ class TestNamedToggleSwitchComponent {
 
 // ToggleSwitch vxTemplate component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
     template: `
@@ -722,6 +729,7 @@ class TestToggleSwitchPTemplateComponent {
 
 // ToggleSwitch #template reference component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
     template: `
@@ -935,6 +943,7 @@ describe('PassThrough (PT) Tests', () => {
 
     describe('Case 1: Simple string classes', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [ToggleSwitch, FormsModule],
             template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="pt"></vx-toggleswitch>`
@@ -974,6 +983,7 @@ describe('PassThrough (PT) Tests', () => {
 
     describe('Case 2: Objects with class, style, and attributes', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [ToggleSwitch, FormsModule],
             template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="pt"></vx-toggleswitch>`
@@ -1040,6 +1050,7 @@ describe('PassThrough (PT) Tests', () => {
 
     describe('Case 3: Mixed object and string values', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [ToggleSwitch, FormsModule],
             template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="pt"></vx-toggleswitch>`
@@ -1092,6 +1103,7 @@ describe('PassThrough (PT) Tests', () => {
 
     describe('Case 4: Use variables from instance', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [ToggleSwitch, FormsModule],
             template: `<vx-toggleswitch [(ngModel)]="checked" [disabled]="disabled" [pt]="pt"></vx-toggleswitch>`
@@ -1150,6 +1162,7 @@ describe('PassThrough (PT) Tests', () => {
 
     describe('Case 5: Event binding', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [ToggleSwitch, FormsModule],
             template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="pt"></vx-toggleswitch>`
@@ -1193,6 +1206,7 @@ describe('PassThrough (PT) Tests', () => {
     describe('Case 6: Inline PT test', () => {
         it('should apply inline string PT', async () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleSwitch, FormsModule],
                 template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></vx-toggleswitch>`
@@ -1217,6 +1231,7 @@ describe('PassThrough (PT) Tests', () => {
 
         it('should apply inline object PT', async () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleSwitch, FormsModule],
                 template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></vx-toggleswitch>`
@@ -1244,6 +1259,7 @@ describe('PassThrough (PT) Tests', () => {
     describe('Case 7: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration', async () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleSwitch, FormsModule],
                 template: `<vx-toggleswitch [(ngModel)]="checked1"></vx-toggleswitch><vx-toggleswitch [(ngModel)]="checked2"></vx-toggleswitch>`
@@ -1304,6 +1320,7 @@ describe('PassThrough (PT) Tests', () => {
             const hookCalls: string[] = [];
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleSwitch, FormsModule],
                 template: `<vx-toggleswitch [(ngModel)]="checked" [pt]="pt"></vx-toggleswitch>`

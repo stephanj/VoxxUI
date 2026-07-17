@@ -1,7 +1,8 @@
 import { AppCode } from '@/components/doc/app.code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'events-doc',
     standalone: true,
     imports: [AppCode],

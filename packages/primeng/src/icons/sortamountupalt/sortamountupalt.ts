@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { uuid } from '@primeuix/utils';
 import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[data-p-icon="sort-amount-up-alt"]',
     standalone: true,
     template: `

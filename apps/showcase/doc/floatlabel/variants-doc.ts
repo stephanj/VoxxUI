@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -6,6 +6,7 @@ import { FloatLabelModule } from 'voxx-ui/floatlabel';
 import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'variants-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, FloatLabelModule, InputTextModule],

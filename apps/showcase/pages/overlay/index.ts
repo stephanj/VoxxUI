@@ -13,9 +13,10 @@ import { ResponsiveDoc } from '@/doc/overlay/responsive-doc';
 import { TargetDoc } from '@/doc/overlay/target-doc';
 import { OverlayTemplateDemo } from '@/doc/overlay/template-doc';
 import { TransitionOptionsDoc } from '@/doc/overlay/transitionoptions-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Overlay API - VoxxUI"
         header="Overlay API"

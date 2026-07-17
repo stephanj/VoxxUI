@@ -1,7 +1,8 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'theme-doc',
     template: `
         <app-docsectiontext>

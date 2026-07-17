@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { Drawer } from 'voxx-ui/drawer';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -10,6 +10,7 @@ import { RippleModule } from 'voxx-ui/ripple';
 import { StyleClassModule } from 'voxx-ui/styleclass';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'headless-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, DrawerModule, ButtonModule, FormsModule, AvatarModule, RippleModule, StyleClassModule],

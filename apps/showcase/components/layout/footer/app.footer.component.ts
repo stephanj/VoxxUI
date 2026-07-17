@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import packageJson from '../../../package.json';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-footer',
     standalone: true,
     template: `
@@ -14,6 +16,5 @@ import { Component } from '@angular/core';
     `
 })
 export class AppFooterComponent {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    version = require('package.json') && require('package.json').version;
+    version = packageJson.version;
 }

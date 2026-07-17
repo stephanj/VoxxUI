@@ -1,13 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuItem } from 'voxx-ui/api';
 import { BadgeModule } from 'voxx-ui/badge';
 import { RippleModule } from 'voxx-ui/ripple';
 import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TieredMenuModule, BadgeModule, CommonModule, RippleModule],

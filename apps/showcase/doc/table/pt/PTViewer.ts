@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TableModule } from 'voxx-ui/table';
 
 interface Product {
@@ -17,6 +17,7 @@ interface Product {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'table-pt-viewer',
     standalone: true,
     imports: [TableModule, CurrencyPipe, AppDocPtViewer],

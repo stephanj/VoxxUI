@@ -1,11 +1,12 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'voxx-ui/api';
 import { SplitButtonModule } from 'voxx-ui/splitbutton';
 import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-doccopymarkdown',
     standalone: true,
     imports: [CommonModule, SplitButtonModule, ToastModule],

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AutoFocusModule } from 'voxx-ui/autofocus';
 import { InputTextModule } from 'voxx-ui/inputtext';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [AutoFocusModule, InputTextModule, AppCode, AppDocSectionText],

@@ -1,10 +1,11 @@
 import { default as IconData } from '@/assets/data/icons.json';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'list-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, InputTextModule],

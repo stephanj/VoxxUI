@@ -4,10 +4,11 @@ import { CollapsiblesDoc } from '@/doc/guides/animations/collapsibles-doc';
 import { DialogDoc } from '@/doc/guides/animations/dialog-doc';
 import { DisableDoc } from '@/doc/guides/animations/disable-doc';
 import { ReferenceDoc } from '@/doc/guides/animations/reference-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'animations',
     standalone: true,
     imports: [AppDoc],

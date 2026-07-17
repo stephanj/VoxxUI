@@ -1,8 +1,9 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'v20-deprecations-doc',
     standalone: true,
     imports: [TagModule, AppDocSectionText],

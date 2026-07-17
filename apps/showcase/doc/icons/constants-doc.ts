@@ -1,11 +1,12 @@
 import { Code } from '@/domain/code';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { MenuModule } from 'voxx-ui/menu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'constants-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, MenuModule],
@@ -41,6 +42,7 @@ import { Component } from '@angular/core';
 import { PrimeIcons, MenuItem } from 'voxx-ui/api';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'prime-icons-constants-demo',
     templateUrl: './prime-icons-constants-demo.html'
 })

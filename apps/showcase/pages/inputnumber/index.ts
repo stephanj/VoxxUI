@@ -16,10 +16,11 @@ import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveforms-doc';
 import { SizesDoc } from '@/doc/inputnumber/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenforms-doc';
 import { VerticalDoc } from '@/doc/inputnumber/vertical-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular InputNumber Component"
         header="InputNumber"

@@ -1,9 +1,10 @@
 import { ConfigurationDoc } from '@/doc/guides/rtl/configuration-doc';
 import { LimitationsDoc } from '@/doc/guides/rtl/limitations-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'rtl-demo',
     standalone: true,
     imports: [AppDoc],

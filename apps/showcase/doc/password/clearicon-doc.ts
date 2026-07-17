@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'voxx-ui/password';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'clearicon-doc',
     standalone: true,
     imports: [FormsModule, PasswordModule, AppCode, AppDocSectionText],

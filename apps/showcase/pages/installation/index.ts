@@ -4,10 +4,11 @@ import { NextStepsDoc } from '@/doc/installation/nextsteps-doc';
 import { ProviderDoc } from '@/doc/installation/provider-doc';
 import { VerifyDoc } from '@/doc/installation/verify-doc';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [CommonModule, AppDoc],
     template: `<app-doc docTitle="Getting Started - VoxxUI" header="Installation" description="Setting up VoxxUI in an Angular CLI project." [docs]="docs" docType="page"></app-doc>`

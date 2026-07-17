@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { DataViewModule } from 'voxx-ui/dataview';
 import { TagModule } from 'voxx-ui/tag';
 import { ButtonModule } from 'voxx-ui/button';
@@ -20,6 +20,7 @@ interface Product {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dataview-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, DataViewModule, TagModule, ButtonModule],

@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { InputGroupModule } from 'voxx-ui/inputgroup';
 import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
@@ -15,6 +15,7 @@ interface Member {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'popover-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, PopoverModule, ButtonModule, InputTextModule, InputGroupModule, InputGroupAddonModule],

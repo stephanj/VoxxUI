@@ -3,10 +3,11 @@ import { BasicDoc } from '@/doc/progressspinner/basic-doc';
 import { CustomDoc } from '@/doc/progressspinner/custom-doc';
 import { ImportDoc } from '@/doc/progressspinner/import-doc';
 import { PTComponent } from '@/doc/progressspinner/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular ProgressSpinner Component"
         header="ProgressSpinner"

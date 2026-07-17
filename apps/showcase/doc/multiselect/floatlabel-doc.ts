@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MultiSelectModule } from 'voxx-ui/multiselect';
@@ -12,6 +12,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, MultiSelectModule, FloatLabelModule, AppCodeModule, AppDocSectionText],

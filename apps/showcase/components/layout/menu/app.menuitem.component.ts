@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, booleanAttribute, Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { StyleClass } from 'voxx-ui/styleclass';
 import { Tag } from 'voxx-ui/tag';
 import { MenuItem } from './app.menu.component';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[app-menuitem]',
     template: `
         <button *ngIf="root && item.children" vxButton type="button" class="px-link" vxStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-slidedown" leaveToClass="hidden" leaveActiveClass="animate-slideup">

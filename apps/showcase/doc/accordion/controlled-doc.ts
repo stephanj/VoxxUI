@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AccordionModule } from 'voxx-ui/accordion';
 import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'controlled-doc',
     standalone: true,
     imports: [AccordionModule, ButtonModule, AppCode, AppDocSectionText],

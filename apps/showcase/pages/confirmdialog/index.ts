@@ -5,9 +5,10 @@ import { ImportDoc } from '@/doc/confirmdialog/import-doc';
 import { PositionDoc } from '@/doc/confirmdialog/position-doc';
 import { PTComponent } from '@/doc/confirmdialog/pt/PTComponent';
 import { TemplateDoc } from '@/doc/confirmdialog/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

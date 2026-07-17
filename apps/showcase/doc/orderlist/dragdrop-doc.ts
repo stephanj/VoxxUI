@@ -3,10 +3,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'voxx-ui/orderlist';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dragdrop-doc',
     standalone: true,
     imports: [CommonModule, OrderListModule, AppCodeModule, AppDocSectionText],

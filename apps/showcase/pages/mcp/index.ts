@@ -7,10 +7,11 @@ import { WindsurfDoc } from '@/doc/mcp/windsurf-doc';
 import { ZedDoc } from '@/doc/mcp/zed-doc';
 import { ToolsDoc } from '@/doc/mcp/tools-doc';
 import { ExamplePromptsDoc } from '@/doc/mcp/exampleprompts-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'mcp-demo',
     standalone: true,
     imports: [AppDoc],

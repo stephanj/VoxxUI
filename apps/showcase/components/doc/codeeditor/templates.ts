@@ -10,7 +10,9 @@ export interface Props {
     routeFiles?: RouteFile[];
     selector?: string;
 }
-const version = require('package.json').version;
+import packageJson from '../../../package.json';
+
+const version = packageJson.version;
 
 const dependencies = {
     '@angular/cdk': '^21.0.0',

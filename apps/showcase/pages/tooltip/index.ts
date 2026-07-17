@@ -7,10 +7,11 @@ import { ImportDoc } from '@/doc/tooltip/import-doc';
 import { OptionsDoc } from '@/doc/tooltip/options-doc';
 import { PositionDoc } from '@/doc/tooltip/position-doc';
 import { PTComponent } from '@/doc/tooltip/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Tooltip Component"
         header="Tooltip"

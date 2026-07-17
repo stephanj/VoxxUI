@@ -11,9 +11,10 @@ import { TemplateDrivenFormsDoc } from '@/doc/selectbutton/templatedrivenforms-d
 import { FluidDoc } from '@/doc/selectbutton/fluid-doc';
 import { PTComponent } from '@/doc/selectbutton/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular SelectButton Component"
         header="SelectButton"

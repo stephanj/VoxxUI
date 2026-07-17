@@ -1,5 +1,5 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'voxx-ui/select';
 
@@ -9,6 +9,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'architecture-doc',
     standalone: true,
     imports: [AppDocSectionText, SelectModule, FormsModule],

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { InputGroupModule } from 'voxx-ui/inputgroup';
 import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
 import { InputTextModule } from 'voxx-ui/inputtext';
@@ -6,6 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'multiple-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, InputGroupModule, InputGroupAddonModule, InputTextModule],

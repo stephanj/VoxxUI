@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -58,6 +59,7 @@ export const appConfig: ApplicationConfig = {
 import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
         <vx-panel [pt]="pt">
@@ -86,6 +88,7 @@ export class PanelPtDemo {
 import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
         <vx-panel [pt]="pt" [ptOptions]="{mergeSections: true, mergeProps: true}">
@@ -114,6 +117,7 @@ export class PanelPtDemo {
 import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
         <vx-panel [pt]="pt" [ptOptions]="{mergeSections: false, mergeProps: true}">
@@ -140,6 +144,7 @@ export class PanelPtDemo {
 import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
         <vx-panel [pt]="pt" [ptOptions]="{mergeSections: false, mergeProps: false}">

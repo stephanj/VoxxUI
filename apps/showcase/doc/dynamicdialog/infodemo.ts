@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { DialogService, DynamicDialog, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ButtonModule],
     template: `

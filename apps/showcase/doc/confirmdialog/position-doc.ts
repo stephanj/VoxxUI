@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'voxx-ui/api';
 import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
 import { ToastModule } from 'voxx-ui/toast';
@@ -7,6 +7,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'position-doc',
     standalone: true,
     imports: [ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],

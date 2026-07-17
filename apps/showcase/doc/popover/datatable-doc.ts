@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { ButtonModule } from 'voxx-ui/button';
 import { Popover, PopoverModule } from 'voxx-ui/popover';
@@ -11,6 +11,7 @@ import { TableModule } from 'voxx-ui/table';
 import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'datatable-doc',
     standalone: true,
     imports: [CommonModule, PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDocSectionText],

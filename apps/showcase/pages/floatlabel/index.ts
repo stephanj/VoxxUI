@@ -4,10 +4,11 @@ import { ImportDoc } from '@/doc/floatlabel/import-doc';
 import { InvalidDoc } from '@/doc/floatlabel/invalid-doc';
 import { VariantsDoc } from '@/doc/floatlabel/variants-doc';
 import { PTComponent } from '@/doc/floatlabel/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

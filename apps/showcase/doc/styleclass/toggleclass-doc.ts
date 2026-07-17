@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { InputTextModule } from 'voxx-ui/inputtext';
 import { StyleClassModule } from 'voxx-ui/styleclass';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'toggleclass-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule, InputTextModule],

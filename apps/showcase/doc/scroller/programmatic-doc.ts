@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Scroller, ScrollerModule } from 'voxx-ui/scroller';
 import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
@@ -6,6 +6,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'programmatic-doc',
     standalone: true,
     imports: [ScrollerModule, ButtonModule, AppCode, AppDocSectionText, CommonModule],

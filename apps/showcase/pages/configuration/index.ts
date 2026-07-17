@@ -11,10 +11,11 @@ import { RippleDoc } from '@/doc/configuration/ripple-doc';
 import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendto-doc';
 import { ThemeDoc } from '@/doc/configuration/theme-doc';
 import { ZIndexDoc } from '@/doc/configuration/zindex-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'configuration',
     standalone: true,
     imports: [AppDoc],

@@ -5,10 +5,11 @@ import { ImagesDoc } from '@/doc/paginator/images-doc';
 import { ImportDoc } from '@/doc/paginator/import-doc';
 import { TemplateDoc } from '@/doc/paginator/template-doc';
 import { PTComponent } from '@/doc/paginator/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Paginator Component"
         header="Paginator"

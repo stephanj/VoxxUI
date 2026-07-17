@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'nested-doc',
     standalone: true,
     imports: [AppDocSectionText, SplitterModule, AppCode],

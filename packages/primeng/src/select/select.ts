@@ -70,6 +70,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-selectItem',
     standalone: true,
     imports: [CommonModule, SharedModule, Ripple, CheckIcon, BlankIcon, BindModule],

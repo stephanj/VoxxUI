@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-developmentsection',
     standalone: true,
     template: ` <div class="flex items-center leading-normal bg-primary-600 text-white p-4 text-lg rounded-border mb-4">

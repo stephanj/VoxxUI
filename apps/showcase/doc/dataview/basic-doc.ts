@@ -3,12 +3,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { DataViewModule } from 'voxx-ui/dataview';
 import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [CommonModule, DataViewModule, ButtonModule, TagModule, AppCode, AppDocSectionText],

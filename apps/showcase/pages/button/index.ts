@@ -17,9 +17,10 @@ import { SizesDoc } from '@/doc/button/sizes-doc';
 import { TemplateDoc } from '@/doc/button/template-doc';
 import { TextDoc } from '@/doc/button/text-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PTComponent } from '@/doc/button/pt/PTComponent';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

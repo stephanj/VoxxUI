@@ -1,4 +1,4 @@
-import { Component, DebugElement, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -8,6 +8,7 @@ import { provideVoxxUI } from 'voxx-ui/config';
 import { Menu } from './menu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <vx-menu
@@ -70,6 +71,7 @@ class TestBasicMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <vx-menu #menu [model]="popupItems" [popup]="true"></vx-menu>
@@ -106,6 +108,7 @@ class TestPopupMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-router-menu',
     template: ` <vx-menu [model]="routerModel"></vx-menu> `
@@ -124,6 +127,7 @@ class TestRouterMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-submenu-menu',
     template: ` <vx-menu [model]="submenuModel"></vx-menu> `
@@ -148,6 +152,7 @@ class TestSubmenuMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-item-template-menu',
     template: `
@@ -169,6 +174,7 @@ class TestItemTemplateMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-ptemplate-menu',
     template: `
@@ -190,6 +196,7 @@ class TestPTemplateMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-disabled-items-menu',
     template: ` <vx-menu [model]="disabledModel"></vx-menu> `
@@ -199,6 +206,7 @@ class TestDisabledItemsMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-styled-menu',
     template: ` <vx-menu [model]="model" [styleClass]="customStyleClass" [style]="customStyle"></vx-menu> `
@@ -210,6 +218,7 @@ class TestStyledMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-minimal-menu',
     template: `<vx-menu></vx-menu>`
@@ -217,6 +226,7 @@ class TestStyledMenuComponent {
 class TestMinimalMenuComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-dynamic-menu',
     template: ` <vx-menu [model]="dynamicModel"></vx-menu> `
@@ -238,6 +248,7 @@ class TestDynamicMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-command-menu',
     template: ` <vx-menu [model]="commandModel"></vx-menu> `
@@ -257,6 +268,7 @@ class TestCommandMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     template: '<div>Target Page</div>'
 })
@@ -1667,6 +1679,7 @@ describe('Menu', () => {
         describe('Case 6: Inline test', () => {
             it('should apply inline PT with string class', () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Menu],
                     template: `<vx-menu [pt]="{ root: 'INLINE_ROOT_CLASS' }"></vx-menu>`
@@ -1688,6 +1701,7 @@ describe('Menu', () => {
 
             it('should apply inline PT with object class', () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Menu],
                     template: `<vx-menu [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></vx-menu>`
@@ -1710,6 +1724,7 @@ describe('Menu', () => {
 
         describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Menu],
                 template: `
@@ -1762,6 +1777,7 @@ describe('Menu', () => {
 
             it('should merge local PT with global PT', () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Menu],
                     template: `<vx-menu [pt]="{ root: { class: 'LOCAL_CLASS' } }"></vx-menu>`

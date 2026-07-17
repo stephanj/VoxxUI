@@ -10,9 +10,10 @@ import { LazyDoc } from '@/doc/tabs/lazy-doc';
 import { PTComponent } from '@/doc/tabs/pt/PTComponent';
 import { ScrollableDoc } from '@/doc/tabs/scrollable-doc';
 import { TabmenuDoc } from '@/doc/tabs/tabmenu-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Tabs Component" header="Tabs" description="Tabs is a container component to group content with tabs." [docs]="docs" [apiDocs]="['Tabs']" [ptDocs]="ptComponent" themeDocs="tabs"></app-doc>`,
     imports: [AppDoc],
     standalone: true

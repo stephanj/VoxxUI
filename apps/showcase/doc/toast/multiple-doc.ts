@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,6 +7,7 @@ import { ButtonModule } from 'voxx-ui/button';
 import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'multiple-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, Ripple],

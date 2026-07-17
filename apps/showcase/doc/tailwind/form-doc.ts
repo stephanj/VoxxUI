@@ -1,13 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'voxx-ui/datepicker';
 import { InputTextModule } from 'voxx-ui/inputtext';
 import { SelectModule } from 'voxx-ui/select';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'form-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule],

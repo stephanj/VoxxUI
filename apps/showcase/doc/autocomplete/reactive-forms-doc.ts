@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'voxx-ui/api';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactive-forms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, CommonModule, AppDocSectionText, AppCode],

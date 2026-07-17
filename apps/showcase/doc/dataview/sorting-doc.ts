@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectItem } from 'voxx-ui/api';
 import { ButtonModule } from 'voxx-ui/button';
@@ -12,6 +12,7 @@ import { SelectModule } from 'voxx-ui/select';
 import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'sorting-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectModule, AppCode, AppDocSectionText],

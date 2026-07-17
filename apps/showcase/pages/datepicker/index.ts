@@ -25,10 +25,11 @@ import { YearDoc } from '@/doc/datepicker/year-doc';
 import { FluidDoc } from '@/doc/datepicker/fluid-doc';
 import { ClearIconDoc } from '@/doc/datepicker/clearicon-doc';
 import { PTComponent } from '@/doc/datepicker/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="Angular DatePicker Component" header="DatePicker" description="DatePicker is an input component to select a date." [docs]="docs" [apiDocs]="['DatePicker']" [ptDocs]="ptComponent" themeDocs="datepicker"></app-doc> `
