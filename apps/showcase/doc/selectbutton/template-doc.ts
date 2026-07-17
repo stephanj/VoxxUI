@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButton } from 'voxx-ui/selectbutton';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [FormsModule, SelectButton, AppDocSectionText, AppCode],
@@ -13,11 +14,11 @@ import { AppCode } from '@/components/doc/app.code';
             <p>For custom content support define a template named <i>item</i> where the default local template variable refers to an option.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
+            <vx-selectbutton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
                 <ng-template #item let-item>
                     <i [class]="item.icon"></i>
                 </ng-template>
-            </p-selectbutton>
+            </vx-selectbutton>
         </div>
         <app-code></app-code>
     `

@@ -1,10 +1,10 @@
 import { HttpEventType } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { BehaviorSubject, delay, of, timer } from 'rxjs';
 import { FileUpload } from './fileupload';
 
@@ -738,25 +738,27 @@ describe('FileUpload', () => {
 
 // Test Components for Template Testing
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                 <div class="custom-header">
                     <button type="button" (click)="chooseCallback()" class="choose-btn">Choose</button>
                     <button type="button" (click)="uploadCallback()" class="upload-btn">Upload</button>
                     <button type="button" (click)="clearCallback()" class="clear-btn">Clear</button>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateHeaderComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                 <div class="custom-header">
                     <button type="button" (click)="chooseCallback()" class="choose-btn">Choose</button>
@@ -764,16 +766,17 @@ class TestPTemplateHeaderComponent {}
                     <button type="button" (click)="clearCallback()" class="clear-btn">Clear</button>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestHashHeaderComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
                     <div *ngFor="let file of files; let i = index" class="file-item">
                         <span>{{ file.name }}</span>
@@ -781,15 +784,16 @@ class TestHashHeaderComponent {}
                     </div>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateContentComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
                     <div *ngFor="let file of files; let i = index" class="file-item">
@@ -798,95 +802,101 @@ class TestPTemplateContentComponent {}
                     </div>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestHashContentComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="file" let-file let-index="index">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="file" let-file let-index="index">
                 <div class="custom-file">
                     <span>Custom: {{ file.name }} ({{ index }})</span>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateFileComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="empty">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="empty">
                 <div class="custom-empty">No files selected</div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateEmptyComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="filelabel" let-files>
+        <vx-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="filelabel" let-files>
                 <div class="custom-file-label">
                     {{ files?.length ? files.length + ' files selected' : 'No files' }}
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateFileLabelComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="chooseicon">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="chooseicon">
                 <i class="custom-choose-icon pi pi-plus"></i>
             </ng-template>
-            <ng-template pTemplate="uploadicon">
+            <ng-template vxTemplate="uploadicon">
                 <i class="custom-upload-icon pi pi-upload"></i>
             </ng-template>
-            <ng-template pTemplate="cancelicon">
+            <ng-template vxTemplate="cancelicon">
                 <i class="custom-cancel-icon pi pi-times"></i>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateIconsComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="toolbar">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="toolbar">
                 <div class="custom-toolbar">
                     <span class="toolbar-info">Custom Toolbar Content</span>
                     <button class="toolbar-action">Action</button>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestPTemplateToolbarComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload" [files]="files">
-            <ng-template pTemplate="file" let-file let-index="index">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload" [files]="files">
+            <ng-template vxTemplate="file" let-file let-index="index">
                 <div class="file-item">
                     <span>{{ file.name }}</span>
                     <ng-container [ngTemplateOutlet]="removeIconTemplate" [ngTemplateOutletContext]="{ class: 'p-button-icon-only p-button-danger', file: file, index: index }"></ng-container>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
         <ng-template #removeIconTemplate let-class="class" let-file="file" let-index="index">
             <i [class]="class" class="custom-remove-icon pi pi-trash" [attr.data-file-name]="file.name" [attr.data-file-index]="index"></i>
         </ng-template>
@@ -901,10 +911,11 @@ class TestFileRemoveIconComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                 <div class="context-test-header">
                     <span [attr.data-files-count]="files?.length || 0">Files: {{ files?.length || 0 }}</span>
                     <button type="button" (click)="testChoose(chooseCallback)" class="ctx-choose">Choose</button>
@@ -912,7 +923,7 @@ class TestFileRemoveIconComponent {
                     <button type="button" (click)="testUpload(uploadCallback)" class="ctx-upload">Upload</button>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestContextObjectsComponent {
@@ -930,10 +941,11 @@ class TestContextObjectsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback" let-progress="progress" let-messages="messages">
+        <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback" let-progress="progress" let-messages="messages">
                 <div class="context-content-test">
                     <div class="files-info">
                         <span [attr.data-pending-count]="files?.length || 0">Pending: {{ files?.length || 0 }}</span>
@@ -947,7 +959,7 @@ class TestContextObjectsComponent {
                     </div>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestContentContextComponent {
@@ -961,10 +973,11 @@ class TestContentContextComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
-            <ng-template pTemplate="filelabel" let-files>
+        <vx-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
+            <ng-template vxTemplate="filelabel" let-files>
                 <div class="context-file-label">
                     <span [attr.data-files-array-length]="files?.length || 0">Files Array Length: {{ files?.length || 0 }}</span>
                     <span [attr.data-first-file-name]="files?.[0]?.name || 'none'">First File: {{ files?.[0]?.name || 'none' }}</span>
@@ -973,7 +986,7 @@ class TestContentContextComponent {
                     </div>
                 </div>
             </ng-template>
-        </p-fileupload>
+        </vx-fileupload>
     `
 })
 class TestFileLabelContextComponent {}
@@ -983,8 +996,8 @@ describe('FileUpload Template Tests', () => {
         TestBed.resetTestingModule();
     });
 
-    describe('pTemplate Tests', () => {
-        it('should render pTemplate="header" with correct context', async () => {
+    describe('vxTemplate Tests', () => {
+        it('should render vxTemplate="header" with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateHeaderComponent],
@@ -1012,7 +1025,7 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="content" with correct context', async () => {
+        it('should render vxTemplate="content" with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateContentComponent],
@@ -1038,7 +1051,7 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="file" with correct context', async () => {
+        it('should render vxTemplate="file" with correct context', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateFileComponent],
@@ -1059,7 +1072,7 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="empty" when no files', async () => {
+        it('should render vxTemplate="empty" when no files', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateEmptyComponent],
@@ -1079,7 +1092,7 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="filelabel" in basic mode', async () => {
+        it('should render vxTemplate="filelabel" in basic mode', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateFileLabelComponent],
@@ -1098,7 +1111,7 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate icons', async () => {
+        it('should render vxTemplate icons', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateIconsComponent],
@@ -1117,7 +1130,7 @@ describe('FileUpload Template Tests', () => {
             }
         });
 
-        it('should render pTemplate="toolbar"', async () => {
+        it('should render vxTemplate="toolbar"', async () => {
             await TestBed.configureTestingModule({
                 imports: [FileUpload, HttpClientTestingModule],
                 declarations: [TestPTemplateToolbarComponent],
@@ -1630,10 +1643,11 @@ describe('FileUpload Advanced Template Combinations', () => {
 
     describe('Mixed Template Usage', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
             template: `
-                <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
-                    <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+                <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+                    <ng-template vxTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                         <div class="mixed-header">
                             <span class="file-count">{{ files?.length || 0 }} files</span>
                             <div class="header-actions">
@@ -1644,7 +1658,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-progress="progress">
+                    <ng-template vxTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-progress="progress">
                         <div class="mixed-content">
                             <div class="upload-section" *ngIf="files?.length">
                                 <h4>Ready to Upload ({{ files.length }})</h4>
@@ -1669,7 +1683,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="toolbar">
+                    <ng-template vxTemplate="toolbar">
                         <div class="mixed-toolbar">
                             <span class="toolbar-title">Advanced File Upload</span>
                             <div class="toolbar-stats">
@@ -1679,7 +1693,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="empty">
+                    <ng-template vxTemplate="empty">
                         <div class="mixed-empty">
                             <div class="empty-icon">📁</div>
                             <div class="empty-text">Drag and drop files here or click Choose</div>
@@ -1687,14 +1701,14 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
 
-                    <ng-template pTemplate="chooseicon">
+                    <ng-template vxTemplate="chooseicon">
                         <i class="pi pi-cloud-upload mixed-choose-icon"></i>
                     </ng-template>
 
-                    <ng-template pTemplate="uploadicon">
+                    <ng-template vxTemplate="uploadicon">
                         <i class="pi pi-send mixed-upload-icon"></i>
                     </ng-template>
-                </p-fileupload>
+                </vx-fileupload>
             `
         })
         class TestMixedTemplatesComponent {}
@@ -1794,11 +1808,12 @@ describe('FileUpload Advanced Template Combinations', () => {
 
     describe('Template Context Validation', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
             template: `
-                <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
+                <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
                     <ng-template
-                        pTemplate="content"
+                        vxTemplate="content"
                         let-files
                         let-uploadedFiles="uploadedFiles"
                         let-removeFileCallback="removeFileCallback"
@@ -1829,7 +1844,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                             </div>
                         </div>
                     </ng-template>
-                </p-fileupload>
+                </vx-fileupload>
             `
         })
         class TestAdvancedContextValidationComponent {
@@ -2699,8 +2714,9 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="pt" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase1Component {
                 pt = {
@@ -2744,8 +2760,9 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="pt" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase2Component {
                 pt = {
@@ -2799,8 +2816,9 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="pt" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase3Component {
                 pt = {
@@ -2844,8 +2862,9 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="pt" [name]="fileName" url="./upload" [disabled]="isDisabled"></p-fileupload>`
+                template: `<vx-fileupload [pt]="pt" [name]="fileName" url="./upload" [disabled]="isDisabled"></vx-fileupload>`
             })
             class TestPTCase4Component {
                 fileName = 'test-upload';
@@ -2891,8 +2910,9 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="pt" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase5Component {
                 clickedSection: string = '';
@@ -2938,14 +2958,16 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase6InlineComponent {}
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase6InlineObjectComponent {}
 
@@ -2994,17 +3016,18 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-fileupload name="file1" url="./upload"></p-fileupload>
-                    <p-fileupload name="file2" url="./upload"></p-fileupload>
+                    <vx-fileupload name="file1" url="./upload"></vx-fileupload>
+                    <vx-fileupload name="file2" url="./upload"></vx-fileupload>
                 `
             })
             class TestPTCase7GlobalComponent {}
 
-            it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
+            it('should apply global PT configuration from VoxxUIConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
@@ -3012,7 +3035,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                     providers: [
                         MessageService,
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideVoxxUI',
                             useValue: {
                                 pt: {
                                     fileupload: {
@@ -3043,8 +3066,9 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<vx-fileupload [pt]="pt" name="test" url="./upload"></vx-fileupload>`
             })
             class TestPTCase8HooksComponent {
                 afterViewInitCalled = false;

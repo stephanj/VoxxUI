@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'flexiblescroll-doc',
@@ -18,13 +18,13 @@ import { TableModule } from 'primeng/table';
                 viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center">
-                    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>
+                    <button type="button" (click)="showDialog()" vxButton icon="pi pi-external-link" label="Show"></button>
                 </div>
-                <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
-                    <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
+                    <vx-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template #header>
                             <tr>
                                 <th>Name</th>
@@ -41,13 +41,13 @@ import { TableModule } from 'primeng/table';
                                 <td>{{ customer.representative.name }}</td>
                             </tr>
                         </ng-template>
-                    </p-table>
+                    </vx-table>
                     <ng-template #footer>
-                        <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+                        <vx-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
-                </p-dialog>
+                </vx-dialog>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

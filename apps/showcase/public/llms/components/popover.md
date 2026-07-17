@@ -12,33 +12,29 @@ Popover is accessed via its reference and visibility is controlled using toggle 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { PopoverModule } from 'primeng/popover';
-import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
-            <p-popover #op>
+            <vx-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
+            <vx-popover #op>
                 <div class="flex flex-col gap-4 w-[25rem]">
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
-                        <p-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
-                            <p-inputgroup-addon>
+                        <vx-inputgroup>
+                            <input vxInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <vx-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
-                            </p-inputgroup-addon>
-                        </p-inputgroup>
+                            </vx-inputgroup-addon>
+                        </vx-inputgroup>
                     </div>
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Invite Member</span>
                         <div class="flex">
-                            <p-inputgroup>
-                                <input pInputText disabled />
-                                <button pButton label="Invite" icon="pi pi-users"></button>
-                            </p-inputgroup>
+                            <vx-inputgroup>
+                                <input vxInputText disabled />
+                                <button vxButton label="Invite" icon="pi pi-users"></button>
+                            </vx-inputgroup>
                         </div>
                     </div>
                     <div>
@@ -60,11 +56,11 @@ import { InputTextModule } from 'primeng/inputtext';
                         </ul>
                     </div>
                 </div>
-            </p-popover>
+            </vx-popover>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, InputGroupModule, PopoverModule, InputTextModule]
+    imports: []
 })
 export class PopoverBasicDemo {
     members: any[];
@@ -77,18 +73,15 @@ Place the Popover outside of the data iteration components to avoid rendering it
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Popover, PopoverModule } from 'primeng/popover';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
+import { Popover } from 'voxx-ui/popover';
 
 @Component({
     template: `
         <div class="card">
-            <p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+            <vx-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
                 <ng-template #header>
                     <tr>
                         <th class="w-1/6">Id</th>
@@ -109,18 +102,18 @@ import { Product } from '@/domain/product';
                             <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
                         </td>
                         <td>
-                            <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
+                            <vx-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
-            <p-popover #op (onHide)="selectedProduct.set(null)">
+            </vx-table>
+            <vx-popover #op (onHide)="selectedProduct.set(null)">
                 <ng-template #content>
                     <div *ngIf="selectedProduct()" class="rounded flex flex-col">
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
                                 <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
-                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <vx-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
@@ -137,7 +130,7 @@ import { Product } from '@/domain/product';
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <p-button
+                                <vx-button
                                     icon="pi pi-shopping-cart"
                                     [label]="'Buy Now | $' + selectedProduct().price"
                                     [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
@@ -145,16 +138,16 @@ import { Product } from '@/domain/product';
                                     styleClass="w-full whitespace-nowrap"
                                     (onClick)="hidePopover()"
                                 />
-                                <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                                <vx-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
                             </div>
                         </div>
                     </div>
                 </ng-template>
-            </p-popover>
+            </vx-popover>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule, TableModule, TagModule],
+    imports: [],
     providers: [ProductService, MessageService]
 })
 export class PopoverDatatableDemo implements OnInit {
@@ -211,14 +204,13 @@ In this sample, data is retrieved from the content inside the popover.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Popover, PopoverModule } from 'primeng/popover';
+import { Popover } from 'voxx-ui/popover';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
-            <p-popover #op>
+            <vx-button type="button" [label]="selectedMember ? selectedMember.name : 'Select Member'" (onClick)="toggle($event)" styleClass="min-w-48" />
+            <vx-popover #op>
                 <div class="flex flex-col gap-4">
                     <div>
                         <span class="font-medium block mb-2">Team Members</span>
@@ -233,11 +225,11 @@ import { Popover, PopoverModule } from 'primeng/popover';
                         </ul>
                     </div>
                 </div>
-            </p-popover>
+            </vx-popover>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule]
+    imports: []
 })
 export class PopoverSelectdataDemo {
     selectedMember: any = null;
@@ -260,23 +252,21 @@ show method takes two parameters, first one is the event and it is mandatory. By
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PopoverModule } from 'primeng/popover';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+            <vx-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></vx-button>
             <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
                 <span>Target Element</span>
             </div>
-            <p-popover #op>
+            <vx-popover #op>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
-            </p-popover>
+            </vx-popover>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule]
+    imports: []
 })
 export class PopoverTargetDemo {}
 ```
@@ -287,23 +277,21 @@ Content of the OverlayPanel is defined by content template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PopoverModule } from 'primeng/popover';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { OverlayPanel } from 'voxx-ui/overlaypanel';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-popover #op>
+            <vx-popover #op>
                 <ng-template #content>
                     <h4>Custom Content</h4>
                 </ng-template>
-            </p-popover>
-            <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
+            </vx-popover>
+            <vx-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></vx-button>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, PopoverModule]
+    imports: []
 })
 export class PopoverTemplateDemo {}
 ```

@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'svg-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -16,7 +17,7 @@ import { Component } from '@angular/core';
 })
 export class SVGDoc {
     code: Code = {
-        html: `<p-select>
+        html: `<vx-select>
     <ng-template #dropdownicon>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g id="chevron-down">
@@ -24,6 +25,6 @@ export class SVGDoc {
             </g>
         </svg>
     </ng-template>
-</p-select>`
+</vx-select>`
     };
 }

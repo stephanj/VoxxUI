@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as ripple_style } from '@primeuix/styles/ripple';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${ripple_style}
 
-    /* For PrimeNG */
+    /* For VoxxUI */
     .p-ripple {
         overflow: hidden;
         position: relative;

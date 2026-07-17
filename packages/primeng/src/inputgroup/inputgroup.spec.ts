@@ -1,21 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroup } from './inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
-import { providePrimeNG } from 'primeng/config';
+import { InputGroupAddon } from 'voxx-ui/inputgroupaddon';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputGroup, InputGroupAddon, FormsModule],
     template: `
-        <p-inputgroup>
-            <p-inputgroup-addon>
+        <vx-inputgroup>
+            <vx-inputgroup-addon>
                 <i class="pi pi-user"></i>
-            </p-inputgroup-addon>
+            </vx-inputgroup-addon>
             <input type="text" [(ngModel)]="username" placeholder="Username" />
-        </p-inputgroup>
+        </vx-inputgroup>
     `
 })
 class TestBasicInputGroupComponent {
@@ -23,14 +24,15 @@ class TestBasicInputGroupComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputGroup, InputGroupAddon, FormsModule],
     template: `
-        <p-inputgroup [styleClass]="customClass">
-            <p-inputgroup-addon>$</p-inputgroup-addon>
+        <vx-inputgroup [styleClass]="customClass">
+            <vx-inputgroup-addon>$</vx-inputgroup-addon>
             <input type="number" [(ngModel)]="price" placeholder="Price" />
-            <p-inputgroup-addon>.00</p-inputgroup-addon>
-        </p-inputgroup>
+            <vx-inputgroup-addon>.00</vx-inputgroup-addon>
+        </vx-inputgroup>
     `
 })
 class TestStyledInputGroupComponent {
@@ -39,13 +41,14 @@ class TestStyledInputGroupComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputGroup, InputGroupAddon, FormsModule],
     template: `
-        <p-inputgroup>
-            <p-inputgroup-addon [style]="addonStyle" [styleClass]="addonClass"> www </p-inputgroup-addon>
+        <vx-inputgroup>
+            <vx-inputgroup-addon [style]="addonStyle" [styleClass]="addonClass"> www </vx-inputgroup-addon>
             <input type="text" [(ngModel)]="website" placeholder="Website" />
-        </p-inputgroup>
+        </vx-inputgroup>
     `
 })
 class TestAddonStyledComponent {
@@ -243,13 +246,14 @@ describe('InputGroup', () => {
         it('should handle empty addon content', () => {
             // Create a component with empty addon
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [InputGroup, InputGroupAddon, FormsModule],
                 template: `
-                    <p-inputgroup>
-                        <p-inputgroup-addon></p-inputgroup-addon>
+                    <vx-inputgroup>
+                        <vx-inputgroup-addon></vx-inputgroup-addon>
                         <input type="text" [(ngModel)]="value" />
-                    </p-inputgroup>
+                    </vx-inputgroup>
                 `
             })
             class TestEmptyAddonComponent {
@@ -393,14 +397,14 @@ describe('InputGroup PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 6: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 6: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputGroup, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             inputGroup: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -428,7 +432,7 @@ describe('InputGroup PassThrough Tests', () => {
                 imports: [InputGroup, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             inputGroup: {
                                 hooks: {

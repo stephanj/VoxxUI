@@ -1,6 +1,6 @@
-# Overlay API - PrimeNG
+# Overlay API - VoxxUI
 
-This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+This API allows overlay components to be controlled from the VoxxUI. In this way, all overlay components in the application can have the same behavior.
 
 ## Accessibility
 
@@ -24,17 +24,16 @@ Overlay is a container to display content in an overlay window. All the options 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </p-overlay>
+            <vx-button (click)="toggle()" label="Show Overlay"></vx-button>
+            <vx-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border"> Content </vx-overlay>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class OverlayBasicDemo {
     overlayVisible: boolean = false;
@@ -135,19 +134,18 @@ Content can be customized with the content template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button (click)="toggle()" label="Show Overlay"></p-button>
-            <p-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+            <vx-button (click)="toggle()" label="Show Overlay"></vx-button>
+            <vx-overlay [(visible)]="overlayVisible" [responsive]="{ breakpoint: '640px', direction: 'bottom', contentStyleClass: 'h-20rem' }" contentStyleClass="p-6 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
                 <ng-template #content let-option> Content - {{ option.mode }} </ng-template>
-            </p-overlay>
+            </vx-overlay>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class OverlayTemplateDemo {
     overlayVisible: boolean = false;
@@ -164,7 +162,7 @@ Transition options of the show or hide animation. The default value of showTrans
 
 ## Overlay
 
-This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+This API allows overlay components to be controlled from the VoxxUI. In this way, all overlay components in the application can have the same behavior.
 
 ### Props
 

@@ -1,9 +1,9 @@
-import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
+import { SharedModule } from 'voxx-ui/api';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'voxx-ui/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
 
@@ -18,9 +18,10 @@ const mockCountries = [
 const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-autocomplete
+        <vx-autocomplete
             [(ngModel)]="selectedValue"
             [suggestions]="suggestions"
             [optionLabel]="optionLabel"
@@ -88,11 +89,11 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
             <ng-template #group let-group>
                 <div class="custom-group">{{ group.label }}</div>
             </ng-template>
-        </p-autocomplete>
+        </vx-autocomplete>
 
         <!-- Reactive Forms test -->
         <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
-            <p-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </p-autocomplete>
+            <vx-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </vx-autocomplete>
         </form>
     `
 })
@@ -280,92 +281,93 @@ class TestAutocompleteComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-autocomplete [(ngModel)]="selectedValue" [suggestions]="suggestions" [optionLabel]="'name'" [multiple]="multiple" (completeMethod)="onSearch($event)">
-            <!-- Item Template with pTemplate -->
-            <ng-template pTemplate="item" let-item let-index="index">
+        <vx-autocomplete [(ngModel)]="selectedValue" [suggestions]="suggestions" [optionLabel]="'name'" [multiple]="multiple" (completeMethod)="onSearch($event)">
+            <!-- Item Template with vxTemplate -->
+            <ng-template vxTemplate="item" let-item let-index="index">
                 <div class="ptemplate-item" [attr.data-index]="index">
                     <span class="item-name">{{ item.name }}</span>
                     <span class="item-code">{{ item.code }}</span>
                 </div>
             </ng-template>
 
-            <!-- Header Template with pTemplate -->
-            <ng-template pTemplate="header">
+            <!-- Header Template with vxTemplate -->
+            <ng-template vxTemplate="header">
                 <div class="ptemplate-header">
                     <h4>Countries List</h4>
                     <span class="header-count">{{ suggestions.length }} items</span>
                 </div>
             </ng-template>
 
-            <!-- Footer Template with pTemplate -->
-            <ng-template pTemplate="footer">
+            <!-- Footer Template with vxTemplate -->
+            <ng-template vxTemplate="footer">
                 <div class="ptemplate-footer">
                     <button class="footer-button">Load More</button>
                 </div>
             </ng-template>
 
-            <!-- Empty Template with pTemplate -->
-            <ng-template pTemplate="empty">
+            <!-- Empty Template with vxTemplate -->
+            <ng-template vxTemplate="empty">
                 <div class="ptemplate-empty">
                     <i class="empty-icon">🔍</i>
                     <span class="empty-message">No countries found</span>
                 </div>
             </ng-template>
 
-            <!-- Selected Item Template with pTemplate -->
-            <ng-template pTemplate="selecteditem" let-item>
+            <!-- Selected Item Template with vxTemplate -->
+            <ng-template vxTemplate="selecteditem" let-item>
                 <div class="ptemplate-selecteditem">
                     <span class="selected-flag">🏳️</span>
                     <span class="selected-name">{{ item.name }}</span>
                 </div>
             </ng-template>
 
-            <!-- Group Template with pTemplate -->
-            <ng-template pTemplate="group" let-group>
+            <!-- Group Template with vxTemplate -->
+            <ng-template vxTemplate="group" let-group>
                 <div class="ptemplate-group">
                     <strong class="group-title">{{ group.label }}</strong>
                     <span class="group-count">({{ group.items?.length || 0 }} items)</span>
                 </div>
             </ng-template>
 
-            <!-- Loader Template with pTemplate -->
-            <ng-template pTemplate="loader" let-options="options">
+            <!-- Loader Template with vxTemplate -->
+            <ng-template vxTemplate="loader" let-options="options">
                 <div class="ptemplate-loader" [attr.data-loading]="loading">
                     <span class="loader-spinner">⏳</span>
                     <span class="loader-text">Loading...</span>
                 </div>
             </ng-template>
 
-            <!-- Remove Icon Template with pTemplate -->
-            <ng-template pTemplate="removetokenicon" let-removeCallback="removeCallback" let-index="index">
+            <!-- Remove Icon Template with vxTemplate -->
+            <ng-template vxTemplate="removetokenicon" let-removeCallback="removeCallback" let-index="index">
                 <span class="ptemplate-removeicon" (click)="removeCallback($event, index)">
                     <i class="remove-icon">❌</i>
                 </span>
             </ng-template>
 
-            <!-- Loading Icon Template with pTemplate -->
-            <ng-template pTemplate="loadingicon">
+            <!-- Loading Icon Template with vxTemplate -->
+            <ng-template vxTemplate="loadingicon">
                 <div class="ptemplate-loadingicon">
                     <span class="loading-spinner">🔄</span>
                 </div>
             </ng-template>
 
-            <!-- Clear Icon Template with pTemplate -->
-            <ng-template pTemplate="clearicon">
+            <!-- Clear Icon Template with vxTemplate -->
+            <ng-template vxTemplate="clearicon">
                 <div class="ptemplate-clearicon">
                     <span class="clear-button">🗑️</span>
                 </div>
             </ng-template>
 
-            <!-- Dropdown Icon Template with pTemplate -->
-            <ng-template pTemplate="dropdownicon">
+            <!-- Dropdown Icon Template with vxTemplate -->
+            <ng-template vxTemplate="dropdownicon">
                 <div class="ptemplate-dropdownicon">
                     <span class="dropdown-arrow">⬇️</span>
                 </div>
             </ng-template>
-        </p-autocomplete>
+        </vx-autocomplete>
     `
 })
 class TestPTemplateAutocompleteComponent {
@@ -408,8 +410,8 @@ describe('AutoComplete', () => {
     let fixture: ComponentFixture<AutoComplete>;
     let testFixture: ComponentFixture<TestAutocompleteComponent>;
     let testComponent: TestAutocompleteComponent;
-    let pTemplateFixture: ComponentFixture<TestPTemplateAutocompleteComponent>;
-    let pTemplateComponent: TestPTemplateAutocompleteComponent;
+    let vxTemplateFixture: ComponentFixture<TestPTemplateAutocompleteComponent>;
+    let vxTemplateComponent: TestPTemplateAutocompleteComponent;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -424,8 +426,8 @@ describe('AutoComplete', () => {
         testFixture = TestBed.createComponent(TestAutocompleteComponent);
         testComponent = testFixture.componentInstance;
 
-        pTemplateFixture = TestBed.createComponent(TestPTemplateAutocompleteComponent);
-        pTemplateComponent = pTemplateFixture.componentInstance;
+        vxTemplateFixture = TestBed.createComponent(TestPTemplateAutocompleteComponent);
+        vxTemplateComponent = vxTemplateFixture.componentInstance;
     });
 
     describe('Component Initialization', () => {
@@ -565,7 +567,7 @@ describe('AutoComplete', () => {
             const formControl = testComponent.reactiveForm.get('selectedItems');
             expect(formControl).toBeTruthy();
 
-            const autocompleteElement = testFixture.debugElement.query(By.css('form p-autocomplete'));
+            const autocompleteElement = testFixture.debugElement.query(By.css('form vx-autocomplete'));
             expect(autocompleteElement).toBeTruthy();
         });
 
@@ -943,24 +945,24 @@ describe('AutoComplete', () => {
         });
     });
 
-    describe('pTemplate Content Projections with Context Parameters', () => {
+    describe('vxTemplate Content Projections with Context Parameters', () => {
         beforeEach(async () => {
-            pTemplateFixture.changeDetectorRef.markForCheck();
-            await pTemplateFixture.whenStable();
+            vxTemplateFixture.changeDetectorRef.markForCheck();
+            await vxTemplateFixture.whenStable();
         });
 
         describe('Item Template (_itemTemplate)', () => {
-            it('should render pTemplate="item" with item and index context', async () => {
-                pTemplateComponent.suggestions = mockCountries;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="item" with item and index context', async () => {
+                vxTemplateComponent.suggestions = mockCountries;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = vxTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
-                const itemTemplates = pTemplateFixture.debugElement.queryAll(By.css('.ptemplate-item'));
+                const itemTemplates = vxTemplateFixture.debugElement.queryAll(By.css('.ptemplate-item'));
                 if (itemTemplates.length > 0) {
                     const firstItem = itemTemplates[0];
                     expect(firstItem.nativeElement.getAttribute('data-index')).toBe('0');
@@ -968,13 +970,13 @@ describe('AutoComplete', () => {
                     expect(firstItem.query(By.css('.item-code')).nativeElement.textContent.trim()).toBe('AL');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._itemTemplate).toBeTruthy();
                 }
             });
 
             it('should process item template through ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
                 expect(autocompleteInstance._itemTemplate).toBeTruthy();
                 expect(autocompleteInstance.ngAfterContentInit).toBeDefined();
@@ -982,258 +984,258 @@ describe('AutoComplete', () => {
         });
 
         describe('Header Template (_headerTemplate)', () => {
-            it('should render pTemplate="header" with suggestions count', async () => {
-                pTemplateComponent.suggestions = mockCountries.slice(0, 3);
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="header" with suggestions count', async () => {
+                vxTemplateComponent.suggestions = mockCountries.slice(0, 3);
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = vxTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header'));
+                const headerTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-header'));
                 if (headerTemplate) {
                     expect(headerTemplate.query(By.css('h4')).nativeElement.textContent.trim()).toBe('Countries List');
                     expect(headerTemplate.query(By.css('.header-count')).nativeElement.textContent.trim()).toContain('items');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._headerTemplate).toBeTruthy();
                 }
             });
 
             it('should set _headerTemplate in ngAfterContentInit', async () => {
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._headerTemplate).toBeTruthy();
             });
         });
 
         describe('Footer Template (_footerTemplate)', () => {
-            it('should render pTemplate="footer" with custom content', async () => {
-                pTemplateComponent.suggestions = mockCountries;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="footer" with custom content', async () => {
+                vxTemplateComponent.suggestions = mockCountries;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = vxTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
-                const footerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-footer'));
+                const footerTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-footer'));
                 if (footerTemplate) {
                     expect(footerTemplate.query(By.css('.footer-button')).nativeElement.textContent.trim()).toBe('Load More');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._footerTemplate).toBeTruthy();
                 }
             });
 
             it('should set _footerTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._footerTemplate).toBeTruthy();
             });
         });
 
         describe('Empty Template (_emptyTemplate)', () => {
-            it('should render pTemplate="empty" when no results', async () => {
-                pTemplateComponent.suggestions = [];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="empty" when no results', async () => {
+                vxTemplateComponent.suggestions = [];
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = vxTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'xyz';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
-                const emptyTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-empty'));
+                const emptyTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-empty'));
                 if (emptyTemplate) {
                     expect(emptyTemplate.query(By.css('.empty-icon')).nativeElement.textContent.trim()).toBe('🔍');
                     expect(emptyTemplate.query(By.css('.empty-message')).nativeElement.textContent.trim()).toBe('No countries found');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._emptyTemplate).toBeTruthy();
                 }
             });
 
             it('should set _emptyTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._emptyTemplate).toBeTruthy();
             });
         });
 
         describe('Selected Item Template (_selectedItemTemplate)', () => {
-            it('should render pTemplate="selecteditem" with item context in multiple mode', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="selecteditem" with item context in multiple mode', async () => {
+                vxTemplateComponent.multiple = true;
+                vxTemplateComponent.selectedValue = [mockCountries[0]];
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const selectedItemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
+                const selectedItemTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
                 if (selectedItemTemplate) {
                     expect(selectedItemTemplate.query(By.css('.selected-flag')).nativeElement.textContent.trim()).toBe('🏳️');
                     expect(selectedItemTemplate.query(By.css('.selected-name')).nativeElement.textContent.trim()).toBe('Afghanistan');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._selectedItemTemplate).toBeTruthy();
                 }
             });
 
             it('should set _selectedItemTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._selectedItemTemplate).toBeTruthy();
             });
         });
 
         describe('Group Template (_groupTemplate)', () => {
-            it('should render pTemplate="group" with group context', async () => {
-                const groupedData = pTemplateComponent.groupedSuggestions;
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            it('should render vxTemplate="group" with group context', async () => {
+                const groupedData = vxTemplateComponent.groupedSuggestions;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
                 // Mock grouped data
                 autocompleteInstance.suggestions = groupedData;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
                 // Test group template setup
                 expect(autocompleteInstance._groupTemplate).toBeTruthy();
             });
 
             it('should set _groupTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._groupTemplate).toBeTruthy();
             });
         });
 
         describe('Loader Template (_loaderTemplate)', () => {
-            it('should render pTemplate="loader" with options context during loading', async () => {
-                pTemplateComponent.loading = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="loader" with options context during loading', async () => {
+                vxTemplateComponent.loading = true;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
                 // Test loader template setup
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._loaderTemplate).toBeTruthy();
             });
 
             it('should set _loaderTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._loaderTemplate).toBeTruthy();
             });
         });
 
         describe('Remove Icon Template (_removeIconTemplate)', () => {
-            it('should render pTemplate="removetokenicon" with removeCallback and index context', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0], mockCountries[1]];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="removetokenicon" with removeCallback and index context', async () => {
+                vxTemplateComponent.multiple = true;
+                vxTemplateComponent.selectedValue = [mockCountries[0], mockCountries[1]];
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
                 // Test remove icon template setup
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
             });
 
             it('should handle remove callback functionality', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                vxTemplateComponent.multiple = true;
+                vxTemplateComponent.selectedValue = [mockCountries[0]];
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const removeIcon = pTemplateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
+                const removeIcon = vxTemplateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
                 if (removeIcon) {
                     expect(removeIcon.query(By.css('.remove-icon')).nativeElement.textContent.trim()).toBe('❌');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _removeIconTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
             });
         });
 
         describe('Loading Icon Template (_loadingIconTemplate)', () => {
-            it('should render pTemplate="loadingicon" during loading state', async () => {
-                pTemplateComponent.loading = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render vxTemplate="loadingicon" during loading state', async () => {
+                vxTemplateComponent.loading = true;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
+                const loadingIconTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
                 if (loadingIconTemplate) {
                     expect(loadingIconTemplate.query(By.css('.loading-spinner')).nativeElement.textContent.trim()).toBe('🔄');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._loadingIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _loadingIconTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._loadingIconTemplate).toBeTruthy();
             });
         });
 
         describe('Clear Icon Template (_clearIconTemplate)', () => {
-            it('should render pTemplate="clearicon" when showClear is enabled', async () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            it('should render vxTemplate="clearicon" when showClear is enabled', async () => {
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 autocompleteInstance.showClear = true;
-                pTemplateComponent.selectedValue = 'test';
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                vxTemplateComponent.selectedValue = 'test';
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
+                const clearIconTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
                 if (clearIconTemplate) {
                     expect(clearIconTemplate.query(By.css('.clear-button')).nativeElement.textContent.trim()).toBe('🗑️');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._clearIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _clearIconTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._clearIconTemplate).toBeTruthy();
             });
         });
 
         describe('Dropdown Icon Template (_dropdownIconTemplate)', () => {
-            it('should render pTemplate="dropdownicon" when dropdown is enabled', async () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            it('should render vxTemplate="dropdownicon" when dropdown is enabled', async () => {
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 autocompleteInstance.dropdown = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const dropdownIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
+                const dropdownIconTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
                 if (dropdownIconTemplate) {
                     expect(dropdownIconTemplate.query(By.css('.dropdown-arrow')).nativeElement.textContent.trim()).toBe('⬇️');
                 } else {
                     // Verify template is loaded even if not rendered
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._dropdownIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _dropdownIconTemplate in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                 expect(autocompleteInstance._dropdownIconTemplate).toBeTruthy();
             });
         });
 
         describe('Template Processing Integration', () => {
-            it('should process all pTemplate types in ngAfterContentInit', () => {
-                const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            it('should process all vxTemplate types in ngAfterContentInit', () => {
+                const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
                 // Verify all templates are set
                 expect(autocompleteInstance._itemTemplate).toBeTruthy();
@@ -1250,32 +1252,32 @@ describe('AutoComplete', () => {
             });
 
             it('should handle context parameters correctly for all templates', async () => {
-                pTemplateComponent.multiple = true;
-                pTemplateComponent.selectedValue = [mockCountries[0]];
-                pTemplateComponent.suggestions = mockCountries.slice(0, 2);
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                vxTemplateComponent.multiple = true;
+                vxTemplateComponent.selectedValue = [mockCountries[0]];
+                vxTemplateComponent.suggestions = mockCountries.slice(0, 2);
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
 
-                const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+                const inputElement = vxTemplateFixture.debugElement.query(By.css('input'));
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
                 // Verify context parameters are passed correctly
-                const itemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-item'));
+                const itemTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-item'));
                 if (itemTemplate) {
                     expect(itemTemplate.nativeElement.getAttribute('data-index')).toBe('0');
                 } else {
                     // If templates not rendered, at least verify they are loaded
-                    const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+                    const autocompleteInstance = vxTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
                     expect(autocompleteInstance._itemTemplate).toBeTruthy();
                 }
 
-                const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header .header-count'));
+                const headerTemplate = vxTemplateFixture.debugElement.query(By.css('.ptemplate-header .header-count'));
                 if (headerTemplate) {
                     expect(headerTemplate.nativeElement.textContent).toContain('items');
                 } else {
-                    expect(pTemplateComponent.suggestions).toBeDefined();
+                    expect(vxTemplateComponent.suggestions).toBeDefined();
                 }
             });
         });
@@ -2438,7 +2440,7 @@ describe('AutoComplete', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const chip = autocompleteElement.querySelector('p-chip') as HTMLElement;
+                const chip = autocompleteElement.querySelector('vx-chip') as HTMLElement;
                 expect(chip).toBeTruthy();
             });
         });
@@ -2468,7 +2470,7 @@ describe('AutoComplete', () => {
             //     fixture.detectChanges();
             //     tick(300);
 
-            //     const hostElement = document.body.querySelector('p-overlay[data-pc-section="host"]') as HTMLElement;
+            //     const hostElement = document.body.querySelector('vx-overlay[data-pc-section="host"]') as HTMLElement;
             //     expect(hostElement).toBeTruthy();
             //     expect(hostElement?.classList.contains('PC_OVERLAY_HOST')).toBe(true);
             //     expect(hostElement?.getAttribute('data-host')).toBe('true');

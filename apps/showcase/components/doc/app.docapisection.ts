@@ -2,7 +2,7 @@ import APIDoc from '@/doc/apidoc/index.json';
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ObjectUtils } from 'primeng/utils';
+import { ObjectUtils } from 'voxx-ui/utils';
 import { AppDocApiTable } from './app.docapitable';
 import { AppDocSection } from './app.docsection';
 import { AppDocSectionNav } from './app.docsection-nav';
@@ -14,7 +14,7 @@ import { AppDocSectionNav } from './app.docsection-nav';
     template: ` <div class="doc-main">
             <div class="doc-intro">
                 <h1>{{ header }} {{ !header.toLowerCase().includes('api') ? 'API' : null }}</h1>
-                <p>API defines helper props, events and others for the PrimeNG {{ header }} module.</p>
+                <p>API defines helper props, events and others for the VoxxUI {{ header }} module.</p>
             </div>
             <app-docsection [apiDocs]="_docs()"></app-docsection>
         </div>

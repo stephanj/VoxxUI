@@ -1,8 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'import-doc',
     standalone: true,
     imports: [AppCode],
@@ -10,6 +11,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ClassNamesModule } from 'primeng/classnames'`
+        typescript: `import { ClassNamesModule } from 'voxx-ui/classnames'`
     };
 }

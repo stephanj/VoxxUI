@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
-import { DataViewModule } from 'primeng/dataview';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { TagModule } from 'voxx-ui/tag';
+import { ButtonModule } from 'voxx-ui/button';
 import { ProductService } from '@/service/productservice';
 
 interface Product {
@@ -20,12 +20,13 @@ interface Product {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dataview-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, DataViewModule, TagModule, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-dataview [value]="products()">
+            <vx-dataview [value]="products()">
                 <ng-template #list let-items>
                     <div class="flex flex-col">
                         <div *ngFor="let item of items; let i = index">
@@ -33,7 +34,7 @@ interface Product {
                                 <div class="md:w-40 relative">
                                     <img class="rounded w-36" [src]="'https://primefaces.org/cdn/primevue/images/product/' + item.image" [alt]="item.name" />
                                     <div class="dark:bg-surface-900 absolute rounded-border" style="left: 4px; top: 4px">
-                                        <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)"></p-tag>
+                                        <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)"></vx-tag>
                                     </div>
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
@@ -60,8 +61,8 @@ interface Product {
                                     <div class="flex flex-col md:items-end gap-8">
                                         <span class="text-xl font-semibold">\${{ item.price }}</span>
                                         <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" variant="outlined"></p-button>
-                                            <p-button icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></p-button>
+                                            <vx-button icon="pi pi-heart" variant="outlined"></vx-button>
+                                            <vx-button icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></vx-button>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +70,7 @@ interface Product {
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </app-docptviewer>
     `,
     providers: [ProductService]

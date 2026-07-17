@@ -1,17 +1,17 @@
 {
-    "name": "@primeng/themes",
-    "version": "21.1.9",
-    "author": "PrimeTek Informatics",
+    "name": "@voxxui/themes",
+    "version": "22.0.0",
+    "author": "Stephan Janssen",
     "description": "",
-    "homepage": "https://primeng.org/",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "homepage": "https://github.com/stephanj/VoxxUI",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng.git",
+        "url": "https://github.com/stephanj/VoxxUI.git",
         "directory": "packages/themes"
     },
     "bugs": {
-        "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/stephanj/VoxxUI/issues"
     },
     "private": true,
     "main": "./src/index.ts",

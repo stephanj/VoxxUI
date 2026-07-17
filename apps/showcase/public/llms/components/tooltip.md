@@ -1,6 +1,6 @@
 # Angular Tooltip Component
 
-Tooltip directive provides advisory information for a component. Tooltip is integrated within various PrimeNG components.
+Tooltip directive provides advisory information for a component. Tooltip is integrated within various VoxxUI components.
 
 ## Accessibility
 
@@ -12,18 +12,16 @@ Tooltip is hidden when mouse leaves the target element, in cases where tooltip n
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
-            <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
+            <input type="text" vxInputText vxTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
+            <input type="text" vxInputText vxTooltip="Enter your username" placeholder="autoHide: true" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, TooltipModule]
+    imports: []
 })
 export class TooltipAutohideDemo {}
 ```
@@ -34,13 +32,11 @@ Tooltip can use either a string or a TemplateRef .
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
+            <vx-button [vxTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
             <ng-template #tooltipContent>
                 <div class="flex items-center">
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
@@ -72,13 +68,13 @@ import { TooltipModule } from 'primeng/tooltip';
                         <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
-                    <span> <b>PrimeNG</b> rocks! </span>
+                    <span> <b>VoxxUI</b> rocks! </span>
                 </div>
             </ng-template>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, TooltipModule]
+    imports: []
 })
 export class TooltipCustomDemo {}
 ```
@@ -89,17 +85,15 @@ Adding delays to the show and hide events are defined with showDelay and hideDel
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-button pTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
+            <vx-button vxTooltip="Confirm to proceed" showDelay="1000" hideDelay="300" label="Save" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, TooltipModule]
+    imports: []
 })
 export class TooltipDelayDemo {}
 ```
@@ -110,17 +104,15 @@ Tooltip gets displayed on hover event of its target by default, other option is 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
+            <input type="text" vxInputText vxTooltip="Enter your username" tooltipEvent="focus" placeholder="focus to display tooltip" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, TooltipModule]
+    imports: []
 })
 export class TooltipEventDemo {}
 ```
@@ -131,17 +123,15 @@ Tooltip is also configurable by using tooltipOptions property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <input type="text" pInputText pTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
+            <input type="text" vxInputText vxTooltip="Enter your username" [tooltipOptions]="tooltipOptions" placeholder="hover to display tooltip" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, TooltipModule]
+    imports: []
 })
 export class TooltipOptionsDemo {
     tooltipOptions: any;
@@ -154,20 +144,18 @@ Position of the tooltip is specified using tooltipPosition attribute. Valid valu
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-2">
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
-            <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
+            <input type="text" vxInputText vxTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
+            <input type="text" vxInputText vxTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
+            <input type="text" vxInputText vxTooltip="Enter your username" tooltipPosition="bottom" placeholder="Bottom" />
+            <input type="text" vxInputText vxTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule, TooltipModule]
+    imports: []
 })
 export class TooltipPositionDemo {}
 ```
@@ -204,8 +192,8 @@ Tooltip directive provides advisory information for a component.
 | tooltipOptions | TooltipOptions | - | Specifies the tooltip configuration options for the component. |
 | appendTo | InputSignal<any> | 'self' | Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name). |
 | ptTooltip | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. **(Deprecated)** |
-| pTooltipPT | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
-| pTooltipUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
+| vxTooltipPT | InputSignal<TooltipPassThrough> | undefined | Used to pass attributes to DOM elements inside the Tooltip component. |
+| vxTooltipUnstyled | InputSignal<boolean> | undefined | Indicates whether the component should be rendered without styles. |
 
 ## Pass Through Options
 

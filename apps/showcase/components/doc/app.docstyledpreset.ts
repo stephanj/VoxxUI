@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AppDocSectionText } from './app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-docstyledpreset',
     standalone: true,
     imports: [CommonModule, AppDocSectionText],
     template: `<app-docsectiontext title="Built-in Presets" id="built-in-presets" [level]="3">
-        <p>PrimeNG offers various preset options that allow you to customize the component's styling to match your application's design system. Below you'll find links to the implementation and type definitions for each preset.</p>
+        <p>VoxxUI offers various preset options that allow you to customize the component's styling to match your application's design system. Below you'll find links to the implementation and type definitions for each preset.</p>
         <div class="doc-tablewrapper mt-4">
             <table class="doc-preset-table">
                 <thead>

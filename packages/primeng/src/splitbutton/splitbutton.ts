@@ -23,16 +23,16 @@ import {
 } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
-import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ButtonDirective } from 'primeng/button';
-import { ChevronDownIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
-import { TieredMenu } from 'primeng/tieredmenu';
-import { TooltipModule } from 'primeng/tooltip';
-import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from 'primeng/types/splitbutton';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { ButtonDirective } from 'voxx-ui/button';
+import { ChevronDownIcon } from 'voxx-ui/icons';
+import { Ripple } from 'voxx-ui/ripple';
+import { TieredMenu } from 'voxx-ui/tieredmenu';
+import { TooltipModule } from 'voxx-ui/tooltip';
+import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from 'voxx-ui/types/splitbutton';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 
 const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTANCE');
@@ -43,7 +43,7 @@ type SplitButtonIconPosition = 'left' | 'right';
  * @group Components
  */
 @Component({
-    selector: 'p-splitbutton, p-splitButton, p-split-button',
+    selector: 'vx-splitbutton, vx-splitButton, vx-split-button',
     standalone: true,
     imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
@@ -51,8 +51,8 @@ type SplitButtonIconPosition = 'left' | 'right';
             <button
                 [class]="cx('pcButton')"
                 type="button"
-                pButton
-                pRipple
+                vxButton
+                vxRipple
                 [severity]="severity"
                 [text]="text"
                 [outlined]="outlined"
@@ -63,9 +63,9 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [disabled]="disabled"
                 [attr.tabindex]="tabindex"
                 [attr.aria-label]="buttonProps?.['ariaLabel'] || label"
-                [pAutoFocus]="autofocus"
-                [pTooltip]="tooltip"
-                [pTooltipUnstyled]="unstyled()"
+                [vxAutoFocus]="autofocus"
+                [vxTooltip]="tooltip"
+                [vxTooltipUnstyled]="unstyled()"
                 [tooltipOptions]="tooltipOptions"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
@@ -78,8 +78,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                 #defaultbtn
                 [class]="cx('pcButton')"
                 type="button"
-                pButton
-                pRipple
+                vxButton
+                vxRipple
                 [severity]="severity"
                 [text]="text"
                 [outlined]="outlined"
@@ -91,9 +91,9 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [disabled]="buttonDisabled"
                 [attr.tabindex]="tabindex"
                 [attr.aria-label]="buttonProps?.['ariaLabel']"
-                [pAutoFocus]="autofocus"
-                [pTooltip]="tooltip"
-                [pTooltipUnstyled]="unstyled()"
+                [vxAutoFocus]="autofocus"
+                [vxTooltip]="tooltip"
+                [vxTooltipUnstyled]="unstyled()"
                 [tooltipOptions]="tooltipOptions"
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
@@ -101,8 +101,8 @@ type SplitButtonIconPosition = 'left' | 'right';
         </ng-template>
         <button
             type="button"
-            pButton
-            pRipple
+            vxButton
+            vxRipple
             [size]="size"
             [severity]="severity"
             [text]="text"
@@ -124,7 +124,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
             </ng-container>
         </button>
-        <p-tieredmenu
+        <vx-tieredmenu
             [id]="ariaId"
             #menu
             [popup]="true"
@@ -137,7 +137,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             (onShow)="onShow()"
             [pt]="ptm('pcMenu')"
             [unstyled]="unstyled()"
-        ></p-tieredmenu>
+        ></vx-tieredmenu>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [SplitButtonStyle, { provide: SPLITBUTTON_INSTANCE, useExisting: SplitButton }, { provide: PARENT_INSTANCE, useExisting: SplitButton }],

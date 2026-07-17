@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'csp-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -16,7 +17,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class CspDoc {
     code: Code = {
-        typescript: `providePrimeNG({ 
+        typescript: `provideVoxxUI({ 
     csp: {
         nonce: '...'
     }

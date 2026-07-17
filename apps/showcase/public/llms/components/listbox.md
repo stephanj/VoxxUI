@@ -13,7 +13,6 @@ Listbox is used as a controlled component with ngModel property along with an op
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -23,11 +22,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
+            <vx-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxBasicDemo implements OnInit {
     cities!: City[];
@@ -52,7 +51,6 @@ Listbox allows item selection using checkboxes.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -62,11 +60,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" optionLabel="name" class="w-full md:w-56" />
+            <vx-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" optionLabel="name" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxCheckboxDemo implements OnInit {
     cities!: City[];
@@ -91,7 +89,6 @@ An alternative way to highlight the selected option is displaying a checkmark in
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -101,11 +98,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
+            <vx-listbox [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" [checkmark]="true" [highlightOnSelect]="false" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxCheckmarkDemo implements OnInit {
     cities!: City[];
@@ -130,7 +127,6 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -140,11 +136,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
+            <vx-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [disabled]="true" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxDisabledDemo implements OnInit {
     cities!: City[];
@@ -169,16 +165,15 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [dragdrop]="true" class="w-full md:w-56" />
+            <vx-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [dragdrop]="true" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxDragdropDemo implements OnInit {
     cities!: any[];
@@ -203,7 +198,6 @@ ListBox provides built-in filtering that is enabled by adding the filter propert
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -213,11 +207,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
+            <vx-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxFilterDemo implements OnInit {
     cities!: City[];
@@ -242,8 +236,7 @@ Options can be grouped when a nested data structures is provided.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'voxx-ui/api';
 import { Country } from '@/domain/customer';
 
 interface Country {
@@ -254,18 +247,18 @@ interface Country {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
+            <vx-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
                 <ng-template let-group #group>
                     <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
-            </p-listbox>
+            </vx-listbox>
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxGroupDemo {
     groupedCities!: SelectItemGroup[];
@@ -315,7 +308,6 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -325,11 +317,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
+            <vx-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="selectedCity === undefined" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxInvalidDemo implements OnInit {
     cities!: City[];
@@ -354,7 +346,6 @@ ListBox allows choosing a single item by default, enable multiple property to ch
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string;
@@ -364,11 +355,11 @@ interface City {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
+            <vx-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true" [metaKeySelection]="false" class="w-full md:w-56" />
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxMultipleDemo implements OnInit {
     cities!: City[];
@@ -393,11 +384,7 @@ Listbox can also be used with reactive forms. In this case, the formControlName 
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 interface City {
     name: string;
@@ -406,21 +393,21 @@ interface City {
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
+                    <vx-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="isInvalid('selectedCity')" />
                     @if (isInvalid('selectedCity')) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class ListboxReactiveformsDemo {
     messageService = inject(MessageService);
@@ -464,7 +451,6 @@ For custom content support define a template named item where the default local 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 import { Country } from '@/domain/customer';
 
 interface Country {
@@ -475,18 +461,18 @@ interface Country {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
+            <vx-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
                 <ng-template #item let-country>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-listbox>
+            </vx-listbox>
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxTemplateDemo implements OnInit {
     countries!: Country[];
@@ -514,11 +500,7 @@ export class ListboxTemplateDemo implements OnInit {
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 interface City {
     name: string;
@@ -527,21 +509,21 @@ interface City {
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex justify-center flex-col gap-4 md:w-56">
                 <div class="flex flex-col gap-1">
-                    <p-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
+                    <vx-listbox #city="ngModel" [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="w-full md:w-56" [invalid]="city.invalid && exampleForm.submitted" name="city" required />
                     @if (city.invalid && exampleForm.submitted) {
-                        <p-message severity="error" size="small" variant="simple">City is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">City is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxTemplatedrivenformsDemo implements OnInit {
     messageService = inject(MessageService);
@@ -574,12 +556,11 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-listbox
+            <vx-listbox
                 [options]="items"
                 [(ngModel)]="selectedItems"
                 [selectAll]="selectAll"
@@ -599,7 +580,7 @@ import { ListboxModule } from 'primeng/listbox';
         </div>
     `,
     standalone: true,
-    imports: [ListboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class ListboxVirtualscrollDemo {
     items: any = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));

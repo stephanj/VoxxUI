@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'tabmenu-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
@@ -16,16 +17,16 @@ import { TabsModule } from 'primeng/tabs';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs value="dashboard">
-                <p-tablist>
+            <vx-tabs value="dashboard">
+                <vx-tablist>
                     @for (tab of tabs; track tab.route) {
-                        <p-tab [value]="tab.route" class="flex items-center !gap-2 text-inherit">
+                        <vx-tab [value]="tab.route" class="flex items-center !gap-2 text-inherit">
                             <i [class]="tab.icon"></i>
                             <span>{{ tab.label }}</span>
-                        </p-tab>
+                        </vx-tab>
                     }
-                </p-tablist>
-            </p-tabs>
+                </vx-tablist>
+            </vx-tabs>
             <!--<router-outlet></router-outlet>-->
         </div>
         <app-code></app-code>

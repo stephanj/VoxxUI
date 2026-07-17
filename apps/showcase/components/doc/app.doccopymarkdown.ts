@@ -1,18 +1,19 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-doccopymarkdown',
     standalone: true,
     imports: [CommonModule, SplitButtonModule, ToastModule],
     providers: [MessageService],
     template: `
-        <p-toast position="top-right" />
-        <p-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" outlined [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
+        <vx-toast position="top-right" />
+        <vx-splitbutton label="Copy Markdown" icon="pi pi-copy" severity="secondary" outlined [model]="menuItems" (onClick)="copyMarkdown()" appendTo="body" [menuStyleClass]="'min-w-56'" />
     `
 })
 export class AppDocCopyMarkdown implements OnInit {
@@ -32,7 +33,7 @@ export class AppDocCopyMarkdown implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
             return this.document.location.origin;
         }
-        return 'https://primeng.org';
+        return 'https://github.com/stephanj/VoxxUI';
     }
 
     get currentComponentName(): string {
@@ -62,12 +63,12 @@ export class AppDocCopyMarkdown implements OnInit {
         if (this.docType() === 'page') {
             // For pages, use the full route path for nested pages like theming/styled
             const docPath = this.routePath || this.currentComponentName;
-            return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${docPath}/`;
+            return `https://github.com/stephanj/VoxxUI/tree/master/apps/showcase/doc/${docPath}/`;
         }
         if (this.currentComponentName) {
-            return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${this.currentComponentName}/`;
+            return `https://github.com/stephanj/VoxxUI/tree/master/apps/showcase/doc/${this.currentComponentName}/`;
         }
-        return 'https://github.com/primefaces/primeng/tree/master/apps/showcase/';
+        return 'https://github.com/stephanj/VoxxUI/tree/master/apps/showcase/';
     }
 
     get chatGPTLink(): string {

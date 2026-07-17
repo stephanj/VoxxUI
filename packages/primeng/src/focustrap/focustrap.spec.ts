@@ -1,14 +1,15 @@
-import { Component, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { FocusTrap, FocusTrapModule } from './focustrap';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-focus-trap',
     template: `
-        <div pFocusTrap>
+        <div vxFocusTrap>
             <input type="text" class="first-input" />
             <button class="button">Button</button>
             <input type="text" class="second-input" />
@@ -18,10 +19,11 @@ import { FocusTrap, FocusTrapModule } from './focustrap';
 class TestBasicFocusTrapComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-disabled-focus-trap',
     template: `
-        <div pFocusTrap [pFocusTrapDisabled]="disabled">
+        <div vxFocusTrap [vxFocusTrapDisabled]="disabled">
             <input type="text" class="input" />
             <button class="button">Button</button>
         </div>
@@ -32,10 +34,11 @@ class TestDisabledFocusTrapComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-dynamic-focus-trap',
     template: `
-        <div pFocusTrap [pFocusTrapDisabled]="trapDisabled">
+        <div vxFocusTrap [vxFocusTrapDisabled]="trapDisabled">
             <input type="text" *ngIf="showFirstInput" class="dynamic-first-input" />
             <select class="select">
                 <option>Option 1</option>
@@ -55,13 +58,14 @@ class TestDynamicFocusTrapComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-nested-focus-trap',
     template: `
-        <div pFocusTrap class="outer-trap">
+        <div vxFocusTrap class="outer-trap">
             <input type="text" class="outer-input" />
             <div class="nested-container">
-                <div pFocusTrap class="inner-trap">
+                <div vxFocusTrap class="inner-trap">
                     <input type="text" class="inner-first-input" />
                     <button class="inner-button">Inner Button</button>
                     <input type="text" class="inner-second-input" />
@@ -74,10 +78,11 @@ class TestDynamicFocusTrapComponent {
 class TestNestedFocusTrapComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-complex-focus-trap',
     template: `
-        <div pFocusTrap [pFocusTrapDisabled]="trapDisabled" class="complex-trap">
+        <div vxFocusTrap [vxFocusTrapDisabled]="trapDisabled" class="complex-trap">
             <input type="text" class="text-input" [disabled]="inputDisabled" />
             <select class="select-element" [disabled]="selectDisabled">
                 <option value="1">Option 1</option>
@@ -99,10 +104,11 @@ class TestComplexFocusTrapComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-empty-focus-trap',
     template: `
-        <div pFocusTrap class="empty-trap">
+        <div vxFocusTrap class="empty-trap">
             <span class="non-focusable">Non-focusable content</span>
             <div class="another-non-focusable">More content</div>
         </div>
@@ -111,10 +117,11 @@ class TestComplexFocusTrapComponent {
 class TestEmptyFocusTrapComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-conditional-focus-trap',
     template: `
-        <div pFocusTrap [pFocusTrapDisabled]="trapDisabled">
+        <div vxFocusTrap [vxFocusTrapDisabled]="trapDisabled">
             <input type="text" *ngIf="showElements" class="conditional-input" />
             <button *ngIf="showElements" class="conditional-button">Button</button>
             <div *ngIf="!showElements" class="no-focusable">No focusable elements</div>
@@ -154,7 +161,7 @@ describe('FocusTrap', () => {
         });
 
         it('should have default values', () => {
-            expect(directive.pFocusTrapDisabled).toBe(false);
+            expect(directive.vxFocusTrapDisabled).toBe(false);
         });
 
         it('should inject platform ID and document', () => {
@@ -780,9 +787,9 @@ describe('FocusTrap', () => {
             expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges for pFocusTrapDisabled', () => {
+        it('should handle ngOnChanges for vxFocusTrapDisabled', () => {
             const changes = {
-                pFocusTrapDisabled: {
+                vxFocusTrapDisabled: {
                     currentValue: true,
                     previousValue: false,
                     firstChange: false,
@@ -799,7 +806,7 @@ describe('FocusTrap', () => {
 
         it('should handle ngOnChanges when enabling focus trap', () => {
             const changes = {
-                pFocusTrapDisabled: {
+                vxFocusTrapDisabled: {
                     currentValue: false,
                     previousValue: true,
                     firstChange: false,

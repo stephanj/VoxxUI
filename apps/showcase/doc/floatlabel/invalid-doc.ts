@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'invalid-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, FloatLabelModule, InputTextModule],
@@ -14,20 +15,20 @@ import { InputTextModule } from 'primeng/inputtext';
             <p>When the form element is invalid, the label is also highlighted.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <input pInputText id="value1" [(ngModel)]="value1" [invalid]="!value1" autocomplete="off" />
+            <vx-floatlabel>
+                <input vxInputText id="value1" [(ngModel)]="value1" [invalid]="!value1" autocomplete="off" />
                 <label for="value1">Username</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="in">
-                <input pInputText id="value2" [(ngModel)]="value2" [invalid]="!value2" autocomplete="off" />
+            <vx-floatlabel variant="in">
+                <input vxInputText id="value2" [(ngModel)]="value2" [invalid]="!value2" autocomplete="off" />
                 <label for="value2">Username</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="on">
-                <input pInputText id="value3" [(ngModel)]="value3" [invalid]="!value3" autocomplete="off" />
+            <vx-floatlabel variant="on">
+                <input vxInputText id="value3" [(ngModel)]="value3" [invalid]="!value3" autocomplete="off" />
                 <label for="value3">Username</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
         <app-code></app-code>
     `

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'v19-deprecated-doc',
     standalone: true,
     imports: [AppDocSectionText],
@@ -17,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <li><i class="mark">TabView</i> | Use the new Tabs components.</li>
                 <li><i class="mark">Accordion</i> | Use with the new <i>AccordionHeader</i> and <i>AccordionContent</i> components.</li>
                 <li><i class="mark">Messages</i> | Use with the new <i>Message</i> component.</li>
-                <li><i class="mark">pDefer</i> | Use Angular <i>defer</i> instead.</li>
+                <li><i class="mark">vxDefer</i> | Use Angular <i>defer</i> instead.</li>
             </ul>
         </app-docsectiontext>
     `

@@ -12,19 +12,17 @@ SplitButton has a default action button and a collection of additional options d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
+            <vx-toast />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonBasicDemo {
@@ -70,19 +68,17 @@ When the disabled attribute is present, the element is uneditable and unfocused.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
+            <vx-toast />
+            <vx-splitbutton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonDisabledDemo {
@@ -128,19 +124,17 @@ The buttons and menuitems have support to display icons.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
+            <vx-toast />
+            <vx-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonIconsDemo {
@@ -184,19 +178,17 @@ SplitButton has a default action button and a collection of additional options d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
+            <vx-toast />
+            <vx-splitbutton label="Save" (onClick)="save('info')" [model]="items" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonNestedDemo {
@@ -344,26 +336,24 @@ Outlined buttons display a border without a background initially.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" outlined />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" outlined severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" outlined severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" outlined severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" outlined severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" outlined severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" outlined severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" outlined severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Primary" [model]="items" (onClick)="save('info')" outlined />
+            <vx-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" outlined severity="secondary" />
+            <vx-splitbutton label="Success" [model]="items" (onClick)="save('info')" outlined severity="success" />
+            <vx-splitbutton label="Info" [model]="items" (onClick)="save('info')" outlined severity="info" />
+            <vx-splitbutton label="Warning" [model]="items" (onClick)="save('info')" outlined severity="warn" />
+            <vx-splitbutton label="Help" [model]="items" (onClick)="save('info')" outlined severity="help" />
+            <vx-splitbutton label="Danger" [model]="items" (onClick)="save('info')" outlined severity="danger" />
+            <vx-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" outlined severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonOutlinedDemo {
@@ -410,26 +400,24 @@ Raised buttons display a shadow to indicate elevation.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger" />
-            <p-splitbutton label="Contrast" (onClick)="save('info')" [model]="items" severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised />
+            <vx-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary" />
+            <vx-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised severity="success" />
+            <vx-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised severity="info" />
+            <vx-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warn" />
+            <vx-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised severity="help" />
+            <vx-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger" />
+            <vx-splitbutton label="Contrast" (onClick)="save('info')" [model]="items" severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonRaisedDemo {
@@ -476,26 +464,24 @@ Text buttons can be displayed as raised as well for elevation.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised text />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised text severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised text severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised text severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised text severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised text severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised text severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" raised text severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Primary" [model]="items" (onClick)="save('info')" raised text />
+            <vx-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" raised text severity="secondary" />
+            <vx-splitbutton label="Success" [model]="items" (onClick)="save('info')" raised text severity="success" />
+            <vx-splitbutton label="Info" [model]="items" (onClick)="save('info')" raised text severity="info" />
+            <vx-splitbutton label="Warning" [model]="items" (onClick)="save('info')" raised text severity="warn" />
+            <vx-splitbutton label="Help" [model]="items" (onClick)="save('info')" raised text severity="help" />
+            <vx-splitbutton label="Danger" [model]="items" (onClick)="save('info')" raised text severity="danger" />
+            <vx-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" raised text severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonRaisedtextDemo {
@@ -546,26 +532,24 @@ Rounded buttons have a circular border radius.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" rounded />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" rounded severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Primary" [model]="items" (onClick)="save('info')" rounded />
+            <vx-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" rounded severity="secondary" />
+            <vx-splitbutton label="Success" [model]="items" (onClick)="save('info')" rounded severity="success" />
+            <vx-splitbutton label="Info" [model]="items" (onClick)="save('info')" rounded severity="info" />
+            <vx-splitbutton label="Warning" [model]="items" (onClick)="save('info')" rounded severity="warn" />
+            <vx-splitbutton label="Help" [model]="items" (onClick)="save('info')" rounded severity="help" />
+            <vx-splitbutton label="Danger" [model]="items" (onClick)="save('info')" rounded severity="danger" />
+            <vx-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" rounded severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonRoundedDemo {
@@ -612,26 +596,24 @@ The severity property defines the type of button.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
-            <p-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="secondary" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="success" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="info" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="warn" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="help" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="danger" />
+            <vx-splitbutton label="Save" (onClick)="save()" [model]="items" severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonSeverityDemo {
@@ -678,21 +660,19 @@ SplitButton provides small and large sizes as alternatives to the standard.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-center gap-4">
-            <p-toast />
-            <p-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
-            <p-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
-            <p-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
+            <vx-toast />
+            <vx-splitbutton label="Small" [model]="items" (onClick)="save('info')" size="small" />
+            <vx-splitbutton label="Normal" [model]="items" (onClick)="save('info')" />
+            <vx-splitbutton label="Large" [model]="items" (onClick)="save('info')" size="large" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonSizesDemo {
@@ -738,26 +718,24 @@ SplitButton has a default action button and a collection of additional options d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" (onClick)="save()" severity="contrast" [model]="items">
+            <vx-toast />
+            <vx-splitbutton label="Save" (onClick)="save()" severity="contrast" [model]="items">
                 <ng-template #content>
                     <span class="flex items-center font-bold">
                         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
-                        <span>PrimeNG</span>
+                        <span>VoxxUI</span>
                     </span>
                 </ng-template>
-            </p-splitbutton>
+            </vx-splitbutton>
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonTemplateDemo {
@@ -804,26 +782,24 @@ Text buttons are displayed as textual elements.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
+            <vx-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
+            <vx-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
+            <vx-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
+            <vx-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
+            <vx-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
+            <vx-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+            <vx-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [SplitButtonModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class SplitbuttonTextDemo {

@@ -1,8 +1,9 @@
 import { Code } from '@/domain/code';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'import-doc',
     standalone: true,
     imports: [AppCode],
@@ -14,6 +15,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `import { OverlayModule } from 'primeng/overlay';`
+        typescript: `import { OverlayModule } from 'voxx-ui/overlay';`
     };
 }

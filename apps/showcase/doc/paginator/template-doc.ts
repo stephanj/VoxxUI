@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { PaginatorState, PaginatorModule } from 'primeng/paginator';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { SelectModule } from 'primeng/select';
-import { SliderModule } from 'primeng/slider';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { PaginatorState, PaginatorModule } from 'voxx-ui/paginator';
+import { ButtonModule } from 'voxx-ui/button';
+import { SelectModule } from 'voxx-ui/select';
+import { SliderModule } from 'voxx-ui/slider';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
-    imports: [PaginatorModule, ButtonModule, DividerModule, SelectModule, SliderModule, FormsModule, AppCode, AppDocSectionText],
+    imports: [PaginatorModule, ButtonModule, SelectModule, SliderModule, FormsModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>
@@ -19,20 +19,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex flex-col gap-4">
             <div class="flex items-center justify-center">
                 <div>
-                    <p-button icon="pi pi-star" outlined />
+                    <vx-button icon="pi pi-star" outlined />
                 </div>
                 <div class="flex-1">
-                    <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
+                    <vx-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
                 </div>
                 <div class="justify-end">
-                    <p-button icon="pi pi-search" />
+                    <vx-button icon="pi pi-search" />
                 </div>
             </div>
-            <p-divider />
             <div class="flex items-center justify-end">
                 <span class="mx-1 text-color">Items per page: </span>
-                <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
-                <p-paginator
+                <vx-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
+                <vx-paginator
                     [first]="first2"
                     [rows]="rows2"
                     [totalRecords]="120"
@@ -41,15 +40,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     currentPageReportTemplate="{first} - {last} of {totalRecords}"
                     [showPageLinks]="false"
                     [showFirstLastIcon]="false"
-                ></p-paginator>
+                ></vx-paginator>
             </div>
-            <p-divider />
             <div class="flex items-center justify-start">
                 <div class="flex justify-center items-center gap-4">
                     <span>Items per page: </span>
-                    <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
+                    <vx-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
                 </div>
-                <p-paginator
+                <vx-paginator
                     (onPageChange)="onPageChange3($event)"
                     [first]="first3"
                     [rows]="rows3"
@@ -57,7 +55,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     [showFirstLastIcon]="false"
                     [showCurrentPageReport]="true"
                     currentPageReportTemplate="{first} - {last} of {totalRecords}"
-                ></p-paginator>
+                ></vx-paginator>
             </div>
         </div>
         <app-code></app-code>

@@ -22,12 +22,12 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from 'primeng/types/toggleswitch';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from 'voxx-ui/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 
 const TOGGLESWITCH_INSTANCE = new InjectionToken<ToggleSwitch>('TOGGLESWITCH_INSTANCE');
@@ -42,7 +42,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-toggleswitch, p-toggleSwitch, p-toggle-switch',
+    selector: 'vx-toggleswitch, vx-toggleSwitch, vx-toggle-switch',
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
@@ -62,11 +62,11 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [attr.tabindex]="tabindex"
             (focus)="onFocus()"
             (blur)="onBlur()"
-            [pAutoFocus]="autofocus"
-            [pBind]="ptm('input')"
+            [vxAutoFocus]="autofocus"
+            [vxBind]="ptm('input')"
         />
-        <div [class]="cx('slider')" [pBind]="ptm('slider')" [attr.data-p]="dataP">
-            <div [class]="cx('handle')" [pBind]="ptm('handle')" [attr.data-p]="dataP">
+        <div [class]="cx('slider')" [vxBind]="ptm('slider')" [attr.data-p]="dataP">
+            <div [class]="cx('handle')" [vxBind]="ptm('handle')" [attr.data-p]="dataP">
                 @if (handleTemplate || _handleTemplate) {
                     <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
                 }

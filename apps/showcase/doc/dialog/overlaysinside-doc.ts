@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
+import { DialogModule } from 'voxx-ui/dialog';
+import { ButtonModule } from 'voxx-ui/button';
+import { SelectModule } from 'voxx-ui/select';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -12,6 +12,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'overlaysinside-doc',
     standalone: true,
     imports: [FormsModule, DialogModule, ButtonModule, SelectModule, AppCode, AppDocSectionText],
@@ -23,12 +24,12 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-            <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
+            <vx-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></vx-button>
+            <vx-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
                 <div class="flex py-2 justify-center">
-                    <p-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-select>
+                    <vx-select appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></vx-select>
                 </div>
-            </p-dialog>
+            </vx-dialog>
         </div>
         <app-code></app-code>
     `

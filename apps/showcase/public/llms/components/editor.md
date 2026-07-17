@@ -13,16 +13,15 @@ A model can be bound using the standard ngModel directive.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
         <div class="card">
-            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+            <vx-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorBasicDemo {
     text: string | undefined;
@@ -36,12 +35,11 @@ Editor provides a default toolbar with common options, to customize it define yo
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
         <div class="card">
-            <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+            <vx-editor [(ngModel)]="text" [style]="{ height: '320px' }">
                 <ng-template #header>
                     <span class="ql-formats">
                         <button type="button" class="ql-bold" aria-label="Bold"></button>
@@ -49,14 +47,14 @@ import { EditorModule } from 'primeng/editor';
                         <button type="button" class="ql-underline" aria-label="Underline"></button>
                     </span>
                 </ng-template>
-            </p-editor>
+            </vx-editor>
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorCustomtoolbarDemo {
-    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
+    text: string = '<div>Hello World!</div><div>VoxxUI <b>Editor</b> Rocks</div><div><br></div>';
 }
 ```
 
@@ -71,29 +69,25 @@ Editor can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card ">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
+                    <vx-editor formControlName="text" [invalid]="isInvalid('text')" [style]="{ height: '320px' }" />
                     @if (isInvalid('text')) {
-                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Content is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class EditorReactiveformsDemo {
     messageService = inject(MessageService);
@@ -130,16 +124,15 @@ When readonly is present, the value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
 
 @Component({
     template: `
         <div class="card">
-            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
+            <vx-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';
@@ -151,29 +144,25 @@ export class EditorReadonlyDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'primeng/editor';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
+                    <vx-editor #content="ngModel" [(ngModel)]="text" [invalid]="content.invalid && (content.touched || exampleForm.submitted)" name="content" [style]="{ height: '320px' }" required />
                     @if (content.invalid && (content.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Content is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Content is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [EditorModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class EditorTemplatedrivenformsDemo {
     messageService = inject(MessageService);

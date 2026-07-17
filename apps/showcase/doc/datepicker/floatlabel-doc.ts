@@ -1,12 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DatePickerModule } from 'primeng/datepicker';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { DatePickerModule } from 'voxx-ui/datepicker';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, DatePickerModule, FloatLabelModule, AppCode, AppDocSectionText],
@@ -18,20 +19,20 @@ import { FloatLabelModule } from 'primeng/floatlabel';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
+            <vx-floatlabel>
+                <vx-datepicker [(ngModel)]="value1" inputId="over_label" showIcon iconDisplay="input" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="in">
-                <p-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
+            <vx-floatlabel variant="in">
+                <vx-datepicker [(ngModel)]="value2" inputId="in_label" showIcon iconDisplay="input" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="on">
-                <p-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
+            <vx-floatlabel variant="on">
+                <vx-datepicker [(ngModel)]="value3" inputId="on_label" showIcon iconDisplay="input" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
         <app-code></app-code>
     `

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { BaseIcon } from 'primeng/icons/baseicon';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[data-p-icon="filter-fill"]',
     standalone: true,
     template: `

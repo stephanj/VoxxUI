@@ -1,14 +1,15 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component, OnDestroy } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ToastModule } from 'primeng/toast';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
+import { ToastModule } from 'voxx-ui/toast';
 import { Footer } from './footer';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'example-doc',
     standalone: true,
     imports: [ToastModule, ButtonModule, AppCode, AppDocSectionText],
@@ -20,8 +21,8 @@ import { ProductListDemo } from './productlistdemo';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+            <vx-toast />
+            <vx-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
         <app-code [extFiles]="['Product']" [routeFiles]="['ProductListDemo', 'InfoDemo', 'Footer']"></app-code>
     `,

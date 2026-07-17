@@ -13,16 +13,15 @@ Two-way value binding is defined using ngModel .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" />
+            <vx-rating [(ngModel)]="value" />
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingBasicDemo {
     value!: number;
@@ -36,16 +35,15 @@ When disabled is present, a visual hint is applied to indicate that the Knob can
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [disabled]="true" />
+            <vx-rating [(ngModel)]="value" [disabled]="true" />
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingDisabledDemo {
     value: number = 5;
@@ -59,16 +57,15 @@ Number of stars to display is defined with stars property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [stars]="10" />
+            <vx-rating [(ngModel)]="value" [stars]="10" />
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingNumberofstarsDemo {
     value: number = 5;
@@ -82,29 +79,25 @@ Rating can also be used with reactive forms. In this case, the formControlName p
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { RatingModule } from 'primeng/rating';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-40">
                 <div class="flex flex-col items-center gap-2">
-                    <p-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
+                    <vx-rating formControlName="ratingValue" [invalid]="isInvalid('ratingValue')" />
                     @if (isInvalid('ratingValue')) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     providers: [MessageService]
 })
 export class RatingReactiveformsDemo {
@@ -142,16 +135,15 @@ When readonly present, value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" [readonly]="true" />
+            <vx-rating [(ngModel)]="value" [readonly]="true" />
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingReadonlyDemo {
     value: number = 3;
@@ -165,23 +157,22 @@ Templating allows customizing the content where the icon instance is available a
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value">
+            <vx-rating [(ngModel)]="value">
                 <ng-template #onicon>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" height="24" width="24" />
                 </ng-template>
                 <ng-template #officon>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" height="24" width="24" />
                 </ng-template>
-            </p-rating>
+            </vx-rating>
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingTemplateDemo {
     value!: number;
@@ -193,29 +184,25 @@ export class RatingTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { RatingModule } from 'primeng/rating';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4 w-40">
                 <div class="flex flex-col items-center gap-2">
-                    <p-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
+                    <vx-rating #ratingValue="ngModel" [(ngModel)]="value" required name="ratingValue" [invalid]="ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)" />
                     @if (ratingValue.invalid && (ratingValue.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Value is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Value is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RatingModule, ToastModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [MessageService]
 })
 export class RatingTemplatedrivenformsDemo {
@@ -239,16 +226,15 @@ A cancel icon is displayed to reset the value by default, set cancel as false to
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RatingModule } from 'primeng/rating';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-rating [(ngModel)]="value" />
+            <vx-rating [(ngModel)]="value" />
         </div>
     `,
     standalone: true,
-    imports: [RatingModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RatingWithoutcancelDemo {
     value!: number;

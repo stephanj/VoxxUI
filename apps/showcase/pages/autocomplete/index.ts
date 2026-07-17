@@ -11,7 +11,6 @@ import { FloatLabelDoc } from '@/doc/autocomplete/float-label-doc';
 import { FluidDoc } from '@/doc/autocomplete/fluid-doc';
 import { ForceSelectionDoc } from '@/doc/autocomplete/force-selection-doc';
 import { GroupDoc } from '@/doc/autocomplete/group-doc';
-import { IftaLabelDoc } from '@/doc/autocomplete/ifta-label-doc';
 import { ImportDoc } from '@/doc/autocomplete/import-doc';
 import { InvalidDoc } from '@/doc/autocomplete/invalid-doc';
 import { MultipleDoc } from '@/doc/autocomplete/multiple-doc';
@@ -107,11 +106,6 @@ export class AutoCompleteDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

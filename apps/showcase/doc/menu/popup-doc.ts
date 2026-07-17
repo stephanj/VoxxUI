@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { MenuModule } from 'voxx-ui/menu';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'popup-doc',
     standalone: true,
     imports: [MenuModule, ButtonModule, AppCodeModule, AppDocSectionText],
@@ -14,8 +15,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Popup mode is enabled by setting <i>popup</i> property to <i>true</i> and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-menu #menu [model]="items" [popup]="true" />
-            <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+            <vx-menu #menu [model]="items" [popup]="true" />
+            <vx-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
         </div>
         <app-code></app-code>
     `,

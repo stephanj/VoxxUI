@@ -7,9 +7,10 @@ import { PTComponent } from '@/doc/popover/pt/PTComponent';
 import { SelectDataDoc } from '@/doc/popover/selectdata-doc';
 import { TargetDoc } from '@/doc/popover/target-doc';
 import { TemplateDoc } from '@/doc/popover/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Popover Component"
         header="Popover"

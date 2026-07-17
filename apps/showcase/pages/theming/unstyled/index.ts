@@ -4,10 +4,11 @@ import { ExampleDoc } from '@/doc/theming/unstyled/example-doc';
 import { GlobalDoc } from '@/doc/theming/unstyled/global-doc';
 import { SetupDoc } from '@/doc/theming/unstyled/setup-doc';
 import { VoltUIDoc } from '@/doc/theming/unstyled/voltui-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-    template: `<app-doc docTitle="Unstyled Mode" header="Unstyled" description="Theming PrimeNG with alternative styling approaches." [docs]="docs" docType="page"></app-doc>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: `<app-doc docTitle="Unstyled Mode" header="Unstyled" description="Theming VoxxUI with alternative styling approaches." [docs]="docs" docType="page"></app-doc>`,
     imports: [AppDoc],
     standalone: true
 })

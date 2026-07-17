@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'voxx-ui/slider';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'range-doc',
     standalone: true,
     imports: [FormsModule, SliderModule, AppDocSectionText, AppCode],
@@ -13,7 +14,7 @@ import { AppCode } from '@/components/doc/app.code';
             <p>When <i>range</i> property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
+            <vx-slider [(ngModel)]="rangeValues" [range]="true" class="w-56" />
         </div>
         <app-code></app-code>
     `

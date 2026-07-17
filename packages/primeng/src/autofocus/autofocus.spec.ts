@@ -1,57 +1,64 @@
-import { Component, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AutoFocus, AutoFocusModule } from './autofocus';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-autofocus',
-    template: `<input type="text" pAutoFocus />`
+    template: `<input type="text" vxAutoFocus />`
 })
 class TestBasicAutofocusComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-disabled',
-    template: `<input type="text" [pAutoFocus]="false" />`
+    template: `<input type="text" [vxAutoFocus]="false" />`
 })
 class TestAutofocusDisabledComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-enabled',
-    template: `<input type="text" [pAutoFocus]="true" />`
+    template: `<input type="text" [vxAutoFocus]="true" />`
 })
 class TestAutofocusEnabledComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-dynamic',
-    template: `<input type="text" [pAutoFocus]="autofocusEnabled" />`
+    template: `<input type="text" [vxAutoFocus]="autofocusEnabled" />`
 })
 class TestAutofocusDynamicComponent {
     autofocusEnabled = false;
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-button',
-    template: `<button [pAutoFocus]="true">Focus Button</button>`
+    template: `<button [vxAutoFocus]="true">Focus Button</button>`
 })
 class TestAutofocusButtonComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-div',
-    template: `<div tabindex="0" [pAutoFocus]="true">Focusable Div</div>`
+    template: `<div tabindex="0" [vxAutoFocus]="true">Focusable Div</div>`
 })
 class TestAutofocusDivComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-multiple-elements',
     template: `
-        <div [pAutoFocus]="autofocusEnabled">
+        <div [vxAutoFocus]="autofocusEnabled">
             <input type="text" id="first-input" />
             <input type="text" id="second-input" />
             <button id="button">Button</button>
@@ -63,10 +70,11 @@ class TestAutofocusMultipleElementsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-no-focusable-elements',
     template: `
-        <div [pAutoFocus]="true">
+        <div [vxAutoFocus]="true">
             <span>No focusable elements</span>
             <p>Just text content</p>
         </div>
@@ -75,10 +83,11 @@ class TestAutofocusMultipleElementsComponent {
 class TestAutofocusNoFocusableElementsComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-nested-focusable',
     template: `
-        <div [pAutoFocus]="true" class="container">
+        <div [vxAutoFocus]="true" class="container">
             <div class="nested">
                 <input type="text" class="nested-input" />
                 <select class="nested-select">
@@ -92,12 +101,13 @@ class TestAutofocusNoFocusableElementsComponent {}
 class TestAutofocusNestedFocusableComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-conditional',
     template: `
         <div>
-            <input type="text" [pAutoFocus]="condition1" class="input-1" />
-            <input type="text" [pAutoFocus]="condition2" class="input-2" />
+            <input type="text" [vxAutoFocus]="condition1" class="input-1" />
+            <input type="text" [vxAutoFocus]="condition2" class="input-2" />
         </div>
     `
 })
@@ -107,10 +117,11 @@ class TestAutofocusConditionalComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-after-content-change',
     template: `
-        <div [pAutoFocus]="autofocus" class="dynamic-container">
+        <div [vxAutoFocus]="autofocus" class="dynamic-container">
             <input type="text" *ngIf="showInput" class="dynamic-input" />
             <button *ngIf="showButton" class="dynamic-button">Dynamic Button</button>
         </div>
@@ -123,6 +134,7 @@ class TestAutofocusAfterContentChangeComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-autofocus-dialog-simulation',
     template: `
@@ -134,8 +146,8 @@ class TestAutofocusAfterContentChangeComponent {
                     <button type="button" class="close-button" (click)="closeDialog()">×</button>
                 </div>
                 <div class="dialog-content">
-                    <input type="text" [pAutoFocus]="shouldAutoFocus" class="dialog-input" placeholder="This input should be focused when dialog opens" />
-                    <textarea [pAutoFocus]="textareaAutoFocus" class="dialog-textarea" placeholder="Alternative focusable element"></textarea>
+                    <input type="text" [vxAutoFocus]="shouldAutoFocus" class="dialog-input" placeholder="This input should be focused when dialog opens" />
+                    <textarea [vxAutoFocus]="textareaAutoFocus" class="dialog-textarea" placeholder="Alternative focusable element"></textarea>
                     <button type="button" class="dialog-button">Action Button</button>
                 </div>
                 <div class="dialog-footer">
@@ -151,7 +163,7 @@ class TestAutofocusAfterContentChangeComponent {
                 <h4>Drawer Content</h4>
             </div>
             <div class="drawer-body">
-                <select [pAutoFocus]="drawerAutoFocus" class="drawer-select">
+                <select [vxAutoFocus]="drawerAutoFocus" class="drawer-select">
                     <option value="">Select an option</option>
                     <option value="1">Option 1</option>
                     <option value="2">Option 2</option>
@@ -230,7 +242,7 @@ describe('AutoFocus', () => {
         });
 
         it('should have default values', () => {
-            // pAutoFocus without value defaults to empty string in template, which is truthy
+            // vxAutoFocus without value defaults to empty string in template, which is truthy
             // But the component Input transforms it to false
             expect(directive.focused).toBe(false);
         });

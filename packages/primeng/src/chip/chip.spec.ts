@@ -1,31 +1,34 @@
-import { Component, input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'primeng/api';
-import { ChipProps } from 'primeng/types/chip';
+import { SharedModule } from 'voxx-ui/api';
+import { ChipProps } from 'voxx-ui/types/chip';
 import { Chip, ChipModule } from './chip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-chip',
-    template: `<p-chip></p-chip>`
+    template: `<vx-chip></vx-chip>`
 })
 class TestBasicChipComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-label-chip',
-    template: `<p-chip [label]="label"></p-chip>`
+    template: `<vx-chip [label]="label"></vx-chip>`
 })
 class TestLabelChipComponent {
     label = 'Sample Chip';
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-icon-chip',
-    template: `<p-chip [icon]="icon" [label]="label"></p-chip>`
+    template: `<vx-chip [icon]="icon" [label]="label"></vx-chip>`
 })
 class TestIconChipComponent {
     icon = 'pi pi-user';
@@ -33,9 +36,10 @@ class TestIconChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-image-chip',
-    template: `<p-chip [image]="image" [alt]="alt" [label]="label" (onImageError)="onImageError($event)"></p-chip>`
+    template: `<vx-chip [image]="image" [alt]="alt" [label]="label" (onImageError)="onImageError($event)"></vx-chip>`
 })
 class TestImageChipComponent {
     image = '/path/to/image.jpg';
@@ -49,9 +53,10 @@ class TestImageChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-removable-chip',
-    template: `<p-chip [label]="label" [removable]="removable" (onRemove)="onRemove($event)"></p-chip>`
+    template: `<vx-chip [label]="label" [removable]="removable" (onRemove)="onRemove($event)"></vx-chip>`
 })
 class TestRemovableChipComponent {
     label = 'Removable Chip';
@@ -66,9 +71,10 @@ class TestRemovableChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-custom-remove-icon-chip',
-    template: `<p-chip [label]="label" [removable]="removable" [removeIcon]="removeIcon" (onRemove)="onRemove($event)"></p-chip>`
+    template: `<vx-chip [label]="label" [removable]="removable" [removeIcon]="removeIcon" (onRemove)="onRemove($event)"></vx-chip>`
 })
 class TestCustomRemoveIconChipComponent {
     label = 'Custom Remove';
@@ -82,14 +88,15 @@ class TestCustomRemoveIconChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-template-chip',
     template: `
-        <p-chip [label]="label" [removable]="removable" (onRemove)="onRemove($event)">
+        <vx-chip [label]="label" [removable]="removable" (onRemove)="onRemove($event)">
             <ng-template #removeicon>
                 <i class="custom-remove-icon pi pi-trash"></i>
             </ng-template>
-        </p-chip>
+        </vx-chip>
     `
 })
 class TestTemplateChipComponent {
@@ -103,20 +110,22 @@ class TestTemplateChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-content-chip',
     template: `
-        <p-chip>
+        <vx-chip>
             <div class="custom-content">Custom Chip Content</div>
-        </p-chip>
+        </vx-chip>
     `
 })
 class TestContentChipComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-style-class-chip',
-    template: `<p-chip [label]="label" [styleClass]="styleClass"></p-chip>`
+    template: `<vx-chip [label]="label" [styleClass]="styleClass"></vx-chip>`
 })
 class TestStyleClassChipComponent {
     label = 'Styled Chip';
@@ -124,9 +133,10 @@ class TestStyleClassChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-chip-props',
-    template: `<p-chip [chipProps]="chipProps"></p-chip>`
+    template: `<vx-chip [chipProps]="chipProps"></vx-chip>`
 })
 class TestChipPropsComponent {
     chipProps: ChipProps = {
@@ -138,12 +148,13 @@ class TestChipPropsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-dynamic-chip',
     template: `
-        <p-chip [label]="label" [icon]="icon" [image]="image" [alt]="alt" [removable]="removable" [removeIcon]="removeIcon" [styleClass]="styleClass" [chipProps]="chipProps" (onRemove)="onRemove($event)" (onImageError)="onImageError($event)">
+        <vx-chip [label]="label" [icon]="icon" [image]="image" [alt]="alt" [removable]="removable" [removeIcon]="removeIcon" [styleClass]="styleClass" [chipProps]="chipProps" (onRemove)="onRemove($event)" (onImageError)="onImageError($event)">
             <div class="dynamic-content" *ngIf="showContent">{{ content }}</div>
-        </p-chip>
+        </vx-chip>
     `
 })
 class TestDynamicChipComponent {
@@ -170,9 +181,10 @@ class TestDynamicChipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-visibility-chip',
-    template: `<p-chip [label]="label"></p-chip>`
+    template: `<vx-chip [label]="label"></vx-chip>`
 })
 class TestVisibilityChipComponent {
     label = 'Visibility Test';
@@ -1028,9 +1040,10 @@ describe('Chip', () => {
 
     describe('PassThrough API', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [Chip],
-            template: `<p-chip [label]="label()" [icon]="icon()" [image]="image()" [removable]="removable()" [removeIcon]="removeIcon()" [pt]="pt()"></p-chip>`
+            template: `<vx-chip [label]="label()" [icon]="icon()" [image]="image()" [removable]="removable()" [removeIcon]="removeIcon()" [pt]="pt()"></vx-chip>`
         })
         class TestPTChipComponent {
             label = input<string | undefined>('Test');

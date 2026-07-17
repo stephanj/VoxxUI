@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
-import { AvatarModule } from 'primeng/avatar';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DrawerModule } from 'voxx-ui/drawer';
+import { ButtonModule } from 'voxx-ui/button';
+import { AvatarModule } from 'voxx-ui/avatar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [DrawerModule, ButtonModule, AvatarModule, AppCode, AppDocSectionText],
@@ -14,10 +15,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Drawer is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-drawer [(visible)]="visible" [closable]="false">
+            <vx-drawer [(visible)]="visible" [closable]="false">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -27,12 +28,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </p>
                 <ng-template #footer>
                     <div class="flex items-center gap-2">
-                        <button pButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
-                        <button pButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
+                        <button vxButton label="Account" icon="pi pi-user" class="w-full" outlined></button>
+                        <button vxButton label="Logout" icon="pi pi-sign-out" class="w-full" severity="danger" text></button>
                     </div>
                 </ng-template>
-            </p-drawer>
-            <button pButton (click)="visible = true" icon="pi pi-plus"></button>
+            </vx-drawer>
+            <button vxButton (click)="visible = true" icon="pi pi-plus"></button>
         </div>
         <app-code></app-code>
     `

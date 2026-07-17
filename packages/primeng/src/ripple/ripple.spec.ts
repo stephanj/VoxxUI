@@ -1,36 +1,40 @@
-import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Ripple } from './ripple';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<button pRipple class="test-button">Click me</button>`
+    template: `<button vxRipple class="test-button">Click me</button>`
 })
 class TestBasicRippleComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<div pRipple class="test-div" [style]="style">Ripple Div</div>`
+    template: `<div vxRipple class="test-div" [style]="style">Ripple Div</div>`
 })
 class TestStyledRippleComponent {
     style = { width: '200px', height: '100px', position: 'relative' };
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <div pRipple class="multiple-ripple-1">First</div>
-        <div pRipple class="multiple-ripple-2">Second</div>
-        <span pRipple class="multiple-ripple-3">Third</span>
+        <div vxRipple class="multiple-ripple-1">First</div>
+        <div vxRipple class="multiple-ripple-2">Second</div>
+        <span vxRipple class="multiple-ripple-3">Third</span>
     `
 })
 class TestMultipleRippleComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <div pRipple class="nested-container">
+        <div vxRipple class="nested-container">
             <span>Nested content</span>
             <button>Nested button</button>
         </div>
@@ -39,8 +43,9 @@ class TestMultipleRippleComponent {}
 class TestNestedRippleComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<div pRipple [style]="style" [class]="styleClass">Custom Styled Ripple</div>`
+    template: `<div vxRipple [style]="style" [class]="styleClass">Custom Styled Ripple</div>`
 })
 class TestCustomStyledComponent {
     style = { background: 'lightblue', border: '1px solid blue' };

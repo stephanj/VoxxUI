@@ -12,14 +12,14 @@ MegaMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { MegaMenuItem } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { MegaMenuModule } from 'voxx-ui/megamenu';
+import { MegaMenuItem } from 'voxx-ui/api';
+import { Table } from 'voxx-ui/table';
 
 @Component({
     template: `
         <div class="card">
-            <p-megamenu [model]="items" />
+            <vx-megamenu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -139,13 +139,13 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuModule } from 'voxx-ui/megamenu';
+import { MegaMenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-megamenu [model]="items" />
+            <vx-megamenu [model]="items" />
         </div>
     `,
     standalone: true,
@@ -207,16 +207,16 @@ Custom content can be placed between p-megamenu tags. Megamenu should be horizon
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { RippleModule } from 'primeng/ripple';
-import { MegaMenuItem } from 'primeng/api';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { ButtonModule } from 'voxx-ui/button';
+import { MegaMenuModule } from 'voxx-ui/megamenu';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MegaMenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
+            <vx-megamenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" class="p-4 bg-surface-0 dark:bg-surface-900">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -265,13 +265,13 @@ import { MegaMenuItem } from 'primeng/api';
                     <div *ngIf="item.image" class="flex flex-col items-start gap-4">
                         <img [src]="item.image" alt="megamenu-demo" class="w-full" />
                         <span>{{ item.subtext }}</span>
-                        <p-button [label]="item.label" [outlined]="true"></p-button>
+                        <vx-button [label]="item.label" [outlined]="true"></vx-button>
                     </div>
                 </ng-template>
                 <ng-template #end>
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                    <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
-            </p-megamenu>
+            </vx-megamenu>
         </div>
     `,
     standalone: true,
@@ -345,15 +345,15 @@ Layout of the MegaMenu is changed with the orientation property that accepts hor
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MegaMenu, MegaMenuModule } from 'primeng/megamenu';
-import { MegaMenuItem } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { MegaMenu } from 'primeng/megamenu';
+import { MegaMenu, MegaMenuModule } from 'voxx-ui/megamenu';
+import { MegaMenuItem } from 'voxx-ui/api';
+import { Table } from 'voxx-ui/table';
+import { MegaMenu } from 'voxx-ui/megamenu';
 
 @Component({
     template: `
         <div class="card">
-            <p-megamenu [model]="items" orientation="vertical" />
+            <vx-megamenu [model]="items" orientation="vertical" />
         </div>
     `,
     standalone: true,

@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputGroupModule } from 'voxx-ui/inputgroup';
+import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'floatlabel-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, FormsModule, RouterModule, InputGroupModule, InputGroupAddonModule, InputTextModule, FloatLabelModule],
@@ -20,32 +21,32 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-col md:items-end md:flex-row gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <p-floatlabel>
-                    <input pInputText id="over_label" [(ngModel)]="value1" />
+                </vx-inputgroup-addon>
+                <vx-floatlabel>
+                    <input vxInputText id="over_label" [(ngModel)]="value1" />
                     <label for="over_label">Over Label</label>
-                </p-floatlabel>
-            </p-inputgroup>
+                </vx-floatlabel>
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-floatlabel variant="in">
-                    <input pInputText id="in_label" [(ngModel)]="value2" />
+            <vx-inputgroup>
+                <vx-inputgroup-addon>$</vx-inputgroup-addon>
+                <vx-floatlabel variant="in">
+                    <input vxInputText id="in_label" [(ngModel)]="value2" />
                     <label for="in_label">In Label</label>
-                </p-floatlabel>
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
+                </vx-floatlabel>
+                <vx-inputgroup-addon>.00</vx-inputgroup-addon>
+            </vx-inputgroup>
 
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <p-floatlabel variant="on">
-                    <input pInputText id="on_label" [(ngModel)]="value3" />
+            <vx-inputgroup>
+                <vx-inputgroup-addon>www</vx-inputgroup-addon>
+                <vx-floatlabel variant="on">
+                    <input vxInputText id="on_label" [(ngModel)]="value3" />
                     <label for="on_label">On Label</label>
-                </p-floatlabel>
-            </p-inputgroup>
+                </vx-floatlabel>
+            </vx-inputgroup>
         </div>
         <app-code></app-code>
     `

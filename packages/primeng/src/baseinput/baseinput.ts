@@ -1,6 +1,6 @@
 import { booleanAttribute, computed, Directive, inject, input } from '@angular/core';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Fluid } from 'primeng/fluid';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Fluid } from 'voxx-ui/fluid';
 
 @Directive({ standalone: true })
 export class BaseInput<PT = any> extends BaseEditableHolder<PT> {

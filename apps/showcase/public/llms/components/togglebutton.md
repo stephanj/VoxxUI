@@ -13,16 +13,15 @@ Two-way binding to a boolean property is defined using the standard ngModel dire
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
+            <vx-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" class="w-24" />
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonBasicDemo {
     checked: boolean = false;
@@ -36,16 +35,15 @@ Icons and Labels can be customized using onLabel , offLabel , onIcon and offIcon
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" class="w-36" ariaLabel="Do you confirm" />
+            <vx-togglebutton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" class="w-36" ariaLabel="Do you confirm" />
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonCustomizedDemo {
     checked: boolean = false;
@@ -59,16 +57,15 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-togglebutton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" class="w-full sm:w-40" ariaLabel="Confirmation" />
+            <vx-togglebutton disabled="true" onIcon="pi pi-check" offIcon="pi pi-times" [(ngModel)]="checked" onLabel="Yes" offLabel="No" class="w-full sm:w-40" ariaLabel="Confirmation" />
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonDisabledDemo {
     checked: boolean = false;
@@ -82,16 +79,15 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" fluid />
+            <vx-togglebutton [(ngModel)]="checked" onLabel="On" offLabel="Off" fluid />
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonFluidDemo {
     checked: boolean = false;
@@ -105,16 +101,15 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" class="w-full sm:w-40" aria-label="Confirmation" />
+            <vx-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [invalid]="!checked" class="w-full sm:w-40" aria-label="Confirmation" />
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonInvalidDemo {
     checked: boolean = false;
@@ -128,29 +123,25 @@ ToggleButton can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
                 <div class="flex flex-col items-center gap-1">
-                    <p-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
+                    <vx-togglebutton name="consent" formControlName="checked" [invalid]="isInvalid('checked')" onLabel="Accept All" offLabel="Reject All" class="min-w-40" />
                     @if (isInvalid('checked')) {
-                        <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Consent is mandatory.</vx-message>
                     }
                 </div>
-                <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ToggleButtonModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class TogglebuttonReactiveformsDemo {
     messageService = inject(MessageService);
@@ -186,18 +177,17 @@ ToggleButton provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
-            <p-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
-            <p-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
+            <vx-togglebutton [(ngModel)]="value1" onLabel="On" offLabel="Off" size="small" class="min-w-16" />
+            <vx-togglebutton [(ngModel)]="value2" onLabel="On" offLabel="Off" class="min-w-20" />
+            <vx-togglebutton [(ngModel)]="value3" onLabel="On" offLabel="Off" size="large" class="min-w-24" />
         </div>
     `,
     standalone: true,
-    imports: [ToggleButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonSizesDemo {
     value1: boolean = false;
@@ -211,31 +201,27 @@ export class TogglebuttonSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
                 <div class="flex flex-col items-center gap-1">
-                    <p-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
+                    <vx-togglebutton #model="ngModel" [(ngModel)]="checked" [invalid]="model.invalid && (model.touched || exampleForm.submitted)" name="country" onLabel="Accept All" offLabel="Reject All" required class="min-w-40" />
                     @if (model.invalid && (model.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Consent is mandatory.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Consent is mandatory.</vx-message>
                     }
                 </div>
-                <button pButton type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, ToastModule, ToggleButtonModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class TogglebuttonTemplatedrivenformsDemo {
     messageService = inject(MessageService);

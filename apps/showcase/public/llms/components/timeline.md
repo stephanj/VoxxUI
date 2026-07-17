@@ -12,7 +12,7 @@ Content location relative the line is defined with the align property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { TimelineModule } from 'voxx-ui/timeline';
 
 interface EventItem {
     status?: string;
@@ -25,21 +25,21 @@ interface EventItem {
 @Component({
     template: `
         <div class="card flex flex-wrap gap-12">
-            <p-timeline [value]="events" class="w-full md:w-80">
+            <vx-timeline [value]="events" class="w-full md:w-80">
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" class="w-full md:w-80" align="right">
+            </vx-timeline>
+            <vx-timeline [value]="events" class="w-full md:w-80" align="right">
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
+            </vx-timeline>
+            <vx-timeline [value]="events" class="w-full md:w-80" align="alternate">
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
-            </p-timeline>
+            </vx-timeline>
         </div>
     `,
     standalone: true,
@@ -65,16 +65,16 @@ Timeline receives the events with the value property as a collection of arbitrar
 
 ```typescript
 import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { TimelineModule } from 'voxx-ui/timeline';
 
 @Component({
     template: `
         <div class="card">
-            <p-timeline [value]="events">
+            <vx-timeline [value]="events">
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
-            </p-timeline>
+            </vx-timeline>
         </div>
     `,
     standalone: true,
@@ -100,27 +100,27 @@ TimeLine orientation is controlled with the layout property, default is vertical
 
 ```typescript
 import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { TimelineModule } from 'voxx-ui/timeline';
 
 @Component({
     template: `
         <div class="card flex flex-col gap-4">
-            <p-timeline [value]="events" layout="horizontal" align="top">
+            <vx-timeline [value]="events" layout="horizontal" align="top">
                 <ng-template #content let-event>
                     {{ event }}
                 </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" layout="horizontal" align="bottom">
+            </vx-timeline>
+            <vx-timeline [value]="events" layout="horizontal" align="bottom">
                 <ng-template #content let-event>
                     {{ event }}
                 </ng-template>
-            </p-timeline>
-            <p-timeline [value]="events" layout="horizontal" align="alternate">
+            </vx-timeline>
+            <vx-timeline [value]="events" layout="horizontal" align="alternate">
                 <ng-template #content let-event>
                     {{ event }}
                 </ng-template>
                 <ng-template #opposite let-event><span>&nbsp;</span></ng-template>
-            </p-timeline>
+            </vx-timeline>
         </div>
     `,
     standalone: true,
@@ -141,7 +141,7 @@ Additional content at the other side of the line can be provided with the opposi
 
 ```typescript
 import { Component } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { TimelineModule } from 'voxx-ui/timeline';
 
 interface EventItem {
     status?: string;
@@ -154,14 +154,14 @@ interface EventItem {
 @Component({
     template: `
         <div class="card">
-            <p-timeline [value]="events">
+            <vx-timeline [value]="events">
                 <ng-template #opposite let-event>
                     <small class="text-surface-500 dark:text-surface-400">{{ event.date }}</small>
                 </ng-template>
                 <ng-template #content let-event>
                     {{ event.status }}
                 </ng-template>
-            </p-timeline>
+            </vx-timeline>
         </div>
     `,
     standalone: true,
@@ -187,9 +187,9 @@ Sample implementation with custom content and styled markers.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { TimelineModule } from 'primeng/timeline';
+import { ButtonModule } from 'voxx-ui/button';
+import { CardModule } from 'voxx-ui/card';
+import { TimelineModule } from 'voxx-ui/timeline';
 
 interface EventItem {
     status?: string;
@@ -202,23 +202,23 @@ interface EventItem {
 @Component({
     template: `
         <div class="card">
-            <p-timeline [value]="events" align="alternate" class="customized-timeline">
+            <vx-timeline [value]="events" align="alternate" class="customized-timeline">
                 <ng-template #marker let-event>
                     <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                         <i [class]="event.icon"></i>
                     </span>
                 </ng-template>
                 <ng-template #content let-event>
-                    <p-card [header]="event.status" [subheader]="event.date">
+                    <vx-card [header]="event.status" [subheader]="event.date">
                         <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                             neque quas!
                         </p>
-                        <p-button label="Read more" [text]="true" />
-                    </p-card>
+                        <vx-button label="Read more" [text]="true" />
+                    </vx-card>
                 </ng-template>
-            </p-timeline>
+            </vx-timeline>
         </div>
     `,
     standalone: true,

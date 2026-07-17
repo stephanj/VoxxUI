@@ -6,23 +6,21 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogModule } from 'primeng/dialog';
-import { FileUploadModule } from 'primeng/fileupload';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { SelectModule } from 'primeng/select';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { TextareaModule } from 'primeng/textarea';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmationService, MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { DialogModule } from 'voxx-ui/dialog';
+import { FileUploadModule } from 'voxx-ui/fileupload';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputNumberModule } from 'voxx-ui/inputnumber';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
+import { RatingModule } from 'voxx-ui/rating';
+import { SelectModule } from 'voxx-ui/select';
+import { Table, TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { ToastModule } from 'voxx-ui/toast';
 
 interface Column {
     field: string;
@@ -45,7 +43,6 @@ interface ExportColumn {
         FormsModule,
         TableModule,
         ToastModule,
-        ToolbarModule,
         ButtonModule,
         FileUploadModule,
         RatingModule,
@@ -58,28 +55,27 @@ interface ExportColumn {
         AppDocSectionText,
         AppCode,
         DeferredDemo,
-        ConfirmDialogModule,
-        TextareaModule
+        ConfirmDialogModule
     ],
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toast />
-                <p-toolbar class="mb-6">
-                    <ng-template #start>
-                        <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
-                        <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
-                    </ng-template>
+                <vx-toast />
+                <div class="mb-6 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center">
+                        <vx-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+                        <vx-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
+                    </div>
 
-                    <ng-template #end>
-                        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-                        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
-                    </ng-template>
-                </p-toolbar>
+                    <div class="flex items-center">
+                        <vx-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
+                        <vx-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+                    </div>
+                </div>
 
-                <p-table
+                <vx-table
                     #dt
                     [value]="products"
                     [rows]="10"
@@ -96,47 +92,47 @@ interface ExportColumn {
                     <ng-template #caption>
                         <div class="flex items-center justify-between">
                             <h5 class="m-0">Manage Products</h5>
-                            <p-iconfield>
-                                <p-inputicon class="pi pi-search" />
-                                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
-                            </p-iconfield>
+                            <vx-iconfield>
+                                <vx-inputicon class="pi pi-search" />
+                                <input vxInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                            </vx-iconfield>
                         </div>
                     </ng-template>
                     <ng-template #header>
                         <tr>
                             <th style="width: 3rem">
-                                <p-tableHeaderCheckbox />
+                                <vx-tableHeaderCheckbox />
                             </th>
                             <th style="min-width: 16rem">Code</th>
-                            <th pSortableColumn="name" style="min-width:16rem">
+                            <th vxSortableColumn="name" style="min-width:16rem">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <vx-sortIcon field="name" />
                                 </div>
                             </th>
                             <th>Image</th>
-                            <th pSortableColumn="price" style="min-width: 8rem">
+                            <th vxSortableColumn="price" style="min-width: 8rem">
                                 <div class="flex items-center gap-2">
                                     Price
-                                    <p-sortIcon field="price" />
+                                    <vx-sortIcon field="price" />
                                 </div>
                             </th>
-                            <th pSortableColumn="category" style="min-width:10rem">
+                            <th vxSortableColumn="category" style="min-width:10rem">
                                 <div class="flex items-center gap-2">
                                     Category
-                                    <p-sortIcon field="category" />
+                                    <vx-sortIcon field="category" />
                                 </div>
                             </th>
-                            <th pSortableColumn="rating" style="min-width: 12rem">
+                            <th vxSortableColumn="rating" style="min-width: 12rem">
                                 <div class="flex items-center gap-2">
                                     Reviews
-                                    <p-sortIcon field="rating" />
+                                    <vx-sortIcon field="rating" />
                                 </div>
                             </th>
-                            <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
+                            <th vxSortableColumn="inventoryStatus" style="min-width: 12rem">
                                 <div class="flex items-center gap-2">
                                     Status
-                                    <p-sortIcon field="inventoryStatus" />
+                                    <vx-sortIcon field="inventoryStatus" />
                                 </div>
                             </th>
                             <th style="min-width: 12rem"></th>
@@ -145,7 +141,7 @@ interface ExportColumn {
                     <ng-template #body let-product>
                         <tr>
                             <td style="width: 3rem">
-                                <p-tableCheckbox [value]="product" />
+                                <vx-tableCheckbox [value]="product" />
                             </td>
                             <td style="min-width: 12rem">{{ product.code }}</td>
                             <td style="min-width: 16rem">{{ product.name }}</td>
@@ -155,55 +151,55 @@ interface ExportColumn {
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+                                <vx-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                             </td>
                             <td>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                                <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
                             <td>
-                                <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
-                                <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
+                                <vx-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
+                                <vx-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
 
-                <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
+                <vx-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
                     <ng-template #content>
                         <div class="flex flex-col gap-6">
                             <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
                             <div>
                                 <label for="name" class="block font-bold mb-3">Name</label>
-                                <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
+                                <input type="text" vxInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
                                 <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
                             </div>
                             <div>
                                 <label for="description" class="block font-bold mb-3">Description</label>
-                                <textarea id="description" pTextarea [(ngModel)]="product.description" required rows="3" cols="20" fluid></textarea>
+                                <textarea id="description" [(ngModel)]="product.description" required rows="3" cols="20" class="w-full"></textarea>
                             </div>
 
                             <div>
                                 <label for="inventoryStatus" class="block font-bold mb-3">Inventory Status</label>
-                                <p-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
+                                <vx-select [(ngModel)]="product.inventoryStatus" inputId="inventoryStatus" [options]="statuses" optionLabel="label" optionValue="label" placeholder="Select a Status" fluid />
                             </div>
 
                             <div>
                                 <span class="block font-bold mb-4">Category</span>
                                 <div class="grid grid-cols-12 gap-4">
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radiobutton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
+                                        <vx-radiobutton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
                                         <label for="category1">Accessories</label>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radiobutton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
+                                        <vx-radiobutton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
                                         <label for="category2">Clothing</label>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
+                                        <vx-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
                                         <label for="category3">Electronics</label>
                                     </div>
                                     <div class="flex items-center gap-2 col-span-6">
-                                        <p-radiobutton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
+                                        <vx-radiobutton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
                                         <label for="category4">Fitness</label>
                                     </div>
                                 </div>
@@ -212,25 +208,25 @@ interface ExportColumn {
                             <div class="grid grid-cols-12 gap-4">
                                 <div class="col-span-6">
                                     <label for="price" class="block font-bold mb-3">Price</label>
-                                    <p-inputnumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" fluid />
+                                    <vx-inputnumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" fluid />
                                 </div>
                                 <div class="col-span-6">
                                     <label for="quantity" class="block font-bold mb-3">Quantity</label>
-                                    <p-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
+                                    <vx-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
                                 </div>
                             </div>
                         </div>
                     </ng-template>
 
                     <ng-template #footer>
-                        <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
-                        <p-button label="Save" icon="pi pi-check" (click)="saveProduct()" />
+                        <vx-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+                        <vx-button label="Save" icon="pi pi-check" (click)="saveProduct()" />
                     </ng-template>
-                </p-dialog>
+                </vx-dialog>
 
-                <p-confirmdialog [style]="{ width: '450px' }" />
+                <vx-confirmdialog [style]="{ width: '450px' }" />
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]

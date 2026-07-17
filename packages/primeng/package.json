@@ -1,27 +1,24 @@
 {
-    "name": "primeng",
-    "version": "21.1.9",
-    "author": "PrimeTek Informatics",
-    "description": "PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.",
-    "homepage": "https://primeng.org/",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "name": "voxx-ui",
+    "version": "22.0.0",
+    "author": "Stephan Janssen",
+    "description": "VoxxUI is an open source UI component library for Angular — a lean fork of PrimeNG maintained for the cfp.dev platform.",
+    "homepage": "https://github.com/stephanj/VoxxUI",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng.git",
+        "url": "https://github.com/stephanj/VoxxUI.git",
         "directory": "packages/primeng"
     },
     "bugs": {
-        "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/stephanj/VoxxUI/issues"
     },
     "keywords": [
-        "primeng",
+        "voxx-ui",
         "angular",
         "ui library",
         "component library",
-        "material",
-        "bootstrap",
-        "fluent",
-        "tailwind"
+        "primeng fork"
     ],
     "publishConfig": {
         "directory": "dist",
@@ -30,14 +27,14 @@
     },
     "scripts": {
         "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
-        "build:package": "pnpm run build:prebuild && ng build primeng && pnpm run build:postbuild",
+        "build:package": "pnpm run build:prebuild && ng build voxx-ui && pnpm run build:postbuild",
         "build:prebuild": "node ./scripts/prebuild.mjs",
         "build:postbuild": "node ./scripts/postbuild.mjs",
         "dev:link": "pnpm link --global && npm link",
         "lint": "ng lint",
-        "test:unit": "ng test primeng --watch=false --browsers=ChromeHeadless",
-        "test:unit:watch": "ng test primeng",
-        "test:unit:coverage": "ng test primeng --coverage"
+        "test:unit": "ng test voxx-ui --watch=false --browsers=ChromeHeadless",
+        "test:unit:watch": "ng test voxx-ui",
+        "test:unit:coverage": "ng test voxx-ui --coverage"
     },
     "devDependencies": {
         "karma": "~6.4.4",
@@ -48,12 +45,12 @@
         "tslib": "^2.8.1"
     },
     "peerDependencies": {
-        "@angular/cdk": "catalog:angular21",
-        "@angular/common": "catalog:angular21",
-        "@angular/core": "catalog:angular21",
-        "@angular/forms": "catalog:angular21",
-        "@angular/router": "catalog:angular21",
-        "@angular/platform-browser": "catalog:angular21",
+        "@angular/cdk": "catalog:angular22",
+        "@angular/common": "catalog:angular22",
+        "@angular/core": "catalog:angular22",
+        "@angular/forms": "catalog:angular22",
+        "@angular/router": "catalog:angular22",
+        "@angular/platform-browser": "catalog:angular22",
         "rxjs": "^6.0.0 || ^7.8.1"
     },
     "dependencies": {

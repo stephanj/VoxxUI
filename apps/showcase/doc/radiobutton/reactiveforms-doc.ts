@@ -1,15 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { MessageService } from 'voxx-ui/api';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, RadioButtonModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, CommonModule],
@@ -19,22 +20,22 @@ import { CommonModule } from '@angular/common';
             <p>RadioButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
 
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (category of categories; track category.key) {
                         <div class="flex items-center gap-2">
-                            <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                            <vx-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
                             <label [for]="category.key"> {{ category.name }} </label>
                         </div>
                     }
                 </div>
                 @if (isInvalid('selectedCategory')) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>

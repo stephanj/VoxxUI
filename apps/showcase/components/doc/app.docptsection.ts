@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { AppDocSectionNav } from './app.docsection-nav';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-docptsection',
     standalone: true,
     imports: [CommonModule, AppDocSectionNav],

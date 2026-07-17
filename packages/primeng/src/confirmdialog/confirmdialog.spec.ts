@@ -1,17 +1,18 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfirmationService } from 'primeng/api';
-import { Button } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
+import { ConfirmationService } from 'voxx-ui/api';
+import { Button } from 'voxx-ui/button';
+import { Dialog } from 'voxx-ui/dialog';
 import { ConfirmDialog } from './confirmdialog';
 
 // Basic ConfirmDialog Component Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-confirmdialog
+        <vx-confirmdialog
             [header]="header"
             [icon]="icon"
             [message]="message"
@@ -45,7 +46,7 @@ import { ConfirmDialog } from './confirmdialog';
             [draggable]="draggable"
             (onHide)="onHide($event)"
         >
-        </p-confirmdialog>
+        </vx-confirmdialog>
     `
 })
 class TestBasicConfirmDialogComponent {
@@ -88,38 +89,39 @@ class TestBasicConfirmDialogComponent {
     }
 }
 
-// ConfirmDialog with pTemplate Templates
+// ConfirmDialog with vxTemplate Templates
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-confirmdialog>
-            <ng-template pTemplate="header">
+        <vx-confirmdialog>
+            <ng-template vxTemplate="header">
                 <div class="custom-header">
                     <i class="pi pi-info-circle custom-header-icon"></i>
                     <span class="custom-header-text">Custom Header</span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="message" let-message>
+            <ng-template vxTemplate="message" let-message>
                 <div class="custom-message">
                     <p class="custom-message-text">{{ message.message }}</p>
                 </div>
             </ng-template>
-            <ng-template pTemplate="icon">
+            <ng-template vxTemplate="icon">
                 <i class="pi pi-question-circle custom-template-icon"></i>
             </ng-template>
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="custom-footer">
                     <button class="custom-reject-btn">Custom Cancel</button>
                     <button class="custom-accept-btn">Custom OK</button>
                 </div>
             </ng-template>
-            <ng-template pTemplate="rejecticon">
+            <ng-template vxTemplate="rejecticon">
                 <i class="pi pi-times custom-reject-icon"></i>
             </ng-template>
-            <ng-template pTemplate="accepticon">
+            <ng-template vxTemplate="accepticon">
                 <i class="pi pi-check custom-accept-icon"></i>
             </ng-template>
-            <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
+            <ng-template vxTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
                 <div class="custom-headless">
                     <h3>{{ message.header }}</h3>
                     <p>{{ message.message }}</p>
@@ -129,16 +131,17 @@ class TestBasicConfirmDialogComponent {
                     </div>
                 </div>
             </ng-template>
-        </p-confirmdialog>
+        </vx-confirmdialog>
     `
 })
 class TestTemplatePConfirmDialogComponent {}
 
 // ConfirmDialog with #template Templates
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-confirmdialog>
+        <vx-confirmdialog>
             <ng-template #header>
                 <div class="content-header">
                     <span class="content-header-text">Content Header</span>
@@ -174,15 +177,16 @@ class TestTemplatePConfirmDialogComponent {}
                     </div>
                 </div>
             </ng-template>
-        </p-confirmdialog>
+        </vx-confirmdialog>
     `
 })
 class TestContentTemplateConfirmDialogComponent {}
 
 // ConfirmDialog Position Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-confirmdialog [position]="position" [visible]="visible"> </p-confirmdialog> `
+    template: ` <vx-confirmdialog [position]="position" [visible]="visible"> </vx-confirmdialog> `
 })
 class TestPositionConfirmDialogComponent {
     position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
@@ -191,9 +195,10 @@ class TestPositionConfirmDialogComponent {
 
 // ConfirmDialog with ConfirmationService
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-confirmdialog></p-confirmdialog>
+        <vx-confirmdialog></vx-confirmdialog>
         <button (click)="confirm()" class="confirm-btn">Confirm</button>
     `,
     providers: [ConfirmationService]
@@ -230,8 +235,9 @@ class TestConfirmationServiceComponent {
 
 // ConfirmDialog Accessibility Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-confirmdialog [visible]="true" [acceptAriaLabel]="acceptAriaLabel" [rejectAriaLabel]="rejectAriaLabel" [closeAriaLabel]="closeAriaLabel" header="Accessibility Test" message="Test message"> </p-confirmdialog> `
+    template: ` <vx-confirmdialog [visible]="true" [acceptAriaLabel]="acceptAriaLabel" [rejectAriaLabel]="rejectAriaLabel" [closeAriaLabel]="closeAriaLabel" header="Accessibility Test" message="Test message"> </vx-confirmdialog> `
 })
 class TestAccessibilityConfirmDialogComponent {
     acceptAriaLabel = 'Accept confirmation';
@@ -241,9 +247,10 @@ class TestAccessibilityConfirmDialogComponent {
 
 // ConfirmDialog Button Properties Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-confirmdialog
+        <vx-confirmdialog
             [visible]="visible"
             [acceptVisible]="acceptVisible"
             [rejectVisible]="rejectVisible"
@@ -252,7 +259,7 @@ class TestAccessibilityConfirmDialogComponent {
             [acceptButtonStyleClass]="acceptButtonStyleClass"
             [rejectButtonStyleClass]="rejectButtonStyleClass"
         >
-        </p-confirmdialog>
+        </vx-confirmdialog>
     `
 })
 class TestButtonPropertiesComponent {
@@ -267,8 +274,9 @@ class TestButtonPropertiesComponent {
 
 // ConfirmDialog Events Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-confirmdialog [visible]="visible" (onHide)="onHide($event)"> </p-confirmdialog> `
+    template: ` <vx-confirmdialog [visible]="visible" (onHide)="onHide($event)"> </vx-confirmdialog> `
 })
 class TestEventsConfirmDialogComponent {
     visible = false;
@@ -327,7 +335,7 @@ describe('ConfirmDialog', () => {
         });
 
         it('should have proper data attributes', () => {
-            const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
+            const dialogElement = fixture.debugElement.query(By.css('vx-dialog'));
             expect(dialogElement.nativeElement.getAttribute('role')).toBe('alertdialog');
         });
     });
@@ -485,7 +493,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const acceptButton = fixture.debugElement.queryAll(By.css('p-button')).find((btn) => btn.nativeElement.textContent?.includes('Yes') || btn.componentInstance.ariaLabel?.includes('accept'));
+            const acceptButton = fixture.debugElement.queryAll(By.css('vx-button')).find((btn) => btn.nativeElement.textContent?.includes('Yes') || btn.componentInstance.ariaLabel?.includes('accept'));
 
             expect(acceptButton).toBeTruthy();
         });
@@ -497,7 +505,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const buttons = fixture.debugElement.queryAll(By.css('p-button'));
+            const buttons = fixture.debugElement.queryAll(By.css('vx-button'));
             const acceptButton = buttons.find((btn) => btn.componentInstance.ariaLabel?.includes('accept') || btn.nativeElement.textContent?.includes('Yes'));
 
             expect(acceptButton).toBeFalsy();
@@ -510,7 +518,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const rejectButton = fixture.debugElement.queryAll(By.css('p-button')).find((btn) => btn.nativeElement.textContent?.includes('No') || btn.componentInstance.ariaLabel?.includes('reject'));
+            const rejectButton = fixture.debugElement.queryAll(By.css('vx-button')).find((btn) => btn.nativeElement.textContent?.includes('No') || btn.componentInstance.ariaLabel?.includes('reject'));
 
             expect(rejectButton).toBeTruthy();
         });
@@ -522,7 +530,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const buttons = fixture.debugElement.queryAll(By.css('p-button'));
+            const buttons = fixture.debugElement.queryAll(By.css('vx-button'));
             const rejectButton = buttons.find((btn) => btn.componentInstance.ariaLabel?.includes('reject') || btn.nativeElement.textContent?.includes('No'));
 
             expect(rejectButton).toBeFalsy();
@@ -530,8 +538,8 @@ describe('ConfirmDialog', () => {
     });
 
     describe('Templates', () => {
-        describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', async () => {
+        describe('vxTemplate Approach Tests', () => {
+            it('should handle vxTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -539,14 +547,14 @@ describe('ConfirmDialog', () => {
 
                 const confirmDialogInstance = templateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
 
-                // Test that component handles pTemplate without errors
+                // Test that component handles vxTemplate without errors
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
 
                 // Test that templates property exists and is processed
                 expect(confirmDialogInstance.templates).toBeDefined();
             });
 
-            it('should process _headerTemplate from pTemplate="header"', async () => {
+            it('should process _headerTemplate from vxTemplate="header"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -558,7 +566,7 @@ describe('ConfirmDialog', () => {
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _messageTemplate from pTemplate="message"', async () => {
+            it('should process _messageTemplate from vxTemplate="message"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -570,7 +578,7 @@ describe('ConfirmDialog', () => {
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _iconTemplate from pTemplate="icon"', async () => {
+            it('should process _iconTemplate from vxTemplate="icon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -582,7 +590,7 @@ describe('ConfirmDialog', () => {
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _footerTemplate from pTemplate="footer"', async () => {
+            it('should process _footerTemplate from vxTemplate="footer"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -594,7 +602,7 @@ describe('ConfirmDialog', () => {
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _rejectIconTemplate from pTemplate="rejecticon"', async () => {
+            it('should process _rejectIconTemplate from vxTemplate="rejecticon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -606,7 +614,7 @@ describe('ConfirmDialog', () => {
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _acceptIconTemplate from pTemplate="accepticon"', async () => {
+            it('should process _acceptIconTemplate from vxTemplate="accepticon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -618,7 +626,7 @@ describe('ConfirmDialog', () => {
                 expect(() => confirmDialogInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _headlessTemplate from pTemplate="headless"', async () => {
+            it('should process _headlessTemplate from vxTemplate="headless"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -741,17 +749,17 @@ describe('ConfirmDialog', () => {
 
         describe('Template Integration Tests', () => {
             it('should render different template types correctly', async () => {
-                // Test both pTemplate and #content template approaches
+                // Test both vxTemplate and #content template approaches
 
-                // Test pTemplate rendering
-                const pTemplateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+                // Test vxTemplate rendering
+                const vxTemplateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
-                const pTemplateConfirmDialog = pTemplateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
-                expect(pTemplateConfirmDialog.templates).toBeDefined();
-                expect(() => pTemplateConfirmDialog.ngAfterContentInit()).not.toThrow();
+                const vxTemplateConfirmDialog = vxTemplateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+                expect(vxTemplateConfirmDialog.templates).toBeDefined();
+                expect(() => vxTemplateConfirmDialog.ngAfterContentInit()).not.toThrow();
 
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
@@ -765,7 +773,7 @@ describe('ConfirmDialog', () => {
 
             it('should use default templates when custom ones are not provided', () => {
                 // Test default behavior without custom templates
-                const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
+                const dialogElement = fixture.debugElement.query(By.css('vx-dialog'));
                 expect(dialogElement).toBeTruthy();
             });
 
@@ -847,7 +855,7 @@ describe('ConfirmDialog', () => {
             await accessibilityFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const dialog = accessibilityFixture.debugElement.query(By.css('p-dialog'));
+            const dialog = accessibilityFixture.debugElement.query(By.css('vx-dialog'));
             expect(dialog.nativeElement.getAttribute('role')).toBe('alertdialog');
         });
 
@@ -881,7 +889,7 @@ describe('ConfirmDialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             // Dialog should be present and focusable
-            const dialog = fixture.debugElement.query(By.css('p-dialog'));
+            const dialog = fixture.debugElement.query(By.css('vx-dialog'));
             expect(dialog).toBeTruthy();
         });
     });
@@ -893,7 +901,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const dialog = fixture.debugElement.query(By.css('p-dialog'));
+            const dialog = fixture.debugElement.query(By.css('vx-dialog'));
             expect(dialog).toBeTruthy();
         });
 
@@ -1046,9 +1054,10 @@ describe('ConfirmDialog', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="pt" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1099,9 +1108,10 @@ describe('ConfirmDialog', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="pt" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1161,9 +1171,10 @@ describe('ConfirmDialog', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="pt" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1216,9 +1227,10 @@ describe('ConfirmDialog', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="pt" key="test" [visible]="isVisible"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="pt" key="test" [visible]="isVisible"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1276,9 +1288,10 @@ describe('ConfirmDialog', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="pt" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1336,9 +1349,10 @@ describe('ConfirmDialog', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="{ pcDialog: 'INLINE_DIALOG_CLASS', message: 'INLINE_MESSAGE_CLASS' }" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="{ pcDialog: 'INLINE_DIALOG_CLASS', message: 'INLINE_MESSAGE_CLASS' }" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1355,9 +1369,10 @@ describe('ConfirmDialog', () => {
             }
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="{ pcDialog: { class: 'INLINE_DIALOG_OBJECT_CLASS' }, icon: { class: 'INLINE_ICON_CLASS' } }" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="{ pcDialog: { class: 'INLINE_DIALOG_OBJECT_CLASS' }, icon: { class: 'INLINE_ICON_CLASS' } }" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })
@@ -1430,13 +1445,14 @@ describe('ConfirmDialog', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog key="test1"></p-confirmdialog>
+                    <vx-confirmdialog key="test1"></vx-confirmdialog>
                     <button (click)="confirm('test1')">Confirm 1</button>
-                    <p-confirmdialog key="test2"></p-confirmdialog>
+                    <vx-confirmdialog key="test2"></vx-confirmdialog>
                     <button (click)="confirm('test2')">Confirm 2</button>
                 `
             })
@@ -1452,7 +1468,7 @@ describe('ConfirmDialog', () => {
                 }
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from VoxxUIConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
@@ -1461,7 +1477,7 @@ describe('ConfirmDialog', () => {
                         ConfirmationService,
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideVoxxUI',
                             useValue: {
                                 pt: {
                                     confirmdialog: {
@@ -1485,9 +1501,10 @@ describe('ConfirmDialog', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
+                    <vx-confirmdialog [pt]="pt" key="test"></vx-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
                 `
             })

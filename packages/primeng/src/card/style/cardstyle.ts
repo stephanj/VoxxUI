@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as card_style } from '@primeuix/styles/card';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${card_style}

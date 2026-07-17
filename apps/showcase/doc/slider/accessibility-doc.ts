@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -84,8 +85,8 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="label_number">Number</span>
-<p-slider ariaLabelledBy="label_number" />
+<vx-slider ariaLabelledBy="label_number" />
 
-<p-slider ariaLabel="Number" />`
+<vx-slider ariaLabel="Number" />`
     };
 }

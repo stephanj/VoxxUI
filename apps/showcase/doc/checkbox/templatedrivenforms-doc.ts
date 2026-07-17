@@ -1,37 +1,38 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { MessageService } from 'voxx-ui/api';
+import { CheckboxModule } from 'voxx-ui/checkbox';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'templatedrivenforms-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, CheckboxModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
-                            <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
+                            <vx-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></vx-checkbox>
                             <label [for]="item">{{ item | titlecase }}</label>
                         </div>
                     }
                 </div>
                 @if (isInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
 
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>

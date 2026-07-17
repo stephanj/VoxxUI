@@ -1,20 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputIcon } from './inputicon';
-import { IconField } from 'primeng/iconfield';
-import { InputText } from 'primeng/inputtext';
-import { providePrimeNG } from 'primeng/config';
+import { IconField } from 'voxx-ui/iconfield';
+import { InputText } from 'voxx-ui/inputtext';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [IconField, InputIcon, InputText, FormsModule],
     template: `
-        <p-iconfield>
-            <p-inputicon class="pi pi-search" />
-            <input type="text" pInputText [(ngModel)]="value" placeholder="Search" />
-        </p-iconfield>
+        <vx-iconfield>
+            <vx-inputicon class="pi pi-search" />
+            <input type="text" vxInputText [(ngModel)]="value" placeholder="Search" />
+        </vx-iconfield>
     `
 })
 class TestBasicInputIconComponent {
@@ -22,13 +23,14 @@ class TestBasicInputIconComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [IconField, InputIcon, InputText, FormsModule],
     template: `
-        <p-iconfield>
-            <p-inputicon [styleClass]="customClass" class="pi pi-user" />
-            <input type="text" pInputText [(ngModel)]="username" />
-        </p-iconfield>
+        <vx-iconfield>
+            <vx-inputicon [styleClass]="customClass" class="pi pi-user" />
+            <input type="text" vxInputText [(ngModel)]="username" />
+        </vx-iconfield>
     `
 })
 class TestStyledInputIconComponent {
@@ -186,14 +188,14 @@ describe('InputIcon PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 5: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 5: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputIcon, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             inputIcon: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -221,7 +223,7 @@ describe('InputIcon PassThrough Tests', () => {
                 imports: [InputIcon, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             inputIcon: {
                                 hooks: {

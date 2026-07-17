@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { Ripple } from 'primeng/ripple';
-import { TabPassThrough } from 'primeng/types/tabs';
+import { SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Ripple } from 'voxx-ui/ripple';
+import { TabPassThrough } from 'voxx-ui/types/tabs';
 import { TabStyle } from './style/tabstyle';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';
@@ -17,7 +17,7 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-tab',
+    selector: 'vx-tab',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,

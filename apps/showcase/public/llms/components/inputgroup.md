@@ -13,10 +13,6 @@ A group is created by wrapping the input and add-ons with the p-inputgroup compo
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
 
 interface City {
     name: string;
@@ -26,31 +22,31 @@ interface City {
 @Component({
     template: `
         <div class="card grid grid-cols-1 md:grid-cols-2 gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text1" placeholder="Username" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputnumber [(ngModel)]="number" placeholder="Price" />
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <input pInputText [(ngModel)]="text2" placeholder="Website" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>
+                </vx-inputgroup-addon>
+                <input vxInputText [(ngModel)]="text1" placeholder="Username" />
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>$</vx-inputgroup-addon>
+                <vx-inputnumber [(ngModel)]="number" placeholder="Price" />
+                <vx-inputgroup-addon>.00</vx-inputgroup-addon>
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>www</vx-inputgroup-addon>
+                <input vxInputText [(ngModel)]="text2" placeholder="Website" />
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-map"></i>
-                </p-inputgroup-addon>
-                <p-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
-            </p-inputgroup>
+                </vx-inputgroup-addon>
+                <vx-select [(ngModel)]="selectedCity" [options]="cities" optionLabel="name" placeholder="City" />
+            </vx-inputgroup>
         </div>
     `,
     standalone: true,
-    imports: [SelectModule, InputGroupModule, InputNumberModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputgroupBasicDemo {
     text1: string | undefined;
@@ -67,39 +63,35 @@ Buttons can be placed at either side of an input element.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { MenuModule } from 'primeng/menu';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex flex-col md:flex-row gap-4">
-            <p-inputgroup>
-                <p-button label="Search" />
-                <input pInputText placeholder="Keyword" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <input pInputText placeholder="Keyword" />
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
-                </p-inputgroup-addon>
-            </p-inputgroup>
-            <p-menu #menu [model]="items" popup styleClass="!min-w-fit" />
-            <p-inputgroup>
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-check" severity="secondary" />
-                </p-inputgroup-addon>
-                <input pInputText placeholder="Vote" />
-                <p-inputgroup-addon>
-                    <p-button icon="pi pi-times" severity="secondary" />
-                </p-inputgroup-addon>
-            </p-inputgroup>
+            <vx-inputgroup>
+                <vx-button label="Search" />
+                <input vxInputText placeholder="Keyword" />
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <input vxInputText placeholder="Keyword" />
+                <vx-inputgroup-addon>
+                    <vx-button icon="pi pi-search" severity="secondary" variant="text" (click)="menu.toggle($event)" />
+                </vx-inputgroup-addon>
+            </vx-inputgroup>
+            <vx-menu #menu [model]="items" popup styleClass="!min-w-fit" />
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
+                    <vx-button icon="pi pi-check" severity="secondary" />
+                </vx-inputgroup-addon>
+                <input vxInputText placeholder="Vote" />
+                <vx-inputgroup-addon>
+                    <vx-button icon="pi pi-times" severity="secondary" />
+                </vx-inputgroup-addon>
+            </vx-inputgroup>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, InputGroupModule, MenuModule, InputTextModule]
+    imports: []
 })
 export class InputgroupButtonDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -117,31 +109,27 @@ Checkbox and RadioButton components can be combined with an input element under 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-col md:flex-row gap-4">
-            <p-inputgroup>
-                <input type="text" pInputText placeholder="Price" />
-                <p-inputgroup-addon><p-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputgroup-addon>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Username" />
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Website" />
-                <p-inputgroup-addon><p-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></p-inputgroup-addon>
-            </p-inputgroup>
+            <vx-inputgroup>
+                <input type="text" vxInputText placeholder="Price" />
+                <vx-inputgroup-addon><vx-radiobutton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></vx-inputgroup-addon>
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon><vx-checkbox [(ngModel)]="checked1" [binary]="true" /></vx-inputgroup-addon>
+                <input type="text" vxInputText placeholder="Username" />
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon><vx-checkbox [(ngModel)]="checked2" [binary]="true" /></vx-inputgroup-addon>
+                <input type="text" vxInputText placeholder="Website" />
+                <vx-inputgroup-addon><vx-radiobutton name="rb2" value="rb2" [(ngModel)]="category" /></vx-inputgroup-addon>
+            </vx-inputgroup>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, InputGroupModule, RadioButtonModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputgroupCheckboxDemo {
     radioValue1: boolean = false;
@@ -158,79 +146,43 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-col md:items-end md:flex-row gap-4">
-            <p-inputgroup>
-                <p-inputgroup-addon>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <p-floatlabel>
-                    <input pInputText id="over_label" [(ngModel)]="value1" />
+                </vx-inputgroup-addon>
+                <vx-floatlabel>
+                    <input vxInputText id="over_label" [(ngModel)]="value1" />
                     <label for="over_label">Over Label</label>
-                </p-floatlabel>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-floatlabel variant="in">
-                    <input pInputText id="in_label" [(ngModel)]="value2" />
+                </vx-floatlabel>
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>$</vx-inputgroup-addon>
+                <vx-floatlabel variant="in">
+                    <input vxInputText id="in_label" [(ngModel)]="value2" />
                     <label for="in_label">In Label</label>
-                </p-floatlabel>
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
-            <p-inputgroup>
-                <p-inputgroup-addon>www</p-inputgroup-addon>
-                <p-floatlabel variant="on">
-                    <input pInputText id="on_label" [(ngModel)]="value3" />
+                </vx-floatlabel>
+                <vx-inputgroup-addon>.00</vx-inputgroup-addon>
+            </vx-inputgroup>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>www</vx-inputgroup-addon>
+                <vx-floatlabel variant="on">
+                    <input vxInputText id="on_label" [(ngModel)]="value3" />
                     <label for="on_label">On Label</label>
-                </p-floatlabel>
-            </p-inputgroup>
+                </vx-floatlabel>
+            </vx-inputgroup>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputGroupModule, InputTextModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputgroupFloatlabelDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputNumberModule } from 'primeng/inputnumber';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-inputgroup class="md:!w-80">
-                <p-inputgroup-addon>
-                    <i class="pi pi-shopping-cart"></i>
-                </p-inputgroup-addon>
-                <p-iftalabel>
-                    <p-inputnumber [(ngModel)]="value" inputId="price" mode="currency" currency="USD" locale="en-US" />
-                    <label for="price">Price</label>
-                </p-iftalabel>
-            </p-inputgroup>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, InputGroupModule, InputNumberModule, FormsModule]
-})
-export class InputgroupIftalabelDemo {
-    value: number = 10;
 }
 ```
 
@@ -240,27 +192,25 @@ Multiple add-ons can be placed inside the same group.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputgroup class="w-full md:!w-[30rem]">
-                <p-inputgroup-addon>
+            <vx-inputgroup class="w-full md:!w-[30rem]">
+                <vx-inputgroup-addon>
                     <i class="pi pi-clock"></i>
-                </p-inputgroup-addon>
-                <p-inputgroup-addon>
+                </vx-inputgroup-addon>
+                <vx-inputgroup-addon>
                     <i class="pi pi-star-fill"></i>
-                </p-inputgroup-addon>
-                <input type="text" pInputText placeholder="Price" />
-                <p-inputgroup-addon>$</p-inputgroup-addon>
-                <p-inputgroup-addon>.00</p-inputgroup-addon>
-            </p-inputgroup>
+                </vx-inputgroup-addon>
+                <input type="text" vxInputText placeholder="Price" />
+                <vx-inputgroup-addon>$</vx-inputgroup-addon>
+                <vx-inputgroup-addon>.00</vx-inputgroup-addon>
+            </vx-inputgroup>
         </div>
     `,
     standalone: true,
-    imports: [InputGroupModule, InputTextModule]
+    imports: []
 })
 export class InputgroupMultipleDemo {}
 ```

@@ -1,7 +1,7 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
+import { SelectModule } from 'voxx-ui/select';
 
 interface City {
     name: string;
@@ -9,6 +9,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'architecture-doc',
     standalone: true,
     imports: [AppDocSectionText, SelectModule, FormsModule],
@@ -20,7 +21,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Unstyled Select" [unstyled]="true" appendTo="body" />
+            <vx-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Unstyled Select" [unstyled]="true" appendTo="body" />
         </div>
     `
 })

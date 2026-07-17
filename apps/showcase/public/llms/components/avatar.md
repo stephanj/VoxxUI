@@ -12,23 +12,22 @@ Grouping is available by wrapping multiple Avatar components inside an AvatarGro
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-avatar-group>
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
-                <p-avatar label="+2" shape="circle" size="large" />
-            </p-avatar-group>
+            <vx-avatar-group>
+                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
+                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
+                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
+                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
+                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
+                <vx-avatar label="+2" shape="circle" size="large" />
+            </vx-avatar-group>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarAvatargroupDemo {}
 ```
@@ -125,16 +124,15 @@ A badge can be added to an Avatar with the Badge directive.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
+            <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" vxBadge value="4" severity="danger" />
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarBadgeDemo {}
 ```
@@ -145,7 +143,6 @@ A font icon is displayed as an Avatar with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
@@ -153,27 +150,21 @@ import { AvatarModule } from 'primeng/avatar';
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Icon</h5>
-                    <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" />
-                    <p-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" />
-                    <p-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="xlarge" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" />
+                    <vx-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" />
                 </div>
                 <div class="flex-auto">
                     <h5>Circle</h5>
-                    <p-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
-                    <p-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
-                </div>
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <p-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <p-avatar icon="pi pi-user" size="xlarge" />
-                    </p-overlay-badge>
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="xlarge" shape="circle" />
+                    <vx-avatar icon="pi pi-user" class="mr-2" size="large" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
+                    <vx-avatar icon="pi pi-user" style="background-color: #dee9fc; color: #1a2551" shape="circle" />
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarIconDemo {}
 ```
@@ -184,7 +175,6 @@ Use the image property to display an image as an Avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
@@ -192,25 +182,19 @@ import { AvatarModule } from 'primeng/avatar';
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Image</h5>
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" class="mr-2" size="large" shape="circle" />
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
-                </div>
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <p-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <p-avatar class="p-overlay-badge" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" />
-                    </p-overlay-badge>
+                    <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge" shape="circle" />
+                    <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" class="mr-2" size="large" shape="circle" />
+                    <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
                 </div>
                 <div class="flex-auto">
                     <h5>Gravatar</h5>
-                    <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" class="flex items-center justify-center mr-2" size="xlarge" />
+                    <vx-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" class="flex items-center justify-center mr-2" size="xlarge" />
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarImageDemo {}
 ```
@@ -221,7 +205,6 @@ A letter Avatar is defined with the label property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
@@ -229,27 +212,21 @@ import { AvatarModule } from 'primeng/avatar';
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Label</h5>
-                    <p-avatar label="P" class="mr-2" size="xlarge" />
-                    <p-avatar label="V" class="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" />
-                    <p-avatar label="U" class="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
+                    <vx-avatar label="P" class="mr-2" size="xlarge" />
+                    <vx-avatar label="V" class="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" />
+                    <vx-avatar label="U" class="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
                 </div>
                 <div class="flex-auto">
                     <h5>Circle</h5>
-                    <p-avatar label="P" class="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar label="V" class="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
-                    <p-avatar label="U" class="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
-                </div>
-                <div class="flex-auto">
-                    <h5>Badge</h5>
-                    <p-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <p-avatar label="U" size="xlarge" />
-                    </p-overlay-badge>
+                    <vx-avatar label="P" class="mr-2" size="xlarge" shape="circle" />
+                    <vx-avatar label="V" class="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
+                    <vx-avatar label="U" class="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarLabelDemo {}
 ```
@@ -260,17 +237,16 @@ Avatar comes in two different styles specified with the shape property, square i
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-avatar label="P" shape="circle" />
-            <p-avatar label="T" />
+            <vx-avatar label="P" shape="circle" />
+            <vx-avatar label="T" />
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarShapeDemo {}
 ```
@@ -281,17 +257,16 @@ size property defines the size of the Avatar with large and xlarge as possible v
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-avatar label="P" size="large" />
-            <p-avatar label="T" size="xlarge" />
+            <vx-avatar label="P" size="large" />
+            <vx-avatar label="T" size="xlarge" />
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarSizeDemo {}
 ```
@@ -302,12 +277,11 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-avatar size="xlarge">
+            <vx-avatar size="xlarge">
                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                     <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -332,11 +306,11 @@ import { AvatarModule } from 'primeng/avatar';
                     <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                 </svg>
-            </p-avatar>
+            </vx-avatar>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule]
+    imports: []
 })
 export class AvatarTemplateDemo {}
 ```
@@ -352,7 +326,7 @@ Avatar represents people using icons, labels and images.
 | label | string | - | Defines the text to display. |
 | icon | string | - | Defines the icon to display. |
 | image | string | - | Defines the image to display. |
-| size | "large" \| "xlarge" \| "normal" | normal | Size of the element. |
+| size | "large" \| "normal" \| "xlarge" | normal | Size of the element. |
 | shape | "circle" \| "square" | square | Shape of the element. |
 | styleClass | string | - | Class of the element. **(Deprecated)** |
 | ariaLabel | string | - | Establishes a string value that labels the component. |

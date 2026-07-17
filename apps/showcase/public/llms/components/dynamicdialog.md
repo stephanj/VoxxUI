@@ -16,21 +16,19 @@ Dynamic dialogs require an instance of a DialogService that is responsible for d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, DialogService } from 'primeng/api';
+import { MessageService, DialogService } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
-import { Dialog } from 'primeng/dialog';
+import { Dialog } from 'voxx-ui/dialog';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+            <vx-toast />
+            <vx-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, ToastModule],
+    imports: [],
     providers: [DialogService, MessageService]
 })
 export class DynamicdialogExampleDemo {

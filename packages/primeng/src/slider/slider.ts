@@ -2,14 +2,14 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
-import { SliderPassThrough } from 'primeng/types/slider';
+import { SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import type { SliderChangeEvent, SliderSlideEndEvent } from 'voxx-ui/types/slider';
+import { SliderPassThrough } from 'voxx-ui/types/slider';
 import { SliderStyle } from './style/sliderstyle';
 
 const SLIDER_INSTANCE = new InjectionToken<Slider>('SLIDER_INSTANCE');
@@ -24,7 +24,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-slider',
+    selector: 'vx-slider',
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
@@ -38,7 +38,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [style]="sx('range')"
             [attr.data-pc-section]="'range'"
             [attr.data-p]="dataP"
-            [pBind]="ptm('range')"
+            [vxBind]="ptm('range')"
         ></span>
         <span
             *ngIf="range && orientation == 'vertical'"
@@ -50,10 +50,10 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [style]="sx('range')"
             [attr.data-pc-section]="'range'"
             [attr.data-p]="dataP"
-            [pBind]="ptm('range')"
+            [vxBind]="ptm('range')"
         ></span>
-        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ height: handleValue + '%' }" [pBind]="ptm('range')"></span>
-        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ width: handleValue + '%' }" [pBind]="ptm('range')"></span>
+        <span *ngIf="!range && orientation == 'vertical'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ height: handleValue + '%' }" [vxBind]="ptm('range')"></span>
+        <span *ngIf="!range && orientation == 'horizontal'" [class]="cx('range')" [attr.data-pc-section]="'range'" [style]="sx('range')" [ngStyle]="{ width: handleValue + '%' }" [vxBind]="ptm('range')"></span>
         <span
             *ngIf="!range"
             #sliderHandle
@@ -78,8 +78,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'handle'"
-            [pAutoFocus]="autofocus"
-            [pBind]="ptm('handle')"
+            [vxAutoFocus]="autofocus"
+            [vxBind]="ptm('handle')"
             [attr.data-p]="dataP"
         ></span>
         <span
@@ -103,8 +103,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'startHandler'"
-            [pAutoFocus]="autofocus"
-            [pBind]="ptm('startHandler')"
+            [vxAutoFocus]="autofocus"
+            [vxBind]="ptm('startHandler')"
             [attr.data-p]="dataP"
         ></span>
         <span
@@ -128,7 +128,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel"
             [attr.aria-orientation]="orientation"
             [attr.data-pc-section]="'endHandler'"
-            [pBind]="ptm('endHandler')"
+            [vxBind]="ptm('endHandler')"
             [attr.data-p]="dataP"
         ></span>
     `,

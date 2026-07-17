@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'material-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -16,10 +17,10 @@ import { Component } from '@angular/core';
 })
 export class MaterialDoc {
     code: Code = {
-        html: `<p-select>
+        html: `<vx-select>
     <ng-template #dropdownicon>
         <span class="material-icons">arrow_drop_down</span>
     </ng-template>
-</p-select>`
+</vx-select>`
     };
 }

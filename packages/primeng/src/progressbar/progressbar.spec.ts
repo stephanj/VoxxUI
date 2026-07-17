@@ -1,11 +1,12 @@
-import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ProgressBar } from './progressbar';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<p-progressbar [value]="value" [showValue]="showValue" [unit]="unit" [mode]="mode" [color]="color" [valueStyleClass]="valueStyleClass" [styleClass]="styleClass"> </p-progressbar>`
+    template: `<vx-progressbar [value]="value" [showValue]="showValue" [unit]="unit" [mode]="mode" [color]="color" [valueStyleClass]="valueStyleClass" [styleClass]="styleClass"> </vx-progressbar>`
 })
 class TestBasicProgressBarComponent {
     value: number | undefined = 50;
@@ -18,13 +19,14 @@ class TestBasicProgressBarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-progressbar [value]="value">
-            <ng-template pTemplate="content" let-value>
+        <vx-progressbar [value]="value">
+            <ng-template vxTemplate="content" let-value>
                 <div class="custom-template-content">Progress: {{ value }}%</div>
             </ng-template>
-        </p-progressbar>
+        </vx-progressbar>
     `
 })
 class TestPTemplateProgressBarComponent {
@@ -32,13 +34,14 @@ class TestPTemplateProgressBarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-progressbar [value]="value">
+        <vx-progressbar [value]="value">
             <ng-template #content let-value>
                 <div class="custom-content-template">Custom: {{ value }}%</div>
             </ng-template>
-        </p-progressbar>
+        </vx-progressbar>
     `
 })
 class TestContentTemplateProgressBarComponent {
@@ -46,16 +49,18 @@ class TestContentTemplateProgressBarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<p-progressbar [value]="value" mode="indeterminate"></p-progressbar>`
+    template: `<vx-progressbar [value]="value" mode="indeterminate"></vx-progressbar>`
 })
 class TestIndeterminateProgressBarComponent {
     value = 0;
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<p-progressbar [value]="value" [style]="style" [styleClass]="styleClass"></p-progressbar>`
+    template: `<vx-progressbar [value]="value" [style]="style" [styleClass]="styleClass"></vx-progressbar>`
 })
 class TestStyleProgressBarComponent {
     value = 30;
@@ -287,7 +292,7 @@ describe('ProgressBar', () => {
     });
 
     describe('Templates', () => {
-        it('should handle pTemplate content processing', async () => {
+        it('should handle vxTemplate content processing', async () => {
             const templateFixture = TestBed.createComponent(TestPTemplateProgressBarComponent);
             templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -319,7 +324,7 @@ describe('ProgressBar', () => {
             expect(content).toBeTruthy();
         });
 
-        it('should render pTemplate content correctly', async () => {
+        it('should render vxTemplate content correctly', async () => {
             const templateFixture = TestBed.createComponent(TestPTemplateProgressBarComponent);
             templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -626,9 +631,10 @@ describe('ProgressBar', () => {
 
     describe('PassThrough API', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [ProgressBar],
-            template: `<p-progressbar [value]="value()" [mode]="mode()" [showValue]="showValue()" [unit]="unit()" [color]="color()" [pt]="pt()"></p-progressbar>`
+            template: `<vx-progressbar [value]="value()" [mode]="mode()" [showValue]="showValue()" [unit]="unit()" [color]="color()" [pt]="pt()"></vx-progressbar>`
         })
         class TestPTProgressBarComponent {
             value = input<number | undefined>(50);

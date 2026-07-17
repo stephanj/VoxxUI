@@ -12,15 +12,15 @@ ContextMenu can be attached to a particular element whose local template variabl
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'voxx-ui/contextmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { ContextMenu } from 'voxx-ui/contextmenu';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
-            <p-contextmenu [target]="img" [model]="items" />
+            <vx-contextmenu [target]="img" [model]="items" />
         </div>
     `,
     standalone: true,
@@ -44,11 +44,11 @@ The function to invoke when an item is clicked is defined using the command prop
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'voxx-ui/contextmenu';
+import { TagModule } from 'voxx-ui/tag';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { ContextMenu } from 'voxx-ui/contextmenu';
 
 interface Users {
     id: number;
@@ -60,7 +60,7 @@ interface Users {
 @Component({
     template: `
         <div class="card flex sm:justify-center">
-            <p-toast />
+            <vx-toast />
             <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
                 <li
                     *ngFor="let user of users"
@@ -72,10 +72,10 @@ interface Users {
                         <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
                         <span class="font-bold">{{ user.name }}</span>
                     </div>
-                    <p-tag [value]="user.role" [severity]="getBadge(user)" />
+                    <vx-tag [value]="user.role" [severity]="getBadge(user)" />
                 </li>
             </ul>
-            <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
+            <vx-contextmenu #cm [model]="items" (onHide)="onHide()" />
         </div>
     `,
     standalone: true,
@@ -159,15 +159,15 @@ Setting global property to true attaches the context menu to the document.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'voxx-ui/contextmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { ContextMenu } from 'voxx-ui/contextmenu';
 
 @Component({
     template: `
         <div class="card text-center">
             <p class="mb-0">Right-Click anywhere on this page to view the global ContextMenu.</p>
-            <p-contextmenu [model]="items" [global]="true" />
+            <vx-contextmenu [model]="items" [global]="true" />
         </div>
     `,
     standalone: true,
@@ -214,8 +214,8 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
+import { ContextMenuModule } from 'voxx-ui/contextmenu';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
@@ -246,7 +246,7 @@ import { MenuItem } from 'primeng/api';
                     <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                 </svg>
             </span>
-            <p-contextmenu [target]="span" [model]="items" />
+            <vx-contextmenu [target]="span" [model]="items" />
         </div>
     `,
     standalone: true,
@@ -289,12 +289,12 @@ ContextMenu offers item customization with the item template that receives the m
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'voxx-ui/badge';
+import { ContextMenu, ContextMenuModule } from 'voxx-ui/contextmenu';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MenuItem } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu } from 'voxx-ui/contextmenu';
 
 @Component({
     template: `
@@ -319,17 +319,17 @@ import { ContextMenu } from 'primeng/contextmenu';
                     </div>
                 </li>
             </ul>
-            <p-contextmenu #cm [model]="items" (onHide)="onHide()">
+            <vx-contextmenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
                     </a>
                 </ng-template>
-            </p-contextmenu>
+            </vx-contextmenu>
         </div>
     `,
     standalone: true,

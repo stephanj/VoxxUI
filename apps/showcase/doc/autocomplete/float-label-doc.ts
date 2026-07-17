@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { AutoCompleteModule } from 'voxx-ui/autocomplete';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
 import { RouterModule } from '@angular/router';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -12,6 +12,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'float-label-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, FloatLabelModule, RouterModule, AppDocSectionText, AppCode],
@@ -22,20 +23,20 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
+            <vx-floatlabel>
+                <vx-autocomplete [(ngModel)]="value1" [suggestions]="items" (completeMethod)="search($event)" inputId="over_label" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="in">
-                <p-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
+            <vx-floatlabel variant="in">
+                <vx-autocomplete [(ngModel)]="value2" [suggestions]="items" (completeMethod)="search($event)" inputId="in_label" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="on">
-                <p-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
+            <vx-floatlabel variant="on">
+                <vx-autocomplete [(ngModel)]="value3" [suggestions]="items" (completeMethod)="search($event)" inputId="on_label" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
         <app-code></app-code>`
 })

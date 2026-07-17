@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'verify-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ButtonModule],
@@ -16,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button label="Check" />
+            <vx-button label="Check" />
         </div>
         <app-code [code]="code1" [hideStackBlitz]="true" [hideCodeSandbox]="true" [hideToggleCode]="true" class="block mb-4"></app-code>
         <app-code [code]="code2" [hideStackBlitz]="true" [hideCodeSandbox]="true" [hideToggleCode]="true"></app-code>
@@ -25,9 +26,10 @@ import { ButtonModule } from 'primeng/button';
 export class VerifyDoc {
     code1: Code = {
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'button-demo',
     templateUrl: './button-demo.html',
     imports: [ButtonModule]
@@ -36,6 +38,6 @@ export class ButtonDemo {}`
     };
 
     code2: Code = {
-        html: `<p-button label="Check" />`
+        html: `<vx-button label="Check" />`
     };
 }

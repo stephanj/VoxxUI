@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'iconsonly-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule],
@@ -13,49 +14,49 @@ import { ButtonModule } from 'primeng/button';
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" />
-                <p-button icon="pi pi-bookmark" severity="secondary" />
-                <p-button icon="pi pi-search" severity="success" />
-                <p-button icon="pi pi-user" severity="info" />
-                <p-button icon="pi pi-bell" severity="warn" />
-                <p-button icon="pi pi-heart" severity="help" />
-                <p-button icon="pi pi-times" severity="danger" />
+                <vx-button icon="pi pi-check" />
+                <vx-button icon="pi pi-bookmark" severity="secondary" />
+                <vx-button icon="pi pi-search" severity="success" />
+                <vx-button icon="pi pi-user" severity="info" />
+                <vx-button icon="pi pi-bell" severity="warn" />
+                <vx-button icon="pi pi-heart" severity="help" />
+                <vx-button icon="pi pi-times" severity="danger" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
-                <p-button icon="pi pi-search" [rounded]="true" severity="success" />
-                <p-button icon="pi pi-user" [rounded]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
-                <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
-                <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
+                <vx-button icon="pi pi-check" [rounded]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
+                <vx-button icon="pi pi-search" [rounded]="true" severity="success" />
+                <vx-button icon="pi pi-user" [rounded]="true" severity="info" />
+                <vx-button icon="pi pi-bell" [rounded]="true" severity="warn" />
+                <vx-button icon="pi pi-heart" [rounded]="true" severity="help" />
+                <vx-button icon="pi pi-times" [rounded]="true" severity="danger" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
-                <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
-                <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
-                <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
-                <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
-                <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
+                <vx-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
+                <vx-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
+                <vx-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
+                <vx-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
+                <vx-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
+                <vx-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary" />
-                <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success" />
-                <p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
-                <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
-                <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
+                <vx-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary" />
+                <vx-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success" />
+                <vx-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info" />
+                <vx-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
+                <vx-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
+                <vx-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
             </div>
             <div class="flex justify-center flex-wrap gap-4 mb-6">
-                <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
-                <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary" />
-                <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success" />
-                <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
-                <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
-                <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
+                <vx-button icon="pi pi-check" [rounded]="true" [text]="true" />
+                <vx-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary" />
+                <vx-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success" />
+                <vx-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" />
+                <vx-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
+                <vx-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
+                <vx-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
             </div>
         </div>
         <app-code></app-code>

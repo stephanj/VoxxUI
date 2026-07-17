@@ -12,7 +12,7 @@ KeyFilter provides various presets configured with the pKeyFilter property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -59,7 +59,7 @@ In addition to the presets, a regular expression can be configured for customiza
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `

@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ngx-translate-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -18,16 +19,17 @@ export class RuntimeDoc {
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { VoxxUI } from 'voxx-ui/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
-    constructor(private config: PrimeNG, private translateService: TranslateService) {}
+    constructor(private config: VoxxUI, private translateService: TranslateService) {}
 
     ngOnInit() {
         this.translateService.setDefaultLang('en');

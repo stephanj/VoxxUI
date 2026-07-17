@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
+import { ToastModule } from 'voxx-ui/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [ProgressBarModule, ToastModule, AppCode, AppDocSectionText],
@@ -15,8 +16,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Value is reactive so updating it dynamically changes the bar as well.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-toast />
-            <p-progressbar [value]="value" />
+            <vx-toast />
+            <vx-progressbar [value]="value" />
         </div>
         <app-code></app-code>
     `

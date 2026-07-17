@@ -1,10 +1,11 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [RouterModule, AppCodeModule, AppDocSectionText],
@@ -227,8 +228,8 @@ import { RouterModule } from '@angular/router';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="dd1">Options</span>
-<p-multiselect ariaLabelledBy="dd1"/>
+<vx-multiselect ariaLabelledBy="dd1"/>
 
-<p-multiselect ariaLabel="Options"/>`
+<vx-multiselect ariaLabel="Options"/>`
     };
 }

@@ -21,15 +21,15 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { findIndexInList, setAttribute, uuid } from '@primeuix/utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ButtonModule, ButtonProps } from 'primeng/button';
-import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'primeng/icons';
-import { Listbox, ListboxChangeEvent } from 'primeng/listbox';
-import { Ripple } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from 'primeng/types/orderlist';
+import { FilterService, PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { ButtonModule, ButtonProps } from 'voxx-ui/button';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'voxx-ui/icons';
+import { Listbox, ListboxChangeEvent } from 'voxx-ui/listbox';
+import { Ripple } from 'voxx-ui/ripple';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from 'voxx-ui/types/orderlist';
 import { OrderListStyle } from './style/orderliststyle';
 
 const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
@@ -39,51 +39,51 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-orderList, p-orderlist, p-order-list',
+    selector: 'vx-orderList, vx-orderlist, vx-order-list',
     standalone: true,
     imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule, Bind],
     template: `
-        <div [pBind]="ptm('controls')" [class]="cx('controls')">
-            <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist" [unstyled]="unstyled()">
-                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" pButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
+        <div [vxBind]="ptm('controls')" [class]="cx('controls')">
+            <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" vxButton vxRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist" [unstyled]="unstyled()">
+                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" vxButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
             </button>
-            <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist" [unstyled]="unstyled()">
-                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" pButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
+            <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" vxButton vxRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist" [unstyled]="unstyled()">
+                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" vxButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
             </button>
             <button
                 [pt]="ptm('pcMoveDownButton')"
                 type="button"
                 [disabled]="moveDisabled()"
-                pButton
-                pRipple
+                vxButton
+                vxRipple
                 (click)="moveDown()"
                 [attr.aria-label]="moveDownAriaLabel"
                 [buttonProps]="getButtonProps('down')"
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
-                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" pButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
+                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" vxButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
             </button>
             <button
                 [pt]="ptm('pcMoveBottomButton')"
                 type="button"
                 [disabled]="moveDisabled()"
-                pButton
-                pRipple
+                vxButton
+                vxRipple
                 (click)="moveBottom()"
                 [attr.aria-label]="moveBottomAriaLabel"
                 [buttonProps]="getButtonProps('bottom')"
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
-                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" pButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
+                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" vxButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
                 <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
             </button>
         </div>
-        <p-listbox
+        <vx-listbox
             [pt]="ptm('pcListbox')"
             #listelement
             [multiple]="true"
@@ -141,7 +141,7 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                     <ng-template *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: options }"></ng-template>
                 </ng-template>
             </ng-container>
-        </p-listbox>
+        </vx-listbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

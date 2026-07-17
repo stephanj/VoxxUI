@@ -3,12 +3,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ChipModule } from 'primeng/chip';
+import { AutoCompleteModule } from 'voxx-ui/autocomplete';
+import { ChipModule } from 'voxx-ui/chip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'advanced-chips-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
@@ -17,7 +18,7 @@ import { ChipModule } from 'primeng/chip';
             <p>This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-autocomplete
+            <vx-autocomplete
                 [(ngModel)]="selectedProducts"
                 [suggestions]="filteredProducts"
                 (completeMethod)="filterProducts($event)"
@@ -50,7 +51,7 @@ import { ChipModule } from 'primeng/chip';
                         <span class="font-semibold">{{ value }}</span>
                     }
                 </ng-template>
-            </p-autocomplete>
+            </vx-autocomplete>
         </div>
         <app-code></app-code>`
 })

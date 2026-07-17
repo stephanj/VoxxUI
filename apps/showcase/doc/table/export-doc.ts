@@ -5,8 +5,8 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
 
 interface Column {
     field: string;
@@ -26,12 +26,12 @@ interface ExportColumn {
     template: ` <app-docsectiontext>
             <p>Table can export its data to CSV format.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table #dt [columns]="cols" [value]="products" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>
                         <div class="text-end pb-4">
-                            <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
+                            <vx-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
                         </div>
                     </ng-template>
                     <ng-template #header let-columns>
@@ -48,9 +48,9 @@ interface ExportColumn {
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

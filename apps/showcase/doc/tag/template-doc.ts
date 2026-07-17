@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, TagModule],
@@ -12,12 +13,12 @@ import { TagModule } from 'primeng/tag';
             <p>Children of the component are passed as the content for templating.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
+            <vx-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
                 <div class="flex items-center gap-2 px-1">
                     <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
                     <span class="text-base">Italy</span>
                 </div>
-            </p-tag>
+            </vx-tag>
         </div>
         <app-code></app-code>
     `

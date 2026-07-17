@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import type { DialogPassThrough } from 'primeng/types/dialog';
+import type { DialogPassThrough } from 'voxx-ui/types/dialog';
 
 /**
  * Dialogs can be created dynamically with any component as the content using a DialogService.

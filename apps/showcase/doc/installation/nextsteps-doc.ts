@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'nextsteps-doc',
     standalone: true,
     imports: [AppDocSectionText, RouterModule],
     template: `
         <app-docsectiontext>
-            <p>Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we recommend exploring the following resources to gain a deeper understanding of the library.</p>
+            <p>Welcome to the Prime UI Ecosystem! Once you have VoxxUI up and running, we recommend exploring the following resources to gain a deeper understanding of the library.</p>
             <ul class="leading-relaxed">
                 <li><a [routerLink]="'/configuration'" class="doc-link">Global configuration</a></li>
                 <li><a [routerLink]="'/theming'" class="doc-link">Customization of styles</a></li>

@@ -1,9 +1,10 @@
 import { BasicDoc } from '@/doc/autofocus/basic-doc';
 import { ImportDoc } from '@/doc/autofocus/import-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="Angular AutoFocus Directive" header="AutoFocus" description="AutoFocus manages focus on focusable element on load." [docs]="docs" [apiDocs]="['AutoFocus']"></app-doc>`

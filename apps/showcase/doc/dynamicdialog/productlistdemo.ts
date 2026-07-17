@@ -1,28 +1,29 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { Component, OnInit, signal } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { InfoDemo } from './infodemo';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'voxx-ui/button';
+import { TableModule } from 'voxx-ui/table';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ButtonModule, TableModule],
     template: ` <div class="flex justify-end mt-1 mb-4">
-            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
+            <vx-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
-        <p-table [value]="products()" responsiveLayout="scroll" [rows]="5">
-            <ng-template pTemplate="header">
+        <vx-table [value]="products()" responsiveLayout="scroll" [rows]="5">
+            <ng-template vxTemplate="header">
                 <tr>
-                    <th pSortableColumn="code">Code</th>
-                    <th pSortableColumn="name">Name</th>
-                    <th pSortableColumn="year">Image</th>
-                    <th pSortableColumn="price">Category</th>
-                    <th pSortableColumn="inventoryStatus">Quantity</th>
+                    <th vxSortableColumn="code">Code</th>
+                    <th vxSortableColumn="name">Name</th>
+                    <th vxSortableColumn="year">Image</th>
+                    <th vxSortableColumn="price">Category</th>
+                    <th vxSortableColumn="inventoryStatus">Quantity</th>
                     <th style="width:4em"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-product>
+            <ng-template vxTemplate="body" let-product>
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
@@ -34,11 +35,11 @@ import { TableModule } from 'primeng/table';
                         {{ product.quantity }}
                     </td>
                     <td>
-                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></p-button>
+                        <vx-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></vx-button>
                     </td>
                 </tr>
             </ng-template>
-        </p-table>`
+        </vx-table>`
 })
 export class ProductListDemo implements OnInit {
     products = signal(<Product[] | null>[]);

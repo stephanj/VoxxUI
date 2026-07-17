@@ -127,13 +127,13 @@ function generateStackBlitzProject(demo, selector) {
 import { ${componentName} } from './app/${selector}';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(withFetch()),
-        providePrimeNG({
+        provideVoxxUI({
             theme: { preset: Aura, options: { darkModeSelector: '.p-dark' } },
         }),
     ],
@@ -197,7 +197,7 @@ function validateTypeScript(tsContent, filePath, selector) {
     }
 
     // Check for invalid imports
-    if (tsContent.includes("from 'primeng/") && tsContent.includes('ImportsModule')) {
+    if (tsContent.includes("from 'voxx-ui/") && tsContent.includes('ImportsModule')) {
         // Should not have direct primeng imports when using ImportsModule
         const directImports = tsContent.match(/import\s+\{[^}]*Module[^}]*\}\s+from\s+'primeng\/[^']+'/g);
         if (directImports) {

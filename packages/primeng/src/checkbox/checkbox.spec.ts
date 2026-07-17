@@ -1,9 +1,9 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
-import { CheckboxChangeEvent } from 'primeng/types/checkbox';
+import { SharedModule } from 'voxx-ui/api';
+import { CheckboxChangeEvent } from 'voxx-ui/types/checkbox';
 import { Checkbox } from './checkbox';
 
 // Mock data for testing
@@ -15,9 +15,10 @@ const mockIngredients = [
 ];
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-checkbox
+        <vx-checkbox
             [(ngModel)]="value"
             [binary]="binary"
             [value]="checkboxValue"
@@ -43,7 +44,7 @@ const mockIngredients = [
             (onFocus)="onFocusChange($event)"
             (onBlur)="onBlurChange($event)"
         >
-        </p-checkbox>
+        </vx-checkbox>
     `
 })
 class TestBasicCheckboxComponent {
@@ -87,11 +88,12 @@ class TestBasicCheckboxComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <p-checkbox formControlName="agreement" [binary]="true" inputId="agreement" [required]="required" (onChange)="onSelectionChange($event)"> </p-checkbox>
-            <p-checkbox formControlName="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" (onChange)="onSelectionChange($event)"> </p-checkbox>
+            <vx-checkbox formControlName="agreement" [binary]="true" inputId="agreement" [required]="required" (onChange)="onSelectionChange($event)"> </vx-checkbox>
+            <vx-checkbox formControlName="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" (onChange)="onSelectionChange($event)"> </vx-checkbox>
         </form>
     `
 })
@@ -116,8 +118,9 @@ class TestReactiveFormCheckboxComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-checkbox [(ngModel)]="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </p-checkbox> `
+    template: ` <vx-checkbox [(ngModel)]="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </vx-checkbox> `
 })
 class TestMultipleCheckboxComponent {
     selectedIngredients: string[] = [];
@@ -131,13 +134,14 @@ class TestMultipleCheckboxComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="value" [binary]="true" [disabled]="disabled" (onChange)="onSelectionChange($event)">
+        <vx-checkbox [(ngModel)]="value" [binary]="true" [disabled]="disabled" (onChange)="onSelectionChange($event)">
             <ng-template #icon let-checked="checked" let-class="class">
                 <i [class]="class" [ngClass]="checked ? 'pi pi-check' : 'pi pi-times'"></i>
             </ng-template>
-        </p-checkbox>
+        </vx-checkbox>
     `
 })
 class TestTemplateCheckboxComponent {
@@ -152,8 +156,9 @@ class TestTemplateCheckboxComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-checkbox [(ngModel)]="value" [binary]="true" [indeterminate]="indeterminate" [trueValue]="customTrueValue" [falseValue]="customFalseValue" (onChange)="onSelectionChange($event)"> </p-checkbox> `
+    template: ` <vx-checkbox [(ngModel)]="value" [binary]="true" [indeterminate]="indeterminate" [trueValue]="customTrueValue" [falseValue]="customFalseValue" (onChange)="onSelectionChange($event)"> </vx-checkbox> `
 })
 class TestIndeterminateCheckboxComponent {
     value: any = null as any;
@@ -169,9 +174,10 @@ class TestIndeterminateCheckboxComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="value" [binary]="true" [variant]="variant" [size]="size" inputId="styled-checkbox" [styleClass]="styleClass" [inputStyle]="inputStyle" [inputClass]="inputClass" (onChange)="onSelectionChange($event)"> </p-checkbox>
+        <vx-checkbox [(ngModel)]="value" [binary]="true" [variant]="variant" [size]="size" inputId="styled-checkbox" [styleClass]="styleClass" [inputStyle]="inputStyle" [inputClass]="inputClass" (onChange)="onSelectionChange($event)"> </vx-checkbox>
     `
 })
 class TestStyledCheckboxComponent {
@@ -189,19 +195,20 @@ class TestStyledCheckboxComponent {
     }
 }
 
-// Checkbox pTemplate component
+// Checkbox vxTemplate component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
-            <!-- Icon template with pTemplate directive -->
-            <ng-template pTemplate="icon" let-checked>
+        <vx-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
+            <!-- Icon template with vxTemplate directive -->
+            <ng-template vxTemplate="icon" let-checked>
                 <span class="custom-checkbox-icon" data-testid="ptemplate-icon">
                     <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
                     <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
                 </span>
             </ng-template>
-        </p-checkbox>
+        </vx-checkbox>
     `
 })
 class TestCheckboxPTemplateComponent {
@@ -211,9 +218,10 @@ class TestCheckboxPTemplateComponent {
 
 // Checkbox #template reference component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
+        <vx-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
             <!-- Icon template with #template reference -->
             <ng-template #icon let-checked>
                 <span class="custom-checkbox-icon" data-testid="ref-icon">
@@ -221,7 +229,7 @@ class TestCheckboxPTemplateComponent {
                     <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
                 </span>
             </ng-template>
-        </p-checkbox>
+        </vx-checkbox>
     `
 })
 class TestCheckboxRefTemplateComponent {
@@ -260,12 +268,12 @@ describe('Checkbox', () => {
         it('should create the component', async () => {
             expect(testComponent).toBeTruthy();
 
-            const checkboxComponent = testFixture.debugElement.query(By.css('p-checkbox'));
+            const checkboxComponent = testFixture.debugElement.query(By.css('vx-checkbox'));
             expect(checkboxComponent).toBeTruthy();
         });
 
         it('should have default values', async () => {
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
 
             expect(checkboxInstance.binary).toBe(false);
             expect(checkboxInstance.disabled()).toBe(false);
@@ -287,7 +295,7 @@ describe('Checkbox', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
 
             expect(checkboxInstance.binary).toBe(true);
             expect(checkboxInstance.disabled()).toBe(true);
@@ -310,7 +318,7 @@ describe('Checkbox', () => {
             testComponent.binary = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
-            checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
         });
 
         it('should toggle binary checkbox on click', async () => {
@@ -471,7 +479,7 @@ describe('Checkbox', () => {
             testComponent.binary = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
-            checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
         });
 
         it('should focus programmatically', async () => {
@@ -649,7 +657,7 @@ describe('Checkbox', () => {
         });
 
         it('should apply correct classes based on state', async () => {
-            const checkboxComponent = testFixture.debugElement.query(By.css('p-checkbox'));
+            const checkboxComponent = testFixture.debugElement.query(By.css('vx-checkbox'));
 
             expect(checkboxComponent.nativeElement.classList.contains('custom-checkbox')).toBe(true);
 
@@ -666,7 +674,7 @@ describe('Checkbox', () => {
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
 
             // Check that component received the style input
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
             expect(checkboxInstance.inputStyle).toEqual({ border: '2px solid red' });
 
             // Manually apply styles to test the style binding works as expected
@@ -689,7 +697,7 @@ describe('Checkbox', () => {
         });
 
         it('should apply variant and size classes', async () => {
-            const checkboxComponent = testFixture.debugElement.query(By.css('p-checkbox'));
+            const checkboxComponent = testFixture.debugElement.query(By.css('vx-checkbox'));
             const checkboxInstance = checkboxComponent.componentInstance;
 
             expect(checkboxInstance.variant()).toBe('filled');
@@ -728,7 +736,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
 
             expect(inputElement.nativeElement.hasAttribute('readonly')).toBe(true);
 
@@ -747,7 +755,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
-            const checkboxComponent = testFixture.debugElement.query(By.css('p-checkbox'));
+            const checkboxComponent = testFixture.debugElement.query(By.css('vx-checkbox'));
 
             expect(inputElement.nativeElement.hasAttribute('disabled')).toBe(true);
             expect(checkboxComponent.nativeElement.getAttribute('data-p-disabled')).toBe('true');
@@ -778,7 +786,7 @@ describe('Checkbox', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
             expect(checkboxInstance.checkboxIcon).toBe('pi pi-star');
 
             // The test is primarily to verify the checkboxIcon property is set correctly
@@ -897,7 +905,7 @@ describe('Checkbox', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
             let changeCount = 0;
 
             checkboxInstance.onChange.subscribe(() => {
@@ -969,7 +977,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
 
             expect(checkboxInstance.value).toBe('قيمة الاختيار');
             expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('خانة الاختيار');
@@ -982,14 +990,14 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+            const checkboxInstance = testFixture.debugElement.query(By.css('vx-checkbox')).componentInstance;
 
             expect(checkboxInstance.value).toBe('Valeur avec accents éàü');
             expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Case à cocher spéciale');
         });
     });
 
-    describe('pTemplate Tests', () => {
+    describe('vxTemplate Tests', () => {
         let templateFixture: ComponentFixture<TestCheckboxPTemplateComponent>;
         let templateComponent: TestCheckboxPTemplateComponent;
         let checkboxElement: any;
@@ -997,11 +1005,11 @@ describe('Checkbox', () => {
         beforeEach(async () => {
             templateFixture = TestBed.createComponent(TestCheckboxPTemplateComponent);
             templateComponent = templateFixture.componentInstance;
-            checkboxElement = templateFixture.debugElement.query(By.css('p-checkbox'));
+            checkboxElement = templateFixture.debugElement.query(By.css('vx-checkbox'));
             await templateFixture.whenStable();
         });
 
-        it('should have icon pTemplate', async () => {
+        it('should have icon vxTemplate', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
             expect(checkboxInstance).toBeTruthy();
             expect(() => checkboxInstance.checkboxIconTemplate).not.toThrow();
@@ -1046,7 +1054,7 @@ describe('Checkbox', () => {
             expect(checkboxInstance).toBeTruthy();
         });
 
-        it('should process pTemplate after content init', async () => {
+        it('should process vxTemplate after content init', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
 
             if (checkboxInstance.ngAfterContentInit) {
@@ -1057,7 +1065,7 @@ describe('Checkbox', () => {
             expect(checkboxInstance).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle vxTemplate changes after view init', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
 
             if (checkboxInstance.ngAfterViewInit) {
@@ -1095,7 +1103,7 @@ describe('Checkbox', () => {
         beforeEach(async () => {
             templateFixture = TestBed.createComponent(TestCheckboxRefTemplateComponent);
             templateComponent = templateFixture.componentInstance;
-            checkboxElement = templateFixture.debugElement.query(By.css('p-checkbox'));
+            checkboxElement = templateFixture.debugElement.query(By.css('vx-checkbox'));
             await templateFixture.whenStable();
         });
 

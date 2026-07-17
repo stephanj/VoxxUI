@@ -12,21 +12,20 @@ A simple Panel is created with a header property along with the content as child
 
 ```typescript
 import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-panel header="Header">
+            <vx-panel header="Header">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-panel>
+            </vx-panel>
         </div>
     `,
     standalone: true,
-    imports: [PanelModule]
+    imports: []
 })
 export class PanelBasicDemo {}
 ```
@@ -37,43 +36,39 @@ Header and Footers sections can be customized using header and footer templates.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { PanelModule } from 'primeng/panel';
 
 @Component({
     template: `
         <div class="card">
-            <p-panel [toggleable]="true">
+            <vx-panel [toggleable]="true">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
                 <ng-template #footer>
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
-                            <p-button icon="pi pi-user" rounded text></p-button>
-                            <p-button icon="pi pi-bookmark" severity="secondary" rounded text></p-button>
+                            <vx-button icon="pi pi-user" rounded text></vx-button>
+                            <vx-button icon="pi pi-bookmark" severity="secondary" rounded text></vx-button>
                         </div>
                         <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
                     </div>
                 </ng-template>
                 <ng-template #icons>
-                    <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
-                    <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
+                    <vx-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
+                    <vx-menu #menu id="config_menu" [model]="items" [popup]="true" />
                 </ng-template>
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-panel>
+            </vx-panel>
         </div>
     `,
     standalone: true,
-    imports: [AvatarModule, ButtonModule, MenuModule, PanelModule]
+    imports: []
 })
 export class PanelTemplateDemo implements OnInit {
     ngOnInit() {
@@ -104,21 +99,20 @@ Content of the panel can be expanded and collapsed using toggleable option, defa
 
 ```typescript
 import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
 
 @Component({
     template: `
         <div class="card">
-            <p-panel header="Header" [toggleable]="true">
+            <vx-panel header="Header" [toggleable]="true">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-panel>
+            </vx-panel>
         </div>
     `,
     standalone: true,
-    imports: [PanelModule]
+    imports: []
 })
 export class PanelToggleableDemo {}
 ```
@@ -139,7 +133,7 @@ Panel is a container with the optional content toggle feature.
 | _header | string | - | Header text of the panel. |
 | collapsed | boolean | - | Defines the initial state of panel content, supports one or two-way binding as well. |
 | styleClass | string | - | Style class of the component. **(Deprecated)** |
-| iconPos | "center" \| "start" \| "end" | end | Position of the icons. |
+| iconPos | "end" \| "center" \| "start" | end | Position of the icons. |
 | showHeader | boolean | true | Specifies if header of panel cannot be displayed. |
 | toggler | "icon" \| "header" | icon | Specifies the toggler element to toggle the panel content. |
 | transitionOptions | string | 400ms cubic-bezier(0.86, 0, 0.07, 1) | Transition options of the animation. **(Deprecated)** |

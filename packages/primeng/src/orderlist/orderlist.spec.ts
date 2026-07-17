@@ -1,14 +1,14 @@
 import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ListboxModule } from 'primeng/listbox';
-import { RippleModule } from 'primeng/ripple';
+import { SharedModule } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ListboxModule } from 'voxx-ui/listbox';
+import { RippleModule } from 'voxx-ui/ripple';
 import { OrderList } from './orderlist';
 
 interface Product {
@@ -24,9 +24,10 @@ interface Product {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist
+        <vx-orderlist
             [value]="products"
             [selection]="selection"
             [header]="header"
@@ -62,14 +63,14 @@ interface Product {
             (onFocus)="onFocus($event)"
             (onBlur)="onBlur($event)"
         >
-            <ng-template pTemplate="item" let-product let-index="index">
+            <ng-template vxTemplate="item" let-product let-index="index">
                 <div class="product-item" [attr.data-index]="index">
                     <div class="product-name">{{ product.name }}</div>
                     <div class="product-category">{{ product.category }}</div>
                     <div class="product-price">{{ product.price | currency }}</div>
                 </div>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestBasicOrderListComponent {
@@ -144,9 +145,10 @@ class TestBasicOrderListComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist [value]="products">
+        <vx-orderlist [value]="products">
             <ng-template #header>
                 <div class="custom-header">Custom Header Content</div>
             </ng-template>
@@ -163,26 +165,26 @@ class TestBasicOrderListComponent {
                 <div class="custom-empty-filter">No items found</div>
             </ng-template>
 
-            <ng-template pTemplate="moveupicon">
+            <ng-template vxTemplate="moveupicon">
                 <i class="pi pi-arrow-up custom-move-up"></i>
             </ng-template>
 
-            <ng-template pTemplate="movetopicon">
+            <ng-template vxTemplate="movetopicon">
                 <i class="pi pi-angle-double-up custom-move-top"></i>
             </ng-template>
 
-            <ng-template pTemplate="movedownicon">
+            <ng-template vxTemplate="movedownicon">
                 <i class="pi pi-arrow-down custom-move-down"></i>
             </ng-template>
 
-            <ng-template pTemplate="movebottomicon">
+            <ng-template vxTemplate="movebottomicon">
                 <i class="pi pi-angle-double-down custom-move-bottom"></i>
             </ng-template>
 
-            <ng-template pTemplate="filtericon">
+            <ng-template vxTemplate="filtericon">
                 <i class="pi pi-search custom-filter"></i>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestTemplatesOrderListComponent {
@@ -193,28 +195,30 @@ class TestTemplatesOrderListComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist [value]="[]" [filterBy]="'name'">
-            <ng-template pTemplate="empty">
+        <vx-orderlist [value]="[]" [filterBy]="'name'">
+            <ng-template vxTemplate="empty">
                 <div class="empty-template">No products available</div>
             </ng-template>
-            <ng-template pTemplate="emptyfilter">
+            <ng-template vxTemplate="emptyfilter">
                 <div class="empty-filter-template">No filtered products</div>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestEmptyTemplatesOrderListComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist [value]="products" [dragdrop]="true" [selection]="selection" [(ngModel)]="selection">
-            <ng-template pTemplate="item" let-product>
+        <vx-orderlist [value]="products" [dragdrop]="true" [selection]="selection" [(ngModel)]="selection">
+            <ng-template vxTemplate="item" let-product>
                 <div class="drag-item">{{ product.name }}</div>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestDragDropOrderListComponent {
@@ -227,13 +231,14 @@ class TestDragDropOrderListComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist [value]="products" [filterBy]="'name,category'" filterPlaceholder="Filter products">
-            <ng-template pTemplate="item" let-product>
+        <vx-orderlist [value]="products" [filterBy]="'name,category'" filterPlaceholder="Filter products">
+            <ng-template vxTemplate="item" let-product>
                 <div class="filter-item">{{ product.name }} - {{ product.category }}</div>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestFilterOrderListComponent {
@@ -244,60 +249,61 @@ class TestFilterOrderListComponent {
     ];
 }
 
-// Comprehensive template testing component for pTemplate approach
+// Comprehensive template testing component for vxTemplate approach
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
+        <vx-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
             <!-- Item template with full context -->
-            <ng-template pTemplate="item" let-product let-selected="selected" let-index="index">
+            <ng-template vxTemplate="item" let-product let-selected="selected" let-index="index">
                 <div class="custom-item-template">Item: {{ product.name }} | Index: {{ index }} | Selected: {{ selected }}</div>
             </ng-template>
 
             <!-- Header template -->
-            <ng-template pTemplate="header">
-                <div class="custom-header-template">Custom OrderList Header with pTemplate</div>
+            <ng-template vxTemplate="header">
+                <div class="custom-header-template">Custom OrderList Header with vxTemplate</div>
             </ng-template>
 
             <!-- Empty message template -->
-            <ng-template pTemplate="empty">
-                <div class="custom-empty-template">No items available - pTemplate</div>
+            <ng-template vxTemplate="empty">
+                <div class="custom-empty-template">No items available - vxTemplate</div>
             </ng-template>
 
             <!-- Empty filter message template -->
-            <ng-template pTemplate="emptyfilter">
-                <div class="custom-empty-filter-template">No filtered items found - pTemplate</div>
+            <ng-template vxTemplate="emptyfilter">
+                <div class="custom-empty-filter-template">No filtered items found - vxTemplate</div>
             </ng-template>
 
             <!-- Filter template -->
-            <ng-template pTemplate="filter">
+            <ng-template vxTemplate="filter">
                 <div class="custom-filter-template">
                     <input type="text" placeholder="Search products..." />
                 </div>
             </ng-template>
 
             <!-- Move icon templates -->
-            <ng-template pTemplate="moveupicon">
+            <ng-template vxTemplate="moveupicon">
                 <span class="custom-move-up-icon">UP</span>
             </ng-template>
 
-            <ng-template pTemplate="movetopicon">
+            <ng-template vxTemplate="movetopicon">
                 <span class="custom-move-top-icon">TOP</span>
             </ng-template>
 
-            <ng-template pTemplate="movedownicon">
+            <ng-template vxTemplate="movedownicon">
                 <span class="custom-move-down-icon">DOWN</span>
             </ng-template>
 
-            <ng-template pTemplate="movebottomicon">
+            <ng-template vxTemplate="movebottomicon">
                 <span class="custom-move-bottom-icon">BOTTOM</span>
             </ng-template>
 
             <!-- Filter icon template -->
-            <ng-template pTemplate="filtericon">
+            <ng-template vxTemplate="filtericon">
                 <span class="custom-filter-icon">SEARCH</span>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestComprehensiveTemplatesOrderListComponent {
@@ -313,9 +319,10 @@ class TestComprehensiveTemplatesOrderListComponent {
 
 // ContentChild template testing component for #template approach
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
+        <vx-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
             <!-- ContentChild templates using #template references -->
             <ng-template #item let-product let-selected="selected" let-index="index">
                 <div class="contentchild-item-template">ContentChild Item: {{ product.name }} | Index: {{ index }} | Selected: {{ selected }}</div>
@@ -358,7 +365,7 @@ class TestComprehensiveTemplatesOrderListComponent {
             <ng-template #filtericon>
                 <span class="contentchild-filter-icon">CC-SEARCH</span>
             </ng-template>
-        </p-orderlist>
+        </vx-orderlist>
     `
 })
 class TestContentChildTemplatesOrderListComponent {
@@ -1193,7 +1200,7 @@ describe('OrderList', () => {
 
     describe('Selection Handling', () => {
         it('should handle single selection', () => {
-            const listbox = fixture.debugElement.query(By.css('p-listbox'));
+            const listbox = fixture.debugElement.query(By.css('vx-listbox'));
             expect(listbox).toBeTruthy();
 
             // Test selection through component
@@ -1383,7 +1390,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const orderListElement = fixture.debugElement.query(By.css('p-orderlist'));
+            const orderListElement = fixture.debugElement.query(By.css('vx-orderlist'));
             expect(orderListElement.nativeElement.className).toContain('custom-orderlist-class');
         });
 
@@ -1553,13 +1560,13 @@ describe('OrderList', () => {
             comprehensiveFixture.detectChanges();
         });
 
-        describe('pTemplate Approach - All Template Elements', () => {
-            it('should create component with all pTemplate templates', () => {
+        describe('vxTemplate Approach - All Template Elements', () => {
+            it('should create component with all vxTemplate templates', () => {
                 expect(comprehensiveComponent).toBeTruthy();
                 expect(comprehensiveOrderList).toBeTruthy();
             });
 
-            it('should process all pTemplate templates in ngAfterContentInit', async () => {
+            it('should process all vxTemplate templates in ngAfterContentInit', async () => {
                 await comprehensiveFixture.whenStable();
 
                 expect(comprehensiveOrderList._itemTemplate).toBeDefined();
@@ -1607,7 +1614,7 @@ describe('OrderList', () => {
 
                 const headerElement = comprehensiveFixture.debugElement.query(By.css('.custom-header-template'));
                 if (headerElement) {
-                    expect(headerElement.nativeElement.textContent).toBe('Custom OrderList Header with pTemplate');
+                    expect(headerElement.nativeElement.textContent).toBe('Custom OrderList Header with vxTemplate');
                 } else {
                     // Fallback: verify template is configured
                     expect(comprehensiveOrderList._headerTemplate).toBeDefined();
@@ -1622,7 +1629,7 @@ describe('OrderList', () => {
 
                 const emptyElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-template'));
                 if (emptyElement) {
-                    expect(emptyElement.nativeElement.textContent).toBe('No items available - pTemplate');
+                    expect(emptyElement.nativeElement.textContent).toBe('No items available - vxTemplate');
                 } else {
                     // Fallback: verify empty state
                     expect(comprehensiveComponent.products.length).toBe(0);
@@ -1642,7 +1649,7 @@ describe('OrderList', () => {
 
                 const emptyFilterElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-filter-template'));
                 if (emptyFilterElement) {
-                    expect(emptyFilterElement.nativeElement.textContent).toBe('No filtered items found - pTemplate');
+                    expect(emptyFilterElement.nativeElement.textContent).toBe('No filtered items found - vxTemplate');
                 } else {
                     // Fallback: verify empty filter state
                     expect(comprehensiveOrderList.visibleOptions?.length).toBe(0);
@@ -1831,7 +1838,7 @@ describe('OrderList', () => {
         });
 
         describe('Template Context Verification', () => {
-            it('should pass correct context to item pTemplate', async () => {
+            it('should pass correct context to item vxTemplate', async () => {
                 await comprehensiveFixture.whenStable();
 
                 // Verify item template receives context with $implicit (product), selected, and index
@@ -1878,22 +1885,22 @@ describe('OrderList', () => {
             });
 
             it('should handle both template approaches without conflict', async () => {
-                const pTemplateFixture = TestBed.createComponent(TestComprehensiveTemplatesOrderListComponent);
+                const vxTemplateFixture = TestBed.createComponent(TestComprehensiveTemplatesOrderListComponent);
                 const contentChildFixture = TestBed.createComponent(TestContentChildTemplatesOrderListComponent);
 
-                pTemplateFixture.detectChanges();
+                vxTemplateFixture.detectChanges();
                 contentChildFixture.detectChanges();
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
                 await contentChildFixture.whenStable();
 
                 // Both components should work independently
-                expect(pTemplateFixture.componentInstance).toBeTruthy();
+                expect(vxTemplateFixture.componentInstance).toBeTruthy();
                 expect(contentChildFixture.componentInstance).toBeTruthy();
 
-                const pTemplateOrderList = pTemplateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
+                const vxTemplateOrderList = vxTemplateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
                 const contentChildOrderList = contentChildFixture.debugElement.query(By.directive(OrderList)).componentInstance;
 
-                expect(pTemplateOrderList).toBeTruthy();
+                expect(vxTemplateOrderList).toBeTruthy();
                 expect(contentChildOrderList).toBeTruthy();
             });
         });

@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPickerModule } from 'voxx-ui/colorpicker';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'format-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
@@ -16,17 +17,17 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex flex-wrap gap-4">
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
+                <vx-colorpicker [(ngModel)]="color" inputId="cp-hex" class="mb-4" />
                 <span>{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
+                <vx-colorpicker [(ngModel)]="colorRGB" format="rgb" inputId="cp-rgb" class="mb-4" />
                 <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-col items-center">
                 <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
+                <vx-colorpicker [(ngModel)]="colorHSB" format="hsb" inputId="cp-hsb" class="mb-4" />
                 <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>

@@ -1,23 +1,24 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'voxx-ui/inputgroup';
+import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'inputgroup-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, InputGroupModule, InputGroupAddonModule, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-inputgroup>
-                <p-inputgroup-addon>
+            <vx-inputgroup>
+                <vx-inputgroup-addon>
                     <i class="pi pi-user"></i>
-                </p-inputgroup-addon>
-                <input pInputText [(ngModel)]="value" placeholder="Username" />
-            </p-inputgroup>
+                </vx-inputgroup-addon>
+                <input vxInputText [(ngModel)]="value" placeholder="Username" />
+            </vx-inputgroup>
         </app-docptviewer>
     `
 })

@@ -7,18 +7,19 @@ import { WindsurfDoc } from '@/doc/mcp/windsurf-doc';
 import { ZedDoc } from '@/doc/mcp/zed-doc';
 import { ToolsDoc } from '@/doc/mcp/tools-doc';
 import { ExamplePromptsDoc } from '@/doc/mcp/exampleprompts-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'mcp-demo',
     standalone: true,
     imports: [AppDoc],
     template: `
         <app-doc
-            docTitle="MCP Server - PrimeNG"
+            docTitle="MCP Server - VoxxUI"
             header="MCP Server"
-            description="Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation."
+            description="Model Context Protocol (MCP) server for VoxxUI component library. Provides AI assistants with comprehensive access to VoxxUI component documentation."
             [docs]="docs"
             docType="page"
         ></app-doc>

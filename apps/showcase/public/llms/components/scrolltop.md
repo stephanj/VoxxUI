@@ -12,14 +12,14 @@ ScrollTop listens window scroll by default.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ScrollTopModule } from 'primeng/scrolltop';
+import { ScrollTopModule } from 'voxx-ui/scrolltop';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center">
             <p>Scroll down the page to display the ScrollTo component.</p>
             <i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 2rem; margin-bottom: 30rem"></i>
-            <p-scrolltop />
+            <vx-scrolltop />
         </div>
     `,
     standalone: true,
@@ -34,7 +34,7 @@ Setting the target property to parent binds ScrollTop to its parent element that
 
 ```typescript
 import { Component } from '@angular/core';
-import { ScrollTopModule } from 'primeng/scrolltop';
+import { ScrollTopModule } from 'voxx-ui/scrolltop';
 
 @Component({
     template: `
@@ -47,7 +47,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
                     Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
                     in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
                 </p>
-                <p-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
+                <vx-scrolltop target="parent" [threshold]="100" icon="pi pi-arrow-up" [buttonProps]="{ severity: 'contrast', raised: true, rounded: true }" />
             </div>
         </div>
     `,

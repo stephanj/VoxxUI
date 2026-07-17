@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
@@ -66,11 +67,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="rb1">One</label>
-<p-radiobutton inputId="rb1" />
+<vx-radiobutton inputId="rb1" />
 
 <span id="rb2">Two</span>
-<p-radiobutton ariaLabelledBy="rb2" />
+<vx-radiobutton ariaLabelledBy="rb2" />
 
-<p-radiobutton ariaLabel="Three" />`
+<vx-radiobutton ariaLabel="Three" />`
     };
 }

@@ -1,7 +1,8 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'locale-doc',
     standalone: true,
     imports: [AppDocSectionText],
@@ -9,7 +10,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>
                 Locale for different languages and formats is defined globally, refer to the
-                <a href="/configuration/#locale">PrimeNG Locale</a> configuration for more information.
+                <a href="/configuration/#locale">VoxxUI Locale</a> configuration for more information.
             </p>
         </app-docsectiontext>
     `

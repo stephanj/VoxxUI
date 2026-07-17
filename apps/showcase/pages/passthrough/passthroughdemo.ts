@@ -5,13 +5,14 @@ import { IntroductionDoc } from '@/doc/guides/passthrough/introduction-doc';
 import { LifeCycleDoc } from '@/doc/guides/passthrough/lifecycle-doc';
 import { PcPrefixDoc } from '@/doc/guides/passthrough/pcprefix-doc';
 import { PTOptionsDoc } from '@/doc/guides/passthrough/ptoptions-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'passthrough',
     standalone: true,
     imports: [AppDoc],
-    template: ` <app-doc docTitle="PrimeNG - Pass Through" header="Pass Through" description="The Pass Through attributes is an API to customize the internal DOM Structure of the components." [docs]="docs" docType="page"></app-doc> `
+    template: ` <app-doc docTitle="VoxxUI - Pass Through" header="Pass Through" description="The Pass Through attributes is an API to customize the internal DOM Structure of the components." [docs]="docs" docType="page"></app-doc> `
 })
 export class PassThroughDemoComponent {
     docs = [

@@ -6,7 +6,6 @@ import { FilledDoc } from '@/doc/multiselect/filled-doc';
 import { FilterDoc } from '@/doc/multiselect/filter-doc';
 import { FloatLabelDoc } from '@/doc/multiselect/floatlabel-doc';
 import { GroupDoc } from '@/doc/multiselect/group-doc';
-import { IftaLabelDoc } from '@/doc/multiselect/iftalabel-doc';
 import { ImportDoc } from '@/doc/multiselect/import-doc';
 import { InvalidDoc } from '@/doc/multiselect/invalid-doc';
 import { LoadingStateDoc } from '@/doc/multiselect/loadingstate-doc';
@@ -18,10 +17,11 @@ import { VirtualScrollDoc } from '@/doc/multiselect/virtualscroll-doc';
 import { ClearIconDoc } from '@/doc/multiselect/clearicon-doc';
 import { FluidDoc } from '@/doc/multiselect/fluid-doc';
 import { PTComponent } from '@/doc/multiselect/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular MultiSelect Component"
         header="MultiSelect"
@@ -81,11 +81,6 @@ export class MultiSelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

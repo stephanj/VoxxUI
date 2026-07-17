@@ -13,16 +13,16 @@ IftaLabel is used by wrapping the input and its label.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'voxx-ui/iftalabel';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-iftalabel>
+            <vx-iftalabel>
                 <input pInputText id="username" [(ngModel)]="value" autocomplete="off" />
                 <label for="username">Username</label>
-            </p-iftalabel>
+            </vx-iftalabel>
         </div>
     `,
     standalone: true,
@@ -40,16 +40,16 @@ When the form element is invalid, the label is also highlighted.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'voxx-ui/iftalabel';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-iftalabel>
+            <vx-iftalabel>
                 <input pInputText id="username" [(ngModel)]="value" [invalid]="!value" autocomplete="off" />
                 <label for="username">Username</label>
-            </p-iftalabel>
+            </vx-iftalabel>
         </div>
     `,
     standalone: true,

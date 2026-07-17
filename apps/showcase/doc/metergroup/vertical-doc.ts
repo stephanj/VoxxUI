@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vertical-doc',
     standalone: true,
     imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
@@ -12,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Layout of the MeterGroup is configured with the <i>orientation</i> property that accepts either <i>horizontal</i> or <i>vertical</i> as available options.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
+            <vx-metergroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
         </div>
         <app-code></app-code>
     `

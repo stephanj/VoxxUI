@@ -1,22 +1,24 @@
-import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputText } from './inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputText, FormsModule],
-    template: ` <input type="text" pInputText [(ngModel)]="value" placeholder="Enter text" /> `
+    template: ` <input type="text" vxInputText [(ngModel)]="value" placeholder="Enter text" /> `
 })
 class TestBasicInputTextComponent {
     value: string = '';
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputText, FormsModule],
-    template: ` <input type="text" pInputText [(ngModel)]="content" [pSize]="size" [variant]="variant" [fluid]="fluid" [invalid]="invalid" placeholder="Advanced input" /> `
+    template: ` <input type="text" vxInputText [(ngModel)]="content" [vxSize]="size" [variant]="variant" [fluid]="fluid" [invalid]="invalid" placeholder="Advanced input" /> `
 })
 class TestAdvancedInputTextComponent {
     content: string = '';
@@ -27,27 +29,30 @@ class TestAdvancedInputTextComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputText, ReactiveFormsModule],
-    template: ` <input type="email" pInputText [formControl]="emailControl" /> `
+    template: ` <input type="email" vxInputText [formControl]="emailControl" /> `
 })
 class TestReactiveFormInputTextComponent {
     emailControl = new FormControl('');
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputText, FormsModule],
-    template: ` <input type="password" pInputText [(ngModel)]="password" /> `
+    template: ` <input type="password" vxInputText [(ngModel)]="password" /> `
 })
 class TestPasswordInputComponent {
     password: string = '';
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [InputText, FormsModule],
-    template: ` <input type="text" pInputText [pt]="pt" [invalid]="invalid" [fluid]="fluid" [variant]="variant" [(ngModel)]="value" /> `
+    template: ` <input type="text" vxInputText [pt]="pt" [invalid]="invalid" [fluid]="fluid" [variant]="variant" [(ngModel)]="value" /> `
 })
 class TestPTInputTextComponent {
     value: string = '';
@@ -79,14 +84,14 @@ describe('InputText', () => {
             expect(component).toBeTruthy();
         });
 
-        it('should apply pInputText directive', () => {
+        it('should apply vxInputText directive', () => {
             expect(inputEl).toBeTruthy();
             expect(inputEl.nativeElement.tagName.toLowerCase()).toBe('input');
             expect(inputEl.nativeElement.type).toBe('text');
         });
 
         it('should have input element with directive applied', () => {
-            expect(inputEl.nativeElement.hasAttribute('pInputText')).toBe(true);
+            expect(inputEl.nativeElement.hasAttribute('vxInputText')).toBe(true);
         });
 
         it('should handle placeholder', () => {
@@ -136,13 +141,13 @@ describe('InputText', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(inputDirective.pSize).toBe('large');
+            expect(inputDirective.vxSize).toBe('large');
 
             component.size = 'small';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(inputDirective.pSize).toBe('small');
+            expect(inputDirective.vxSize).toBe('small');
         });
 
         it('should apply variant styles', async () => {

@@ -12,17 +12,17 @@ A simple Fieldset is created with a legend property along with the content as ch
 
 ```typescript
 import { Component } from '@angular/core';
-import { FieldsetModule } from 'primeng/fieldset';
+import { FieldsetModule } from 'voxx-ui/fieldset';
 
 @Component({
     template: `
         <div class="card">
-            <p-fieldset legend="Header">
+            <vx-fieldset legend="Header">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-fieldset>
+            </vx-fieldset>
         </div>
     `,
     standalone: true,
@@ -37,16 +37,16 @@ Header section can also be defined with custom content instead of primitive valu
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { FieldsetModule } from 'primeng/fieldset';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { FieldsetModule } from 'voxx-ui/fieldset';
 
 @Component({
     template: `
         <div class="card">
-            <p-fieldset>
+            <vx-fieldset>
                 <ng-template #header>
                     <div class="flex items-center gap-2 px-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -54,7 +54,7 @@ import { FieldsetModule } from 'primeng/fieldset';
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-fieldset>
+            </vx-fieldset>
         </div>
     `,
     standalone: true,
@@ -69,17 +69,17 @@ Content of the fieldset can be expanded and collapsed using toggleable option, d
 
 ```typescript
 import { Component } from '@angular/core';
-import { FieldsetModule } from 'primeng/fieldset';
+import { FieldsetModule } from 'voxx-ui/fieldset';
 
 @Component({
     template: `
         <div class="card">
-            <p-fieldset legend="Header" [toggleable]="true">
+            <vx-fieldset legend="Header" [toggleable]="true">
                 <p style="margin:0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-fieldset>
+            </vx-fieldset>
         </div>
     `,
     standalone: true,

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'colorscheme-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
@@ -31,7 +32,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class ColorSchemeDoc {
     code1 = {
         typescript: `import { bootstrapApplication } from '@angular/platform-browser';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 import { AppComponent } from './app/app.component';
@@ -51,7 +52,7 @@ const MyPreset = definePreset(Aura, {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        providePrimeNG({
+        provideVoxxUI({
             theme: {
                 preset: MyPreset
             }

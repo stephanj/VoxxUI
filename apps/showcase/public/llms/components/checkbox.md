@@ -13,16 +13,15 @@ Binary checkbox is used as a controlled input with ngModel and binary properties
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" />
+            <vx-checkbox [(ngModel)]="checked" [binary]="true" />
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxBasicDemo {
     checked: any = null;
@@ -36,17 +35,16 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
-            <p-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
+            <vx-checkbox [(ngModel)]="checked1" [binary]="true" [disabled]="true" />
+            <vx-checkbox [(ngModel)]="checked2" [binary]="true" [disabled]="true" />
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxDisabledDemo {
     checked1: boolean = false;
@@ -61,21 +59,20 @@ Checkboxes can be generated using a list of values.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
                 <div *ngFor="let category of categories" class="flex items-center">
-                    <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
+                    <vx-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
                     <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxDynamicDemo implements OnInit {
     selectedCategories: any[] = [];
@@ -94,16 +91,15 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
+            <vx-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" />
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxFilledDemo {
     checked: boolean = false;
@@ -117,16 +113,15 @@ The indeterminate state indicates that a checkbox is neither "on" or "off".
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
+            <vx-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" />
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxIndeterminateDemo {
     checked: any = null;
@@ -140,16 +135,15 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
+            <vx-checkbox [(ngModel)]="checked" [binary]="true" [invalid]="!checked" />
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxInvalidDemo {
     checked: boolean = false;
@@ -163,17 +157,16 @@ The label attribute provides a label text for the checkbox. This label is also c
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-4">
-            <p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
-            <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>
+            <vx-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></vx-checkbox>
+            <vx-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></vx-checkbox>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxLabelDemo {
     selectedValues: string[] = [];
@@ -187,31 +180,30 @@ Multiple checkboxes can be grouped together.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
             <div class="flex items-center">
-                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
+                <vx-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
                 <label for="ingredient1" class="ml-2"> Cheese </label>
             </div>
             <div class="flex items-center">
-                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
+                <vx-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
                 <label for="ingredient2" class="ml-2"> Mushroom </label>
             </div>
             <div class="flex items-center">
-                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
+                <vx-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
                 <label for="ingredient3" class="ml-2"> Pepper </label>
             </div>
             <div class="flex items-center">
-                <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
+                <vx-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
                 <label for="ingredient4" class="ml-2"> Onion </label>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxMultipleDemo {
     pizza: string[] = [];
@@ -225,36 +217,32 @@ Checkbox can also be used with reactive forms. In this case, the formControlName
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
-                            <p-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
+                            <vx-checkbox [formControlName]="item" [binary]="true" [inputId]="item" [invalid]="isInvalid(item)" />
                             <label [for]="item"> {{ item | titlecase }} </label>
                         </div>
                     }
                 </div>
                 @if (hasAnyInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class CheckboxReactiveformsDemo {
     messageService = inject(MessageService);
@@ -319,27 +307,26 @@ Checkbox provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
             <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
+                <vx-checkbox [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
                 <label for="size_small" class="text-sm">Small</label>
             </div>
             <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
+                <vx-checkbox [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
                 <label for="size_normal">Normal</label>
             </div>
             <div class="flex items-center gap-2">
-                <p-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
+                <vx-checkbox [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
                 <label for="size_large" class="text-lg">Large</label>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxSizesDemo {
     size: any = null;
@@ -351,36 +338,32 @@ export class CheckboxSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CheckboxModule } from 'primeng/checkbox';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (item of formKeys; track item) {
                         <div class="flex items-center gap-2">
-                            <p-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></p-checkbox>
+                            <vx-checkbox [inputId]="item" [name]="item" [(ngModel)]="formModel[item]" [binary]="true" [invalid]="isInvalid()"></vx-checkbox>
                             <label [for]="item">{{ item | titlecase }}</label>
                         </div>
                     }
                 </div>
                 @if (isInvalid()) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [CheckboxModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class CheckboxTemplatedrivenformsDemo {
     messageService = inject(MessageService);

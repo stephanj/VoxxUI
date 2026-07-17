@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'icons-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, AppCodeModule, AppDocSectionText],
@@ -18,12 +19,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <div class="card flex flex-wrap justify-center gap-4">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input type="text" pInputText [(ngModel)]="value" />
+                <input type="text" vxInputText [(ngModel)]="value" />
             </span>
 
             <span class="p-input-icon-right">
                 <i class="pi pi-spin pi-spinner"></i>
-                <input type="text" pInputText [(ngModel)]="value2" />
+                <input type="text" vxInputText [(ngModel)]="value2" />
             </span>
         </div>
         <app-code></app-code>

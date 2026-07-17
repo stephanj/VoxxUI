@@ -12,32 +12,31 @@ Components with the fluid option like InputText have the ability to span the ful
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     template: `
         <div class="card flex flex-col gap-6">
             <div>
                 <label for="non-fluid" class="font-bold mb-2 block">Non-Fluid</label>
-                <input type="text" pInputText id="non-fluid" />
+                <input type="text" vxInputText id="non-fluid" />
             </div>
             <div>
                 <label for="fluid" class="font-bold mb-2 block">Fluid Prop</label>
-                <input type="text" pInputText id="fluid" fluid />
+                <input type="text" vxInputText id="fluid" fluid />
             </div>
-            <p-fluid>
+            <vx-fluid>
                 <span class="font-bold mb-2 block">Fluid Container</span>
                 <div class="grid grid-cols-2 gap-4">
-                    <div><input type="text" pInputText /></div>
-                    <div><input type="text" pInputText /></div>
-                    <div class="col-span-full"><input type="text" pInputText /></div>
-                    <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+                    <div><input type="text" vxInputText /></div>
+                    <div><input type="text" vxInputText /></div>
+                    <div class="col-span-full"><input type="text" vxInputText /></div>
+                    <div><input type="text" vxInputText [fluid]="false" placeholder="Non-Fluid" /></div>
                 </div>
-            </p-fluid>
+            </vx-fluid>
         </div>
     `,
     standalone: true,
-    imports: [InputTextModule]
+    imports: []
 })
 export class FluidBasicDemo {}
 ```

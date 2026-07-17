@@ -12,16 +12,16 @@ Items can be displayed around the button when type is set to circle . Additional
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div style="position:relative; height: 500px;" class="flex items-center justify-center">
-                <p-toast />
-                <p-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
+                <vx-toast />
+                <vx-speeddial [model]="items" [radius]="80" type="circle" [style]="{ position: 'absolute' }" [buttonProps]="{ severity: 'warn', rounded: true }" />
             </div>
         </div>
     `,
@@ -73,19 +73,19 @@ SpeedDial items are defined with the model property based on MenuModel API. Defa
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div style="height: 500px; position: relative;">
-                <p-toast />
-                <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
-                <p-speeddial [model]="items" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
-                <p-speeddial [model]="items" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
-                <p-speeddial [model]="items" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
+                <vx-toast />
+                <vx-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
+                <vx-speeddial [model]="items" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
+                <vx-speeddial [model]="items" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
+                <vx-speeddial [model]="items" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
             </div>
         </div>
     `,
@@ -137,16 +137,16 @@ Adding mask property displays a modal layer behind the popup items.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card p-4">
             <div [style]="{ position: 'relative', height: '350px' }">
-                <p-toast />
-                <p-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
+                <vx-toast />
+                <vx-speeddial [model]="items" direction="up" mask [style]="{ position: 'absolute', right: '1rem', bottom: '1rem' }" />
             </div>
         </div>
     `,
@@ -198,19 +198,19 @@ When type is defined as quarter-circle , items are displayed in a half-circle ar
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div style="position: relative; height: 500px">
-                <p-toast />
-                <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left" [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
-                <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-right" [style]="{ position: 'absolute', left: 0, bottom: 0 }" />
-                <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-left" [style]="{ position: 'absolute', right: 0, top: 0 }" />
-                <p-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-right" [style]="{ position: 'absolute', left: 0, top: 0 }" />
+                <vx-toast />
+                <vx-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-left" [style]="{ position: 'absolute', right: 0, bottom: 0 }" />
+                <vx-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="up-right" [style]="{ position: 'absolute', left: 0, bottom: 0 }" />
+                <vx-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-left" [style]="{ position: 'absolute', right: 0, top: 0 }" />
+                <vx-speeddial [model]="items" [radius]="120" type="quarter-circle" direction="down-right" [style]="{ position: 'absolute', left: 0, top: 0 }" />
             </div>
         </div>
     `,
@@ -262,19 +262,19 @@ When type is defined as semi-circle , items are displayed in a half-circle aroun
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div style="position: relative; height: 500px">
-                <p-toast />
-                <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
-                <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
-                <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
-                <p-speeddial [model]="items" [radius]="80" type="semi-circle" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
+                <vx-toast />
+                <vx-speeddial [model]="items" [radius]="80" type="semi-circle" direction="down" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', top: 0 }" />
+                <vx-speeddial [model]="items" [radius]="80" type="semi-circle" direction="right" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', left: 0 }" />
+                <vx-speeddial [model]="items" [radius]="80" type="semi-circle" direction="left" [style]="{ position: 'absolute', top: 'calc(50% - 2rem)', right: 0 }" />
+                <vx-speeddial [model]="items" [radius]="80" type="semi-circle" direction="up" [style]="{ position: 'absolute', left: 'calc(50% - 2rem)', bottom: 0 }" />
             </div>
         </div>
     `,
@@ -326,19 +326,19 @@ SpeedDial offers item customization with the item template that receives the men
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex items-end justify-center" style="position: 'relative'; height: '400px'">
-                <p-toast />
-                <p-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
+                <vx-toast />
+                <vx-speeddial [model]="items" direction="up" [transitionDelay]="80" style="position: 'absolute'">
                     <ng-template #button let-toggleCallback="toggleCallback">
-                        <p-button outlined styleClass="border" (click)="toggleCallback($event)">
+                        <vx-button outlined styleClass="border" (click)="toggleCallback($event)">
                             <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
                                 <mask id="mask0_1_52" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -368,7 +368,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                                 <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                                 <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                             </svg>
-                        </p-button>
+                        </vx-button>
                     </ng-template>
                     <ng-template #item let-item let-toggleCallback="toggleCallback">
                         <div class="flex flex-col items-center justify-between gap-2 p-2 border rounded border-surface-200 dark:border-surface-700 w-20 cursor-pointer" (click)="toggleCallback($event, item)">
@@ -378,7 +378,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                             </span>
                         </div>
                     </ng-template>
-                </p-speeddial>
+                </vx-speeddial>
             </div>
         </div>
     `,
@@ -438,17 +438,17 @@ Items display a tooltip on hover when a standalone Tooltip is present with a tar
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'voxx-ui/speeddial';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div [style]="{ position: 'relative', height: '350px' }">
-                <p-toast />
-                <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
-                <p-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
+                <vx-toast />
+                <vx-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', right: 0, bottom: 0 }" [buttonProps]="{ severity: 'help', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'left' }" />
+                <vx-speeddial [model]="items" direction="up" [style]="{ position: 'absolute', left: 0, bottom: 0 }" [buttonProps]="{ severity: 'danger', rounded: true }" [tooltipOptions]="{ tooltipPosition: 'right' }" />
             </div>
         </div>
     `,

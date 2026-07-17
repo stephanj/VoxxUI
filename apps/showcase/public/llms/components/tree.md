@@ -12,14 +12,14 @@ Tree component requires an array of TreeNode objects as its value .
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+            <vx-tree [value]="files()" class="w-full md:w-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -44,14 +44,14 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
+            <vx-tree [value]="files()" selectionMode="checkbox" class="w-full md:w-[30rem]" [(selection)]="selectedFiles" />
         </div>
     `,
     standalone: true,
@@ -77,19 +77,19 @@ Tree has exclusive integration with ContextMenu using the contextMenu property a
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { ToastModule } from 'primeng/toast';
-import { TreeModule } from 'primeng/tree';
+import { ContextMenu, ContextMenuModule } from 'voxx-ui/contextmenu';
+import { ToastModule } from 'voxx-ui/toast';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, MenuItem, MessageService } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { TreeNode, MenuItem, MessageService } from 'voxx-ui/api';
+import { ContextMenu } from 'voxx-ui/contextmenu';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast [style]="{ marginTop: '80px' }" />
-            <p-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" contextMenuSelectionMode="separate" />
-            <p-contextmenu #cm [model]="items" />
+            <vx-toast [style]="{ marginTop: '80px' }" />
+            <vx-tree [value]="files()" class="w-full md:w-80" selectionMode="single" [(selection)]="selectedNode" [(contextMenuSelection)]="contextMenuNode" [contextMenu]="cm" contextMenuSelectionMode="separate" />
+            <vx-contextmenu #cm [model]="items" />
         </div>
     `,
     standalone: true,
@@ -144,19 +144,19 @@ Tree requires a collection of TreeNode instances as a value .
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TreeModule } from 'primeng/tree';
+import { ButtonModule } from 'voxx-ui/button';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex flex-wrap gap-2 mb-6">
-                <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
-                <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
+                <vx-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" />
+                <vx-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
             </div>
-            <p-tree [value]="files()" class="w-full md:w-[30rem]" />
+            <vx-tree [value]="files()" class="w-full md:w-[30rem]" />
         </div>
     `,
     standalone: true,
@@ -191,16 +191,16 @@ An event is provided for each type of user interaction such as expand, collapse 
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ToastModule } from 'primeng/toast';
-import { TreeModule } from 'primeng/tree';
+import { ToastModule } from 'voxx-ui/toast';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, MessageService } from 'primeng/api';
+import { TreeNode, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-tree
+            <vx-toast />
+            <vx-tree
                 [value]="files()"
                 class="w-full md:w-[30rem]"
                 selectionMode="single"
@@ -252,18 +252,18 @@ Filtering is enabled by adding the filter property, by default label property of
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex flex-wrap gap-4">
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
+                <vx-tree [value]="files()" [filter]="true" filterPlaceholder="Lenient Filter" />
             </div>
             <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
-                <p-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+                <vx-tree [value]="files2()" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
             </div>
         </div>
     `,
@@ -291,13 +291,13 @@ Lazy loading is useful when dealing with huge datasets, in this example nodes ar
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
-import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'voxx-ui/tree';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
+            <vx-tree class="w-full md:w-[30rem]" [value]="nodes()" loadingMode="icon" (onNodeExpand)="onNodeExpand($event)" />
         </div>
     `,
     standalone: true,
@@ -368,19 +368,19 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { Tree, TreeModule } from 'primeng/tree';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
+import { Tree, TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex items-center mb-6 gap-2">
-                <p-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
+                <vx-toggleswitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
+            <vx-tree [metaKeySelection]="metaKeySelection" [value]="files()" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
         </div>
     `,
     standalone: true,
@@ -407,14 +407,14 @@ Single node selection is configured by setting selectionMode as single along wit
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
+            <vx-tree [value]="files()" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
         </div>
     `,
     standalone: true,
@@ -440,20 +440,20 @@ Custom node content instead of a node label is defined with the pTemplate proper
 
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
-import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'voxx-ui/tree';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree [value]="nodes()" class="w-full md:w-[30rem]">
+            <vx-tree [value]="nodes()" class="w-full md:w-[30rem]">
                 <ng-template let-node pTemplate="url">
                     <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
                 </ng-template>
                 <ng-template let-node pTemplate="default">
                     <b>{{ node.label }}</b>
                 </ng-template>
-            </p-tree>
+            </vx-tree>
         </div>
     `,
     standalone: true,
@@ -495,14 +495,14 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
+            <vx-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="35" />
         </div>
     `,
     standalone: true,
@@ -525,14 +525,14 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'voxx-ui/tree';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
+            <vx-tree [value]="nodes()" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="35" (onNodeExpand)="nodeExpand($event)" [loading]="loading()" />
         </div>
     `,
     standalone: true,

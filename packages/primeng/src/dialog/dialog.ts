@@ -28,17 +28,17 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Button, ButtonProps } from 'primeng/button';
-import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'primeng/dom';
-import { FocusTrap } from 'primeng/focustrap';
-import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DialogPassThrough } from 'primeng/types/dialog';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { Button, ButtonProps } from 'voxx-ui/button';
+import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'voxx-ui/dom';
+import { FocusTrap } from 'voxx-ui/focustrap';
+import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'voxx-ui/icons';
+import { MotionModule } from 'voxx-ui/motion';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import { DialogPassThrough } from 'voxx-ui/types/dialog';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { DialogStyle } from './style/dialogstyle';
 
 const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
@@ -48,7 +48,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-dialog',
+    selector: 'vx-dialog',
     standalone: true,
     imports: [CommonModule, Button, FocusTrap, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, SharedModule, Bind, MotionModule],
     template: `
@@ -57,13 +57,13 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                 [class]="cn(cx('mask'), maskStyleClass)"
                 [style]="sx('mask')"
                 [ngStyle]="maskStyle"
-                [pBind]="ptm('mask')"
-                [pMotion]="maskVisible"
-                [pMotionAppear]="true"
-                [pMotionEnterActiveClass]="modal ? 'p-overlay-mask-enter-active' : ''"
-                [pMotionLeaveActiveClass]="modal ? 'p-overlay-mask-leave-active' : ''"
-                [pMotionOptions]="computedMaskMotionOptions()"
-                (pMotionOnAfterLeave)="onMaskAfterLeave()"
+                [vxBind]="ptm('mask')"
+                [vxMotion]="maskVisible"
+                [vxMotionAppear]="true"
+                [vxMotionEnterActiveClass]="modal ? 'p-overlay-mask-enter-active' : ''"
+                [vxMotionLeaveActiveClass]="modal ? 'p-overlay-mask-leave-active' : ''"
+                [vxMotionOptions]="computedMaskMotionOptions()"
+                (vxMotionOnAfterLeave)="onMaskAfterLeave()"
                 [attr.data-p-scrollblocker-active]="modal || blockScroll"
                 [attr.data-p]="dataP"
             >
@@ -73,17 +73,17 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         [class]="cn(cx('root'), styleClass)"
                         [style]="sx('root')"
                         [ngStyle]="style"
-                        [pBind]="ptm('root')"
-                        pFocusTrap
-                        [pFocusTrapDisabled]="focusTrap === false"
-                        [pMotion]="visible"
-                        [pMotionAppear]="true"
-                        [pMotionName]="'p-dialog'"
-                        [pMotionOptions]="computedMotionOptions()"
-                        (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-                        (pMotionOnAfterEnter)="onAfterEnter($event)"
-                        (pMotionOnBeforeLeave)="onBeforeLeave($event)"
-                        (pMotionOnAfterLeave)="onAfterLeave($event)"
+                        [vxBind]="ptm('root')"
+                        vxFocusTrap
+                        [vxFocusTrapDisabled]="focusTrap === false"
+                        [vxMotion]="visible"
+                        [vxMotionAppear]="true"
+                        [vxMotionName]="'p-dialog'"
+                        [vxMotionOptions]="computedMotionOptions()"
+                        (vxMotionOnBeforeEnter)="onBeforeEnter($event)"
+                        (vxMotionOnAfterEnter)="onAfterEnter($event)"
+                        (vxMotionOnBeforeLeave)="onBeforeLeave($event)"
+                        (vxMotionOnAfterLeave)="onAfterLeave($event)"
                         [attr.role]="role"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-modal]="true"
@@ -94,12 +94,12 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         </ng-container>
 
                         <ng-template #notHeadless>
-                            <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
-                            <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                                <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
+                            <div *ngIf="resizable" [class]="cx('resizeHandle')" [vxBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
+                            <div #titlebar [class]="cx('header')" [vxBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                                <span [id]="ariaLabelledBy" [class]="cx('title')" [vxBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
                                 <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT; context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
-                                <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
-                                    <p-button
+                                <div [class]="cx('headerActions')" [vxBind]="ptm('headerActions')">
+                                    <vx-button
                                         [pt]="ptm('pcMaximizeButton')"
                                         *ngIf="maximizable"
                                         [styleClass]="cx('pcMaximizeButton')"
@@ -124,8 +124,8 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                                 <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
                                             </ng-container>
                                         </ng-template>
-                                    </p-button>
-                                    <p-button
+                                    </vx-button>
+                                    <vx-button
                                         [pt]="ptm('pcCloseButton')"
                                         *ngIf="closable"
                                         [styleClass]="cx('pcCloseButton')"
@@ -146,15 +146,15 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                                 <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
                                             </span>
                                         </ng-template>
-                                    </p-button>
+                                    </vx-button>
                                 </div>
                             </div>
-                            <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
+                            <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [vxBind]="ptm('content')">
                                 <ng-content></ng-content>
                                 <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                             </div>
-                            <div #footer [class]="cx('footer')" [pBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
-                                <ng-content select="p-footer"></ng-content>
+                            <div #footer [class]="cx('footer')" [vxBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
+                                <ng-content select="vx-footer"></ng-content>
                                 <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
                             </div>
                         </ng-template>

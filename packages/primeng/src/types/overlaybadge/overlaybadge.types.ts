@@ -1,5 +1,5 @@
-import type { BadgePassThrough } from 'primeng/types/badge';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { BadgePassThrough } from 'voxx-ui/types/badge';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
 
 /**
  * Custom pass-through(pt) options.

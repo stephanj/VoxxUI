@@ -5,10 +5,11 @@ import { BasicDoc } from '@/doc/fileupload/basic-doc';
 import { ImportDoc } from '@/doc/fileupload/import-doc';
 import { PTComponent } from '@/doc/fileupload/pt/PTComponent';
 import { TemplateDoc } from '@/doc/fileupload/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc

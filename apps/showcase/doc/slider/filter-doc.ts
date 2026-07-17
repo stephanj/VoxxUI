@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
-import { SelectButtonModule } from 'primeng/selectbutton';
+import { SliderModule } from 'voxx-ui/slider';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'filter-doc',
     standalone: true,
     imports: [FormsModule, SliderModule, SelectButtonModule, AppDocSectionText, AppCode],
@@ -16,8 +17,8 @@ import { AppCode } from '@/components/doc/app.code';
         <div class="card flex justify-center">
             <div class="flex flex-col items-center">
                 <img alt="user header" class="w-full md:w-80 rounded mb-6" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" [style]="filterStyle" />
-                <p-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
-                <p-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
+                <vx-selectbutton [(ngModel)]="filter" [options]="filterOptions" optionLabel="label" optionValue="value" class="mb-4" />
+                <vx-slider [(ngModel)]="filterValues[filter]" class="w-56" [min]="0" [max]="200" />
             </div>
         </div>
         <app-code></app-code>

@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'sticky-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, Ripple],
@@ -15,10 +16,10 @@ import { Ripple } from 'primeng/ripple';
             <p>A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to override this and not hide the toast automatically.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
+            <vx-toast />
             <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="show()" label="Sticky" />
-                <p-button pRipple (click)="clear()" severity="secondary" label="Clear" />
+                <vx-button vxRipple (click)="show()" label="Sticky" />
+                <vx-button vxRipple (click)="clear()" severity="secondary" label="Clear" />
             </div>
         </div>
         <app-code></app-code>

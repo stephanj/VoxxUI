@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import type { InputTextPassThrough } from 'voxx-ui/types/inputtext';
 
 /**
  * Custom pass-through(pt) options.

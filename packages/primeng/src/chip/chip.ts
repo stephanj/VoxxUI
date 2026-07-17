@@ -17,11 +17,11 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { TimesCircleIcon } from 'primeng/icons';
-import { ChipProps, ChipPassThrough } from 'primeng/types/chip';
+import { PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { TimesCircleIcon } from 'voxx-ui/icons';
+import { ChipProps, ChipPassThrough } from 'voxx-ui/types/chip';
 import { ChipStyle } from './style/chipstyle';
 
 const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
@@ -31,18 +31,18 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-chip',
+    selector: 'vx-chip',
     standalone: true,
     imports: [CommonModule, TimesCircleIcon, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        <img [pBind]="ptm('image')" [class]="cx('image')" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-        <ng-template #iconTemplate><span [pBind]="ptm('icon')" *ngIf="icon" [class]="icon" [ngClass]="cx('icon')"></span></ng-template>
-        <div [pBind]="ptm('label')" [class]="cx('label')" *ngIf="label">{{ label }}</div>
+        <img [vxBind]="ptm('image')" [class]="cx('image')" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
+        <ng-template #iconTemplate><span [vxBind]="ptm('icon')" *ngIf="icon" [class]="icon" [ngClass]="cx('icon')"></span></ng-template>
+        <div [vxBind]="ptm('label')" [class]="cx('label')" *ngIf="label">{{ label }}</div>
         <ng-container *ngIf="removable">
             <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
                 <span
-                    [pBind]="ptm('removeIcon')"
+                    [vxBind]="ptm('removeIcon')"
                     *ngIf="removeIcon"
                     [class]="removeIcon"
                     [ngClass]="cx('removeIcon')"
@@ -53,7 +53,7 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
                     role="button"
                 ></span>
                 <svg
-                    [pBind]="ptm('removeIcon')"
+                    [vxBind]="ptm('removeIcon')"
                     data-p-icon="times-circle"
                     *ngIf="!removeIcon"
                     [class]="cx('removeIcon')"
@@ -65,7 +65,7 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
                 />
             </ng-container>
             <span
-                [pBind]="ptm('removeIcon')"
+                [vxBind]="ptm('removeIcon')"
                 *ngIf="removeIconTemplate || _removeIconTemplate"
                 [attr.tabindex]="disabled ? -1 : 0"
                 [class]="cx('removeIcon')"

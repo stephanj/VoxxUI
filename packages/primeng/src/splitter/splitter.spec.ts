@@ -1,13 +1,14 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Splitter } from './splitter';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitter
+        <vx-splitter
             [panelSizes]="panelSizes"
             [layout]="layout"
             [gutterSize]="gutterSize"
@@ -27,7 +28,7 @@ import { Splitter } from './splitter';
             <ng-template #panel>
                 <div class="panel2">Panel 2</div>
             </ng-template>
-        </p-splitter>
+        </vx-splitter>
     `
 })
 class TestSplitterComponent {
@@ -55,9 +56,10 @@ class TestSplitterComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitter>
+        <vx-splitter>
             <ng-template #panel>
                 <div>Panel 1</div>
             </ng-template>
@@ -67,44 +69,46 @@ class TestSplitterComponent {
             <ng-template #panel>
                 <div>Panel 3</div>
             </ng-template>
-        </p-splitter>
+        </vx-splitter>
     `
 })
 class TestThreePanelComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitter [panelSizes]="[20, 80]">
+        <vx-splitter [panelSizes]="[20, 80]">
             <ng-template #panel>
                 <div>Panel 1</div>
             </ng-template>
             <ng-template #panel>
-                <p-splitter layout="vertical" [panelSizes]="[30, 70]">
+                <vx-splitter layout="vertical" [panelSizes]="[30, 70]">
                     <ng-template #panel>
                         <div>Nested Panel 1</div>
                     </ng-template>
                     <ng-template #panel>
                         <div>Nested Panel 2</div>
                     </ng-template>
-                </p-splitter>
+                </vx-splitter>
             </ng-template>
-        </p-splitter>
+        </vx-splitter>
     `
 })
 class TestNestedSplitterComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitter [pt]="pt">
+        <vx-splitter [pt]="pt">
             <ng-template #panel>
                 <div>PT Test Panel 1</div>
             </ng-template>
             <ng-template #panel>
                 <div>PT Test Panel 2</div>
             </ng-template>
-        </p-splitter>
+        </vx-splitter>
     `
 })
 class TestPTSplitterComponent {
@@ -609,7 +613,7 @@ describe('Splitter', () => {
             await testFixture.whenStable();
             testFixture.detectChanges();
 
-            const splitterElement = testFixture.debugElement.query(By.css('p-splitter'));
+            const splitterElement = testFixture.debugElement.query(By.css('vx-splitter'));
             expect(splitterElement.nativeElement.className).toContain('custom-splitter-class');
         });
 
@@ -876,7 +880,7 @@ describe('Splitter', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
 
-            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const hostEl = ptFixture.debugElement.query(By.css('vx-splitter'));
             const panels = ptFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
             const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
             const gutterHandle = ptFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
@@ -915,7 +919,7 @@ describe('Splitter', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
 
-            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const hostEl = ptFixture.debugElement.query(By.css('vx-splitter'));
             const panels = ptFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
             const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
             const gutterHandle = ptFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
@@ -948,7 +952,7 @@ describe('Splitter', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
 
-            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const hostEl = ptFixture.debugElement.query(By.css('vx-splitter'));
             const panels = ptFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
             const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
             const gutterHandle = ptFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
@@ -979,7 +983,7 @@ describe('Splitter', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
 
-            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const hostEl = ptFixture.debugElement.query(By.css('vx-splitter'));
             const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
 
             expect(hostEl.nativeElement.className).toContain('DRAGGING');
@@ -1019,7 +1023,7 @@ describe('Splitter', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
 
-            const hostEl = ptFixture.debugElement.query(By.css('p-splitter'));
+            const hostEl = ptFixture.debugElement.query(By.css('vx-splitter'));
             const gutter = ptFixture.debugElement.query(By.css('.p-splitter-gutter'));
 
             expect(hostEl.nativeElement.className).toContain('SET_INPUT_CLASS');

@@ -3,14 +3,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { Popover, PopoverModule } from 'primeng/popover';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { Popover, PopoverModule } from 'voxx-ui/popover';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'datatable-doc',
     standalone: true,
     imports: [CommonModule, PopoverModule, TableModule, ButtonModule, TagModule, AppCode, AppDocSectionText],
@@ -20,7 +21,7 @@ import { TagModule } from 'primeng/tag';
             <p>Place the Popover outside of the data iteration components to avoid rendering it multiple times.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+            <vx-table [value]="products()" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
                 <ng-template #header>
                     <tr>
                         <th class="w-1/6">Id</th>
@@ -41,18 +42,18 @@ import { TagModule } from 'primeng/tag';
                             <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
                         </td>
                         <td>
-                            <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
+                            <vx-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
                         </td>
                     </tr>
                 </ng-template>
-            </p-table>
-            <p-popover #op (onHide)="selectedProduct.set(null)">
+            </vx-table>
+            <vx-popover #op (onHide)="selectedProduct.set(null)">
                 <ng-template #content>
                     <div *ngIf="selectedProduct()" class="rounded flex flex-col">
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
                                 <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
-                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <vx-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
                         <div class="pt-4">
@@ -69,7 +70,7 @@ import { TagModule } from 'primeng/tag';
                                 </div>
                             </div>
                             <div class="flex gap-2">
-                                <p-button
+                                <vx-button
                                     icon="pi pi-shopping-cart"
                                     [label]="'Buy Now | $' + selectedProduct().price"
                                     [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
@@ -77,12 +78,12 @@ import { TagModule } from 'primeng/tag';
                                     styleClass="w-full whitespace-nowrap"
                                     (onClick)="hidePopover()"
                                 />
-                                <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                                <vx-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
                             </div>
                         </div>
                     </div>
                 </ng-template>
-            </p-popover>
+            </vx-popover>
         </div>
         <app-code [extFiles]="['Product']"></app-code>
     `

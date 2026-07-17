@@ -8,9 +8,10 @@ import { PositionDoc } from '@/doc/drawer/position-doc';
 import { PTComponent } from '@/doc/drawer/pt/PTComponent';
 import { SizeDoc } from '@/doc/drawer/size-doc';
 import { TemplateDoc } from '@/doc/drawer/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="Angular Drawer Component" header="Drawer" description="Drawer is a container component displayed as an overlay." [docs]="docs" [apiDocs]="['Drawer']" [ptDocs]="ptComponent" componentName="drawer"></app-doc> `

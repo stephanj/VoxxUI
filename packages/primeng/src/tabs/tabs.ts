@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
 import { uuid } from '@primeuix/utils';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { TabsPassThrough } from 'primeng/types/tabs';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { TabsPassThrough } from 'voxx-ui/types/tabs';
 import { TabsStyle } from './style/tabsstyle';
 
 const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
@@ -13,7 +13,7 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-tabs',
+    selector: 'vx-tabs',
     standalone: true,
     imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,

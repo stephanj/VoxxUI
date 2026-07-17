@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
 import { RouterModule } from '@angular/router';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'floatlabel-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, FloatLabelModule, RouterModule, AppCodeModule, AppDocSectionText],
@@ -18,20 +19,20 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <input pInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
+            <vx-floatlabel>
+                <input vxInputText id="over_label" [(ngModel)]="value1" autocomplete="off" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="in">
-                <input pInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
+            <vx-floatlabel variant="in">
+                <input vxInputText id="in_label" [(ngModel)]="value2" autocomplete="off" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel variant="on">
-                <input pInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
+            <vx-floatlabel variant="on">
+                <input vxInputText id="on_label" [(ngModel)]="value3" autocomplete="off" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
         <app-code></app-code>
     `

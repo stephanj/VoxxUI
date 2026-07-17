@@ -1,12 +1,13 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'polararea-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule],
@@ -15,7 +16,7 @@ import { ChartModule } from 'primeng/chart';
             <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
+            <vx-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code></app-code>
     `

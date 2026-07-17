@@ -24,33 +24,33 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'primeng/types/toast';
-import { ZIndexUtils } from 'primeng/utils';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, TimesIcon } from 'voxx-ui/icons';
+import { MotionModule } from 'voxx-ui/motion';
+import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'voxx-ui/types/toast';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
 
 const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
 
 @Component({
-    selector: 'p-toastItem',
+    selector: 'vx-toastItem',
     standalone: true,
     imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
         <div
             #container
-            [pMotion]="visible()"
-            [pMotionAppear]="true"
-            [pMotionName]="'p-toast-message'"
-            [pMotionOptions]="motionOptions()"
-            (pMotionOnBeforeEnter)="onBeforeEnter($event)"
-            (pMotionOnAfterLeave)="onAfterLeave($event)"
+            [vxMotion]="visible()"
+            [vxMotionAppear]="true"
+            [vxMotionName]="'p-toast-message'"
+            [vxMotionOptions]="motionOptions()"
+            (vxMotionOnBeforeEnter)="onBeforeEnter($event)"
+            (vxMotionOnAfterLeave)="onAfterLeave($event)"
             [attr.id]="message?.id"
-            [pBind]="ptm('message')"
+            [vxBind]="ptm('message')"
             [class]="cn(cx('message'), message?.styleClass)"
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
@@ -62,41 +62,41 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
             @if (headlessTemplate) {
                 <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
             } @else {
-                <div [pBind]="ptm('messageContent')" [class]="cn(cx('messageContent'), message?.contentStyleClass)">
+                <div [vxBind]="ptm('messageContent')" [class]="cn(cx('messageContent'), message?.contentStyleClass)">
                     <ng-container *ngIf="!template">
                         @if (message.icon) {
-                            <span [pBind]="ptm('messageIcon')" [class]="cn(cx('messageIcon'), message?.icon)"></span>
+                            <span [vxBind]="ptm('messageIcon')" [class]="cn(cx('messageIcon'), message?.icon)"></span>
                         } @else {
                             @switch (message.severity) {
                                 @case ('success') {
-                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
+                                    <svg [vxBind]="ptm('messageIcon')" data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @case ('info') {
-                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
+                                    <svg [vxBind]="ptm('messageIcon')" data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @case ('error') {
-                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="times-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
+                                    <svg [vxBind]="ptm('messageIcon')" data-p-icon="times-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @case ('warn') {
-                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="exclamation-triangle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
+                                    <svg [vxBind]="ptm('messageIcon')" data-p-icon="exclamation-triangle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                                 @default {
-                                    <svg [pBind]="ptm('messageIcon')" data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
+                                    <svg [vxBind]="ptm('messageIcon')" data-p-icon="info-circle" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
                             }
                         }
-                        <div [pBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
-                            <div [pBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
+                        <div [vxBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
+                            <div [vxBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
                                 {{ message.summary }}
                             </div>
-                            <div [pBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
+                            <div [vxBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
                         </div>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                     @if (message?.closable !== false) {
                         <div>
                             <button
-                                [pBind]="ptm('closeButton')"
+                                [vxBind]="ptm('closeButton')"
                                 type="button"
                                 [attr.class]="cx('closeButton')"
                                 (click)="onCloseIconClick($event)"
@@ -106,9 +106,9 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                                 [attr.data-p]="dataP"
                             >
                                 @if (message.closeIcon) {
-                                    <span [pBind]="ptm('closeIcon')" *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
+                                    <span [vxBind]="ptm('closeIcon')" *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                 } @else {
-                                    <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.aria-hidden]="true" />
+                                    <svg [vxBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.aria-hidden]="true" />
                                 }
                             </button>
                         </div>
@@ -253,11 +253,11 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
  * @group Components
  */
 @Component({
-    selector: 'p-toast',
+    selector: 'vx-toast',
     standalone: true,
     imports: [CommonModule, ToastItem, SharedModule],
     template: `
-        <p-toastItem
+        <vx-toastItem
             *ngFor="let msg of messages; let i = index"
             [message]="msg"
             [index]="i"
@@ -271,7 +271,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             [pt]="pt"
             [unstyled]="unstyled()"
             [motionOptions]="computedMotionOptions()"
-        ></p-toastItem>
+        ></vx-toastItem>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

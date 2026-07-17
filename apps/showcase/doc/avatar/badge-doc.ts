@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { BadgeModule } from 'voxx-ui/badge';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'badge-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AvatarModule, BadgeModule, RouterModule],
@@ -14,7 +15,7 @@ import { RouterModule } from '@angular/router';
             <p>A <i>badge</i> can be added to an Avatar with the <a href="#" [routerLink]="['/badge']">Badge</a> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
+            <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" vxBadge value="4" severity="danger" />
         </div>
         <app-code></app-code>
     `

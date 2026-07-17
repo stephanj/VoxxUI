@@ -1,17 +1,18 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'darkmode-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
-                PrimeNG uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
-                <i>.my-app-dark</i> so that PrimeNG can fit in seamlessly with your color scheme.
+                VoxxUI uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
+                <i>.my-app-dark</i> so that VoxxUI can fit in seamlessly with your color scheme.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
             <p class="mt-4">
@@ -39,7 +40,7 @@ import { Component } from '@angular/core';
 })
 export class DarkModeDoc {
     code1: Code = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {
@@ -50,7 +51,7 @@ export class DarkModeDoc {
     };
 
     code2 = {
-        html: `<p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
+        html: `<vx-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()"/>`
     };
 
     code3 = {
@@ -65,7 +66,7 @@ export class DarkModeDoc {
     };
 
     code5: Code = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {

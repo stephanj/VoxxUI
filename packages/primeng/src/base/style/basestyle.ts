@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { css as Css, dt, Theme } from '@primeuix/styled';
 import { style as base_style } from '@primeuix/styles/base';
 import { minifyCSS, resolve } from '@primeuix/utils';
-import { UseStyle } from 'primeng/usestyle';
+import { UseStyle } from 'voxx-ui/usestyle';
 
 const css = /*css*/ `
 .p-hidden-accessible {

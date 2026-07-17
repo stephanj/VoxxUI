@@ -1,10 +1,11 @@
 import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PTViewer } from './PTViewer';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'togglebutton-pt-component',
     standalone: true,
     imports: [AppDocSection],

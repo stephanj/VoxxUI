@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FloatLabel } from './floatlabel';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [FloatLabel, FormsModule],
     template: `
-        <p-floatlabel>
+        <vx-floatlabel>
             <input id="username" [(ngModel)]="value" />
             <label for="username">Username</label>
-        </p-floatlabel>
+        </vx-floatlabel>
     `
 })
 class TestBasicFloatLabelComponent {
@@ -20,13 +21,14 @@ class TestBasicFloatLabelComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [FloatLabel, FormsModule],
     template: `
-        <p-floatlabel [variant]="variant">
+        <vx-floatlabel [variant]="variant">
             <input id="test-input" [(ngModel)]="value" />
             <label for="test-input">Test Label</label>
-        </p-floatlabel>
+        </vx-floatlabel>
     `
 })
 class TestVariantFloatLabelComponent {
@@ -352,7 +354,7 @@ describe('FloatLabel PassThrough Tests', () => {
             const inlineFixture = TestBed.createComponent(TestInlineStringPTComponent);
             inlineFixture.detectChanges();
 
-            const inlineHostElement = inlineFixture.nativeElement.querySelector('p-floatlabel');
+            const inlineHostElement = inlineFixture.nativeElement.querySelector('vx-floatlabel');
             expect(inlineHostElement.classList.contains('INLINE_STRING')).toBe(true);
         });
 
@@ -360,19 +362,19 @@ describe('FloatLabel PassThrough Tests', () => {
             const inlineFixture = TestBed.createComponent(TestInlineObjectPTComponent);
             inlineFixture.detectChanges();
 
-            const inlineHostElement = inlineFixture.nativeElement.querySelector('p-floatlabel');
+            const inlineHostElement = inlineFixture.nativeElement.querySelector('vx-floatlabel');
             expect(inlineHostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(inlineHostElement.getAttribute('data-inline')).toBe('true');
         });
     });
 
-    describe('PT Case 7: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 7: Global PT from VoxxUIConfig', () => {
         it('should apply global PT configuration to all instances', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
@@ -397,7 +399,7 @@ describe('FloatLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule, TestMultipleInstancesComponent],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 root: {
@@ -414,7 +416,7 @@ describe('FloatLabel PassThrough Tests', () => {
             const multiFixture = TestBed.createComponent(TestMultipleInstancesComponent);
             multiFixture.detectChanges();
 
-            const floatLabels = multiFixture.nativeElement.querySelectorAll('p-floatlabel');
+            const floatLabels = multiFixture.nativeElement.querySelectorAll('vx-floatlabel');
             expect(floatLabels.length).toBe(2);
 
             floatLabels.forEach((fl: HTMLElement) => {
@@ -431,7 +433,7 @@ describe('FloatLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 hooks: {
@@ -458,7 +460,7 @@ describe('FloatLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 hooks: {
@@ -485,7 +487,7 @@ describe('FloatLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 hooks: {
@@ -514,7 +516,7 @@ describe('FloatLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 hooks: {
@@ -543,7 +545,7 @@ describe('FloatLabel PassThrough Tests', () => {
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
                 providers: [
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             floatLabel: {
                                 hooks: {
@@ -585,25 +587,28 @@ describe('FloatLabel PassThrough Tests', () => {
 
 // Test components for inline PT tests
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [FloatLabel, FormsModule],
-    template: `<p-floatlabel [pt]="{ root: 'INLINE_STRING' }"><input /></p-floatlabel>`
+    template: `<vx-floatlabel [pt]="{ root: 'INLINE_STRING' }"><input /></vx-floatlabel>`
 })
 class TestInlineStringPTComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [FloatLabel, FormsModule],
-    template: `<p-floatlabel [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }"><input /></p-floatlabel>`
+    template: `<vx-floatlabel [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }"><input /></vx-floatlabel>`
 })
 class TestInlineObjectPTComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [FloatLabel, FormsModule],
     template: `
-        <p-floatlabel><input /></p-floatlabel>
-        <p-floatlabel><input /></p-floatlabel>
+        <vx-floatlabel><input /></vx-floatlabel>
+        <vx-floatlabel><input /></vx-floatlabel>
     `
 })
 class TestMultipleInstancesComponent {}

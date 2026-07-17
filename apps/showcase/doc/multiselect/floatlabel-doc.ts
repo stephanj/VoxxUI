@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { FloatLabelModule } from 'voxx-ui/floatlabel';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -12,6 +12,7 @@ interface City {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, MultiSelectModule, FloatLabelModule, AppCodeModule, AppDocSectionText],
@@ -23,20 +24,20 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel class="w-full md:w-80">
-                <p-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+            <vx-floatlabel class="w-full md:w-80">
+                <vx-multiselect id="over_label" [(ngModel)]="value1" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel class="w-full md:w-80" variant="in">
-                <p-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+            <vx-floatlabel class="w-full md:w-80" variant="in">
+                <vx-multiselect id="in_label" [(ngModel)]="value2" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
 
-            <p-floatlabel class="w-full md:w-80" variant="on">
-                <p-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
+            <vx-floatlabel class="w-full md:w-80" variant="on">
+                <vx-multiselect id="on_label" [(ngModel)]="value3" [options]="cities" optionLabel="name" filter [maxSelectedLabels]="3" class="w-full" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
         <app-code></app-code>
     `

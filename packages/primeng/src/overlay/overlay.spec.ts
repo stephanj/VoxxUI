@@ -1,4 +1,4 @@
-import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,11 +7,12 @@ import { Overlay } from './overlay';
 describe('Overlay', () => {
     describe('PassThrough API', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [Overlay],
-            template: `<p-overlay [visible]="visible()" [mode]="mode()" [pt]="pt()">
+            template: `<vx-overlay [visible]="visible()" [mode]="mode()" [pt]="pt()">
                 <div class="test-content">Test Content</div>
-            </p-overlay>`
+            </vx-overlay>`
         })
         class TestPTOverlayComponent {
             visible = input<boolean>(false);
@@ -31,7 +32,7 @@ describe('Overlay', () => {
             fixture = TestBed.createComponent(TestPTOverlayComponent);
             fixture.componentRef.setInput('visible', true);
             fixture.detectChanges();
-            overlayElement = fixture.debugElement.query(By.css('p-overlay'));
+            overlayElement = fixture.debugElement.query(By.css('vx-overlay'));
         });
 
         describe('Case 1: Simple string classes', () => {

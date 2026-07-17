@@ -1,15 +1,16 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'tieredmenu-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, TieredMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-tieredmenu [model]="items" />
+            <vx-tieredmenu [model]="items" />
         </app-docptviewer>
     `
 })

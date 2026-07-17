@@ -5,16 +5,17 @@ import { IntroductionDoc } from '@/doc/guides/accessibility/introduction-doc';
 import { SemanticHTMLDoc } from '@/doc/guides/accessibility/semantichtml-doc';
 import { WAIARIADoc } from '@/doc/guides/accessibility/waiaria-doc';
 import { WCAGDoc } from '@/doc/guides/accessibility/wcag-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility',
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc
-        docTitle="Accessibility - PrimeNG"
+        docTitle="Accessibility - VoxxUI"
         header="Accessibility"
-        description="PrimeNG targets AA level compliance on WCAG specification, refer to the accessibility documentation of each component for detailed information."
+        description="VoxxUI targets AA level compliance on WCAG specification, refer to the accessibility documentation of each component for detailed information."
         [docs]="docs"
         docType="page"
     ></app-doc>`

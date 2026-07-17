@@ -4,11 +4,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TableModule } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
     selector: 'stateful-doc',
@@ -21,9 +21,9 @@ import { TagModule } from 'primeng/tag';
                 browser is closed. Other alternative is <i>local</i> referring to <i>localStorage</i> for an extended lifetime.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
+                <vx-table
                     #dt1
                     [value]="customers"
                     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
@@ -37,43 +37,43 @@ import { TagModule } from 'primeng/tag';
                     stateKey="statedemo-session"
                 >
                     <ng-template #caption>
-                        <p-iconfield iconPosition="left">
-                            <p-inputicon>
+                        <vx-iconfield iconPosition="left">
+                            <vx-inputicon>
                                 <i class="pi pi-search"></i>
-                            </p-inputicon>
-                            <input pInputText type="text" [value]="dt1.filters['global']?.value" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-                        </p-iconfield>
+                            </vx-inputicon>
+                            <input vxInputText type="text" [value]="dt1.filters['global']?.value" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                        </vx-iconfield>
                     </ng-template>
                     <ng-template #header>
                         <tr>
-                            <th pSortableColumn="name" style="width:25%">
+                            <th vxSortableColumn="name" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <vx-sortIcon field="name" />
                                 </div>
                             </th>
-                            <th pSortableColumn="country.name" style="width:25%">
+                            <th vxSortableColumn="country.name" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Country
-                                    <p-sortIcon field="country.name" />
+                                    <vx-sortIcon field="country.name" />
                                 </div>
                             </th>
-                            <th pSortableColumn="representative.name" style="width:25%">
+                            <th vxSortableColumn="representative.name" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Representative
-                                    <p-sortIcon field="representative.name" />
+                                    <vx-sortIcon field="representative.name" />
                                 </div>
                             </th>
-                            <th pSortableColumn="status" style="width:25%">
+                            <th vxSortableColumn="status" style="width:25%">
                                 <div class="flex items-center gap-2">
                                     Status
-                                    <p-sortIcon field="status" />
+                                    <vx-sortIcon field="status" />
                                 </div>
                             </th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer>
-                        <tr [pSelectableRow]="customer">
+                        <tr [vxSelectableRow]="customer">
                             <td>
                                 {{ customer.name }}
                             </td>
@@ -90,12 +90,12 @@ import { TagModule } from 'primeng/tag';
                                 </div>
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                                <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer>
-                        <tr [pSelectableRow]="customer">
+                        <tr [vxSelectableRow]="customer">
                             <td>
                                 {{ customer.name }}
                             </td>
@@ -108,7 +108,7 @@ import { TagModule } from 'primeng/tag';
                                 <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                                <vx-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                         </tr>
                     </ng-template>
@@ -117,9 +117,9 @@ import { TagModule } from 'primeng/tag';
                             <td colspan="4">No customers found.</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

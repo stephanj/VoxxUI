@@ -5,15 +5,15 @@ import { GridDoc } from '@/doc/scroller/grid-doc';
 import { HorizontalDoc } from '@/doc/scroller/horizontal-doc';
 import { ImportDoc } from '@/doc/scroller/import-doc';
 import { LazyLoadDoc } from '@/doc/scroller/lazyload-doc';
-import { LoaderDoc } from '@/doc/scroller/loader-doc';
 import { PTComponent } from '@/doc/scroller/pt/PTComponent';
 import { ProgrammaticDoc } from '@/doc/scroller/programmatic-doc';
 import { ScrollOptionsDoc } from '@/doc/scroller/scrolloptions-doc';
 import { TemplateDoc } from '@/doc/scroller/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Virtual Scroller Component"
         header="Scroller"
@@ -54,11 +54,6 @@ export class VirtualScrollerDemo {
             id: 'delay',
             label: 'Delay',
             component: DelayDoc
-        },
-        {
-            id: 'loading',
-            label: 'Loading',
-            component: LoaderDoc
         },
         {
             id: 'lazy',

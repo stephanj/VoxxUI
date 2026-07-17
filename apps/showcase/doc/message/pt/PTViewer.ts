@@ -1,15 +1,16 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageModule } from 'voxx-ui/message';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'message-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, MessageModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-message [closable]="true" severity="info" icon="pi pi-send">Info Message</p-message>
+            <vx-message [closable]="true" severity="info" icon="pi pi-send">Info Message</vx-message>
         </app-docptviewer>
     `
 })

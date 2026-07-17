@@ -21,15 +21,15 @@ import {
     ViewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { BindModule } from 'primeng/bind';
-import { Nullable } from 'primeng/ts-helpers';
-import { RadioButtonPassThrough } from 'primeng/types/radiobutton';
-import type { RadioButtonClickEvent } from 'primeng/types/radiobutton';
+import { SharedModule } from 'voxx-ui/api';
+import { AutoFocus } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind } from 'voxx-ui/bind';
+import { BindModule } from 'voxx-ui/bind';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { RadioButtonPassThrough } from 'voxx-ui/types/radiobutton';
+import type { RadioButtonClickEvent } from 'voxx-ui/types/radiobutton';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 
 const RADIOBUTTON_INSTANCE = new InjectionToken<RadioButton>('RADIOBUTTON_INSTANCE');
@@ -77,7 +77,7 @@ export class RadioControlRegistry {
  * @group Components
  */
 @Component({
-    selector: 'p-radioButton, p-radiobutton, p-radio-button',
+    selector: 'vx-radioButton, vx-radiobutton, vx-radio-button',
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
@@ -98,11 +98,11 @@ export class RadioControlRegistry {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="onChange($event)"
-            [pAutoFocus]="autofocus"
-            [pBind]="ptm('input')"
+            [vxAutoFocus]="autofocus"
+            [vxBind]="ptm('input')"
         />
-        <div [class]="cx('box')" [pBind]="ptm('box')">
-            <div [class]="cx('icon')" [pBind]="ptm('icon')"></div>
+        <div [class]="cx('box')" [vxBind]="ptm('box')">
+            <div [class]="cx('icon')" [vxBind]="ptm('icon')"></div>
         </div>
     `,
     providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle, { provide: RADIOBUTTON_INSTANCE, useExisting: RadioButton }, { provide: PARENT_INSTANCE, useExisting: RadioButton }],

@@ -6,24 +6,24 @@ import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TableModule } from 'voxx-ui/table';
+import { ToggleButtonModule } from 'voxx-ui/togglebutton';
 
 @Component({
     selector: 'frozencolumns-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ToggleButtonModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
-            <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
+            <p>Certain columns can be frozen by using the <i>vxFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
+                <vx-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 
-                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
+                <vx-table [value]="customers" [scrollable]="true" scrollHeight="400px" class="mt-4">
                     <ng-template #header>
                         <tr>
-                            <th style="min-width:200px" pFrozenColumn class="font-bold">Name</th>
+                            <th style="min-width:200px" vxFrozenColumn class="font-bold">Name</th>
                             <th style="min-width:100px">Id</th>
                             <th style="min-width:200px">Country</th>
                             <th style="min-width:200px">Date</th>
@@ -31,12 +31,12 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
                             <th style="min-width:200px">Status</th>
                             <th style="min-width:200px">Activity</th>
                             <th style="min-width:200px">Representative</th>
-                            <th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen" [ngClass]="{ 'font-bold': balanceFrozen }">Balance</th>
+                            <th style="min-width:200px" alignFrozen="right" vxFrozenColumn [frozen]="balanceFrozen" [ngClass]="{ 'font-bold': balanceFrozen }">Balance</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer>
                         <tr>
-                            <td pFrozenColumn class="font-bold">{{ customer.name }}</td>
+                            <td vxFrozenColumn class="font-bold">{{ customer.name }}</td>
                             <td style="min-width:100px">{{ customer.id }}</td>
                             <td>{{ customer.country.name }}</td>
                             <td>{{ customer.date }}</td>
@@ -44,14 +44,14 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
                             <td>{{ customer.status }}</td>
                             <td>{{ customer.activity }}</td>
                             <td>{{ customer.representative.name }}</td>
-                            <td alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen" [ngClass]="{ 'font-bold': balanceFrozen }">
+                            <td alignFrozen="right" vxFrozenColumn [frozen]="balanceFrozen" [ngClass]="{ 'font-bold': balanceFrozen }">
                                 {{ formatCurrency(customer.balance) }}
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

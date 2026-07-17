@@ -12,9 +12,10 @@ import { DynamicDoc } from '@/doc/message/dynamic-doc';
 import { ClosableDoc } from '@/doc/message/closable-doc';
 import { LifeDoc } from '@/doc/message/life-doc';
 import { AccessibilityDoc } from '@/doc/message/accessibility-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Message Component" header="Message" description="Message component is used to display inline messages." [docs]="docs" [apiDocs]="['Message']" [ptDocs]="ptComponent" themeDocs="message"></app-doc>`,
     imports: [AppDoc],
     standalone: true

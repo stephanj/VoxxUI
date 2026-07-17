@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
+import { InputMaskModule } from 'voxx-ui/inputmask';
+import { InputText } from 'voxx-ui/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'sizes-doc',
     standalone: true,
     imports: [FormsModule, InputMaskModule, InputText, AppCodeModule, AppDocSectionText],
@@ -14,9 +15,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>InputMask provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <input pInputText [(ngModel)]="value1" placeholder="Small" pSize="small" pInputMask="99-999999" />
-            <input pInputText [(ngModel)]="value2" placeholder="Normal" pInputMask="99-999999" />
-            <input pInputText [(ngModel)]="value3" placeholder="Large" pSize="large" pInputMask="99-999999" />
+            <input vxInputText [(ngModel)]="value1" placeholder="Small" vxSize="small" vxInputMask="99-999999" />
+            <input vxInputText [(ngModel)]="value2" placeholder="Normal" vxInputMask="99-999999" />
+            <input vxInputText [(ngModel)]="value3" placeholder="Large" vxSize="large" vxInputMask="99-999999" />
         </div>
         <app-code></app-code>
     `

@@ -1,12 +1,13 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'customization-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, RouterModule],
@@ -38,12 +39,13 @@ export class CustomizationDoc {
     code: Code = {
         typescript: `
 import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
-    template: \`<p-button (click)="show()" label="Show" />\`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: \`<vx-button (click)="show()" label="Show" />\`,
     imports: [ButtonModule],
     providers: [DialogService]
 })

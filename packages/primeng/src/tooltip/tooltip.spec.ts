@@ -1,16 +1,17 @@
-import { Component, ElementRef, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TooltipOptions } from 'primeng/api';
+import { TooltipOptions } from 'voxx-ui/api';
 import { Tooltip } from './tooltip';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <input
             #inputElement
-            pTooltip="Default tooltip text"
+            vxTooltip="Default tooltip text"
             [tooltipPosition]="tooltipPosition"
             [tooltipEvent]="tooltipEvent"
             [positionStyle]="positionStyle"
@@ -54,9 +55,10 @@ class TestBasicTooltipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <input #templateElement [pTooltip]="tooltipTemplate" type="text" placeholder="Template tooltip" />
+        <input #templateElement [vxTooltip]="tooltipTemplate" type="text" placeholder="Template tooltip" />
         <ng-template #tooltipTemplate>
             <div class="custom-tooltip">
                 <strong>Custom Template</strong>
@@ -71,8 +73,9 @@ class TestTemplateTooltipComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <button #buttonElement pTooltip="Button tooltip" [tooltipOptions]="options" type="button">Click me</button> `
+    template: ` <button #buttonElement vxTooltip="Button tooltip" [tooltipOptions]="options" type="button">Click me</button> `
 })
 class TestTooltipOptionsComponent {
     @ViewChild('buttonElement', { read: ElementRef }) buttonElement!: ElementRef;
@@ -646,8 +649,9 @@ describe('Tooltip', () => {
 
     describe('PassThrough', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <input #inputElement pTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `
+            template: ` <input #inputElement vxTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `
         })
         class TestPTTooltipComponent {
             @ViewChild('inputElement', { read: ElementRef }) inputElement!: ElementRef;

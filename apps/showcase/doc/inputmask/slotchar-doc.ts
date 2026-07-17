@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
+import { InputMaskModule } from 'voxx-ui/inputmask';
+import { InputText } from 'voxx-ui/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'slotchar-doc',
     standalone: true,
     imports: [FormsModule, InputMaskModule, InputText, AppCodeModule, AppDocSectionText],
@@ -14,7 +15,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Default placeholder for a mask is underscore that can be customized using <i>slotChar</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <input pInputText [(ngModel)]="value" pInputMask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
+            <input vxInputText [(ngModel)]="value" vxInputMask="99/99/9999" placeholder="99/99/9999" slotChar="mm/dd/yyyy" />
         </div>
         <app-code></app-code>
     `

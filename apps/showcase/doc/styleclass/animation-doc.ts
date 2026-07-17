@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { StyleClassModule } from 'primeng/styleclass';
-import { ButtonModule } from 'primeng/button';
+import { StyleClassModule } from 'voxx-ui/styleclass';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'animation-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule],
@@ -18,8 +19,8 @@ import { ButtonModule } from 'primeng/button';
         <div class="card flex items-center justify-center gap-8">
             <div class="flex flex-col items-center">
                 <div>
-                    <p-button pStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
-                    <p-button pStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
+                    <vx-button vxStyleClass=".box1" enterFromClass="my-hidden" enterActiveClass="my-fadein" label="FadeIn" class="mr-2" />
+                    <vx-button vxStyleClass=".box1" leaveActiveClass="my-fadeout" leaveToClass="my-hidden" label="FadeOut" severity="secondary" />
                 </div>
                 <div class="h-32">
                     <div class="my-hidden animate-duration-500 box1">
@@ -29,8 +30,8 @@ import { ButtonModule } from 'primeng/button';
             </div>
             <div class="flex flex-col items-center">
                 <div>
-                    <p-button pStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
-                    <p-button pStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
+                    <vx-button vxStyleClass=".box2" enterFromClass="hidden" enterActiveClass="animate-slidedown" label="SlideDown" class="mr-2" />
+                    <vx-button vxStyleClass=".box2" leaveActiveClass="animate-slideup" leaveToClass="hidden" label="SlideUp" severity="secondary" />
                 </div>
                 <div class="h-32">
                     <div class="hidden animate-duration-500 box2 overflow-hidden">

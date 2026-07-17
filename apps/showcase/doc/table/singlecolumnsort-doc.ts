@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'singlecolumnsort-doc',
@@ -13,41 +13,41 @@ import { TableModule } from 'primeng/table';
     template: `
         <app-docsectiontext>
             <p>
-                A column can be made sortable by adding the <i>pSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting
-                <i>pSortableColumnDisabled</i> property as true disables sorting for that particular column.
+                A column can be made sortable by adding the <i>vxSortableColumn</i> directive whose value is the field to sort against and a sort indicator via <i>p-sortIcon</i> component. For dynamic columns, setting
+                <i>vxSortableColumnDisabled</i> property as true disables sorting for that particular column.
             </p>
             <p>
                 Default sorting is executed on a single column, in order to enable multiple field sorting, set <i>sortMode</i>
                 property to "multiple" and use metakey when clicking on another column.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+                <vx-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>
                         <tr>
-                            <th pSortableColumn="code" style="width:20%">
+                            <th vxSortableColumn="code" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Code
-                                    <p-sortIcon field="code" />
+                                    <vx-sortIcon field="code" />
                                 </div>
                             </th>
-                            <th pSortableColumn="name" style="width:20%">
+                            <th vxSortableColumn="name" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Name
-                                    <p-sortIcon field="name" />
+                                    <vx-sortIcon field="name" />
                                 </div>
                             </th>
-                            <th pSortableColumn="category" style="width:20%">
+                            <th vxSortableColumn="category" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Category
-                                    <p-sortIcon field="category" />
+                                    <vx-sortIcon field="category" />
                                 </div>
                             </th>
-                            <th pSortableColumn="quantity" style="width:20%">
+                            <th vxSortableColumn="quantity" style="width:20%">
                                 <div class="flex items-center gap-2">
                                     Quantity
-                                    <p-sortIcon field="quantity" />
+                                    <vx-sortIcon field="quantity" />
                                 </div>
                             </th>
                         </tr>
@@ -60,9 +60,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,6 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, numberAttribute } from '@angular/core';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-docsectiontext',
     standalone: true,
     imports: [CommonModule],

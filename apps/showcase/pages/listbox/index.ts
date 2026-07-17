@@ -15,9 +15,10 @@ import { ReactiveFormsDoc } from '@/doc/listbox/reactiveforms-doc';
 import { TemplateDoc } from '@/doc/listbox/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/listbox/templatedrivenforms-doc';
 import { VirtualScrollDoc } from '@/doc/listbox/virtualscroll-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Listbox Component"
         header="Listbox"

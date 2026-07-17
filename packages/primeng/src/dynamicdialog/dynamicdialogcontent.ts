@@ -1,7 +1,7 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-    selector: '[pDynamicDialogContent]',
+    selector: '[vxDynamicDialogContent]',
     standalone: true
 })
 export class DynamicDialogContent {

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [ProgressBarModule, AppCode, AppDocSectionText],
@@ -12,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>ProgressBar is used with the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progressbar [value]="50" />
+            <vx-progressbar [value]="50" />
         </div>
         <app-code></app-code>
     `

@@ -1,17 +1,18 @@
-import { Component, ElementRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import { Tooltip } from 'primeng/tooltip';
+import { MenuItem } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
+import { Tooltip } from 'voxx-ui/tooltip';
 import { TieredMenu } from './tieredmenu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: `<p-tieredmenu [model]="model" [styleClass]="styleClass" [style]="style" [popup]="popup" [disabled]="disabled" [autoDisplay]="autoDisplay"></p-tieredmenu>`
+    template: `<vx-tieredmenu [model]="model" [styleClass]="styleClass" [style]="style" [popup]="popup" [disabled]="disabled" [autoDisplay]="autoDisplay"></vx-tieredmenu>`
 })
 class TestBasicTieredMenuComponent {
     model: MenuItem[] = [
@@ -36,9 +37,10 @@ class TestBasicTieredMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tieredmenu #menu [model]="model" [popup]="true"></p-tieredmenu>
+        <vx-tieredmenu #menu [model]="model" [popup]="true"></vx-tieredmenu>
         <button #toggleButton (click)="menu.toggle($event)" class="toggle-button">Show Menu</button>
     `
 })
@@ -69,19 +71,20 @@ class TestPopupTieredMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tieredmenu [model]="model">
-            <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
+        <vx-tieredmenu [model]="model">
+            <ng-template vxTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                 <div class="custom-item">
                     <span class="custom-label">{{ item.label }}</span>
                     <span *ngIf="hasSubmenu" class="custom-arrow">→</span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="submenuicon">
+            <ng-template vxTemplate="submenuicon">
                 <i class="pi pi-angle-right custom-submenu-icon"></i>
             </ng-template>
-        </p-tieredmenu>
+        </vx-tieredmenu>
     `
 })
 class TestTemplateTieredMenuComponent {
@@ -95,9 +98,10 @@ class TestTemplateTieredMenuComponent {
 
 // Test Component for #item template approach
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tieredmenu [model]="model">
+        <vx-tieredmenu [model]="model">
             <ng-template #item let-item let-hasSubmenu="hasSubmenu">
                 <div class="content-template-item">
                     <span class="item-label">{{ item.label }}</span>
@@ -108,7 +112,7 @@ class TestTemplateTieredMenuComponent {
             <ng-template #submenuicon>
                 <i class="content-template-icon pi pi-chevron-right"></i>
             </ng-template>
-        </p-tieredmenu>
+        </vx-tieredmenu>
     `
 })
 class TestContentTemplateTieredMenuComponent {
@@ -121,9 +125,10 @@ class TestContentTemplateTieredMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-disabled-tieredmenu',
-    template: `<p-tieredmenu [model]="model"></p-tieredmenu>`
+    template: `<vx-tieredmenu [model]="model"></vx-tieredmenu>`
 })
 class TestDisabledTieredMenuComponent {
     model: MenuItem[] = [
@@ -135,9 +140,10 @@ class TestDisabledTieredMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-router-tieredmenu',
-    template: `<p-tieredmenu [model]="model"></p-tieredmenu>`
+    template: `<vx-tieredmenu [model]="model"></vx-tieredmenu>`
 })
 class TestRouterTieredMenuComponent {
     model: MenuItem[] = [
@@ -158,9 +164,10 @@ class TestRouterTieredMenuComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-breakpoint-tieredmenu',
-    template: `<p-tieredmenu [model]="model" [breakpoint]="breakpoint"></p-tieredmenu>`
+    template: `<vx-tieredmenu [model]="model" [breakpoint]="breakpoint"></vx-tieredmenu>`
 })
 class TestBreakpointTieredMenuComponent {
     breakpoint = '768px';
@@ -202,7 +209,7 @@ describe('TieredMenu', () => {
 
         fixture = TestBed.createComponent(TestBasicTieredMenuComponent);
         component = fixture.componentInstance;
-        tieredMenuElement = fixture.debugElement.query(By.css('p-tieredmenu')).nativeElement;
+        tieredMenuElement = fixture.debugElement.query(By.css('vx-tieredmenu')).nativeElement;
         tieredMenu = fixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
         fixture.detectChanges();
     });
@@ -302,7 +309,7 @@ describe('TieredMenu', () => {
 
         it('should display submenu items', () => {
             const firstMenuItem = fixture.debugElement.query(By.css('li[role="menuitem"]'));
-            const submenu = firstMenuItem.query(By.css('p-tieredmenusub'));
+            const submenu = firstMenuItem.query(By.css('vx-tieredmenusub'));
             expect(submenu).toBeTruthy();
         });
 
@@ -437,22 +444,22 @@ describe('TieredMenu', () => {
             templateFixture.detectChanges();
         });
 
-        it('should handle pTemplate content processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestTemplateTieredMenuComponent);
-            pTemplateFixture.detectChanges();
+        it('should handle vxTemplate content processing', async () => {
+            const vxTemplateFixture = TestBed.createComponent(TestTemplateTieredMenuComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const tieredMenuInstance = pTemplateFixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
+            const tieredMenuInstance = vxTemplateFixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
 
-            // Test that component handles pTemplate without errors
+            // Test that component handles vxTemplate without errors
             expect(() => tieredMenuInstance.ngAfterContentInit()).not.toThrow();
 
             // Test that templates property exists and is processed
             expect(tieredMenuInstance.templates).toBeDefined();
 
-            // Verify pTemplate item container is rendered
-            const menuList = pTemplateFixture.debugElement.query(By.css('ul[role="menu"]'));
+            // Verify vxTemplate item container is rendered
+            const menuList = vxTemplateFixture.debugElement.query(By.css('ul[role="menu"]'));
             expect(menuList).toBeTruthy();
         });
 
@@ -476,17 +483,17 @@ describe('TieredMenu', () => {
         });
 
         it('should render different template types correctly', async () => {
-            // Test both pTemplate and #item template approaches
+            // Test both vxTemplate and #item template approaches
 
-            // Test pTemplate rendering
-            const pTemplateFixture = TestBed.createComponent(TestTemplateTieredMenuComponent);
-            pTemplateFixture.detectChanges();
+            // Test vxTemplate rendering
+            const vxTemplateFixture = TestBed.createComponent(TestTemplateTieredMenuComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateTieredMenu = pTemplateFixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
-            expect(pTemplateTieredMenu.templates).toBeDefined();
-            expect(() => pTemplateTieredMenu.ngAfterContentInit()).not.toThrow();
+            const vxTemplateTieredMenu = vxTemplateFixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
+            expect(vxTemplateTieredMenu.templates).toBeDefined();
+            expect(() => vxTemplateTieredMenu.ngAfterContentInit()).not.toThrow();
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestContentTemplateTieredMenuComponent);
@@ -498,7 +505,7 @@ describe('TieredMenu', () => {
             expect(itemTemplateTieredMenu.itemTemplate).toBeDefined();
         });
 
-        it('should render custom item template with pTemplate', async () => {
+        it('should render custom item template with vxTemplate', async () => {
             templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await templateFixture.whenStable();
@@ -509,7 +516,7 @@ describe('TieredMenu', () => {
             expect(customItems.length + customLabels.length).toBeGreaterThanOrEqual(0);
         });
 
-        it('should render custom submenu icon template with pTemplate', async () => {
+        it('should render custom submenu icon template with vxTemplate', async () => {
             const tieredMenuInstance = templateFixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
 
             // Test that submenu icon template is processed
@@ -912,14 +919,14 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            // All <li> elements that have the pTooltip directive attached
+            // All <li> elements that have the vxTooltip directive attached
             const tooltipDebugElements = fixture.debugElement.queryAll(By.directive(Tooltip));
             expect(tooltipDebugElements.length).toBeGreaterThan(0);
 
             const tooltipDirectives = tooltipDebugElements.map((el) => el.injector.get(Tooltip));
 
             // Find the directive bound via the `tooltip` property on the MenuItem:
-            // `content` is the @Input('pTooltip') property set directly by Angular
+            // `content` is the @Input('vxTooltip') property set directly by Angular
             const directiveViaTooltipProp = tooltipDirectives.find((d) => d.content === 'Save the file');
             expect(directiveViaTooltipProp).withContext('Tooltip directive not found for item with tooltip property').toBeTruthy();
 
@@ -1035,9 +1042,10 @@ describe('TieredMenu', () => {
 
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
-                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+                template: `<vx-tieredmenu [model]="model" [pt]="pt"></vx-tieredmenu>`
             })
             class PTStringTestComponent {
                 model: MenuItem[] = [
@@ -1102,9 +1110,10 @@ describe('TieredMenu', () => {
 
         describe('Case 2: Objects (class, style, data-p, aria)', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
-                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+                template: `<vx-tieredmenu [model]="model" [pt]="pt"></vx-tieredmenu>`
             })
             class PTObjectTestComponent {
                 model: MenuItem[] = [
@@ -1173,9 +1182,10 @@ describe('TieredMenu', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
-                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+                template: `<vx-tieredmenu [model]="model" [pt]="pt"></vx-tieredmenu>`
             })
             class PTMixedTestComponent {
                 model: MenuItem[] = [
@@ -1230,9 +1240,10 @@ describe('TieredMenu', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
-                template: `<p-tieredmenu [model]="model" [pt]="pt" [disabled]="disabled"></p-tieredmenu>`
+                template: `<vx-tieredmenu [model]="model" [pt]="pt" [disabled]="disabled"></vx-tieredmenu>`
             })
             class PTInstanceTestComponent {
                 disabled = true;
@@ -1289,9 +1300,10 @@ describe('TieredMenu', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
-                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+                template: `<vx-tieredmenu [model]="model" [pt]="pt"></vx-tieredmenu>`
             })
             class PTEventTestComponent {
                 clickedValue = '';
@@ -1331,13 +1343,14 @@ describe('TieredMenu', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
                 template: `
-                    <p-tieredmenu [model]="model1"></p-tieredmenu>
-                    <p-tieredmenu [model]="model2"></p-tieredmenu>
+                    <vx-tieredmenu [model]="model1"></vx-tieredmenu>
+                    <vx-tieredmenu [model]="model2"></vx-tieredmenu>
                 `
             })
             class PTGlobalConfigTestComponent {
@@ -1351,7 +1364,7 @@ describe('TieredMenu', () => {
                     imports: [PTGlobalConfigTestComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 tieredMenu: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL', class: 'GLOBAL_ROOT_CLASS' },
@@ -1387,9 +1400,10 @@ describe('TieredMenu', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [TieredMenu],
-                template: `<p-tieredmenu [model]="model" [pt]="pt"></p-tieredmenu>`
+                template: `<vx-tieredmenu [model]="model" [pt]="pt"></vx-tieredmenu>`
             })
             class PTHooksTestComponent {
                 hookCalled = false;
@@ -1429,9 +1443,10 @@ describe('TieredMenu', () => {
 
             it('should apply inline PT with string', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [TieredMenu],
-                    template: `<p-tieredmenu [model]="model" [pt]="{ root: 'INLINE_STRING_CLASS' }"></p-tieredmenu>`
+                    template: `<vx-tieredmenu [model]="model" [pt]="{ root: 'INLINE_STRING_CLASS' }"></vx-tieredmenu>`
                 })
                 class InlineStringComponent {
                     model: MenuItem[] = [{ label: 'File' }];
@@ -1451,9 +1466,10 @@ describe('TieredMenu', () => {
 
             it('should apply inline PT with object', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [TieredMenu],
-                    template: `<p-tieredmenu [model]="model" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></p-tieredmenu>`
+                    template: `<vx-tieredmenu [model]="model" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }"></vx-tieredmenu>`
                 })
                 class InlineObjectComponent {
                     model: MenuItem[] = [{ label: 'File' }];

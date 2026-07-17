@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { Toast } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { Toast } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'clear-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, Toast, ButtonModule],
@@ -17,9 +18,9 @@ import { ButtonModule } from 'primeng/button';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
-            <p-toast key="myKey" />
-            <p-button (click)="show()" label="Show" />
-            <p-button (click)="clear()" label="Clear" severity="secondary" />
+            <vx-toast key="myKey" />
+            <vx-button (click)="show()" label="Show" />
+            <vx-button (click)="clear()" label="Clear" severity="secondary" />
         </div>
         <app-code></app-code>
     `,

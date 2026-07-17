@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import type { BadgePassThrough } from 'primeng/types/badge';
+import { SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import type { BadgePassThrough } from 'voxx-ui/types/badge';
 import { BadgeStyle } from './style/badgestyle';
 
 const BADGE_INSTANCE = new InjectionToken<Badge>('BADGE_INSTANCE');
@@ -16,7 +16,7 @@ const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIREC
  * @group Components
  */
 @Directive({
-    selector: '[pBadge]',
+    selector: '[vxBadge]',
     providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }],
     standalone: true
 })
@@ -26,7 +26,7 @@ export class BadgeDirective extends BaseComponent {
     /**
      * Used to pass attributes to DOM elements inside the Badge component.
      * @defaultValue undefined
-     * @deprecated use pBadgePT instead.
+     * @deprecated use vxBadgePT instead.
      * @group Props
      */
     ptBadgeDirective = input<BadgePassThrough | undefined>();
@@ -35,13 +35,13 @@ export class BadgeDirective extends BaseComponent {
      * @defaultValue undefined
      * @group Props
      */
-    pBadgePT = input<BadgePassThrough | undefined>();
+    vxBadgePT = input<BadgePassThrough | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
      * @group Props
      */
-    pBadgeUnstyled = input<boolean | undefined>();
+    vxBadgeUnstyled = input<boolean | undefined>();
     /**
      * When specified, disables the component.
      * @group Props
@@ -103,12 +103,12 @@ export class BadgeDirective extends BaseComponent {
     constructor() {
         super();
         effect(() => {
-            const pt = this.ptBadgeDirective() || this.pBadgePT();
+            const pt = this.ptBadgeDirective() || this.vxBadgePT();
             pt && this.directivePT.set(pt);
         });
 
         effect(() => {
-            this.pBadgeUnstyled() && this.directiveUnstyled.set(this.pBadgeUnstyled());
+            this.vxBadgeUnstyled() && this.directiveUnstyled.set(this.vxBadgeUnstyled());
         });
     }
 
@@ -272,7 +272,7 @@ export class BadgeDirective extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-badge',
+    selector: 'vx-badge',
     template: `{{ value() }}`,
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],

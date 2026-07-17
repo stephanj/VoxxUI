@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'icons-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule],
@@ -14,8 +15,8 @@ import { ToastModule } from 'primeng/toast';
             <p>The buttons and menuitems have support to display icons.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
+            <vx-toast />
+            <vx-splitbutton label="Save" icon="pi pi-check" dropdownIcon="pi pi-cog" [model]="items" />
         </div>
         <app-code></app-code>
     `,

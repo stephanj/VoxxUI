@@ -13,34 +13,33 @@ Spinner buttons are enabled using the showButtons options and layout is defined 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="stacked">Stacked</label>
-                <p-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
+                <vx-inputnumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="minmax-buttons">Min-Max Boundaries</label>
-                <p-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
+                <vx-inputnumber [(ngModel)]="value2" mode="decimal" [showButtons]="true" inputId="minmax-buttons" [min]="0" [max]="100" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="horizontal">Horizontal with Step</label>
-                <p-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
+                <vx-inputnumber [(ngModel)]="value3" [showButtons]="true" buttonLayout="horizontal" inputId="horizontal" spinnerMode="horizontal" [step]="0.25" mode="currency" currency="EUR">
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
                     </ng-template>
                     <ng-template #decrementbuttonicon>
                         <span class="pi pi-minus"></span>
                     </ng-template>
-                </p-inputnumber>
+                </vx-inputnumber>
             </div>
-        </p-fluid>
+        </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberButtonsDemo {
     value1: number = 20;
@@ -56,16 +55,15 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" inputStyleClass="w-56" />
+            <vx-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" [showClear]="true" inputStyleClass="w-56" />
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberCleariconDemo {
     value: number | undefined;
@@ -79,31 +77,30 @@ Currency formatting is specified by setting the mode option to currency and curr
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-us">United States</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
+                <vx-inputnumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-germany">Germany</label>
-                <p-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
+                <vx-inputnumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-india">India</label>
-                <p-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
+                <vx-inputnumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-japan">Japan</label>
-                <p-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
+                <vx-inputnumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP" />
             </div>
-        </p-fluid>
+        </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberCurrencyDemo {
     value1: number = 1500;
@@ -120,16 +117,15 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputnumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
+            <vx-inputnumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberDisabledDemo {
     value1: number = 50;
@@ -143,16 +139,15 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputnumber variant="filled" [(ngModel)]="value1" />
+            <vx-inputnumber variant="filled" [(ngModel)]="value1" />
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberFilledDemo {
     value1!: number;
@@ -166,28 +161,26 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center items-end gap-4">
-            <p-floatlabel>
-                <p-inputnumber [(ngModel)]="value1" inputId="over_label" mode="currency" currency="USD" locale="en-US" />
+            <vx-floatlabel>
+                <vx-inputnumber [(ngModel)]="value1" inputId="over_label" mode="currency" currency="USD" locale="en-US" />
                 <label for="over_label">Over Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="in">
-                <p-inputnumber [(ngModel)]="value2" inputId="in_label" mode="currency" currency="USD" locale="en-US" />
+            </vx-floatlabel>
+            <vx-floatlabel variant="in">
+                <vx-inputnumber [(ngModel)]="value2" inputId="in_label" mode="currency" currency="USD" locale="en-US" />
                 <label for="in_label">In Label</label>
-            </p-floatlabel>
-            <p-floatlabel variant="on">
-                <p-inputnumber [(ngModel)]="value3" inputId="on_label" mode="currency" currency="USD" locale="en-US" />
+            </vx-floatlabel>
+            <vx-floatlabel variant="on">
+                <vx-inputnumber [(ngModel)]="value3" inputId="on_label" mode="currency" currency="USD" locale="en-US" />
                 <label for="on_label">On Label</label>
-            </p-floatlabel>
+            </vx-floatlabel>
         </div>
     `,
     standalone: true,
-    imports: [FloatLabelModule, InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberFloatlabelDemo {
     value1: number | undefined;
@@ -203,45 +196,17 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card">
-            <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" fluid />
+            <vx-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" fluid />
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberFluidDemo {
-    value: number | undefined;
-}
-```
-
-## Ifta Label
-
-IftaLabel is used to create infield top aligned labels. Visit IftaLabel documentation for more information.
-
-```typescript
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InputNumberModule } from 'primeng/inputnumber';
-
-@Component({
-    template: `
-        <div class="card flex justify-center">
-            <p-iftalabel>
-                <p-inputnumber [(ngModel)]="value" inputId="price_input" mode="currency" currency="USD" locale="en-US" />
-                <label for="price_input">Price</label>
-            </p-iftalabel>
-        </div>
-    `,
-    standalone: true,
-    imports: [IftaLabelModule, InputNumberModule, FormsModule]
-})
-export class InputnumberIftalabelDemo {
     value: number | undefined;
 }
 ```
@@ -253,17 +218,16 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-4">
-            <p-inputnumber [(ngModel)]="value1" [invalid]="value1 === undefined" mode="decimal" [minFractionDigits]="2" placeholder="Amount" />
-            <p-inputnumber [(ngModel)]="value2" [invalid]="value2 === undefined" mode="decimal" [minFractionDigits]="2" variant="filled" placeholder="Amount" />
+            <vx-inputnumber [(ngModel)]="value1" [invalid]="value1 === undefined" mode="decimal" [minFractionDigits]="2" placeholder="Amount" />
+            <vx-inputnumber [(ngModel)]="value2" [invalid]="value2 === undefined" mode="decimal" [minFractionDigits]="2" variant="filled" placeholder="Amount" />
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberInvalidDemo {
     value1!: number;
@@ -278,31 +242,30 @@ Localization information such as grouping and decimal symbols are defined with t
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-                <p-inputnumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-german">German Locale</label>
-                <p-inputnumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
-                <p-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
+                <vx-inputnumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
             </div>
-        </p-fluid>
+        </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberLocaleDemo {
     value1: number = 151351;
@@ -319,31 +282,30 @@ InputNumber is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="integeronly">Integer Only</label>
-                <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
+                <vx-inputnumber inputId="integeronly" [(ngModel)]="value1" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="withoutgrouping">Without Grouping</label>
-                <p-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
+                <vx-inputnumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
-                <p-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
+                <vx-inputnumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
-                <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
+                <vx-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
             </div>
-        </p-fluid>
+        </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberNumeralsDemo {
     value1: number = 42723;
@@ -360,31 +322,30 @@ Custom texts e.g. units can be placed before or after the input section with the
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
-        <p-fluid class="card flex flex-wrap gap-4">
+        <vx-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="mile">Mile</label>
-                <p-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
+                <vx-inputnumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="percent">Percent</label>
-                <p-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
+                <vx-inputnumber [(ngModel)]="value2" inputId="percent" prefix="%" />
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="expiry">Expiry</label>
-                <p-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
+                <vx-inputnumber [(ngModel)]="value3" inputId="expiry" prefix="Expires in " suffix=" days" />
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="temperature">Temperature</label>
-                <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
+                <vx-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
             </div>
-        </p-fluid>
+        </vx-fluid>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberPrefixsuffixDemo {
     value1: number = 20;
@@ -401,29 +362,25 @@ InputNumber can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-inputnumber inputId="integeronly" formControlName="value" [invalid]="isInvalid('value')" />
+                    <vx-inputnumber inputId="integeronly" formControlName="value" [invalid]="isInvalid('value')" />
                     @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">Number is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Number is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, MessageModule, ToastModule, ButtonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class InputnumberReactiveformsDemo {
     messageService = inject(MessageService);
@@ -459,18 +416,17 @@ InputNumber provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-4">
-            <p-inputnumber [(ngModel)]="value1" size="small" placeholder="Small" mode="currency" currency="USD" locale="en-US" />
-            <p-inputnumber [(ngModel)]="value2" placeholder="Normal" mode="currency" currency="USD" locale="en-US" />
-            <p-inputnumber [(ngModel)]="value3" size="large" placeholder="Large" mode="currency" currency="USD" locale="en-US" />
+            <vx-inputnumber [(ngModel)]="value1" size="small" placeholder="Small" mode="currency" currency="USD" locale="en-US" />
+            <vx-inputnumber [(ngModel)]="value2" placeholder="Normal" mode="currency" currency="USD" locale="en-US" />
+            <vx-inputnumber [(ngModel)]="value3" size="large" placeholder="Large" mode="currency" currency="USD" locale="en-US" />
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberSizesDemo {
     value1!: number;
@@ -484,29 +440,25 @@ export class InputnumberSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
-                    <p-inputnumber inputId="integeronly" #inputValue="ngModel" name="inputValue" [(ngModel)]="value" [invalid]="inputValue.invalid && (inputValue.touched || exampleForm.submitted)" required />
+                    <vx-inputnumber inputId="integeronly" #inputValue="ngModel" name="inputValue" [(ngModel)]="value" [invalid]="inputValue.invalid && (inputValue.touched || exampleForm.submitted)" required />
                     @if (inputValue.invalid && (inputValue.touched || exampleForm.submitted)) {
-                        <p-message severity="error" size="small" variant="simple">Number is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Number is required.</vx-message>
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, MessageModule, ToastModule, ButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberTemplatedrivenformsDemo {
     messageService = inject(MessageService);
@@ -528,23 +480,22 @@ Buttons can also placed vertically by setting buttonLayout as vertical .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
+            <vx-inputnumber [(ngModel)]="value1" [showButtons]="true" buttonLayout="vertical" spinnerMode="vertical" inputId="vertical" [inputStyle]="{ width: '3rem' }">
                 <ng-template #incrementbuttonicon>
                     <span class="pi pi-plus"></span>
                 </ng-template>
                 <ng-template #decrementbuttonicon>
                     <span class="pi pi-minus"></span>
                 </ng-template>
-            </p-inputnumber>
+            </vx-inputnumber>
         </div>
     `,
     standalone: true,
-    imports: [InputNumberModule, FormsModule]
+    imports: [FormsModule]
 })
 export class InputnumberVerticalDemo {
     value1: number = 50;

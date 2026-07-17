@@ -1,22 +1,23 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'splitter-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, SplitterModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-splitter [style]="{ height: '300px' }" class="w-full">
+            <vx-splitter [style]="{ height: '300px' }" class="w-full">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 2</div>
                 </ng-template>
-            </p-splitter>
+            </vx-splitter>
         </app-docptviewer>
     `
 })

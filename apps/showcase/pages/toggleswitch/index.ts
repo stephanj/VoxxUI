@@ -8,10 +8,11 @@ import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveforms-doc';
 import { TemplateDoc } from '@/doc/toggleswitch/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenforms-doc';
 import { PTComponent } from '@/doc/toggleswitch/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular ToggleSwitch Component"
         header="ToggleSwitch"

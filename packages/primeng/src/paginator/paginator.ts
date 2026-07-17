@@ -25,15 +25,15 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Select, SelectChangeEvent } from 'primeng/select';
-import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from 'primeng/icons';
-import { InputNumber } from 'primeng/inputnumber';
-import { Ripple } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from 'primeng/types/paginator';
+import { Aria, PrimeTemplate, SelectItem, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { Select, SelectChangeEvent } from 'voxx-ui/select';
+import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from 'voxx-ui/icons';
+import { InputNumber } from 'voxx-ui/inputnumber';
+import { Ripple } from 'voxx-ui/ripple';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from 'voxx-ui/types/paginator';
 import { PaginatorStyle } from './style/paginatorstyle';
 
 const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
@@ -43,41 +43,41 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-paginator',
+    selector: 'vx-paginator',
     standalone: true,
     imports: [CommonModule, Select, InputNumber, FormsModule, Ripple, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon, SharedModule, Bind],
     template: `
-        <div [pBind]="ptm('contentStart')" [class]="cx('contentStart')" *ngIf="templateLeft">
+        <div [vxBind]="ptm('contentStart')" [class]="cx('contentStart')" *ngIf="templateLeft">
             <ng-container *ngTemplateOutlet="templateLeft; context: { $implicit: paginatorState }"></ng-container>
         </div>
-        <span [pBind]="ptm('current')" [class]="cx('current')" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
-        <button [pBind]="ptm('first')" *ngIf="showFirstLastIcon" type="button" (click)="changePageToFirst($event)" pRipple [class]="cx('first')" [attr.aria-label]="getAriaLabel('firstPageLabel')">
-            <svg [pBind]="ptm('firstIcon')" data-p-icon="angle-double-left" *ngIf="!firstPageLinkIconTemplate && !_firstPageLinkIconTemplate" [class]="cx('firstIcon')" />
+        <span [vxBind]="ptm('current')" [class]="cx('current')" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
+        <button [vxBind]="ptm('first')" *ngIf="showFirstLastIcon" type="button" (click)="changePageToFirst($event)" vxRipple [class]="cx('first')" [attr.aria-label]="getAriaLabel('firstPageLabel')">
+            <svg [vxBind]="ptm('firstIcon')" data-p-icon="angle-double-left" *ngIf="!firstPageLinkIconTemplate && !_firstPageLinkIconTemplate" [class]="cx('firstIcon')" />
             <span [class]="cx('firstIcon')" *ngIf="firstPageLinkIconTemplate || _firstPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate || _firstPageLinkIconTemplate"></ng-template>
             </span>
         </button>
-        <button [pBind]="ptm('prev')" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple [class]="cx('prev')" [attr.aria-label]="getAriaLabel('prevPageLabel')">
-            <svg [pBind]="ptm('prevIcon')" data-p-icon="angle-left" *ngIf="!previousPageLinkIconTemplate && !_previousPageLinkIconTemplate" [class]="cx('prevIcon')" />
+        <button [vxBind]="ptm('prev')" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" vxRipple [class]="cx('prev')" [attr.aria-label]="getAriaLabel('prevPageLabel')">
+            <svg [vxBind]="ptm('prevIcon')" data-p-icon="angle-left" *ngIf="!previousPageLinkIconTemplate && !_previousPageLinkIconTemplate" [class]="cx('prevIcon')" />
             <span [class]="cx('prevIcon')" *ngIf="previousPageLinkIconTemplate || _previousPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate || _previousPageLinkIconTemplate"></ng-template>
             </span>
         </button>
-        <span [pBind]="ptm('pages')" [class]="cx('pages')" *ngIf="showPageLinks">
+        <span [vxBind]="ptm('pages')" [class]="cx('pages')" *ngIf="showPageLinks">
             <button
-                [pBind]="ptm('page')"
+                [vxBind]="ptm('page')"
                 type="button"
                 *ngFor="let pageLink of pageLinks"
                 [class]="cx('page', { pageLink })"
                 [attr.aria-label]="getPageAriaLabel(pageLink)"
                 [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
                 (click)="onPageLinkClick($event, pageLink - 1)"
-                pRipple
+                vxRipple
             >
                 {{ getLocalization(pageLink) }}
             </button>
         </span>
-        <p-select
+        <vx-select
             [options]="pageItems"
             [ngModel]="getPage()"
             *ngIf="showJumpToPageDropdown"
@@ -90,30 +90,30 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
             [pt]="ptm('pcJumpToPageDropdown')"
             [unstyled]="unstyled()"
         >
-            <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
+            <ng-template vxTemplate="selectedItem">{{ currentPageReport }}</ng-template>
             <ng-container *ngIf="jumpToPageItemTemplate">
-                <ng-template let-item pTemplate="item">
+                <ng-template let-item vxTemplate="item">
                     <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
                 </ng-template>
             </ng-container>
-            <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate || _dropdownIconTemplate">
+            <ng-template vxTemplate="dropdownicon" *ngIf="dropdownIconTemplate || _dropdownIconTemplate">
                 <ng-container *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-container>
             </ng-template>
-        </p-select>
-        <button [pBind]="ptm('next')" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple [class]="cx('next')" [attr.aria-label]="getAriaLabel('nextPageLabel')">
-            <svg [pBind]="ptm('nextIcon')" data-p-icon="angle-right" *ngIf="!nextPageLinkIconTemplate && !_nextPageLinkIconTemplate" [class]="cx('nextIcon')" />
+        </vx-select>
+        <button [vxBind]="ptm('next')" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" vxRipple [class]="cx('next')" [attr.aria-label]="getAriaLabel('nextPageLabel')">
+            <svg [vxBind]="ptm('nextIcon')" data-p-icon="angle-right" *ngIf="!nextPageLinkIconTemplate && !_nextPageLinkIconTemplate" [class]="cx('nextIcon')" />
             <span [class]="cx('nextIcon')" *ngIf="nextPageLinkIconTemplate || _nextPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate || _nextPageLinkIconTemplate"></ng-template>
             </span>
         </button>
-        <button [pBind]="ptm('last')" *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" pRipple [class]="cx('last')" [attr.aria-label]="getAriaLabel('lastPageLabel')">
-            <svg [pBind]="ptm('lastIcon')" data-p-icon="angle-double-right" *ngIf="!lastPageLinkIconTemplate && !_lastPageLinkIconTemplate" [class]="cx('lastIcon')" />
+        <button [vxBind]="ptm('last')" *ngIf="showFirstLastIcon" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" vxRipple [class]="cx('last')" [attr.aria-label]="getAriaLabel('lastPageLabel')">
+            <svg [vxBind]="ptm('lastIcon')" data-p-icon="angle-double-right" *ngIf="!lastPageLinkIconTemplate && !_lastPageLinkIconTemplate" [class]="cx('lastIcon')" />
             <span [class]="cx('lastIcon')" *ngIf="lastPageLinkIconTemplate || _lastPageLinkIconTemplate">
                 <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate || _lastPageLinkIconTemplate"></ng-template>
             </span>
         </button>
-        <p-inputnumber [pt]="ptm('pcJumpToPageInput')" *ngIf="showJumpToPageInput" [ngModel]="currentPage()" [class]="cx('pcJumpToPageInput')" [disabled]="empty()" (ngModelChange)="changePage($event - 1)" [unstyled]="unstyled()"></p-inputnumber>
-        <p-select
+        <vx-inputnumber [pt]="ptm('pcJumpToPageInput')" *ngIf="showJumpToPageInput" [ngModel]="currentPage()" [class]="cx('pcJumpToPageInput')" [disabled]="empty()" (ngModelChange)="changePage($event - 1)" [unstyled]="unstyled()"></vx-inputnumber>
+        <vx-select
             [options]="rowsPerPageItems"
             [(ngModel)]="rows"
             *ngIf="rowsPerPageOptions"
@@ -127,15 +127,15 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
             [unstyled]="unstyled()"
         >
             <ng-container *ngIf="dropdownItemTemplate">
-                <ng-template let-item pTemplate="item">
+                <ng-template let-item vxTemplate="item">
                     <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
                 </ng-template>
             </ng-container>
-            <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate || _dropdownIconTemplate">
+            <ng-template vxTemplate="dropdownicon" *ngIf="dropdownIconTemplate || _dropdownIconTemplate">
                 <ng-container *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-container>
             </ng-template>
-        </p-select>
-        <div [pBind]="ptm('contentEnd')" [class]="cx('contentEnd')" *ngIf="templateRight">
+        </vx-select>
+        <div [vxBind]="ptm('contentEnd')" [class]="cx('contentEnd')" *ngIf="templateRight">
             <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
         </div>
     `,

@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -34,11 +35,11 @@ import { Component } from '@angular/core';
 export class PTOptionsDoc {
     codeGlobal: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNG({
+        provideVoxxUI({
             pt: {
                 panel: {
                     header: {
@@ -55,14 +56,15 @@ export const appConfig: ApplicationConfig = {
 
     codeComponent: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
-        <p-panel [pt]="pt">
+        <vx-panel [pt]="pt">
             Content
-        </p-panel>
+        </vx-panel>
     \`,
     standalone: true,
     imports: [PanelModule]
@@ -83,14 +85,15 @@ export class PanelPtDemo {
 
     codeComponentTrueTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
-        <p-panel [pt]="pt" [ptOptions]="{mergeSections: true, mergeProps: true}">
+        <vx-panel [pt]="pt" [ptOptions]="{mergeSections: true, mergeProps: true}">
             Content
-        </p-panel>
+        </vx-panel>
     \`,
     standalone: true,
     imports: [PanelModule]
@@ -111,14 +114,15 @@ export class PanelPtDemo {
 
     codeComponentFalseTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
-        <p-panel [pt]="pt" [ptOptions]="{mergeSections: false, mergeProps: true}">
+        <vx-panel [pt]="pt" [ptOptions]="{mergeSections: false, mergeProps: true}">
             Content
-        </p-panel>
+        </vx-panel>
     \`,
     standalone: true,
     imports: [PanelModule]
@@ -137,14 +141,15 @@ export class PanelPtDemo {
 
     codeComponentFalseFalse: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'ptoptions-doc',
     template: \`
-        <p-panel [pt]="pt" [ptOptions]="{mergeSections: false, mergeProps: false}">
+        <vx-panel [pt]="pt" [ptOptions]="{mergeSections: false, mergeProps: false}">
             Content
-        </p-panel>
+        </vx-panel>
     \`,
     standalone: true,
     imports: [PanelModule]

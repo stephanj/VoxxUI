@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'primeng/selectbutton';
+import { SelectButton } from 'voxx-ui/selectbutton';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'sizes-doc',
     standalone: true,
     imports: [FormsModule, SelectButton, AppDocSectionText, AppCode],
@@ -13,9 +14,9 @@ import { AppCode } from '@/components/doc/app.code';
             <p>SelectButton provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
-            <p-selectbutton [(ngModel)]="value2" [options]="options" />
-            <p-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
+            <vx-selectbutton [(ngModel)]="value1" [options]="options" size="small" />
+            <vx-selectbutton [(ngModel)]="value2" [options]="options" />
+            <vx-selectbutton [(ngModel)]="value3" [options]="options" size="large" />
         </div>
         <app-code></app-code>
     `

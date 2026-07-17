@@ -1,13 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [CommonModule, ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
@@ -23,8 +24,8 @@ import { ToastModule } from 'primeng/toast';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-confirmdialog>
+            <vx-toast />
+            <vx-confirmdialog>
                 <ng-template #message let-message>
                     @if (message) {
                         <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
@@ -33,8 +34,8 @@ import { ToastModule } from 'primeng/toast';
                         </div>
                     }
                 </ng-template>
-            </p-confirmdialog>
-            <p-button (click)="confirm()" label="Save" />
+            </vx-confirmdialog>
+            <vx-button (click)="confirm()" label="Save" />
         </div>
         <app-code></app-code>
     `,

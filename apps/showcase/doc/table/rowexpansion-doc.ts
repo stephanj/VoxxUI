@@ -6,13 +6,13 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { RippleModule } from 'primeng/ripple';
-import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { RatingModule } from 'voxx-ui/rating';
+import { RippleModule } from 'voxx-ui/ripple';
+import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'voxx-ui/table';
+import { TagModule } from 'voxx-ui/tag';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
     selector: 'rowexpansion-doc',
@@ -20,18 +20,19 @@ import { ToastModule } from 'primeng/toast';
     imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule],
     template: ` <app-docsectiontext>
             <p>
-                Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>pRowToggler</i> directive on an element as the target to
-                toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the element.
+                Row expansion allows displaying detailed content for a particular row. To use this feature, define a <i>dataKey</i>, add a template named <i>expandedrow</i> and use the <i>vxRowToggler</i> directive on an element as the target to
+                toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>vxRowTogglerDisabled</i> as true disables the toggle event for the
+                element.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toast />
-                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                <vx-toast />
+                <vx-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
                     <ng-template #caption>
                         <div class="flex flex-wrap justify-end gap-2">
-                            <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
-                            <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+                            <vx-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+                            <vx-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
                         </div>
                     </ng-template>
                     <ng-template #header>
@@ -48,7 +49,7 @@ import { ToastModule } from 'primeng/toast';
                     <ng-template #body let-product let-expanded="expanded">
                         <tr>
                             <td>
-                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" severity="secondary" [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                                <vx-button type="button" vxRipple [vxRowToggler]="product" [text]="true" severity="secondary" [rounded]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                             </td>
                             <td>{{ product.name }}</td>
                             <td>
@@ -57,10 +58,10 @@ import { ToastModule } from 'primeng/toast';
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>
-                                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+                                <vx-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                             </td>
                             <td>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                                <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
                         </tr>
                     </ng-template>
@@ -69,37 +70,37 @@ import { ToastModule } from 'primeng/toast';
                             <td colspan="7">
                                 <div class="p-4">
                                     <h5>Orders for {{ product.name }}</h5>
-                                    <p-table [value]="product.orders" dataKey="id">
+                                    <vx-table [value]="product.orders" dataKey="id">
                                         <ng-template #header>
                                             <tr>
-                                                <th pSortableColumn="id">
+                                                <th vxSortableColumn="id">
                                                     <div class="flex items-center gap-2">
                                                         Id
-                                                        <p-sortIcon field="price" />
+                                                        <vx-sortIcon field="price" />
                                                     </div>
                                                 </th>
-                                                <th pSortableColumn="customer">
+                                                <th vxSortableColumn="customer">
                                                     <div class="flex items-center gap-2">
                                                         Customer
-                                                        <p-sortIcon field="customer" />
+                                                        <vx-sortIcon field="customer" />
                                                     </div>
                                                 </th>
-                                                <th pSortableColumn="date">
+                                                <th vxSortableColumn="date">
                                                     <div class="flex items-center gap-2">
                                                         Date
-                                                        <p-sortIcon field="date" />
+                                                        <vx-sortIcon field="date" />
                                                     </div>
                                                 </th>
-                                                <th pSortableColumn="amount">
+                                                <th vxSortableColumn="amount">
                                                     <div class="flex items-center gap-2">
                                                         Amount
-                                                        <p-sortIcon field="amount" />
+                                                        <vx-sortIcon field="amount" />
                                                     </div>
                                                 </th>
-                                                <th pSortableColumn="status">
+                                                <th vxSortableColumn="status">
                                                     <div class="flex items-center gap-2">
                                                         Status
-                                                        <p-sortIcon field="status" />
+                                                        <vx-sortIcon field="status" />
                                                     </div>
                                                 </th>
                                                 <th style="width: 4rem"></th>
@@ -112,10 +113,10 @@ import { ToastModule } from 'primeng/toast';
                                                 <td>{{ order.date }}</td>
                                                 <td>{{ order.amount | currency: 'USD' }}</td>
                                                 <td>
-                                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
+                                                    <vx-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                                 </td>
                                                 <td>
-                                                    <p-button type="button" icon="pi pi-search" />
+                                                    <vx-button type="button" icon="pi pi-search" />
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -124,14 +125,14 @@ import { ToastModule } from 'primeng/toast';
                                                 <td colspan="6">There are no order for this product yet.</td>
                                             </tr>
                                         </ng-template>
-                                    </p-table>
+                                    </vx-table>
                                 </div>
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]

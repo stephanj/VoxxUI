@@ -12,18 +12,18 @@ PickList is used as a controlled input with source and target properties. Conten
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'voxx-ui/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
+            <vx-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" breakpoint="1400px">
                 <ng-template let-item #item>
                     {{ item.name }}
                 </ng-template>
-            </p-picklist>
+            </vx-picklist>
         </div>
     `,
     standalone: true,
@@ -49,14 +49,14 @@ Filter value is checked against the property of an object configured with the fi
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'voxx-ui/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-picklist
+            <vx-picklist
                 [source]="sourceProducts()"
                 [target]="targetProducts()"
                 [dragdrop]="true"
@@ -84,7 +84,7 @@ import { Product } from '@/domain/product';
                         <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
-            </p-picklist>
+            </vx-picklist>
         </div>
     `,
     standalone: true,
@@ -110,14 +110,14 @@ For custom content support define an item template that gets the item instance a
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'voxx-ui/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
         <div class="card">
-            <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
+            <vx-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
                         <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
@@ -135,7 +135,7 @@ import { Product } from '@/domain/product';
                         <span class="font-bold sm:ml-8">{{ '$' + option.price }}</span>
                     </div>
                 </ng-template>
-            </p-picklist>
+            </vx-picklist>
         </div>
     `,
     standalone: true,

@@ -1,9 +1,10 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
@@ -102,8 +103,8 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="lb">Options</span>
-<p-listbox ariaLabelledBy="lb"/>
+<vx-listbox ariaLabelledBy="lb"/>
 
-<p-listbox ariaLabel="City"/>`
+<vx-listbox ariaLabel="City"/>`
     };
 }

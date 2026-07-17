@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { PassThrough, PassThroughOption } from 'primeng/api';
+import { PassThrough, PassThroughOption } from 'voxx-ui/api';
 
 /**
  * Custom passthrough(pt) options.

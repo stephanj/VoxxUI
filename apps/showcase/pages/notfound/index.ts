@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ButtonModule } from 'voxx-ui/button';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [CommonModule, ButtonModule, RouterModule],
     template: ` <div class="flex min-h-screen items-center justify-center">
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
                 <span class="font-bold text-9xl"> 4 </span>
             </div>
             <div class="font-bold text-center text-4xl border-t border-surface pt-8">Page Not Found</div>
-            <p-button label="GO TO HOMEPAGE" routerLink="/" />
+            <vx-button label="GO TO HOMEPAGE" routerLink="/" />
         </div>
     </div>`
 })

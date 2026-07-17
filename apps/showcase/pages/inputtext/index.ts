@@ -4,7 +4,6 @@ import { DisabledDoc } from '@/doc/inputtext/disabled-doc';
 import { FilledDoc } from '@/doc/inputtext/filled-doc';
 import { FloatLabelDoc } from '@/doc/inputtext/floatlabel-doc';
 import { HelpTextDoc } from '@/doc/inputtext/helptext-doc';
-import { IftaLabelDoc } from '@/doc/inputtext/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputtext/import-doc';
 import { InvalidDoc } from '@/doc/inputtext/invalid-doc';
 import { PTComponent } from '@/doc/inputtext/pt/PTComponent';
@@ -12,10 +11,11 @@ import { ReactiveFormsDoc } from '@/doc/inputtext/reactiveforms-doc';
 import { SizesDoc } from '@/doc/inputtext/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputtext/templatedrivenforms-doc';
 import { FluidDoc } from '@/doc/inputtext/fluid-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc
@@ -46,11 +46,6 @@ export class InputTextDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'sizes',

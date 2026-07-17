@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
-import { ToastModule } from 'primeng/toast';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MenuItem, MessageService } from 'voxx-ui/api';
+import { MenuModule } from 'voxx-ui/menu';
+import { ToastModule } from 'voxx-ui/toast';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'command-doc',
     standalone: true,
     imports: [MenuModule, ToastModule, AppCodeModule, AppDocSectionText],
@@ -14,8 +15,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-menu [model]="items" />
+            <vx-toast />
+            <vx-menu [model]="items" />
         </div>
         <app-code></app-code>
     `,

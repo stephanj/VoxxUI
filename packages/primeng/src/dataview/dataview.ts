@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { resolveFieldData } from '@primeuix/utils';
-import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { SpinnerIcon } from 'primeng/icons';
-import { PaginatorModule } from 'primeng/paginator';
-import { Nullable } from 'primeng/ts-helpers';
+import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { SpinnerIcon } from 'voxx-ui/icons';
+import { PaginatorModule } from 'voxx-ui/paginator';
+import { Nullable } from 'voxx-ui/ts-helpers';
 import {
     DataViewGridTemplateContext,
     DataViewLayoutChangeEvent,
@@ -19,7 +19,7 @@ import {
     DataViewPaginatorState,
     DataViewPassThrough,
     DataViewSortEvent
-} from 'primeng/types/dataview';
+} from 'voxx-ui/types/dataview';
 import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 
@@ -30,18 +30,18 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-dataView, p-dataview, p-data-view',
+    selector: 'vx-dataView, vx-dataview, vx-data-view',
     standalone: true,
     imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule, Bind],
     template: `
         @if (loading) {
-            <div [pBind]="ptm('loading')" [class]="cx('loading')">
-                <div [pBind]="ptm('loadingOverlay')" [class]="cx('loadingOverlay')">
+            <div [vxBind]="ptm('loading')" [class]="cx('loading')">
+                <div [vxBind]="ptm('loadingOverlay')" [class]="cx('loadingOverlay')">
                     @if (loadingIcon) {
                         <i [class]="cn(cx('loadingIcon'), 'pi-spin' + loadingIcon)"></i>
                     } @else {
                         <ng-container>
-                            <svg [pBind]="ptm('loadingIcon')" data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
+                            <svg [vxBind]="ptm('loadingIcon')" data-p-icon="spinner" [spin]="true" [class]="cx('loadingIcon')" />
                             <ng-template *ngTemplateOutlet="loadingicon"></ng-template>
                         </ng-container>
                     }
@@ -49,13 +49,13 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
             </div>
         }
         @if (header || headerTemplate) {
-            <div [pBind]="ptm('header')" [class]="cx('header')">
-                <ng-content select="p-header"></ng-content>
+            <div [vxBind]="ptm('header')" [class]="cx('header')">
+                <ng-content select="vx-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
         }
         @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
-            <p-paginator
+            <vx-paginator
                 [rows]="rows"
                 [first]="first"
                 [totalRecords]="totalRecords"
@@ -76,9 +76,9 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 [styleClass]="cn(cx('pcPaginator', { position: 'top' }), paginatorStyleClass)"
                 [pt]="ptm('pcPaginator')"
                 [unstyled]="unstyled()"
-            ></p-paginator>
+            ></vx-paginator>
         }
-        <div [pBind]="ptm('content')" [class]="cx('content')">
+        <div [vxBind]="ptm('content')" [class]="cx('content')">
             @if (layout === 'list') {
                 <ng-container
                     *ngTemplateOutlet="
@@ -100,7 +100,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 ></ng-container>
             }
             @if (isEmpty() && !loading) {
-                <div [pBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
+                <div [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
                     <ng-container *ngIf="!emptymessageTemplate; else empty">
                         {{ emptyMessageLabel }}
                     </ng-container>
@@ -109,7 +109,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
             }
         </div>
         @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
-            <p-paginator
+            <vx-paginator
                 [rows]="rows"
                 [first]="first"
                 [totalRecords]="totalRecords"
@@ -130,11 +130,11 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 [styleClass]="cn(cx('pcPaginator', { position: 'bottom' }), paginatorStyleClass)"
                 [pt]="ptm('pcPaginator')"
                 [unstyled]="unstyled()"
-            ></p-paginator>
+            ></vx-paginator>
         }
         @if (footer || footerTemplate) {
-            <div [pBind]="ptm('footer')" [class]="cx('footer')">
-                <ng-content select="p-footer"></ng-content>
+            <div [vxBind]="ptm('footer')" [class]="cx('footer')">
+                <ng-content select="vx-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         }

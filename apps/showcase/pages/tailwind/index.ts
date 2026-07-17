@@ -6,12 +6,13 @@ import { HeadlessDoc } from '@/doc/tailwind/headless-doc';
 import { OverrideDoc } from '@/doc/tailwind/override-doc';
 import { OverviewDoc } from '@/doc/tailwind/overview-doc';
 import { PluginDoc } from '@/doc/tailwind/plugin-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DarkModeDoc } from '@/doc/tailwind/darkmode-doc';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    template: `<app-doc docTitle="Tailwind CSS - PrimeNG" header="Tailwind CSS" description="Integration between PrimeNG and Tailwind CSS." [docs]="docs" docType="page"></app-doc>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: `<app-doc docTitle="Tailwind CSS - VoxxUI" header="Tailwind CSS" description="Integration between VoxxUI and Tailwind CSS." [docs]="docs" docType="page"></app-doc>`,
     standalone: true,
     imports: [AppDoc]
 })
@@ -45,7 +46,7 @@ export class TailwindDemo {
         {
             id: 'samples',
             label: 'Samples',
-            description: 'Example uses cases with PrimeNG and Tailwind CSS.',
+            description: 'Example uses cases with VoxxUI and Tailwind CSS.',
             children: [
                 {
                     id: 'color-palette',

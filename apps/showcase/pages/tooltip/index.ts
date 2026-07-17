@@ -7,14 +7,15 @@ import { ImportDoc } from '@/doc/tooltip/import-doc';
 import { OptionsDoc } from '@/doc/tooltip/options-doc';
 import { PositionDoc } from '@/doc/tooltip/position-doc';
 import { PTComponent } from '@/doc/tooltip/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Tooltip Component"
         header="Tooltip"
-        description="Tooltip directive provides advisory information for a component. Tooltip is integrated within various PrimeNG components."
+        description="Tooltip directive provides advisory information for a component. Tooltip is integrated within various VoxxUI components."
         [docs]="docs"
         [apiDocs]="['Tooltip', 'TooltipOptions']"
         [ptDocs]="ptComponent"

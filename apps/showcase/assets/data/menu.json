@@ -64,10 +64,6 @@
                             "routerLink": "/autocomplete"
                         },
                         {
-                            "name": "CascadeSelect",
-                            "routerLink": "/cascadeselect"
-                        },
-                        {
                             "name": "Checkbox",
                             "routerLink": "/checkbox"
                         },
@@ -92,10 +88,6 @@
                             "routerLink": "/iconfield"
                         },
                         {
-                            "name": "IftaLabel",
-                            "routerLink": "/iftalabel"
-                        },
-                        {
                             "name": "InputGroup",
                             "routerLink": "/inputgroup"
                         },
@@ -108,20 +100,8 @@
                             "routerLink": "/inputnumber"
                         },
                         {
-                            "name": "InputOtp",
-                            "routerLink": "/inputotp"
-                        },
-                        {
                             "name": "InputText",
                             "routerLink": "/inputtext"
-                        },
-                        {
-                            "name": "KeyFilter",
-                            "routerLink": "/keyfilter"
-                        },
-                        {
-                            "name": "Knob",
-                            "routerLink": "/knob"
                         },
                         {
                             "name": "Listbox",
@@ -156,20 +136,12 @@
                             "routerLink": "/slider"
                         },
                         {
-                            "name": "Textarea",
-                            "routerLink": "/textarea"
-                        },
-                        {
                             "name": "ToggleButton",
                             "routerLink": "/togglebutton"
                         },
                         {
                             "name": "ToggleSwitch",
                             "routerLink": "/toggleswitch"
-                        },
-                        {
-                            "name": "TreeSelect",
-                            "routerLink": "/treeselect"
                         }
                     ]
                 },
@@ -179,10 +151,6 @@
                         {
                             "name": "Button",
                             "routerLink": "/button"
-                        },
-                        {
-                            "name": "SpeedDial",
-                            "routerLink": "/speeddial"
                         },
                         {
                             "name": "SplitButton",
@@ -202,32 +170,12 @@
                             "routerLink": "/orderlist"
                         },
                         {
-                            "name": "OrgChart",
-                            "routerLink": "/organizationchart"
-                        },
-                        {
                             "name": "Paginator",
                             "routerLink": "/paginator"
                         },
                         {
-                            "name": "PickList",
-                            "routerLink": "/picklist"
-                        },
-                        {
                             "name": "Table",
                             "routerLink": "/table"
-                        },
-                        {
-                            "name": "Timeline",
-                            "routerLink": "/timeline"
-                        },
-                        {
-                            "name": "Tree",
-                            "routerLink": "/tree"
-                        },
-                        {
-                            "name": "TreeTable",
-                            "routerLink": "/treetable"
                         },
                         {
                             "name": "VirtualScroller",
@@ -247,14 +195,6 @@
                             "routerLink": "/card"
                         },
                         {
-                            "name": "Divider",
-                            "routerLink": "/divider"
-                        },
-                        {
-                            "name": "Fieldset",
-                            "routerLink": "/fieldset"
-                        },
-                        {
                             "name": "Panel",
                             "routerLink": "/panel"
                         },
@@ -267,16 +207,8 @@
                             "routerLink": "/splitter"
                         },
                         {
-                            "name": "Stepper",
-                            "routerLink": "/stepper"
-                        },
-                        {
                             "name": "Tabs",
                             "routerLink": "/tabs"
-                        },
-                        {
-                            "name": "Toolbar",
-                            "routerLink": "/toolbar"
                         }
                     ]
                 },
@@ -286,10 +218,6 @@
                         {
                             "name": "ConfirmDialog",
                             "routerLink": "/confirmdialog"
-                        },
-                        {
-                            "name": "ConfirmPopup",
-                            "routerLink": "/confirmpopup"
                         },
                         {
                             "name": "Dialog",
@@ -326,32 +254,8 @@
                     "name": "Menu",
                     "children": [
                         {
-                            "name": "Breadcrumb",
-                            "routerLink": "/breadcrumb"
-                        },
-                        {
-                            "name": "ContextMenu",
-                            "routerLink": "/contextmenu"
-                        },
-                        {
-                            "name": "Dock",
-                            "routerLink": "/dock"
-                        },
-                        {
                             "name": "Menu",
                             "routerLink": "/menu"
-                        },
-                        {
-                            "name": "Menubar",
-                            "routerLink": "/menubar"
-                        },
-                        {
-                            "name": "MegaMenu",
-                            "routerLink": "/megamenu"
-                        },
-                        {
-                            "name": "PanelMenu",
-                            "routerLink": "/panelmenu"
                         },
                         {
                             "name": "TieredMenu",
@@ -382,33 +286,8 @@
                     ]
                 },
                 {
-                    "name": "Media",
-                    "children": [
-                        {
-                            "name": "Carousel",
-                            "routerLink": "/carousel"
-                        },
-                        {
-                            "name": "Galleria",
-                            "routerLink": "/galleria"
-                        },
-                        {
-                            "name": "Image",
-                            "routerLink": "/image"
-                        },
-                        {
-                            "name": "ImageCompare",
-                            "routerLink": "/imagecompare"
-                        }
-                    ]
-                },
-                {
                     "name": "Misc",
                     "children": [
-                        {
-                            "name": "AnimateOnScroll",
-                            "routerLink": "/animateonscroll"
-                        },
                         {
                             "name": "AutoFocus",
                             "routerLink": "/autofocus"
@@ -425,10 +304,6 @@
                             "name": "Bind",
                             "routerLink": "/bind",
                             "badge": "NEW"
-                        },
-                        {
-                            "name": "BlockUI",
-                            "routerLink": "/blockui"
                         },
                         {
                             "name": "Chip",
@@ -448,10 +323,6 @@
                             "routerLink": "/fluid"
                         },
                         {
-                            "name": "Inplace",
-                            "routerLink": "/inplace"
-                        },
-                        {
                             "name": "MeterGroup",
                             "routerLink": "/metergroup"
                         },
@@ -468,24 +339,12 @@
                             "routerLink": "/ripple"
                         },
                         {
-                            "name": "ScrollTop",
-                            "routerLink": "/scrolltop"
-                        },
-                        {
-                            "name": "Skeleton",
-                            "routerLink": "/skeleton"
-                        },
-                        {
                             "name": "StyleClass",
                             "routerLink": "/styleclass"
                         },
                         {
                             "name": "Tag",
                             "routerLink": "/tag"
-                        },
-                        {
-                            "name": "Terminal",
-                            "routerLink": "/terminal"
                         }
                     ]
                 },
@@ -514,20 +373,12 @@
                     "name": "Accessibility",
                     "routerLink": "/guides/accessibility"
                 },
-                       {
+                {
                     "name": "Animations",
                     "routerLink": "/guides/animations",
                     "badge": "NEW"
                 },
                 {
-                    "name": "PrimeFlex",
-                    "routerLink": "/guides/primeflex"
-                },
-                {
-                    "name": "PrimeTV",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
-                },
-                   {
                     "name": "RTL",
                     "routerLink": "/guides/rtl"
                 }
@@ -548,58 +399,6 @@
             ]
         },
         {
-            "name": "Figma UI Kit",
-            "icon": "pi pi-pencil",
-            "children": [
-                {
-                    "name": "Overview",
-                    "routerLink": "/uikit"
-                },
-               {
-                    "name": "Guide v4",
-                    "routerLink": "/uikit/guide/v4"
-                },
-                {
-                    "name": "Guide v3",
-                    "routerLink": "/uikit/guide/v3"
-                }
-            ]
-        },
-        {
-            "name": "Theme Designer",
-            "icon": "pi pi-sparkles",
-            "children": [
-                {
-                    "name": "Overview",
-                    "routerLink": "/designer"
-                },
-                {
-                    "name": "Guide",
-                    "routerLink": "/designer/guide"
-                },
-                           {
-                    "name": "Figma Plugin",
-                    "href": "https://www.figma.com/community/plugin/1592914021886732603/primeui-theme-generator"
-                },
-                {
-                    "name": "CI Pipeline",
-                    "routerLink": "/designer/ci"
-                }
-            ]
-
-        },
-        {
-            "name": "Templates",
-            "icon": "pi pi-star",
-            "routerLink": "/templates"
-        },
-        {
-            "name": "PrimeBlocks",
-            "icon": "pi pi-server",
-            "href": "https://primeblocks.org",
-            "badge": "NEW"
-        },
-        {
             "name": "Migration",
             "icon": "pi pi-arrow-up",
             "children": [
@@ -618,67 +417,21 @@
             ]
         },
         {
-            "name": "Support",
-            "icon": "pi pi-question",
-            "children": [
-                {
-                    "name": "Discord Server",
-                    "href": "https://discord.gg/gzKFYnpmCY"
-                },
-                {
-                    "name": "Forum",
-                    "href": "https://github.com/orgs/primefaces/discussions"
-                },
-                {
-                    "name": "Long Term Support",
-                    "routerLink": "/lts"
-                },
-                {
-                    "name": "PRO Support",
-                    "routerLink": "/support"
-                }
-            ]
-        },
-        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
                 {
-                    "name": "About Us",
-                    "routerLink": "/team"
-                },
-                {
-                    "name": "Roadmap",
-                    "routerLink": "/roadmap"
-                },
-                {
                     "name": "Source Code",
-                    "href": "https://github.com/primefaces/primeng"
+                    "href": "https://github.com/stephanj/VoxxUI"
                 },
                 {
                     "name": "Changelog",
-                    "href": "https://github.com/primefaces/primeng/blob/master/CHANGELOG.md"
+                    "href": "https://github.com/stephanj/VoxxUI/blob/master/CHANGELOG.md"
                 },
                 {
                     "name": "Contribution",
                     "routerLink": "/contribution",
                     "icon": "pi pi-users"
-                },
-                {
-                    "name": "Store",
-                    "href": "https://primeui.store"
-                },
-                {
-                    "name": "Twitter",
-                    "href": "https://twitter.com/prime_ng"
-                },
-                {
-                    "name": "Newsletter",
-                    "href": "https://www.primefaces.org/newsletter"
-                },
-                {
-                    "name": "PrimeGear",
-                    "href": "https://gear.primefaces.org"
                 }
             ]
         }

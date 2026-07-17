@@ -1,9 +1,10 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'filtermode-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -16,15 +17,16 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class FilterModeDoc {
     code: Code = {
-        typescript: `import { PrimeNGConfig } from 'primeng/api';
+        typescript: `import { VoxxUIConfig } from 'voxx-ui/api';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primengConfig: VoxxUIConfig) {}
 
     ngOnInit() {
         primengConfig.filterMatchModeOptions = {

@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
@@ -74,19 +75,19 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-button
+        html: `<vx-button
     icon="pi pi-arrow-right"
     (click)="visible = true"
     aria-controls="{{visible ? 'drawer' : null}}"
     aria-expanded="{{visible ? true : false}}"
-></p-button>
-<p-drawer
+></vx-button>
+<vx-drawer
     [(visible)]="visible"
     id="drawer"
     (onHide)="visible = false"
     role="region"
 >
     content
-</p-drawer>`
+</vx-drawer>`
     };
 }

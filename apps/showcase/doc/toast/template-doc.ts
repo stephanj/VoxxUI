@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { AvatarModule } from 'primeng/avatar';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { AvatarModule } from 'voxx-ui/avatar';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, AvatarModule],
@@ -15,19 +16,19 @@ import { AvatarModule } from 'primeng/avatar';
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+            <vx-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
                 <ng-template let-message #message>
                     <div class="flex flex-col items-start flex-auto">
                         <div class="flex items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                             <span class="font-bold">Amy Elsner</span>
                         </div>
                         <div class="font-medium text-lg my-4">{{ message.summary }}</div>
-                        <p-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
+                        <vx-button severity="success" size="small" label="Reply" (click)="onConfirm()" />
                     </div>
                 </ng-template>
-            </p-toast>
-            <p-button (click)="showConfirm()" label="View" />
+            </vx-toast>
+            <vx-button (click)="showConfirm()" label="View" />
         </div>
         <app-code></app-code>
     `,

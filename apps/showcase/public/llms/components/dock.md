@@ -12,22 +12,22 @@ A mock desktop UI implemented with various components in addition to Dock.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { DockModule } from 'primeng/dock';
-import { GalleriaModule } from 'primeng/galleria';
-import { MenubarModule } from 'primeng/menubar';
-import { TerminalModule } from 'primeng/terminal';
-import { ToastModule } from 'primeng/toast';
-import { TreeModule } from 'primeng/tree';
-import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'voxx-ui/dialog';
+import { DockModule } from 'voxx-ui/dock';
+import { GalleriaModule } from 'voxx-ui/galleria';
+import { MenubarModule } from 'voxx-ui/menubar';
+import { TerminalModule } from 'voxx-ui/terminal';
+import { ToastModule } from 'voxx-ui/toast';
+import { TreeModule } from 'voxx-ui/tree';
+import { TooltipModule } from 'voxx-ui/tooltip';
 import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card dock-demo">
-            <p-menubar [model]="menubarItems">
+            <vx-menubar [model]="menubarItems">
                 <ng-template #start>
                     <i class="pi pi-apple px-2"></i>
                 </ng-template>
@@ -39,23 +39,23 @@ import { MenuItem, MessageService } from 'primeng/api';
                     <i class="pi pi-search px-2"></i>
                     <i class="pi pi-bars px-2"></i>
                 </ng-template>
-            </p-menubar>
+            </vx-menubar>
             <div class="dock-window">
-                <p-dock [model]="dockItems" position="bottom">
+                <vx-dock [model]="dockItems" position="bottom">
                     <ng-template #item let-item>
                         <a [pTooltip]="item.label" tooltipPosition="top" class="p-dock-item-link">
                             <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
                         </a>
                     </ng-template>
-                </p-dock>
-                <p-toast position="top-center" key="tc" />
-                <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
-                    <p-tree [value]="nodes" />
-                </p-dialog>
-                <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
-                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
-                </p-dialog>
-                <p-galleria
+                </vx-dock>
+                <vx-toast position="top-center" key="tc" />
+                <vx-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false" header="Finder">
+                    <vx-tree [value]="nodes" />
+                </vx-dialog>
+                <vx-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
+                    <vx-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                </vx-dialog>
+                <vx-galleria
                     [(value)]="images"
                     [showThumbnails]="false"
                     [showThumbnailNavigators]="false"
@@ -70,7 +70,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                     <ng-template #item let-item>
                         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                     </ng-template>
-                </p-galleria>
+                </vx-galleria>
             </div>
         </div>
     `,
@@ -370,26 +370,26 @@ Dock requires a collection of menuitems as its model . Default location is botto
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DockModule } from 'primeng/dock';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { TooltipModule } from 'primeng/tooltip';
-import { MenuItem } from 'primeng/api';
+import { DockModule } from 'voxx-ui/dock';
+import { RadioButtonModule } from 'voxx-ui/radiobutton';
+import { TooltipModule } from 'voxx-ui/tooltip';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
                 <div *ngFor="let pos of positionOptions" class="flex items-center">
-                    <p-radiobutton name="dock" [value]="pos.value" [label]="pos.label" [(ngModel)]="position" [inputId]="pos.label" />
+                    <vx-radiobutton name="dock" [value]="pos.value" [label]="pos.label" [(ngModel)]="position" [inputId]="pos.label" />
                     <label [for]="pos.label" class="ml-2"> {{ pos.label }} </label>
                 </div>
             </div>
             <div class="dock-window">
-                <p-dock [model]="items" [position]="position">
+                <vx-dock [model]="items" [position]="position">
                     <ng-template #item let-item>
                         <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" width="100%" />
                     </ng-template>
-                </p-dock>
+                </vx-dock>
             </div>
         </div>
     `,

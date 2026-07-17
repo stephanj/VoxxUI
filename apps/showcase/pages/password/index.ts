@@ -3,7 +3,6 @@ import { BasicDoc } from '@/doc/password/basic-doc';
 import { DisabledDoc } from '@/doc/password/disabled-doc';
 import { FilledDoc } from '@/doc/password/filled-doc';
 import { FloatLabelDoc } from '@/doc/password/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/password/iftalabel-doc';
 import { ImportDoc } from '@/doc/password/import-doc';
 import { InvalidDoc } from '@/doc/password/invalid-doc';
 import { LocaleDoc } from '@/doc/password/locale-doc';
@@ -16,10 +15,11 @@ import { ToggleMaskDoc } from '@/doc/password/togglemask-doc';
 import { FluidDoc } from '@/doc/password/fluid-doc';
 import { ClearIconDoc } from '@/doc/password/clearicon-doc';
 import { PTComponent } from '@/doc/password/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular Password Component"
         header="Password"
@@ -70,11 +70,6 @@ export class PasswordDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

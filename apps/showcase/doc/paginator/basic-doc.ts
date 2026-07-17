@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { PaginatorState, PaginatorModule } from 'primeng/paginator';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { PaginatorState, PaginatorModule } from 'voxx-ui/paginator';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [PaginatorModule, AppCode, AppDocSectionText],
@@ -15,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+            <vx-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
         </div>
         <app-code></app-code>
     `

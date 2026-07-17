@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { RippleModule } from 'primeng/ripple';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RippleModule } from 'voxx-ui/ripple';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'custom-doc',
     standalone: true,
     imports: [RippleModule, AppCode, AppDocSectionText],
@@ -18,9 +19,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 configurator needs to be turned on for the demo.</span
             >
             <div class="flex justify-center gap-2">
-                <div pRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">Green</div>
-                <div pRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">Orange</div>
-                <div pRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">Purple</div>
+                <div vxRipple class="box" style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)">Green</div>
+                <div vxRipple class="box" style="border: 1px solid rgba(255, 193, 6, 0.3); --p-ripple-background: rgba(255, 193, 6, 0.3)">Orange</div>
+                <div vxRipple class="box" style="border: 1px solid rgba(156, 39, 176, 0.3); --p-ripple-background: rgba(156, 39, 176, 0.3)">Purple</div>
             </div>
         </div>
         <app-code></app-code>

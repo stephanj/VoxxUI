@@ -1,13 +1,13 @@
 import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@primeuix/utils';
-import { VoidListener } from 'primeng/ts-helpers';
+import { VoidListener } from 'voxx-ui/ts-helpers';
 
 /**
  * StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.
  * @group Components
  */
 @Directive({
-    selector: '[pStyleClass]',
+    selector: '[vxStyleClass]',
     standalone: true
 })
 export class StyleClass implements OnDestroy {
@@ -20,7 +20,7 @@ export class StyleClass implements OnDestroy {
      * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
      * @group Props
      */
-    @Input('pStyleClass') selector: string | undefined;
+    @Input('vxStyleClass') selector: string | undefined;
     /**
      * Style class to add when item begins to get displayed.
      * @group Props

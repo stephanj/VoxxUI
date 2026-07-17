@@ -1,15 +1,16 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ProgressSpinnerModule } from 'voxx-ui/progressspinner';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'progressspinner-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, ProgressSpinnerModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-progressspinner />
+            <vx-progressspinner />
         </app-docptviewer>
     `
 })

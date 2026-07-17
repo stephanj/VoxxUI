@@ -1,20 +1,20 @@
 {
-    "name": "@primeng/mcp",
-    "version": "21.1.9",
-    "author": "PrimeTek Informatics",
-    "description": "Model Context Protocol (MCP) server for PrimeNg component library",
-    "homepage": "https://primeng.org/",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "name": "@voxxui/mcp",
+    "version": "22.0.0",
+    "author": "Stephan Janssen",
+    "description": "Model Context Protocol (MCP) server for the VoxxUI component library",
+    "homepage": "https://github.com/stephanj/VoxxUI",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng.git",
+        "url": "https://github.com/stephanj/VoxxUI.git",
         "directory": "packages/mcp"
     },
     "bugs": {
-        "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/stephanj/VoxxUI/issues"
     },
     "keywords": [
-        "primeng",
+        "voxx-ui",
         "mcp",
         "model-context-protocol",
         "ai",

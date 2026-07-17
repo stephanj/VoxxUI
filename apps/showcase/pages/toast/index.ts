@@ -10,9 +10,10 @@ import { ResponsiveDoc } from '@/doc/toast/responsive-doc';
 import { SeverityDoc } from '@/doc/toast/severity-doc';
 import { StickyDoc } from '@/doc/toast/sticky-doc';
 import { TemplateDoc } from '@/doc/toast/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Toast Component" header="Toast" description="Toast is used to display messages in an overlay." [docs]="docs" [apiDocs]="['Toast', 'ToastMessage']" [ptDocs]="ptComponent" themeDocs="toast"></app-doc> `,
     standalone: true,
     imports: [AppDoc]

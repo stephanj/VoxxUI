@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-progress-spinner ariaLabel="loading" />
+            <vx-progress-spinner ariaLabel="loading" />
         </div>
     `,
     standalone: true,
@@ -35,7 +35,7 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
+            <vx-progress-spinner strokeWidth="8" fill="transparent" animationDuration=".5s" [style]="{ width: '50px', height: '50px' }" />
         </div>
     `,
     standalone: true,

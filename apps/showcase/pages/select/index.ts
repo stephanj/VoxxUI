@@ -9,7 +9,6 @@ import { FilterDoc } from '@/doc/select/filter-doc';
 import { FloatLabelDoc } from '@/doc/select/floatlabel-doc';
 import { FluidDoc } from '@/doc/select/fluid-doc';
 import { GroupDoc } from '@/doc/select/group-doc';
-import { IftaLabelDoc } from '@/doc/select/iftalabel-doc';
 import { ImportDoc } from '@/doc/select/import-doc';
 import { InvalidDoc } from '@/doc/select/invalid-doc';
 import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscroll-doc';
@@ -21,9 +20,10 @@ import { TemplateDoc } from '@/doc/select/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenforms-doc';
 import { VirtualScrollDoc } from '@/doc/select/virtualscroll-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Select Component" header="Select" description="Select is used to choose an item from a collection of options." [docs]="docs" [apiDocs]="['Select']" [ptDocs]="ptComponent" themeDocs="select"></app-doc> `,
     standalone: true,
     imports: [AppDoc],
@@ -91,11 +91,6 @@ export class SelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

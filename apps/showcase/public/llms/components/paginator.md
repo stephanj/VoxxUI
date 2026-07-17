@@ -12,16 +12,16 @@ Paginator is used as a controlled component with first , rows and onPageChange p
 
 ```typescript
 import { Component } from '@angular/core';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { Paginator } from 'voxx-ui/paginator';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
+            <vx-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
         </div>
     `,
     standalone: true,
-    imports: [PaginatorModule]
+    imports: []
 })
 export class PaginatorBasicDemo {
     first: number = 0;
@@ -40,12 +40,11 @@ Current page report item in the template displays information about the paginati
 
 ```typescript
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-paginator
+            <vx-paginator
                 (onPageChange)="onPageChange($event)"
                 [first]="first"
                 [rows]="rows"
@@ -58,7 +57,7 @@ import { PaginatorModule } from 'primeng/paginator';
         </div>
     `,
     standalone: true,
-    imports: [PaginatorModule]
+    imports: []
 })
 export class PaginatorCurrentpagereportDemo {
     first: number = 0;
@@ -77,17 +76,16 @@ Sample image gallery implementation using paginator.
 
 ```typescript
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
     template: `
         <div class="card flex flex-col gap-4 justify-center items-center">
-            <p-paginator [first]="first" [rows]="1" [totalRecords]="12" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+            <vx-paginator [first]="first" [rows]="1" [totalRecords]="12" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></vx-paginator>
             <img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
         </div>
     `,
     standalone: true,
-    imports: [PaginatorModule]
+    imports: []
 })
 export class PaginatorImagesDemo {
     first: number = 0;
@@ -107,31 +105,25 @@ Templating allows overriding the default content of the UI elements by defining 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { SelectModule } from 'primeng/select';
-import { PaginatorModule } from 'primeng/paginator';
-import { SliderModule } from 'primeng/slider';
 
 @Component({
     template: `
         <div class="card flex flex-col gap-4">
             <div class="flex items-center justify-center">
                 <div>
-                    <p-button icon="pi pi-star" outlined />
+                    <vx-button icon="pi pi-star" outlined />
                 </div>
                 <div class="flex-1">
-                    <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
+                    <vx-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
                 </div>
                 <div class="justify-end">
-                    <p-button icon="pi pi-search" />
+                    <vx-button icon="pi pi-search" />
                 </div>
             </div>
-            <p-divider />
             <div class="flex items-center justify-end">
                 <span class="mx-1 text-color">Items per page: </span>
-                <p-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
-                <p-paginator
+                <vx-select [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
+                <vx-paginator
                     [first]="first2"
                     [rows]="rows2"
                     [totalRecords]="120"
@@ -140,15 +132,14 @@ import { SliderModule } from 'primeng/slider';
                     currentPageReportTemplate="{first} - {last} of {totalRecords}"
                     [showPageLinks]="false"
                     [showFirstLastIcon]="false"
-                ></p-paginator>
+                ></vx-paginator>
             </div>
-            <p-divider />
             <div class="flex items-center justify-start">
                 <div class="flex justify-center items-center gap-4">
                     <span>Items per page: </span>
-                    <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
+                    <vx-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
                 </div>
-                <p-paginator
+                <vx-paginator
                     (onPageChange)="onPageChange3($event)"
                     [first]="first3"
                     [rows]="rows3"
@@ -156,12 +147,12 @@ import { SliderModule } from 'primeng/slider';
                     [showFirstLastIcon]="false"
                     [showCurrentPageReport]="true"
                     currentPageReportTemplate="{first} - {last} of {totalRecords}"
-                ></p-paginator>
+                ></vx-paginator>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, DividerModule, SelectModule, PaginatorModule, SliderModule, FormsModule]
+    imports: [FormsModule]
 })
 export class PaginatorTemplateDemo {
     first1: number = 0;

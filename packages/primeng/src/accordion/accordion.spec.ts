@@ -1,13 +1,14 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion
+        <vx-accordion
             [(value)]="value"
             [multiple]="multiple"
             [selectOnFocus]="selectOnFocus"
@@ -18,33 +19,33 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
             (onOpen)="onOpen($event)"
             (onClose)="onClose($event)"
         >
-            <p-accordion-panel [value]="'tab1'" [disabled]="tab1Disabled">
-                <p-accordion-header>
+            <vx-accordion-panel [value]="'tab1'" [disabled]="tab1Disabled">
+                <vx-accordion-header>
                     <span class="header-text">Tab 1 Header</span>
-                </p-accordion-header>
-                <p-accordion-content>
+                </vx-accordion-header>
+                <vx-accordion-content>
                     <div class="content-1">Tab 1 Content</div>
-                </p-accordion-content>
-            </p-accordion-panel>
+                </vx-accordion-content>
+            </vx-accordion-panel>
 
-            <p-accordion-panel [value]="'tab2'" [disabled]="tab2Disabled">
-                <p-accordion-header>
+            <vx-accordion-panel [value]="'tab2'" [disabled]="tab2Disabled">
+                <vx-accordion-header>
                     <span class="header-text">Tab 2 Header</span>
-                </p-accordion-header>
-                <p-accordion-content>
+                </vx-accordion-header>
+                <vx-accordion-content>
                     <div class="content-2">Tab 2 Content</div>
-                </p-accordion-content>
-            </p-accordion-panel>
+                </vx-accordion-content>
+            </vx-accordion-panel>
 
-            <p-accordion-panel [value]="'tab3'" [disabled]="tab3Disabled">
-                <p-accordion-header>
+            <vx-accordion-panel [value]="'tab3'" [disabled]="tab3Disabled">
+                <vx-accordion-header>
                     <span class="header-text">Tab 3 Header</span>
-                </p-accordion-header>
-                <p-accordion-content>
+                </vx-accordion-header>
+                <vx-accordion-content>
                     <div class="content-3">Tab 3 Content</div>
-                </p-accordion-content>
-            </p-accordion-panel>
-        </p-accordion>
+                </vx-accordion-content>
+            </vx-accordion-panel>
+        </vx-accordion>
     `
 })
 class TestAccordionComponent {
@@ -72,17 +73,18 @@ class TestAccordionComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion [(value)]="value" [multiple]="true">
+        <vx-accordion [(value)]="value" [multiple]="true">
             @for (tab of tabs; track tab.id) {
-                <p-accordion-panel [value]="tab.id">
-                    <p-accordion-header>{{ tab.header }}</p-accordion-header>
-                    <p-accordion-content>{{ tab.content }}</p-accordion-content>
-                </p-accordion-panel>
+                <vx-accordion-panel [value]="tab.id">
+                    <vx-accordion-header>{{ tab.header }}</vx-accordion-header>
+                    <vx-accordion-content>{{ tab.content }}</vx-accordion-content>
+                </vx-accordion-panel>
             }
-        </p-accordion>
+        </vx-accordion>
     `
 })
 class TestDynamicAccordionComponent {
@@ -95,20 +97,21 @@ class TestDynamicAccordionComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion [(value)]="value">
-            <p-accordion-panel value="custom">
-                <p-accordion-header>
+        <vx-accordion [(value)]="value">
+            <vx-accordion-panel value="custom">
+                <vx-accordion-header>
                     <ng-template #toggleicon let-active="active">
                         <span class="custom-icon">{{ active ? '▼' : '▶' }}</span>
                     </ng-template>
                     Custom Header with Icon
-                </p-accordion-header>
-                <p-accordion-content>Custom Content</p-accordion-content>
-            </p-accordion-panel>
-        </p-accordion>
+                </vx-accordion-header>
+                <vx-accordion-content>Custom Content</vx-accordion-content>
+            </vx-accordion-panel>
+        </vx-accordion>
     `
 })
 class TestCustomIconAccordionComponent {
@@ -116,19 +119,20 @@ class TestCustomIconAccordionComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion [value]="'tab1'" [pt]="pt">
-            <p-accordion-panel [value]="'tab1'">
-                <p-accordion-header>PT Test Header 1</p-accordion-header>
-                <p-accordion-content>PT Test Content 1</p-accordion-content>
-            </p-accordion-panel>
-            <p-accordion-panel [value]="'tab2'">
-                <p-accordion-header>PT Test Header 2</p-accordion-header>
-                <p-accordion-content>PT Test Content 2</p-accordion-content>
-            </p-accordion-panel>
-        </p-accordion>
+        <vx-accordion [value]="'tab1'" [pt]="pt">
+            <vx-accordion-panel [value]="'tab1'">
+                <vx-accordion-header>PT Test Header 1</vx-accordion-header>
+                <vx-accordion-content>PT Test Content 1</vx-accordion-content>
+            </vx-accordion-panel>
+            <vx-accordion-panel [value]="'tab2'">
+                <vx-accordion-header>PT Test Header 2</vx-accordion-header>
+                <vx-accordion-content>PT Test Content 2</vx-accordion-content>
+            </vx-accordion-panel>
+        </vx-accordion>
     `
 })
 class TestPTAccordionComponent {
@@ -926,7 +930,7 @@ describe('Accordion', () => {
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
-            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const accordionEl = ptFixture.debugElement.query(By.css('vx-accordion'));
             const classList = accordionEl.nativeElement.className;
 
             expect(classList).toContain('ROOT_CLASS');
@@ -944,7 +948,7 @@ describe('Accordion', () => {
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
-            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const accordionEl = ptFixture.debugElement.query(By.css('vx-accordion'));
 
             expect(accordionEl.nativeElement.className).toContain('PT_ROOT_CLASS');
             expect(accordionEl.nativeElement.getAttribute('data-test')).toBe('accordion-test');
@@ -962,7 +966,7 @@ describe('Accordion', () => {
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
-            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const accordionEl = ptFixture.debugElement.query(By.css('vx-accordion'));
 
             expect(accordionEl.nativeElement.className).toContain('PT_ROOT_CLASS');
             expect(accordionEl.nativeElement.getAttribute('data-custom')).toBe('custom-value');
@@ -980,7 +984,7 @@ describe('Accordion', () => {
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
-            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const accordionEl = ptFixture.debugElement.query(By.css('vx-accordion'));
 
             expect(accordionEl.nativeElement.className).toContain('SINGLE');
             expect(accordionEl.nativeElement.getAttribute('data-select-on-focus')).toBe('false');
@@ -998,7 +1002,7 @@ describe('Accordion', () => {
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
-            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const accordionEl = ptFixture.debugElement.query(By.css('vx-accordion'));
             accordionEl.nativeElement.click();
 
             expect(clicked).toBe(true);
@@ -1009,7 +1013,7 @@ describe('Accordion', () => {
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
-            const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+            const accordionEl = ptFixture.debugElement.query(By.css('vx-accordion'));
 
             expect(accordionEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
         });

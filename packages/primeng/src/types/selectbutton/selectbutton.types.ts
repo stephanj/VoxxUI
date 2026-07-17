@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ToggleButtonPassThrough } from 'primeng/types/togglebutton';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import type { ToggleButtonPassThrough } from 'voxx-ui/types/togglebutton';
 
 /**
  * Custom pass-through(pt) options.

@@ -13,12 +13,12 @@ Knob is an input component and used with the standard ngModel directive.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" />
+            <vx-knob [(ngModel)]="value" />
         </div>
     `,
     standalone: true,
@@ -36,12 +36,12 @@ Colors are customized with the textColor , rangeColor and valueColor properties.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
+            <vx-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
         </div>
     `,
     standalone: true,
@@ -59,12 +59,12 @@ When disabled is present, a visual hint is applied to indicate that the Knob can
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [disabled]="true" />
+            <vx-knob [(ngModel)]="value" [disabled]="true" />
         </div>
     `,
     standalone: true,
@@ -82,12 +82,12 @@ Boundaries are configured with the min and max properties whose defaults are 0 a
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
+            <vx-knob [(ngModel)]="value" [min]="-50" [max]="50" />
         </div>
     `,
     standalone: true,
@@ -105,16 +105,16 @@ Knob can be controlled with custom controls as well.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { KnobModule } from 'primeng/knob';
+import { ButtonModule } from 'voxx-ui/button';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex flex-col items-center gap-2">
-            <p-knob [(ngModel)]="value" size="150" readonly="true" />
+            <vx-knob [(ngModel)]="value" size="150" readonly="true" />
             <div class="flex gap-2">
-                <p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
-                <p-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
+                <vx-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
+                <vx-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
             </div>
         </div>
     `,
@@ -133,21 +133,21 @@ Knob can also be used with reactive forms. In this case, the formControlName pro
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { KnobModule } from 'voxx-ui/knob';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center gap-4">
                 <div class="flex flex-col items-center gap-1">
-                    <p-knob formControlName="value" [invalid]="isInvalid('value')" />
+                    <vx-knob formControlName="value" [invalid]="isInvalid('value')" />
                     @if (isInvalid('value')) {
-                        <p-message severity="error" size="small" variant="simple">{{ getErrorMessage('value') }}</p-message>
+                        <vx-message severity="error" size="small" variant="simple">{{ getErrorMessage('value') }}</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
@@ -211,12 +211,12 @@ When readonly present, value cannot be edited.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [readonly]="true" />
+            <vx-knob [(ngModel)]="value" [readonly]="true" />
         </div>
     `,
     standalone: true,
@@ -234,12 +234,12 @@ Diameter of the knob is defined in pixels using the size property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [size]="200" />
+            <vx-knob [(ngModel)]="value" [size]="200" />
         </div>
     `,
     standalone: true,
@@ -257,12 +257,12 @@ Size of each movement is defined with the step property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [step]="10" />
+            <vx-knob [(ngModel)]="value" [step]="10" />
         </div>
     `,
     standalone: true,
@@ -280,12 +280,12 @@ The border size is specified with the strokeWidth property as a number in pixels
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" [strokeWidth]="5" />
+            <vx-knob [(ngModel)]="value" [strokeWidth]="5" />
         </div>
     `,
     standalone: true,
@@ -303,12 +303,12 @@ Label is a string template that can be customized with the valueTemplate propert
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
+import { KnobModule } from 'voxx-ui/knob';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
+            <vx-knob [(ngModel)]="value" valueTemplate="{value}%" />
         </div>
     `,
     standalone: true,
@@ -324,21 +324,21 @@ export class KnobTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { KnobModule } from 'primeng/knob';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { KnobModule } from 'voxx-ui/knob';
+import { MessageModule } from 'voxx-ui/message';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col items-center gap-4">
                 <div class="flex flex-col items-center gap-1">
-                    <p-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
+                    <vx-knob #model="ngModel" [(ngModel)]="value" [invalid]="isInvalid(model)" name="knob" />
                     @if (isInvalid(model)) {
-                        <p-message severity="error" size="small" variant="simple">{{ getErrorMessage(model) }}</p-message>
+                        <vx-message severity="error" size="small" variant="simple">{{ getErrorMessage(model) }}</vx-message>
                     }
                 </div>
                 <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>

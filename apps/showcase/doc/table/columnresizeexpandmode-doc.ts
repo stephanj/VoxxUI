@@ -5,7 +5,7 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'columnresizeexpandmode-doc',
@@ -14,15 +14,15 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
-                            <th pResizableColumn>Code</th>
-                            <th pResizableColumn>Name</th>
-                            <th pResizableColumn>Category</th>
-                            <th pResizableColumn>Quantity</th>
+                            <th vxResizableColumn>Code</th>
+                            <th vxResizableColumn>Name</th>
+                            <th vxResizableColumn>Category</th>
+                            <th vxResizableColumn>Quantity</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-product>
@@ -33,9 +33,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ product.quantity }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

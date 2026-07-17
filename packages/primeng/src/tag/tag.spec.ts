@@ -1,12 +1,13 @@
-import { Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Tag } from './tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-tag [value]="value" [icon]="icon" [severity]="severity" [rounded]="rounded" [styleClass]="styleClass"> </p-tag> `
+    template: ` <vx-tag [value]="value" [icon]="icon" [severity]="severity" [rounded]="rounded" [styleClass]="styleClass"> </vx-tag> `
 })
 class TestBasicTagComponent {
     value: string | undefined = 'Test Tag';
@@ -17,54 +18,60 @@ class TestBasicTagComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-tag value="Icon Tag" icon="pi pi-check"></p-tag> `
+    template: ` <vx-tag value="Icon Tag" icon="pi pi-check"></vx-tag> `
 })
 class TestIconTagComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tag value="Template Tag">
+        <vx-tag value="Template Tag">
             <ng-template #icon>
                 <i class="custom-icon">✓</i>
             </ng-template>
-        </p-tag>
+        </vx-tag>
     `
 })
 class TestIconTemplateTagComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tag value="PTemplate Tag">
-            <ng-template pTemplate="icon">
+        <vx-tag value="PTemplate Tag">
+            <ng-template vxTemplate="icon">
                 <span class="p-template-icon">⭐</span>
             </ng-template>
-        </p-tag>
+        </vx-tag>
     `
 })
 class TestPTemplateTagComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tag>
+        <vx-tag>
             <span class="content-projection">Custom Content</span>
-        </p-tag>
+        </vx-tag>
     `
 })
 class TestContentProjectionTagComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-tag value="Success Tag" severity="success" icon="pi pi-check" [rounded]="true"> </p-tag> `
+    template: ` <vx-tag value="Success Tag" severity="success" icon="pi pi-check" [rounded]="true"> </vx-tag> `
 })
 class TestSeverityTagComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-tag [value]="value" [severity]="severity" [style]="style" [styleClass]="styleClass"> </p-tag> `
+    template: ` <vx-tag [value]="value" [severity]="severity" [style]="style" [styleClass]="styleClass"> </vx-tag> `
 })
 class TestStyleTagComponent {
     value = 'Styled Tag';
@@ -74,16 +81,17 @@ class TestStyleTagComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tag value="Multiple Icons">
+        <vx-tag value="Multiple Icons">
             <ng-template #icon>
                 <i class="template-icon">🏷️</i>
             </ng-template>
-            <ng-template pTemplate="icon">
+            <ng-template vxTemplate="icon">
                 <span class="p-template-icon">📌</span>
             </ng-template>
-        </p-tag>
+        </vx-tag>
     `
 })
 class TestMultipleIconTemplatesComponent {}
@@ -386,24 +394,24 @@ describe('Tag', () => {
             }
         });
 
-        it('should handle pTemplate icon processing', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
-            pTemplateFixture.detectChanges();
+        it('should handle vxTemplate icon processing', async () => {
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateTag = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+            const vxTemplateTag = vxTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
 
-            expect(() => pTemplateTag.ngAfterContentInit()).not.toThrow();
-            expect(pTemplateTag.templates).toBeDefined();
+            expect(() => vxTemplateTag.ngAfterContentInit()).not.toThrow();
+            expect(vxTemplateTag.templates).toBeDefined();
 
             // Check if icon section exists, may be rendered differently in test environment
-            const iconContainer = pTemplateFixture.debugElement.query(By.css('span:nth-child(2)'));
+            const iconContainer = vxTemplateFixture.debugElement.query(By.css('span:nth-child(2)'));
             if (iconContainer) {
                 expect(iconContainer).toBeTruthy();
             } else {
                 // Template processing might not work fully in test environment
-                expect(pTemplateTag.templates).toBeDefined();
+                expect(vxTemplateTag.templates).toBeDefined();
             }
         });
 
@@ -424,19 +432,19 @@ describe('Tag', () => {
             }
         });
 
-        it('should render pTemplate icon correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
-            pTemplateFixture.detectChanges();
+        it('should render vxTemplate icon correctly', async () => {
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateIcon = pTemplateFixture.debugElement.query(By.css('.p-template-icon'));
-            if (pTemplateIcon) {
-                expect(pTemplateIcon).toBeTruthy();
-                expect(pTemplateIcon.nativeElement.textContent.trim()).toBe('⭐');
+            const vxTemplateIcon = vxTemplateFixture.debugElement.query(By.css('.p-template-icon'));
+            if (vxTemplateIcon) {
+                expect(vxTemplateIcon).toBeTruthy();
+                expect(vxTemplateIcon.nativeElement.textContent.trim()).toBe('⭐');
             } else {
                 // If template processing doesn't work in test environment, just verify component exists
-                const tagComponent = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+                const tagComponent = vxTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
                 expect(tagComponent.templates).toBeDefined();
             }
         });
@@ -487,24 +495,24 @@ describe('Tag', () => {
         });
 
         it('should update template when component state changes', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
-            pTemplateFixture.detectChanges();
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateTag = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+            const vxTemplateTag = vxTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
 
             // Change component properties
-            pTemplateTag.value = 'Updated Template Tag';
-            pTemplateFixture.detectChanges();
+            vxTemplateTag.value = 'Updated Template Tag';
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
             // Template should still be processed correctly
-            expect(pTemplateTag.templates).toBeDefined();
+            expect(vxTemplateTag.templates).toBeDefined();
 
             // Verify the value property was updated
-            expect(pTemplateTag.value).toBe('Updated Template Tag');
+            expect(vxTemplateTag.value).toBe('Updated Template Tag');
         });
     });
 
@@ -772,28 +780,28 @@ describe('Tag', () => {
         });
 
         it('should process templates in ngAfterContentInit', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
-            pTemplateFixture.detectChanges();
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateTag = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+            const vxTemplateTag = vxTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
 
-            expect(pTemplateTag).toBeTruthy();
-            expect(typeof pTemplateTag.ngAfterContentInit).toBe('function');
-            expect(() => pTemplateTag.ngAfterContentInit()).not.toThrow();
+            expect(vxTemplateTag).toBeTruthy();
+            expect(typeof vxTemplateTag.ngAfterContentInit).toBe('function');
+            expect(() => vxTemplateTag.ngAfterContentInit()).not.toThrow();
         });
 
         it('should set _iconTemplate when processing PrimeTemplate', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
-            pTemplateFixture.detectChanges();
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+            vxTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
-            const pTemplateTag = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+            const vxTemplateTag = vxTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
 
-            expect(pTemplateTag).toBeTruthy();
-            expect(pTemplateTag.templates !== undefined || pTemplateTag._iconTemplate !== undefined).toBe(true);
+            expect(vxTemplateTag).toBeTruthy();
+            expect(vxTemplateTag.templates !== undefined || vxTemplateTag._iconTemplate !== undefined).toBe(true);
         });
 
         it('should handle missing templates gracefully', () => {
@@ -1035,29 +1043,30 @@ describe('Tag', () => {
         });
 
         it('should process icon templates correctly', async () => {
-            const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
-            pTemplateFixture.detectChanges();
+            const vxTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+            vxTemplateFixture.detectChanges();
 
-            const pTemplateTag = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+            const vxTemplateTag = vxTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
 
             // Manually call ngAfterContentInit to test processing
-            expect(() => pTemplateTag.ngAfterContentInit()).not.toThrow();
+            expect(() => vxTemplateTag.ngAfterContentInit()).not.toThrow();
 
             // Check if _iconTemplate is set after processing
-            pTemplateTag.ngAfterContentInit();
+            vxTemplateTag.ngAfterContentInit();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            await pTemplateFixture.whenStable();
+            await vxTemplateFixture.whenStable();
 
             // Template processing should work without errors
-            expect(pTemplateTag).toBeTruthy();
+            expect(vxTemplateTag).toBeTruthy();
         });
     });
 
     describe('PassThrough API', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
             imports: [Tag],
-            template: `<p-tag [value]="value()" [icon]="icon()" [severity]="severity()" [rounded]="rounded()" [pt]="pt()"></p-tag>`
+            template: `<vx-tag [value]="value()" [icon]="icon()" [severity]="severity()" [rounded]="rounded()" [pt]="pt()"></vx-tag>`
         })
         class TestPTTagComponent {
             value = input<string | undefined>('PT Tag');
@@ -1073,7 +1082,7 @@ describe('Tag', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(TestPTTagComponent);
             fixture.detectChanges();
-            tagElement = fixture.debugElement.query(By.css('p-tag'));
+            tagElement = fixture.debugElement.query(By.css('vx-tag'));
         });
 
         describe('Case 1: Simple string classes', () => {

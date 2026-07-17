@@ -12,13 +12,13 @@ Breadcrumb provides contextual information about page hierarchy.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'voxx-ui/breadcrumb';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-breadcrumb [model]="items" [home]="home" />
+            <vx-breadcrumb [model]="items" [home]="home" />
         </div>
     `,
     standalone: true,
@@ -41,13 +41,13 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'voxx-ui/breadcrumb';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-breadcrumb [home]="home" [model]="items" />
+            <vx-breadcrumb [home]="home" [model]="items" />
         </div>
     `,
     standalone: true,
@@ -65,20 +65,20 @@ Custom content can be placed inside the items using the item template. The divid
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'voxx-ui/breadcrumb';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-breadcrumb [model]="items" [home]="home">
+            <vx-breadcrumb [model]="items" [home]="home">
                 <ng-template #item let-item>
                     <a class="cursor-pointer" [routerLink]="item.url">
                         <i [class]="item.icon"></i>
                     </a>
                 </ng-template>
                 <ng-template #separator> / </ng-template>
-            </p-breadcrumb>
+            </vx-breadcrumb>
         </div>
     `,
     standalone: true,

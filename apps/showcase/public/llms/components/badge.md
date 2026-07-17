@@ -12,16 +12,15 @@ Content of the badge is specified using the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-badge value="2" />
+            <vx-badge value="2" />
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeBasicDemo {}
 ```
@@ -32,17 +31,16 @@ Buttons have built-in support for badges to display a badge inline.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
     template: `
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
-            <p-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
+            <vx-button label="Emails" icon="pi pi-bell" label="Notifications" badge="2" />
+            <vx-button label="Inbox" icon="pi pi-inbox" badge="2" badgeSeverity="contrast" outlined />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule]
+    imports: []
 })
 export class BadgeButtonDemo {}
 ```
@@ -57,41 +55,13 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <i class="pi pi-bell !text-3xl" pBadge value="2"></i>
+            <i class="pi pi-bell !text-3xl" vxBadge value="2"></i>
         </div>
     `,
     standalone: true,
     imports: []
 })
 export class BadgeDirectiveDemo {}
-```
-
-## Overlay
-
-A badge can be added to any element by encapsulating the content with the OverlayBadge component.
-
-```typescript
-import { Component } from '@angular/core';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
-
-@Component({
-    template: `
-        <div class="card flex flex-wrap justify-center gap-6">
-            <p-overlaybadge value="2">
-                <i class="pi pi-bell" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge value="4" severity="danger">
-                <i class="pi pi-calendar" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-            <p-overlaybadge severity="danger">
-                <i class="pi pi-envelope" style="font-size: 2rem"></i>
-            </p-overlaybadge>
-        </div>
-    `,
-    standalone: true,
-    imports: [OverlayBadgeModule]
-})
-export class BadgeOverlayDemo {}
 ```
 
 ## position-doc
@@ -104,9 +74,9 @@ import { Component } from '@angular/core';
 @Component({
     template: `
         <div class="card flex justify-center">
-            <i class="pi pi-bell mr-6 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
-            <i class="pi pi-calendar mr-6 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
-            <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
+            <i class="pi pi-bell mr-6 p-text-secondary" vxBadge style="font-size: 2rem" value="2"></i>
+            <i class="pi pi-calendar mr-6 p-text-secondary" vxBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
+            <i class="pi pi-envelope p-text-secondary" vxBadge style="font-size: 2rem" severity="danger"></i>
         </div>
     `,
     standalone: true,
@@ -121,22 +91,21 @@ Severity defines the color of the badge, possible values are success , info , wa
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-badge value="2" />
-            <p-badge value="6" severity="secondary" />
-            <p-badge value="8" severity="success" />
-            <p-badge value="4" severity="info" />
-            <p-badge value="9" severity="warn" />
-            <p-badge value="3" severity="danger" />
-            <p-badge value="5" severity="contrast" />
+            <vx-badge value="2" />
+            <vx-badge value="6" severity="secondary" />
+            <vx-badge value="8" severity="success" />
+            <vx-badge value="4" severity="info" />
+            <vx-badge value="9" severity="warn" />
+            <vx-badge value="3" severity="danger" />
+            <vx-badge value="5" severity="contrast" />
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeSeverityDemo {}
 ```
@@ -147,19 +116,18 @@ Badge sizes are adjusted with the badgeSize property that accepts small , large 
 
 ```typescript
 import { Component } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-1 items-end">
-            <p-badge value="8" badgeSize="xlarge" severity="success" />
-            <p-badge value="6" badgeSize="large" severity="warn" />
-            <p-badge value="4" severity="info" />
-            <p-badge value="2" badgeSize="small" />
+            <vx-badge value="8" badgeSize="xlarge" severity="success" />
+            <vx-badge value="6" badgeSize="large" severity="warn" />
+            <vx-badge value="4" severity="info" />
+            <vx-badge value="2" badgeSize="small" />
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule]
+    imports: []
 })
 export class BadgeSizeDemo {}
 ```

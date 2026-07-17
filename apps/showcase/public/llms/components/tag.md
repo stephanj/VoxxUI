@@ -12,16 +12,15 @@ Label of the tag is defined with the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-tag value="New" />
+            <vx-tag value="New" />
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagBasicDemo {}
 ```
@@ -32,22 +31,21 @@ A font icon next to the value can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
         <div class="card flex flex-wrap justify-center gap-2">
-            <p-tag icon="pi pi-user" value="Primary" />
-            <p-tag icon="pi pi-search" severity="secondary" value="Secondary" />
-            <p-tag icon="pi pi-check" severity="success" value="Success" />
-            <p-tag icon="pi pi-info-circle" severity="info" value="Info" />
-            <p-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
-            <p-tag icon="pi pi-times" severity="danger" value="Danger" />
-            <p-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
+            <vx-tag icon="pi pi-user" value="Primary" />
+            <vx-tag icon="pi pi-search" severity="secondary" value="Secondary" />
+            <vx-tag icon="pi pi-check" severity="success" value="Success" />
+            <vx-tag icon="pi pi-info-circle" severity="info" value="Info" />
+            <vx-tag icon="pi pi-exclamation-triangle" severity="warn" value="Warn" />
+            <vx-tag icon="pi pi-times" severity="danger" value="Danger" />
+            <vx-tag icon="pi pi-cog" severity="contrast" value="Contrast" />
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagIconDemo {}
 ```
@@ -58,22 +56,21 @@ Enabling rounded , displays a tag as a pill.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-tag value="Primary" [rounded]="true" />
-            <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-            <p-tag severity="success" value="Success" [rounded]="true" />
-            <p-tag severity="info" value="Info" [rounded]="true" />
-            <p-tag severity="warn" value="Warn" [rounded]="true" />
-            <p-tag severity="danger" value="Danger" [rounded]="true" />
-            <p-tag severity="contrast" value="Contrast" [rounded]="true" />
+            <vx-tag value="Primary" [rounded]="true" />
+            <vx-tag severity="secondary" value="Secondary" [rounded]="true" />
+            <vx-tag severity="success" value="Success" [rounded]="true" />
+            <vx-tag severity="info" value="Info" [rounded]="true" />
+            <vx-tag severity="warn" value="Warn" [rounded]="true" />
+            <vx-tag severity="danger" value="Danger" [rounded]="true" />
+            <vx-tag severity="contrast" value="Contrast" [rounded]="true" />
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagPillDemo {}
 ```
@@ -84,22 +81,21 @@ Severity defines the color of the tag, possible values are success , info , warn
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-tag value="Primary" />
-            <p-tag severity="secondary" value="Secondary" />
-            <p-tag severity="success" value="Success" />
-            <p-tag severity="info" value="Info" />
-            <p-tag severity="warn" value="Warn" />
-            <p-tag severity="danger" value="Danger" />
-            <p-tag severity="contrast" value="Contrast" />
+            <vx-tag value="Primary" />
+            <vx-tag severity="secondary" value="Secondary" />
+            <vx-tag severity="success" value="Success" />
+            <vx-tag severity="info" value="Info" />
+            <vx-tag severity="warn" value="Warn" />
+            <vx-tag severity="danger" value="Danger" />
+            <vx-tag severity="contrast" value="Contrast" />
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagSeverityDemo {}
 ```
@@ -110,22 +106,21 @@ Children of the component are passed as the content for templating.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
 import { Country } from '@/domain/customer';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
+            <vx-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
                 <div class="flex items-center gap-2 px-1">
                     <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
                     <span class="text-base">Italy</span>
                 </div>
-            </p-tag>
+            </vx-tag>
         </div>
     `,
     standalone: true,
-    imports: [TagModule]
+    imports: []
 })
 export class TagTemplateDemo {}
 ```

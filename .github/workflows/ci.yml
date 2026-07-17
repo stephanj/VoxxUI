@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [master, 'claude/**']
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install
+        run: pnpm install
+
+      - name: Code format
+        run: pnpm run format:check
+
+      - name: Build library
+        run: pnpm run build:lib
+
+      - name: Unit tests
+        run: pnpm run test:unit
+
+      - name: Build showcase
+        run: pnpm --filter showcase build

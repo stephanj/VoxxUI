@@ -8,10 +8,11 @@ import { ReadOnlyDoc } from '@/doc/rating/readonly-doc';
 import { TemplateDoc } from '@/doc/rating/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/rating/templatedrivenforms-doc';
 import { PTComponent } from '@/doc/rating/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Rating Component" header="Rating" description="Rating component is a star based selection input." [docs]="docs" [apiDocs]="['Rating']" [ptDocs]="ptComponent" themeDocs="rating"></app-doc>`,
     standalone: true,
     imports: [AppDoc]

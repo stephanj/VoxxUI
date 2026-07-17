@@ -1,9 +1,10 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'cursor-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
@@ -23,7 +24,7 @@ export class CursorDoc {
     "mcpServers": {
         "primeng": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@voxxui/mcp"]
         }
     }
 }`

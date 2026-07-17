@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
-import type { PassThrough, PassThroughOption, ToastMessageOptions } from 'primeng/api';
+import type { PassThrough, PassThroughOption, ToastMessageOptions } from 'voxx-ui/api';
 
 /**
  * Custom pass-through(pt) options for Toast.

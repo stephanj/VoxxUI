@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BindModule } from 'primeng/bind';
+import { BindModule } from 'voxx-ui/bind';
 import { Tab } from './tab';
 import { TabList } from './tablist';
 import { TabPanel } from './tabpanel';

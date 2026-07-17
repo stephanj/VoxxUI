@@ -1,15 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { Drawer } from 'primeng/drawer';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { Drawer } from 'voxx-ui/drawer';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'voxx-ui/drawer';
+import { ButtonModule } from 'voxx-ui/button';
 import { FormsModule } from '@angular/forms';
-import { AvatarModule } from 'primeng/avatar';
-import { RippleModule } from 'primeng/ripple';
-import { StyleClassModule } from 'primeng/styleclass';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { RippleModule } from 'voxx-ui/ripple';
+import { StyleClassModule } from 'voxx-ui/styleclass';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'headless-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, DrawerModule, ButtonModule, FormsModule, AvatarModule, RippleModule, StyleClassModule],
@@ -18,7 +19,7 @@ import { StyleClassModule } from 'primeng/styleclass';
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-drawer #drawerRef [(visible)]="visible">
+            <vx-drawer #drawerRef [(visible)]="visible">
                 <ng-template #headless>
                     <div class="flex flex-col h-full">
                         <div class="flex items-center justify-between px-6 pt-4 shrink-0">
@@ -55,15 +56,15 @@ import { StyleClassModule } from 'primeng/styleclass';
                                 <span class="font-semibold text-2xl text-primary">Your Logo</span>
                             </span>
                             <span>
-                                <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
+                                <vx-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></vx-button>
                             </span>
                         </div>
                         <div class="overflow-y-auto">
                             <ul class="list-none p-4 m-0">
                                 <li>
                                     <div
-                                        pRipple
-                                        pStyleClass="@next"
+                                        vxRipple
+                                        vxStyleClass="@next"
                                         enterFromClass="hidden"
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
@@ -75,21 +76,21 @@ import { StyleClassModule } from 'primeng/styleclass';
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-home mr-2"></i>
                                                 <span class="font-medium">Dashboard</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-bookmark mr-2"></i>
                                                 <span class="font-medium">Bookmarks</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a
-                                                pRipple
-                                                pStyleClass="@next"
+                                                vxRipple
+                                                vxStyleClass="@next"
                                                 enterFromClass="hidden"
                                                 enterActiveClass="animate-slidedown"
                                                 leaveToClass="hidden"
@@ -103,8 +104,8 @@ import { StyleClassModule } from 'primeng/styleclass';
                                             <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                 <li>
                                                     <a
-                                                        pRipple
-                                                        pStyleClass="@next"
+                                                        vxRipple
+                                                        vxStyleClass="@next"
                                                         enterFromClass="hidden"
                                                         enterActiveClass="animate-slidedown"
                                                         leaveToClass="hidden"
@@ -118,7 +119,7 @@ import { StyleClassModule } from 'primeng/styleclass';
                                                     <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                         <li>
                                                             <a
-                                                                pRipple
+                                                                vxRipple
                                                                 class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                             >
                                                                 <i class="pi pi-table mr-2"></i>
@@ -127,7 +128,7 @@ import { StyleClassModule } from 'primeng/styleclass';
                                                         </li>
                                                         <li>
                                                             <a
-                                                                pRipple
+                                                                vxRipple
                                                                 class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                             >
                                                                 <i class="pi pi-search mr-2"></i>
@@ -137,7 +138,7 @@ import { StyleClassModule } from 'primeng/styleclass';
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                                    <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                         <i class="pi pi-chart-line mr-2"></i>
                                                         <span class="font-medium">Expenses</span>
                                                     </a>
@@ -145,26 +146,26 @@ import { StyleClassModule } from 'primeng/styleclass';
                                             </ul>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-users mr-2"></i>
                                                 <span class="font-medium">Team</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-comments mr-2"></i>
                                                 <span class="font-medium">Messages</span>
                                                 <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-calendar mr-2"></i>
                                                 <span class="font-medium">Calendar</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
@@ -175,8 +176,8 @@ import { StyleClassModule } from 'primeng/styleclass';
                             <ul class="list-none p-4 m-0">
                                 <li>
                                     <div
-                                        pRipple
-                                        pStyleClass="@next"
+                                        vxRipple
+                                        vxStyleClass="@next"
                                         enterFromClass="hidden"
                                         enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
@@ -188,19 +189,19 @@ import { StyleClassModule } from 'primeng/styleclass';
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-folder mr-2"></i>
                                                 <span class="font-medium">Projects</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-chart-bar mr-2"></i>
                                                 <span class="font-medium">Performance</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                            <a vxRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
@@ -211,15 +212,15 @@ import { StyleClassModule } from 'primeng/styleclass';
                         </div>
                         <div class="mt-auto">
                             <hr class="mb-4 mx-4 border-t border-0 border-surface" />
-                            <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <a vxRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
+                                <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
                         </div>
                     </div>
                 </ng-template>
-            </p-drawer>
-            <p-button (click)="visible = true" icon="pi pi-bars" />
+            </vx-drawer>
+            <vx-button (click)="visible = true" icon="pi pi-bars" />
         </div>
         <app-code></app-code>
     `

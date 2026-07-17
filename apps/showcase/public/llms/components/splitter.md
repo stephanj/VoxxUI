@@ -12,23 +12,22 @@ Splitter requires two SplitterPanel components as children which are displayed h
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" class="mb-8">
+            <vx-splitter [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 2</div>
                 </ng-template>
-            </p-splitter>
+            </vx-splitter>
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterHorizontalDemo {}
 ```
@@ -39,37 +38,36 @@ Splitters can be combined to create advanced layouts.
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
+            <vx-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
                     <div class="col flex w-full items-center justify-center">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <p-splitter layout="vertical" [panelSizes]="[50, 50]">
+                    <vx-splitter layout="vertical" [panelSizes]="[50, 50]">
                         <ng-template #panel>
                             <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
                         </ng-template>
                         <ng-template #panel>
-                            <p-splitter [panelSizes]="[20, 80]">
+                            <vx-splitter [panelSizes]="[20, 80]">
                                 <ng-template #panel>
                                     <div class="col h-full flex items-center justify-center">Panel 3</div>
                                 </ng-template>
                                 <ng-template #panel>
                                     <div class="col h-full flex items-center justify-center">Panel 4</div>
                                 </ng-template>
-                            </p-splitter>
+                            </vx-splitter>
                         </ng-template>
-                    </p-splitter>
+                    </vx-splitter>
                 </ng-template>
-            </p-splitter>
+            </vx-splitter>
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterNestedDemo {}
 ```
@@ -80,23 +78,22 @@ When no panelSizes are defined, panels are split 50/50, use the panelSizes prope
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
         <div class="card">
-            <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
+            <vx-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" class="mb-8">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 2</div>
                 </ng-template>
-            </p-splitter>
+            </vx-splitter>
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterSizeDemo {}
 ```
@@ -107,23 +104,22 @@ Panels are displayed as stacked by setting the layout to vertical .
 
 ```typescript
 import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';
 
 @Component({
     template: `
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
+            <vx-splitter [style]="{ height: '300px' }" class="mb-8" [panelSizes]="[50, 50]" layout="vertical">
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
                     <div class="flex items-center justify-center h-full">Panel 2</div>
                 </ng-template>
-            </p-splitter>
+            </vx-splitter>
         </div>
     `,
     standalone: true,
-    imports: [SplitterModule]
+    imports: []
 })
 export class SplitterVerticalDemo {}
 ```

@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-toast
+        <vx-toast
             [key]="key"
             [autoZIndex]="autoZIndex"
             [baseZIndex]="baseZIndex"
@@ -27,7 +28,7 @@ import { Toast, ToastItem } from './toast';
             [breakpoints]="breakpoints"
             (onClose)="onClose($event)"
         >
-        </p-toast>
+        </vx-toast>
     `
 })
 class TestBasicToastComponent {
@@ -52,59 +53,63 @@ class TestBasicToastComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-toast [key]="'template-test'">
+        <vx-toast [key]="'template-test'">
             <ng-template #message let-message>
                 <div class="custom-message">
                     <span class="custom-summary">{{ message.summary }}</span>
                     <span class="custom-detail">{{ message.detail }}</span>
                 </div>
             </ng-template>
-        </p-toast>
+        </vx-toast>
     `
 })
 class TestMessageTemplateComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-toast [key]="'headless-test'">
+        <vx-toast [key]="'headless-test'">
             <ng-template #headless let-message let-closeFn="closeFn">
                 <div class="custom-headless">
                     <span class="headless-content">{{ message.summary }}</span>
                     <button class="headless-close" (click)="closeFn($event)">X</button>
                 </div>
             </ng-template>
-        </p-toast>
+        </vx-toast>
     `
 })
 class TestHeadlessTemplateComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-toast [key]="'ptemplate-test'">
-            <ng-template pTemplate="message" let-message>
+        <vx-toast [key]="'ptemplate-test'">
+            <ng-template vxTemplate="message" let-message>
                 <div class="ptemplate-message">
                     <i class="ptemplate-icon">📢</i>
                     <span class="ptemplate-text">{{ message.summary }}</span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="headless" let-message let-closeFn="closeFn">
+            <ng-template vxTemplate="headless" let-message let-closeFn="closeFn">
                 <div class="ptemplate-headless">
                     <span class="ptemplate-content">{{ message.detail }}</span>
                     <button class="ptemplate-close" (click)="closeFn($event)">Close</button>
                 </div>
             </ng-template>
-        </p-toast>
+        </vx-toast>
     `
 })
 class TestPTemplateComponent {}
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-toast [key]="'position-test'" [position]="position"> </p-toast> `
+    template: ` <vx-toast [key]="'position-test'" [position]="position"> </vx-toast> `
 })
 class TestPositionComponent {
     position: any = 'top-left';
@@ -135,12 +140,12 @@ describe('Toast', () => {
 
         it('should create the component', () => {
             expect(component).toBeTruthy();
-            const toast = fixture.debugElement.query(By.css('p-toast'));
+            const toast = fixture.debugElement.query(By.css('vx-toast'));
             expect(toast).toBeTruthy();
         });
 
         it('should have default values', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.autoZIndex).toBe(true);
@@ -167,7 +172,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.key).toBe('custom-key');
@@ -190,7 +195,7 @@ describe('Toast', () => {
             component = fixture.componentInstance;
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             toastInstance = toastEl.componentInstance as Toast;
         });
 
@@ -326,7 +331,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages).toContain(message);
@@ -343,7 +348,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages?.length).toBe(2);
@@ -363,7 +368,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
@@ -389,7 +394,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             expect(toastInstance.messages?.length).toBe(1);
 
@@ -426,7 +431,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             toastInstance.onMessageClose({ index: 0, message });
@@ -452,14 +457,14 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.position).toBe('bottom-center');
         });
 
         it('should update position dynamically', async () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.position).toBe('top-left');
@@ -550,7 +555,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             spyOn(toastInstance, 'onMessageClose');
 
@@ -565,7 +570,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             // Get ToastItem and trigger animation end via onAfterLeave
-            const toastItemEl = fixture.debugElement.query(By.css('p-toastitem'));
+            const toastItemEl = fixture.debugElement.query(By.css('vx-toastitem'));
             const toastItemInstance = toastItemEl.componentInstance;
             // Simulate motion animation ending by calling onAfterLeave
             toastItemInstance.onAfterLeave({ element: toastItemEl.nativeElement });
@@ -574,7 +579,7 @@ describe('Toast', () => {
         });
     });
 
-    describe('Template Content Projection - pTemplate approach', () => {
+    describe('Template Content Projection - vxTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
         let component: TestPTemplateComponent;
 
@@ -584,8 +589,8 @@ describe('Toast', () => {
             fixture.detectChanges();
         });
 
-        it('should process pTemplate templates correctly', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+        it('should process vxTemplate templates correctly', () => {
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             toastInstance.ngAfterContentInit();
@@ -593,7 +598,7 @@ describe('Toast', () => {
             expect(toastInstance._headlessTemplate).toBeTruthy();
         });
 
-        it('should render pTemplate message content correctly', async () => {
+        it('should render vxTemplate message content correctly', async () => {
             const message: ToastMessageOptions = {
                 severity: 'warn',
                 summary: 'PTemplate Test',
@@ -645,7 +650,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.styleClass).toBe('custom-toast-class');
@@ -660,7 +665,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.breakpoints).toEqual(component.breakpoints);
@@ -686,7 +691,7 @@ describe('Toast', () => {
         });
 
         it('should handle animation start events', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             spyOn(toastInstance, 'onAnimationStart');
 
@@ -700,7 +705,7 @@ describe('Toast', () => {
         });
 
         it('should handle animation end events', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
             spyOn(toastInstance, 'onAnimationEnd');
 
@@ -720,7 +725,7 @@ describe('Toast', () => {
         });
 
         it('should handle null/undefined messages', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(() => toastInstance.add([])).not.toThrow();
@@ -728,7 +733,7 @@ describe('Toast', () => {
         });
 
         it('should handle empty message arrays', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             toastInstance.add([]);
@@ -747,7 +752,7 @@ describe('Toast', () => {
                 detail: 'Message without key'
             };
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             const canAdd = toastInstance.canAdd(message);
@@ -767,7 +772,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             expect(toastInstance.messages).toContain(longMessage);
@@ -785,7 +790,7 @@ describe('Toast', () => {
         });
 
         it('should unsubscribe from messageService on destroy', () => {
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             spyOn(toastInstance.messageSubscription!, 'unsubscribe');
@@ -803,7 +808,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastEl = fixture.debugElement.query(By.css('p-toast'));
+            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
             toastInstance.ngAfterViewInit(); // This creates the style
@@ -825,8 +830,8 @@ describe('Toast', () => {
             expect(fixture2.componentInstance).toBeTruthy();
 
             // Both components should work independently
-            const toast1El = fixture.debugElement.query(By.css('p-toast'));
-            const toast2El = fixture2.debugElement.query(By.css('p-toast'));
+            const toast1El = fixture.debugElement.query(By.css('vx-toast'));
+            const toast2El = fixture2.debugElement.query(By.css('vx-toast'));
 
             expect(toast1El.componentInstance.key).toBe('test');
             expect(toast2El.componentInstance.key).toBe('test2');
@@ -835,8 +840,9 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 1: Simple string classes', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="pt"></vx-toast> `
         })
         class TestToastPtComponent {
             pt: any = {};
@@ -864,7 +870,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
         });
 
@@ -874,15 +880,16 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
         });
     });
 
     describe('Toast PassThrough - Case 2: Objects', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="pt"></vx-toast> `
         })
         class TestToastPtObjectComponent {
             pt: any = {};
@@ -916,7 +923,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.border).toBe('1px solid red');
             expect(toastElement.nativeElement.getAttribute('data-p-test')).toBe('true');
@@ -934,7 +941,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.backgroundColor).toBe('yellow');
             expect(toastElement.nativeElement.getAttribute('aria-label')).toBe('TOAST_CONTAINER');
@@ -943,8 +950,9 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="pt"></vx-toast> `
         })
         class TestToastPtMixedComponent {
             pt: any = {};
@@ -978,7 +986,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
             expect(toastElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.padding).toBe('10px');
@@ -987,8 +995,9 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 4: Use variables from instance', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [position]="position" [pt]="pt"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [position]="position" [pt]="pt"></vx-toast> `
         })
         class TestToastPtInstanceComponent {
             pt: any = {};
@@ -1031,7 +1040,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             const hasBottomLeft = toastElement.nativeElement.classList.contains('POSITION_BOTTOM_LEFT');
             const hasTopRight = toastElement.nativeElement.classList.contains('POSITION_TOP_RIGHT');
 
@@ -1053,15 +1062,16 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.style.opacity).toBe('1');
         });
     });
 
     describe('Toast PassThrough - Case 5: Event binding', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="pt"></vx-toast> `
         })
         class TestToastPtEventComponent {
             pt: any = {};
@@ -1097,7 +1107,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             toastElement.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1119,7 +1129,7 @@ describe('Toast', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const toastElement = fixture.debugElement.query(By.css('p-toast'));
+            const toastElement = fixture.debugElement.query(By.css('vx-toast'));
             toastElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1130,14 +1140,16 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 6: Inline test', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="{ host: 'INLINE_HOST_CLASS' }"></vx-toast> `
         })
         class TestToastInlineStringPtComponent {}
 
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></vx-toast> `
         })
         class TestToastInlineObjectPtComponent {}
 
@@ -1152,7 +1164,7 @@ describe('Toast', () => {
             const testFixture = TestBed.createComponent(TestToastInlineStringPtComponent);
             testFixture.detectChanges();
 
-            const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+            const toastElement = testFixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
         });
 
@@ -1167,23 +1179,24 @@ describe('Toast', () => {
             const testFixture = TestBed.createComponent(TestToastInlineObjectPtComponent);
             testFixture.detectChanges();
 
-            const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+            const toastElement = testFixture.debugElement.query(By.css('vx-toast'));
             expect(toastElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.border).toBe('2px solid green');
         });
     });
 
-    describe('Toast PassThrough - Case 7: Test from PrimeNGConfig', () => {
+    describe('Toast PassThrough - Case 7: Test from VoxxUIConfig', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
             template: `
-                <p-toast [key]="'toast1'"></p-toast>
-                <p-toast [key]="'toast2'"></p-toast>
+                <vx-toast [key]="'toast1'"></vx-toast>
+                <vx-toast [key]="'toast2'"></vx-toast>
             `
         })
         class TestToastGlobalPtComponent {}
 
-        it('should apply global pt configuration from PrimeNGConfig', async () => {
+        it('should apply global pt configuration from VoxxUIConfig', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [Toast],
@@ -1191,7 +1204,7 @@ describe('Toast', () => {
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             toast: {
                                 host: 'GLOBAL_HOST_CLASS',
@@ -1205,7 +1218,7 @@ describe('Toast', () => {
             const testFixture = TestBed.createComponent(TestToastGlobalPtComponent);
             testFixture.detectChanges();
 
-            const toasts = testFixture.debugElement.queryAll(By.css('p-toast'));
+            const toasts = testFixture.debugElement.queryAll(By.css('vx-toast'));
             expect(toasts.length).toBe(2);
 
             toasts.forEach((toast) => {
@@ -1216,8 +1229,9 @@ describe('Toast', () => {
 
         it('should merge local pt with global pt configuration', async () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-toast> `
+                template: ` <vx-toast [key]="'pt-test'" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></vx-toast> `
             })
             class TestToastMergedPtComponent {}
 
@@ -1228,7 +1242,7 @@ describe('Toast', () => {
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             toast: {
                                 host: 'GLOBAL_HOST_CLASS'
@@ -1241,7 +1255,7 @@ describe('Toast', () => {
             const testFixture = TestBed.createComponent(TestToastMergedPtComponent);
             testFixture.detectChanges();
 
-            const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+            const toastElement = testFixture.debugElement.query(By.css('vx-toast'));
             // Local pt should override global pt
             expect(toastElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
             expect(toastElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
@@ -1250,8 +1264,9 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 8: Test hooks', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <vx-toast [key]="'pt-test'" [pt]="pt"></vx-toast> `
         })
         class TestToastPtHooksComponent {
             pt: any = {};
@@ -2066,16 +2081,17 @@ describe('ToastItem', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
             template: `
-                <p-toastItem
+                <vx-toastItem
                     [message]="message"
                     [pt]="{ message: 'INLINE_MESSAGE_CLASS' }"
                     [showTransformOptions]="'translateY(100%)'"
                     [hideTransformOptions]="'translateY(-100%)'"
                     [showTransitionOptions]="'300ms'"
                     [hideTransitionOptions]="'250ms'"
-                ></p-toastItem>
+                ></vx-toastItem>
             `
         })
         class TestInlineStringPtComponent {
@@ -2083,16 +2099,17 @@ describe('ToastItem', () => {
         }
 
         @Component({
+            changeDetection: ChangeDetectionStrategy.Eager,
             standalone: false,
             template: `
-                <p-toastItem
+                <vx-toastItem
                     [message]="message"
                     [pt]="{ message: { class: 'INLINE_OBJECT_CLASS', style: { border: '1px solid green' } } }"
                     [showTransformOptions]="'translateY(100%)'"
                     [hideTransformOptions]="'translateY(-100%)'"
                     [showTransitionOptions]="'300ms'"
                     [hideTransitionOptions]="'250ms'"
-                ></p-toastItem>
+                ></vx-toastItem>
             `
         })
         class TestInlineObjectPtComponent {

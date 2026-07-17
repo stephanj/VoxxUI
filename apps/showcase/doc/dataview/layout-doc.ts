@@ -3,14 +3,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'voxx-ui/button';
+import { DataViewModule } from 'voxx-ui/dataview';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'layout-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, DataViewModule, ButtonModule, TagModule, SelectButtonModule, AppCode, AppDocSectionText],
@@ -20,14 +21,14 @@ import { TagModule } from 'primeng/tag';
             <p>DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The <i>grid</i> mode is not built-in for flexibility purposes and requires a library with CSS grid features like Tailwind.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-dataview #dv [value]="products()" [layout]="layout">
+            <vx-dataview #dv [value]="products()" [layout]="layout">
                 <ng-template #header>
                     <div class="flex justify-end">
-                        <p-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
+                        <vx-selectbutton [(ngModel)]="layout" [options]="options" [allowEmpty]="false">
                             <ng-template #item let-item>
                                 <i class="pi " [ngClass]="{ 'pi-bars': item === 'list', 'pi-table': item === 'grid' }"></i>
                             </ng-template>
-                        </p-selectbutton>
+                        </vx-selectbutton>
                     </div>
                 </ng-template>
                 <ng-template #list let-items>
@@ -35,7 +36,7 @@ import { TagModule } from 'primeng/tag';
                         <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                             <div class="md:w-40 relative">
                                 <img class="block xl:block mx-auto rounded w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
-                                <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                <vx-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                             <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
                                 <div class="flex flex-row md:flex-col justify-between items-start gap-2">
@@ -53,8 +54,8 @@ import { TagModule } from 'primeng/tag';
                                 <div class="flex flex-col md:items-end gap-8">
                                     <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
                                     <div class="flex flex-row-reverse md:flex-row gap-2">
-                                        <button pButton icon="pi pi-heart" [outlined]="true"></button>
-                                        <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
+                                        <button vxButton icon="pi pi-heart" [outlined]="true"></button>
+                                        <button vxButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +69,7 @@ import { TagModule } from 'primeng/tag';
                                 <div class="bg-surface-50 flex justify-center rounded p-4">
                                     <div class="relative mx-auto">
                                         <img class="rounded w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px" />
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                        <vx-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                     </div>
                                 </div>
                                 <div class="pt-6">
@@ -87,8 +88,8 @@ import { TagModule } from 'primeng/tag';
                                     <div class="flex flex-col gap-6 mt-6">
                                         <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
                                         <div class="flex gap-2">
-                                            <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
-                                            <button pButton icon="pi pi-heart" outlined></button>
+                                            <button vxButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
+                                            <button vxButton icon="pi pi-heart" outlined></button>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +97,7 @@ import { TagModule } from 'primeng/tag';
                         </div>
                     </div>
                 </ng-template>
-            </p-dataview>
+            </vx-dataview>
         </div>
         <app-code [extFiles]="['Product']"></app-code>
     `

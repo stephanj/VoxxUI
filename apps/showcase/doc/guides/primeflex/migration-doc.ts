@@ -1,9 +1,10 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'migration-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule],
@@ -11,7 +12,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>
                 The <a href="https://www.npmjs.com/package/primeclt" target="_blank" rel="noopener noreferrer">primeclt</a> is a command line utility by PrimeTek to assist project setup and migration. The <i>pf2tw</i> command is created for smooth
-                migration between PrimeFlex to Tailwind CSS. For flawless migration, it is highly suggested to use PrimeNG v18 as the requirement of the tailwindcss plugin.
+                migration between PrimeFlex to Tailwind CSS. For flawless migration, it is highly suggested to use VoxxUI v18 as the requirement of the tailwindcss plugin.
             </p>
             <p>Install PrimeCLT.</p>
             <app-code [code]="code1" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>

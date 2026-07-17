@@ -1,18 +1,19 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { MapperPipe, Password, PasswordDirective, PasswordModule } from './password';
 
 // Test Components
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-password
+        <vx-password
             [(ngModel)]="value"
             [feedback]="feedback"
             [toggleMask]="toggleMask"
@@ -41,7 +42,7 @@ import { MapperPipe, Password, PasswordDirective, PasswordModule } from './passw
             (onBlur)="onInputBlur($event)"
             (onClear)="onClearEvent($event)"
         >
-        </p-password>
+        </vx-password>
     `
 })
 class TestBasicPasswordComponent {
@@ -78,10 +79,11 @@ class TestBasicPasswordComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <form [formGroup]="form">
-            <p-password formControlName="password" [feedback]="feedback" [toggleMask]="toggleMask"> </p-password>
+            <vx-password formControlName="password" [feedback]="feedback" [toggleMask]="toggleMask"> </vx-password>
         </form>
     `
 })
@@ -94,13 +96,14 @@ class TestFormPasswordComponent {
 }
 
 // Comprehensive template test component with all ContentChild projections
-// Password pTemplate component
+// Password vxTemplate component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
-            <!-- Header template with pTemplate directive -->
-            <ng-template pTemplate="header">
+        <vx-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
+            <!-- Header template with vxTemplate directive -->
+            <ng-template vxTemplate="header">
                 <div class="custom-header" data-testid="ptemplate-header">
                     <h6>Choose a password</h6>
                     <small>Security is our priority</small>
@@ -108,7 +111,7 @@ class TestFormPasswordComponent {
             </ng-template>
 
             <!-- Content template with strength indicators -->
-            <ng-template pTemplate="content">
+            <ng-template vxTemplate="content">
                 <div class="custom-content" data-testid="ptemplate-content">
                     <div class="requirement">• At least one lowercase letter</div>
                     <div class="requirement">• At least one uppercase letter</div>
@@ -119,7 +122,7 @@ class TestFormPasswordComponent {
             </ng-template>
 
             <!-- Footer template -->
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="custom-footer" data-testid="ptemplate-footer">
                     <small>Strong passwords save lives 🔐</small>
                     <div class="tips">
@@ -129,20 +132,20 @@ class TestFormPasswordComponent {
             </ng-template>
 
             <!-- Clear icon template -->
-            <ng-template pTemplate="clearicon">
+            <ng-template vxTemplate="clearicon">
                 <i class="pi pi-times custom-clear-icon" data-testid="ptemplate-clearicon"></i>
             </ng-template>
 
             <!-- Hide password icon template -->
-            <ng-template pTemplate="hideicon">
+            <ng-template vxTemplate="hideicon">
                 <i class="pi pi-eye-slash custom-hide-icon" data-testid="ptemplate-hideicon"></i>
             </ng-template>
 
             <!-- Show password icon template -->
-            <ng-template pTemplate="showicon">
+            <ng-template vxTemplate="showicon">
                 <i class="pi pi-eye custom-show-icon" data-testid="ptemplate-showicon"></i>
             </ng-template>
-        </p-password>
+        </vx-password>
     `
 })
 class TestPasswordPTemplateComponent {
@@ -155,9 +158,10 @@ class TestPasswordPTemplateComponent {
 
 // Password #template reference component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
+        <vx-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
             <!-- Header template with #template reference -->
             <ng-template #header>
                 <div class="custom-header" data-testid="ref-header">
@@ -201,7 +205,7 @@ class TestPasswordPTemplateComponent {
             <ng-template #showicon>
                 <i class="pi pi-eye custom-show-icon" data-testid="ref-showicon"></i>
             </ng-template>
-        </p-password>
+        </vx-password>
     `
 })
 class TestPasswordRefTemplateComponent {
@@ -213,8 +217,9 @@ class TestPasswordRefTemplateComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <input type="password" pPassword [(ngModel)]="value" [feedback]="feedback" [promptLabel]="promptLabel" [weakLabel]="weakLabel" [mediumLabel]="mediumLabel" [strongLabel]="strongLabel" /> `
+    template: ` <input type="password" vxPassword [(ngModel)]="value" [feedback]="feedback" [promptLabel]="promptLabel" [weakLabel]="weakLabel" [mediumLabel]="mediumLabel" [strongLabel]="strongLabel" /> `
 })
 class TestPasswordDirectiveComponent {
     value: string | null = null as any;
@@ -226,8 +231,9 @@ class TestPasswordDirectiveComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <input type="password" pPassword [(ngModel)]="value" [pt]="pt" [feedback]="feedback" /> `
+    template: ` <input type="password" vxPassword [(ngModel)]="value" [pt]="pt" [feedback]="feedback" /> `
 })
 class TestPTPasswordDirectiveComponent {
     value: string | null = null as any;
@@ -236,8 +242,9 @@ class TestPTPasswordDirectiveComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-password [(ngModel)]="value" [pt]="pt" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear"> </p-password> `
+    template: ` <vx-password [(ngModel)]="value" [pt]="pt" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear"> </vx-password> `
 })
 class TestPTPasswordComponent {
     value: string | null = null as any;
@@ -485,7 +492,7 @@ describe('Password', () => {
             testFixture.detectChanges();
 
             const inputEl = testFixture.debugElement.query(By.css('input'));
-            const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
 
             if (inputEl?.nativeElement) {
                 inputEl.nativeElement.value = 'weakpwd';
@@ -506,7 +513,7 @@ describe('Password', () => {
             testComponent.feedback = true;
             testFixture.detectChanges();
 
-            const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
             passwordComponent.overlayVisible = true;
 
             const inputEl = testFixture.debugElement.query(By.css('input'));
@@ -547,7 +554,7 @@ describe('Password', () => {
             testFixture.detectChanges();
 
             const showIcon = testFixture.debugElement.query(By.css('[data-pc-section="showIcon"]'));
-            const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
 
             if (showIcon?.nativeElement) {
                 showIcon.nativeElement.dispatchEvent(new Event('click'));
@@ -571,7 +578,7 @@ describe('Password', () => {
         });
 
         it('should show overlay on focus when feedback is enabled', async () => {
-            const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
             const inputEl = testFixture.debugElement.query(By.css('input'));
 
             inputEl.nativeElement.dispatchEvent(new Event('focus'));
@@ -582,7 +589,7 @@ describe('Password', () => {
         });
 
         it('should hide overlay on blur when feedback is enabled', async () => {
-            const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
             const inputEl = testFixture.debugElement.query(By.css('input'));
 
             passwordComponent.overlayVisible = true;
@@ -599,7 +606,7 @@ describe('Password', () => {
             await testFixture.whenStable();
             testFixture.detectChanges();
 
-            const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
             const inputEl = testFixture.debugElement.query(By.css('input'));
 
             inputEl.nativeElement.dispatchEvent(new Event('focus'));
@@ -742,7 +749,7 @@ describe('Password', () => {
         });
 
         it('should handle rapid value changes', async () => {
-            const passwordComponent = formTestFixture.debugElement.query(By.css('p-password')).componentInstance;
+            const passwordComponent = formTestFixture.debugElement.query(By.css('vx-password')).componentInstance;
             let changeCount = 0;
 
             // Subscribe to value changes (if available)
@@ -783,7 +790,7 @@ describe('Password', () => {
         });
     });
 
-    describe('Password pTemplate Tests', () => {
+    describe('Password vxTemplate Tests', () => {
         let templatesFixture: ComponentFixture<TestPasswordPTemplateComponent>;
         let templatesComponent: TestPasswordPTemplateComponent;
         let templatesPasswordElement: any;
@@ -791,11 +798,11 @@ describe('Password', () => {
         beforeEach(async () => {
             templatesFixture = TestBed.createComponent(TestPasswordPTemplateComponent);
             templatesComponent = templatesFixture.componentInstance;
-            templatesPasswordElement = templatesFixture.debugElement.query(By.css('p-password'));
+            templatesPasswordElement = templatesFixture.debugElement.query(By.css('vx-password'));
             templatesFixture.detectChanges();
         });
 
-        it('should create component with pTemplate templates', () => {
+        it('should create component with vxTemplate templates', () => {
             expect(templatesComponent).toBeTruthy();
             expect(templatesPasswordElement).toBeTruthy();
         });
@@ -893,8 +900,8 @@ describe('Password', () => {
             }).not.toThrow();
         });
 
-        it('should recognize both pTemplate and #template structures', () => {
-            // Test that component can handle both pTemplate directive and #template references
+        it('should recognize both vxTemplate and #template structures', () => {
+            // Test that component can handle both vxTemplate directive and #template references
             const passwordComponent = templatesPasswordElement.componentInstance;
 
             // Verify component can work with templates without errors
@@ -942,16 +949,16 @@ describe('Password', () => {
             }).not.toThrow();
         });
 
-        it('should support dual template approach (pTemplate + #template)', () => {
-            // Verify that using both pTemplate and #template doesn't cause conflicts
+        it('should support dual template approach (vxTemplate + #template)', () => {
+            // Verify that using both vxTemplate and #template doesn't cause conflicts
             const templateElements = templatesFixture.debugElement.queryAll(By.css('ng-template'));
 
             templateElements.forEach((template) => {
-                const pTemplateValue = template.nativeElement.getAttribute('pTemplate');
-                if (pTemplateValue) {
-                    // Should have both pTemplate attribute and local reference
-                    expect(template.nativeElement.hasAttribute('pTemplate')).toBe(true);
-                    expect(pTemplateValue).toBeTruthy();
+                const vxTemplateValue = template.nativeElement.getAttribute('vxTemplate');
+                if (vxTemplateValue) {
+                    // Should have both vxTemplate attribute and local reference
+                    expect(template.nativeElement.hasAttribute('vxTemplate')).toBe(true);
+                    expect(vxTemplateValue).toBeTruthy();
                 }
             });
 
@@ -1644,7 +1651,7 @@ describe('PasswordDirective', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             it('should have global pt configuration available', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
@@ -1652,7 +1659,7 @@ describe('PasswordDirective', () => {
                     declarations: [TestPTPasswordDirectiveComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 password: {
                                     host: { 'aria-label': 'DIRECTIVE_GLOBAL_ARIA_LABEL', class: 'DIRECTIVE_GLOBAL_CLASS' },
@@ -1670,7 +1677,7 @@ describe('PasswordDirective', () => {
                 const globalInputEl = globalFixture.debugElement.query(By.css('input')).nativeElement;
                 // Verify component is created and directive is applied
                 expect(globalInputEl).toBeTruthy();
-                expect(globalInputEl.hasAttribute('ppassword')).toBe(true);
+                expect(globalInputEl.hasAttribute('vxpassword')).toBe(true);
             });
 
             it('should instantiate multiple directive instances with global config', async () => {
@@ -1680,7 +1687,7 @@ describe('PasswordDirective', () => {
                     declarations: [TestPTPasswordDirectiveComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 password: {
                                     host: { 'data-global-directive': 'shared', class: 'GLOBAL_SHARED_CLASS' }
@@ -1703,8 +1710,8 @@ describe('PasswordDirective', () => {
                 // Verify both instances are created with directive applied
                 expect(el1).toBeTruthy();
                 expect(el2).toBeTruthy();
-                expect(el1.hasAttribute('ppassword')).toBe(true);
-                expect(el2.hasAttribute('ppassword')).toBe(true);
+                expect(el1.hasAttribute('vxpassword')).toBe(true);
+                expect(el2.hasAttribute('vxpassword')).toBe(true);
             });
         });
 
@@ -1820,7 +1827,7 @@ describe('Password Integration Tests', () => {
         testComponent.showClear = true;
         testFixture.detectChanges();
 
-        const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+        const passwordComponent = testFixture.debugElement.query(By.css('vx-password')).componentInstance;
         const inputEl = testFixture.debugElement.query(By.css('input'));
 
         // Test input
@@ -1880,7 +1887,7 @@ describe('Password PassThrough Tests', () => {
         fixture = TestBed.createComponent(TestPTPasswordComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
-        passwordEl = fixture.debugElement.query(By.css('p-password')).nativeElement;
+        passwordEl = fixture.debugElement.query(By.css('vx-password')).nativeElement;
     });
 
     describe('Case 1: Simple string classes', () => {
@@ -2205,7 +2212,7 @@ describe('Password PassThrough Tests', () => {
         });
     });
 
-    describe('Case 7: Global PT from PrimeNGConfig', () => {
+    describe('Case 7: Global PT from VoxxUIConfig', () => {
         it('should apply global pt configuration', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
@@ -2213,7 +2220,7 @@ describe('Password PassThrough Tests', () => {
                 declarations: [TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             password: {
                                 host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
@@ -2228,7 +2235,7 @@ describe('Password PassThrough Tests', () => {
             globalFixture.detectChanges();
             await globalFixture.whenStable();
 
-            const globalPasswordEl = globalFixture.debugElement.query(By.css('p-password')).nativeElement;
+            const globalPasswordEl = globalFixture.debugElement.query(By.css('vx-password')).nativeElement;
             expect(globalPasswordEl.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
             expect(globalPasswordEl.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
         });
@@ -2240,7 +2247,7 @@ describe('Password PassThrough Tests', () => {
                 declarations: [TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             password: {
                                 root: { class: 'GLOBAL_CSS_CLASS' },
@@ -2257,7 +2264,7 @@ describe('Password PassThrough Tests', () => {
             globalFixture.detectChanges();
             await globalFixture.whenStable();
 
-            const globalPasswordEl = globalFixture.debugElement.query(By.css('p-password')).nativeElement;
+            const globalPasswordEl = globalFixture.debugElement.query(By.css('vx-password')).nativeElement;
             expect(globalPasswordEl.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
         });
 
@@ -2268,7 +2275,7 @@ describe('Password PassThrough Tests', () => {
                 declarations: [TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             password: {
                                 root: { 'data-global': 'shared' }
@@ -2285,8 +2292,8 @@ describe('Password PassThrough Tests', () => {
             fixture2.detectChanges();
             await fixture1.whenStable();
 
-            const el1 = fixture1.debugElement.query(By.css('p-password')).nativeElement;
-            const el2 = fixture2.debugElement.query(By.css('p-password')).nativeElement;
+            const el1 = fixture1.debugElement.query(By.css('vx-password')).nativeElement;
+            const el2 = fixture2.debugElement.query(By.css('vx-password')).nativeElement;
 
             expect(el1.getAttribute('data-global')).toBe('shared');
             expect(el2.getAttribute('data-global')).toBe('shared');

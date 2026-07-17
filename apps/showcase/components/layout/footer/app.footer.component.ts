@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import packageJson from '../../../package.json';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-footer',
     standalone: true,
     template: `
         <div class="layout-footer">
             <div>
-                <span>PrimeNG {{ version }} by </span>
-                <a href="https://www.primetek.com.tr">PrimeTek</a>
+                <span>VoxxUI {{ version }} &mdash; MIT licensed fork of </span>
+                <a href="https://github.com/primefaces/primeng">PrimeNG</a>
+                <span> by PrimeTek</span>
             </div>
         </div>
     `
 })
 export class AppFooterComponent {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    version = require('package.json') && require('package.json').version;
+    version = packageJson.version;
 }

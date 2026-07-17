@@ -12,13 +12,13 @@ Commands are processed using observables via the TerminalService . Import this s
 
 ```typescript
 import { Component } from '@angular/core';
-import { TerminalModule } from 'primeng/terminal';
+import { TerminalModule } from 'voxx-ui/terminal';
 
 @Component({
     template: `
         <div class="card">
             <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
-            <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
+            <vx-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
         </div>
     `,
     standalone: true,

@@ -6,19 +6,19 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'celledit-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, InputTextModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
-            <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
+            <p>In-cell editing is enabled by adding <i>vxEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th style="width:25%">Code</th>
@@ -29,51 +29,51 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                     <ng-template #body let-product let-editing="editing">
                         <tr>
-                            <td [pEditableColumn]="product.code" pEditableColumnField="code">
-                                <p-cellEditor>
+                            <td [vxEditableColumn]="product.code" vxEditableColumnField="code">
+                                <vx-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.code" fluid />
+                                        <input vxInputText type="text" [(ngModel)]="product.code" fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.code }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </vx-cellEditor>
                             </td>
-                            <td [pEditableColumn]="product.name" pEditableColumnField="name">
-                                <p-cellEditor>
+                            <td [vxEditableColumn]="product.name" vxEditableColumnField="name">
+                                <vx-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.name" required fluid />
+                                        <input vxInputText type="text" [(ngModel)]="product.name" required fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.name }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </vx-cellEditor>
                             </td>
-                            <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
-                                <p-cellEditor>
+                            <td [vxEditableColumn]="product.quantity" vxEditableColumnField="quantity">
+                                <vx-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText [(ngModel)]="product.quantity" fluid />
+                                        <input vxInputText [(ngModel)]="product.quantity" fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.quantity }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </vx-cellEditor>
                             </td>
-                            <td [pEditableColumn]="product.price" pEditableColumnField="price">
-                                <p-cellEditor>
+                            <td [vxEditableColumn]="product.price" vxEditableColumnField="price">
+                                <vx-cellEditor>
                                     <ng-template #input>
-                                        <input pInputText type="text" [(ngModel)]="product.price" fluid />
+                                        <input vxInputText type="text" [(ngModel)]="product.price" fluid />
                                     </ng-template>
                                     <ng-template #output>
                                         {{ product.price | currency: 'USD' }}
                                     </ng-template>
-                                </p-cellEditor>
+                                </vx-cellEditor>
                             </td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'primeng/password';
+import { PasswordModule } from 'voxx-ui/password';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'sizes-doc',
     standalone: true,
     imports: [FormsModule, PasswordModule, AppCode, AppDocSectionText],
@@ -13,9 +14,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Password provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-password [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
-            <p-password [(ngModel)]="value2" type="text" placeholder="Normal" />
-            <p-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
+            <vx-password [(ngModel)]="value1" type="text" size="small" placeholder="Small" />
+            <vx-password [(ngModel)]="value2" type="text" placeholder="Normal" />
+            <vx-password [(ngModel)]="value3" type="text" size="large" placeholder="Large" />
         </div>
         <app-code></app-code>
     `

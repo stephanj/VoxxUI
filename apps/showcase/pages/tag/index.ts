@@ -6,10 +6,11 @@ import { PillDoc } from '@/doc/tag/pill-doc';
 import { PTComponent } from '@/doc/tag/pt/PTComponent';
 import { SeverityDoc } from '@/doc/tag/severity-doc';
 import { TemplateDoc } from '@/doc/tag/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Tag Component" header="Tag" description="Tag component is used to categorize content." [docs]="docs" [apiDocs]="['Tag']" [ptDocs]="ptComponent" themeDocs="tag"></app-doc>`,
     standalone: true,
     imports: [AppDoc]

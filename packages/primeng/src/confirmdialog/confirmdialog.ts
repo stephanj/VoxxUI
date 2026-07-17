@@ -24,13 +24,13 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
-import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Button } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
-import { Nullable } from 'primeng/ts-helpers';
-import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'primeng/types/confirmdialog';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { Button } from 'voxx-ui/button';
+import { Dialog } from 'voxx-ui/dialog';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'voxx-ui/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
@@ -41,11 +41,11 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
  * @group Components
  */
 @Component({
-    selector: 'p-confirmDialog, p-confirmdialog, p-confirm-dialog',
+    selector: 'vx-confirmDialog, vx-confirmdialog, vx-confirm-dialog',
     standalone: true,
     imports: [CommonModule, Button, Dialog, SharedModule, Bind],
     template: `
-        <p-dialog
+        <vx-dialog
             [pt]="pt"
             #dialog
             [visible]="visible"
@@ -92,22 +92,22 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     @if (iconTemplate || _iconTemplate) {
                         <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
-                        <i [ngClass]="cx('icon')" [class]="option('icon')" [pBind]="ptm('icon')" *ngIf="option('icon')"></i>
+                        <i [ngClass]="cx('icon')" [class]="option('icon')" [vxBind]="ptm('icon')" *ngIf="option('icon')"></i>
                     }
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
                     } @else {
-                        <span [class]="cx('message')" [pBind]="ptm('message')" [innerHTML]="option('message')"> </span>
+                        <span [class]="cx('message')" [vxBind]="ptm('message')" [innerHTML]="option('message')"> </span>
                     }
                 </ng-template>
             }
             <ng-template #footer>
                 @if (footerTemplate || _footerTemplate) {
-                    <ng-content select="p-footer"></ng-content>
+                    <ng-content select="vx-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
                 @if (!footerTemplate && !_footerTemplate) {
-                    <p-button
+                    <vx-button
                         [pt]="ptm('pcRejectButton')"
                         *ngIf="option('rejectVisible')"
                         [label]="rejectButtonLabel"
@@ -119,12 +119,12 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     >
                         <ng-template #icon>
                             @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [pBind]="ptm('pcRejectButton')['icon']"></i>
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [vxBind]="ptm('pcRejectButton')['icon']"></i>
                             }
                             <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
                         </ng-template>
-                    </p-button>
-                    <p-button
+                    </vx-button>
+                    <vx-button
                         [pt]="ptm('pcAcceptButton')"
                         [label]="acceptButtonLabel"
                         (onClick)="onAccept()"
@@ -136,14 +136,14 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     >
                         <ng-template #icon>
                             @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [pBind]="ptm('pcAcceptButton')['icon']"></i>
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [vxBind]="ptm('pcAcceptButton')['icon']"></i>
                             }
                             <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
                         </ng-template>
-                    </p-button>
+                    </vx-button>
                 }
             </ng-template>
-        </p-dialog>
+        </vx-dialog>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

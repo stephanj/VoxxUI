@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
-import type { InputNumberInputEvent } from 'primeng/types/inputnumber';
+import { provideVoxxUI } from 'voxx-ui/config';
+import type { InputNumberInputEvent } from 'voxx-ui/types/inputnumber';
 import { InputNumber, InputNumberModule } from './inputnumber';
 
 // Test Components
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-inputNumber
+        <vx-inputNumber
             [(ngModel)]="value"
             [showButtons]="showButtons"
             [showClear]="showClear"
@@ -53,7 +54,7 @@ import { InputNumber, InputNumberModule } from './inputnumber';
             (onBlur)="onBlurChange($event)"
             (onKeyDown)="onKeyDownChange($event)"
             (onClear)="onClearChange()"
-        ></p-inputNumber>
+        ></vx-inputNumber>
     `
 })
 class TestBasicInputNumberComponent {
@@ -101,10 +102,11 @@ class TestBasicInputNumberComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <form [formGroup]="form">
-            <p-inputNumber formControlName="numberField" [showButtons]="showButtons" [min]="min" [max]="max" [step]="step"></p-inputNumber>
+            <vx-inputNumber formControlName="numberField" [showButtons]="showButtons" [min]="min" [max]="max" [step]="step"></vx-inputNumber>
         </form>
     `
 })
@@ -118,26 +120,27 @@ class TestFormInputNumberComponent {
     step: number = 10;
 }
 
-// InputNumber pTemplate component
+// InputNumber vxTemplate component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-inputNumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
-            <!-- Clear icon template with pTemplate directive -->
-            <ng-template pTemplate="clearicon">
+        <vx-inputNumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
+            <!-- Clear icon template with vxTemplate directive -->
+            <ng-template vxTemplate="clearicon">
                 <i class="pi pi-times custom-clear-icon" data-testid="ptemplate-clearicon"></i>
             </ng-template>
 
             <!-- Increment button icon template -->
-            <ng-template pTemplate="incrementbuttonicon">
+            <ng-template vxTemplate="incrementbuttonicon">
                 <i class="pi pi-plus custom-increment-icon" data-testid="ptemplate-incrementicon"></i>
             </ng-template>
 
             <!-- Decrement button icon template -->
-            <ng-template pTemplate="decrementbuttonicon">
+            <ng-template vxTemplate="decrementbuttonicon">
                 <i class="pi pi-minus custom-decrement-icon" data-testid="ptemplate-decrementicon"></i>
             </ng-template>
-        </p-inputNumber>
+        </vx-inputNumber>
     `
 })
 class TestInputNumberPTemplateComponent {
@@ -149,9 +152,10 @@ class TestInputNumberPTemplateComponent {
 
 // InputNumber #template reference component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-inputNumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
+        <vx-inputNumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
             <!-- Clear icon template with #template reference -->
             <ng-template #clearicon>
                 <i class="pi pi-times custom-clear-icon" data-testid="ref-clearicon"></i>
@@ -166,7 +170,7 @@ class TestInputNumberPTemplateComponent {
             <ng-template #decrementbuttonicon>
                 <i class="pi pi-minus custom-decrement-icon" data-testid="ref-decrementicon"></i>
             </ng-template>
-        </p-inputNumber>
+        </vx-inputNumber>
     `
 })
 class TestInputNumberRefTemplateComponent {
@@ -263,7 +267,7 @@ describe('InputNumber', () => {
             testComponent.max = 100;
             testFixture.detectChanges();
 
-            const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+            const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
 
             // Test validation behavior
             expect(inputNumberInstance.validateValue(5)).toBe(10); // Should clamp to min
@@ -640,7 +644,7 @@ describe('InputNumber', () => {
         });
     });
 
-    describe('InputNumber pTemplate Tests', () => {
+    describe('InputNumber vxTemplate Tests', () => {
         let templateComponent: TestInputNumberPTemplateComponent;
         let templateFixture: ComponentFixture<TestInputNumberPTemplateComponent>;
         let inputNumberElement: any;
@@ -648,34 +652,34 @@ describe('InputNumber', () => {
         beforeEach(() => {
             templateFixture = TestBed.createComponent(TestInputNumberPTemplateComponent);
             templateComponent = templateFixture.componentInstance;
-            inputNumberElement = templateFixture.debugElement.query(By.css('p-inputNumber'));
+            inputNumberElement = templateFixture.debugElement.query(By.css('vx-inputNumber'));
             templateFixture.detectChanges();
         });
 
-        it('should create component with pTemplate templates', () => {
+        it('should create component with vxTemplate templates', () => {
             expect(templateComponent).toBeTruthy();
             expect(inputNumberElement).toBeTruthy();
         });
 
-        it('should have clearicon pTemplate', () => {
+        it('should have clearicon vxTemplate', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.clearIconTemplate).not.toThrow();
         });
 
-        it('should have incrementbuttonicon pTemplate', () => {
+        it('should have incrementbuttonicon vxTemplate', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.incrementButtonIconTemplate).not.toThrow();
         });
 
-        it('should have decrementbuttonicon pTemplate', () => {
+        it('should have decrementbuttonicon vxTemplate', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.decrementButtonIconTemplate).not.toThrow();
         });
 
-        it('should process all pTemplates after content init', async () => {
+        it('should process all vxTemplates after content init', async () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
 
             if (inputNumberComponent.ngAfterContentInit) {
@@ -687,7 +691,7 @@ describe('InputNumber', () => {
             expect(inputNumberComponent).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle vxTemplate changes after view init', async () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
 
             if (inputNumberComponent.ngAfterViewInit) {
@@ -699,25 +703,25 @@ describe('InputNumber', () => {
             expect(inputNumberComponent).toBeTruthy();
         });
 
-        it('should render custom clear icon pTemplate when showClear is enabled', () => {
+        it('should render custom clear icon vxTemplate when showClear is enabled', () => {
             templateFixture.detectChanges();
             const clearIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-clearicon"]'));
             expect(clearIcon || true).toBeTruthy();
         });
 
-        it('should render custom increment icon pTemplate when showButtons is enabled', () => {
+        it('should render custom increment icon vxTemplate when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const incrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-incrementicon"]'));
             expect(incrementIcon || true).toBeTruthy();
         });
 
-        it('should render custom decrement icon pTemplate when showButtons is enabled', () => {
+        it('should render custom decrement icon vxTemplate when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const decrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-decrementicon"]'));
             expect(decrementIcon || true).toBeTruthy();
         });
 
-        it('should handle currency formatting with pTemplates', () => {
+        it('should handle currency formatting with vxTemplates', () => {
             const inputNumberInstance = inputNumberElement.componentInstance;
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('USD');
@@ -733,7 +737,7 @@ describe('InputNumber', () => {
         beforeEach(() => {
             templateFixture = TestBed.createComponent(TestInputNumberRefTemplateComponent);
             templateComponent = templateFixture.componentInstance;
-            inputNumberElement = templateFixture.debugElement.query(By.css('p-inputNumber'));
+            inputNumberElement = templateFixture.debugElement.query(By.css('vx-inputNumber'));
             templateFixture.detectChanges();
         });
 
@@ -967,7 +971,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             // Test that currency mode is set correctly
-            const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+            const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('USD');
         });
@@ -981,7 +985,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             // Test that EUR currency mode is set correctly
-            const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+            const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('EUR');
         });
@@ -995,7 +999,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             // Test that currency display mode is set correctly
-            const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+            const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
             expect(inputNumberInstance.currencyDisplay).toBe('code');
             expect(inputNumberInstance.currency).toBe('USD');
         });
@@ -1081,8 +1085,9 @@ describe('InputNumber', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCase1Component {
                 value: number = 100;
@@ -1126,8 +1131,9 @@ describe('InputNumber', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCase2Component {
                 value: number = 100;
@@ -1181,8 +1187,9 @@ describe('InputNumber', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCase3Component {
                 value: number = 100;
@@ -1219,8 +1226,9 @@ describe('InputNumber', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCase4Component {
                 value: number = 20;
@@ -1263,8 +1271,9 @@ describe('InputNumber', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCase5Component {
                 value: number = 100;
@@ -1310,16 +1319,18 @@ describe('InputNumber', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: { root: 'INLINE_INPUT_CLASS' } }" [showButtons]="true"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: { root: 'INLINE_INPUT_CLASS' } }" [showButtons]="true"></vx-inputNumber>`
             })
             class TestPTCase6InlineComponent {
                 value: number = 100;
             }
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { root: { class: 'INLINE_INPUT_OBJECT_CLASS' } } }" [showButtons]="true"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { root: { class: 'INLINE_INPUT_OBJECT_CLASS' } } }" [showButtons]="true"></vx-inputNumber>`
             })
             class TestPTCase6InlineObjectComponent {
                 value: number = 100;
@@ -1364,12 +1375,13 @@ describe('InputNumber', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-inputNumber [(ngModel)]="value1" [showButtons]="true"></p-inputNumber>
-                    <p-inputNumber [(ngModel)]="value2" [showButtons]="true"></p-inputNumber>
+                    <vx-inputNumber [(ngModel)]="value1" [showButtons]="true"></vx-inputNumber>
+                    <vx-inputNumber [(ngModel)]="value2" [showButtons]="true"></vx-inputNumber>
                 `
             })
             class TestPTCase7GlobalComponent {
@@ -1377,14 +1389,14 @@ describe('InputNumber', () => {
                 value2: number = 200;
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from VoxxUIConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [InputNumberModule, FormsModule, CommonModule],
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 inputNumber: {
                                     root: { class: 'GLOBAL_ROOT_CLASS' },
@@ -1410,8 +1422,9 @@ describe('InputNumber', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCase8HooksComponent {
                 value: number = 100;
@@ -1459,8 +1472,9 @@ describe('InputNumber', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<vx-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></vx-inputNumber>`
             })
             class TestPTCoveragComponent {
                 value: number = 100;

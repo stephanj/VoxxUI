@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'scopedtokens-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, ToggleSwitchModule],
@@ -14,8 +15,8 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
             <p>This approach is recommended over the <i>::ng-deep</i> as it offers a cleaner API while avoiding the hassle of CSS rule overrides.</p>
         </app-docsectiontext>
         <div class="card flex gap-2 justify-center items-center">
-            <p-toggleswitch [(ngModel)]="checked1" />
-            <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch" />
+            <vx-toggleswitch [(ngModel)]="checked1" />
+            <vx-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch" />
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
@@ -58,12 +59,13 @@ export class ScopedTokensDoc {
     code = {
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitch } from 'primeng/toggleswitch';
+import { ToggleSwitch } from 'voxx-ui/toggleswitch';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: \`
-        <p-toggleswitch [(ngModel)]="checked1"/>
-        <p-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch"/>
+        <vx-toggleswitch [(ngModel)]="checked1"/>
+        <vx-toggleswitch [(ngModel)]="checked2" [dt]="amberSwitch"/>
     \`,
     standalone: true,
     imports: [ToggleSwitch, FormsModule]

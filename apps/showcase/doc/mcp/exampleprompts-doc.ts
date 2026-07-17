@@ -1,9 +1,10 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'exampleprompts-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
@@ -21,6 +22,6 @@ export class ExamplePromptsDoc {
 "How do I customize the Dialog component styling with Pass Through?"
 "Compare the Select and Listbox components"
 "What's the best component for a date picker?"
-"How do I migrate from PrimeNG v20 to v21?"`
+"How do I migrate from VoxxUI v20 to v21?"`
     };
 }

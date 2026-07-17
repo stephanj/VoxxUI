@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { style as badge_style } from '@primeuix/styles/badge';
 import { isEmpty, isNotEmpty } from '@primeuix/utils';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${badge_style}
 
-    /* For PrimeNG (directive)*/
+    /* For VoxxUI (directive)*/
     .p-overlay-badge {
         position: relative;
     }

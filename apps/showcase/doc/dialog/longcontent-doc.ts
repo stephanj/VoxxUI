@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DialogModule } from 'voxx-ui/dialog';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'longcontent-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
@@ -13,8 +14,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Dialog automatically displays a scroller when content exceeds viewport.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+            <vx-button (click)="showDialog()" label="Show" />
+            <vx-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
                 <p class="mb-8">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -47,7 +48,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
                     recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
                 </p>
-            </p-dialog>
+            </vx-dialog>
         </div>
         <app-code></app-code>
     `

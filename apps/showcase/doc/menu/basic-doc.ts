@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenuModule } from 'primeng/menu';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MenuItem } from 'voxx-ui/api';
+import { MenuModule } from 'voxx-ui/menu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [MenuModule, AppCodeModule, AppDocSectionText],
@@ -13,7 +14,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-menu [model]="items" />
+            <vx-menu [model]="items" />
         </div>
         <app-code></app-code>
     `

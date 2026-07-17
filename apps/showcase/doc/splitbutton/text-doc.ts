@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToastModule } from 'voxx-ui/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'text-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
@@ -15,15 +16,15 @@ import { RouterModule } from '@angular/router';
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-center flex-wrap gap-4">
-            <p-toast />
-            <p-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
-            <p-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
-            <p-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
-            <p-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
-            <p-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
-            <p-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
-            <p-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
-            <p-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
+            <vx-toast />
+            <vx-splitbutton label="Primary" [model]="items" (onClick)="save('info')" text />
+            <vx-splitbutton label="Secondary" [model]="items" (onClick)="save('info')" text severity="secondary" />
+            <vx-splitbutton label="Success" [model]="items" (onClick)="save('info')" text severity="success" />
+            <vx-splitbutton label="Info" [model]="items" (onClick)="save('info')" text severity="info" />
+            <vx-splitbutton label="Warning" [model]="items" (onClick)="save('info')" text severity="warn" />
+            <vx-splitbutton label="Help" [model]="items" (onClick)="save('info')" text severity="help" />
+            <vx-splitbutton label="Danger" [model]="items" (onClick)="save('info')" text severity="danger" />
+            <vx-splitbutton label="Contrast" [model]="items" (onClick)="save('info')" text severity="contrast" />
         </div>
         <app-code></app-code>
     `,

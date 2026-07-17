@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TabList } from './tablist';
@@ -6,26 +6,27 @@ import { Tabs } from './tabs';
 import { TabsModule } from './tabs.module';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tabs [(value)]="value" [scrollable]="scrollable" [lazy]="lazy" [selectOnFocus]="selectOnFocus" [showNavigators]="showNavigators" [tabindex]="tabindex">
-            <p-tablist>
-                <p-tab [value]="1">Tab 1</p-tab>
-                <p-tab [value]="2">Tab 2</p-tab>
-                <p-tab [value]="3" [disabled]="tab3Disabled">Tab 3</p-tab>
-            </p-tablist>
-            <p-tabpanels>
-                <p-tabpanel [value]="1">
+        <vx-tabs [(value)]="value" [scrollable]="scrollable" [lazy]="lazy" [selectOnFocus]="selectOnFocus" [showNavigators]="showNavigators" [tabindex]="tabindex">
+            <vx-tablist>
+                <vx-tab [value]="1">Tab 1</vx-tab>
+                <vx-tab [value]="2">Tab 2</vx-tab>
+                <vx-tab [value]="3" [disabled]="tab3Disabled">Tab 3</vx-tab>
+            </vx-tablist>
+            <vx-tabpanels>
+                <vx-tabpanel [value]="1">
                     <div class="panel-content-1">Content for Tab 1</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="2">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="2">
                     <div class="panel-content-2">Content for Tab 2</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="3">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="3">
                     <div class="panel-content-3">Content for Tab 3</div>
-                </p-tabpanel>
-            </p-tabpanels>
-        </p-tabs>
+                </vx-tabpanel>
+            </vx-tabpanels>
+        </vx-tabs>
     `
 })
 class TestTabsComponent {
@@ -39,44 +40,45 @@ class TestTabsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tabs [(value)]="value" [scrollable]="true">
-            <p-tablist>
-                <ng-template pTemplate="previcon">
+        <vx-tabs [(value)]="value" [scrollable]="true">
+            <vx-tablist>
+                <ng-template vxTemplate="previcon">
                     <i class="custom-prev-icon">‹</i>
                 </ng-template>
-                <ng-template pTemplate="nexticon">
+                <ng-template vxTemplate="nexticon">
                     <i class="custom-next-icon">›</i>
                 </ng-template>
-                <p-tab [value]="1">Very Long Tab Name 1</p-tab>
-                <p-tab [value]="2">Very Long Tab Name 2</p-tab>
-                <p-tab [value]="3">Very Long Tab Name 3</p-tab>
-                <p-tab [value]="4">Very Long Tab Name 4</p-tab>
-                <p-tab [value]="5">Very Long Tab Name 5</p-tab>
-                <p-tab [value]="6">Very Long Tab Name 6</p-tab>
-            </p-tablist>
-            <p-tabpanels>
-                <p-tabpanel [value]="1">
+                <vx-tab [value]="1">Very Long Tab Name 1</vx-tab>
+                <vx-tab [value]="2">Very Long Tab Name 2</vx-tab>
+                <vx-tab [value]="3">Very Long Tab Name 3</vx-tab>
+                <vx-tab [value]="4">Very Long Tab Name 4</vx-tab>
+                <vx-tab [value]="5">Very Long Tab Name 5</vx-tab>
+                <vx-tab [value]="6">Very Long Tab Name 6</vx-tab>
+            </vx-tablist>
+            <vx-tabpanels>
+                <vx-tabpanel [value]="1">
                     <div class="scrollable-content-1">Scrollable Content 1</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="2">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="2">
                     <div class="scrollable-content-2">Scrollable Content 2</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="3">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="3">
                     <div class="scrollable-content-3">Scrollable Content 3</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="4">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="4">
                     <div class="scrollable-content-4">Scrollable Content 4</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="5">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="5">
                     <div class="scrollable-content-5">Scrollable Content 5</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="6">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="6">
                     <div class="scrollable-content-6">Scrollable Content 6</div>
-                </p-tabpanel>
-            </p-tabpanels>
-        </p-tabs>
+                </vx-tabpanel>
+            </vx-tabpanels>
+        </vx-tabs>
     `
 })
 class TestScrollableTabsComponent {
@@ -84,26 +86,27 @@ class TestScrollableTabsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tabs [(value)]="value" [lazy]="true">
-            <p-tablist>
-                <p-tab [value]="1">Lazy Tab 1</p-tab>
-                <p-tab [value]="2">Lazy Tab 2</p-tab>
-                <p-tab [value]="3">Lazy Tab 3</p-tab>
-            </p-tablist>
-            <p-tabpanels>
-                <p-tabpanel [value]="1">
+        <vx-tabs [(value)]="value" [lazy]="true">
+            <vx-tablist>
+                <vx-tab [value]="1">Lazy Tab 1</vx-tab>
+                <vx-tab [value]="2">Lazy Tab 2</vx-tab>
+                <vx-tab [value]="3">Lazy Tab 3</vx-tab>
+            </vx-tablist>
+            <vx-tabpanels>
+                <vx-tabpanel [value]="1">
                     <div class="lazy-content-1">Lazy Content 1</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="2">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="2">
                     <div class="lazy-content-2">Lazy Content 2</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="3">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="3">
                     <div class="lazy-content-3">Lazy Content 3</div>
-                </p-tabpanel>
-            </p-tabpanels>
-        </p-tabs>
+                </vx-tabpanel>
+            </vx-tabpanels>
+        </vx-tabs>
     `
 })
 class TestLazyTabsComponent {
@@ -111,44 +114,45 @@ class TestLazyTabsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tabs [(value)]="value" [scrollable]="true">
-            <p-tablist>
+        <vx-tabs [(value)]="value" [scrollable]="true">
+            <vx-tablist>
                 <ng-template #previcon>
                     <span class="contentchild-prev-icon">⬅</span>
                 </ng-template>
                 <ng-template #nexticon>
                     <span class="contentchild-next-icon">➡</span>
                 </ng-template>
-                <p-tab [value]="1">Tab with ContentChild Icons 1</p-tab>
-                <p-tab [value]="2">Tab with ContentChild Icons 2</p-tab>
-                <p-tab [value]="3">Tab with ContentChild Icons 3</p-tab>
-                <p-tab [value]="4">Tab with ContentChild Icons 4</p-tab>
-                <p-tab [value]="5">Tab with ContentChild Icons 5</p-tab>
-                <p-tab [value]="6">Tab with ContentChild Icons 6</p-tab>
-            </p-tablist>
-            <p-tabpanels>
-                <p-tabpanel [value]="1">
+                <vx-tab [value]="1">Tab with ContentChild Icons 1</vx-tab>
+                <vx-tab [value]="2">Tab with ContentChild Icons 2</vx-tab>
+                <vx-tab [value]="3">Tab with ContentChild Icons 3</vx-tab>
+                <vx-tab [value]="4">Tab with ContentChild Icons 4</vx-tab>
+                <vx-tab [value]="5">Tab with ContentChild Icons 5</vx-tab>
+                <vx-tab [value]="6">Tab with ContentChild Icons 6</vx-tab>
+            </vx-tablist>
+            <vx-tabpanels>
+                <vx-tabpanel [value]="1">
                     <div class="contentchild-content-1">Content 1</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="2">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="2">
                     <div class="contentchild-content-2">Content 2</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="3">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="3">
                     <div class="contentchild-content-3">Content 3</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="4">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="4">
                     <div class="contentchild-content-4">Content 4</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="5">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="5">
                     <div class="contentchild-content-5">Content 5</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="6">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="6">
                     <div class="contentchild-content-6">Content 6</div>
-                </p-tabpanel>
-            </p-tabpanels>
-        </p-tabs>
+                </vx-tabpanel>
+            </vx-tabpanels>
+        </vx-tabs>
     `
 })
 class TestContentChildIconsTabsComponent {
@@ -156,22 +160,23 @@ class TestContentChildIconsTabsComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-tabs [value]="1" [pt]="pt">
-            <p-tablist>
-                <p-tab [value]="1">PT Test Tab 1</p-tab>
-                <p-tab [value]="2">PT Test Tab 2</p-tab>
-            </p-tablist>
-            <p-tabpanels>
-                <p-tabpanel [value]="1">
+        <vx-tabs [value]="1" [pt]="pt">
+            <vx-tablist>
+                <vx-tab [value]="1">PT Test Tab 1</vx-tab>
+                <vx-tab [value]="2">PT Test Tab 2</vx-tab>
+            </vx-tablist>
+            <vx-tabpanels>
+                <vx-tabpanel [value]="1">
                     <div>PT Test Content 1</div>
-                </p-tabpanel>
-                <p-tabpanel [value]="2">
+                </vx-tabpanel>
+                <vx-tabpanel [value]="2">
                     <div>PT Test Content 2</div>
-                </p-tabpanel>
-            </p-tabpanels>
-        </p-tabs>
+                </vx-tabpanel>
+            </vx-tabpanels>
+        </vx-tabs>
     `
 })
 class TestPTTabsComponent {
@@ -243,17 +248,17 @@ describe('Tabs', () => {
 
     describe('Tab List Rendering', () => {
         it('should render tab list', () => {
-            const tabList = fixture.debugElement.query(By.css('p-tablist'));
+            const tabList = fixture.debugElement.query(By.css('vx-tablist'));
             expect(tabList).toBeTruthy();
         });
 
         it('should render all tabs', () => {
-            const tabElements = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabElements = fixture.debugElement.queryAll(By.css('vx-tab'));
             expect(tabElements.length).toBe(3);
         });
 
         it('should render tab content', () => {
-            const tabElements = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabElements = fixture.debugElement.queryAll(By.css('vx-tab'));
             expect(tabElements[0].nativeElement.textContent).toContain('Tab 1');
             expect(tabElements[1].nativeElement.textContent).toContain('Tab 2');
             expect(tabElements[2].nativeElement.textContent).toContain('Tab 3');
@@ -266,8 +271,8 @@ describe('Tabs', () => {
             expect(tabListInnerElement.nativeElement.getAttribute('role')).toBe('tablist');
 
             // Tab role may be on button inside tab or on tab itself
-            const tabButtons = fixture.debugElement.queryAll(By.css('p-tab button'));
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabButtons = fixture.debugElement.queryAll(By.css('vx-tab button'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
 
             if (tabButtons.length > 0) {
                 expect(tabButtons[0].nativeElement.getAttribute('role')).toBe('tab');
@@ -279,12 +284,12 @@ describe('Tabs', () => {
 
     describe('Tab Panel Rendering', () => {
         it('should render tab panels container', () => {
-            const tabPanels = fixture.debugElement.query(By.css('p-tabpanels'));
+            const tabPanels = fixture.debugElement.query(By.css('vx-tabpanels'));
             expect(tabPanels).toBeTruthy();
         });
 
         it('should render all tab panels', () => {
-            const panels = fixture.debugElement.queryAll(By.css('p-tabpanel'));
+            const panels = fixture.debugElement.queryAll(By.css('vx-tabpanel'));
             expect(panels.length).toBe(3);
         });
 
@@ -311,7 +316,7 @@ describe('Tabs', () => {
         });
 
         it('should have correct ARIA attributes on panels', () => {
-            const tabPanels = fixture.debugElement.queryAll(By.css('p-tabpanel'));
+            const tabPanels = fixture.debugElement.queryAll(By.css('vx-tabpanel'));
             const firstPanel = tabPanels[0];
 
             expect(firstPanel.nativeElement.getAttribute('role')).toBe('tabpanel');
@@ -321,7 +326,7 @@ describe('Tabs', () => {
 
     describe('Tab Navigation', () => {
         it('should activate tab on click', async () => {
-            const tab2 = fixture.debugElement.queryAll(By.css('p-tab'))[1];
+            const tab2 = fixture.debugElement.queryAll(By.css('vx-tab'))[1];
 
             tab2.nativeElement.click();
             await fixture.whenStable();
@@ -336,7 +341,7 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
             expect(tabs[1].nativeElement.getAttribute('data-p-active')).toBe('true');
             expect(tabs[0].nativeElement.getAttribute('data-p-active')).toBe('false');
         });
@@ -363,7 +368,7 @@ describe('Tabs', () => {
                 expect(tabList.isTabActive(1)).toBe(false);
             } else {
                 // Alternative: check active state through data attributes
-                const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+                const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
                 expect(tabs[1].nativeElement.getAttribute('data-p-active')).toBe('true');
                 expect(tabs[0].nativeElement.getAttribute('data-p-active')).toBe('false');
             }
@@ -377,7 +382,7 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+            const tab3 = fixture.debugElement.queryAll(By.css('vx-tab'))[2];
             expect(tab3.nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
 
@@ -388,7 +393,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const initialValue = component.value;
-            const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+            const tab3 = fixture.debugElement.queryAll(By.css('vx-tab'))[2];
             tab3.nativeElement.click();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -403,7 +408,7 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+            const tab3 = fixture.debugElement.queryAll(By.css('vx-tab'))[2];
             expect(tab3.nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
 
@@ -413,8 +418,8 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
-            const tab3Button = fixture.debugElement.queryAll(By.css('p-tab'))[2].query(By.css('button'));
+            const tab3 = fixture.debugElement.queryAll(By.css('vx-tab'))[2];
+            const tab3Button = fixture.debugElement.queryAll(By.css('vx-tab'))[2].query(By.css('button'));
 
             // aria-disabled may be on the tab element or the button inside it
             if (tab3Button) {
@@ -429,7 +434,7 @@ describe('Tabs', () => {
         let tabs: DebugElement[];
 
         beforeEach(() => {
-            tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
             // Focus first tab
             tabs[0].nativeElement.focus();
         });
@@ -508,7 +513,7 @@ describe('Tabs', () => {
 
             // Navigate from tab 2 with right arrow - should not go to disabled tab 3
             const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
-            tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
 
             tabs[1].nativeElement.focus();
             tabs[1].nativeElement.dispatchEvent(rightArrowEvent);
@@ -529,7 +534,7 @@ describe('Tabs', () => {
         });
 
         it('should activate tab on focus when selectOnFocus is enabled', async () => {
-            const tab2 = fixture.debugElement.queryAll(By.css('p-tab'))[1];
+            const tab2 = fixture.debugElement.queryAll(By.css('vx-tab'))[1];
 
             // Simulate focus event
             tab2.nativeElement.focus();
@@ -547,7 +552,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const initialValue = component.value;
-            const tab2 = fixture.debugElement.queryAll(By.css('p-tab'))[1];
+            const tab2 = fixture.debugElement.queryAll(By.css('vx-tab'))[1];
 
             tab2.nativeElement.focus();
             tab2.nativeElement.dispatchEvent(new FocusEvent('focus'));
@@ -639,7 +644,7 @@ describe('Tabs', () => {
     });
 
     describe('Navigation Icon Templates', () => {
-        describe('pTemplate Navigation Icons', () => {
+        describe('vxTemplate Navigation Icons', () => {
             let scrollableFixture: ComponentFixture<TestScrollableTabsComponent>;
 
             beforeEach(() => {
@@ -647,7 +652,7 @@ describe('Tabs', () => {
                 scrollableFixture.detectChanges();
             });
 
-            it('should render custom prev icon with pTemplate', () => {
+            it('should render custom prev icon with vxTemplate', () => {
                 const customPrevIcon = scrollableFixture.debugElement.query(By.css('.custom-prev-icon'));
 
                 // Icon may not be rendered if navigation buttons are not visible in test environment
@@ -660,7 +665,7 @@ describe('Tabs', () => {
                 }
             });
 
-            it('should render custom next icon with pTemplate', () => {
+            it('should render custom next icon with vxTemplate', () => {
                 const customNextIcon = scrollableFixture.debugElement.query(By.css('.custom-next-icon'));
 
                 // Icon may not be rendered if navigation buttons are not visible in test environment
@@ -673,7 +678,7 @@ describe('Tabs', () => {
                 }
             });
 
-            it('should process pTemplate="previcon" correctly', () => {
+            it('should process vxTemplate="previcon" correctly', () => {
                 const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
                 const tabListComponent = tabList.componentInstance;
 
@@ -684,7 +689,7 @@ describe('Tabs', () => {
                 expect(() => tabListComponent.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process pTemplate="nexticon" correctly', () => {
+            it('should process vxTemplate="nexticon" correctly', () => {
                 const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
                 const tabListComponent = tabList.componentInstance;
 
@@ -741,12 +746,12 @@ describe('Tabs', () => {
                 expect(tabListComponent.scrollable()).toBe(true);
             });
 
-            it('should support both ContentChild and pTemplate approaches', () => {
+            it('should support both ContentChild and vxTemplate approaches', () => {
                 // Both test components should work without errors
                 expect(() => {
-                    const pTemplateFixture = TestBed.createComponent(TestScrollableTabsComponent);
-                    pTemplateFixture.detectChanges();
-                    pTemplateFixture.destroy();
+                    const vxTemplateFixture = TestBed.createComponent(TestScrollableTabsComponent);
+                    vxTemplateFixture.detectChanges();
+                    vxTemplateFixture.destroy();
                 }).not.toThrow();
 
                 expect(() => {
@@ -758,7 +763,7 @@ describe('Tabs', () => {
 
             it('should maintain scrollable functionality with custom icons', () => {
                 const tabList = contentChildFixture.debugElement.query(By.directive(TabList));
-                const tabs = contentChildFixture.debugElement.queryAll(By.css('p-tab'));
+                const tabs = contentChildFixture.debugElement.queryAll(By.css('vx-tab'));
 
                 // Should have multiple tabs for scrolling
                 expect(tabs.length).toBe(6);
@@ -852,8 +857,8 @@ describe('Tabs', () => {
 
     describe('Accessibility', () => {
         it('should have correct ARIA attributes on tabs', () => {
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
-            const tabPanels = fixture.debugElement.queryAll(By.css('p-tabpanel'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
+            const tabPanels = fixture.debugElement.queryAll(By.css('vx-tabpanel'));
 
             expect(tabs[0].nativeElement.getAttribute('role')).toBe('tab');
             expect(tabs[0].nativeElement.getAttribute('aria-controls')).toBeTruthy();
@@ -867,13 +872,13 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
             expect(tabs[1].nativeElement.getAttribute('aria-selected')).toBe('true');
             expect(tabs[0].nativeElement.getAttribute('aria-selected')).toBe('false');
         });
 
         it('should set correct tabindex for tabs', () => {
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
 
             // Active tab should have tabindex 0, others should have -1
             expect(tabs[0].nativeElement.tabIndex).toBe(0);
@@ -887,7 +892,7 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
             expect(tabs[1].nativeElement.tabIndex).toBe(0);
             expect(tabs[0].nativeElement.tabIndex).toBe(-1);
         });
@@ -895,9 +900,9 @@ describe('Tabs', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply correct CSS classes', () => {
-            const tabsElement = fixture.debugElement.query(By.css('p-tabs'));
-            const tabListElement = fixture.debugElement.query(By.css('p-tablist'));
-            const tabElements = fixture.debugElement.queryAll(By.css('p-tab'));
+            const tabsElement = fixture.debugElement.query(By.css('vx-tabs'));
+            const tabListElement = fixture.debugElement.query(By.css('vx-tablist'));
+            const tabElements = fixture.debugElement.queryAll(By.css('vx-tab'));
 
             expect(tabsElement.nativeElement.className).toContain('p-tabs');
             expect(tabListElement.nativeElement.className).toContain('p-tablist');
@@ -910,8 +915,8 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
-            const panels = fixture.debugElement.queryAll(By.css('p-tabpanel'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
+            const panels = fixture.debugElement.queryAll(By.css('vx-tabpanel'));
 
             expect(tabs[1].nativeElement.getAttribute('data-p-active')).toBe('true');
             expect(panels[1].nativeElement.getAttribute('data-p-active')).toBe('true');
@@ -923,17 +928,17 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+            const tab3 = fixture.debugElement.queryAll(By.css('vx-tab'))[2];
             expect(tab3.nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
     });
 
     describe('Data Attributes', () => {
         it('should have correct data-pc-name attributes', () => {
-            const tabsElement = fixture.debugElement.query(By.css('p-tabs'));
-            const tabListElement = fixture.debugElement.query(By.css('p-tablist'));
-            const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
-            const panels = fixture.debugElement.queryAll(By.css('p-tabpanel'));
+            const tabsElement = fixture.debugElement.query(By.css('vx-tabs'));
+            const tabListElement = fixture.debugElement.query(By.css('vx-tablist'));
+            const tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
+            const panels = fixture.debugElement.queryAll(By.css('vx-tabpanel'));
 
             expect(tabsElement.nativeElement.getAttribute('data-pc-name')).toBe('tabs');
             expect(tabListElement.nativeElement.getAttribute('data-pc-name')).toBe('tablist');
@@ -947,8 +952,8 @@ describe('Tabs', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            const tab2 = fixture.debugElement.queryAll(By.css('p-tab'))[1];
-            const panel2 = fixture.debugElement.queryAll(By.css('p-tabpanel'))[1];
+            const tab2 = fixture.debugElement.queryAll(By.css('vx-tab'))[1];
+            const panel2 = fixture.debugElement.queryAll(By.css('vx-tabpanel'))[1];
 
             expect(tab2.nativeElement.getAttribute('data-p-active')).toBe('true');
             expect(panel2.nativeElement.getAttribute('data-p-active')).toBe('true');
@@ -1069,7 +1074,7 @@ describe('Tabs', () => {
             await ptFixture.whenStable();
             ptFixture.detectChanges();
 
-            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const tabsEl = ptFixture.debugElement.query(By.css('vx-tabs'));
             const classList = tabsEl.nativeElement.className;
 
             expect(classList).toContain('ROOT_CLASS');
@@ -1090,7 +1095,7 @@ describe('Tabs', () => {
             await ptFixture.whenStable();
             ptFixture.detectChanges();
 
-            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const tabsEl = ptFixture.debugElement.query(By.css('vx-tabs'));
 
             expect(tabsEl.nativeElement.className).toContain('PT_ROOT_CLASS');
             expect(tabsEl.nativeElement.getAttribute('data-test')).toBe('tabs-test');
@@ -1110,7 +1115,7 @@ describe('Tabs', () => {
             await ptFixture.whenStable();
             ptFixture.detectChanges();
 
-            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const tabsEl = ptFixture.debugElement.query(By.css('vx-tabs'));
             const classList = tabsEl.nativeElement.className;
 
             expect(classList).toContain('PT_ROOT_CLASS');
@@ -1131,7 +1136,7 @@ describe('Tabs', () => {
             await ptFixture.whenStable();
             ptFixture.detectChanges();
 
-            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const tabsEl = ptFixture.debugElement.query(By.css('vx-tabs'));
             ptTabs = ptFixture.debugElement.query(By.directive(Tabs)).componentInstance;
 
             expect(tabsEl.nativeElement.className).toContain('NON_SCROLLABLE');
@@ -1152,7 +1157,7 @@ describe('Tabs', () => {
             await ptFixture.whenStable();
             ptFixture.detectChanges();
 
-            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const tabsEl = ptFixture.debugElement.query(By.css('vx-tabs'));
             tabsEl.nativeElement.click();
 
             expect(clicked).toBe(true);
@@ -1165,7 +1170,7 @@ describe('Tabs', () => {
             await ptFixture.whenStable();
             ptFixture.detectChanges();
 
-            const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+            const tabsEl = ptFixture.debugElement.query(By.css('vx-tabs'));
 
             expect(tabsEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
         });

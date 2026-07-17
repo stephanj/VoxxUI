@@ -1,25 +1,26 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'introduction-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
-                PrimeNG is a popular Angular UI library maintained by PrimeTek, a company renowned for its comprehensive set of UI components for various frameworks. PrimeTek is dedicated to providing high-quality, versatile, and accessible UI
+                VoxxUI is a popular Angular UI library maintained by PrimeTek, a company renowned for its comprehensive set of UI components for various frameworks. PrimeTek is dedicated to providing high-quality, versatile, and accessible UI
                 components that help developers build better applications faster.
             </p>
             <h3>Development Setup</h3>
-            <p>To begin with, clone the PrimeNG repository from GitHub:</p>
+            <p>To begin with, clone the VoxxUI repository from GitHub:</p>
             <app-code [code]="code1" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
             <p style="margin-top: 1rem;">Then run the showcase in your local environment at <i>http://localhost:3000/</i>.</p>
             <app-code [code]="code2" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
             <h3>Project Structure</h3>
-            <p>PrimeNG's project structure is organized as follows:</p>
+            <p>VoxxUI's project structure is organized as follows:</p>
             <app-code [code]="code3" [hideToggleCode]="true" [hideStackBlitz]="true"></app-code>
         </app-docsectiontext>
     `

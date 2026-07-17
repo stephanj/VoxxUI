@@ -4,13 +4,13 @@ import { BasicDoc } from '@/doc/inputgroup/basic-doc';
 import { ButtonDoc } from '@/doc/inputgroup/button-doc';
 import { CheckboxDoc } from '@/doc/inputgroup/checkbox-doc';
 import { FloatLabelDoc } from '@/doc/inputgroup/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/inputgroup/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputgroup/import-doc';
 import { MultipleDoc } from '@/doc/inputgroup/multiple-doc';
 import { PTComponent } from '@/doc/inputgroup/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular InputGroup Component" header="InputGroup" description="Text, icon, buttons and other content can be grouped next to an input." [docs]="docs" [ptDocs]="ptComponent" themeDocs="inputgroup"></app-doc> `,
     standalone: true,
     imports: [AppDoc]
@@ -48,11 +48,6 @@ export class InputGroupDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'accessibility',

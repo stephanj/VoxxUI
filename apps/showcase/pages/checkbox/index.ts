@@ -12,9 +12,10 @@ import { ReactiveFormsDoc } from '@/doc/checkbox/reactiveforms-doc';
 import { SizesDoc } from '@/doc/checkbox/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/checkbox/templatedrivenforms-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

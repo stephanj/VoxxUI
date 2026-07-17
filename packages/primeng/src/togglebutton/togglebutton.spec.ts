@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
+import { SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
+import { ToggleButtonChangeEvent } from 'voxx-ui/types/togglebutton';
 import { ToggleButton } from './togglebutton';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-togglebutton
+        <vx-togglebutton
             [(ngModel)]="checked"
             [onLabel]="onLabel"
             [offLabel]="offLabel"
@@ -30,7 +31,7 @@ import { ToggleButton } from './togglebutton';
             [styleClass]="styleClass"
             (onChange)="onToggleChange($event)"
         >
-        </p-togglebutton>
+        </vx-togglebutton>
     `
 })
 class TestBasicToggleButtonComponent {
@@ -57,10 +58,11 @@ class TestBasicToggleButtonComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <form [formGroup]="toggleForm">
-            <p-togglebutton formControlName="toggle" [onLabel]="onLabel" [offLabel]="offLabel" (onChange)="onFormToggleChange($event)"> </p-togglebutton>
+            <vx-togglebutton formControlName="toggle" [onLabel]="onLabel" [offLabel]="offLabel" (onChange)="onFormToggleChange($event)"> </vx-togglebutton>
         </form>
     `
 })
@@ -78,13 +80,14 @@ class TestReactiveToggleButtonComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-togglebutton [(ngModel)]="checked">
-            <ng-template pTemplate="content" let-checked>
+        <vx-togglebutton [(ngModel)]="checked">
+            <ng-template vxTemplate="content" let-checked>
                 <span class="custom-content">{{ checked ? 'Custom ON' : 'Custom OFF' }}</span>
             </ng-template>
-        </p-togglebutton>
+        </vx-togglebutton>
     `
 })
 class TestTemplateToggleButtonComponent {
@@ -92,13 +95,14 @@ class TestTemplateToggleButtonComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-togglebutton [(ngModel)]="checked">
-            <ng-template pTemplate="icon" let-checked>
+        <vx-togglebutton [(ngModel)]="checked">
+            <ng-template vxTemplate="icon" let-checked>
                 <i [class]="checked ? 'pi pi-check custom-on-icon' : 'pi pi-times custom-off-icon'"></i>
             </ng-template>
-        </p-togglebutton>
+        </vx-togglebutton>
     `
 })
 class TestIconTemplateToggleButtonComponent {
@@ -106,8 +110,9 @@ class TestIconTemplateToggleButtonComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-togglebutton [(ngModel)]="checked" [onIcon]="onIcon" [offIcon]="offIcon" [iconPos]="iconPos"> </p-togglebutton> `
+    template: ` <vx-togglebutton [(ngModel)]="checked" [onIcon]="onIcon" [offIcon]="offIcon" [iconPos]="iconPos"> </vx-togglebutton> `
 })
 class TestIconToggleButtonComponent {
     checked = false;
@@ -116,24 +121,25 @@ class TestIconToggleButtonComponent {
     iconPos: 'left' | 'right' = 'left';
 }
 
-// ToggleButton pTemplate component
+// ToggleButton vxTemplate component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
-        <p-togglebutton [(ngModel)]="checked">
-            <!-- Icon template with pTemplate -->
-            <ng-template pTemplate="icon" let-checked>
+        <vx-togglebutton [(ngModel)]="checked">
+            <!-- Icon template with vxTemplate -->
+            <ng-template vxTemplate="icon" let-checked>
                 <i class="custom-template-icon" [ngClass]="checked ? 'pi pi-star-fill' : 'pi pi-star'" [attr.data-testid]="'ptemplate-icon-' + (checked ? 'on' : 'off')" [title]="checked ? 'Checked State Icon' : 'Unchecked State Icon'"></i>
             </ng-template>
 
-            <!-- Content template with pTemplate -->
-            <ng-template pTemplate="content" let-checked>
+            <!-- Content template with vxTemplate -->
+            <ng-template vxTemplate="content" let-checked>
                 <span class="custom-template-content" [attr.data-testid]="'ptemplate-content-' + (checked ? 'on' : 'off')" [title]="checked ? 'Content On' : 'Content Off'">
                     {{ checked ? 'Template ON' : 'Template OFF' }}
                 </span>
             </ng-template>
-        </p-togglebutton>
+        </vx-togglebutton>
     `
 })
 class TestToggleButtonPTemplateComponent {
@@ -142,10 +148,11 @@ class TestToggleButtonPTemplateComponent {
 
 // ToggleButton #template reference component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
-        <p-togglebutton [(ngModel)]="checked">
+        <vx-togglebutton [(ngModel)]="checked">
             <!-- Icon template with #template reference -->
             <ng-template #icon let-checked>
                 <i class="custom-ref-icon" [ngClass]="checked ? 'pi pi-heart-fill' : 'pi pi-heart'" [attr.data-testid]="'ref-icon-' + (checked ? 'on' : 'off')" [title]="checked ? 'Reference Checked Icon' : 'Reference Unchecked Icon'"></i>
@@ -157,7 +164,7 @@ class TestToggleButtonPTemplateComponent {
                     {{ checked ? 'Reference ON' : 'Reference OFF' }}
                 </span>
             </ng-template>
-        </p-togglebutton>
+        </vx-togglebutton>
     `
 })
 class TestToggleButtonRefTemplateComponent {
@@ -754,7 +761,7 @@ describe('ToggleButton', () => {
         });
     });
 
-    describe('ToggleButton pTemplate Tests', () => {
+    describe('ToggleButton vxTemplate Tests', () => {
         let component: TestToggleButtonPTemplateComponent;
         let fixture: ComponentFixture<TestToggleButtonPTemplateComponent>;
         let toggleButtonInstance: ToggleButton;
@@ -771,7 +778,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
         });
 
-        it('should create component with pTemplate templates', async () => {
+        it('should create component with vxTemplate templates', async () => {
             expect(component).toBeTruthy();
             expect(toggleButtonInstance).toBeTruthy();
             expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
@@ -849,7 +856,7 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.active).toBe(true);
         });
 
-        it('should process pTemplates after content init', async () => {
+        it('should process vxTemplates after content init', async () => {
             if (toggleButtonInstance.ngAfterContentInit) {
                 toggleButtonInstance.ngAfterContentInit();
                 fixture.detectChanges();
@@ -979,9 +986,10 @@ describe('ToggleButton', () => {
 
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleButton, FormsModule],
-                template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+                template: `<vx-togglebutton [(ngModel)]="checked" [pt]="pt"></vx-togglebutton>`
             })
             class TestPTCase1Component {
                 checked: boolean = false;
@@ -1004,7 +1012,7 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
                 const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
 
@@ -1016,9 +1024,10 @@ describe('ToggleButton', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleButton, FormsModule],
-                template: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [pt]="pt"></p-togglebutton>`
+                template: `<vx-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" offIcon="pi pi-times" [pt]="pt"></vx-togglebutton>`
             })
             class TestPTCase2Component {
                 checked: boolean = true;
@@ -1054,7 +1063,7 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
                 const icon = fixture.debugElement.query(By.css('.pi'));
                 const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
@@ -1082,9 +1091,10 @@ describe('ToggleButton', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleButton, FormsModule],
-                template: `<p-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" [pt]="pt"></p-togglebutton>`
+                template: `<vx-togglebutton [(ngModel)]="checked" onIcon="pi pi-check" [pt]="pt"></vx-togglebutton>`
             })
             class TestPTCase3Component {
                 checked: boolean = false;
@@ -1111,7 +1121,7 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
                 const label = fixture.debugElement.query(By.css('.p-togglebutton-label'));
 
@@ -1129,9 +1139,10 @@ describe('ToggleButton', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleButton, FormsModule],
-                template: `<p-togglebutton [(ngModel)]="checked" [disabled]="disabled" [pt]="pt"></p-togglebutton>`
+                template: `<vx-togglebutton [(ngModel)]="checked" [disabled]="disabled" [pt]="pt"></vx-togglebutton>`
             })
             class TestPTCase4Component {
                 checked: boolean = false;
@@ -1163,7 +1174,7 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 const content = fixture.debugElement.query(By.css('.p-togglebutton-content'));
 
                 expect(toggleButtonRoot.classList.contains('UNCHECKED_CLASS') || toggleButtonRoot.classList.contains('CHECKED_CLASS')).toBe(true);
@@ -1187,9 +1198,10 @@ describe('ToggleButton', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [ToggleButton, FormsModule],
-                template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+                template: `<vx-togglebutton [(ngModel)]="checked" [pt]="pt"></vx-togglebutton>`
             })
             class TestPTCase5Component {
                 checked: boolean = false;
@@ -1230,9 +1242,10 @@ describe('ToggleButton', () => {
         describe('Case 6: Inline PT test', () => {
             it('should apply inline string PT', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [ToggleButton, FormsModule],
-                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-togglebutton>`
+                    template: `<vx-togglebutton [(ngModel)]="checked" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></vx-togglebutton>`
                 })
                 class TestInlineComponent {
                     checked: boolean = false;
@@ -1248,15 +1261,16 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 expect(toggleButtonRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
             it('should apply inline object PT', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [ToggleButton, FormsModule],
-                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></p-togglebutton>`
+                    template: `<vx-togglebutton [(ngModel)]="checked" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></vx-togglebutton>`
                 })
                 class TestInlineObjectComponent {
                     checked: boolean = false;
@@ -1272,18 +1286,19 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 expect(toggleButtonRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(toggleButtonRoot.style.border).toBe('2px solid red');
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             it('should apply global PT configuration', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [ToggleButton, FormsModule],
-                    template: `<p-togglebutton [(ngModel)]="checked1"></p-togglebutton><p-togglebutton [(ngModel)]="checked2"></p-togglebutton>`
+                    template: `<vx-togglebutton [(ngModel)]="checked1"></vx-togglebutton><vx-togglebutton [(ngModel)]="checked2"></vx-togglebutton>`
                 })
                 class TestGlobalPTComponent {
                     checked1: boolean = false;
@@ -1294,7 +1309,7 @@ describe('ToggleButton', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 toggleButton: {
                                     root: { 'data-test': 'global-togglebutton' },
@@ -1314,7 +1329,7 @@ describe('ToggleButton', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                const toggleButtons = fixture.debugElement.queryAll(By.css('p-togglebutton'));
+                const toggleButtons = fixture.debugElement.queryAll(By.css('vx-togglebutton'));
                 expect(toggleButtons.length).toBe(2);
 
                 toggleButtons.forEach((toggleButton) => {
@@ -1341,9 +1356,10 @@ describe('ToggleButton', () => {
                 const hookCalls: string[] = [];
 
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [ToggleButton, FormsModule],
-                    template: `<p-togglebutton [(ngModel)]="checked" [pt]="pt"></p-togglebutton>`
+                    template: `<vx-togglebutton [(ngModel)]="checked" [pt]="pt"></vx-togglebutton>`
                 })
                 class TestHooksComponent {
                     checked: boolean = false;
@@ -1372,7 +1388,7 @@ describe('ToggleButton', () => {
 
                 expect(hookCalls).toContain('onAfterViewInit');
 
-                const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+                const toggleButtonRoot = fixture.debugElement.query(By.css('vx-togglebutton')).nativeElement;
                 expect(toggleButtonRoot.classList.contains('MY-TOGGLEBUTTON')).toBe(true);
 
                 fixture.destroy();

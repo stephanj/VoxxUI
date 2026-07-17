@@ -1,12 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { PanelModule } from 'primeng/panel';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { ButtonModule } from 'voxx-ui/button';
+import { MenuModule } from 'voxx-ui/menu';
+import { PanelModule } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, AppCode, AppDocSectionText],
@@ -15,31 +16,31 @@ import { PanelModule } from 'primeng/panel';
             <p>Header and Footers sections can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-panel [toggleable]="true">
+            <vx-panel [toggleable]="true">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
                 <ng-template #footer>
                     <div class="flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-2">
-                            <p-button icon="pi pi-user" rounded text></p-button>
-                            <p-button icon="pi pi-bookmark" severity="secondary" rounded text></p-button>
+                            <vx-button icon="pi pi-user" rounded text></vx-button>
+                            <vx-button icon="pi pi-bookmark" severity="secondary" rounded text></vx-button>
                         </div>
                         <span class="text-surface-500 dark:text-surface-400">Updated 2 hours ago</span>
                     </div>
                 </ng-template>
                 <ng-template #icons>
-                    <p-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
-                    <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
+                    <vx-button icon="pi pi-cog" severity="secondary" rounded text (click)="menu.toggle($event)" />
+                    <vx-menu #menu id="config_menu" [model]="items" [popup]="true" />
                 </ng-template>
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-panel>
+            </vx-panel>
         </div>
         <app-code></app-code>
     `

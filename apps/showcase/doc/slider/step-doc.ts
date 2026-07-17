@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'voxx-ui/slider';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'step-doc',
     standalone: true,
     imports: [FormsModule, SliderModule, AppDocSectionText, AppCode],
@@ -13,7 +14,7 @@ import { AppCode } from '@/components/doc/app.code';
             <p>Size of each movement is defined with the <i>step</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-slider [(ngModel)]="value" [step]="20" class="w-56" />
+            <vx-slider [(ngModel)]="value" [step]="20" class="w-56" />
         </div>
         <app-code></app-code>
     `

@@ -1,38 +1,39 @@
-import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
+import { MessageModule } from 'voxx-ui/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
+                    <input vxInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
                     @if (isInvalid('username')) {
-                        <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+                        <vx-message severity="error" size="small" variant="simple">Username is required.</vx-message>
                     }
                 </div>
                 <div class="flex flex-col gap-1">
-                    <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
+                    <input vxInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
                     @if (isInvalid('email')) {
                         @if (exampleForm.get('email')?.errors?.['required']) {
-                            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+                            <vx-message severity="error" size="small" variant="simple">Email is required.</vx-message>
                         }
                         @if (exampleForm.get('email')?.errors?.['email']) {
-                            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+                            <vx-message severity="error" size="small" variant="simple">Please enter a valid email.</vx-message>
                         }
                     }
                 </div>
-                <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+                <button vxButton severity="secondary" type="submit"><span vxButtonLabel>Submit</span></button>
             </form>
         </div>
         <app-code></app-code>

@@ -1,4 +1,4 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
 
 /**
  * Defines valid pass-through options in Tabs component.

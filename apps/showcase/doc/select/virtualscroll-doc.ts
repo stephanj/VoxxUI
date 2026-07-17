@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
-import { SelectModule } from 'primeng/select';
+import { SelectItem } from 'voxx-ui/api';
+import { SelectModule } from 'voxx-ui/select';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'virtualscroll-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
@@ -17,7 +18,7 @@ import { SelectModule } from 'primeng/select';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
+            <vx-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="32" class="w-full md:w-56" />
         </div>
         <app-code></app-code>
     `

@@ -1,4 +1,3 @@
-import { AppDesigner } from '@/components/layout/designer/app.designer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CarService } from '@/service/carservice';
 import { CountryService } from '@/service/countryservice';
@@ -9,15 +8,16 @@ import { PhotoService } from '@/service/photoservice';
 import { ProductService } from '@/service/productservice';
 import { DOCUMENT, IMAGE_CONFIG } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-root',
-    template: `<router-outlet></router-outlet> <app-designer />`,
+    template: `<router-outlet></router-outlet>`,
     standalone: true,
-    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppDesigner],
+    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule],
     providers: [
         CarService,
         CountryService,

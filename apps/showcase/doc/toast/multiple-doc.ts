@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'multiple-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, Ripple],
@@ -15,8 +16,8 @@ import { Ripple } from 'primeng/ripple';
             <p>Multiple toasts are displayed by passing an array to the <i>showAll</i> method of the <i>messageService</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast />
-            <p-button pRipple (click)="show()" label="Multiple" severity="warn" />
+            <vx-toast />
+            <vx-button vxRipple (click)="show()" label="Multiple" severity="warn" />
         </div>
         <app-code></app-code>
     `,

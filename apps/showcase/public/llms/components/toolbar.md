@@ -12,33 +12,33 @@ Toolbar is a grouping component for buttons and other content. Its content can b
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToolbarModule } from 'primeng/toolbar';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { SplitButtonModule } from 'voxx-ui/splitbutton';
+import { ToolbarModule } from 'voxx-ui/toolbar';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-toolbar>
+            <vx-toolbar>
                 <ng-template #start>
-                    <p-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
-                    <p-button icon="pi pi-print" class="mr-2" text severity="secondary" />
-                    <p-button icon="pi pi-upload" text severity="secondary" />
+                    <vx-button icon="pi pi-plus" class="mr-2" text severity="secondary" />
+                    <vx-button icon="pi pi-print" class="mr-2" text severity="secondary" />
+                    <vx-button icon="pi pi-upload" text severity="secondary" />
                 </ng-template>
                 <ng-template #center>
-                    <p-iconfield iconPosition="left">
-                        <p-inputicon class="pi pi-search" />
+                    <vx-iconfield iconPosition="left">
+                        <vx-inputicon class="pi pi-search" />
                         <input type="text" pInputText placeholder="Search" />
-                    </p-iconfield>
+                    </vx-iconfield>
                 </ng-template>
                 <ng-template #end>
-                    <p-splitbutton label="Save" [model]="items" />
+                    <vx-splitbutton label="Save" [model]="items" />
                 </ng-template>
-            </p-toolbar>
+            </vx-toolbar>
         </div>
     `,
     standalone: true,
@@ -68,14 +68,14 @@ Content can also be placed using the start , center and end templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToolbarModule } from 'voxx-ui/toolbar';
 
 @Component({
     template: `
         <div class="card">
-            <p-toolbar [style]="{ 'border-radius': '3rem', padding: '1rem 1rem 1rem 1.5rem' }">
+            <vx-toolbar [style]="{ 'border-radius': '3rem', padding: '1rem 1rem 1rem 1.5rem' }">
                 <ng-template #start>
                     <div class="flex items-center gap-2">
                         <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 2rem; margin-right: 1rem">
@@ -107,18 +107,18 @@ import { ToolbarModule } from 'primeng/toolbar';
                             <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                             <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                         </svg>
-                        <p-button label="Files" text plain />
-                        <p-button label="Edit" text plain />
-                        <p-button label="View" text plain />
+                        <vx-button label="Files" text plain />
+                        <vx-button label="Edit" text plain />
+                        <vx-button label="View" text plain />
                     </div>
                 </ng-template>
                 <ng-template #end>
                     <div class="flex items-center gap-2">
-                        <p-button label="Share" severity="contrast" size="small" />
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '32px', height: '32px' }" />
+                        <vx-button label="Share" severity="contrast" size="small" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '32px', height: '32px' }" />
                     </div>
                 </ng-template>
-            </p-toolbar>
+            </vx-toolbar>
         </div>
     `,
     standalone: true,

@@ -1,22 +1,23 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PanelModule } from 'primeng/panel';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ButtonModule } from 'voxx-ui/button';
+import { PanelModule } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'pcprefix-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, PanelModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
-                A UI component may also use other UI components, in this case section names are prefixed with <i>pc</i> (Prime Component) to denote the PrimeNG component begin used. This distinguishes components from standard DOM elements and
+                A UI component may also use other UI components, in this case section names are prefixed with <i>pc</i> (Prime Component) to denote the VoxxUI component begin used. This distinguishes components from standard DOM elements and
                 indicating the necessity for a nested structure. For example, the <i>badge</i> section is identified as <i>pcBadge</i> because the button component incorporates the badge component internally.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-button
+            <vx-button
                 type="button"
                 label="Messages"
                 icon="pi pi-inbox"

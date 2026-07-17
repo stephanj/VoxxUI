@@ -10,7 +10,9 @@ export interface Props {
     routeFiles?: RouteFile[];
     selector?: string;
 }
-const version = require('package.json').version;
+import packageJson from '../../../package.json';
+
+const version = packageJson.version;
 
 const dependencies = {
     '@angular/cdk': '^21.0.0',
@@ -24,7 +26,7 @@ const dependencies = {
     '@primeuix/themes': '^2.0.2',
     'chart.js': '4.4.2',
     primeicons: '^7.0.0',
-    primeng: `${version}`,
+    'voxx-ui': `${version}`,
     quill: '2.0.2',
     rxjs: '~7.8.0',
     tailwindcss: '^3.4.10',
@@ -391,10 +393,10 @@ import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
 import Material from '@primeuix/themes/material';
 import Nora from '@primeuix/themes/nora';
-import { PrimeNG } from 'primeng/config';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { StyleClassModule } from 'primeng/styleclass';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { VoxxUI } from 'voxx-ui/config';
+import { SelectButtonModule } from 'voxx-ui/selectbutton';
+import { StyleClassModule } from 'voxx-ui/styleclass';
+import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 const presets = {
@@ -424,7 +426,7 @@ export interface ThemeState {
             </li>
             <li class="relative">
                 <button
-                    pStyleClass="@next"
+                    vxStyleClass="@next"
                     enterFromClass="hidden"
                     enterActiveClass="animate-scalein"
                     leaveToClass="hidden"
@@ -473,12 +475,12 @@ export interface ThemeState {
                     <div class="flex-col justify-start items-start gap-2 inline-flex w-full">
                         <span class="text-sm font-medium">Preset</span>
                         <div class="inline-flex p-[0.28rem] items-start gap-[0.28rem] rounded-[0.71rem] border border-[#00000003] w-full">
-                            <p-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [unselectable]="false" size="small" />
+                            <vx-selectbutton [options]="presets" [ngModel]="selectedPreset()" (ngModelChange)="onPresetChange($event)" [unselectable]="false" size="small" />
                         </div>
                     </div>
                     <div class="inline-flex flex-col justify-start items-start gap-2 w-full pt-4 pb-2">
                         <span class="text-sm font-medium m-0">Ripple Effect</span>
-                        <p-toggleswitch [(ngModel)]="ripple" />
+                        <vx-toggleswitch [(ngModel)]="ripple" />
                     </div>
                 </div>
             </li>
@@ -498,7 +500,7 @@ export class ThemeSwitcher {
 
   platformId = inject(PLATFORM_ID);
 
-  config: PrimeNG = inject(PrimeNG);
+  config: VoxxUI = inject(VoxxUI);
 
   themeState = signal<ThemeState>(null);
 
@@ -996,13 +998,13 @@ const getAngularApp = (props: Props = {}) => {
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>PrimeNG ${componentName}</title>
+        <title>VoxxUI ${componentName}</title>
         <base href="/">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
         <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png">
+        
     </head>
     <body>
         <${selector}></${selector}>
@@ -1013,13 +1015,13 @@ const getAngularApp = (props: Props = {}) => {
 import { ${componentName} } from './app/${selector}';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 import Aura from '@primeuix/themes/aura';
 
   export const appConfig: ApplicationConfig = {
       providers: [
       provideHttpClient(withFetch()),
-      providePrimeNG({
+      provideVoxxUI({
           theme: { preset: Aura, options: { darkModeSelector: '.p-dark' } },
       }),
     ],
@@ -1048,8 +1050,8 @@ import Aura from '@primeuix/themes/aura';
     const files = {
         'package.json': {
             content: {
-                name: `primeng-${selector}`,
-                description: `PrimeNG ${componentName}`,
+                name: `voxx-ui-${selector}`,
+                description: `VoxxUI ${componentName}`,
                 license: 'MIT',
                 keywords: [],
                 scripts: {
@@ -1081,7 +1083,7 @@ import Aura from '@primeuix/themes/aura';
         });
     }
 
-    return { files, title: `PrimeNG ${componentName}` };
+    return { files, title: `VoxxUI ${componentName}` };
 };
 
 export { getAngularApp };

@@ -1,3 +1,3 @@
-export * from 'primeng/types/slider';
+export * from 'voxx-ui/types/slider';
 export * from './slider';
 export * from './style/sliderstyle';

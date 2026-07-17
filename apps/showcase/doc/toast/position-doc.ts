@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { Ripple } from 'primeng/ripple';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { Ripple } from 'voxx-ui/ripple';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'position-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, Ripple],
@@ -15,13 +16,13 @@ import { Ripple } from 'primeng/ripple';
             <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast position="top-left" key="tl" />
-            <p-toast position="bottom-left" key="bl" />
-            <p-toast position="bottom-right" key="br" />
+            <vx-toast position="top-left" key="tl" />
+            <vx-toast position="bottom-left" key="bl" />
+            <vx-toast position="bottom-right" key="br" />
             <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="showTopLeft()" label="Top Left" />
-                <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
-                <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+                <vx-button vxRipple (click)="showTopLeft()" label="Top Left" />
+                <vx-button vxRipple (click)="showBottomLeft()" label="Bottom Left" />
+                <vx-button vxRipple (click)="showBottomRight()" label="Bottom Right" />
             </div>
         </div>
         <app-code></app-code>

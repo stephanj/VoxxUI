@@ -7,9 +7,10 @@ import { OpenDoc } from '@/doc/dynamicdialog/open-doc';
 import { PassingDataDoc } from '@/doc/dynamicdialog/passingdata-doc';
 import { PTComponent } from '@/doc/dynamicdialog/pt/PTComponent';
 import { UsageDoc } from '@/doc/dynamicdialog/usage-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `

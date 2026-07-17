@@ -14,9 +14,10 @@ import { TemplateDoc } from '@/doc/splitbutton/template-doc';
 import { TextDoc } from '@/doc/splitbutton/text-doc';
 import { PTComponent } from '@/doc/splitbutton/pt/PTComponent';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular SplitButton Component"
         header="SplitButton"

@@ -7,7 +7,7 @@ Application wide configuration for PrimeNG.
 The nonce value to use on dynamically generated style elements in core.
 
 ```typescript
-providePrimeNG({ 
+provideVoxxUI({ 
     csp: {
         nonce: '...'
     }
@@ -16,11 +16,11 @@ providePrimeNG({
 
 ## Dynamic-
 
-Inject the PrimeNG to your application to update the initial configuration at runtime.
+Inject the VoxxUI to your application to update the initial configuration at runtime.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { VoxxUI } from 'voxx-ui/config';
 
 @Component({
     selector: 'app-root',
@@ -28,7 +28,7 @@ import { PrimeNG } from 'primeng/config';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primeng: PrimeNG) {}
+    constructor(private primeng: VoxxUI) {}
 
     ngOnInit() {
         this.primeng.ripple.set(true);
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
 Default filter modes to display on DataTable filter menus.
 
 ```typescript
-import { PrimeNGConfig } from 'primeng/api';
+import { VoxxUIConfig } from 'voxx-ui/api';
 
 @Component({
     selector: 'app-root',
@@ -49,7 +49,7 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primengConfig: VoxxUIConfig) {}
 
     ngOnInit() {
         primengConfig.filterMatchModeOptions = {
@@ -79,7 +79,7 @@ The translations can be changed dynamically at runtime, here is an example with 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { VoxxUI } from 'voxx-ui/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -88,7 +88,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private config: PrimeNG, private translateService: TranslateService) {}
+    constructor(private config: VoxxUI, private translateService: TranslateService) {}
 
     ngOnInit() {
         this.translateService.setDefaultLang('en');
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
 A translation is specified using the translation property during initialization.
 
 ```typescript
-providePrimeNG({ 
+provideVoxxUI({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',
@@ -121,17 +121,17 @@ Defines the default location of the overlays; self refers to the host element an
 
 ## Provider-
 
-The initial configuration is defined by the providePrimeNG provider during application startup.
+The initial configuration is defined by the provideVoxxUI provider during application startup.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({ /* options */ })
+        provideVoxxUI({ /* options */ })
     ]
 };
 ```
@@ -141,26 +141,26 @@ export const appConfig: ApplicationConfig = {
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
 
 ```typescript
-providePrimeNG({ 
+provideVoxxUI({ 
     ripple: true
 })
 ```
 
 ## Theme-
 
-PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
+VoxxUI provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({
+        provideVoxxUI({
             theme: {
                 preset: Aura,
                 options: {
@@ -176,10 +176,10 @@ export const appConfig: ApplicationConfig = {
 
 ## Zindex-
 
-ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. PrimeNG configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up PrimeNG.
+ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. VoxxUI configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up VoxxUI.
 
 ```typescript
-import { PrimeNGConfig } from 'primeng/api';
+import { VoxxUIConfig } from 'voxx-ui/api';
 
 @Component({
     selector: 'app-root',
@@ -187,7 +187,7 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private primengConfig: VoxxUIConfig) {}
 
     ngOnInit() {
         this.primengConfig.zIndex = {

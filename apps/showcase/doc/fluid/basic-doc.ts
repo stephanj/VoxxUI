@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Fluid } from 'primeng/fluid';
-import { InputTextModule } from 'primeng/inputtext';
+import { Fluid } from 'voxx-ui/fluid';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, Fluid, InputTextModule],
@@ -19,21 +20,21 @@ import { InputTextModule } from 'primeng/inputtext';
         <div class="card flex flex-col gap-6">
             <div>
                 <label for="non-fluid" class="font-bold mb-2 block">Non-Fluid</label>
-                <input type="text" pInputText id="non-fluid" />
+                <input type="text" vxInputText id="non-fluid" />
             </div>
             <div>
                 <label for="fluid" class="font-bold mb-2 block">Fluid Prop</label>
-                <input type="text" pInputText id="fluid" fluid />
+                <input type="text" vxInputText id="fluid" fluid />
             </div>
-            <p-fluid>
+            <vx-fluid>
                 <span class="font-bold mb-2 block">Fluid Container</span>
                 <div class="grid grid-cols-2 gap-4">
-                    <div><input type="text" pInputText /></div>
-                    <div><input type="text" pInputText /></div>
-                    <div class="col-span-full"><input type="text" pInputText /></div>
-                    <div><input type="text" pInputText [fluid]="false" placeholder="Non-Fluid" /></div>
+                    <div><input type="text" vxInputText /></div>
+                    <div><input type="text" vxInputText /></div>
+                    <div class="col-span-full"><input type="text" vxInputText /></div>
+                    <div><input type="text" vxInputText [fluid]="false" placeholder="Non-Fluid" /></div>
                 </div>
-            </p-fluid>
+            </vx-fluid>
         </div>
         <app-code></app-code>
     `

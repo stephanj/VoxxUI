@@ -1,12 +1,13 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'primeng/chart';
+import { ChartModule } from 'voxx-ui/chart';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'horizontalbar-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule],
@@ -15,7 +16,7 @@ import { ChartModule } from 'primeng/chart';
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
+            <vx-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code></app-code>
     `

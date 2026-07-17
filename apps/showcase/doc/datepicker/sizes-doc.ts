@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'voxx-ui/datepicker';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'sizes-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
@@ -13,9 +14,9 @@ import { DatePickerModule } from 'primeng/datepicker';
             <p>DatePicker provides <i>small</i> and <i>large</i> sizes as alternatives to the base.</p>
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
-            <p-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
-            <p-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
-            <p-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
+            <vx-datepicker [(ngModel)]="value1" size="small" placeholder="Small" showIcon iconDisplay="input" />
+            <vx-datepicker [(ngModel)]="value2" placeholder="Normal" showIcon iconDisplay="input" />
+            <vx-datepicker [(ngModel)]="value3" size="large" placeholder="Large" showIcon iconDisplay="input" />
         </div>
         <app-code></app-code>
     `

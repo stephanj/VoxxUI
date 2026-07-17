@@ -12,13 +12,11 @@ Card content can be customized further with subHeader , header and footer proper
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 
 @Component({
     template: `
         <div class="mb-4 p-8 flex items-center justify-center">
-            <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+            <vx-card [style]="{ width: '25rem', overflow: 'hidden' }">
                 <ng-template #header>
                     <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
                 </ng-template>
@@ -30,15 +28,15 @@ import { CardModule } from 'primeng/card';
                 </p>
                 <ng-template #footer>
                     <div class="flex gap-4 mt-1">
-                        <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-                        <p-button label="Save" class="w-full" styleClass="w-full" />
+                        <vx-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+                        <vx-button label="Save" class="w-full" styleClass="w-full" />
                     </div>
                 </ng-template>
-            </p-card>
+            </vx-card>
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, CardModule]
+    imports: []
 })
 export class CardAdvancedDemo {}
 ```
@@ -49,21 +47,20 @@ A simple Card is created with a header property along with the content as childr
 
 ```typescript
 import { Component } from '@angular/core';
-import { CardModule } from 'primeng/card';
 
 @Component({
     template: `
         <div class="mb-4 p-8">
-            <p-card header="Simple Card">
+            <vx-card header="Simple Card">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
                 </p>
-            </p-card>
+            </vx-card>
         </div>
     `,
     standalone: true,
-    imports: [CardModule]
+    imports: []
 })
 export class CardBasicDemo {}
 ```

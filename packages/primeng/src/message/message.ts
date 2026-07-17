@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { TimesIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Ripple } from 'primeng/ripple';
-import { MessageContainerTemplateContext, MessagePassThrough } from 'primeng/types/message';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { TimesIcon } from 'voxx-ui/icons';
+import { MotionModule } from 'voxx-ui/motion';
+import { Ripple } from 'voxx-ui/ripple';
+import { MessageContainerTemplateContext, MessagePassThrough } from 'voxx-ui/types/message';
 import { MessageStyle } from './style/messagestyle';
 
 const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
@@ -17,44 +17,44 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-message',
+    selector: 'vx-message',
     standalone: true,
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
-        <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')" [attr.data-p]="dataP">
-            <div [pBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
+        <div [vxBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')" [attr.data-p]="dataP">
+            <div [vxBind]="ptm('content')" [class]="cx('content')" [attr.data-p]="dataP">
                 @if (iconTemplate || _iconTemplate) {
                     <ng-container *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-container>
                 }
                 @if (icon) {
-                    <i [pBind]="ptm('icon')" [class]="cn(cx('icon'), icon)" [attr.data-p]="dataP"></i>
+                    <i [vxBind]="ptm('icon')" [class]="cn(cx('icon'), icon)" [attr.data-p]="dataP"></i>
                 }
 
                 @if (containerTemplate || _containerTemplate) {
                     <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                 } @else {
                     <div *ngIf="!escape; else escapeOut">
-                        <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
+                        <span [vxBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
                     </div>
 
                     <ng-template #escapeOut>
-                        <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
+                        <span [vxBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
                     </ng-template>
 
-                    <span [pBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
+                    <span [vxBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
                         <ng-content></ng-content>
                     </span>
                 }
                 @if (closable) {
-                    <button [pBind]="ptm('closeButton')" pRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
+                    <button [vxBind]="ptm('closeButton')" vxRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
                         @if (closeIcon) {
-                            <i [pBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
+                            <i [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
                         }
                         @if (closeIconTemplate || _closeIconTemplate) {
                             <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>
                         }
                         @if (!closeIconTemplate && !_closeIconTemplate && !closeIcon) {
-                            <svg [pBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.data-p]="dataP" />
+                            <svg [vxBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.data-p]="dataP" />
                         }
                     </button>
                 }
@@ -96,13 +96,13 @@ export class Message extends BaseComponent<MessagePassThrough> {
     @Input() severity: 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     /**
      * Text content.
-     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
+     * @deprecated since v20.0.0. Use content projection instead '<vx-message>Content</vx-message>'.
      * @group Props
      */
     @Input() text: string | undefined;
     /**
      * Whether displaying messages would be escaped or not.
-     * @deprecated since v20.0.0. Use content projection instead '<p-message>Content</p-message>'.
+     * @deprecated since v20.0.0. Use content projection instead '<vx-message>Content</vx-message>'.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) escape: boolean = true;

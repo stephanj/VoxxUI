@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
 import { CardStyle } from './style/cardstyle';
-import { CardPassThrough } from 'primeng/types/card';
+import { CardPassThrough } from 'voxx-ui/types/card';
 
 const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
 
@@ -14,29 +14,29 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-card',
+    selector: 'vx-card',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
-            <ng-content select="p-header"></ng-content>
+        <div [vxBind]="ptm('header')" [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
+            <ng-content select="vx-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
         </div>
-        <div [pBind]="ptm('body')" [class]="cx('body')">
-            <div [pBind]="ptm('title')" [class]="cx('title')" *ngIf="header || titleTemplate || _titleTemplate">
+        <div [vxBind]="ptm('body')" [class]="cx('body')">
+            <div [vxBind]="ptm('title')" [class]="cx('title')" *ngIf="header || titleTemplate || _titleTemplate">
                 <ng-container *ngIf="header && !_titleTemplate && !titleTemplate">{{ header }}</ng-container>
                 <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
             </div>
-            <div [pBind]="ptm('subtitle')" [class]="cx('subtitle')" *ngIf="subheader || subtitleTemplate || _subtitleTemplate">
+            <div [vxBind]="ptm('subtitle')" [class]="cx('subtitle')" *ngIf="subheader || subtitleTemplate || _subtitleTemplate">
                 <ng-container *ngIf="subheader && !_subtitleTemplate && !subtitleTemplate">{{ subheader }}</ng-container>
                 <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
             </div>
-            <div [pBind]="ptm('content')" [class]="cx('content')">
+            <div [vxBind]="ptm('content')" [class]="cx('content')">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
-            <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                <ng-content select="p-footer"></ng-content>
+            <div [vxBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
+                <ng-content select="vx-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
             </div>
         </div>

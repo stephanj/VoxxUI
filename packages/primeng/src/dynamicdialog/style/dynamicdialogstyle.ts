@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogStyle } from 'primeng/dialog';
+import { DialogStyle } from 'voxx-ui/dialog';
 
 @Injectable()
 export class DynamicDialogStyle extends DialogStyle {

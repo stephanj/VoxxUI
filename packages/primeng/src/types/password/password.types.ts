@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@primeuix/motion';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { OverlayPassThrough } from 'primeng/types/overlay';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import type { InputTextPassThrough } from 'voxx-ui/types/inputtext';
+import type { OverlayPassThrough } from 'voxx-ui/types/overlay';
 
 /**
  * Custom pass-through(pt) options.

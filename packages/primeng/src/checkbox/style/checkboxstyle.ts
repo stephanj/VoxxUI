@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as checkbox_style } from '@primeuix/styles/checkbox';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${checkbox_style}
 
-    /* For PrimeNG */
+    /* For VoxxUI */
     p-checkBox.ng-invalid.ng-dirty .p-checkbox-box,
     p-check-box.ng-invalid.ng-dirty .p-checkbox-box,
     p-checkbox.ng-invalid.ng-dirty .p-checkbox-box {

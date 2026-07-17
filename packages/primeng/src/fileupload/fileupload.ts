@@ -24,15 +24,15 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { addClass, removeClass } from '@primeuix/utils';
-import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { Badge } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Button, ButtonProps } from 'primeng/button';
-import { PlusIcon, TimesIcon, UploadIcon } from 'primeng/icons';
-import { Message } from 'primeng/message';
-import { ProgressBar } from 'primeng/progressbar';
-import { VoidListener } from 'primeng/ts-helpers';
+import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { Badge } from 'voxx-ui/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind } from 'voxx-ui/bind';
+import { Button, ButtonProps } from 'voxx-ui/button';
+import { PlusIcon, TimesIcon, UploadIcon } from 'voxx-ui/icons';
+import { Message } from 'voxx-ui/message';
+import { ProgressBar } from 'voxx-ui/progressbar';
+import { VoidListener } from 'voxx-ui/ts-helpers';
 import {
     FileBeforeUploadEvent,
     FileProgressEvent,
@@ -47,25 +47,25 @@ import {
     FileUploadHeaderTemplateContext,
     FileUploadPassThrough,
     RemoveUploadedFileEvent
-} from 'primeng/types/fileupload';
+} from 'voxx-ui/types/fileupload';
 import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE');
 
 @Component({
-    selector: '[pFileContent]',
+    selector: '[vxFileContent]',
     standalone: true,
     template: `@for (file of files(); track file?.name + '-' + $index; let index = $index) {
-        <div [class]="cx('file')" [pBind]="$pcFileUpload.ptm('file')">
-            <img role="presentation" [class]="cx('fileThumbnail')" [attr.alt]="file.name" [src]="file.objectURL" [width]="previewWidth()" [pBind]="$pcFileUpload.ptm('fileThumbnail')" />
-            <div [class]="cx('fileInfo')" [pBind]="$pcFileUpload.ptm('fileInfo')">
-                <div [class]="cx('fileName')" [pBind]="$pcFileUpload.ptm('fileName')">{{ file.name }}</div>
-                <span [class]="cx('fileSize')" [pBind]="$pcFileUpload.ptm('fileSize')">{{ formatSize(file.size) }}</span>
+        <div [class]="cx('file')" [vxBind]="$pcFileUpload.ptm('file')">
+            <img role="presentation" [class]="cx('fileThumbnail')" [attr.alt]="file.name" [src]="file.objectURL" [width]="previewWidth()" [vxBind]="$pcFileUpload.ptm('fileThumbnail')" />
+            <div [class]="cx('fileInfo')" [vxBind]="$pcFileUpload.ptm('fileInfo')">
+                <div [class]="cx('fileName')" [vxBind]="$pcFileUpload.ptm('fileName')">{{ file.name }}</div>
+                <span [class]="cx('fileSize')" [vxBind]="$pcFileUpload.ptm('fileSize')">{{ formatSize(file.size) }}</span>
             </div>
-            <p-badge [value]="badgeValue()" [severity]="badgeSeverity()" [class]="cx('pcFileBadge')" [pt]="$pcFileUpload.ptm('pcFileBadge')" [unstyled]="unstyled()" />
-            <div [class]="cx('fileActions')" [pBind]="$pcFileUpload.ptm('fileActions')">
-                <p-button (onClick)="onRemoveClick($event, index)" [styleClass]="cx('pcFileRemoveButton')" text rounded severity="danger" [pt]="$pcFileUpload.ptm('pcFileRemoveButton')" [unstyled]="unstyled()">
+            <vx-badge [value]="badgeValue()" [severity]="badgeSeverity()" [class]="cx('pcFileBadge')" [pt]="$pcFileUpload.ptm('pcFileBadge')" [unstyled]="unstyled()" />
+            <div [class]="cx('fileActions')" [vxBind]="$pcFileUpload.ptm('fileActions')">
+                <vx-button (onClick)="onRemoveClick($event, index)" [styleClass]="cx('pcFileRemoveButton')" text rounded severity="danger" [pt]="$pcFileUpload.ptm('pcFileRemoveButton')" [unstyled]="unstyled()">
                     <ng-template #icon let-iconClass="class">
                         @if (fileRemoveIconTemplate()) {
                             <ng-template *ngTemplateOutlet="fileRemoveIconTemplate(); context: { class: iconClass, file: file, index: index }"></ng-template>
@@ -73,7 +73,7 @@ const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE'
                             <svg data-p-icon="times" [class]="iconClass" [attr.aria-hidden]="true" />
                         }
                     </ng-template>
-                </p-button>
+                </vx-button>
             </div>
         </div>
     }`,
@@ -122,15 +122,15 @@ export class FileContent extends BaseComponent {
  * @group Components
  */
 @Component({
-    selector: 'p-fileupload, p-fileUpload',
+    selector: 'vx-fileupload, vx-fileUpload',
     standalone: true,
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
-        <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [pBind]="ptm('root')">
-            <input [attr.aria-label]="browseFilesLabel" #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [pBind]="ptm('input')" />
-            <div [class]="cx('header')" [pBind]="ptm('header')">
+        <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [vxBind]="ptm('root')">
+            <input [attr.aria-label]="browseFilesLabel" #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [vxBind]="ptm('input')" />
+            <div [class]="cx('header')" [vxBind]="ptm('header')">
                 <ng-container *ngIf="!headerTemplate && !_headerTemplate">
-                    <p-button
+                    <vx-button
                         [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
                         [disabled]="disabled || isChooseDisabled()"
                         (focus)="onFocus()"
@@ -151,20 +151,20 @@ export class FileContent extends BaseComponent {
                             [accept]="accept"
                             [disabled]="disabled || isChooseDisabled()"
                             [attr.title]="''"
-                            [pBind]="ptm('input')"
+                            [vxBind]="ptm('input')"
                         />
                         <ng-template #icon>
-                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [vxBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!chooseIcon">
-                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon" />
-                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon">
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [vxBind]="ptm('pcChooseButton')?.icon" />
+                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [vxBind]="ptm('pcChooseButton')?.icon">
                                     <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
                         </ng-template>
-                    </p-button>
+                    </vx-button>
 
-                    <p-button
+                    <vx-button
                         *ngIf="!auto && showUploadButton"
                         [label]="uploadButtonLabel"
                         (onClick)="upload()"
@@ -175,16 +175,16 @@ export class FileContent extends BaseComponent {
                         [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
-                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
+                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" [vxBind]="ptm('pcUploadButton')?.icon"></span>
                             <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [pBind]="ptm('pcUploadButton')?.icon" />
-                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [vxBind]="ptm('pcUploadButton')?.icon" />
+                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true" [vxBind]="ptm('pcUploadButton')?.icon">
                                     <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
                         </ng-template>
-                    </p-button>
-                    <p-button
+                    </vx-button>
+                    <vx-button
                         *ngIf="!auto && showCancelButton"
                         [label]="cancelButtonLabel"
                         (onClick)="clear()"
@@ -203,7 +203,7 @@ export class FileContent extends BaseComponent {
                                 </span>
                             </ng-container>
                         </ng-template>
-                    </p-button>
+                    </vx-button>
                 </ng-container>
                 <ng-container
                     *ngTemplateOutlet="
@@ -219,7 +219,7 @@ export class FileContent extends BaseComponent {
                 ></ng-container>
                 <ng-container *ngTemplateOutlet="toolbarTemplate || _toolbarTemplate"></ng-container>
             </div>
-            <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [pBind]="ptm('content')">
+            <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [vxBind]="ptm('content')">
                 @if (contentTemplate || _contentTemplate) {
                     <ng-container
                         *ngTemplateOutlet="
@@ -237,17 +237,17 @@ export class FileContent extends BaseComponent {
                         "
                     ></ng-container>
                 } @else {
-                    <p-progressbar [value]="progress" [showValue]="false" *ngIf="hasFiles()" [pt]="ptm('pcProgressBar')"></p-progressbar>
+                    <vx-progressbar [value]="progress" [showValue]="false" *ngIf="hasFiles()" [pt]="ptm('pcProgressBar')"></vx-progressbar>
                     @for (message of msgs; track message) {
-                        <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
+                        <vx-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></vx-message>
                     }
 
                     @if (hasFiles()) {
-                        <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
+                        <div [class]="cx('fileList')" [vxBind]="ptm('fileList')">
                             <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate || _fileTemplate"></ng-template>
                             @if (!fileTemplate && !_fileTemplate) {
                                 <div
-                                    pFileContent
+                                    vxFileContent
                                     [unstyled]="unstyled()"
                                     [files]="files"
                                     (onRemove)="onRemoveClick($event)"
@@ -259,11 +259,11 @@ export class FileContent extends BaseComponent {
                         </div>
                     }
                     @if (hasUploadedFiles()) {
-                        <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
+                        <div [class]="cx('fileList')" [vxBind]="ptm('fileList')">
                             <ng-template ngFor [ngForOf]="uploadedFiles" [ngForTemplate]="fileTemplate || _fileTemplate"></ng-template>
                             @if (!fileTemplate && !_fileTemplate) {
                                 <div
-                                    pFileContent
+                                    vxFileContent
                                     [unstyled]="unstyled()"
                                     [files]="uploadedFiles"
                                     (onRemove)="onRemoveUploadedFileClick($event)"
@@ -277,17 +277,17 @@ export class FileContent extends BaseComponent {
                     }
                 }
                 @if ((emptyTemplate || _emptyTemplate) && !hasFiles() && !hasUploadedFiles()) {
-                    <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate" [pBind]="ptm('empty')"></ng-container>
+                    <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate" [vxBind]="ptm('empty')"></ng-container>
                 }
             </div>
         </div>
-        <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [pBind]="ptm('root')">
+        <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [vxBind]="ptm('root')">
             @for (message of msgs; track message) {
-                <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
+                <vx-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></vx-message>
             }
 
-            <div [class]="cx('basicContent')" [pBind]="ptm('basicContent')">
-                <p-button
+            <div [class]="cx('basicContent')" [vxBind]="ptm('basicContent')">
+                <vx-button
                     [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
                     [disabled]="disabled"
                     [label]="chooseButtonLabel"
@@ -300,23 +300,23 @@ export class FileContent extends BaseComponent {
                 >
                     <ng-template #icon>
                         @if (hasFiles() && !auto) {
-                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [vxBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" [pBind]="ptm('pcChooseButton')?.icon" />
-                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left" [pBind]="ptm('pcChooseButton')?.icon">
+                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" [vxBind]="ptm('pcChooseButton')?.icon" />
+                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left" [vxBind]="ptm('pcChooseButton')?.icon">
                                     <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
                                 </span>
                             </ng-container>
                         } @else {
-                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [vxBind]="ptm('pcChooseButton')?.icon"></span>
                             <ng-container *ngIf="!chooseIcon">
-                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [pBind]="ptm('pcChooseButton')?.icon" />
+                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [vxBind]="ptm('pcChooseButton')?.icon" />
                                 <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
                             </ng-container>
                         }
                     </ng-template>
-                    <input [attr.aria-label]="browseFilesLabel" #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" (focus)="onFocus()" (blur)="onBlur()" [pBind]="ptm('input')" />
-                </p-button>
+                    <input [attr.aria-label]="browseFilesLabel" #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" (focus)="onFocus()" (blur)="onBlur()" [vxBind]="ptm('input')" />
+                </vx-button>
                 @if (!auto) {
                     @if (!fileLabelTemplate && !_fileLabelTemplate) {
                         <span>
@@ -434,17 +434,17 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      */
     @Input({ transform: numberAttribute }) previewWidth: number = 50;
     /**
-     * Label of the choose button. Defaults to PrimeNG Locale configuration.
+     * Label of the choose button. Defaults to VoxxUI Locale configuration.
      * @group Props
      */
     @Input() chooseLabel: string | undefined;
     /**
-     * Label of the upload button. Defaults to PrimeNG Locale configuration.
+     * Label of the upload button. Defaults to VoxxUI Locale configuration.
      * @group Props
      */
     @Input() uploadLabel: string | undefined;
     /**
-     * Label of the cancel button. Defaults to PrimeNG Locale configuration.
+     * Label of the cancel button. Defaults to VoxxUI Locale configuration.
      * @group Props
      */
     @Input() cancelLabel: string | undefined;
@@ -484,7 +484,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      */
     @Input() headers: HttpHeaders | undefined;
     /**
-     * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration.
+     * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to VoxxUI Locale configuration.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) customUpload: boolean | undefined;

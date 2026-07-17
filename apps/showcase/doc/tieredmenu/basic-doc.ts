@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MenuItem } from 'voxx-ui/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { TieredMenuModule } from 'voxx-ui/tieredmenu';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TieredMenuModule],
@@ -13,7 +14,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-tieredmenu [model]="items" />
+            <vx-tieredmenu [model]="items" />
         </div>
         <app-code></app-code>
     `

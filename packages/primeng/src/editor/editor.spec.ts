@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
+import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'voxx-ui/types/editor';
 import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-editor
+        <vx-editor
             [(ngModel)]="text"
             [style]="style"
             [styleClass]="styleClass"
@@ -30,7 +31,7 @@ import { Editor } from './editor';
             (onFocus)="onFocus($event)"
             (onBlur)="onBlur($event)"
         >
-        </p-editor>
+        </vx-editor>
     `
 })
 class TestBasicEditorComponent {
@@ -79,16 +80,17 @@ class TestBasicEditorComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-editor [(ngModel)]="text">
+        <vx-editor [(ngModel)]="text">
             <ng-template #header>
                 <span class="ql-formats custom-toolbar">
                     <button type="button" class="ql-bold custom-bold" aria-label="Bold"></button>
                     <button type="button" class="ql-italic custom-italic" aria-label="Italic"></button>
                 </span>
             </ng-template>
-        </p-editor>
+        </vx-editor>
     `
 })
 class TestCustomToolbarComponent {
@@ -96,17 +98,18 @@ class TestCustomToolbarComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-editor [(ngModel)]="text">
-            <ng-template pTemplate="header">
+        <vx-editor [(ngModel)]="text">
+            <ng-template vxTemplate="header">
                 <div class="ptemplate-toolbar">
                     <span class="ql-formats">
                         <button type="button" class="ql-underline" aria-label="Underline"></button>
                     </span>
                 </div>
             </ng-template>
-        </p-editor>
+        </vx-editor>
     `
 })
 class TestPTemplateComponent {
@@ -114,16 +117,18 @@ class TestPTemplateComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-editor [(ngModel)]="text" [readonly]="true"> </p-editor> `
+    template: ` <vx-editor [(ngModel)]="text" [readonly]="true"> </vx-editor> `
 })
 class TestReadonlyComponent {
     text: string = '<div>Readonly editor content</div>';
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-editor [(ngModel)]="text" [modules]="customModules" [formats]="customFormats"> </p-editor> `
+    template: ` <vx-editor [(ngModel)]="text" [modules]="customModules" [formats]="customFormats"> </vx-editor> `
 })
 class TestCustomConfigurationComponent {
     text: string = '<div>Custom config</div>';
@@ -199,7 +204,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -248,7 +253,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -297,7 +302,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -405,7 +410,7 @@ describe('Editor', () => {
         });
     });
 
-    describe('Template Content Projection - pTemplate approach', () => {
+    describe('Template Content Projection - vxTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
         let component: TestPTemplateComponent;
 
@@ -416,19 +421,19 @@ describe('Editor', () => {
             await fixture.whenStable();
         });
 
-        it('should process pTemplate header correctly', async () => {
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+        it('should process vxTemplate header correctly', async () => {
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             editorInstance.ngAfterContentInit();
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            // pTemplate processing might not work in test environment, just verify method exists
+            // vxTemplate processing might not work in test environment, just verify method exists
             expect(editorInstance.ngAfterContentInit).toBeDefined();
         });
 
-        it('should render pTemplate toolbar content', () => {
+        it('should render vxTemplate toolbar content', () => {
             const ptemplateToolbar = fixture.debugElement.query(By.css('.ptemplate-toolbar'));
             if (ptemplateToolbar) {
                 expect(ptemplateToolbar).toBeTruthy();
@@ -457,7 +462,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             expect(editorInstance.styleClass).toBe('custom-editor-class');
@@ -468,7 +473,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             expect(editorInstance.style).toEqual({ border: '2px solid red', padding: '10px' });
@@ -499,14 +504,14 @@ describe('Editor', () => {
         });
 
         it('should initialize in readonly mode', () => {
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             expect(editorInstance.readonly).toBe(true);
         });
 
         it('should disable editor when readonly is true', () => {
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             if (editorInstance.quill) {
@@ -533,7 +538,7 @@ describe('Editor', () => {
         });
 
         it('should accept custom modules configuration', () => {
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             expect(editorInstance.modules).toEqual({
@@ -542,7 +547,7 @@ describe('Editor', () => {
         });
 
         it('should accept custom formats configuration', () => {
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             const editorInstance = editorEl.componentInstance as Editor;
 
             expect(editorInstance.formats).toEqual(['bold', 'italic', 'underline']);
@@ -560,7 +565,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -606,7 +611,7 @@ describe('Editor', () => {
                 expect(editorContent.nativeElement.getAttribute('role')).toBeTruthy();
             } else {
                 // Editor content might not be rendered yet in test environment
-                const editorRoot = fixture.debugElement.query(By.css('p-editor'));
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor'));
                 expect(editorRoot).toBeTruthy();
             }
         });
@@ -643,7 +648,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -688,7 +693,7 @@ describe('Editor', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const editorEl = fixture.debugElement.query(By.css('p-editor'));
+            const editorEl = fixture.debugElement.query(By.css('vx-editor'));
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -745,9 +750,10 @@ describe('Editor', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Editor, FormsModule],
-                template: `<p-editor [(ngModel)]="text" [pt]="pt"></p-editor>`
+                template: `<vx-editor [(ngModel)]="text" [pt]="pt"></vx-editor>`
             })
             class TestPTCase1Component {
                 text: string = '<div>Test</div>';
@@ -773,7 +779,7 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
                 const formats = fixture.debugElement.query(By.css('.ql-formats'));
                 const boldButton = fixture.debugElement.query(By.css('.ql-bold'));
@@ -789,9 +795,10 @@ describe('Editor', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Editor, FormsModule],
-                template: `<p-editor [(ngModel)]="text" [pt]="pt"></p-editor>`
+                template: `<vx-editor [(ngModel)]="text" [pt]="pt"></vx-editor>`
             })
             class TestPTCase2Component {
                 text: string = '<div>Test</div>';
@@ -830,7 +837,7 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
                 const boldButton = fixture.debugElement.query(By.css('.ql-bold'));
                 const content = fixture.debugElement.query(By.css('.p-editor-content'));
@@ -859,9 +866,10 @@ describe('Editor', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Editor, FormsModule],
-                template: `<p-editor [(ngModel)]="text" [pt]="pt"></p-editor>`
+                template: `<vx-editor [(ngModel)]="text" [pt]="pt"></vx-editor>`
             })
             class TestPTCase3Component {
                 text: string = '<div>Test</div>';
@@ -892,7 +900,7 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
                 const boldButton = fixture.debugElement.query(By.css('.ql-bold'));
                 const italicButton = fixture.debugElement.query(By.css('.ql-italic'));
@@ -914,9 +922,10 @@ describe('Editor', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Editor, FormsModule],
-                template: `<p-editor [(ngModel)]="text" [readonly]="isReadonly" [placeholder]="placeholder" [pt]="pt"></p-editor>`
+                template: `<vx-editor [(ngModel)]="text" [readonly]="isReadonly" [placeholder]="placeholder" [pt]="pt"></vx-editor>`
             })
             class TestPTCase4Component {
                 text: string = '<div>Test</div>';
@@ -956,7 +965,7 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 const toolbar = fixture.debugElement.query(By.css('.p-editor-toolbar'));
                 const content = fixture.debugElement.query(By.css('.p-editor-content'));
 
@@ -980,16 +989,17 @@ describe('Editor', () => {
                 await fixture.whenStable();
 
                 // Verify class changed
-                const editorRootAfter = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRootAfter = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 expect(editorRootAfter.classList.contains('READONLY_CLASS') || editorRootAfter.classList.contains('NOT_READONLY_CLASS')).toBe(true);
             });
         });
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Editor, FormsModule],
-                template: `<p-editor [(ngModel)]="text" [pt]="pt"></p-editor>`
+                template: `<vx-editor [(ngModel)]="text" [pt]="pt"></vx-editor>`
             })
             class TestPTCase5Component {
                 text: string = '<div>Test</div>';
@@ -1048,9 +1058,10 @@ describe('Editor', () => {
         describe('Case 6: Inline PT test', () => {
             it('should apply inline string PT', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Editor, FormsModule],
-                    template: `<p-editor [(ngModel)]="text" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></p-editor>`
+                    template: `<vx-editor [(ngModel)]="text" [pt]="{ root: 'INLINE_ROOT_CLASS' }"></vx-editor>`
                 })
                 class TestInlineComponent {
                     text: string = '<div>Test</div>';
@@ -1068,15 +1079,16 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 expect(editorRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
             it('should apply inline object PT', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Editor, FormsModule],
-                    template: `<p-editor [(ngModel)]="text" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></p-editor>`
+                    template: `<vx-editor [(ngModel)]="text" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid red' } } }"></vx-editor>`
                 })
                 class TestInlineObjectComponent {
                     text: string = '<div>Test</div>';
@@ -1094,18 +1106,19 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 expect(editorRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(editorRoot.style.border).toBe('2px solid red');
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             it('should apply global PT configuration', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Editor, FormsModule],
-                    template: `<p-editor [(ngModel)]="text1"></p-editor><p-editor [(ngModel)]="text2"></p-editor>`
+                    template: `<vx-editor [(ngModel)]="text1"></vx-editor><vx-editor [(ngModel)]="text2"></vx-editor>`
                 })
                 class TestGlobalPTComponent {
                     text1: string = '<div>Test 1</div>';
@@ -1116,7 +1129,7 @@ describe('Editor', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 editor: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1138,7 +1151,7 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editors = fixture.debugElement.queryAll(By.css('p-editor'));
+                const editors = fixture.debugElement.queryAll(By.css('vx-editor'));
                 expect(editors.length).toBe(2);
 
                 editors.forEach((editor) => {
@@ -1159,11 +1172,12 @@ describe('Editor', () => {
                 });
             });
 
-            it('should apply global CSS from PrimeNGConfig', async () => {
+            it('should apply global CSS from VoxxUIConfig', async () => {
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Editor, FormsModule],
-                    template: `<p-editor [(ngModel)]="text"></p-editor>`
+                    template: `<vx-editor [(ngModel)]="text"></vx-editor>`
                 })
                 class TestGlobalCSSComponent {
                     text: string = '<div>Test</div>';
@@ -1173,7 +1187,7 @@ describe('Editor', () => {
                     imports: [TestGlobalCSSComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 editor: {
                                     root: 'GLOBAL_CSS_CLASS'
@@ -1197,7 +1211,7 @@ describe('Editor', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 expect(editorRoot.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
 
                 // Check if global CSS style tag was injected
@@ -1214,9 +1228,10 @@ describe('Editor', () => {
                 const hookCalls: string[] = [];
 
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Editor, FormsModule],
-                    template: `<p-editor [(ngModel)]="text" [pt]="pt"></p-editor>`
+                    template: `<vx-editor [(ngModel)]="text" [pt]="pt"></vx-editor>`
                 })
                 class TestHooksComponent {
                     text: string = '<div>Test</div>';
@@ -1248,7 +1263,7 @@ describe('Editor', () => {
                 // AfterViewInit should be called
                 expect(hookCalls).toContain('onAfterViewInit');
 
-                const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+                const editorRoot = fixture.debugElement.query(By.css('vx-editor')).nativeElement;
                 expect(editorRoot.classList.contains('MY-EDITOR')).toBe(true);
 
                 // Destroy the component
@@ -1263,9 +1278,10 @@ describe('Editor', () => {
                 const hookEvents: { section: string; hook: string }[] = [];
 
                 @Component({
+                    changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
                     imports: [Editor, FormsModule],
-                    template: `<p-editor [(ngModel)]="text" [pt]="pt"></p-editor>`
+                    template: `<vx-editor [(ngModel)]="text" [pt]="pt"></vx-editor>`
                 })
                 class TestMultipleHooksComponent {
                     text: string = '<div>Test</div>';

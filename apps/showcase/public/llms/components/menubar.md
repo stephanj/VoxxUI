@@ -12,13 +12,13 @@ Menubar requires nested menuitems as its model.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'voxx-ui/menubar';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-menubar [model]="items" />
+            <vx-menubar [model]="items" />
         </div>
     `,
     standalone: true,
@@ -84,15 +84,15 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenubarModule } from 'voxx-ui/menubar';
+import { ToastModule } from 'voxx-ui/toast';
+import { MenuItem, MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-menubar [model]="items" />
+            <vx-toast />
+            <vx-menubar [model]="items" />
         </div>
     `,
     standalone: true,
@@ -171,13 +171,13 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'voxx-ui/menubar';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-menubar [model]="items" />
+            <vx-menubar [model]="items" />
         </div>
     `,
     standalone: true,
@@ -234,17 +234,17 @@ Custom content can be placed inside the menubar using the start and end template
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { MenubarModule } from 'primeng/menubar';
-import { InputTextModule } from 'primeng/inputtext';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { AvatarModule } from 'voxx-ui/avatar';
+import { BadgeModule } from 'voxx-ui/badge';
+import { MenubarModule } from 'voxx-ui/menubar';
+import { InputTextModule } from 'voxx-ui/inputtext';
+import { RippleModule } from 'voxx-ui/ripple';
+import { MenuItem } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-menubar [model]="items">
+            <vx-menubar [model]="items">
                 <ng-template #start>
                     <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--p-primary-color)" />
@@ -279,7 +279,7 @@ import { MenuItem } from 'primeng/api';
                 <ng-template #item let-item let-root="root">
                     <a pRipple class="flex items-center px-4 py-3 cursor-pointer gap-2">
                         <span>{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
+                        <vx-badge *ngIf="item.badge" [ngClass]="{ 'ms-auto': !root }" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="item.items" [ngClass]="['ms-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
                     </a>
@@ -287,10 +287,10 @@ import { MenuItem } from 'primeng/api';
                 <ng-template #end>
                     <div class="flex items-center gap-2">
                         <input type="text" pInputText placeholder="Search" class="w-36" />
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <vx-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     </div>
                 </ng-template>
-            </p-menubar>
+            </vx-menubar>
         </div>
     `,
     standalone: true,

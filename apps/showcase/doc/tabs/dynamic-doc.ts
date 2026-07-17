@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
@@ -13,20 +14,20 @@ import { TabsModule } from 'primeng/tabs';
             <p>Tabs can be generated dynamically using the standard <i>&#64;for</i> block.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs value="0">
-                <p-tablist>
+            <vx-tabs value="0">
+                <vx-tablist>
                     @for (tab of tabs; track tab.value) {
-                        <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+                        <vx-tab [value]="tab.value">{{ tab.title }}</vx-tab>
                     }
-                </p-tablist>
-                <p-tabpanels>
+                </vx-tablist>
+                <vx-tabpanels>
                     @for (tab of tabs; track tab.value) {
-                        <p-tabpanel [value]="tab.value">
+                        <vx-tabpanel [value]="tab.value">
                             <p class="m-0">{{ tab.content }}</p>
-                        </p-tabpanel>
+                        </vx-tabpanel>
                     }
-                </p-tabpanels>
-            </p-tabs>
+                </vx-tabpanels>
+            </vx-tabs>
         </div>
         <app-code></app-code>
     `

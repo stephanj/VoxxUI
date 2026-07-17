@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
@@ -53,12 +54,12 @@ import { Component } from '@angular/core';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-button icon="pi pi-check" aria-label="Submit" />
-<p-button icon="pi pi-check" label="Submit" />
+        html: `<vx-button icon="pi pi-check" aria-label="Submit" />
+<vx-button icon="pi pi-check" label="Submit" />
 
-<p-button class="youtube p-0" aria-label="Youtube">
+<vx-button class="youtube p-0" aria-label="Youtube">
     <i class="pi pi-youtube px-2"></i>
     <span class="px-4">Youtube</span>
-</p-button>`
+</vx-button>`
     };
 }

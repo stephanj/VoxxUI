@@ -1,9 +1,10 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
@@ -66,14 +67,14 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="price">Price</label>
-<p-inputnumber inputId="price" />
+<vx-inputnumber inputId="price" />
 
 <span id="label_number">Number</span>
-<p-inputnumber ariaLabelledBy="label_number" />
+<vx-inputnumber ariaLabelledBy="label_number" />
 
-<p-inputnumber ariaLabel="Number" />
+<vx-inputnumber ariaLabel="Number" />
 
-<p-inputnumber ariaDescribedBy="describe" />
+<vx-inputnumber ariaDescribedBy="describe" />
 <small id="describe">Information</small>`
     };
 }

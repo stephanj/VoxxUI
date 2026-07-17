@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as rating_style } from '@primeuix/styles/rating';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${rating_style}
 
-    /* For PrimeNG */
+    /* For VoxxUI */
     p-rating.ng-invalid.ng-dirty > .p-rating > .p-rating-icon {
         stroke: dt('rating.invalid.icon.color');
     }

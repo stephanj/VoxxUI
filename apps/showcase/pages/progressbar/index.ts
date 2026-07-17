@@ -5,10 +5,11 @@ import { ImportDoc } from '@/doc/progressbar/import-doc';
 import { IndeterminateDoc } from '@/doc/progressbar/indeterminate-doc';
 import { PTComponent } from '@/doc/progressbar/pt/PTComponent';
 import { TemplateDoc } from '@/doc/progressbar/template-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular ProgressBar Component" header="ProgressBar" description="ProgressBar is a process status indicator." [docs]="docs" [ptDocs]="ptComponent" [apiDocs]="['ProgressBar']" themeDocs="progressbar"></app-doc>`,
     standalone: true,
     imports: [AppDoc]

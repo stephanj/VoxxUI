@@ -1,11 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MessageModule } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'voxx-ui/message';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [CommonModule, MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
@@ -15,12 +16,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <div class="card flex flex-col items-center justify-center gap-4">
             <div class="flex gap-2">
-                <p-button label="Show" (onClick)="addMessages()" />
-                <p-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
+                <vx-button label="Show" (onClick)="addMessages()" />
+                <vx-button label="Clear" severity="secondary" (onClick)="clearMessages()" />
             </div>
             <div class="flex flex-col">
                 @for (message of messages(); track message.severity; let first = $first) {
-                    <p-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" [closable]="message?.closable" />
+                    <vx-message [severity]="message.severity" [text]="message.content" [ngClass]="{ 'mt-4': !first }" [closable]="message?.closable" />
                 }
             </div>
         </div>

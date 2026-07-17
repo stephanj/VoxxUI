@@ -13,17 +13,16 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
         <div class="card flex justify-center gap-2">
-            <p-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
-            <p-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
+            <vx-radiobutton [(ngModel)]="value" [value]="1" [disabled]="true" />
+            <vx-radiobutton [(ngModel)]="value" [value]="2" [disabled]="true" />
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonDisabledDemo {
     value: number = 2;
@@ -37,21 +36,20 @@ RadioButtons can be generated using a list of values.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
+                    <vx-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
                     <label [for]="category.key" class="ml-2">{{ category.name }}</label>
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonDynamicDemo implements OnInit {
     selectedCategory: any = null;
@@ -70,16 +68,15 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-radiobutton [(ngModel)]="checked" variant="filled" />
+            <vx-radiobutton [(ngModel)]="checked" variant="filled" />
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonFilledDemo {
     checked: boolean = false;
@@ -93,33 +90,32 @@ RadioButton is used as a controlled input with value and ngModel properties.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-wrap gap-4">
                 <div class="flex items-center">
-                    <p-radiobutton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1" />
+                    <vx-radiobutton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1" />
                     <label for="ingredient1" class="ml-2">Cheese</label>
                 </div>
                 <div class="flex items-center">
-                    <p-radiobutton name="pizza" value="Mushroom" [(ngModel)]="ingredient" inputId="ingredient2" />
+                    <vx-radiobutton name="pizza" value="Mushroom" [(ngModel)]="ingredient" inputId="ingredient2" />
                     <label for="ingredient2" class="ml-2">Mushroom</label>
                 </div>
                 <div class="flex items-center">
-                    <p-radiobutton name="pizza" value="Pepper" [(ngModel)]="ingredient" inputId="ingredient3" />
+                    <vx-radiobutton name="pizza" value="Pepper" [(ngModel)]="ingredient" inputId="ingredient3" />
                     <label for="ingredient3" class="ml-2">Pepper</label>
                 </div>
                 <div class="flex items-center">
-                    <p-radiobutton name="pizza" value="Onion" [(ngModel)]="ingredient" inputId="ingredient4" />
+                    <vx-radiobutton name="pizza" value="Onion" [(ngModel)]="ingredient" inputId="ingredient4" />
                     <label for="ingredient4" class="ml-2">Onion</label>
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonGroupDemo {
     ingredient!: string;
@@ -133,16 +129,15 @@ The invalid state is applied using the ⁠invalid property to indicate failed va
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-radiobutton [(ngModel)]="value" [invalid]="!value" />
+            <vx-radiobutton [(ngModel)]="value" [invalid]="!value" />
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonInvalidDemo {
     value: boolean = false;
@@ -156,36 +151,32 @@ RadioButton can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (category of categories; track category.key) {
                         <div class="flex items-center gap-2">
-                            <p-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
+                            <vx-radiobutton formControlName="selectedCategory" name="selectedCategory" [inputId]="category.key" [value]="category" [invalid]="isInvalid('selectedCategory')" />
                             <label [for]="category.key"> {{ category.name }} </label>
                         </div>
                     }
                 </div>
                 @if (isInvalid('selectedCategory')) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     providers: [MessageService]
 })
 export class RadiobuttonReactiveformsDemo {
@@ -232,29 +223,28 @@ RadioButton provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-wrap gap-4">
                 <div class="flex items-center gap-2">
-                    <p-radiobutton [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
+                    <vx-radiobutton [(ngModel)]="size" inputId="size_small" name="size" value="Small" size="small" />
                     <label for="size_small" class="text-sm">Small</label>
                 </div>
                 <div class="flex items-center gap-2">
-                    <p-radiobutton [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
+                    <vx-radiobutton [(ngModel)]="size" inputId="size_normal" name="size" value="Normal" />
                     <label for="size_normal">Normal</label>
                 </div>
                 <div class="flex items-center gap-2">
-                    <p-radiobutton [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
+                    <vx-radiobutton [(ngModel)]="size" inputId="size_large" name="size" value="Large" size="large" />
                     <label for="size_large" class="text-lg">Large</label>
                 </div>
             </div>
         </div>
     `,
     standalone: true,
-    imports: [RadioButtonModule, FormsModule]
+    imports: [FormsModule]
 })
 export class RadiobuttonSizesDemo {
     size: any = false;
@@ -266,36 +256,32 @@ export class RadiobuttonSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex justify-center">
             <form #exampleForm="ngForm" (ngSubmit)="onSubmit(exampleForm)" class="flex flex-col gap-4">
                 <div class="flex flex-wrap gap-4">
                     @for (category of categories; track category.name) {
                         <div class="flex items-center gap-2">
-                            <p-radiobutton [(ngModel)]="ingredient" [inputId]="category.key" [value]="category" [invalid]="isInvalid(exampleForm)" name="ingredient" />
+                            <vx-radiobutton [(ngModel)]="ingredient" [inputId]="category.key" [value]="category" [invalid]="isInvalid(exampleForm)" name="ingredient" />
                             <label [for]="category.key"> {{ category.name }} </label>
                         </div>
                     }
                 </div>
                 @if (isInvalid(exampleForm)) {
-                    <p-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </p-message>
+                    <vx-message severity="error" size="small" variant="simple"> At least one ingredient must be selected. </vx-message>
                 }
-                <button pButton severity="secondary" type="submit">
-                    <span pButtonLabel>Submit</span>
+                <button vxButton severity="secondary" type="submit">
+                    <span vxButtonLabel>Submit</span>
                 </button>
             </form>
         </div>
     `,
     standalone: true,
-    imports: [MessageModule, RadioButtonModule, ToastModule, ButtonModule, FormsModule],
+    imports: [FormsModule],
     providers: [MessageService]
 })
 export class RadiobuttonTemplatedrivenformsDemo {

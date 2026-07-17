@@ -9,10 +9,11 @@ import { ReactiveFormsDoc } from '@/doc/radiobutton/reactiveforms-doc';
 import { SizesDoc } from '@/doc/radiobutton/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/radiobutton/templatedrivenforms-doc';
 import { PTComponent } from '@/doc/radiobutton/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 import { AppDocService } from '@/components/doc/app.doc.service';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular RadioButton Component"
         header="RadioButton"

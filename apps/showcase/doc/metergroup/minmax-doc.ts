@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { MeterGroupModule } from 'primeng/metergroup';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MeterGroupModule } from 'voxx-ui/metergroup';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'minmax-doc',
     standalone: true,
     imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
@@ -12,7 +13,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> values whose defaults are 0 and 100 respectively.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-metergroup [value]="value" [max]="200" />
+            <vx-metergroup [value]="value" [max]="200" />
         </div>
         <app-code></app-code>
     `

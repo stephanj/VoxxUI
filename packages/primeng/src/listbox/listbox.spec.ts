@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
-import { ListboxChangeEvent } from 'primeng/types/listbox';
+import { provideVoxxUI } from 'voxx-ui/config';
+import { ListboxChangeEvent } from 'voxx-ui/types/listbox';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
 import { Listbox } from './listbox';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-listbox
+        <vx-listbox
             [(ngModel)]="selectedValue"
             [options]="options"
             [optionLabel]="optionLabel"
@@ -35,11 +36,11 @@ import { Listbox } from './listbox';
             (onFilter)="onFilter($event)"
             (onDblClick)="onDblClick($event)"
             (onDrop)="onDropHandler($event)"
-        ></p-listbox>
+        ></vx-listbox>
 
         <!-- Reactive Forms test -->
         <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
-            <p-listbox formControlName="selectedItems" [options]="formOptions" [multiple]="true"> </p-listbox>
+            <vx-listbox formControlName="selectedItems" [options]="formOptions" [multiple]="true"> </vx-listbox>
         </form>
     `
 })
@@ -178,7 +179,7 @@ describe('Listbox', () => {
         });
 
         it('should enable multiple selection', () => {
-            const listbox = testFixture.debugElement.query(By.css('p-listbox'));
+            const listbox = testFixture.debugElement.query(By.css('vx-listbox'));
             expect(listbox.componentInstance.multiple).toBe(true);
         });
 
@@ -215,12 +216,12 @@ describe('Listbox', () => {
         });
 
         it('should show filter input when filter is enabled', () => {
-            const filterInput = testFixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
             expect(filterInput).toBeTruthy();
         });
 
         it('should filter options based on input', async () => {
-            const filterInput = testFixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
 
             if (filterInput) {
                 filterInput.nativeElement.value = 'Option 1';
@@ -342,7 +343,7 @@ describe('Listbox', () => {
         });
 
         it('should apply custom style and styleClass', async () => {
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.style = { height: '300px' };
             listboxComponent.styleClass = 'custom-listbox';
             testFixture.changeDetectorRef.markForCheck();
@@ -359,7 +360,7 @@ describe('Listbox', () => {
         });
 
         it('should handle touch events', async () => {
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             spyOn(listboxComponent, 'onOptionTouchEnd').and.callThrough();
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
@@ -376,7 +377,7 @@ describe('Listbox', () => {
     describe('Meta Key Selection', () => {
         beforeEach(async () => {
             testComponent.multiple = false;
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.metaKeySelection = false;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -407,7 +408,7 @@ describe('Listbox', () => {
         });
 
         it('should emit onDblClick event', async () => {
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             spyOn(listboxComponent.onDblClick, 'emit');
             spyOn(listboxComponent, 'onOptionDoubleClick').and.callThrough();
 
@@ -430,13 +431,13 @@ describe('Listbox', () => {
     describe('Filter with Match Modes', () => {
         beforeEach(() => {
             testComponent.filter = true;
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.filterMatchMode = 'startsWith';
             testFixture.detectChanges();
         });
 
         it('should filter with startsWith match mode', async () => {
-            const filterInput = testFixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
 
             if (filterInput) {
                 filterInput.nativeElement.value = 'Option 1';
@@ -452,7 +453,7 @@ describe('Listbox', () => {
 
     describe('Readonly Mode', () => {
         beforeEach(() => {
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.readonly = true;
             testFixture.detectChanges();
         });
@@ -471,7 +472,7 @@ describe('Listbox', () => {
         });
 
         it('should not handle touch events in readonly mode', async () => {
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             spyOn(listboxComponent, 'onOptionTouchEnd').and.callThrough();
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
@@ -491,7 +492,7 @@ describe('Listbox', () => {
         beforeEach(() => {
             testComponent.multiple = true;
             testComponent.checkbox = true;
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.metaKeySelection = false;
             testFixture.detectChanges();
         });
@@ -523,13 +524,13 @@ describe('Listbox', () => {
             testComponent.multiple = true;
             testComponent.checkbox = true;
             testComponent.filter = true;
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.showToggleAll = true;
             testFixture.detectChanges();
         });
 
         it('should select all filtered items when toggle all is clicked', async () => {
-            const filterInput = testFixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
 
             if (filterInput) {
                 // Filter to show only items containing 'Option'
@@ -631,7 +632,7 @@ describe('Listbox', () => {
         it('should work with getters', () => {
             testFixture.detectChanges();
 
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listboxComponent.options = testComponent.getterOptions;
             listboxComponent.optionLabel = testComponent.getterOptionLabel;
             testFixture.detectChanges();
@@ -743,7 +744,7 @@ describe('Listbox', () => {
             ];
             testFixture.detectChanges();
 
-            expect(testFixture.debugElement.query(By.css('p-listbox')).componentInstance.options.length).toBe(2);
+            expect(testFixture.debugElement.query(By.css('vx-listbox')).componentInstance.options.length).toBe(2);
         });
 
         it('should handle optionDisabled as function', () => {
@@ -763,7 +764,7 @@ describe('Listbox', () => {
             testComponent.scrollHeight = '300px';
             testFixture.detectChanges();
 
-            const listbox = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listbox = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             expect(listbox.virtualScroll).toBe(true);
             expect(listbox.scrollHeight).toBe('300px');
         });
@@ -772,12 +773,12 @@ describe('Listbox', () => {
             testComponent.lazy = true;
             testFixture.detectChanges();
 
-            const listbox = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listbox = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             expect(listbox.lazy).toBe(true);
         });
 
         it('should handle emptyMessage property', () => {
-            const listbox = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listbox = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             listbox.emptyMessage = 'No items available';
             testFixture.detectChanges();
 
@@ -790,7 +791,7 @@ describe('Listbox', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const listbox = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listbox = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             expect(listbox.listStyle).toEqual({ border: '1px solid red' });
             expect(listbox.styleClass).toBe('custom-class');
         });
@@ -840,7 +841,7 @@ describe('Listbox', () => {
             await testFixture.whenStable();
             spyOn(testComponent, 'onFilter');
 
-            const filterInput = testFixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
             if (filterInput) {
                 filterInput.nativeElement.value = 'test';
                 filterInput.nativeElement.dispatchEvent(new Event('input'));
@@ -1008,14 +1009,14 @@ describe('Listbox', () => {
         it('should handle disabled filter input when component is disabled', () => {
             testComponent.filter = true;
             testComponent.disabled = true;
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
+            const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
             // Use signal API for disabled state
             if (listboxComponent.setDisabledState) {
                 listboxComponent.setDisabledState(true);
             }
             testFixture.detectChanges();
 
-            const filterInput = testFixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
             if (filterInput) {
                 expect(filterInput.nativeElement.disabled).toBeTruthy();
             }
@@ -1037,7 +1038,7 @@ describe('Listbox', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            expect(testFixture.debugElement.query(By.css('p-listbox')).componentInstance.options.length).toBe(10000);
+            expect(testFixture.debugElement.query(By.css('vx-listbox')).componentInstance.options.length).toBe(10000);
         });
 
         it('should handle options with special characters', () => {
@@ -1054,13 +1055,14 @@ describe('Listbox', () => {
     });
 });
 
-// Template test component using pTemplate directive with enhanced features
+// Template test component using vxTemplate directive with enhanced features
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-listbox [(ngModel)]="selectedValues" [options]="items" [optionLabel]="'label'" [optionValue]="'value'" [multiple]="true" [filter]="true" [checkbox]="true" [group]="true" [showToggleAll]="true" [virtualScroll]="true">
+        <vx-listbox [(ngModel)]="selectedValues" [options]="items" [optionLabel]="'label'" [optionValue]="'value'" [multiple]="true" [filter]="true" [checkbox]="true" [group]="true" [showToggleAll]="true" [virtualScroll]="true">
             <!-- Item template with context parameters -->
-            <ng-template pTemplate="item" let-option let-selected="selected" let-index="index">
+            <ng-template vxTemplate="item" let-option let-selected="selected" let-index="index">
                 <div class="custom-item" data-testid="ptemplate-item" [attr.data-selected]="selected" [attr.data-index]="index">
                     <span class="item-label">{{ option.label }}</span>
                     <span class="item-value">{{ option.value }}</span>
@@ -1070,7 +1072,7 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Group template with context parameters -->
-            <ng-template pTemplate="group" let-group let-index="index">
+            <ng-template vxTemplate="group" let-group let-index="index">
                 <div class="custom-group" data-testid="ptemplate-group" [attr.data-index]="index">
                     <span class="group-label">{{ group.label }}</span>
                     <span class="group-index">{{ index }}</span>
@@ -1079,7 +1081,7 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Header template -->
-            <ng-template pTemplate="header">
+            <ng-template vxTemplate="header">
                 <div class="custom-header" data-testid="ptemplate-header">
                     <span>Custom Header Content</span>
                     <button class="header-action">Action</button>
@@ -1087,7 +1089,7 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Filter template with context parameters -->
-            <ng-template pTemplate="filter" let-options="options">
+            <ng-template vxTemplate="filter" let-options="options">
                 <div class="custom-filter" data-testid="ptemplate-filter">
                     <input type="text" placeholder="Custom filter" class="custom-filter-input" />
                     <span class="filter-count">{{ options?.length || 0 }} items</span>
@@ -1095,7 +1097,7 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Footer template -->
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="custom-footer" data-testid="ptemplate-footer">
                     <span>Custom Footer Content</span>
                     <button class="footer-action">Footer Action</button>
@@ -1103,7 +1105,7 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Empty filter template -->
-            <ng-template pTemplate="emptyfilter">
+            <ng-template vxTemplate="emptyfilter">
                 <div class="custom-empty-filter" data-testid="ptemplate-emptyfilter">
                     <i class="pi pi-search"></i>
                     <span>No results found for your filter</span>
@@ -1111,7 +1113,7 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Empty template -->
-            <ng-template pTemplate="empty">
+            <ng-template vxTemplate="empty">
                 <div class="custom-empty" data-testid="ptemplate-empty">
                     <i class="pi pi-inbox"></i>
                     <span>No items available</span>
@@ -1119,17 +1121,17 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Filter icon template -->
-            <ng-template pTemplate="filtericon">
+            <ng-template vxTemplate="filtericon">
                 <i class="pi pi-filter custom-filter-icon" data-testid="ptemplate-filtericon"></i>
             </ng-template>
 
             <!-- Check icon template -->
-            <ng-template pTemplate="checkicon" let-selected="selected">
+            <ng-template vxTemplate="checkicon" let-selected="selected">
                 <i class="pi pi-check custom-check-icon" data-testid="ptemplate-checkicon" [attr.data-selected]="selected"></i>
             </ng-template>
 
             <!-- Checkmark template -->
-            <ng-template pTemplate="checkmark" let-selected="selected">
+            <ng-template vxTemplate="checkmark" let-selected="selected">
                 <span class="custom-checkmark" data-testid="ptemplate-checkmark" [attr.data-selected]="selected">
                     <i class="pi pi-check-circle" *ngIf="selected"></i>
                     <i class="pi pi-circle" *ngIf="!selected"></i>
@@ -1137,13 +1139,13 @@ describe('Listbox', () => {
             </ng-template>
 
             <!-- Loader template -->
-            <ng-template pTemplate="loader" let-options="options">
+            <ng-template vxTemplate="loader" let-options="options">
                 <div class="custom-loader" data-testid="ptemplate-loader">
                     <i class="pi pi-spin pi-spinner"></i>
                     <span>Loading {{ options?.length || 0 }} items...</span>
                 </div>
             </ng-template>
-        </p-listbox>
+        </vx-listbox>
     `
 })
 class TestListboxPTemplateComponent {
@@ -1170,9 +1172,10 @@ class TestListboxPTemplateComponent {
 
 // Template test component using #template references with enhanced context testing
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-listbox [(ngModel)]="selectedValues" [options]="items" [optionLabel]="'label'" [optionValue]="'value'" [multiple]="true" [filter]="true" [checkbox]="true" [group]="true" [showToggleAll]="true" [virtualScroll]="true">
+        <vx-listbox [(ngModel)]="selectedValues" [options]="items" [optionLabel]="'label'" [optionValue]="'value'" [multiple]="true" [filter]="true" [checkbox]="true" [group]="true" [showToggleAll]="true" [virtualScroll]="true">
             <!-- Item template with context parameters -->
             <ng-template #item let-option let-selected="selected" let-index="index">
                 <div class="custom-item" data-testid="ref-item" [attr.data-selected]="selected" [attr.data-index]="index">
@@ -1257,7 +1260,7 @@ class TestListboxPTemplateComponent {
                     <span>Loading {{ options?.length || 0 }} items...</span>
                 </div>
             </ng-template>
-        </p-listbox>
+        </vx-listbox>
     `
 })
 class TestListboxRefTemplateComponent {
@@ -1282,7 +1285,7 @@ class TestListboxRefTemplateComponent {
     ];
 }
 
-describe('Listbox pTemplate Tests', () => {
+describe('Listbox vxTemplate Tests', () => {
     let component: TestListboxPTemplateComponent;
     let fixture: ComponentFixture<TestListboxPTemplateComponent>;
     let listboxElement: any;
@@ -1296,94 +1299,94 @@ describe('Listbox pTemplate Tests', () => {
 
         fixture = TestBed.createComponent(TestListboxPTemplateComponent);
         component = fixture.componentInstance;
-        listboxElement = fixture.debugElement.query(By.css('p-listbox'));
+        listboxElement = fixture.debugElement.query(By.css('vx-listbox'));
         fixture.detectChanges();
     });
 
-    describe('pTemplate ContentChild Projections', () => {
-        it('should create component with pTemplate templates', () => {
+    describe('vxTemplate ContentChild Projections', () => {
+        it('should create component with vxTemplate templates', () => {
             expect(component).toBeTruthy();
             expect(listboxElement).toBeTruthy();
         });
 
-        it('should have item pTemplate with context parameters', () => {
+        it('should have item vxTemplate with context parameters', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.itemTemplate).not.toThrow();
         });
 
-        it('should have group pTemplate with context parameters', () => {
+        it('should have group vxTemplate with context parameters', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.groupTemplate).not.toThrow();
         });
 
-        it('should have header pTemplate', () => {
+        it('should have header vxTemplate', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.headerTemplate).not.toThrow();
         });
 
-        it('should have filter pTemplate with context parameters', () => {
+        it('should have filter vxTemplate with context parameters', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.filterTemplate).not.toThrow();
         });
 
-        it('should have footer pTemplate', () => {
+        it('should have footer vxTemplate', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.footerTemplate).not.toThrow();
         });
 
-        it('should have empty filter pTemplate', () => {
+        it('should have empty filter vxTemplate', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.emptyFilterTemplate).not.toThrow();
         });
 
-        it('should have empty pTemplate', () => {
+        it('should have empty vxTemplate', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.emptyTemplate).not.toThrow();
         });
 
-        it('should have filter icon pTemplate', () => {
+        it('should have filter icon vxTemplate', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.filterIconTemplate).not.toThrow();
         });
 
-        it('should have check icon pTemplate with selected context', () => {
+        it('should have check icon vxTemplate with selected context', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.checkIconTemplate).not.toThrow();
         });
 
-        it('should have checkmark pTemplate with selected context', () => {
+        it('should have checkmark vxTemplate with selected context', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.checkmarkTemplate).not.toThrow();
         });
 
-        it('should have loader pTemplate with options context', () => {
+        it('should have loader vxTemplate with options context', () => {
             const listboxComponent = listboxElement.componentInstance;
             expect(listboxComponent).toBeTruthy();
             // Template should be accessible
             expect(() => listboxComponent.loaderTemplate).not.toThrow();
         });
 
-        it('should process all pTemplates after content init', async () => {
+        it('should process all vxTemplates after content init', async () => {
             const listboxComponent = listboxElement.componentInstance;
 
             // Trigger ngAfterContentInit
@@ -1396,7 +1399,7 @@ describe('Listbox pTemplate Tests', () => {
             expect(listboxComponent).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle vxTemplate changes after view init', async () => {
             const listboxComponent = listboxElement.componentInstance;
 
             // Trigger ngAfterViewInit
@@ -1409,28 +1412,28 @@ describe('Listbox pTemplate Tests', () => {
             expect(listboxComponent).toBeTruthy();
         });
 
-        it('should apply custom item pTemplate rendering', () => {
+        it('should apply custom item vxTemplate rendering', () => {
             fixture.detectChanges();
             const customItem = fixture.debugElement.query(By.css('[data-testid="ptemplate-item"]'));
             // Template may or may not be rendered depending on data
             expect(customItem || true).toBeTruthy();
         });
 
-        it('should apply custom header pTemplate', () => {
+        it('should apply custom header vxTemplate', () => {
             fixture.detectChanges();
             const customHeader = fixture.debugElement.query(By.css('[data-testid="ptemplate-header"]'));
             // Header template may or may not be rendered
             expect(customHeader || true).toBeTruthy();
         });
 
-        it('should apply custom footer pTemplate', () => {
+        it('should apply custom footer vxTemplate', () => {
             fixture.detectChanges();
             const customFooter = fixture.debugElement.query(By.css('[data-testid="ptemplate-footer"]'));
             // Footer template may or may not be rendered
             expect(customFooter || true).toBeTruthy();
         });
 
-        it('should handle empty state with empty pTemplate', () => {
+        it('should handle empty state with empty vxTemplate', () => {
             component.items = [];
             fixture.detectChanges();
 
@@ -1439,21 +1442,21 @@ describe('Listbox pTemplate Tests', () => {
             expect(emptyTemplate || true).toBeTruthy();
         });
 
-        it('should handle filter icon pTemplate when filter is enabled', () => {
+        it('should handle filter icon vxTemplate when filter is enabled', () => {
             fixture.detectChanges();
             const filterIcon = fixture.debugElement.query(By.css('[data-testid="ptemplate-filtericon"]'));
             // Filter icon may be rendered when filter is enabled
             expect(filterIcon || true).toBeTruthy();
         });
 
-        it('should handle checkmark pTemplates with checkbox mode', () => {
+        it('should handle checkmark vxTemplates with checkbox mode', () => {
             fixture.detectChanges();
             const checkmark = fixture.debugElement.query(By.css('[data-testid="ptemplate-checkmark"]'));
             // Checkmark may be rendered in checkbox mode
             expect(checkmark || true).toBeTruthy();
         });
 
-        it('should handle loader pTemplate during virtual scroll', () => {
+        it('should handle loader vxTemplate during virtual scroll', () => {
             fixture.detectChanges();
             const loader = fixture.debugElement.query(By.css('[data-testid="ptemplate-loader"]'));
             // Loader may be rendered during virtual scroll
@@ -1476,7 +1479,7 @@ describe('Listbox #template Reference Tests', () => {
 
         fixture = TestBed.createComponent(TestListboxRefTemplateComponent);
         component = fixture.componentInstance;
-        listboxElement = fixture.debugElement.query(By.css('p-listbox'));
+        listboxElement = fixture.debugElement.query(By.css('vx-listbox'));
         fixture.detectChanges();
     });
 
@@ -1657,9 +1660,10 @@ describe('Listbox #template Reference Tests', () => {
 
 // Additional comprehensive test component for ViewChild properties and complex scenarios
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-listbox
+        <vx-listbox
             #listboxRef
             [(ngModel)]="selectedValues"
             [options]="options"
@@ -1679,7 +1683,7 @@ describe('Listbox #template Reference Tests', () => {
             (onDblClick)="onDblClickHandler($event)"
             (onDrop)="onDropHandler($event)"
         >
-        </p-listbox>
+        </vx-listbox>
     `
 })
 class TestListboxViewChildComponent {
@@ -1752,7 +1756,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
         fixture = TestBed.createComponent(TestListboxViewChildComponent);
         component = fixture.componentInstance;
-        listboxElement = fixture.debugElement.query(By.css('p-listbox'));
+        listboxElement = fixture.debugElement.query(By.css('vx-listbox'));
         fixture.detectChanges();
     });
 
@@ -1775,7 +1779,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             const container = fixture.debugElement.query(By.css('.p-listbox'));
             expect(container).toBeTruthy();
 
-            const filterInput = fixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = fixture.debugElement.query(By.css('input[vxInputText]'));
             expect(filterInput).toBeTruthy(); // Should exist when filter=true
         });
     });
@@ -1925,7 +1929,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             }
 
             // Test onFilter
-            const filterInput = fixture.debugElement.query(By.css('input[pInputText]'));
+            const filterInput = fixture.debugElement.query(By.css('input[vxInputText]'));
             if (filterInput) {
                 try {
                     filterInput.nativeElement.value = 'test';
@@ -2332,9 +2336,10 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Listbox, FormsModule],
-                template: `<p-listbox [options]="options" [pt]="{ host: 'INLINE_HOST_CLASS' }" />`
+                template: `<vx-listbox [options]="options" [pt]="{ host: 'INLINE_HOST_CLASS' }" />`
             })
             class InlineTestComponent {
                 options = [
@@ -2347,14 +2352,15 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 const inlineFixture = TestBed.createComponent(InlineTestComponent);
                 inlineFixture.detectChanges();
 
-                const hostElement = inlineFixture.debugElement.query(By.css('p-listbox')).nativeElement;
+                const hostElement = inlineFixture.debugElement.query(By.css('vx-listbox')).nativeElement;
                 expect(hostElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
             });
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Listbox, FormsModule],
-                template: `<p-listbox [options]="options" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' } }" />`
+                template: `<vx-listbox [options]="options" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' } }" />`
             })
             class InlineObjectTestComponent {
                 options = [
@@ -2367,18 +2373,19 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 const inlineFixture = TestBed.createComponent(InlineObjectTestComponent);
                 inlineFixture.detectChanges();
 
-                const hostElement = inlineFixture.debugElement.query(By.css('p-listbox')).nativeElement;
+                const hostElement = inlineFixture.debugElement.query(By.css('vx-listbox')).nativeElement;
                 expect(hostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
                 imports: [Listbox, FormsModule],
                 template: `
-                    <p-listbox [options]="options1" [(ngModel)]="value1" />
-                    <p-listbox [options]="options2" [(ngModel)]="value2" />
+                    <vx-listbox [options]="options1" [(ngModel)]="value1" />
+                    <vx-listbox [options]="options2" [(ngModel)]="value2" />
                 `
             })
             class GlobalPTTestComponent {
@@ -2395,7 +2402,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         provideNoopAnimations(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 listbox: {
                                     host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' }
@@ -2408,7 +2415,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
                 globalFixture.detectChanges();
 
-                const listboxes = globalFixture.debugElement.queryAll(By.css('p-listbox'));
+                const listboxes = globalFixture.debugElement.queryAll(By.css('vx-listbox'));
                 expect(listboxes.length).toBe(2);
 
                 listboxes.forEach((listboxEl) => {
@@ -2423,7 +2430,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         provideNoopAnimations(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 listbox: {
                                     host: { class: 'GLOBAL_CLASS' },
@@ -2443,7 +2450,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
                 globalFixture.detectChanges();
 
-                const listboxes = globalFixture.debugElement.queryAll(By.css('p-listbox'));
+                const listboxes = globalFixture.debugElement.queryAll(By.css('vx-listbox'));
                 listboxes.forEach((listboxEl) => {
                     expect(listboxEl.nativeElement.classList.contains('GLOBAL_CLASS')).toBe(true);
                 });
@@ -2674,7 +2681,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
 
-                const filterInput = ptFixture.debugElement.query(By.css('input[pInputText]'));
+                const filterInput = ptFixture.debugElement.query(By.css('input[vxInputText]'));
                 // Filter input may or may not have the class depending on PT implementation for nested components
                 expect(filterInput || true).toBeTruthy();
             });
@@ -2702,7 +2709,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
 
-                const scroller = ptFixture.debugElement.query(By.css('p-scroller'));
+                const scroller = ptFixture.debugElement.query(By.css('vx-scroller'));
                 // Virtual scroller may or may not have the class depending on PT implementation for nested components
                 expect(scroller || true).toBeTruthy();
             });

@@ -1,16 +1,17 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'multiselect-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, MultiSelectModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-multiselect
+            <vx-multiselect
                 [(ngModel)]="selectedCities"
                 [options]="groupedCities"
                 optionLabel="label"
@@ -28,7 +29,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
                         <div>{{ group.label }}</div>
                     </div>
                 </ng-template>
-            </p-multiselect>
+            </vx-multiselect>
         </app-docptviewer>
     `
 })

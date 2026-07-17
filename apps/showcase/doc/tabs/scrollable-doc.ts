@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'voxx-ui/tabs';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'scrollable-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
@@ -13,22 +14,22 @@ import { TabsModule } from 'primeng/tabs';
             <p>Adding <i>scrollable</i> property displays navigational buttons at each side to scroll between tabs.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabs value="0" scrollable>
-                <p-tablist>
+            <vx-tabs value="0" scrollable>
+                <vx-tablist>
                     @for (tab of scrollableTabs; track tab.value) {
-                        <p-tab [value]="tab.value">
+                        <vx-tab [value]="tab.value">
                             {{ tab.title }}
-                        </p-tab>
+                        </vx-tab>
                     }
-                </p-tablist>
-                <p-tabpanels>
+                </vx-tablist>
+                <vx-tabpanels>
                     @for (tab of scrollableTabs; track tab.value) {
-                        <p-tabpanel [value]="tab.value">
+                        <vx-tabpanel [value]="tab.value">
                             <p class="m-0">{{ tab.content }}</p>
-                        </p-tabpanel>
+                        </vx-tabpanel>
                     }
-                </p-tabpanels>
-            </p-tabs>
+                </vx-tabpanels>
+            </vx-tabs>
         </div>
         <app-code></app-code>
     `

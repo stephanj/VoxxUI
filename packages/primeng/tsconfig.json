@@ -17,7 +17,7 @@
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
         "flatModuleOutFile": "primeng.js",
-        "flatModuleId": "primeng",
+        "flatModuleId": "voxx-ui",
         "compilationMode": "partial"
     }
 }

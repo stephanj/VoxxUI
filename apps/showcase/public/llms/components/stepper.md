@@ -12,52 +12,52 @@ Stepper consists of a combination of StepList , Step , StepPanels and StepPanel 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'voxx-ui/button';
+import { StepperModule } from 'voxx-ui/stepper';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]">
-                <p-step-list>
-                    <p-step [value]="1">Header I</p-step>
-                    <p-step [value]="2">Header II</p-step>
-                    <p-step [value]="3">Header II</p-step>
-                </p-step-list>
-                <p-step-panels>
-                    <p-step-panel [value]="1">
+            <vx-stepper [value]="1" class="basis-[50rem]">
+                <vx-step-list>
+                    <vx-step [value]="1">Header I</vx-step>
+                    <vx-step [value]="2">Header II</vx-step>
+                    <vx-step [value]="3">Header II</vx-step>
+                </vx-step-list>
+                <vx-step-panels>
+                    <vx-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
                             </div>
                             <div class="flex pt-6 justify-end">
-                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+                                <vx-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                    <p-step-panel [value]="2">
+                    </vx-step-panel>
+                    <vx-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
                             </div>
                             <div class="flex pt-6 justify-between">
-                                <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
-                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
+                                <vx-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                                <vx-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                    <p-step-panel [value]="3">
+                    </vx-step-panel>
+                    <vx-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
                             </div>
                             <div class="flex pt-6 justify-start">
-                                <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
+                                <vx-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                </p-step-panels>
-            </p-stepper>
+                    </vx-step-panel>
+                </vx-step-panels>
+            </vx-stepper>
         </div>
     `,
     standalone: true,
@@ -72,52 +72,52 @@ When linear property is set to true, current step must be completed in order to 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'voxx-ui/button';
+import { StepperModule } from 'voxx-ui/stepper';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-stepper [value]="1" class="basis-[50rem]" [linear]="true">
-                <p-step-list>
-                    <p-step [value]="1">Header I</p-step>
-                    <p-step [value]="2">Header II</p-step>
-                    <p-step [value]="3">Header II</p-step>
-                </p-step-list>
-                <p-step-panels>
-                    <p-step-panel [value]="1">
+            <vx-stepper [value]="1" class="basis-[50rem]" [linear]="true">
+                <vx-step-list>
+                    <vx-step [value]="1">Header I</vx-step>
+                    <vx-step [value]="2">Header II</vx-step>
+                    <vx-step [value]="3">Header II</vx-step>
+                </vx-step-list>
+                <vx-step-panels>
+                    <vx-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
                             </div>
                             <div class="flex pt-6 justify-end">
-                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
+                                <vx-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                    <p-step-panel [value]="2">
+                    </vx-step-panel>
+                    <vx-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
                             </div>
                             <div class="flex pt-6 justify-between">
-                                <p-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
-                                <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
+                                <vx-button label="Back" severity="secondary" icon="pi pi-arrow-left" (onClick)="activateCallback(1)" />
+                                <vx-button label="Next" icon="pi pi-arrow-right" iconPos="right" (onClick)="activateCallback(3)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                    <p-step-panel [value]="3">
+                    </vx-step-panel>
+                    <vx-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
                             </div>
                             <div class="flex pt-6 justify-start">
-                                <p-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
+                                <vx-button label="Back" icon="pi pi-arrow-left" iconPos="right" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                </p-step-panels>
-            </p-stepper>
+                    </vx-step-panel>
+                </vx-step-panels>
+            </vx-stepper>
         </div>
     `,
     standalone: true,
@@ -137,18 +137,18 @@ Stepper provides various templating options to customize the default UI design.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { PasswordModule } from 'primeng/password';
-import { StepperModule } from 'primeng/stepper';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { PasswordModule } from 'voxx-ui/password';
+import { StepperModule } from 'voxx-ui/stepper';
+import { ToggleButtonModule } from 'voxx-ui/togglebutton';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-stepper [(value)]="activeStep" class="basis-[40rem]">
-                <p-step-list>
-                    <p-step [value]="1" class="flex flex-row flex-auto gap-2">
+            <vx-stepper [(value)]="activeStep" class="basis-[40rem]">
+                <vx-step-list>
+                    <vx-step [value]="1" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
                             <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
                                 <span
@@ -162,8 +162,8 @@ import { InputTextModule } from 'primeng/inputtext';
                                 </span>
                             </button>
                         </ng-template>
-                    </p-step>
-                    <p-step [value]="2" class="flex flex-row flex-auto gap-2">
+                    </vx-step>
+                    <vx-step [value]="2" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
                             <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
                                 <span
@@ -177,8 +177,8 @@ import { InputTextModule } from 'primeng/inputtext';
                                 </span>
                             </button>
                         </ng-template>
-                    </p-step>
-                    <p-step [value]="3" class="flex flex-row flex-auto gap-2">
+                    </vx-step>
+                    <vx-step [value]="3" class="flex flex-row flex-auto gap-2">
                         <ng-template #content let-activateCallback="activateCallback" let-value="value">
                             <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="activateCallback()">
                                 <span
@@ -192,10 +192,10 @@ import { InputTextModule } from 'primeng/inputtext';
                                 </span>
                             </button>
                         </ng-template>
-                    </p-step>
-                </p-step-list>
-                <p-step-panels>
-                    <p-step-panel [value]="1">
+                    </vx-step>
+                </vx-step-list>
+                <vx-step-panels>
+                    <vx-step-panel [value]="1">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
@@ -206,38 +206,38 @@ import { InputTextModule } from 'primeng/inputtext';
                                     <input [(ngModel)]="email" pInputText id="email" type="email" placeholder="Email" fluid />
                                 </div>
                                 <div class="field">
-                                    <p-password [(ngModel)]="password" placeholder="Password" fluid />
+                                    <vx-password [(ngModel)]="password" placeholder="Password" fluid />
                                 </div>
                             </div>
                             <div class="flex pt-6 justify-end">
-                                <p-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                                <vx-button (onClick)="activateCallback(2)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                    <p-step-panel [value]="2">
+                    </vx-step-panel>
+                    <vx-step-panel [value]="2">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
                                 <div class="flex flex-wrap justify-center gap-4">
-                                    <p-togglebutton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
-                                    <p-togglebutton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
-                                    <p-togglebutton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
-                                    <p-togglebutton [(ngModel)]="option4" onLabel="Design" offLabel="Design" />
-                                    <p-togglebutton [(ngModel)]="option5" onLabel="Photography" offLabel="Photography" />
-                                    <p-togglebutton [(ngModel)]="option6" onLabel="Movies" offLabel="Movies" />
-                                    <p-togglebutton [(ngModel)]="option7" onLabel="Sports" offLabel="Sports" />
-                                    <p-togglebutton [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming" />
-                                    <p-togglebutton [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling" />
-                                    <p-togglebutton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
+                                    <vx-togglebutton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
+                                    <vx-togglebutton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
+                                    <vx-togglebutton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
+                                    <vx-togglebutton [(ngModel)]="option4" onLabel="Design" offLabel="Design" />
+                                    <vx-togglebutton [(ngModel)]="option5" onLabel="Photography" offLabel="Photography" />
+                                    <vx-togglebutton [(ngModel)]="option6" onLabel="Movies" offLabel="Movies" />
+                                    <vx-togglebutton [(ngModel)]="option7" onLabel="Sports" offLabel="Sports" />
+                                    <vx-togglebutton [(ngModel)]="option8" onLabel="Gaming" offLabel="Gaming" />
+                                    <vx-togglebutton [(ngModel)]="option9" onLabel="Traveling" offLabel="Traveling" />
+                                    <vx-togglebutton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                                 </div>
                             </div>
                             <div class="flex pt-6 justify-between">
-                                <p-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                                <p-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                                <vx-button (onClick)="activateCallback(1)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+                                <vx-button (onClick)="activateCallback(3)" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                    <p-step-panel [value]="3">
+                    </vx-step-panel>
+                    <vx-step-panel [value]="3">
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
@@ -246,12 +246,12 @@ import { InputTextModule } from 'primeng/inputtext';
                                 </div>
                             </div>
                             <div class="flex pt-6 justify-start">
-                                <p-button (onClick)="activateCallback(2)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+                                <vx-button (onClick)="activateCallback(2)" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                </p-step-panels>
-            </p-stepper>
+                    </vx-step-panel>
+                </vx-step-panels>
+            </vx-stepper>
         </div>
     `,
     standalone: true,
@@ -281,54 +281,54 @@ Vertical layout requires StepItem as a wrapper of Step and StepPanel components.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'voxx-ui/button';
+import { StepperModule } from 'voxx-ui/stepper';
 
 @Component({
     template: `
         <div class="card">
-            <p-stepper [value]="1">
-                <p-step-item [value]="1">
-                    <p-step>Header I</p-step>
-                    <p-step-panel>
+            <vx-stepper [value]="1">
+                <vx-step-item [value]="1">
+                    <vx-step>Header I</vx-step>
+                    <vx-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content I</div>
                             </div>
                             <div class="py-6">
-                                <p-button label="Next" (onClick)="activateCallback(2)" />
+                                <vx-button label="Next" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                </p-step-item>
-                <p-step-item [value]="2">
-                    <p-step>Header II</p-step>
-                    <p-step-panel>
+                    </vx-step-panel>
+                </vx-step-item>
+                <vx-step-item [value]="2">
+                    <vx-step>Header II</vx-step>
+                    <vx-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content II</div>
                             </div>
                             <div class="flex py-6 gap-2">
-                                <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
-                                <p-button label="Next" (onClick)="activateCallback(3)" />
+                                <vx-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+                                <vx-button label="Next" (onClick)="activateCallback(3)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                </p-step-item>
-                <p-step-item [value]="3">
-                    <p-step>Header III</p-step>
-                    <p-step-panel>
+                    </vx-step-panel>
+                </vx-step-item>
+                <vx-step-item [value]="3">
+                    <vx-step>Header III</vx-step>
+                    <vx-step-panel>
                         <ng-template #content let-activateCallback="activateCallback">
                             <div class="flex flex-col h-48">
                                 <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
                             </div>
                             <div class="py-6">
-                                <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
+                                <vx-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
                             </div>
                         </ng-template>
-                    </p-step-panel>
-                </p-step-item>
-            </p-stepper>
+                    </vx-step-panel>
+                </vx-step-item>
+            </vx-stepper>
         </div>
     `,
     standalone: true,

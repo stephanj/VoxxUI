@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ButtonModule } from 'primeng/button';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -11,6 +11,7 @@ interface Country {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, ButtonModule, AppCodeModule, AppDocSectionText],
@@ -19,7 +20,7 @@ interface Country {
             <p>Available options and the selected options support customization with <i>item</i> and <i>selecteditems</i> templates respectively. In addition, header, footer and filter sections can be templated as well.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" class="w-full md:w-80" display="chip">
+            <vx-multiselect [options]="countries" [(ngModel)]="selectedCountries" placeholder="Select Countries" optionLabel="name" class="w-full md:w-80" display="chip">
                 <ng-template let-country #item>
                     <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
@@ -37,11 +38,11 @@ interface Country {
                 </ng-template>
                 <ng-template #footer>
                     <div class="p-3 flex justify-between">
-                        <p-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
-                        <p-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
+                        <vx-button label="Add New" severity="secondary" text size="small" icon="pi pi-plus" />
+                        <vx-button label="Remove All" severity="danger" text size="small" icon="pi pi-times" />
                     </div>
                 </ng-template>
-            </p-multiselect>
+            </vx-multiselect>
         </div>
         <app-code></app-code>
     `

@@ -1,16 +1,17 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ButtonModule } from 'primeng/button';
-import { FocusTrap } from 'primeng/focustrap';
+import { ButtonModule } from 'voxx-ui/button';
+import { FocusTrap } from 'voxx-ui/focustrap';
 import { Dialog } from './dialog';
 
 // Basic Dialog Test Component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog
+        <vx-dialog
             [(visible)]="visible"
             [header]="header"
             [modal]="modal"
@@ -53,7 +54,7 @@ import { Dialog } from './dialog';
             (visibleChange)="onVisibleChangeEvent($event)"
         >
             <div class="dialog-content">Basic dialog content</div>
-        </p-dialog>
+        </vx-dialog>
         <button #triggerBtn (click)="showDialog()" class="trigger-btn">Show Dialog</button>
     `
 })
@@ -135,30 +136,31 @@ class TestBasicDialogComponent {
     }
 }
 
-// Dialog with pTemplate Templates
+// Dialog with vxTemplate Templates
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog [(visible)]="visible" [modal]="true">
-            <ng-template pTemplate="header">
-                <div class="custom-header">Custom Header with pTemplate</div>
+        <vx-dialog [(visible)]="visible" [modal]="true">
+            <ng-template vxTemplate="header">
+                <div class="custom-header">Custom Header with vxTemplate</div>
             </ng-template>
-            <ng-template pTemplate="content">
-                <div class="custom-content">Custom content with pTemplate</div>
+            <ng-template vxTemplate="content">
+                <div class="custom-content">Custom content with vxTemplate</div>
             </ng-template>
-            <ng-template pTemplate="footer">
-                <div class="custom-footer">Custom footer with pTemplate</div>
+            <ng-template vxTemplate="footer">
+                <div class="custom-footer">Custom footer with vxTemplate</div>
             </ng-template>
-            <ng-template pTemplate="closeicon">
+            <ng-template vxTemplate="closeicon">
                 <i class="pi pi-custom-close custom-close-icon"></i>
             </ng-template>
-            <ng-template pTemplate="maximizeicon">
+            <ng-template vxTemplate="maximizeicon">
                 <i class="pi pi-custom-maximize custom-maximize-icon"></i>
             </ng-template>
-            <ng-template pTemplate="minimizeicon">
+            <ng-template vxTemplate="minimizeicon">
                 <i class="pi pi-custom-minimize custom-minimize-icon"></i>
             </ng-template>
-        </p-dialog>
+        </vx-dialog>
     `
 })
 class TestPTemplateDialogComponent {
@@ -167,9 +169,10 @@ class TestPTemplateDialogComponent {
 
 // Dialog with #template Templates
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog [(visible)]="visible" [modal]="true" [maximizable]="true">
+        <vx-dialog [(visible)]="visible" [modal]="true" [maximizable]="true">
             <ng-template #header>
                 <div class="custom-header">Custom Header with #template</div>
             </ng-template>
@@ -188,7 +191,7 @@ class TestPTemplateDialogComponent {
             <ng-template #minimizeicon>
                 <i class="pi pi-custom-minimize custom-minimize-icon"></i>
             </ng-template>
-        </p-dialog>
+        </vx-dialog>
     `
 })
 class TestHashTemplateDialogComponent {
@@ -197,9 +200,10 @@ class TestHashTemplateDialogComponent {
 
 // Dialog with Headless Template
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog [(visible)]="visible">
+        <vx-dialog [(visible)]="visible">
             <ng-template #headless>
                 <div class="custom-headless">
                     <h3>Headless Dialog</h3>
@@ -207,7 +211,7 @@ class TestHashTemplateDialogComponent {
                     <button (click)="visible = false">Close</button>
                 </div>
             </ng-template>
-        </p-dialog>
+        </vx-dialog>
     `
 })
 class TestHeadlessDialogComponent {
@@ -216,11 +220,12 @@ class TestHeadlessDialogComponent {
 
 // Dialog for Position Testing
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog [(visible)]="visible" [position]="position" header="Position Test">
+        <vx-dialog [(visible)]="visible" [position]="position" header="Position Test">
             <div>Testing different positions</div>
-        </p-dialog>
+        </vx-dialog>
     `
 })
 class TestPositionDialogComponent {
@@ -230,11 +235,12 @@ class TestPositionDialogComponent {
 
 // Dialog for Maximizable Testing
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog [(visible)]="visible" [maximizable]="maximizable" header="Maximizable Test" (onMaximize)="onMaximize($event)">
+        <vx-dialog [(visible)]="visible" [maximizable]="maximizable" header="Maximizable Test" (onMaximize)="onMaximize($event)">
             <div>Testing maximize functionality</div>
-        </p-dialog>
+        </vx-dialog>
     `
 })
 class TestMaximizableDialogComponent {
@@ -249,12 +255,13 @@ class TestMaximizableDialogComponent {
 
 // Dialog for Accessibility Testing
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-dialog [(visible)]="visible" [modal]="true" header="Accessibility Test" [closeAriaLabel]="closeAriaLabel" [role]="role" [focusTrap]="focusTrap">
+        <vx-dialog [(visible)]="visible" [modal]="true" header="Accessibility Test" [closeAriaLabel]="closeAriaLabel" [role]="role" [focusTrap]="focusTrap">
             <div>Testing accessibility features</div>
             <button class="focusable-element">Focusable Button</button>
-        </p-dialog>
+        </vx-dialog>
     `
 })
 class TestAccessibilityDialogComponent {
@@ -539,7 +546,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const closeButton = fixture.debugElement.query(By.css('p-button[aria-label="Close Dialog"], .p-dialog-close-button, [class*="pcCloseButton"]'));
+            const closeButton = fixture.debugElement.query(By.css('vx-button[aria-label="Close Dialog"], .p-dialog-close-button, [class*="pcCloseButton"]'));
 
             if (closeButton) {
                 closeButton.nativeElement.click();
@@ -822,7 +829,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const closeButton = fixture.debugElement.query(By.css('p-button[class*="pcCloseButton"]'));
+            const closeButton = fixture.debugElement.query(By.css('vx-button[class*="pcCloseButton"]'));
             if (closeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
                 closeButton.nativeElement.dispatchEvent(enterEvent);
@@ -845,7 +852,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const maximizeButton = fixture.debugElement.query(By.css('p-button[class*="pcMaximizeButton"]'));
+            const maximizeButton = fixture.debugElement.query(By.css('vx-button[class*="pcMaximizeButton"]'));
             if (maximizeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
                 maximizeButton.nativeElement.dispatchEvent(enterEvent);
@@ -879,70 +886,70 @@ describe('Dialog', () => {
     });
 
     describe('Templates', () => {
-        describe('pTemplate Approach Tests', () => {
-            let pTemplateFixture: ComponentFixture<TestPTemplateDialogComponent>;
-            let pTemplateComponent: TestPTemplateDialogComponent;
-            let pTemplateDialogInstance: Dialog;
+        describe('vxTemplate Approach Tests', () => {
+            let vxTemplateFixture: ComponentFixture<TestPTemplateDialogComponent>;
+            let vxTemplateComponent: TestPTemplateDialogComponent;
+            let vxTemplateDialogInstance: Dialog;
 
             beforeEach(async () => {
-                pTemplateFixture = TestBed.createComponent(TestPTemplateDialogComponent);
-                pTemplateComponent = pTemplateFixture.componentInstance;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
-                pTemplateDialogInstance = pTemplateFixture.debugElement.query(By.directive(Dialog)).componentInstance;
+                vxTemplateFixture = TestBed.createComponent(TestPTemplateDialogComponent);
+                vxTemplateComponent = vxTemplateFixture.componentInstance;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
+                vxTemplateDialogInstance = vxTemplateFixture.debugElement.query(By.directive(Dialog)).componentInstance;
             });
 
-            it('should render custom header with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom header with vxTemplate', async () => {
+                vxTemplateComponent.visible = true;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+                const customHeader = vxTemplateFixture.debugElement.query(By.css('.custom-header'));
                 expect(customHeader).toBeTruthy();
-                expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with pTemplate');
+                expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with vxTemplate');
             });
 
-            it('should render custom content with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom content with vxTemplate', async () => {
+                vxTemplateComponent.visible = true;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customContent = pTemplateFixture.debugElement.query(By.css('.custom-content'));
+                const customContent = vxTemplateFixture.debugElement.query(By.css('.custom-content'));
                 expect(customContent).toBeTruthy();
-                expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with pTemplate');
+                expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with vxTemplate');
             });
 
-            it('should render custom footer with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom footer with vxTemplate', async () => {
+                vxTemplateComponent.visible = true;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+                const customFooter = vxTemplateFixture.debugElement.query(By.css('.custom-footer'));
                 expect(customFooter).toBeTruthy();
-                expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with pTemplate');
+                expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with vxTemplate');
             });
 
-            it('should render custom close icon with pTemplate', async () => {
-                pTemplateComponent.visible = true;
-                pTemplateFixture.changeDetectorRef.markForCheck();
-                await pTemplateFixture.whenStable();
+            it('should render custom close icon with vxTemplate', async () => {
+                vxTemplateComponent.visible = true;
+                vxTemplateFixture.changeDetectorRef.markForCheck();
+                await vxTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                const customCloseIcon = pTemplateFixture.debugElement.query(By.css('.custom-close-icon'));
+                const customCloseIcon = vxTemplateFixture.debugElement.query(By.css('.custom-close-icon'));
                 expect(customCloseIcon).toBeTruthy();
             });
 
-            it('should process pTemplate templates in ngAfterContentInit', () => {
-                expect(() => pTemplateDialogInstance.ngAfterContentInit()).not.toThrow();
+            it('should process vxTemplate templates in ngAfterContentInit', () => {
+                expect(() => vxTemplateDialogInstance.ngAfterContentInit()).not.toThrow();
 
                 // Check that templates are assigned
-                expect(pTemplateDialogInstance.headerT).toBeDefined();
-                expect(pTemplateDialogInstance.contentT).toBeDefined();
-                expect(pTemplateDialogInstance.footerT).toBeDefined();
-                expect(pTemplateDialogInstance.closeIconT).toBeDefined();
+                expect(vxTemplateDialogInstance.headerT).toBeDefined();
+                expect(vxTemplateDialogInstance.contentT).toBeDefined();
+                expect(vxTemplateDialogInstance.footerT).toBeDefined();
+                expect(vxTemplateDialogInstance.closeIconT).toBeDefined();
             });
         });
 
@@ -1093,18 +1100,18 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             // Try different selectors for maximize button
-            let maximizeButton = maximizableFixture.debugElement.query(By.css('p-button[class*="pcMaximizeButton"]'));
+            let maximizeButton = maximizableFixture.debugElement.query(By.css('vx-button[class*="pcMaximizeButton"]'));
             if (!maximizeButton) {
                 maximizeButton = maximizableFixture.debugElement.query(By.css('.p-dialog-maximize-button'));
             }
             if (!maximizeButton) {
-                maximizeButton = maximizableFixture.debugElement.query(By.css('p-button[aria-label*="maximize"], p-button[aria-label*="Maximize"]'));
+                maximizeButton = maximizableFixture.debugElement.query(By.css('vx-button[aria-label*="maximize"], p-button[aria-label*="Maximize"]'));
             }
             if (!maximizeButton) {
                 // Check if maximize button exists in header actions
                 const headerActions = maximizableFixture.debugElement.query(By.css('.p-dialog-header-actions'));
                 if (headerActions) {
-                    maximizeButton = headerActions.query(By.css('p-button'));
+                    maximizeButton = headerActions.query(By.css('vx-button'));
                 }
             }
 
@@ -1313,8 +1320,9 @@ describe('Dialog', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase1Component {
                 visible = true;
@@ -1361,8 +1369,9 @@ describe('Dialog', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase2Component {
                 visible = true;
@@ -1417,8 +1426,9 @@ describe('Dialog', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase3Component {
                 visible = true;
@@ -1464,8 +1474,9 @@ describe('Dialog', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase4Component {
                 visible = true;
@@ -1512,8 +1523,9 @@ describe('Dialog', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase5Component {
                 visible = true;
@@ -1561,16 +1573,18 @@ describe('Dialog', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase6InlineComponent {
                 visible = true;
             }
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase6InlineObjectComponent {
                 visible = true;
@@ -1623,12 +1637,13 @@ describe('Dialog', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
                 template: `
-                    <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
-                    <p-dialog [visible]="visible2" header="Dialog 2">Content 2</p-dialog>
+                    <vx-dialog [visible]="visible1" header="Dialog 1">Content 1</vx-dialog>
+                    <vx-dialog [visible]="visible2" header="Dialog 2">Content 2</vx-dialog>
                 `
             })
             class TestPTCase7GlobalComponent {
@@ -1636,7 +1651,7 @@ describe('Dialog', () => {
                 visible2 = true;
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from VoxxUIConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     declarations: [TestPTCase7GlobalComponent],
@@ -1644,7 +1659,7 @@ describe('Dialog', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideVoxxUI',
                             useValue: {
                                 pt: {
                                     dialog: {
@@ -1668,8 +1683,9 @@ describe('Dialog', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<vx-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</vx-dialog>`
             })
             class TestPTCase8HooksComponent {
                 visible = true;

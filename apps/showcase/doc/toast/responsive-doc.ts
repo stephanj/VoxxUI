@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'responsive-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule],
@@ -17,8 +18,8 @@ import { ToastModule } from 'primeng/toast';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
-            <p-button (click)="show()" label="Show" />
+            <vx-toast [breakpoints]="{ '920px': { width: '50%', right: 'auto' } }" />
+            <vx-button (click)="show()" label="Show" />
         </div>
         <app-code></app-code>
     `,

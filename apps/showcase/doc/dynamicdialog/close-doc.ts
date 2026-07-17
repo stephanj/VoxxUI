@@ -1,13 +1,14 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MessageService } from 'voxx-ui/api';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'close-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -49,17 +50,18 @@ export class CloseDoc {
     code: Code = {
         typescript: `
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'voxx-ui/api';
+import { DialogService, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 import { Product } from '@/domain/product';
 import { ProductListDemo } from './productlistdemo';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'voxx-ui/button';
+import { ToastModule } from 'voxx-ui/toast';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: \`
-        <p-toast />
-        <p-button (click)="show()" label="Show" />
+        <vx-toast />
+        <vx-button (click)="show()" label="Show" />
     \`,
     imports: [ButtonModule, ToastModule],
     providers: [DialogService, MessageService]

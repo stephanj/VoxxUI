@@ -6,7 +6,6 @@ import { DisabledDoc } from '@/doc/inputnumber/disabled-doc';
 import { FilledDoc } from '@/doc/inputnumber/filled-doc';
 import { FloatlabelDoc } from '@/doc/inputnumber/floatlabel-doc';
 import { FluidDoc } from '@/doc/inputnumber/fluid-doc';
-import { IftaLabelDoc } from '@/doc/inputnumber/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputnumber/import-doc';
 import { InvalidDoc } from '@/doc/inputnumber/invalid-doc';
 import { LocaleDoc } from '@/doc/inputnumber/locale-doc';
@@ -17,10 +16,11 @@ import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveforms-doc';
 import { SizesDoc } from '@/doc/inputnumber/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenforms-doc';
 import { VerticalDoc } from '@/doc/inputnumber/vertical-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular InputNumber Component"
         header="InputNumber"
@@ -74,11 +74,6 @@ export class InputNumberDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'clearicon',

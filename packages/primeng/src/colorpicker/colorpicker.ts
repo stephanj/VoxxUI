@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
-import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
-import { OverlayModule } from 'primeng/overlay';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
-import { ColorPickerPassThrough } from 'primeng/types/colorpicker';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'voxx-ui/api';
+import { AutoFocusModule } from 'voxx-ui/autofocus';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind } from 'voxx-ui/bind';
+import { ConnectedOverlayScrollHandler } from 'voxx-ui/dom';
+import { MotionModule } from 'voxx-ui/motion';
+import { OverlayModule } from 'voxx-ui/overlay';
+import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
+import type { ColorPickerChangeEvent } from 'voxx-ui/types/colorpicker';
+import { ColorPickerPassThrough } from 'voxx-ui/types/colorpicker';
+import { ZIndexUtils } from 'voxx-ui/utils';
 import { ColorPickerStyle } from './style/colorpickerstyle';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
@@ -29,7 +29,7 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
  * @group Components
  */
 @Component({
-    selector: 'p-colorPicker, p-colorpicker, p-color-picker',
+    selector: 'vx-colorPicker, vx-colorpicker, vx-color-picker',
     standalone: true,
     imports: [CommonModule, AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
     hostDirectives: [Bind],
@@ -48,11 +48,11 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
             [attr.id]="inputId"
             [style.backgroundColor]="inputBgColor"
             [attr.aria-label]="ariaLabel"
-            [pAutoFocus]="autofocus"
-            [pBind]="ptm('preview')"
+            [vxAutoFocus]="autofocus"
+            [vxBind]="ptm('preview')"
         />
 
-        <p-overlay
+        <vx-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
             [(visible)]="overlayVisible"
@@ -68,20 +68,20 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cx('panel')" [pBind]="ptm('panel')">
-                    <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
-                            <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
-                                <div #colorHandle [class]="cx('colorHandle')" [pBind]="ptm('colorHandle')"></div>
+                <div [class]="cx('panel')" [vxBind]="ptm('panel')">
+                    <div [class]="cx('content')" [vxBind]="ptm('content')">
+                        <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [vxBind]="ptm('colorSelector')">
+                            <div [class]="cx('colorBackground')" [vxBind]="ptm('colorBackground')">
+                                <div #colorHandle [class]="cx('colorHandle')" [vxBind]="ptm('colorHandle')"></div>
                             </div>
                         </div>
-                        <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [pBind]="ptm('hue')">
-                            <div #hueHandle [class]="cx('hueHandle')" [pBind]="ptm('hueHandle')"></div>
+                        <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [vxBind]="ptm('hue')">
+                            <div #hueHandle [class]="cx('hueHandle')" [vxBind]="ptm('hueHandle')"></div>
                         </div>
                     </div>
                 </div>
             </ng-template>
-        </p-overlay>
+        </vx-overlay>
     `,
     providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle, { provide: COLORPICKER_INSTANCE, useExisting: ColorPicker }, { provide: PARENT_INSTANCE, useExisting: ColorPicker }],
     changeDetection: ChangeDetectionStrategy.OnPush,

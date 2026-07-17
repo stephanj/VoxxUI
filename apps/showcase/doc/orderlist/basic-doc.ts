@@ -2,10 +2,11 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { OrderListModule } from 'voxx-ui/orderlist';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [OrderListModule, AppCodeModule, AppDocSectionText],
@@ -15,11 +16,11 @@ import { OrderListModule } from 'primeng/orderlist';
             <p>OrderList is used as a controlled input with <i>value</i> property. Content of a list item needs to be defined with the <i>item</i> template that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card sm:flex sm:justify-center">
-            <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
+            <vx-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px">
                 <ng-template #item let-option>
                     {{ option.name }}
                 </ng-template>
-            </p-orderlist>
+            </vx-orderlist>
         </div>
         <app-code [extFiles]="['Product']"></app-code>
     `,

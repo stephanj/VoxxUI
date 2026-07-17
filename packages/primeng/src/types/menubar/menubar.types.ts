@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { MenuItem } from 'primeng/api';
-import type { BadgePassThrough } from 'primeng/types/badge';
+import type { PassThrough, PassThroughOption } from 'voxx-ui/api';
+import { MenuItem } from 'voxx-ui/api';
+import type { BadgePassThrough } from 'voxx-ui/types/badge';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,8 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'override-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
@@ -37,15 +38,15 @@ import { Component } from '@angular/core';
 })
 export class OverrideDoc {
     code1 = {
-        html: `<input pInputText placeholder="Overriden" class="p-8!" />`
+        html: `<input vxInputText placeholder="Overriden" class="p-8!" />`
     };
 
     code2 = {
-        html: `<input pInputText placeholder="Overriden" class="!p-8" />`
+        html: `<input vxInputText placeholder="Overriden" class="!p-8" />`
     };
 
     code3 = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {
@@ -64,7 +65,7 @@ export class OverrideDoc {
     };
 
     code5 = {
-        typescript: `providePrimeNG({
+        typescript: `provideVoxxUI({
     theme: {
         preset: Aura,
         options: {

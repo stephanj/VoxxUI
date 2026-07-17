@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'voxx-ui/button';
+import { CardModule } from 'voxx-ui/card';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'advanced-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule, CardModule],
@@ -13,7 +14,7 @@ import { CardModule } from 'primeng/card';
             <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
         <div class="mb-4 p-8 flex items-center justify-center">
-            <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+            <vx-card [style]="{ width: '25rem', overflow: 'hidden' }">
                 <ng-template #header>
                     <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
                 </ng-template>
@@ -25,11 +26,11 @@ import { CardModule } from 'primeng/card';
                 </p>
                 <ng-template #footer>
                     <div class="flex gap-4 mt-1">
-                        <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
-                        <p-button label="Save" class="w-full" styleClass="w-full" />
+                        <vx-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full" />
+                        <vx-button label="Save" class="w-full" styleClass="w-full" />
                     </div>
                 </ng-template>
-            </p-card>
+            </vx-card>
         </div>
         <app-code></app-code>
     `

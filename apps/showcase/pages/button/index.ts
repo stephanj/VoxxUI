@@ -1,7 +1,6 @@
 import { AccessibilityDoc } from '@/doc/button/accessibility-doc';
 import { BadgeDoc } from '@/doc/button/badge-doc';
 import { BasicDoc } from '@/doc/button/basic-doc';
-import { ButtonGroupDoc } from '@/doc/button/buttongroup-doc';
 import { DirectiveDoc } from '@/doc/button/directive-doc';
 import { DisabledDoc } from '@/doc/button/disabled-doc';
 import { IconsDoc } from '@/doc/button/icons-doc';
@@ -18,9 +17,10 @@ import { SizesDoc } from '@/doc/button/sizes-doc';
 import { TemplateDoc } from '@/doc/button/template-doc';
 import { TextDoc } from '@/doc/button/text-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PTComponent } from '@/doc/button/pt/PTComponent';
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `
@@ -113,11 +113,6 @@ export class ButtonDemo {
             id: 'badge',
             label: 'Badge',
             component: BadgeDoc
-        },
-        {
-            id: 'buttongroup',
-            label: 'Button Group',
-            component: ButtonGroupDoc
         },
         {
             id: 'sizes',

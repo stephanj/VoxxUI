@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'voxx-ui/api';
+import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
+import { ToastModule } from 'voxx-ui/toast';
+import { ButtonModule } from 'voxx-ui/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
     imports: [ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
@@ -15,10 +16,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>ConfirmDialog is defined using <i>p-confirmdialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
-            <p-toast />
-            <p-confirmdialog />
-            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            <vx-toast />
+            <vx-confirmdialog />
+            <vx-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+            <vx-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
         <app-code></app-code>
     `,

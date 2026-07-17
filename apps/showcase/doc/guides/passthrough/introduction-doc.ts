@@ -1,10 +1,11 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'voxx-ui/panel';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'introduction-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, PanelModule, RouterLink],
@@ -31,16 +32,16 @@ import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
             <p>
                 In this example, a Panel is customized with various options through <i>pt</i>. The styling is overriden with Tailwind CSS and header receives custom attributes along with a click event. The attributes passed to the header are not
                 available in the component API, thanks to PassThrough feature, this is no longer an issue as you are not limited to the component api. Note that, you may avoid the <i>!</i> based overrides in Tailwind classes if you setup CSS Layers
-                with PrimeNG. Visit the <a [routerLink]="'/tailwind'">Override</a> section at Tailwind integration for examples.
+                with VoxxUI. Visit the <a [routerLink]="'/tailwind'">Override</a> section at Tailwind integration for examples.
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-panel header="PT Panel" [pt]="pt">
+            <vx-panel header="PT Panel" [pt]="pt">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
-            </p-panel>
+            </vx-panel>
         </div>
         <app-code hideToggleCode importCode hideStackBlitz />
     `

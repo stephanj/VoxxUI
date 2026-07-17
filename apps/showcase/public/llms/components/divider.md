@@ -12,7 +12,7 @@ Divider is basically placed between the items to separate.
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'voxx-ui/divider';
 
 @Component({
     template: `
@@ -21,17 +21,17 @@ import { DividerModule } from 'primeng/divider';
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <p-divider />
+            <vx-divider />
             <p>
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
                 voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
             </p>
-            <p-divider />
+            <vx-divider />
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
                 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
             </p>
-            <p-divider />
+            <vx-divider />
             <p>
                 Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
                 voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Donec vel volutpat ipsum. Integer nunc magna, posuere ut tincidunt eget, egestas vitae sapien. Morbi dapibus luctus odio.
@@ -50,7 +50,7 @@ Children are rendered within the boundaries of the divider where location of the
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'voxx-ui/divider';
 
 @Component({
     template: `
@@ -59,23 +59,23 @@ import { DividerModule } from 'primeng/divider';
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <p-divider align="left" type="solid">
+            <vx-divider align="left" type="solid">
                 <b>Left</b>
-            </p-divider>
+            </vx-divider>
             <p class="m-0">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
                 voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
             </p>
-            <p-divider align="center" type="dotted">
+            <vx-divider align="center" type="dotted">
                 <b>Center</b>
-            </p-divider>
+            </vx-divider>
             <p class="m-0">
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
                 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
             </p>
-            <p-divider align="right" type="dashed">
+            <vx-divider align="right" type="dashed">
                 <b>Right</b>
-            </p-divider>
+            </vx-divider>
             <p class="m-0">
                 Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
                 voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Donec vel volutpat ipsum. Integer nunc magna, posuere ut tincidunt eget, egestas vitae sapien. Morbi dapibus luctus odio.
@@ -94,9 +94,9 @@ Sample implementation of a login form using a divider with content.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'voxx-ui/button';
+import { DividerModule } from 'voxx-ui/divider';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
     template: `
@@ -112,15 +112,15 @@ import { InputTextModule } from 'primeng/inputtext';
                         <input pInputText id="password" type="password" />
                     </div>
                     <div class="flex">
-                        <p-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+                        <vx-button label="Login" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
                     </div>
                 </div>
                 <div class="w-full md:w-2/12">
-                    <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
-                    <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
+                    <vx-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></vx-divider>
+                    <vx-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></vx-divider>
                 </div>
                 <div class="w-full md:w-5/12 flex items-center justify-center py-5">
-                    <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+                    <vx-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
                 </div>
             </div>
         </div>
@@ -137,7 +137,7 @@ Style of the border is configured with the type property that can either be soli
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'voxx-ui/divider';
 
 @Component({
     template: `
@@ -146,17 +146,17 @@ import { DividerModule } from 'primeng/divider';
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <p-divider type="solid" />
+            <vx-divider type="solid" />
             <p>
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
                 voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
             </p>
-            <p-divider type="dotted" />
+            <vx-divider type="dotted" />
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
                 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
             </p>
-            <p-divider type="dashed" />
+            <vx-divider type="dashed" />
             <p>
                 Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
                 voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Donec vel volutpat ipsum. Integer nunc magna, posuere ut tincidunt eget, egestas vitae sapien. Morbi dapibus luctus odio.
@@ -175,7 +175,7 @@ Vertical divider is enabled by setting the layout property as vertical .
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'voxx-ui/divider';
 
 @Component({
     template: `
@@ -184,12 +184,12 @@ import { DividerModule } from 'primeng/divider';
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <p-divider layout="vertical" />
+            <vx-divider layout="vertical" />
             <p>
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
                 voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
             </p>
-            <p-divider layout="vertical" />
+            <vx-divider layout="vertical" />
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
                 officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.

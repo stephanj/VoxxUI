@@ -1,21 +1,23 @@
-import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Bind } from './bind';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-basic-bind',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBasicBindComponent {
     attrs: any = {};
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-attributes',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindAttributesComponent {
     attrs = {
@@ -26,9 +28,10 @@ class TestBindAttributesComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-classes',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindClassesComponent {
     attrs = {
@@ -37,9 +40,10 @@ class TestBindClassesComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-classes-array',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindClassesArrayComponent {
     attrs = {
@@ -48,9 +52,10 @@ class TestBindClassesArrayComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-classes-object',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindClassesObjectComponent {
     attrs = {
@@ -63,9 +68,10 @@ class TestBindClassesObjectComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-styles',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindStylesComponent {
     attrs = {
@@ -77,9 +83,10 @@ class TestBindStylesComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-listeners',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindListenersComponent {
     clickHandler = jasmine.createSpy('click');
@@ -92,9 +99,10 @@ class TestBindListenersComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-mixed',
-    template: `<div [pBind]="attrs" class="existing-class" style="margin: 10px;"></div>`
+    template: `<div [vxBind]="attrs" class="existing-class" style="margin: 10px;"></div>`
 })
 class TestBindMixedComponent {
     clickHandler = jasmine.createSpy('click');
@@ -111,9 +119,10 @@ class TestBindMixedComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-bind-dynamic',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindDynamicComponent {
     attrs: any = {
@@ -131,9 +140,10 @@ class TestBindDynamicComponent {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     selector: 'test-set-attrs',
-    template: `<div [pBind]="undefined"></div>`
+    template: `<div [vxBind]="undefined"></div>`
 })
 class TestSetAttrsComponent {}
 
@@ -405,7 +415,7 @@ describe('Bind', () => {
             expect(element.getAttribute('data-test')).toBe('test-value');
         });
 
-        it('should prioritize setAttrs over pBind input', async () => {
+        it('should prioritize setAttrs over vxBind input', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
             const component = fixture.componentInstance;
 

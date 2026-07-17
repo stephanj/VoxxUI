@@ -140,7 +140,7 @@ function testStackBlitzFileGeneration(demos) {
             allPassed &= logTest('theme-switcher added to template', modified.includes('<theme-switcher />'));
 
             // Test: PrimeNG module imports removed
-            const hasNoDirectModuleImport = !modified.includes("from 'primeng/select';") || modified.includes('ImportsModule');
+            const hasNoDirectModuleImport = !modified.includes("from 'voxx-ui/select';") || modified.includes('ImportsModule');
             allPassed &= logTest('PrimeNG direct imports removed', !modified.match(/import\s+\{[^}]*Module[^}]*\}\s+from\s+'primeng\//));
         }
 

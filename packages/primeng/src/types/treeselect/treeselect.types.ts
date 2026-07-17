@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption, TreeNode } from 'primeng/api';
-import { ChipPassThrough } from 'primeng/types/chip';
-import { OverlayPassThrough } from 'primeng/types/overlay';
-import { TreePassThrough } from 'primeng/types/tree';
+import type { PassThrough, PassThroughOption, TreeNode } from 'voxx-ui/api';
+import { ChipPassThrough } from 'voxx-ui/types/chip';
+import { OverlayPassThrough } from 'voxx-ui/types/overlay';
+import { TreePassThrough } from 'voxx-ui/types/tree';
 
 /**
  * Custom pass-through(pt) options.

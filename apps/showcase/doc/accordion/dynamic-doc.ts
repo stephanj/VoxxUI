@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AccordionModule } from 'voxx-ui/accordion';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
     imports: [AccordionModule, AppCode, AppDocSectionText],
@@ -12,16 +13,16 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>AccordionPanel can be generated dynamically using the standard <i>&#64;for</i> block.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-accordion [value]="['0']">
+            <vx-accordion [value]="['0']">
                 @for (tab of tabs; track tab.title) {
-                    <p-accordion-panel [value]="tab.value">
-                        <p-accordion-header>{{ tab.title }}</p-accordion-header>
-                        <p-accordion-content>
+                    <vx-accordion-panel [value]="tab.value">
+                        <vx-accordion-header>{{ tab.title }}</vx-accordion-header>
+                        <vx-accordion-content>
                             <p class="m-0">{{ tab.content }}</p>
-                        </p-accordion-content>
-                    </p-accordion-panel>
+                        </vx-accordion-content>
+                    </vx-accordion-panel>
                 }
-            </p-accordion>
+            </vx-accordion>
         </div>
         <app-code></app-code>
     `

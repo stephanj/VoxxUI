@@ -6,9 +6,10 @@ import { FilterDoc } from '@/doc/orderlist/filter-doc';
 import { ImportDoc } from '@/doc/orderlist/import-doc';
 import { TemplateDoc } from '@/doc/orderlist/template-doc';
 import { PTComponent } from '@/doc/orderlist/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular OrderList Component" header="OrderList" description="OrderList is used to sort a collection." [docs]="docs" [apiDocs]="['OrderList']" [ptDocs]="ptComponent" themeDocs="orderlist"></app-doc>`,
     standalone: true,
     imports: [AppDoc]

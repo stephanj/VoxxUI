@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { BaseIcon } from 'primeng/icons/baseicon';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[data-p-icon="blank"]',
     standalone: true,
     template: ` <svg:rect width="1" height="1" fill="currentColor" fill-opacity="0" /> `

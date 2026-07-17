@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as toggleswitch_style } from '@primeuix/styles/toggleswitch';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'voxx-ui/base';
 
 const style = /*css*/ `
     ${toggleswitch_style}

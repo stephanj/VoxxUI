@@ -11,14 +11,15 @@ import { RippleDoc } from '@/doc/configuration/ripple-doc';
 import { OverlayAppendToDoc } from '@/doc/configuration/overlayappendto-doc';
 import { ThemeDoc } from '@/doc/configuration/theme-doc';
 import { ZIndexDoc } from '@/doc/configuration/zindex-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'configuration',
     standalone: true,
     imports: [AppDoc],
-    template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs" docType="page"></app-doc>`
+    template: `<app-doc docTitle="Configuration - VoxxUI" header="Configuration" description="Application wide configuration for VoxxUI." [docs]="docs" docType="page"></app-doc>`
 })
 export class ConfigurationDemo {
     docs = [

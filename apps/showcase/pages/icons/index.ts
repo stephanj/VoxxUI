@@ -7,17 +7,18 @@ import { ImportDoc } from '@/doc/icons/import-doc';
 import { ListDoc } from '@/doc/icons/list-doc';
 import { SizeDoc } from '@/doc/icons/size-doc';
 import { SpinDoc } from '@/doc/icons/spin-doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [AppDoc],
     template: `
         <app-doc
-            title="Angular Icon Library - PrimeNG"
+            title="Angular Icon Library - VoxxUI"
             header="Icons"
-            description="PrimeIcons is the default icon library of PrimeNG with over 250 open source icons developed by PrimeTek. PrimeIcons library is optional as PrimeNG components can use any icon with templating."
+            description="PrimeIcons is the default icon library of VoxxUI with over 250 open source icons developed by PrimeTek. PrimeIcons library is optional as VoxxUI components can use any icon with templating."
             [docs]="docs"
             docType="page"
         ></app-doc>

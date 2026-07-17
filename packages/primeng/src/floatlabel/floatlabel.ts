@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { FloatLabelPassThrough } from 'primeng/types/floatlabel';
+import { SharedModule } from 'voxx-ui/api';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { FloatLabelPassThrough } from 'voxx-ui/types/floatlabel';
 import { FloatLabelStyle } from './style/floatlabelstyle';
 
 const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE');
@@ -13,7 +13,7 @@ const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE'
  * @group Components
  */
 @Component({
-    selector: 'p-floatlabel, p-floatLabel, p-float-label',
+    selector: 'vx-floatlabel, vx-floatLabel, vx-float-label',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content></ng-content> `,

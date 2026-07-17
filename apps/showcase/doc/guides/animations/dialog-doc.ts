@@ -1,11 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogModule } from 'voxx-ui/dialog';
+import { InputTextModule } from 'voxx-ui/inputtext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dialog-doc',
     standalone: true,
     imports: [AppDocSectionText, ButtonModule, DialogModule, InputTextModule, AppCode],
@@ -13,22 +14,22 @@ import { InputTextModule } from 'primeng/inputtext';
         <app-docsectiontext>
             <p>Overlays such as Dialog and Drawer are positioned relative to the viewport and have their own animations.</p>
             <div class="card flex justify-center">
-                <p-button (click)="showDialog()" label="Show" />
-                <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" styleClass="demo-dialog">
+                <vx-button (click)="showDialog()" label="Show" />
+                <vx-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }" styleClass="demo-dialog">
                     <span class="p-text-secondary block mb-8">Update your information.</span>
                     <div class="flex items-center gap-4 mb-4">
                         <label for="username" class="font-semibold w-24">Username</label>
-                        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                        <input vxInputText id="username" class="flex-auto" autocomplete="off" />
                     </div>
                     <div class="flex items-center gap-4 mb-8">
                         <label for="email" class="font-semibold w-24">Email</label>
-                        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                        <input vxInputText id="email" class="flex-auto" autocomplete="off" />
                     </div>
                     <div class="flex justify-end gap-2">
-                        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                        <p-button label="Save" (click)="visible = false" />
+                        <vx-button label="Cancel" severity="secondary" (click)="visible = false" />
+                        <vx-button label="Save" (click)="visible = false" />
                     </div>
-                </p-dialog>
+                </vx-dialog>
             </div>
             <app-code [code]="code" hideToggleCode hideStackBlitz></app-code>
         </app-docsectiontext>

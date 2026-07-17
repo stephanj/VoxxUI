@@ -2,12 +2,12 @@ import { CommonModule, isPlatformServer } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
-import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { Nullable } from 'primeng/ts-helpers';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { Header, PrimeTemplate, SharedModule } from 'voxx-ui/api';
+import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { Nullable } from 'voxx-ui/ts-helpers';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'voxx-ui/types/editor';
 import { EditorStyle } from './style/editorstyle';
 
 const EDITOR_INSTANCE = new InjectionToken<Editor>('EDITOR_INSTANCE');
@@ -22,56 +22,56 @@ export const EDITOR_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-editor',
+    selector: 'vx-editor',
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div [class]="cx('toolbar')" *ngIf="toolbar || headerTemplate || _headerTemplate" [pBind]="ptm('toolbar')">
-            <ng-content select="p-header"></ng-content>
+        <div [class]="cx('toolbar')" *ngIf="toolbar || headerTemplate || _headerTemplate" [vxBind]="ptm('toolbar')">
+            <ng-content select="vx-header"></ng-content>
             <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
         </div>
-        <div [class]="cx('toolbar')" *ngIf="!toolbar && !headerTemplate && !_headerTemplate" [pBind]="ptm('toolbar')">
-            <span class="ql-formats" [pBind]="ptm('formats')">
-                <select class="ql-header" [pBind]="ptm('header')">
-                    <option value="1" [pBind]="ptm('option')">Heading</option>
-                    <option value="2" [pBind]="ptm('option')">Subheading</option>
-                    <option selected [pBind]="ptm('option')">Normal</option>
+        <div [class]="cx('toolbar')" *ngIf="!toolbar && !headerTemplate && !_headerTemplate" [vxBind]="ptm('toolbar')">
+            <span class="ql-formats" [vxBind]="ptm('formats')">
+                <select class="ql-header" [vxBind]="ptm('header')">
+                    <option value="1" [vxBind]="ptm('option')">Heading</option>
+                    <option value="2" [vxBind]="ptm('option')">Subheading</option>
+                    <option selected [vxBind]="ptm('option')">Normal</option>
                 </select>
-                <select class="ql-font" [pBind]="ptm('select')">
-                    <option selected [pBind]="ptm('option')">Sans Serif</option>
-                    <option value="serif" [pBind]="ptm('option')">Serif</option>
-                    <option value="monospace" [pBind]="ptm('option')">Monospace</option>
-                </select>
-            </span>
-            <span class="ql-formats" [pBind]="ptm('formats')">
-                <button class="ql-bold" aria-label="Bold" type="button" [pBind]="ptm('bold')"></button>
-                <button class="ql-italic" aria-label="Italic" type="button" [pBind]="ptm('italic')"></button>
-                <button class="ql-underline" aria-label="Underline" type="button" [pBind]="ptm('underline')"></button>
-            </span>
-            <span class="ql-formats" [pBind]="ptm('formats')">
-                <select class="ql-color" [pBind]="ptm('color')"></select>
-                <select class="ql-background" [pBind]="ptm('background')"></select>
-            </span>
-            <span class="ql-formats" [pBind]="ptm('formats')">
-                <button class="ql-list" value="ordered" aria-label="Ordered List" type="button" [pBind]="ptm('list')"></button>
-                <button class="ql-list" value="bullet" aria-label="Unordered List" type="button" [pBind]="ptm('list')"></button>
-                <select class="ql-align" [pBind]="ptm('select')">
-                    <option selected [pBind]="ptm('option')"></option>
-                    <option value="center" [pBind]="ptm('option')">center</option>
-                    <option value="right" [pBind]="ptm('option')">right</option>
-                    <option value="justify" [pBind]="ptm('option')">justify</option>
+                <select class="ql-font" [vxBind]="ptm('select')">
+                    <option selected [vxBind]="ptm('option')">Sans Serif</option>
+                    <option value="serif" [vxBind]="ptm('option')">Serif</option>
+                    <option value="monospace" [vxBind]="ptm('option')">Monospace</option>
                 </select>
             </span>
-            <span class="ql-formats" [pBind]="ptm('formats')">
-                <button class="ql-link" aria-label="Insert Link" type="button" [pBind]="ptm('link')"></button>
-                <button class="ql-image" aria-label="Insert Image" type="button" [pBind]="ptm('image')"></button>
-                <button class="ql-code-block" aria-label="Insert Code Block" type="button" [pBind]="ptm('codeBlock')"></button>
+            <span class="ql-formats" [vxBind]="ptm('formats')">
+                <button class="ql-bold" aria-label="Bold" type="button" [vxBind]="ptm('bold')"></button>
+                <button class="ql-italic" aria-label="Italic" type="button" [vxBind]="ptm('italic')"></button>
+                <button class="ql-underline" aria-label="Underline" type="button" [vxBind]="ptm('underline')"></button>
             </span>
-            <span class="ql-formats" [pBind]="ptm('formats')">
-                <button class="ql-clean" aria-label="Remove Styles" type="button" [pBind]="ptm('clean')"></button>
+            <span class="ql-formats" [vxBind]="ptm('formats')">
+                <select class="ql-color" [vxBind]="ptm('color')"></select>
+                <select class="ql-background" [vxBind]="ptm('background')"></select>
+            </span>
+            <span class="ql-formats" [vxBind]="ptm('formats')">
+                <button class="ql-list" value="ordered" aria-label="Ordered List" type="button" [vxBind]="ptm('list')"></button>
+                <button class="ql-list" value="bullet" aria-label="Unordered List" type="button" [vxBind]="ptm('list')"></button>
+                <select class="ql-align" [vxBind]="ptm('select')">
+                    <option selected [vxBind]="ptm('option')"></option>
+                    <option value="center" [vxBind]="ptm('option')">center</option>
+                    <option value="right" [vxBind]="ptm('option')">right</option>
+                    <option value="justify" [vxBind]="ptm('option')">justify</option>
+                </select>
+            </span>
+            <span class="ql-formats" [vxBind]="ptm('formats')">
+                <button class="ql-link" aria-label="Insert Link" type="button" [vxBind]="ptm('link')"></button>
+                <button class="ql-image" aria-label="Insert Image" type="button" [vxBind]="ptm('image')"></button>
+                <button class="ql-code-block" aria-label="Insert Code Block" type="button" [vxBind]="ptm('codeBlock')"></button>
+            </span>
+            <span class="ql-formats" [vxBind]="ptm('formats')">
+                <button class="ql-clean" aria-label="Remove Styles" type="button" [vxBind]="ptm('clean')"></button>
             </span>
         </div>
-        <div [class]="cx('content')" [ngStyle]="style" [pBind]="ptm('content')"></div>
+        <div [class]="cx('content')" [ngStyle]="style" [vxBind]="ptm('content')"></div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle, { provide: EDITOR_INSTANCE, useExisting: Editor }, { provide: PARENT_INSTANCE, useExisting: Editor }],
     changeDetection: ChangeDetectionStrategy.OnPush,

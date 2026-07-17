@@ -1,17 +1,18 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItem } from 'primeng/api';
-import { ButtonDirective } from 'primeng/button';
-import { TieredMenu } from 'primeng/tieredmenu';
+import { MenuItem } from 'voxx-ui/api';
+import { ButtonDirective } from 'voxx-ui/button';
+import { TieredMenu } from 'voxx-ui/tieredmenu';
 import { SplitButton } from './splitbutton';
 
 // Basic SplitButton Test Component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitbutton
+        <vx-splitbutton
             [model]="model"
             [label]="label"
             [icon]="icon"
@@ -46,7 +47,7 @@ import { SplitButton } from './splitbutton';
             (onMenuHide)="onMenuHide($event)"
             (onDropdownClick)="onDropdownClick($event)"
         >
-        </p-splitbutton>
+        </vx-splitbutton>
     `
 })
 class TestBasicSplitButtonComponent {
@@ -126,19 +127,20 @@ class TestBasicSplitButtonComponent {
 
 // SplitButton with Templates
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitbutton [model]="model" [label]="label">
-            <ng-template pTemplate="content">
+        <vx-splitbutton [model]="model" [label]="label">
+            <ng-template vxTemplate="content">
                 <div class="custom-content">
                     <i class="pi pi-star custom-icon"></i>
                     <span class="custom-label">Custom Button</span>
                 </div>
             </ng-template>
-            <ng-template pTemplate="dropdownicon">
+            <ng-template vxTemplate="dropdownicon">
                 <i class="pi pi-angle-down custom-dropdown-icon"></i>
             </ng-template>
-        </p-splitbutton>
+        </vx-splitbutton>
     `
 })
 class TestTemplateSplitButtonComponent {
@@ -148,9 +150,10 @@ class TestTemplateSplitButtonComponent {
 
 // SplitButton with #template approach
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-splitbutton [model]="model">
+        <vx-splitbutton [model]="model">
             <ng-template #content>
                 <div class="content-template-content">
                     <i class="pi pi-heart content-template-icon"></i>
@@ -160,7 +163,7 @@ class TestTemplateSplitButtonComponent {
             <ng-template #dropdownicon>
                 <i class="pi pi-chevron-down content-dropdown-icon"></i>
             </ng-template>
-        </p-splitbutton>
+        </vx-splitbutton>
     `
 })
 class TestContentTemplateSplitButtonComponent {
@@ -169,17 +172,18 @@ class TestContentTemplateSplitButtonComponent {
 
 // Severity SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="severity-buttons">
-            <p-splitbutton label="Primary" severity="primary" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Secondary" severity="secondary" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Success" severity="success" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Info" severity="info" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Warn" severity="warn" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Danger" severity="danger" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Help" severity="help" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Contrast" severity="contrast" [model]="model"></p-splitbutton>
+            <vx-splitbutton label="Primary" severity="primary" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Secondary" severity="secondary" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Success" severity="success" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Info" severity="info" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Warn" severity="warn" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Danger" severity="danger" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Help" severity="help" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Contrast" severity="contrast" [model]="model"></vx-splitbutton>
         </div>
     `
 })
@@ -189,16 +193,17 @@ class TestSeveritySplitButtonComponent {
 
 // SplitButton Variants Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="variant-buttons">
-            <p-splitbutton label="Raised" [raised]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Rounded" [rounded]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Text" [text]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Outlined" [outlined]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Plain" [plain]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Small" size="small" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Large" size="large" [model]="model"></p-splitbutton>
+            <vx-splitbutton label="Raised" [raised]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Rounded" [rounded]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Text" [text]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Outlined" [outlined]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Plain" [plain]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Small" size="small" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Large" size="large" [model]="model"></vx-splitbutton>
         </div>
     `
 })
@@ -208,12 +213,13 @@ class TestSplitButtonVariantsComponent {
 
 // Disabled SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="disabled-buttons">
-            <p-splitbutton label="Disabled" [disabled]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Button Disabled" [buttonDisabled]="true" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Menu Disabled" [menuButtonDisabled]="true" [model]="model"></p-splitbutton>
+            <vx-splitbutton label="Disabled" [disabled]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Button Disabled" [buttonDisabled]="true" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Menu Disabled" [menuButtonDisabled]="true" [model]="model"></vx-splitbutton>
         </div>
     `
 })
@@ -223,12 +229,13 @@ class TestDisabledSplitButtonComponent {
 
 // Icon SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="icon-buttons">
-            <p-splitbutton icon="pi pi-check" [iconPos]="iconPos" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Save" icon="pi pi-save" iconPos="left" [model]="model"></p-splitbutton>
-            <p-splitbutton label="Save" icon="pi pi-save" iconPos="right" [model]="model"></p-splitbutton>
+            <vx-splitbutton icon="pi pi-check" [iconPos]="iconPos" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Save" icon="pi pi-save" iconPos="left" [model]="model"></vx-splitbutton>
+            <vx-splitbutton label="Save" icon="pi pi-save" iconPos="right" [model]="model"></vx-splitbutton>
         </div>
     `
 })
@@ -239,8 +246,9 @@ class TestIconSplitButtonComponent {
 
 // Dropdown Icon SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-splitbutton label="Custom Dropdown" [dropdownIcon]="dropdownIcon" [model]="model"> </p-splitbutton> `
+    template: ` <vx-splitbutton label="Custom Dropdown" [dropdownIcon]="dropdownIcon" [model]="model"> </vx-splitbutton> `
 })
 class TestDropdownIconSplitButtonComponent {
     dropdownIcon = 'pi pi-angle-down';
@@ -249,8 +257,9 @@ class TestDropdownIconSplitButtonComponent {
 
 // Command SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-splitbutton label="Actions" [model]="model" (onClick)="onMainClick()"></p-splitbutton> `
+    template: ` <vx-splitbutton label="Actions" [model]="model" (onClick)="onMainClick()"></vx-splitbutton> `
 })
 class TestCommandSplitButtonComponent {
     mainClicked = false;
@@ -275,8 +284,9 @@ class TestCommandSplitButtonComponent {
 
 // Tooltip SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-splitbutton label="Tooltip Button" [tooltip]="tooltip" [tooltipOptions]="tooltipOptions" [model]="model"> </p-splitbutton> `
+    template: ` <vx-splitbutton label="Tooltip Button" [tooltip]="tooltip" [tooltipOptions]="tooltipOptions" [model]="model"> </vx-splitbutton> `
 })
 class TestTooltipSplitButtonComponent {
     tooltip = 'This is a tooltip';
@@ -286,8 +296,9 @@ class TestTooltipSplitButtonComponent {
 
 // Autofocus SplitButton Test
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-splitbutton label="Autofocus" [autofocus]="autofocus" [model]="model"></p-splitbutton> `
+    template: ` <vx-splitbutton label="Autofocus" [autofocus]="autofocus" [model]="model"></vx-splitbutton> `
 })
 class TestAutofocusSplitButtonComponent {
     autofocus = true;
@@ -324,7 +335,7 @@ describe('SplitButton', () => {
         fixture = TestBed.createComponent(TestBasicSplitButtonComponent);
         component = fixture.componentInstance;
         splitButtonInstance = fixture.debugElement.query(By.directive(SplitButton)).componentInstance;
-        splitButtonElement = fixture.debugElement.query(By.css('p-splitbutton')).nativeElement;
+        splitButtonElement = fixture.debugElement.query(By.css('vx-splitbutton')).nativeElement;
         fixture.detectChanges();
 
         const buttons = fixture.debugElement.queryAll(By.css('button'));
@@ -888,8 +899,8 @@ describe('SplitButton', () => {
     });
 
     describe('Templates', () => {
-        describe('pTemplate Approach Tests', () => {
-            it('should handle pTemplate content processing', async () => {
+        describe('vxTemplate Approach Tests', () => {
+            it('should handle vxTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -897,18 +908,18 @@ describe('SplitButton', () => {
 
                 const splitButtonInstance = templateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
 
-                // Test that component handles pTemplate without errors
+                // Test that component handles vxTemplate without errors
                 expect(() => splitButtonInstance.ngAfterContentInit()).not.toThrow();
 
                 // Test that templates property exists and is processed
                 expect(splitButtonInstance.templates).toBeDefined();
 
-                // Verify pTemplate container is rendered
+                // Verify vxTemplate container is rendered
                 const buttonElements = templateFixture.debugElement.queryAll(By.css('button'));
                 expect(buttonElements.length).toBeGreaterThan(0);
             });
 
-            it('should process _contentTemplate from pTemplate="content"', async () => {
+            it('should process _contentTemplate from vxTemplate="content"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -920,7 +931,7 @@ describe('SplitButton', () => {
                 expect(() => splitButtonInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should process _dropdownIconTemplate from pTemplate="dropdownicon"', async () => {
+            it('should process _dropdownIconTemplate from vxTemplate="dropdownicon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -932,7 +943,7 @@ describe('SplitButton', () => {
                 expect(() => splitButtonInstance.ngAfterContentInit()).not.toThrow();
             });
 
-            it('should render custom content template with pTemplate', async () => {
+            it('should render custom content template with vxTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -944,7 +955,7 @@ describe('SplitButton', () => {
                 expect(customContent.length + customLabels.length).toBeGreaterThanOrEqual(0);
             });
 
-            it('should render custom dropdown icon template with pTemplate', async () => {
+            it('should render custom dropdown icon template with vxTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1012,17 +1023,17 @@ describe('SplitButton', () => {
         // Template comparison and integration tests
         describe('Template Integration Tests', () => {
             it('should render different template types correctly', async () => {
-                // Test both pTemplate and #content template approaches
+                // Test both vxTemplate and #content template approaches
 
-                // Test pTemplate rendering
-                const pTemplateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
-                pTemplateFixture.detectChanges();
+                // Test vxTemplate rendering
+                const vxTemplateFixture = TestBed.createComponent(TestTemplateSplitButtonComponent);
+                vxTemplateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                await pTemplateFixture.whenStable();
+                await vxTemplateFixture.whenStable();
 
-                const pTemplateSplitButton = pTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
-                expect(pTemplateSplitButton.templates).toBeDefined();
-                expect(() => pTemplateSplitButton.ngAfterContentInit()).not.toThrow();
+                const vxTemplateSplitButton = vxTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
+                expect(vxTemplateSplitButton.templates).toBeDefined();
+                expect(() => vxTemplateSplitButton.ngAfterContentInit()).not.toThrow();
 
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateSplitButtonComponent);

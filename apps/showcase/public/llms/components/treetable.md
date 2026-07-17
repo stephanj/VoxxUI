@@ -12,13 +12,13 @@ TreeTable requires a collection of TreeNode instances as a value components as c
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header>
                 <tr>
                     <th>Name</th>
@@ -30,7 +30,7 @@ import { TreeNode } from 'primeng/api';
                 <tr [ttRow]="rowNode">
                     <td>
                         <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <vx-treetable-toggler [rowNode]="rowNode" />
                             <span>{{ rowData.name }}</span>
                         </div>
                     </td>
@@ -38,7 +38,7 @@ import { TreeNode } from 'primeng/api';
                     <td>{{ rowData.type }}</td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -58,13 +58,13 @@ export class TreetableBasicDemo implements OnInit {
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'voxx-ui/treetable';
+import { TreeNode } from 'voxx-ui/api';
 import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header>
                 <tr>
                     <th rowspan="3">Brand</th>
@@ -85,7 +85,7 @@ import { Product } from '@/domain/product';
                 <tr [ttRow]="rowNode">
                     <td>
                         <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <vx-treetable-toggler [rowNode]="rowNode" />
                             <span>{{ rowData.brand }}</span>
                         </div>
                     </td>
@@ -102,7 +102,7 @@ import { Product } from '@/domain/product';
                     <td>$2,126,925</td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule]
@@ -373,9 +373,9 @@ Setting columnResizeMode as expand changes the table width as well.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -384,7 +384,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
+        <vx-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -400,7 +400,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -410,7 +410,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -438,9 +438,9 @@ Columns can be resized with drag and drop when resizableColumns is enabled. Defa
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -449,7 +449,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
+        <vx-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -465,7 +465,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -475,7 +475,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -503,10 +503,10 @@ To utilize the column resize modes with a scrollable TreeTable, a colgroup templ
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode } from 'voxx-ui/api';
+import { TreeTable } from 'voxx-ui/treetable';
 
 interface Column {
     field: string;
@@ -515,7 +515,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
+        <vx-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
             <ng-template #colgroup let-columns>
                 <colgroup>
                     @for (col of columns; track col) {
@@ -538,7 +538,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -548,7 +548,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -577,10 +577,10 @@ Column visibility based on a condition can be implemented with dynamic columns, 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TreeTableModule } from 'primeng/treetable';
+import { MultiSelectModule } from 'voxx-ui/multiselect';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -589,10 +589,10 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #caption>
                 <div style="text-align:left">
-                    <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
+                    <vx-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
                 </div>
             </ng-template>
             <ng-template #header let-columns>
@@ -610,7 +610,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -620,7 +620,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [MultiSelectModule, TreeTableModule, FormsModule],
@@ -650,9 +650,9 @@ Particular rows and cells can be styled based on conditions. The ngClass receive
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -661,7 +661,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -677,7 +677,7 @@ interface Column {
                         <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -687,7 +687,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -715,10 +715,10 @@ TreeTable has exclusive integration with contextmenu component. In order to atta
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, MenuItem, MessageService } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode, MenuItem, MessageService } from 'voxx-ui/api';
+import { TreeTable } from 'voxx-ui/treetable';
 
 interface Column {
     field: string;
@@ -727,7 +727,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -743,7 +743,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -753,7 +753,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -797,13 +797,13 @@ Expansion state is controlled with expandedKeys property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header>
                 <tr>
                     <th>Name</th>
@@ -815,7 +815,7 @@ import { TreeNode } from 'primeng/api';
                 <tr [ttRow]="rowNode">
                     <td>
                         <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <vx-treetable-toggler [rowNode]="rowNode" />
                             <span>{{ rowData.name }}</span>
                         </div>
                     </td>
@@ -823,7 +823,7 @@ import { TreeNode } from 'primeng/api';
                     <td>{{ rowData.type }}</td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -855,9 +855,9 @@ Columns can be created programmatically.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -866,7 +866,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -882,7 +882,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -892,7 +892,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -921,10 +921,10 @@ Incell editing is enabled by defining input elements with treeTableCellEditor .
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeTableModule } from 'primeng/treetable';
-import { InputTextModule } from 'primeng/inputtext';
+import { TreeTableModule } from 'voxx-ui/treetable';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -933,7 +933,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th *ngFor="let col of columns">
@@ -944,17 +944,17 @@ interface Column {
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        <p-treetableCellEditor>
+                        <vx-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <vx-treetableCellEditor>
                             <ng-template pTemplate="input">
                                 <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
                             </ng-template>
                             <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
-                        </p-treetableCellEditor>
+                        </vx-treetableCellEditor>
                     </td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule, InputTextModule, FormsModule],
@@ -982,12 +982,12 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { TreeTableModule } from 'primeng/treetable';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'voxx-ui/iconfield';
+import { InputIconModule } from 'voxx-ui/inputicon';
+import { TreeTableModule } from 'voxx-ui/treetable';
+import { InputTextModule } from 'voxx-ui/inputtext';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -996,13 +996,13 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #caption>
                 <div class="flex justify-end items-center">
-                    <p-iconfield>
-                        <p-inputicon class="pi pi-search" />
+                    <vx-iconfield>
+                        <vx-inputicon class="pi pi-search" />
                         <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
-                    </p-iconfield>
+                    </vx-iconfield>
                 </div>
             </ng-template>
             <ng-template #header let-columns>
@@ -1027,7 +1027,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1042,7 +1042,7 @@ interface Column {
                     <td [attr.colspan]="cols?.length">No data found.</td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [IconFieldModule, InputIconModule, TreeTableModule, InputTextModule],
@@ -1072,18 +1072,18 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'voxx-ui/button';
+import { Dialog, DialogModule } from 'voxx-ui/dialog';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-        <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
+        <vx-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
+        <vx-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
             <ng-template #content>
-                <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
                             <th>Name</th>
@@ -1095,7 +1095,7 @@ import { TreeNode } from 'primeng/api';
                         <tr [ttRow]="rowNode">
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <vx-treetable-toggler [rowNode]="rowNode" />
                                     <span>{{ rowData.name }}</span>
                                 </div>
                             </td>
@@ -1103,12 +1103,12 @@ import { TreeNode } from 'primeng/api';
                             <td>{{ rowData.type }}</td>
                         </tr>
                     </ng-template>
-                </p-treetable>
+                </vx-treetable>
             </ng-template>
             <ng-template #footer>
-                <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
+                <vx-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
             </ng-template>
-        </p-dialog>
+        </vx-dialog>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, TreeTableModule],
@@ -1133,13 +1133,13 @@ Enabling showGridlines displays grid lines.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header>
                 <tr>
                     <th>Name</th>
@@ -1151,7 +1151,7 @@ import { TreeNode } from 'primeng/api';
                 <tr [ttRow]="rowNode">
                     <td>
                         <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <vx-treetable-toggler [rowNode]="rowNode" />
                             <span>{{ rowData.name }}</span>
                         </div>
                     </td>
@@ -1159,7 +1159,7 @@ import { TreeNode } from 'primeng/api';
                     <td>{{ rowData.type }}</td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1181,9 +1181,9 @@ Lazy mode is handy to deal with large datasets, instead of loading the entire da
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1193,7 +1193,7 @@ interface Column {
 @Component({
     template: `
         <div class="card">
-            <p-treetable
+            <vx-treetable
                 [value]="files"
                 [columns]="cols"
                 [paginator]="true"
@@ -1221,7 +1221,7 @@ interface Column {
                             <td>
                                 @if (first) {
                                     <div class="flex items-center gap-2">
-                                        <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                        <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                         <span>{{ rowData[col.field] }}</span>
                                     </div>
                                 } @else {
@@ -1231,7 +1231,7 @@ interface Column {
                         }
                     </tr>
                 </ng-template>
-            </p-treetable>
+            </vx-treetable>
         </div>
     `,
     standalone: true,
@@ -1315,14 +1315,14 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+            <vx-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
@@ -1334,7 +1334,7 @@ import { TreeNode } from 'primeng/api';
                     <tr [ttRow]="rowNode">
                         <td>
                             <div class="flex items-center gap-2">
-                                <p-treetable-toggler [rowNode]="rowNode" />
+                                <vx-treetable-toggler [rowNode]="rowNode" />
                                 <span>{{ rowData.name }}</span>
                             </div>
                         </td>
@@ -1342,7 +1342,7 @@ import { TreeNode } from 'primeng/api';
                         <td>{{ rowData.type }}</td>
                     </tr>
                 </ng-template>
-            </p-treetable>
+            </vx-treetable>
         </div>
     `,
     standalone: true,
@@ -1365,15 +1365,15 @@ Skeleton component can be used as a placeholder during the loading process.
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TreeTableModule } from 'primeng/treetable';
+import { SkeletonModule } from 'voxx-ui/skeleton';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card">
-            <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <vx-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>Name</th>
@@ -1383,12 +1383,12 @@ import { TreeNode } from 'primeng/api';
                 </ng-template>
                 <ng-template #body>
                     <tr>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
+                        <td><vx-skeleton /></td>
                     </tr>
                 </ng-template>
-            </p-treetable>
+            </vx-treetable>
         </div>
     `,
     standalone: true,
@@ -1411,8 +1411,8 @@ Pagination is enabled by adding paginator property and defining rows per page.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'voxx-ui/treetable';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1421,7 +1421,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -1437,7 +1437,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1447,7 +1447,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule]
@@ -1492,10 +1492,10 @@ Paginator UI is customized using the paginatorleft and paginatorright property. 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeNode } from 'primeng/api';
-import { Paginator } from 'primeng/paginator';
+import { ButtonModule } from 'voxx-ui/button';
+import { TreeTableModule } from 'voxx-ui/treetable';
+import { TreeNode } from 'voxx-ui/api';
+import { Paginator } from 'voxx-ui/paginator';
 
 interface Column {
     field: string;
@@ -1504,7 +1504,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -1520,7 +1520,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1531,12 +1531,12 @@ interface Column {
                 </tr>
             </ng-template>
             <ng-template #paginatorleft>
-                <p-button icon="pi pi-refresh" text />
+                <vx-button icon="pi pi-refresh" text />
             </ng-template>
             <ng-template #paginatorright>
-                <p-button icon="pi pi-download" text />
+                <vx-button icon="pi pi-download" text />
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [ButtonModule, TreeTableModule]
@@ -1581,9 +1581,9 @@ Order of the columns can be changed using drag and drop when reorderableColumns 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1592,7 +1592,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -1608,7 +1608,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1618,7 +1618,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1646,9 +1646,9 @@ A column can be fixed during horizontal scrolling by enabling the frozenColumns 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1657,7 +1657,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #colgroup let-columns>
                 <colgroup>
                     @for (col of columns; track col) {
@@ -1687,13 +1687,13 @@ interface Column {
                 <tr [ttRow]="rowNode" style="height: 57px">
                     <td>
                         <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <vx-treetable-toggler [rowNode]="rowNode" />
                             <span class="font-bold">{{ rowData.name }}</span>
                         </div>
                     </td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1732,9 +1732,9 @@ Horizontal scrolling is enabled when the total width of columns exceeds table wi
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1743,7 +1743,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #colgroup let-columns>
                 <colgroup>
                     @for (col of columns; track col) {
@@ -1766,7 +1766,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1776,7 +1776,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1804,9 +1804,9 @@ Adding scrollable property along with a scrollHeight for the data viewport enabl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1815,7 +1815,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -1831,7 +1831,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1841,7 +1841,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1869,9 +1869,9 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1880,7 +1880,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -1896,8 +1896,8 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode" />
-                                    <p-treetable-checkbox [value]="rowNode" />
+                                    <vx-treetable-toggler [rowNode]="rowNode" />
+                                    <vx-treetable-checkbox [value]="rowNode" />
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -1907,7 +1907,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1956,9 +1956,9 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, MessageService } from 'primeng/api';
+import { TreeNode, MessageService } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -1972,7 +1972,7 @@ interface NodeEvent {
 
 @Component({
     template: `
-        <p-treetable
+        <vx-treetable
             [value]="files"
             [columns]="cols"
             selectionMode="single"
@@ -1998,7 +1998,7 @@ interface NodeEvent {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -2008,7 +2008,7 @@ interface NodeEvent {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2046,10 +2046,10 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode } from 'voxx-ui/api';
+import { TreeTable } from 'voxx-ui/treetable';
 
 interface Column {
     field: string;
@@ -2058,7 +2058,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -2074,7 +2074,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -2084,7 +2084,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2114,9 +2114,9 @@ Single node selection is configured by setting selectionMode as single along wit
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -2125,7 +2125,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
@@ -2141,7 +2141,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -2151,7 +2151,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2181,13 +2181,13 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
+        <vx-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
             <ng-template #header>
                 <tr>
                     <th>Name</th>
@@ -2199,7 +2199,7 @@ import { TreeNode } from 'primeng/api';
                 <tr [ttRow]="rowNode">
                     <td>
                         <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
+                            <vx-treetable-toggler [rowNode]="rowNode" />
                             <span>{{ rowData.name }}</span>
                         </div>
                     </td>
@@ -2207,7 +2207,7 @@ import { TreeNode } from 'primeng/api';
                     <td>{{ rowData.type }}</td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2236,9 +2236,9 @@ Multiple columns can be sorted by defining sortMode as multiple . This mode requ
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -2247,14 +2247,14 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
                         <th [ttSortableColumn]="col.field">
                             <div class="flex items-center gap-2">
                                 {{ col.header }}
-                                <p-treetable-sort-icon [field]="col.field" />
+                                <vx-treetable-sort-icon [field]="col.field" />
                             </div>
                         </th>
                     }
@@ -2266,7 +2266,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -2276,7 +2276,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2304,10 +2304,10 @@ The removable sort can be implemented using the customSort property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, SortEvent } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode, SortEvent } from 'voxx-ui/api';
+import { TreeTable } from 'voxx-ui/treetable';
 
 interface Column {
     field: string;
@@ -2316,7 +2316,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable
+        <vx-treetable
             #tt
             [value]="files"
             (sortFunction)="customSort($event)"
@@ -2333,19 +2333,19 @@ interface Column {
                 <tr>
                     <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
                         {{ col.header }}
-                        <p-treetableSortIcon [field]="col.field" />
+                        <vx-treetableSortIcon [field]="col.field" />
                     </th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                     <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        <vx-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                         {{ rowData[col.field] }}
                     </td>
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2409,9 +2409,9 @@ Sorting on a column is enabled by adding the ttSortableColumn property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -2420,14 +2420,14 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #header let-columns>
                 <tr>
                     @for (col of columns; track col) {
                         <th [ttSortableColumn]="col.field">
                             <div class="flex items-center gap-2">
                                 {{ col.header }}
-                                <p-treetable-sort-icon [field]="col.field" />
+                                <vx-treetable-sort-icon [field]="col.field" />
                             </div>
                         </th>
                     }
@@ -2439,7 +2439,7 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                    <vx-treetable-toggler [rowNode]="rowNode"></vx-treetable-toggler>
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else {
@@ -2449,7 +2449,7 @@ interface Column {
                     }
                 </tr>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2477,10 +2477,10 @@ Custom content at caption , header , body and summary sections are supported via
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'voxx-ui/button';
+import { TreeTableModule } from 'voxx-ui/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'voxx-ui/api';
 
 interface Column {
     field: string;
@@ -2489,7 +2489,7 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
+        <vx-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
             <ng-template #header let-columns>
                 <tr>
@@ -2506,13 +2506,13 @@ interface Column {
                         <td>
                             @if (first) {
                                 <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <vx-treetable-toggler [rowNode]="rowNode" />
                                     <span>{{ rowData[col.field] }}</span>
                                 </div>
                             } @else if (last) {
                                 <div class="flex flex-wrap gap-2">
-                                    <p-button icon="pi pi-search" rounded="true" severity="secondary" />
-                                    <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                                    <vx-button icon="pi pi-search" rounded="true" severity="secondary" />
+                                    <vx-button icon="pi pi-pencil" rounded="true" severity="secondary" />
                                 </div>
                             } @else {
                                 <span>{{ rowData[col.field] }}</span>
@@ -2523,10 +2523,10 @@ interface Column {
             </ng-template>
             <ng-template #summary>
                 <div style="text-align:left">
-                    <p-button icon="pi pi-refresh" label="Reload" severity="warn" />
+                    <vx-button icon="pi pi-refresh" label="Reload" severity="warn" />
                 </div>
             </ng-template>
-        </p-treetable>
+        </vx-treetable>
     `,
     standalone: true,
     imports: [ButtonModule, TreeTableModule],

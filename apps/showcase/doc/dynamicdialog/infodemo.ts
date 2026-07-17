@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ButtonModule } from 'voxx-ui/button';
+import { DialogService, DynamicDialog, DynamicDialogRef } from 'voxx-ui/dynamicdialog';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [ButtonModule],
     template: `
@@ -11,7 +12,7 @@ import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicd
                 There are <strong>{{ totalProducts }}</strong> products in total in this list.
             </p>
             <div class="flex justify-end">
-                <p-button type="button" label="Close" (click)="close()"></p-button>
+                <vx-button type="button" label="Close" (click)="close()"></vx-button>
             </div>
         </div>
     `

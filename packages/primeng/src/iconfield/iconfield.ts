@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { IconFieldPassThrough } from 'primeng/types/iconfield';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
+import { Bind, BindModule } from 'voxx-ui/bind';
+import { IconFieldPassThrough } from 'voxx-ui/types/iconfield';
 import { IconFieldStyle } from './style/iconfieldstyle';
 
 const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
@@ -12,7 +12,7 @@ const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
  * @group Components
  */
 @Component({
-    selector: 'p-iconfield, p-iconField, p-icon-field',
+    selector: 'vx-iconfield, vx-iconField, vx-icon-field',
     standalone: true,
     imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,

@@ -4,21 +4,21 @@ import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'columnresizescrollablemode-doc',
     standalone: true,
     imports: [CommonModule, TableModule, AppCode, DeferredDemo],
-    template: ` <p-deferred-demo (load)="loadDemoData()">
+    template: ` <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <vx-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
-                            <th pResizableColumn>Name</th>
-                            <th pResizableColumn>Country</th>
-                            <th pResizableColumn>Company</th>
-                            <th pResizableColumn>Representative</th>
+                            <th vxResizableColumn>Name</th>
+                            <th vxResizableColumn>Country</th>
+                            <th vxResizableColumn>Company</th>
+                            <th vxResizableColumn>Representative</th>
                         </tr>
                     </ng-template>
                     <ng-template #body let-customer>
@@ -29,9 +29,9 @@ import { TableModule } from 'primeng/table';
                             <td>{{ customer.representative.name }}</td>
                         </tr>
                     </ng-template>
-                </p-table>
+                </vx-table>
             </div>
-        </p-deferred-demo>
+        </vx-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

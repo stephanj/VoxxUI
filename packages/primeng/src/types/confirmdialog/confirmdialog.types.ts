@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { Confirmation, PassThrough, PassThroughOption } from 'primeng/api';
-import { DialogPassThrough } from 'primeng/types/dialog';
-import type { ButtonPassThrough } from 'primeng/types/button';
+import type { Confirmation, PassThrough, PassThroughOption } from 'voxx-ui/api';
+import { DialogPassThrough } from 'voxx-ui/types/dialog';
+import type { ButtonPassThrough } from 'voxx-ui/types/button';
 
 /**
  * Custom pass-through(pt) options.

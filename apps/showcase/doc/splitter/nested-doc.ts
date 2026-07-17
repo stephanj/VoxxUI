@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
-import { SplitterModule } from 'primeng/splitter';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SplitterModule } from 'voxx-ui/splitter';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'nested-doc',
     standalone: true,
     imports: [AppDocSectionText, SplitterModule, AppCode],
@@ -12,28 +13,28 @@ import { SplitterModule } from 'primeng/splitter';
             <p>Splitters can be combined to create advanced layouts.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
+            <vx-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" class="mb-8">
                 <ng-template #panel>
                     <div class="col flex w-full items-center justify-center">Panel 1</div>
                 </ng-template>
                 <ng-template #panel>
-                    <p-splitter layout="vertical" [panelSizes]="[50, 50]">
+                    <vx-splitter layout="vertical" [panelSizes]="[50, 50]">
                         <ng-template #panel>
                             <div style="flex-grow: 1;" class="flex items-center justify-center">Panel 2</div>
                         </ng-template>
                         <ng-template #panel>
-                            <p-splitter [panelSizes]="[20, 80]">
+                            <vx-splitter [panelSizes]="[20, 80]">
                                 <ng-template #panel>
                                     <div class="col h-full flex items-center justify-center">Panel 3</div>
                                 </ng-template>
                                 <ng-template #panel>
                                     <div class="col h-full flex items-center justify-center">Panel 4</div>
                                 </ng-template>
-                            </p-splitter>
+                            </vx-splitter>
                         </ng-template>
-                    </p-splitter>
+                    </vx-splitter>
                 </ng-template>
-            </p-splitter>
+            </vx-splitter>
         </div>
         <app-code></app-code>
     `

@@ -1,6 +1,6 @@
 import { afterRenderEffect, computed, Directive, effect, inject, InjectionToken, input, output, untracked } from '@angular/core';
 import { createMotion, resolveDuration, type ClassNameOptions, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
 
@@ -11,7 +11,7 @@ const MOTION_DIRECTIVE_INSTANCE = new InjectionToken<MotionDirective>('MOTION_DI
  * @group Components
  */
 @Directive({
-    selector: '[pMotion]',
+    selector: '[vxMotion]',
     standalone: true,
     providers: [MotionStyle, { provide: MOTION_DIRECTIVE_INSTANCE, useExisting: MotionDirective }, { provide: PARENT_INSTANCE, useExisting: MotionDirective }]
 })
@@ -24,7 +24,7 @@ export class MotionDirective extends BaseComponent {
      * Whether the element is visible or not.
      * @group Props
      */
-    visible = input<boolean>(false, { alias: 'pMotion' });
+    visible = input<boolean>(false, { alias: 'vxMotion' });
     /**
      * The name of the motion. It can be a predefined motion name or a custom one.
      * phases:
@@ -36,77 +36,77 @@ export class MotionDirective extends BaseComponent {
      *     [name]-leave-to
      * @group Props
      */
-    name = input<MotionOptions['name']>(undefined, { alias: 'pMotionName' });
+    name = input<MotionOptions['name']>(undefined, { alias: 'vxMotionName' });
     /**
      * The type of the motion, valid values 'transition' and 'animation'.
      * @group Props
      */
-    type = input<MotionOptions['type']>(undefined, { alias: 'pMotionType' });
+    type = input<MotionOptions['type']>(undefined, { alias: 'vxMotionType' });
     /**
      * Whether the motion is safe.
      * @group Props
      */
-    safe = input<MotionOptions['safe']>(undefined, { alias: 'pMotionSafe' });
+    safe = input<MotionOptions['safe']>(undefined, { alias: 'vxMotionSafe' });
     /**
      * Whether the motion is disabled.
      * @group Props
      */
-    disabled = input<MotionOptions['disabled']>(false, { alias: 'pMotionDisabled' });
+    disabled = input<MotionOptions['disabled']>(false, { alias: 'vxMotionDisabled' });
     /**
      * Whether the motion should appear.
      * @group Props
      */
-    appear = input<MotionOptions['appear']>(false, { alias: 'pMotionAppear' });
+    appear = input<MotionOptions['appear']>(false, { alias: 'vxMotionAppear' });
     /**
      * Whether the motion should enter.
      * @group Props
      */
-    enter = input<MotionOptions['enter']>(true, { alias: 'pMotionEnter' });
+    enter = input<MotionOptions['enter']>(true, { alias: 'vxMotionEnter' });
     /**
      * Whether the motion should leave.
      * @group Props
      */
-    leave = input<MotionOptions['leave']>(true, { alias: 'pMotionLeave' });
+    leave = input<MotionOptions['leave']>(true, { alias: 'vxMotionLeave' });
     /**
      * The duration of the motion.
      * @group Props
      */
-    duration = input<MotionOptions['duration']>(undefined, { alias: 'pMotionDuration' });
+    duration = input<MotionOptions['duration']>(undefined, { alias: 'vxMotionDuration' });
     /**
      * The hide strategy of the motion, valid values 'display' and 'visibility'.
      * @group Props
      */
-    hideStrategy = input<'display' | 'visibility'>('display', { alias: 'pMotionHideStrategy' });
+    hideStrategy = input<'display' | 'visibility'>('display', { alias: 'vxMotionHideStrategy' });
     /**
      * The enter from class of the motion.
      * @group Props
      */
-    enterFromClass = input<ClassNameOptions['from']>(undefined, { alias: 'pMotionEnterFromClass' });
+    enterFromClass = input<ClassNameOptions['from']>(undefined, { alias: 'vxMotionEnterFromClass' });
     /**
      * The enter to class of the motion.
      * @group Props
      */
-    enterToClass = input<ClassNameOptions['to']>(undefined, { alias: 'pMotionEnterToClass' });
+    enterToClass = input<ClassNameOptions['to']>(undefined, { alias: 'vxMotionEnterToClass' });
     /**
      * The enter active class of the motion.
      * @group Props
      */
-    enterActiveClass = input<ClassNameOptions['active']>(undefined, { alias: 'pMotionEnterActiveClass' });
+    enterActiveClass = input<ClassNameOptions['active']>(undefined, { alias: 'vxMotionEnterActiveClass' });
     /**
      * The leave from class of the motion.
      * @group Props
      */
-    leaveFromClass = input<ClassNameOptions['from']>(undefined, { alias: 'pMotionLeaveFromClass' });
+    leaveFromClass = input<ClassNameOptions['from']>(undefined, { alias: 'vxMotionLeaveFromClass' });
     /**
      * The leave to class of the motion.
      * @group Props
      */
-    leaveToClass = input<ClassNameOptions['to']>(undefined, { alias: 'pMotionLeaveToClass' });
+    leaveToClass = input<ClassNameOptions['to']>(undefined, { alias: 'vxMotionLeaveToClass' });
     /**
      * The leave active class of the motion.
      * @group Props
      */
-    leaveActiveClass = input<ClassNameOptions['active']>(undefined, { alias: 'pMotionLeaveActiveClass' });
+    leaveActiveClass = input<ClassNameOptions['active']>(undefined, { alias: 'vxMotionLeaveActiveClass' });
 
     /******************** All Inputs ********************/
 
@@ -114,7 +114,7 @@ export class MotionDirective extends BaseComponent {
      * The motion options.
      * @group Props
      */
-    options = input<MotionOptions>({}, { alias: 'pMotionOptions' });
+    options = input<MotionOptions>({}, { alias: 'vxMotionOptions' });
 
     /******************** Outputs ********************/
 
@@ -124,56 +124,56 @@ export class MotionDirective extends BaseComponent {
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onBeforeEnter = output<MotionEvent | undefined>({ alias: 'pMotionOnBeforeEnter' });
+    onBeforeEnter = output<MotionEvent | undefined>({ alias: 'vxMotionOnBeforeEnter' });
     /**
      * Callback fired when the enter transition/animation starts.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onEnter = output<MotionEvent | undefined>({ alias: 'pMotionOnEnter' });
+    onEnter = output<MotionEvent | undefined>({ alias: 'vxMotionOnEnter' });
     /**
      * Callback fired after the enter transition/animation ends.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onAfterEnter = output<MotionEvent | undefined>({ alias: 'pMotionOnAfterEnter' });
+    onAfterEnter = output<MotionEvent | undefined>({ alias: 'vxMotionOnAfterEnter' });
     /**
      * Callback fired when the enter transition/animation is cancelled.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onEnterCancelled = output<MotionEvent | undefined>({ alias: 'pMotionOnEnterCancelled' });
+    onEnterCancelled = output<MotionEvent | undefined>({ alias: 'vxMotionOnEnterCancelled' });
     /**
      * Callback fired before the leave transition/animation starts.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onBeforeLeave = output<MotionEvent | undefined>({ alias: 'pMotionOnBeforeLeave' });
+    onBeforeLeave = output<MotionEvent | undefined>({ alias: 'vxMotionOnBeforeLeave' });
     /**
      * Callback fired when the leave transition/animation starts.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onLeave = output<MotionEvent | undefined>({ alias: 'pMotionOnLeave' });
+    onLeave = output<MotionEvent | undefined>({ alias: 'vxMotionOnLeave' });
     /**
      * Callback fired after the leave transition/animation ends.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onAfterLeave = output<MotionEvent | undefined>({ alias: 'pMotionOnAfterLeave' });
+    onAfterLeave = output<MotionEvent | undefined>({ alias: 'vxMotionOnAfterLeave' });
     /**
      * Callback fired when the leave transition/animation is cancelled.
      * @param {MotionEvent} [event] - The event object containing details about the motion.
      * @param {Element} event.element - The element being transitioned/animated.
      * @group Emits
      */
-    onLeaveCancelled = output<MotionEvent | undefined>({ alias: 'pMotionOnLeaveCancelled' });
+    onLeaveCancelled = output<MotionEvent | undefined>({ alias: 'vxMotionOnLeaveCancelled' });
 
     /******************** Computed ********************/
 

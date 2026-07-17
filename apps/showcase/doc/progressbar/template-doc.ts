@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ProgressBarModule } from 'voxx-ui/progressbar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
     imports: [ProgressBarModule, AppCode, AppDocSectionText],
@@ -12,11 +13,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p><i>content</i> template allows displaying custom content inside the progressbar.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progressbar [value]="50">
+            <vx-progressbar [value]="50">
                 <ng-template #content let-value>
                     <span>{{ value }}/100</span>
                 </ng-template>
-            </p-progressbar>
+            </vx-progressbar>
         </div>
         <app-code></app-code>
     `

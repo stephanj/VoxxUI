@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
@@ -48,11 +49,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="switch1">Remember Me</label>
-<p-toggleswitch inputId="switch1" />
+<vx-toggleswitch inputId="switch1" />
 
 <span id="switch2">Remember Me</span>
-<p-toggleswitch ariaLabelledBy="switch2" />
+<vx-toggleswitch ariaLabelledBy="switch2" />
 
-<p-toggleswitch ariaLabel="Remember Me" />`
+<vx-toggleswitch ariaLabel="Remember Me" />`
     };
 }

@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'voxx-ui/api';
 import { Rating } from './rating';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 
 // Basic Rating test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Rating, FormsModule],
     template: `
-        <p-rating
+        <vx-rating
             [(ngModel)]="value"
             [stars]="stars"
             [readonly]="readonly"
@@ -59,11 +60,12 @@ class TestBasicRatingComponent {
 
 // Reactive form test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Rating, ReactiveFormsModule],
     template: `
         <form [formGroup]="ratingForm">
-            <p-rating formControlName="rating" [stars]="5" [invalid]="isInvalid" />
+            <vx-rating formControlName="rating" [stars]="5" [invalid]="isInvalid" />
         </form>
     `
 })
@@ -77,17 +79,18 @@ class TestReactiveRatingComponent {
 
 // Template test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Rating, FormsModule],
     template: `
-        <p-rating [(ngModel)]="value">
-            <ng-template pTemplate="onicon">
+        <vx-rating [(ngModel)]="value">
+            <ng-template vxTemplate="onicon">
                 <span class="custom-on-icon">★</span>
             </ng-template>
-            <ng-template pTemplate="officon">
+            <ng-template vxTemplate="officon">
                 <span class="custom-off-icon">☆</span>
             </ng-template>
-        </p-rating>
+        </vx-rating>
     `
 })
 class TestTemplateRatingComponent {
@@ -96,9 +99,10 @@ class TestTemplateRatingComponent {
 
 // Advanced features test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Rating, FormsModule],
-    template: ` <p-rating [(ngModel)]="value" [stars]="numberOfStars" [readonly]="isReadonly" [disabled]="isDisabled" [name]="name" [required]="required" (onRate)="onAdvancedRate($event)" /> `
+    template: ` <vx-rating [(ngModel)]="value" [stars]="numberOfStars" [readonly]="isReadonly" [disabled]="isDisabled" [name]="name" [required]="required" (onRate)="onAdvancedRate($event)" /> `
 })
 class TestAdvancedRatingComponent {
     value: number | null = 3;
@@ -115,22 +119,23 @@ class TestAdvancedRatingComponent {
     }
 }
 
-// Rating pTemplate component
+// Rating vxTemplate component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Rating, FormsModule, CommonModule, SharedModule],
     template: `
-        <p-rating [(ngModel)]="value" [stars]="stars">
-            <!-- On icon template with pTemplate directive -->
-            <ng-template pTemplate="onicon" let-value let-class="class">
+        <vx-rating [(ngModel)]="value" [stars]="stars">
+            <!-- On icon template with vxTemplate directive -->
+            <ng-template vxTemplate="onicon" let-value let-class="class">
                 <i class="pi pi-star-fill custom-on-icon" [attr.data-testid]="'ptemplate-onicon-' + value" [ngClass]="class" [title]="'Star ' + value + ' filled'"></i>
             </ng-template>
 
-            <!-- Off icon template with pTemplate directive -->
-            <ng-template pTemplate="officon" let-value let-class="class">
+            <!-- Off icon template with vxTemplate directive -->
+            <ng-template vxTemplate="officon" let-value let-class="class">
                 <i class="pi pi-star custom-off-icon" [attr.data-testid]="'ptemplate-officon-' + value" [ngClass]="class" [title]="'Star ' + value + ' empty'"></i>
             </ng-template>
-        </p-rating>
+        </vx-rating>
     `
 })
 class TestRatingPTemplateComponent {
@@ -140,10 +145,11 @@ class TestRatingPTemplateComponent {
 
 // Rating #template reference component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
     imports: [Rating, FormsModule, CommonModule, SharedModule],
     template: `
-        <p-rating [(ngModel)]="value" [stars]="stars">
+        <vx-rating [(ngModel)]="value" [stars]="stars">
             <!-- On icon template with #template reference -->
             <ng-template #onicon let-value let-class="class">
                 <i class="pi pi-heart-fill custom-on-icon" [attr.data-testid]="'ref-onicon-' + value" [ngClass]="class" [title]="'Heart ' + value + ' filled'"></i>
@@ -153,7 +159,7 @@ class TestRatingPTemplateComponent {
             <ng-template #officon let-value let-class="class">
                 <i class="pi pi-heart custom-off-icon" [attr.data-testid]="'ref-officon-' + value" [ngClass]="class" [title]="'Heart ' + value + ' empty'"></i>
             </ng-template>
-        </p-rating>
+        </vx-rating>
     `
 })
 class TestRatingRefTemplateComponent {
@@ -691,7 +697,7 @@ describe('Rating', () => {
             fixture.detectChanges();
 
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
-            // Check that the pAutoFocus directive is applied - look for the attribute it adds
+            // Check that the vxAutoFocus directive is applied - look for the attribute it adds
             expect(ratingInstance.autofocus).toBe(true);
         });
     });
@@ -857,7 +863,7 @@ describe('Rating', () => {
         });
     });
 
-    describe('pTemplate Tests', () => {
+    describe('vxTemplate Tests', () => {
         let component: TestRatingPTemplateComponent;
         let fixture: ComponentFixture<TestRatingPTemplateComponent>;
         let ratingElement: DebugElement;
@@ -871,17 +877,17 @@ describe('Rating', () => {
 
             fixture = TestBed.createComponent(TestRatingPTemplateComponent);
             component = fixture.componentInstance;
-            ratingElement = fixture.debugElement.query(By.css('p-rating'));
+            ratingElement = fixture.debugElement.query(By.css('vx-rating'));
             ratingInstance = ratingElement.componentInstance;
             fixture.detectChanges();
         });
 
-        it('should have onicon pTemplate', () => {
+        it('should have onicon vxTemplate', () => {
             expect(ratingInstance).toBeTruthy();
             expect(() => ratingInstance.onIconTemplate).not.toThrow();
         });
 
-        it('should have officon pTemplate', () => {
+        it('should have officon vxTemplate', () => {
             expect(ratingInstance).toBeTruthy();
             expect(() => ratingInstance.offIconTemplate).not.toThrow();
         });
@@ -928,7 +934,7 @@ describe('Rating', () => {
             expect(ratingInstance.value).toBe(1 as any);
         });
 
-        it('should process pTemplates after content init', async () => {
+        it('should process vxTemplates after content init', async () => {
             if (ratingInstance.ngAfterContentInit) {
                 ratingInstance.ngAfterContentInit();
             }
@@ -939,7 +945,7 @@ describe('Rating', () => {
             expect(ratingInstance).toBeTruthy();
         });
 
-        it('should handle pTemplate changes after view init', async () => {
+        it('should handle vxTemplate changes after view init', async () => {
             if (ratingInstance.ngAfterViewInit) {
                 ratingInstance.ngAfterViewInit();
             }
@@ -976,7 +982,7 @@ describe('Rating', () => {
 
             fixture = TestBed.createComponent(TestRatingRefTemplateComponent);
             component = fixture.componentInstance;
-            ratingElement = fixture.debugElement.query(By.css('p-rating'));
+            ratingElement = fixture.debugElement.query(By.css('vx-rating'));
             ratingInstance = ratingElement.componentInstance;
             fixture.detectChanges();
         });
@@ -1070,8 +1076,9 @@ describe('Rating', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="pt"></vx-rating>`
             })
             class TestPTCase1Component {
                 value: number = 3;
@@ -1114,8 +1121,9 @@ describe('Rating', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="pt"></vx-rating>`
             })
             class TestPTCase2Component {
                 value: number = 3;
@@ -1156,8 +1164,9 @@ describe('Rating', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="pt"></vx-rating>`
             })
             class TestPTCase3Component {
                 value: number = 3;
@@ -1192,8 +1201,9 @@ describe('Rating', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></vx-rating>`
             })
             class TestPTCase4Component {
                 value: number = 4;
@@ -1237,8 +1247,9 @@ describe('Rating', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="pt"></vx-rating>`
             })
             class TestPTCase5Component {
                 value: number = 3;
@@ -1283,8 +1294,9 @@ describe('Rating', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></vx-rating>`
             })
             class TestPTCase6InlineComponent {
                 value: number = 3;
@@ -1310,8 +1322,9 @@ describe('Rating', () => {
             });
 
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></vx-rating>`
             })
             class TestPTCase6InlineObjectComponent {
                 value: number = 3;
@@ -1337,10 +1350,11 @@ describe('Rating', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from VoxxUIConfig', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value"></vx-rating>`
             })
             class TestPTCase7GlobalComponent {
                 value: number = 3;
@@ -1353,7 +1367,7 @@ describe('Rating', () => {
                     declarations: [TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideVoxxUI({
                             pt: {
                                 rating: {
                                     host: 'GLOBAL_HOST_CLASS',
@@ -1378,8 +1392,9 @@ describe('Rating', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="pt"></vx-rating>`
             })
             class TestPTCase8HooksComponent {
                 value: number = 3;
@@ -1423,8 +1438,9 @@ describe('Rating', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
+                changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<vx-rating [(ngModel)]="value" [pt]="pt"></vx-rating>`
             })
             class TestPTCoverageComponent {
                 value: number = 3;

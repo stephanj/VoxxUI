@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, provideZonelessChangeDetection, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, provideZonelessChangeDetection, signal, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { BehaviorSubject, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MultiSelect, MultiSelectModule } from './multiselect';
-import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'primeng/types/multiselect';
+import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'voxx-ui/types/multiselect';
 interface City {
     name: string;
     code: string;
@@ -25,9 +25,10 @@ interface Country {
 
 // Basic test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-multiselect
+        <vx-multiselect
             [options]="options"
             [(ngModel)]="selectedCities"
             [placeholder]="placeholder"
@@ -78,7 +79,7 @@ interface Country {
             (onLazyLoad)="onLazyLoad($event)"
             (onRemove)="onRemove($event)"
             (onSelectAllChange)="onSelectAllChange($event)"
-        ></p-multiselect>
+        ></vx-multiselect>
     `
 })
 class TestBasicMultiSelectComponent {
@@ -190,10 +191,11 @@ class TestBasicMultiSelectComponent {
 
 // Form integration test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <form [formGroup]="form">
-            <p-multiselect formControlName="selectedCities" [options]="options" optionLabel="name" placeholder="Select Cities" [showClear]="true" [filter]="true"></p-multiselect>
+            <vx-multiselect formControlName="selectedCities" [options]="options" optionLabel="name" placeholder="Select Cities" [showClear]="true" [filter]="true"></vx-multiselect>
         </form>
 
         <div class="form-status">
@@ -223,10 +225,11 @@ class TestFormMultiSelectComponent {
 
 // Template test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
-            <ng-template pTemplate="selectedItems" let-value let-removeChip="removeChip">
+        <vx-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
+            <ng-template vxTemplate="selectedItems" let-value let-removeChip="removeChip">
                 <div class="custom-selected-items">
                     <div *ngFor="let city of value" class="custom-chip">
                         {{ city.name }}
@@ -235,29 +238,29 @@ class TestFormMultiSelectComponent {
                 </div>
             </ng-template>
 
-            <ng-template pTemplate="item" let-option>
+            <ng-template vxTemplate="item" let-option>
                 <div class="custom-item">
                     <span class="city-name">{{ option.name }}</span>
                     <span class="city-code">({{ option.code }})</span>
                 </div>
             </ng-template>
 
-            <ng-template pTemplate="header">
+            <ng-template vxTemplate="header">
                 <div class="custom-header">Select Your Cities</div>
             </ng-template>
 
-            <ng-template pTemplate="footer">
+            <ng-template vxTemplate="footer">
                 <div class="custom-footer">{{ selectedCities?.length || 0 }} cities selected</div>
             </ng-template>
 
-            <ng-template pTemplate="empty">
+            <ng-template vxTemplate="empty">
                 <div class="custom-empty">No cities found</div>
             </ng-template>
 
-            <ng-template pTemplate="emptyfilter">
+            <ng-template vxTemplate="emptyfilter">
                 <div class="custom-empty-filter">No results found</div>
             </ng-template>
-        </p-multiselect>
+        </vx-multiselect>
     `
 })
 class TestTemplateMultiSelectComponent {
@@ -274,8 +277,9 @@ class TestTemplateMultiSelectComponent {
 
 // Grouped options test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-multiselect [options]="groupedOptions" [(ngModel)]="selectedCities" [group]="true" optionLabel="name" optionGroupLabel="label" optionGroupChildren="items" placeholder="Select Cities"></p-multiselect> `
+    template: ` <vx-multiselect [options]="groupedOptions" [(ngModel)]="selectedCities" [group]="true" optionLabel="name" optionGroupLabel="label" optionGroupChildren="items" placeholder="Select Cities"></vx-multiselect> `
 })
 class TestGroupedMultiSelectComponent {
     selectedCities: City[] = [];
@@ -304,9 +308,10 @@ class TestGroupedMultiSelectComponent {
 
 // Content child test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
-        <p-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
+        <vx-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
             <ng-template #selecteditems let-value let-removeChip="removeChip">
                 <div class="content-child-selected">
                     <div *ngFor="let city of value">{{ city.name }}</div>
@@ -332,7 +337,7 @@ class TestGroupedMultiSelectComponent {
             <ng-template #emptyfilter>
                 <div class="content-child-empty-filter">No filter results</div>
             </ng-template>
-        </p-multiselect>
+        </vx-multiselect>
     `
 })
 class TestContentChildMultiSelectComponent {
@@ -346,8 +351,9 @@ class TestContentChildMultiSelectComponent {
 
 // Virtual scroll test component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <p-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name" [virtualScroll]="true" [virtualScrollItemSize]="40" [scrollHeight]="'200px'" [lazy]="lazy" (onLazyLoad)="onLazyLoad($event)"></p-multiselect> `
+    template: ` <vx-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name" [virtualScroll]="true" [virtualScrollItemSize]="40" [scrollHeight]="'200px'" [lazy]="lazy" (onLazyLoad)="onLazyLoad($event)"></vx-multiselect> `
 })
 class TestVirtualScrollMultiSelectComponent {
     options: City[] = [];
@@ -1002,7 +1008,7 @@ describe('MultiSelect', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply basic CSS classes', () => {
-            const multiSelectElement = fixture.debugElement.query(By.css('p-multiselect'));
+            const multiSelectElement = fixture.debugElement.query(By.css('vx-multiselect'));
             expect(multiSelectElement.nativeElement.classList.contains('p-multiselect')).toBe(true);
         });
 
@@ -1010,7 +1016,7 @@ describe('MultiSelect', () => {
             component.styleClass = 'custom-multiselect';
             fixture.detectChanges();
 
-            const multiSelectElement = fixture.debugElement.query(By.css('p-multiselect'));
+            const multiSelectElement = fixture.debugElement.query(By.css('vx-multiselect'));
             expect(multiSelectElement.nativeElement.classList.contains('custom-multiselect')).toBe(true);
         });
 
@@ -1021,7 +1027,7 @@ describe('MultiSelect', () => {
             expect(component.style).toEqual({ border: '2px solid red', padding: '10px' });
 
             // Simulate ngStyle behavior
-            const element = fixture.debugElement.query(By.css('p-multiselect')).nativeElement;
+            const element = fixture.debugElement.query(By.css('vx-multiselect')).nativeElement;
             if (component.style) {
                 Object.keys(component.style).forEach((key) => {
                     element.style[key] = component.style[key];
@@ -1057,7 +1063,7 @@ describe('MultiSelect', () => {
             component.disabled = true;
             fixture.detectChanges();
 
-            const multiSelectElement = fixture.debugElement.query(By.css('p-multiselect'));
+            const multiSelectElement = fixture.debugElement.query(By.css('vx-multiselect'));
             expect(multiSelectElement.nativeElement.classList.contains('p-disabled')).toBe(true);
         });
 
@@ -1103,7 +1109,7 @@ describe('MultiSelect', () => {
             // Verify model value is set
             expect(multiSelect.modelValue()).toEqual([component.options[0]]);
 
-            const chip = fixture.debugElement.query(By.css('p-chip'));
+            const chip = fixture.debugElement.query(By.css('vx-chip'));
             // Chip might not be rendered or use different selector
             expect(chip || fixture.debugElement.query(By.css('.p-multiselect-chip')) || component.display === 'chip').toBeTruthy();
         });
@@ -1144,7 +1150,7 @@ describe('MultiSelect', () => {
                 return true;
             });
 
-            const element = fixture.debugElement.query(By.css('p-multiselect')).nativeElement;
+            const element = fixture.debugElement.query(By.css('vx-multiselect')).nativeElement;
 
             element.click();
             element.click();
@@ -1597,7 +1603,7 @@ describe('MultiSelect Grouped Options', () => {
         await fixture.whenStable();
         fixture.detectChanges();
 
-        const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
+        const options = fixture.debugElement.queryAll(By.css('li[vxMultiSelectItem]'));
         expect(options!.length).toBe(6); // 3 USA cities + 3 Italy cities
     });
 
@@ -1678,7 +1684,7 @@ describe('MultiSelect Virtual Scrolling', () => {
         await fixture.whenStable();
         fixture.detectChanges();
 
-        const scroller = fixture.debugElement.query(By.css('p-scroller'));
+        const scroller = fixture.debugElement.query(By.css('vx-scroller'));
         expect(scroller).toBeTruthy();
     });
 
@@ -1745,11 +1751,12 @@ describe('MultiSelect Virtual Scrolling', () => {
 
 // Dynamic Data Sources Test Component - Tests signals, observables, getters, async pipes, late-loading
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="test-dynamic-data">
             <!-- Signal-based options -->
-            <p-multiselect
+            <vx-multiselect
                 #signalMultiSelect
                 [options]="citySignal()"
                 [(ngModel)]="selectedCitiesSignal"
@@ -1758,10 +1765,10 @@ describe('MultiSelect Virtual Scrolling', () => {
                 [disabled]="disabledSignal()"
                 [filter]="filterSignal()"
                 class="signal-multiselect"
-            ></p-multiselect>
+            ></vx-multiselect>
 
             <!-- Observable with async pipe -->
-            <p-multiselect
+            <vx-multiselect
                 #asyncMultiSelect
                 [options]="citiesObservable$ | async"
                 [(ngModel)]="selectedCitiesAsync"
@@ -1769,13 +1776,13 @@ describe('MultiSelect Virtual Scrolling', () => {
                 [placeholder]="placeholderObservable$ | async"
                 [loading]="loadingObservable$ | async"
                 class="async-multiselect"
-            ></p-multiselect>
+            ></vx-multiselect>
 
             <!-- Getter-based options -->
-            <p-multiselect #getterMultiSelect [options]="getCities()" [(ngModel)]="selectedCitiesGetter" optionLabel="name" [placeholder]="getPlaceholder()" [disabled]="getDisabled()" class="getter-multiselect"></p-multiselect>
+            <vx-multiselect #getterMultiSelect [options]="getCities()" [(ngModel)]="selectedCitiesGetter" optionLabel="name" [placeholder]="getPlaceholder()" [disabled]="getDisabled()" class="getter-multiselect"></vx-multiselect>
 
             <!-- Function-based properties -->
-            <p-multiselect
+            <vx-multiselect
                 #functionMultiSelect
                 [options]="getFunctionOptions()"
                 [(ngModel)]="selectedCitiesFunction"
@@ -1785,13 +1792,13 @@ describe('MultiSelect Virtual Scrolling', () => {
                 [placeholder]="getFunctionPlaceholder()"
                 [filter]="getFunctionFilter()"
                 class="function-multiselect"
-            ></p-multiselect>
+            ></vx-multiselect>
 
             <!-- Late-loaded data (simulating HTTP requests) -->
-            <p-multiselect #lateLoadMultiSelect [options]="lateLoadedOptions" [(ngModel)]="selectedCitiesLateLoad" optionLabel="name" [loading]="isLoadingLateData" [placeholder]="lateLoadPlaceholder" class="late-load-multiselect"></p-multiselect>
+            <vx-multiselect #lateLoadMultiSelect [options]="lateLoadedOptions" [(ngModel)]="selectedCitiesLateLoad" optionLabel="name" [loading]="isLoadingLateData" [placeholder]="lateLoadPlaceholder" class="late-load-multiselect"></vx-multiselect>
 
             <!-- Computed signal based on other signals -->
-            <p-multiselect
+            <vx-multiselect
                 #computedMultiSelect
                 [options]="computedOptions()"
                 [(ngModel)]="selectedCitiesComputed"
@@ -1799,7 +1806,7 @@ describe('MultiSelect Virtual Scrolling', () => {
                 [placeholder]="computedPlaceholder()"
                 [maxSelectedLabels]="computedMaxLabels()"
                 class="computed-multiselect"
-            ></p-multiselect>
+            ></vx-multiselect>
         </div>
     `
 })
@@ -1970,19 +1977,29 @@ class TestDynamicDataSourcesMultiSelectComponent {
 
 // Comprehensive Form Integration Test Component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="comprehensive-form-tests">
             <!-- Reactive Form with all Angular FormControl APIs -->
             <form [formGroup]="reactiveForm" class="reactive-form">
-                <p-multiselect #reactiveMultiSelect formControlName="cities" [options]="allCities" optionLabel="name" placeholder="Select cities (Reactive)" [showClear]="true" [filter]="true" class="reactive-multiselect"></p-multiselect>
+                <vx-multiselect #reactiveMultiSelect formControlName="cities" [options]="allCities" optionLabel="name" placeholder="Select cities (Reactive)" [showClear]="true" [filter]="true" class="reactive-multiselect"></vx-multiselect>
 
-                <p-multiselect #validatedMultiSelect formControlName="validatedCities" [options]="allCities" optionLabel="name" placeholder="Required cities (Reactive)" [showClear]="true" [filter]="true" class="validated-multiselect"></p-multiselect>
+                <vx-multiselect
+                    #validatedMultiSelect
+                    formControlName="validatedCities"
+                    [options]="allCities"
+                    optionLabel="name"
+                    placeholder="Required cities (Reactive)"
+                    [showClear]="true"
+                    [filter]="true"
+                    class="validated-multiselect"
+                ></vx-multiselect>
             </form>
 
             <!-- Template-driven form with NgModel -->
             <form #templateForm="ngForm" class="template-form">
-                <p-multiselect
+                <vx-multiselect
                     #ngModelMultiSelect
                     [(ngModel)]="ngModelValue"
                     name="templateCities"
@@ -1994,9 +2011,9 @@ class TestDynamicDataSourcesMultiSelectComponent {
                     #citiesModel="ngModel"
                     [required]="true"
                     class="ngmodel-multiselect"
-                ></p-multiselect>
+                ></vx-multiselect>
 
-                <p-multiselect
+                <vx-multiselect
                     #ngModelValidatedMultiSelect
                     [(ngModel)]="ngModelValidatedValue"
                     name="validatedTemplateCities"
@@ -2008,7 +2025,7 @@ class TestDynamicDataSourcesMultiSelectComponent {
                     [required]="true"
                     [minlength]="2"
                     class="ngmodel-validated-multiselect"
-                ></p-multiselect>
+                ></vx-multiselect>
             </form>
 
             <!-- Form status display -->
@@ -2129,30 +2146,31 @@ class TestComprehensiveFormMultiSelectComponent {
 
 // ViewChild Properties Test Component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="viewchild-tests">
-            <p-multiselect #mainMultiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Test ViewChild properties" [showClear]="true" [filter]="true" [virtualScroll]="false" class="main-multiselect">
-                <ng-template pTemplate="selectedItems" let-value>
+            <vx-multiselect #mainMultiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Test ViewChild properties" [showClear]="true" [filter]="true" [virtualScroll]="false" class="main-multiselect">
+                <ng-template vxTemplate="selectedItems" let-value>
                     <div class="custom-selected-template">{{ value?.length || 0 }} selected</div>
                 </ng-template>
 
-                <ng-template pTemplate="item" let-option>
+                <ng-template vxTemplate="item" let-option>
                     <div class="custom-item-template">{{ option.name }} - {{ option.code }}</div>
                 </ng-template>
 
-                <ng-template pTemplate="header">
+                <ng-template vxTemplate="header">
                     <div class="custom-header-template">Choose Cities</div>
                 </ng-template>
 
-                <ng-template pTemplate="footer">
+                <ng-template vxTemplate="footer">
                     <div class="custom-footer-template">{{ cities.length }} total options</div>
                 </ng-template>
 
-                <ng-template pTemplate="empty">
+                <ng-template vxTemplate="empty">
                     <div class="custom-empty-template">No cities available</div>
                 </ng-template>
-            </p-multiselect>
+            </vx-multiselect>
         </div>
     `
 })
@@ -2248,11 +2266,12 @@ class TestViewChildMultiSelectComponent {
 
 // Complex Edge Cases Test Component
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
     template: `
         <div class="edge-cases-tests">
             <!-- Large dataset performance test -->
-            <p-multiselect
+            <vx-multiselect
                 #largeDataMultiSelect
                 [options]="largeDataset"
                 [(ngModel)]="selectedLargeData"
@@ -2265,16 +2284,16 @@ class TestViewChildMultiSelectComponent {
                 [showToggleAll]="true"
                 [maxSelectedLabels]="5"
                 class="large-data-multiselect"
-            ></p-multiselect>
+            ></vx-multiselect>
 
             <!-- Unicode and special characters test -->
-            <p-multiselect #unicodeMultiSelect [options]="unicodeOptions" [(ngModel)]="selectedUnicode" optionLabel="name" placeholder="Unicode & Special chars" [filter]="true" class="unicode-multiselect"></p-multiselect>
+            <vx-multiselect #unicodeMultiSelect [options]="unicodeOptions" [(ngModel)]="selectedUnicode" optionLabel="name" placeholder="Unicode & Special chars" [filter]="true" class="unicode-multiselect"></vx-multiselect>
 
             <!-- XSS protection test -->
-            <p-multiselect #xssMultiSelect [options]="xssTestOptions" [(ngModel)]="selectedXss" optionLabel="name" placeholder="XSS Protection Test" [filter]="true" class="xss-multiselect"></p-multiselect>
+            <vx-multiselect #xssMultiSelect [options]="xssTestOptions" [(ngModel)]="selectedXss" optionLabel="name" placeholder="XSS Protection Test" [filter]="true" class="xss-multiselect"></vx-multiselect>
 
             <!-- Memory management test -->
-            <p-multiselect
+            <vx-multiselect
                 #memoryMultiSelect
                 [options]="memoryTestOptions"
                 [(ngModel)]="selectedMemory"
@@ -2284,13 +2303,13 @@ class TestViewChildMultiSelectComponent {
                 [lazy]="true"
                 class="memory-multiselect"
                 (onLazyLoad)="handleLazyLoad($event)"
-            ></p-multiselect>
+            ></vx-multiselect>
 
             <!-- Null/undefined handling test -->
-            <p-multiselect #nullHandlingMultiSelect [options]="nullTestOptions" [(ngModel)]="selectedNull" optionLabel="name" placeholder="Null handling test" class="null-handling-multiselect"></p-multiselect>
+            <vx-multiselect #nullHandlingMultiSelect [options]="nullTestOptions" [(ngModel)]="selectedNull" optionLabel="name" placeholder="Null handling test" class="null-handling-multiselect"></vx-multiselect>
 
             <!-- Circular reference test -->
-            <p-multiselect #circularMultiSelect [options]="circularOptions" [(ngModel)]="selectedCircular" optionLabel="name" placeholder="Circular reference test" class="circular-multiselect"></p-multiselect>
+            <vx-multiselect #circularMultiSelect [options]="circularOptions" [(ngModel)]="selectedCircular" optionLabel="name" placeholder="Circular reference test" class="circular-multiselect"></vx-multiselect>
         </div>
     `
 })
@@ -3141,7 +3160,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             await fixture.whenStable();
 
             // Should render Unicode characters without issues
-            const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
+            const options = fixture.debugElement.queryAll(By.css('li[vxMultiSelectItem]'));
             expect(options!.length).toBeGreaterThan(0);
 
             // Test Chinese characters
@@ -3198,7 +3217,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Should not execute any scripts
             expect(() => {
-                const options = fixture.debugElement.queryAll(By.css('li[pMultiSelectItem]'));
+                const options = fixture.debugElement.queryAll(By.css('li[vxMultiSelectItem]'));
                 expect(options!.length).toBeGreaterThan(0);
             }).not.toThrow();
         });
@@ -3324,7 +3343,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: 'custom-root-class',
@@ -3356,7 +3375,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: {
@@ -3396,7 +3415,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: 'string-root',
@@ -3427,7 +3446,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: ({ instance }: any) => ({
@@ -3461,7 +3480,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: {
@@ -3514,7 +3533,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: 'global-root',
@@ -3551,7 +3570,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: 'MY-MultiSelect',
@@ -3581,7 +3600,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 pcHeaderCheckbox: ({ context }: any) => ({
@@ -3614,7 +3633,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 option: ({ context }: any) => ({
@@ -3654,7 +3673,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 root: 'pt-root',
@@ -3690,7 +3709,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideVoxxUI({
                         pt: {
                             multiselect: {
                                 pcChip: {

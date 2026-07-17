@@ -1,9 +1,10 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'voxx-ui/tag';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'v21-breaking-doc',
     standalone: true,
     imports: [TagModule, AppDocSectionText, RouterModule],

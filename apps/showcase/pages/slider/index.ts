@@ -10,9 +10,10 @@ import { StepDoc } from '@/doc/slider/step-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/slider/templatedrivenforms-doc';
 import { VerticalDoc } from '@/doc/slider/vertical-doc';
 import { AppDoc } from '@/components/doc/app.doc';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc docTitle="Angular Slider Component" header="Slider" description="Slider is a component to provide input with a drag handle." [docs]="docs" [apiDocs]="['Slider']" themeDocs="slider" [ptDocs]="ptComponent"></app-doc>`,
     standalone: true,
     imports: [AppDoc]

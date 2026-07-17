@@ -12,9 +12,7 @@ Advanced uploader provides dragdrop support, multi file uploads, auto uploading,
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -24,16 +22,16 @@ interface UploadEvent {
 @Component({
     template: `
         <div class="card">
-            <p-toast />
-            <p-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
+            <vx-toast />
+            <vx-fileupload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template #empty>
                     <div>Drag and drop files to here to upload.</div>
                 </ng-template>
-            </p-fileupload>
+            </vx-fileupload>
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadAdvancedDemo {
@@ -48,9 +46,7 @@ When auto property is enabled, a file gets uploaded instantly after selection.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -60,12 +56,12 @@ interface UploadEvent {
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast />
-            <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
+            <vx-toast />
+            <vx-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadAutoDemo {
@@ -79,10 +75,7 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -91,14 +84,14 @@ interface UploadEvent {
 
 @Component({
     template: `
-        <p-toast />
+        <vx-toast />
         <div class="card flex flex-wrap gap-6 items-center justify-between">
-            <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
-            <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
+            <vx-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
+            <vx-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
         </div>
     `,
     standalone: true,
-    imports: [ButtonModule, FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadBasicDemo {
@@ -112,19 +105,17 @@ FileUpload basic mode provides a simpler UI as an alternative to default advance
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-toast></p-toast>
-            <p-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileupload>
+            <vx-toast></vx-toast>
+            <vx-fileupload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></vx-fileupload>
         </div>
     `,
     standalone: true,
-    imports: [FileUploadModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadCustomDemo {
@@ -136,13 +127,7 @@ export class FileuploadCustomDemo {
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { ButtonModule } from 'primeng/button';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { PrimeNG } from 'primeng/config';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'voxx-ui/api';
 
 @Component({
     template: `
@@ -154,18 +139,18 @@ import { MessageService } from 'primeng/api';
             </p></app-docsectiontext
         >
         <div class="card">
-            <p-toast />
-            <p-fileupload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000" (onUpload)="onTemplatedUpload()" (onSelect)="onSelectedFiles($event)">
+            <vx-toast />
+            <vx-fileupload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true" accept="image/*" maxFileSize="1000000" (onUpload)="onTemplatedUpload()" (onSelect)="onSelectedFiles($event)">
                 <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
                     <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
                         <div class="flex gap-2">
-                            <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true" [outlined]="true" />
-                            <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
-                            <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
+                            <vx-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true" [outlined]="true" />
+                            <vx-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
+                            <vx-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger" [disabled]="!files || files.length === 0" />
                         </div>
-                        <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
+                        <vx-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full" class="md:w-20rem h-1 w-full md:ml-auto">
                             <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
-                        </p-progressbar>
+                        </vx-progressbar>
                     </div>
                 </ng-template>
                 <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
@@ -179,8 +164,8 @@ import { MessageService } from 'primeng/api';
                                     </div>
                                     <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
-                                    <p-badge value="Pending" severity="warn" />
-                                    <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
+                                    <vx-badge value="Pending" severity="warn" />
+                                    <vx-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                                 </div>
                             </div>
                         </div>
@@ -193,8 +178,8 @@ import { MessageService } from 'primeng/api';
                                     </div>
                                     <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name }}</span>
                                     <div>{{ formatSize(file.size) }}</div>
-                                    <p-badge value="Completed" class="mt-4" severity="success" />
-                                    <p-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(index)" [outlined]="true" [rounded]="true" severity="danger" />
+                                    <vx-badge value="Completed" class="mt-4" severity="success" />
+                                    <vx-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(index)" [outlined]="true" [rounded]="true" severity="danger" />
                                 </div>
                             </div>
                         </div>
@@ -207,11 +192,11 @@ import { MessageService } from 'primeng/api';
                         <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
                     </div>
                 </ng-template>
-            </p-fileupload>
+            </vx-fileupload>
         </div>
     `,
     standalone: true,
-    imports: [BadgeModule, ButtonModule, FileUploadModule, ProgressBarModule, ToastModule],
+    imports: [],
     providers: [MessageService]
 })
 export class FileuploadTemplateDemo {
@@ -294,9 +279,9 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | style | { [klass: string]: any } | - | Inline style of the element. |
 | styleClass | string | - | Class of the element. |
 | previewWidth | number | 50 | Width of the image thumbnail in pixels. |
-| chooseLabel | string | - | Label of the choose button. Defaults to PrimeNG Locale configuration. |
-| uploadLabel | string | - | Label of the upload button. Defaults to PrimeNG Locale configuration. |
-| cancelLabel | string | - | Label of the cancel button. Defaults to PrimeNG Locale configuration. |
+| chooseLabel | string | - | Label of the choose button. Defaults to VoxxUI Locale configuration. |
+| uploadLabel | string | - | Label of the upload button. Defaults to VoxxUI Locale configuration. |
+| cancelLabel | string | - | Label of the cancel button. Defaults to VoxxUI Locale configuration. |
 | chooseIcon | string | - | Icon of the choose button. |
 | uploadIcon | string | - | Icon of the upload button. |
 | cancelIcon | string | - | Icon of the cancel button. |
@@ -304,7 +289,7 @@ FileUpload is an advanced uploader with dragdrop support, multi file uploads, au
 | showCancelButton | boolean | true | Whether to show the cancel button. |
 | mode | "advanced" \| "basic" | advanced | Defines the UI of the component. |
 | headers | HttpHeaders | - | HttpHeaders class represents the header configuration options for an HTTP request. |
-| customUpload | boolean | false | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration. |
+| customUpload | boolean | false | Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to VoxxUI Locale configuration. |
 | fileLimit | number | - | Maximum number of files that can be uploaded. |
 | uploadStyleClass | string | - | Style class of the upload button. |
 | cancelStyleClass | string | - | Style class of the cancel button. |

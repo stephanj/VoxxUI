@@ -3,7 +3,6 @@ import { BasicDoc } from '@/doc/inputmask/basic-doc';
 import { DisabledDoc } from '@/doc/inputmask/disabled-doc';
 import { FilledDoc } from '@/doc/inputmask/filled-doc';
 import { FloatlabelDoc } from '@/doc/inputmask/floatlabel-doc';
-import { IftaLabelDoc } from '@/doc/inputmask/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputmask/import-doc';
 import { InvalidDoc } from '@/doc/inputmask/invalid-doc';
 import { MaskDoc } from '@/doc/inputmask/mask-doc';
@@ -14,10 +13,11 @@ import { SlotCharDoc } from '@/doc/inputmask/slotchar-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenforms-doc';
 import { FluidDoc } from '@/doc/inputmask/fluid-doc';
 import { PTComponent } from '@/doc/inputmask/pt/PTComponent';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `<app-doc
         docTitle="Angular InputMask Component"
         header="InputMask"
@@ -68,11 +68,6 @@ export class InputMaskDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
-        },
-        {
-            id: 'iftalabel',
-            label: 'Ifta Label',
-            component: IftaLabelDoc
         },
         {
             id: 'sizes',

@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "primeng": {
+        "voxx-ui": {
             "root": "src",
             "projectType": "library",
             "architect": {
@@ -17,7 +17,7 @@
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "tsConfig": "tsconfig.json",
+                        "tsConfig": "tsconfig.spec.json",
                         "scripts": []
                     }
                 },

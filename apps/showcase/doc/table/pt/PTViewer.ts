@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TableModule } from 'voxx-ui/table';
 
 interface Product {
     id?: string;
@@ -17,12 +17,13 @@ interface Product {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'table-pt-viewer',
     standalone: true,
     imports: [TableModule, CurrencyPipe, AppDocPtViewer],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-table
+            <vx-table
                 [value]="products"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 [pt]="{
@@ -60,7 +61,7 @@ interface Product {
                 <ng-template #summary>
                     <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
                 </ng-template>
-            </p-table>
+            </vx-table>
         </app-docptviewer>
     `
 })

@@ -1,9 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'accessibility-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
@@ -140,11 +141,11 @@ import { Component } from '@angular/core';
 export class AccessibilityDoc {
     code: Code = {
         html: `<label for="ac1">Username</label>
-<p-autocomplete inputId="ac1"/>
+<vx-autocomplete inputId="ac1"/>
 
 <span id="ac2">Email</span>
-<p-autocomplete ariaLabelledBy="ac2" />
+<vx-autocomplete ariaLabelledBy="ac2" />
 
-<p-autocomplete ariaLabel="City" />`
+<vx-autocomplete ariaLabel="City" />`
     };
 }

@@ -2,9 +2,9 @@ import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, signal, SimpleChanges } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
-import type { Lifecycle, PassThroughOptions } from 'primeng/api';
-import { Base, BaseStyle } from 'primeng/base';
-import { PrimeNG } from 'primeng/config';
+import type { Lifecycle, PassThroughOptions } from 'voxx-ui/api';
+import { Base, BaseStyle } from 'voxx-ui/base';
+import { VoxxUI } from 'voxx-ui/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
@@ -26,7 +26,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     public renderer: Renderer2 = inject(Renderer2);
 
-    public config: PrimeNG = inject(PrimeNG);
+    public config: VoxxUI = inject(VoxxUI);
 
     public $parentInstance: BaseComponent | undefined = inject(PARENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
