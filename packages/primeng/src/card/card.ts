@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { equals } from '@primeuix/utils';
+import { NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, inject, InjectionToken, input, NgModule, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
@@ -15,39 +14,39 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
  */
 @Component({
     selector: 'vx-card',
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [NgTemplateOutlet, SharedModule, BindModule],
     template: `
-        @if (headerFacet || headerTemplate || _headerTemplate) {
+        @if (headerFacet() || headerTemplate() || _headerTemplate()) {
             <div [vxBind]="ptm('header')" [class]="cx('header')">
                 <ng-content select="vx-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate() || null"></ng-container>
             </div>
         }
         <div [vxBind]="ptm('body')" [class]="cx('body')">
-            @if (header || titleTemplate || _titleTemplate) {
+            @if (header() || titleTemplate() || _titleTemplate()) {
                 <div [vxBind]="ptm('title')" [class]="cx('title')">
-                    @if (header && !_titleTemplate && !titleTemplate) {
-                        {{ header }}
+                    @if (header() && !_titleTemplate() && !titleTemplate()) {
+                        {{ header() }}
                     }
-                    <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="titleTemplate() || _titleTemplate() || null"></ng-container>
                 </div>
             }
-            @if (subheader || subtitleTemplate || _subtitleTemplate) {
+            @if (subheader() || subtitleTemplate() || _subtitleTemplate()) {
                 <div [vxBind]="ptm('subtitle')" [class]="cx('subtitle')">
-                    @if (subheader && !_subtitleTemplate && !subtitleTemplate) {
-                        {{ subheader }}
+                    @if (subheader() && !_subtitleTemplate() && !subtitleTemplate()) {
+                        {{ subheader() }}
                     }
-                    <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="subtitleTemplate() || _subtitleTemplate() || null"></ng-container>
                 </div>
             }
             <div [vxBind]="ptm('content')" [class]="cx('content')">
                 <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate() || null"></ng-container>
             </div>
-            @if (footerFacet || footerTemplate || _footerTemplate) {
+            @if (footerFacet() || footerTemplate() || _footerTemplate()) {
                 <div [vxBind]="ptm('footer')" [class]="cx('footer')">
                     <ng-content select="vx-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate() || _footerTemplate() || null"></ng-container>
                 </div>
             }
         </div>
@@ -56,8 +55,8 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [CardStyle, { provide: CARD_INSTANCE, useExisting: Card }, { provide: PARENT_INSTANCE, useExisting: Card }],
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[style]': '_style()'
+        '[class]': "cn(cx('root'), styleClass())",
+        '[style]': 'style()'
     },
     hostDirectives: [Bind]
 })
@@ -77,120 +76,76 @@ export class Card extends BaseComponent<CardPassThrough> implements BlockableUI 
      * Header of the card.
      * @group Props
      */
-    @Input() header: string | undefined;
+    header = input<string | undefined>();
     /**
      * Subheader of the card.
      * @group Props
      */
-    @Input() subheader: string | undefined;
+    subheader = input<string | undefined>();
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() set style(value: { [klass: string]: any } | null | undefined) {
-        if (!equals(this._style(), value)) {
-            this._style.set(value);
-            // Apply style directly to avoid infinite loop in host binding
-            if (this.el?.nativeElement) {
-                if (value) {
-                    Object.keys(value).forEach((key) => {
-                        this.el.nativeElement.style[key] = value[key];
-                    });
-                }
-            }
-        }
-    }
-
-    get style() {
-        return this._style();
-    }
+    style = input<{ [klass: string]: any } | null | undefined>(null);
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
 
-    @ContentChild(Header) headerFacet: TemplateRef<any> | undefined;
+    headerFacet = contentChild(Header);
 
-    @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
+    footerFacet = contentChild(Footer);
 
     /**
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
+    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
 
     /**
      * Custom title template.
      * @group Templates
      */
-    @ContentChild('title', { descendants: false }) titleTemplate: TemplateRef<void> | undefined;
+    titleTemplate = contentChild<TemplateRef<void>>('title', { descendants: false });
 
     /**
      * Custom subtitle template.
      * @group Templates
      */
-    @ContentChild('subtitle', { descendants: false }) subtitleTemplate: TemplateRef<void> | undefined;
+    subtitleTemplate = contentChild<TemplateRef<void>>('subtitle', { descendants: false });
 
     /**
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
+    contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<void> | undefined;
+    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
 
-    _headerTemplate: TemplateRef<void> | undefined;
+    templates = contentChildren(PrimeTemplate);
 
-    _titleTemplate: TemplateRef<void> | undefined;
+    _headerTemplate = computed<TemplateRef<void> | undefined>(() => this.templates().find((item) => item.getType() === 'header')?.template);
 
-    _subtitleTemplate: TemplateRef<void> | undefined;
+    _titleTemplate = computed<TemplateRef<void> | undefined>(() => this.templates().find((item) => item.getType() === 'title')?.template);
 
-    _contentTemplate: TemplateRef<void> | undefined;
+    _subtitleTemplate = computed<TemplateRef<void> | undefined>(() => this.templates().find((item) => item.getType() === 'subtitle')?.template);
 
-    _footerTemplate: TemplateRef<void> | undefined;
+    _contentTemplate = computed<TemplateRef<void> | undefined>(() => {
+        const templates = this.templates();
+        const known = ['header', 'title', 'subtitle', 'footer'];
+        return (templates.find((item) => item.getType() === 'content') ?? templates.filter((item) => !known.includes(item.getType())).pop())?.template;
+    });
 
-    _style = signal<{ [klass: string]: any } | null | undefined>(null);
+    _footerTemplate = computed<TemplateRef<void> | undefined>(() => this.templates().find((item) => item.getType() === 'footer')?.template);
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement;
-    }
-
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
-
-    onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this._headerTemplate = item.template;
-                    break;
-
-                case 'title':
-                    this._titleTemplate = item.template;
-                    break;
-
-                case 'subtitle':
-                    this._subtitleTemplate = item.template;
-                    break;
-
-                case 'content':
-                    this._contentTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this._footerTemplate = item.template;
-                    break;
-
-                default:
-                    this._contentTemplate = item.template;
-                    break;
-            }
-        });
     }
 }
 
