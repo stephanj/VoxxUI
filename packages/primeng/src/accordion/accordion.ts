@@ -17,6 +17,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { MotionOptions } from '@primeuix/motion';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'voxx-ui/api';
@@ -128,7 +129,7 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
  */
 @Component({
     selector: 'vx-accordion-header, vx-accordionheader',
-    imports: [ChevronDownIcon, ChevronUpIcon, BindModule],
+    imports: [NgTemplateOutlet, ChevronDownIcon, ChevronUpIcon, BindModule],
     template: `
         <ng-content />
         @if (toggleicon) {

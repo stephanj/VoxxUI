@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DebugElement, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -265,7 +266,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -324,7 +325,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -620,7 +621,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -753,7 +754,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1040,7 +1041,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1146,7 +1147,7 @@ describe('Scroller', () => {
     describe('Template Content Projection Tests', () => {
         it('should render with content template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestContentTemplateComponent]
             }).compileComponents();
@@ -1172,7 +1173,7 @@ describe('Scroller', () => {
 
         it('should configure with item template without rendering errors', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestItemTemplateComponent]
             }).compileComponents();
@@ -1196,7 +1197,7 @@ describe('Scroller', () => {
 
         it('should render with loader template', async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestLoaderTemplateComponent]
             }).compileComponents();
@@ -1238,7 +1239,7 @@ describe('Scroller', () => {
             class TestDisabledComponent {}
 
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestDisabledComponent]
             }).compileComponents();
@@ -1258,7 +1259,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestLazyLoadingComponent]
             }).compileComponents();
@@ -1370,7 +1371,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBothOrientationComponent]
             }).compileComponents();
@@ -1436,7 +1437,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestDynamicPropertiesComponent]
             }).compileComponents();
@@ -1515,7 +1516,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1588,7 +1589,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1766,7 +1767,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -1853,7 +1854,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -2702,7 +2703,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestDynamicInputsComponent]
             }).compileComponents();
@@ -3062,7 +3063,7 @@ describe('Scroller', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 providers: [provideZonelessChangeDetection()],
                 declarations: [TestBasicScrollerComponent]
             }).compileComponents();
@@ -3442,7 +3443,7 @@ describe('Scroller', () => {
 
             it('should render vxTemplate="content" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateContentComponent]
                 }).compileComponents();
@@ -3470,7 +3471,7 @@ describe('Scroller', () => {
 
             it('should render vxTemplate="item" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateItemComponent]
                 }).compileComponents();
@@ -3508,7 +3509,7 @@ describe('Scroller', () => {
 
             it('should render vxTemplate="loader" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateLoaderComponent]
                 }).compileComponents();
@@ -3537,7 +3538,7 @@ describe('Scroller', () => {
 
             it('should render vxTemplate="loadericon" with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestPTemplateLoaderIconComponent]
                 }).compileComponents();
@@ -3664,7 +3665,7 @@ describe('Scroller', () => {
 
             it('should render #content template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateContentComponent]
                 }).compileComponents();
@@ -3686,7 +3687,7 @@ describe('Scroller', () => {
 
             it('should render #item template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateItemComponent]
                 }).compileComponents();
@@ -3713,7 +3714,7 @@ describe('Scroller', () => {
 
             it('should render #loader template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateLoaderComponent]
                 }).compileComponents();
@@ -3732,7 +3733,7 @@ describe('Scroller', () => {
 
             it('should render #loadericon template with correct context objects', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestHashTemplateLoaderIconComponent]
                 }).compileComponents();
@@ -3788,7 +3789,7 @@ describe('Scroller', () => {
 
             it('should handle mixed vxTemplate and #template projections', async () => {
                 await TestBed.configureTestingModule({
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     providers: [provideZonelessChangeDetection()],
                     declarations: [TestMixedTemplateComponent]
                 }).compileComponents();
@@ -3817,7 +3818,7 @@ describe('Scroller', () => {
             @Component({
                 changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 template: `
                     <vx-scroller [items]="items" [itemSize]="itemSize" [scrollHeight]="scrollHeight" [orientation]="orientation">
                         <ng-template vxTemplate="content" let-items let-options="options">
@@ -3965,7 +3966,7 @@ describe('Scroller', () => {
         @Component({
             changeDetection: ChangeDetectionStrategy.Eager,
             standalone: true,
-            imports: [Scroller],
+            imports: [CommonModule, Scroller],
             template: `
                 <vx-scroller [items]="items()" [itemSize]="itemSize()" [pt]="pt()" [showLoader]="showLoader()" [loading]="loading()">
                     <ng-template #item let-item>
@@ -4175,7 +4176,7 @@ describe('Scroller', () => {
             @Component({
                 changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 template: `<vx-scroller [items]="items" [itemSize]="50" [pt]="{ root: 'INLINE_TEST_CLASS' }">
                     <ng-template #item let-item>{{ item }}</ng-template>
                 </vx-scroller>`
@@ -4196,7 +4197,7 @@ describe('Scroller', () => {
                 @Component({
                     changeDetection: ChangeDetectionStrategy.Eager,
                     standalone: true,
-                    imports: [Scroller],
+                    imports: [CommonModule, Scroller],
                     template: `<vx-scroller [items]="items" [itemSize]="50" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' } }">
                         <ng-template #item let-item>{{ item }}</ng-template>
                     </vx-scroller>`
@@ -4217,7 +4218,7 @@ describe('Scroller', () => {
             @Component({
                 changeDetection: ChangeDetectionStrategy.Eager,
                 standalone: true,
-                imports: [Scroller],
+                imports: [CommonModule, Scroller],
                 template: `
                     <vx-scroller [items]="items1" [itemSize]="50">
                         <ng-template #item let-item>{{ item }}</ng-template>

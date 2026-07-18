@@ -3242,7 +3242,7 @@ describe('Select PT (PassThrough)', () => {
     @Component({
         changeDetection: ChangeDetectionStrategy.Eager,
         standalone: true,
-        imports: [FormsModule, Select],
+        imports: [CommonModule, FormsModule, Select],
         template: `
             <vx-select
                 [options]="options"
