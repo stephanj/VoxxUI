@@ -81,6 +81,7 @@ import {
     TableSelectAllChangeEvent
 } from 'voxx-ui/types/table';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'voxx-ui/utils';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 
@@ -3414,8 +3415,6 @@ export class TableBody extends BaseComponent {
 
     @Input() scrollerOptions: any;
 
-    subscription: Subscription;
-
     _value: any[] | undefined;
 
     onAfterViewInit() {
@@ -3433,7 +3432,7 @@ export class TableBody extends BaseComponent {
         public tableService: TableService
     ) {
         super();
-        this.subscription = this.dataTable.tableService.valueSource$.subscribe(() => {
+        this.dataTable.tableService.valueSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             if (this.dataTable.virtualScroll) {
                 this.cd.detectChanges();
             }
@@ -3489,12 +3488,6 @@ export class TableBody extends BaseComponent {
         }
 
         return groupRowSpan === 1 ? null : groupRowSpan;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 
     updateFrozenRowStickyPosition() {
@@ -3686,14 +3679,12 @@ export class SortableColumn extends BaseComponent {
 
     sortOrder: string | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(public dataTable: Table) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+            this.dataTable.tableService.sortSource$.pipe(takeUntilDestroyed()).subscribe((sortMeta) => {
                 this.updateSortState();
             });
         }
@@ -3749,12 +3740,6 @@ export class SortableColumn extends BaseComponent {
     private isFilterElementIconOrButton(element: HTMLElement) {
         return getAttribute(element, '[data-pc-name="pccolumnfilterbutton"]') || getAttribute(element, '[data-pc-section="columnfilterbuttonicon"]');
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Component({
@@ -3778,8 +3763,6 @@ export class SortableColumn extends BaseComponent {
 export class SortIcon extends BaseComponent {
     @Input() field: string | undefined;
 
-    subscription: Subscription | undefined;
-
     sortOrder: number | undefined;
 
     _componentStyle = inject(TableStyle);
@@ -3789,7 +3772,7 @@ export class SortIcon extends BaseComponent {
         public cd: ChangeDetectorRef
     ) {
         super();
-        this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+        this.dataTable.tableService.sortSource$.pipe(takeUntilDestroyed()).subscribe((sortMeta) => {
             this.updateSortState();
         });
     }
@@ -3839,12 +3822,6 @@ export class SortIcon extends BaseComponent {
     isMultiSorted() {
         return this.dataTable.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
@@ -3869,8 +3846,6 @@ export class SelectableRow extends BaseComponent {
 
     selected: boolean | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(
@@ -3879,7 +3854,7 @@ export class SelectableRow extends BaseComponent {
     ) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+            this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.selected = this.dataTable.isSelected(this.data);
             });
         }
@@ -4093,12 +4068,6 @@ export class SelectableRow extends BaseComponent {
     isEnabled() {
         return this.vxSelectableRowDisabled !== true;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
@@ -4119,8 +4088,6 @@ export class SelectableRowDblClick extends BaseComponent {
 
     selected: boolean | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(
@@ -4129,7 +4096,7 @@ export class SelectableRowDblClick extends BaseComponent {
     ) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+            this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.selected = this.dataTable.isSelected(this.data);
             });
         }
@@ -4153,12 +4120,6 @@ export class SelectableRowDblClick extends BaseComponent {
     isEnabled() {
         return this.vxSelectableRowDisabled !== true;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
@@ -4180,8 +4141,6 @@ export class ContextMenuRow extends BaseComponent {
 
     selected: boolean | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(
@@ -4190,7 +4149,7 @@ export class ContextMenuRow extends BaseComponent {
     ) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.contextMenuSource$.subscribe((data) => {
+            this.dataTable.tableService.contextMenuSource$.pipe(takeUntilDestroyed()).subscribe((data) => {
                 this.selected = data ? this.dataTable.equals(this.data, data) : false;
             });
         }
@@ -4210,12 +4169,6 @@ export class ContextMenuRow extends BaseComponent {
 
     isEnabled() {
         return this.vxContextMenuRowDisabled !== true;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
@@ -4981,14 +4934,12 @@ export class TableRadioButton extends BaseComponent {
 
     checked: boolean | undefined;
 
-    subscription: Subscription;
-
     constructor(
         public dataTable: Table,
         public cd: ChangeDetectorRef
     ) {
         super();
-        this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.dataTable.isSelected(this.value);
 
             this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
@@ -5013,12 +4964,6 @@ export class TableRadioButton extends BaseComponent {
             this.inputViewChild?.inputViewChild.nativeElement?.focus();
         }
         DomHandler.clearSelection();
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
@@ -5050,14 +4995,12 @@ export class TableCheckbox extends BaseComponent {
 
     checked: boolean | undefined;
 
-    subscription: Subscription;
-
     constructor(
         public dataTable: Table,
         public tableService: TableService
     ) {
         super();
-        this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.dataTable.isSelected(this.value);
             this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
             this.cd.markForCheck();
@@ -5079,12 +5022,6 @@ export class TableCheckbox extends BaseComponent {
             );
         }
         DomHandler.clearSelection();
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
@@ -5121,21 +5058,17 @@ export class TableHeaderCheckbox extends BaseComponent {
 
     checked: boolean | undefined;
 
-    selectionChangeSubscription: Subscription;
-
-    valueChangeSubscription: Subscription;
-
     constructor(
         public dataTable: Table,
         public tableService: TableService
     ) {
         super();
-        this.valueChangeSubscription = this.dataTable.tableService.valueSource$.subscribe(() => {
+        this.dataTable.tableService.valueSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.updateCheckedState();
             this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectAll : this.dataTable.config.translation.aria.unselectAll) : undefined);
         });
 
-        this.selectionChangeSubscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.updateCheckedState();
         });
     }
@@ -5156,16 +5089,6 @@ export class TableHeaderCheckbox extends BaseComponent {
 
     isDisabled() {
         return this.disabled() || !this.dataTable.value || !this.dataTable.value.length;
-    }
-
-    onDestroy() {
-        if (this.selectionChangeSubscription) {
-            this.selectionChangeSubscription.unsubscribe();
-        }
-
-        if (this.valueChangeSubscription) {
-            this.valueChangeSubscription.unsubscribe();
-        }
     }
 
     updateCheckedState() {

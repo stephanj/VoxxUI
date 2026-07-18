@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+    DestroyRef,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -22,6 +23,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'voxx-ui/api';
@@ -31,7 +33,6 @@ import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, Ti
 import { MotionModule } from 'voxx-ui/motion';
 import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'voxx-ui/types/toast';
 import { ZIndexUtils } from 'voxx-ui/utils';
-import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
 
 const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
@@ -402,10 +403,6 @@ export class Toast extends BaseComponent<ToastPassThrough> {
      */
     @ContentChild('headless') headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
-    messageSubscription: Subscription | undefined;
-
-    clearSubscription: Subscription | undefined;
-
     messages: ToastMessageOptions[] | null | undefined;
 
     messagesArchieve: ToastMessageOptions[] | undefined;
@@ -424,12 +421,14 @@ export class Toast extends BaseComponent<ToastPassThrough> {
 
     clearAllTrigger = signal<{} | null>(null);
 
+    destroyRef = inject(DestroyRef);
+
     constructor() {
         super();
     }
 
     onInit() {
-        this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
+        this.messageService.messageObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((messages) => {
             if (messages) {
                 if (Array.isArray(messages)) {
                     const filteredMessages = messages.filter((m) => this.canAdd(m));
@@ -440,7 +439,7 @@ export class Toast extends BaseComponent<ToastPassThrough> {
             }
         });
 
-        this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
+        this.messageService.clearObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((key) => {
             if (key) {
                 if (this.key === key) {
                     this.clearAll();
@@ -578,16 +577,8 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     }
 
     onDestroy() {
-        if (this.messageSubscription) {
-            this.messageSubscription.unsubscribe();
-        }
-
         if (this.el && this.autoZIndex) {
             ZIndexUtils.clear(this.el.nativeElement);
-        }
-
-        if (this.clearSubscription) {
-            this.clearSubscription.unsubscribe();
         }
 
         this.destroyStyle();

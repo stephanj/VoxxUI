@@ -996,12 +996,12 @@ describe('DataView', () => {
 
     describe('Lifecycle and Cleanup', () => {
         it('should unsubscribe from translation observer on destroy', () => {
-            const translationSub = dataview.translationSubscription;
-            vi.spyOn(translationSub!, 'unsubscribe').mockReturnValue(undefined);
+            const translationSource = (dataview.config as any).translationSource;
+            const observersBefore = translationSource.observers.length;
 
             fixture.destroy();
 
-            expect(translationSub!.unsubscribe).toHaveBeenCalled();
+            expect(translationSource.observers.length).toBeLessThan(observersBefore);
         });
 
         it('should call ngAfterViewInit', () => {

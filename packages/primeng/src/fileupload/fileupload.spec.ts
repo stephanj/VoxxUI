@@ -713,17 +713,13 @@ describe('FileUpload', () => {
 
     describe('Memory Management', () => {
         it('should clean up resources on destroy', () => {
-            const mockSubscription = {
-                unsubscribe: vi.fn().mockName('Subscription.unsubscribe')
-            };
             const mockListener = vi.fn().mockName('dragOverListener');
 
-            component.translationSubscription = mockSubscription as any;
+
             component.dragOverListener = mockListener;
 
             component.ngOnDestroy();
 
-            expect(mockSubscription.unsubscribe).toHaveBeenCalled();
             expect(mockListener).toHaveBeenCalled();
         });
 

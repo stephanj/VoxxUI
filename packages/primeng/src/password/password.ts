@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    DestroyRef,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -27,6 +28,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@primeuix/utils';
@@ -43,7 +45,6 @@ import { InputText } from 'voxx-ui/inputtext';
 import { Overlay } from 'voxx-ui/overlay';
 import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
 import type { PasswordIconTemplateContext, PasswordPassThrough } from 'voxx-ui/types/password';
-import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 
 const PASSWORD_DIRECTIVE_INSTANCE = new InjectionToken<PasswordDirective>('PASSWORD_DIRECTIVE_INSTANCE');
@@ -757,9 +758,9 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     value: Nullable<string> = null;
 
-    translationSubscription: Nullable<Subscription>;
-
     _componentStyle = inject(PasswordStyle);
+
+    destroyRef = inject(DestroyRef);
 
     overlayService = inject(OverlayService);
 
@@ -767,7 +768,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.updateUI(this.value || '');
         });
     }
@@ -951,12 +952,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
         if (this.feedback) this.updateUI(this.value || '');
         setModelValue(this.value);
         this.cd.markForCheck();
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
     }
 
     get containerDataP() {

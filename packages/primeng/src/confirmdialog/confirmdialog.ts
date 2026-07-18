@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+    DestroyRef,
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -23,6 +24,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -31,7 +33,6 @@ import { Button } from 'voxx-ui/button';
 import { Dialog } from 'voxx-ui/dialog';
 import { Nullable } from 'voxx-ui/ts-helpers';
 import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'voxx-ui/types/confirmdialog';
-import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
 const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_INSTANCE');
@@ -434,24 +435,22 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     contentContainer: Nullable<HTMLDivElement>;
 
-    subscription: Subscription;
-
     preWidth: number | undefined;
 
     styleElement: any;
 
     id = uuid('pn_id_');
 
-    ariaLabelledBy: string | null = this.getAriaLabelledBy();
+    destroyRef = inject(DestroyRef);
 
-    translationSubscription: Subscription | undefined;
+    ariaLabelledBy: string | null = this.getAriaLabelledBy();
 
     constructor(
         private confirmationService: ConfirmationService,
         public zone: NgZone
     ) {
         super();
-        this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
+        this.confirmationService.requireConfirmation$.pipe(takeUntilDestroyed()).subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
                 return;
@@ -485,7 +484,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
             this.createStyle();
         }
 
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             if (this.visible) {
                 this.cd.markForCheck();
             }
@@ -618,13 +617,8 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     }
 
     onDestroy() {
-        this.subscription.unsubscribe();
         // Unsubscribe from confirmation events if the dialogue is opened and this component is somehow destroyed.
         this.unsubscribeConfirmationEvents();
-
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
 
         this.destroyStyle();
     }

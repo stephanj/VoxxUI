@@ -1,6 +1,7 @@
 import { CDK_DRAG_CONFIG, CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
+    DestroyRef,
     ChangeDetectionStrategy,
     Component,
     ContentChild,
@@ -23,6 +24,7 @@ import {
     numberAttribute,
     signal
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'voxx-ui/api';
@@ -54,7 +56,6 @@ import {
     ListboxLoaderTemplateContext,
     ListboxSelectAllChangeEvent
 } from 'voxx-ui/types/listbox';
-import { Subscription } from 'rxjs';
 import { ListBoxStyle } from './style/listboxstyle';
 
 const LISTBOX_INSTANCE = new InjectionToken<Listbox>('LISTBOX_INSTANCE');
@@ -836,8 +837,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     public headerCheckboxFocus: boolean | undefined | null;
 
-    translationSubscription: Nullable<Subscription>;
-
     focused: boolean | undefined;
 
     scrollerTabIndex: string = '0';
@@ -915,13 +914,15 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode, this.filterLocale) : options;
     });
 
+    destroyRef = inject(DestroyRef);
+
     constructor(public filterService: FilterService) {
         super();
     }
 
     onInit() {
         this.id = this.id || uuid('pn_id_');
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.cd.markForCheck();
         });
 
@@ -1751,12 +1752,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         this.value = value;
         setModelValue(this.value);
         this.cd.markForCheck();
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
     }
 }
 

@@ -794,16 +794,17 @@ describe('Toast', () => {
         });
 
         it('should unsubscribe from messageService on destroy', () => {
-            const toastEl = fixture.debugElement.query(By.css('vx-toast'));
-            const toastInstance = toastEl.componentInstance as Toast;
+            const messageService = TestBed.inject(MessageService);
+            const messageSource = (messageService as any).messageSource;
+            const clearSource = (messageService as any).clearSource;
 
-            vi.spyOn(toastInstance.messageSubscription!, 'unsubscribe').mockReturnValue(undefined);
-            vi.spyOn(toastInstance.clearSubscription!, 'unsubscribe').mockReturnValue(undefined);
+            const messageObserversBefore = messageSource.observers.length;
+            const clearObserversBefore = clearSource.observers.length;
 
             fixture.destroy();
 
-            expect(toastInstance.messageSubscription!.unsubscribe).toHaveBeenCalled();
-            expect(toastInstance.clearSubscription!.unsubscribe).toHaveBeenCalled();
+            expect(messageSource.observers.length).toBeLessThan(messageObserversBefore);
+            expect(clearSource.observers.length).toBeLessThan(clearObserversBefore);
         });
 
         it('should destroy custom styles on component destroy', async () => {

@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
+    DestroyRef,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -22,6 +23,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DomSanitizer } from '@angular/platform-browser';
 import { addClass, removeClass } from '@primeuix/utils';
 import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
@@ -48,7 +50,6 @@ import {
     FileUploadPassThrough,
     RemoveUploadedFileEvent
 } from 'voxx-ui/types/fileupload';
-import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE');
@@ -700,8 +701,6 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     duplicateIEEvent: boolean | undefined; // flag to recognize duplicate onchange event for file input
 
-    translationSubscription: Subscription | undefined;
-
     dragOverListener: VoidListener;
 
     public uploadedFiles: File[] = [];
@@ -712,10 +711,12 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     http: HttpClient = inject(HttpClient);
 
+    destroyRef = inject(DestroyRef);
+
     _componentStyle = inject(FileUploadStyle);
 
     onInit() {
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.cd.markForCheck();
         });
     }
@@ -1237,10 +1238,6 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
                 this.dragOverListener();
                 this.dragOverListener = null;
             }
-        }
-
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
         }
     }
 }

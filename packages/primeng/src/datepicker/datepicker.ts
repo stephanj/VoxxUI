@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+    DestroyRef,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -22,6 +23,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@primeuix/utils';
@@ -53,7 +55,6 @@ import {
     NavigationState
 } from 'voxx-ui/types/datepicker';
 import { ZIndexUtils } from 'voxx-ui/utils';
-import { Subscription } from 'rxjs';
 import { DatePickerStyle } from './style/datepickerstyle';
 
 export const DATEPICKER_VALUE_ACCESSOR: any = {
@@ -1046,6 +1047,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     _componentStyle = inject(DatePickerStyle);
 
+    destroyRef = inject(DestroyRef);
+
     contentViewChild!: ElementRef;
 
     value: any;
@@ -1245,8 +1248,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     initialized: Nullable<boolean>;
 
-    translationSubscription: Nullable<Subscription>;
-
     _locale!: LocaleSettings;
 
     _responsiveOptions!: DatePickerResponsiveOptions[];
@@ -1312,7 +1313,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.ticksTo1970 = ((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) + Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000;
         }
 
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.createWeekDays();
             this.cd.markForCheck();
         });
@@ -3818,10 +3819,6 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
-        }
-
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
         }
 
         if (this.overlay && this.autoZIndex) {

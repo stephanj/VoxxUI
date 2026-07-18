@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DestroyRef, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { find, findSingle } from '@primeuix/utils';
 import { MenuItem, SharedModule } from 'voxx-ui/api';
 import { BaseComponent } from 'voxx-ui/basecomponent';
 import { TooltipModule } from 'voxx-ui/tooltip';
 import { Nullable } from 'voxx-ui/ts-helpers';
-import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
 
 /**
@@ -129,12 +129,12 @@ export class Steps extends BaseComponent {
 
     route = inject(ActivatedRoute);
 
+    destroyRef = inject(DestroyRef);
+
     _componentStyle = inject(StepsStyle);
 
-    subscription: Subscription | undefined;
-
     onInit() {
-        this.subscription = this.router.events.subscribe(() => this.cd.markForCheck());
+        this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.cd.markForCheck());
     }
 
     onItemClick(event: Event, item: MenuItem, i: number) {
@@ -286,12 +286,6 @@ export class Steps extends BaseComponent {
         }
 
         return item.tabindex ?? '-1';
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { DestroyRef, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -20,7 +21,6 @@ import {
     DataViewPassThrough,
     DataViewSortEvent
 } from 'voxx-ui/types/dataview';
-import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 
 const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
@@ -407,8 +407,6 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     _layout: 'list' | 'grid' = 'list';
 
-    translationSubscription: Nullable<Subscription>;
-
     _componentStyle = inject(DataViewStyle);
 
     get emptyMessageLabel(): string {
@@ -417,12 +415,14 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     filterService = inject(FilterService);
 
+    destroyRef = inject(DestroyRef);
+
     onInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
 
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.cd.markForCheck();
         });
         this.initialized = true;
@@ -540,12 +540,6 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     hasFilter() {
         return this.filterValue && this.filterValue.trim().length > 0;
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
     }
 }
 
