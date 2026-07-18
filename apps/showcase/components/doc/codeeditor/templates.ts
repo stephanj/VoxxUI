@@ -15,14 +15,14 @@ import packageJson from '../../../package.json';
 const version = packageJson.version;
 
 const dependencies = {
-    '@angular/cdk': '^21.0.0',
-    '@angular/common': '^21.0.0',
-    '@angular/compiler': '^21.0.0',
-    '@angular/core': '^21.0.0',
-    '@angular/forms': '^21.0.0',
-    '@angular/platform-browser': '^21.0.0',
-    '@angular/platform-browser-dynamic': '^21.0.0',
-    '@angular/router': '^21.0.0',
+    '@angular/cdk': '^22.0.0',
+    '@angular/common': '^22.0.0',
+    '@angular/compiler': '^22.0.0',
+    '@angular/core': '^22.0.0',
+    '@angular/forms': '^22.0.0',
+    '@angular/platform-browser': '^22.0.0',
+    '@angular/platform-browser-dynamic': '^22.0.0',
+    '@angular/router': '^22.0.0',
     '@primeuix/themes': '^2.0.2',
     'chart.js': '4.4.2',
     primeicons: '^7.0.0',
@@ -36,10 +36,9 @@ const dependencies = {
 };
 
 const devDependencies = {
-    '@angular-devkit/build-angular': '^21.0.0',
-    '@angular/build': '^21.0.0',
-    '@angular/cli': '^21.0.0',
-    '@angular/compiler-cli': '^21.0.0',
+    '@angular/build': '^22.0.0',
+    '@angular/cli': '^22.0.0',
+    '@angular/compiler-cli': '^22.0.0',
     '@types/jasmine': '~5.1.0',
     '@types/node': '^22.9.0',
     'jasmine-core': '~5.8.0',
@@ -48,7 +47,7 @@ const devDependencies = {
     'karma-coverage': '~2.2.0',
     'karma-jasmine': '~5.0.0',
     'karma-jasmine-html-reporter': '~2.1.0',
-    typescript: '~5.9.2',
+    typescript: '~6.0.3',
     tailwindcss: '^3.4.10',
     autoprefixer: '^10.4.20',
     postcss: '^8.4.41'
@@ -132,13 +131,12 @@ const karma_conf_js = `
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    frameworks: ['jasmine'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('karma-coverage-istanbul-reporter')
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
@@ -277,11 +275,9 @@ const angular_json = `{
             }
           },
           "test": {
-            "builder": "@angular-devkit/build-angular:karma",
+            "builder": "@angular/build:karma",
             "options": {
-              "main": "src/test.ts",
               "tsConfig": "tsconfig.spec.json",
-              "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
               "assets": ["src/assets"],
               "stylePreprocessorOptions": {

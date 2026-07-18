@@ -23,9 +23,10 @@ const staticMessages = {
 async function main() {
     const app = await TypeDoc.Application.bootstrapWithPlugins({
         // typedoc options here
-        name: 'PrimeNG',
+        name: 'VoxxUI',
         entryPointStrategy: 'expand',
         entryPoints: ['../../packages/primeng/'],
+        tsconfig: '../../packages/primeng/tsconfig.json',
         hideGenerator: true,
         excludeExternals: false,
         includeVersion: true,
@@ -33,12 +34,16 @@ async function main() {
         disableSources: true,
         logLevel: 'Error',
         sort: ['source-order'],
-        exclude: ['node_modules', 'src/**/*spec.ts']
+        exclude: ['**/node_modules/**', '**/*.spec.ts']
     });
 
     const project = await app.convert();
+    if (!project) {
+        console.error('TypeDoc conversion failed - no project was generated. Aborting.');
+        process.exit(1);
+    }
     await app.generateJson(project, `./api-generator/typedoc.json`);
-    if (project) {
+    {
         let doc = {};
 
         const parseText = (text) => {

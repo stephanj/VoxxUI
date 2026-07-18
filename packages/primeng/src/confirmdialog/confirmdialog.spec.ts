@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { TemplateRef, ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -665,7 +665,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('header') should set headerTemplate
                 expect(confirmDialogInstance.headerTemplate).toBeDefined();
-                expect(confirmDialogInstance.headerTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.headerTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process messageTemplate from @ContentChild('message')", async () => {
@@ -678,7 +678,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('message') should set messageTemplate
                 expect(confirmDialogInstance.messageTemplate).toBeDefined();
-                expect(confirmDialogInstance.messageTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.messageTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process iconTemplate from @ContentChild('icon')", async () => {
@@ -691,7 +691,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('icon') should set iconTemplate
                 expect(confirmDialogInstance.iconTemplate).toBeDefined();
-                expect(confirmDialogInstance.iconTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.iconTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process footerTemplate from @ContentChild('footer')", async () => {
@@ -704,7 +704,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('footer') should set footerTemplate
                 expect(confirmDialogInstance.footerTemplate).toBeDefined();
-                expect(confirmDialogInstance.footerTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.footerTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process rejectIconTemplate from @ContentChild('rejecticon')", async () => {
@@ -717,7 +717,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('rejecticon') should set rejectIconTemplate
                 expect(confirmDialogInstance.rejectIconTemplate).toBeDefined();
-                expect(confirmDialogInstance.rejectIconTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.rejectIconTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process acceptIconTemplate from @ContentChild('accepticon')", async () => {
@@ -730,7 +730,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('accepticon') should set acceptIconTemplate
                 expect(confirmDialogInstance.acceptIconTemplate).toBeDefined();
-                expect(confirmDialogInstance.acceptIconTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.acceptIconTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process headlessTemplate from @ContentChild('headless')", async () => {
@@ -743,7 +743,7 @@ describe('ConfirmDialog', () => {
 
                 // @ContentChild('headless') should set headlessTemplate
                 expect(confirmDialogInstance.headlessTemplate).toBeDefined();
-                expect(confirmDialogInstance.headlessTemplate?.constructor.name).toBe('TemplateRef');
+                expect(confirmDialogInstance.headlessTemplate).toBeInstanceOf(TemplateRef);
             });
         });
 

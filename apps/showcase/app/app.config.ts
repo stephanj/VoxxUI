@@ -3,14 +3,10 @@ import { DemoCodeService } from '@/service/democodeservice';
 import { DesignerService } from '@/service/designerservice';
 import Noir from '@/themes/app-theme';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { ConfirmationService, MessageService } from 'voxx-ui/api';
 import { provideVoxxUI } from 'voxx-ui/config';
-
-function initializeDemoCode(demoCodeService: DemoCodeService) {
-    return () => demoCodeService.loadDemos();
-}
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -24,11 +20,6 @@ export const appConfig: ApplicationConfig = {
         MessageService,
         DesignerService,
         ConfirmationService,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: initializeDemoCode,
-            deps: [DemoCodeService],
-            multi: true
-        }
+        provideAppInitializer(() => inject(DemoCodeService).loadDemos())
     ]
 };

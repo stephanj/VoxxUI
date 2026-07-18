@@ -97,17 +97,17 @@ function generateStackBlitzProject(demo, selector) {
             build: 'ng build'
         },
         dependencies: {
-            '@angular/cdk': '^21.0.0',
-            '@angular/common': '^21.0.0',
-            '@angular/compiler': '^21.0.0',
-            '@angular/core': '^21.0.0',
-            '@angular/forms': '^21.0.0',
-            '@angular/platform-browser': '^21.0.0',
-            '@angular/platform-browser-dynamic': '^21.0.0',
-            '@angular/router': '^21.0.0',
+            '@angular/cdk': '^22.0.0',
+            '@angular/common': '^22.0.0',
+            '@angular/compiler': '^22.0.0',
+            '@angular/core': '^22.0.0',
+            '@angular/forms': '^22.0.0',
+            '@angular/platform-browser': '^22.0.0',
+            '@angular/platform-browser-dynamic': '^22.0.0',
+            '@angular/router': '^22.0.0',
             '@primeuix/themes': '^2.0.2',
             primeicons: '^7.0.0',
-            primeng: '21.0.0',
+            'voxx-ui': '22.0.0',
             rxjs: '~7.8.0',
             tailwindcss: '^3.4.10',
             'tailwindcss-primeui': '^0.6.1',
@@ -115,11 +115,10 @@ function generateStackBlitzProject(demo, selector) {
             'zone.js': '~0.15.0'
         },
         devDependencies: {
-            '@angular-devkit/build-angular': '^21.0.0',
-            '@angular/build': '^21.0.0',
-            '@angular/cli': '^21.0.0',
-            '@angular/compiler-cli': '^21.0.0',
-            typescript: '~5.9.2'
+            '@angular/build': '^22.0.0',
+            '@angular/cli': '^22.0.0',
+            '@angular/compiler-cli': '^22.0.0',
+            typescript: '~6.0.3'
         }
     };
 

@@ -159,7 +159,7 @@ describe('Tag', () => {
 
         it('should have required dependencies injected', () => {
             expect(tagInstance._componentStyle).toBeTruthy();
-            expect(tagInstance.constructor.name).toBe('Tag');
+            expect(tagInstance).toBeInstanceOf(Tag);
         });
 
         it('should initialize templates properties', () => {

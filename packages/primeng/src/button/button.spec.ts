@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { TemplateRef, ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -850,7 +850,7 @@ describe('Button', () => {
 
                 // @ContentChild('content') should set contentTemplate
                 expect(buttonInstance.contentTemplate).toBeDefined();
-                expect(buttonInstance.contentTemplate?.constructor.name).toBe('TemplateRef');
+                expect(buttonInstance.contentTemplate).toBeInstanceOf(TemplateRef);
             });
 
             it("should process loadingIconTemplate from @ContentChild('loadingicon')", async () => {

@@ -8,6 +8,10 @@
         "url": "https://github.com/stephanj/VoxxUI.git"
     },
     "license": "MIT",
+    "engines": {
+        "node": "^22.22.3 || ^24.15.0 || >=26.0.0",
+        "pnpm": ">=9"
+    },
     "bugs": {
         "url": "https://github.com/stephanj/VoxxUI/issues"
     },
@@ -38,19 +42,19 @@
         "test:coverage": "pnpm --filter voxx-ui test:unit --code-coverage"
     },
     "devDependencies": {
-        "@angular-devkit/build-angular": "catalog:angular22",
         "@angular-eslint/eslint-plugin": "catalog:angular22",
         "@angular-eslint/eslint-plugin-template": "catalog:angular22",
         "@angular-eslint/schematics": "catalog:angular22",
         "@angular-eslint/template-parser": "catalog:angular22",
         "@angular/animations": "^22.0.0",
+        "@angular/build": "catalog:angular22",
+        "@angular/cdk": "catalog:angular22",
         "@angular/cli": "catalog:angular22",
         "@angular/common": "catalog:angular22",
         "@angular/compiler": "catalog:angular22",
         "@angular/compiler-cli": "catalog:angular22",
         "@angular/core": "catalog:angular22",
         "@angular/forms": "catalog:angular22",
-        "@angular/cdk": "catalog:angular22",
         "@angular/platform-browser": "catalog:angular22",
         "@angular/platform-browser-dynamic": "catalog:angular22",
         "@angular/platform-server": "catalog:angular22",

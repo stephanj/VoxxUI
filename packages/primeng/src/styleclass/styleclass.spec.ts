@@ -134,7 +134,7 @@ describe('StyleClass', () => {
         it('should have required dependencies injected', () => {
             expect(styleClassInstance.el).toBeTruthy();
             expect(styleClassInstance.renderer).toBeTruthy();
-            expect(styleClassInstance.constructor.name).toBe('StyleClass');
+            expect(styleClassInstance).toBeInstanceOf(StyleClass);
         });
 
         it('should initialize with undefined values', () => {
