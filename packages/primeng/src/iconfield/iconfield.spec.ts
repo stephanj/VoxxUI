@@ -107,7 +107,7 @@ describe('IconField', () => {
         });
 
         it('should have default iconPosition "left"', () => {
-            expect(iconFieldInstance.iconPosition).toBe('left');
+            expect(iconFieldInstance.iconPosition()).toBe('left');
         });
 
         it('should apply iconPosition "right"', async () => {
@@ -115,7 +115,7 @@ describe('IconField', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(iconFieldInstance.iconPosition).toBe('right');
+            expect(iconFieldInstance.iconPosition()).toBe('right');
         });
 
         it('should have correct position classes', async () => {
@@ -153,7 +153,7 @@ describe('IconField', () => {
         });
 
         it('should apply custom styleClass', () => {
-            expect(iconFieldInstance.styleClass).toBe('custom-icon-field');
+            expect(iconFieldInstance.styleClass()).toBe('custom-icon-field');
 
             const iconFieldElement = fixture.debugElement.query(By.directive(IconField));
             expect(iconFieldElement.nativeElement.classList.contains('custom-icon-field')).toBe(true);
@@ -164,7 +164,7 @@ describe('IconField', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(iconFieldInstance.styleClass).toBe('new-custom-class');
+            expect(iconFieldInstance.styleClass()).toBe('new-custom-class');
 
             const iconFieldElement = fixture.debugElement.query(By.directive(IconField));
             expect(iconFieldElement.nativeElement.classList.contains('new-custom-class')).toBe(true);
@@ -262,10 +262,10 @@ describe('IconField PassThrough Tests', () => {
 
     describe('PT Case 3: Instance variables', () => {
         it('should access instance variables in PT function', async () => {
-            component.iconPosition = 'right';
+            fixture.componentRef.setInput('iconPosition', 'right');
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
-                    class: instance?.iconPosition === 'right' ? 'ICON_RIGHT' : ''
+                    class: instance?.iconPosition() === 'right' ? 'ICON_RIGHT' : ''
                 })
             });
             fixture.changeDetectorRef.markForCheck();

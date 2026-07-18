@@ -60,7 +60,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('vxSize') vxSize: 'large' | 'small' | undefined;
+    vxSize = input<'large' | 'small' | undefined>();
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -122,7 +122,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
             invalid: this.invalid(),
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            [this.vxSize as string]: this.vxSize
+            [this.vxSize() as string]: this.vxSize()
         });
     }
 }
