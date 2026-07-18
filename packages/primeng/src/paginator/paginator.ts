@@ -9,7 +9,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostBinding,
     inject,
     InjectionToken,
     input,
@@ -143,7 +142,8 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [PaginatorStyle, { provide: PAGINATOR_INSTANCE, useExisting: Paginator }, { provide: PARENT_INSTANCE, useExisting: Paginator }],
     host: {
-        '[class]': "cn(cx('paginator'), styleClass)"
+        '[class]': "cn(cx('paginator'), styleClass)",
+        '[style.display]': 'display'
     },
     hostDirectives: [Bind]
 })
@@ -345,7 +345,7 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    @HostBinding('style.display') get display(): string | null {
+    get display(): string | null {
         return this.alwaysShow || (this.pageLinks && this.pageLinks.length > 1) ? null : 'none';
     }
 

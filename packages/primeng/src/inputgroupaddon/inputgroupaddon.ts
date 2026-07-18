@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, inject, InjectionToken, Input, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule } from '@angular/core';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
@@ -18,7 +18,8 @@ const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUP
     standalone: true,
     imports: [BindModule],
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '[style]': 'hostStyle'
     },
     providers: [InputGroupAddonStyle, { provide: INPUTGROUPADDON_INSTANCE, useExisting: InputGroupAddon }, { provide: PARENT_INSTANCE, useExisting: InputGroupAddon }],
     hostDirectives: [Bind]
@@ -47,7 +48,7 @@ export class InputGroupAddon extends BaseComponent<InputGroupAddonPassThrough> {
      */
     @Input() styleClass: string | undefined;
 
-    @HostBinding('style') get hostStyle(): { [klass: string]: any } | null | undefined {
+    get hostStyle(): { [klass: string]: any } | null | undefined {
         return this.style;
     }
 }

@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, effect, HostListener, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { BaseModelHolder } from 'voxx-ui/basemodelholder';
@@ -18,7 +18,8 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     standalone: true,
     host: {
         '[class]': "cx('root')",
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP',
+        '(input)': 'onInput()'
     },
     providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
     hostDirectives: [Bind]
@@ -109,7 +110,6 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 
-    @HostListener('input')
     onInput() {
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }

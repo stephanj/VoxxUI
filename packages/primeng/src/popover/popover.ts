@@ -8,7 +8,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostListener,
     inject,
     InjectionToken,
     input,
@@ -75,7 +74,10 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '(document:keydown.escape)': 'onEscapeKeydown($event)'
+    }
 })
 export class Popover extends BaseComponent<PopoverPassThrough> {
     componentName = 'Popover';
@@ -426,7 +428,6 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         event.preventDefault();
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
     onEscapeKeydown(_event: KeyboardEvent) {
         this.hide();
     }

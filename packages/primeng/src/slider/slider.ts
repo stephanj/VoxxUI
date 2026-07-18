@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, HostListener, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@primeuix/utils';
 import { SharedModule } from 'voxx-ui/api';
@@ -140,7 +140,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'",
         '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p]': 'dataP',
-        '[attr.data-p-sliding]': 'false'
+        '[attr.data-p-sliding]': 'false',
+        '(click)': 'onHostClick($event)'
     },
     hostDirectives: [Bind]
 })
@@ -271,7 +272,6 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
 
     private ngZone = inject(NgZone);
 
-    @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onBarClick(event);
     }

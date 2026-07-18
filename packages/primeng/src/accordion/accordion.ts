@@ -1,24 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    inject,
-    InjectionToken,
-    Input,
-    input,
-    InputSignalWithTransform,
-    model,
-    NgModule,
-    Output,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, EventEmitter, forwardRef, inject, InjectionToken, Input, input, InputSignalWithTransform, model, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'voxx-ui/api';
@@ -161,7 +142,10 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'disabled()',
         '[style.user-select]': '"none"',
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP',
+        '(click)': 'onClick($event)',
+        '(focus)': 'onFocus()',
+        '(keydown)': 'onKeydown($event)'
     },
     hostDirectives: [Ripple, Bind],
     providers: [AccordionStyle, { provide: ACCORDION_HEADER_INSTANCE, useExisting: AccordionHeader }, { provide: PARENT_INSTANCE, useExisting: AccordionHeader }]
@@ -200,7 +184,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
      */
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
-    @HostListener('click', ['$event']) onClick(event?: MouseEvent | KeyboardEvent) {
+    onClick(event?: MouseEvent | KeyboardEvent) {
         if (this.disabled()) {
             return;
         }
@@ -219,13 +203,13 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
         }
     }
 
-    @HostListener('focus') onFocus() {
+    onFocus() {
         if (!this.disabled() && this.pcAccordion.selectOnFocus()) {
             this.changeActiveValue();
         }
     }
 
-    @HostListener('keydown', ['$event']) onKeydown(event: KeyboardEvent) {
+    onKeydown(event: KeyboardEvent) {
         switch (event.code) {
             case 'ArrowDown':
                 this.arrowDownKey(event);
@@ -396,7 +380,8 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content />`,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass)",
+        '(keydown)': 'onKeydown($event)'
     },
     hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -484,7 +469,6 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
 
     _componentStyle = inject(AccordionStyle);
 
-    @HostListener('keydown', ['$event'])
     onKeydown(event) {
         switch (event.code) {
             case 'ArrowDown':

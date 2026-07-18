@@ -1,24 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    NgZone,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primeuix/utils';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -95,6 +76,9 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
+    host: {
+        '[style.height]': 'height'
+    },
     providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
     hostDirectives: [Bind]
 })
@@ -384,7 +368,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
-    @HostBinding('style.height') height: string;
+    height: string;
 
     _id: string | undefined;
 

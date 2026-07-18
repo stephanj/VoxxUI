@@ -7,7 +7,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostListener,
     InjectionToken,
     Input,
     NgModule,
@@ -350,7 +349,8 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     host: {
         '[attr.id]': 'id',
         '[class]': "cn(cx('root'), styleClass)",
-        '[attr.data-p]': 'containerDataP'
+        '[attr.data-p]': 'containerDataP',
+        '(focusout)': 'onHostFocusOut($event)'
     },
     hostDirectives: [Bind]
 })
@@ -907,7 +907,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     isDragging = signal<boolean>(false);
 
-    @HostListener('focusout', ['$event'])
     onHostFocusOut(event: FocusEvent) {
         this.onFocusout(event);
     }

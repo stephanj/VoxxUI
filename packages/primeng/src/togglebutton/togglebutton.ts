@@ -1,23 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    HostListener,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    numberAttribute,
-    Output,
-    QueryList,
-    TemplateRef
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
 import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -55,7 +37,9 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': "'togglebutton'",
         '[attr.data-p-checked]': 'active',
         '[attr.data-p-disabled]': '$disabled()',
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP',
+        '(keydown)': 'onKeyDown($event)',
+        '(click)': 'toggle($event)'
     },
     template: `<span [class]="cx('content')" [vxBind]="ptm('content')" [attr.data-p]="dataP">
         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: checked }"></ng-container>
@@ -84,7 +68,6 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -98,7 +81,6 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
         }
     }
 
-    @HostListener('click', ['$event'])
     toggle(event: Event) {
         if (!this.$disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;

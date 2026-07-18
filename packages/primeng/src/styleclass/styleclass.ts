@@ -1,4 +1,4 @@
-import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@primeuix/utils';
 import { VoidListener } from 'voxx-ui/ts-helpers';
 
@@ -8,7 +8,10 @@ import { VoidListener } from 'voxx-ui/ts-helpers';
  */
 @Directive({
     selector: '[vxStyleClass]',
-    standalone: true
+    standalone: true,
+    host: {
+        '(click)': 'clickListener()'
+    }
 })
 export class StyleClass implements OnDestroy {
     constructor(
@@ -101,7 +104,6 @@ export class StyleClass implements OnDestroy {
 
     _resizeTarget: any;
 
-    @HostListener('click')
     clickListener() {
         this.target ||= getTargetElement(this.selector, this.el.nativeElement) as HTMLElement;
 
