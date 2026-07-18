@@ -92,9 +92,13 @@ import { ToastModule } from 'voxx-ui/toast';
                             </td>
                             <td>
                                 <div class="flex items-center justify-center gap-2">
-                                    <button *ngIf="!editing" vxButton vxRipple type="button" vxInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
-                                    <button *ngIf="editing" vxButton vxRipple type="button" vxSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
-                                    <button *ngIf="editing" vxButton vxRipple type="button" vxCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                                    @if (!editing) {
+                                        <button vxButton vxRipple type="button" vxInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" text rounded severity="secondary"></button>
+                                    }
+                                    @if (editing) {
+                                        <button vxButton vxRipple type="button" vxSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" text rounded severity="secondary"></button>
+                                        <button vxButton vxRipple type="button" vxCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" text rounded severity="secondary"></button>
+                                    }
                                 </div>
                             </td>
                         </tr>

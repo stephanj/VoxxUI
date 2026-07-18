@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ProgressBarModule } from 'voxx-ui/progressbar';
 
@@ -7,7 +7,7 @@ import { ProgressBarModule } from 'voxx-ui/progressbar';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'progressbar-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ProgressBarModule],
+    imports: [AppDocPtViewer, ProgressBarModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">

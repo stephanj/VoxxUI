@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { TabsModule } from 'voxx-ui/tabs';
@@ -8,7 +8,7 @@ import { TabsModule } from 'voxx-ui/tabs';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dynamic-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
+    imports: [AppDocSectionText, AppCode, TabsModule],
     template: `
         <app-docsectiontext>
             <p>Tabs can be generated dynamically using the standard <i>&#64;for</i> block.</p>

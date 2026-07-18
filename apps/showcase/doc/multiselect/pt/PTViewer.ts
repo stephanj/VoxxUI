@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MultiSelectModule } from 'voxx-ui/multiselect';
@@ -8,7 +8,7 @@ import { MultiSelectModule } from 'voxx-ui/multiselect';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'multiselect-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, MultiSelectModule, FormsModule],
+    imports: [AppDocPtViewer, MultiSelectModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-multiselect

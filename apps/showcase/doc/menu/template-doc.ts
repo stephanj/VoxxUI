@@ -1,6 +1,6 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuItem } from 'voxx-ui/api';
 import { AvatarModule } from 'voxx-ui/avatar';
@@ -12,7 +12,7 @@ import { Ripple } from 'voxx-ui/ripple';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, MenuModule, BadgeModule, AvatarModule, Ripple, AppCodeModule, AppDocSectionText],
+    imports: [MenuModule, BadgeModule, AvatarModule, Ripple, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -63,8 +63,12 @@ import { Ripple } from 'voxx-ui/ripple';
                     <a vxRipple class="flex items-center px-3 py-2 cursor-pointer" [class]="item.linkClass">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <vx-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        @if (item.badge) {
+                            <vx-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
                     </a>
                 </ng-template>
                 <ng-template #end>

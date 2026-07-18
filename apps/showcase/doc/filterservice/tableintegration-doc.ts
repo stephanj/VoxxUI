@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'voxx-ui/api';
 import { TableModule } from 'voxx-ui/table';
@@ -11,7 +11,7 @@ import { TableModule } from 'voxx-ui/table';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'tableintegration-doc',
     standalone: true,
-    imports: [CommonModule, AppCode, AppDocSectionText, TableModule],
+    imports: [AppCode, AppDocSectionText, TableModule],
     template: `
         <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
@@ -20,17 +20,23 @@ import { TableModule } from 'voxx-ui/table';
             <vx-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '75rem' }">
                 <ng-template vxTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" [style.width]="'25%'">{{ col.header }}</th>
+                        @for (col of columns; track col) {
+                            <th [style.width]="'25%'">{{ col.header }}</th>
+                        }
                     </tr>
                     <tr>
-                        <th *ngFor="let col of columns">
-                            <vx-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
-                        </th>
+                        @for (col of columns; track col) {
+                            <th>
+                                <vx-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template vxTemplate="body" let-rowData let-columns="columns">
                     <tr [vxSelectableRow]="rowData">
-                        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
+                        @for (col of columns; track col) {
+                            <td>{{ rowData[col.field] }}</td>
+                        }
                     </tr>
                 </ng-template>
             </vx-table>

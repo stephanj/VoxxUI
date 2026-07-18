@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'voxx-ui/inputmask';
@@ -9,7 +9,7 @@ import { InputText } from 'voxx-ui/inputtext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'inputmask-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, InputMaskModule, InputText, FormsModule],
+    imports: [AppDocPtViewer, InputMaskModule, InputText, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <input vxInputText [(ngModel)]="value" vxInputMask="99-999999" placeholder="99-999999" />

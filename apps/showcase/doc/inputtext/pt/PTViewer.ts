@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'voxx-ui/inputtext';
@@ -8,7 +8,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'inputtext-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, InputTextModule, FormsModule],
+    imports: [AppDocPtViewer, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <input vxInputText [(ngModel)]="value" placeholder="Username" />

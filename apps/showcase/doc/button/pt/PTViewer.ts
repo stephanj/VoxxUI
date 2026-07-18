@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 
@@ -7,7 +7,7 @@ import { ButtonModule } from 'voxx-ui/button';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'button-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ButtonModule],
+    imports: [AppDocPtViewer, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-button label="Profile" icon="pi pi-user" severity="secondary" badge="2" badgeSeverity="contrast" />

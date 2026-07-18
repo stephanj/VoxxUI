@@ -7,13 +7,12 @@ import { ToastModule } from 'voxx-ui/toast';
 import { MessageModule } from 'voxx-ui/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, RatingModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, CommonModule],
+    imports: [ReactiveFormsModule, RatingModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     providers: [MessageService],
     template: `
         <app-docsectiontext>

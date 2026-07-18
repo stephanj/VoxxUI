@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MeterGroupModule } from 'voxx-ui/metergroup';
 import { CardModule } from 'voxx-ui/card';
 import { ButtonModule } from 'voxx-ui/button';
@@ -10,7 +10,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, MeterGroupModule, CardModule, ButtonModule, AppCodeModule, AppDocSectionText],
+    imports: [MeterGroupModule, CardModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>MeterGroup provides templating support for labels, meter items, and content around the meters.</p>
@@ -19,7 +19,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <vx-metergroup [value]="value" labelPosition="start">
                 <ng-template #label>
                     <div class="flex flex-wrap gap-4">
-                        <ng-container *ngFor="let meterItem of value; let index = index">
+                        @for (meterItem of value; track meterItem; let index = $index) {
                             <vx-card class="flex-1" styleClass="border border-surface shadow-none">
                                 <div class="flex justify-between gap-8">
                                     <div class="flex flex-col gap-1">
@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                                     </span>
                                 </div>
                             </vx-card>
-                        </ng-container>
+                        }
                     </div>
                 </ng-template>
                 <ng-template #meter let-value let-class="class" let-width="size">

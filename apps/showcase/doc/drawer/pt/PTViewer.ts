@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DrawerModule } from 'voxx-ui/drawer';
 import { TimesIcon } from 'voxx-ui/icons';
@@ -8,7 +8,7 @@ import { TimesIcon } from 'voxx-ui/icons';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'drawer-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DrawerModule, TimesIcon],
+    imports: [AppDocPtViewer, DrawerModule, TimesIcon],
     template: `
         <app-docptviewer [docs]="docs" class="!justify-start" #docref>
             <vx-drawer [(visible)]="visible" styleClass="!relative !h-[450px] !w-80" header="Drawer" [appendTo]="docref?.nativeElement" [modal]="false">

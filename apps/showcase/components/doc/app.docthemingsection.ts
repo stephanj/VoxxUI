@@ -1,5 +1,5 @@
 import APIDoc from '@/doc/apidoc/index.json';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import ThemeDoc from '@primeuix/themes/tokens';
 import { AppDocSectionNav } from './app.docsection-nav';
@@ -9,7 +9,7 @@ import { AppDocThemingTable } from './app.docthemingtable';
 @Component({
     selector: 'app-docthemingsection',
     standalone: true,
-    imports: [CommonModule, AppDocThemingTable, AppDocStyledPreset, AppDocSectionNav],
+    imports: [AppDocThemingTable, AppDocStyledPreset, AppDocSectionNav],
     template: `
         <div class="doc-main">
             <div class="doc-intro">

@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { CardModule } from 'voxx-ui/card';
@@ -8,7 +8,7 @@ import { CardModule } from 'voxx-ui/card';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'card-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, CardModule, ButtonModule],
+    imports: [AppDocPtViewer, CardModule, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-card [style]="{ width: '25rem' }">

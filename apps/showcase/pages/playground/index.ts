@@ -1,10 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: ` <div class="doc">
         <div class="doc-main">
             <div class="doc-intro">

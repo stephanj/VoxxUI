@@ -5,7 +5,7 @@ import { SliderModule } from 'voxx-ui/slider';
 import { ToastModule } from 'voxx-ui/toast';
 import { MessageModule } from 'voxx-ui/message';
 import { ButtonModule } from 'voxx-ui/button';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
@@ -13,7 +13,7 @@ import { AppCode } from '@/components/doc/app.code';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, SliderModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [ReactiveFormsModule, SliderModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>Slider can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>

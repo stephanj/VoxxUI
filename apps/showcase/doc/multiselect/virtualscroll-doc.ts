@@ -33,8 +33,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 #ms
             >
                 <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
-                    <i class="pi pi-check" *ngIf="allSelected"></i>
-                    <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    @if (allSelected) {
+                        <i class="pi pi-check"></i>
+                    }
+                    @if (partialSelected) {
+                        <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    }
                 </ng-template>
             </vx-multiselect>
         </div>

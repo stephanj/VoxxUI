@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'toast-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer],
+    imports: [AppDocPtViewer],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="p-toast p-component" data-pc-name="toast" data-pc-section="root">

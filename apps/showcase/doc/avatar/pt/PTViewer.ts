@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AvatarModule } from 'voxx-ui/avatar';
 import { AvatarGroupModule } from 'voxx-ui/avatargroup';
@@ -8,7 +8,7 @@ import { AvatarGroupModule } from 'voxx-ui/avatargroup';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'avatar-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, AvatarModule, AvatarGroupModule],
+    imports: [AppDocPtViewer, AvatarModule, AvatarGroupModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-8">

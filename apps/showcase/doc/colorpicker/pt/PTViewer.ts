@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'voxx-ui/colorpicker';
@@ -8,7 +8,7 @@ import { ColorPickerModule } from 'voxx-ui/colorpicker';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'colorpicker-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ColorPickerModule, FormsModule],
+    imports: [AppDocPtViewer, ColorPickerModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-colorpicker [(ngModel)]="color" [inline]="true"></vx-colorpicker>

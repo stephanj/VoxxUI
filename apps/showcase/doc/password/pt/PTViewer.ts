@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'voxx-ui/password';
@@ -8,7 +8,7 @@ import { PasswordModule } from 'voxx-ui/password';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'password-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, PasswordModule, FormsModule],
+    imports: [AppDocPtViewer, PasswordModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-password [(ngModel)]="value" [toggleMask]="true"></vx-password>

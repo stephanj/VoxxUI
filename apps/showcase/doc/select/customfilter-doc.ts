@@ -8,7 +8,6 @@ import { InputGroupModule } from 'voxx-ui/inputgroup';
 import { InputGroupAddonModule } from 'voxx-ui/inputgroupaddon';
 import { ButtonModule } from 'voxx-ui/button';
 import { InputTextModule } from 'voxx-ui/inputtext';
-import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -19,7 +18,7 @@ interface City {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'customfilter-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>

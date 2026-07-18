@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TabsModule } from 'voxx-ui/tabs';
 
@@ -7,7 +7,7 @@ import { TabsModule } from 'voxx-ui/tabs';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'tabs-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TabsModule],
+    imports: [AppDocPtViewer, TabsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-tabs [value]="0">

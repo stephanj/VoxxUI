@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputGroupModule } from 'voxx-ui/inputgroup';
@@ -10,7 +10,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'inputgroup-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, InputGroupModule, InputGroupAddonModule, InputTextModule, FormsModule],
+    imports: [AppDocPtViewer, InputGroupModule, InputGroupAddonModule, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-inputgroup>

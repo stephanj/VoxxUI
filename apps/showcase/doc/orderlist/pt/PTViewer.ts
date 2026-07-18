@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'voxx-ui/orderlist';
 import { ProductService } from '@/service/productservice';
@@ -21,7 +21,7 @@ interface Product {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'orderlist-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, OrderListModule],
+    imports: [AppDocPtViewer, OrderListModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-orderlist [value]="products()" dataKey="id">

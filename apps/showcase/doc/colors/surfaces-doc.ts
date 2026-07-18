@@ -13,17 +13,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <div class="card">
             <div class="color-stack">
-                <div *ngFor="let shade of shades">
-                    <div
-                        class="color-box"
-                        [ngStyle]="{
-                            backgroundColor: 'var(--p-surface-' + shade + ')',
-                            color: shade < 600 ? 'var(--p-surface-900)' : 'var(--p-surface-0)'
-                        }"
-                    >
-                        surface-{{ shade }}
+                @for (shade of shades; track shade) {
+                    <div>
+                        <div
+                            class="color-box"
+                            [ngStyle]="{
+                                backgroundColor: 'var(--p-surface-' + shade + ')',
+                                color: shade < 600 ? 'var(--p-surface-900)' : 'var(--p-surface-0)'
+                            }"
+                        >
+                            surface-{{ shade }}
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
         <div class="doc-tablewrapper">

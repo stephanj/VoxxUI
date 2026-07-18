@@ -1,5 +1,5 @@
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { AppDocSectionText } from './app.docsectiontext';
 
@@ -19,7 +19,7 @@ interface TokenItem {
 @Component({
     selector: 'app-docthemingtable',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText],
+    imports: [AppDocSectionText],
     template: `
         @if (data() && data().length > 0) {
             <!-- Section Title and Description -->

@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'voxx-ui/iconfield';
@@ -10,7 +10,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'iconfield-pt-viewer',
     standalone: true,
-    imports: [CommonModule, FormsModule, AppDocPtViewer, IconFieldModule, InputIconModule, InputTextModule],
+    imports: [FormsModule, AppDocPtViewer, IconFieldModule, InputIconModule, InputTextModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-iconfield>

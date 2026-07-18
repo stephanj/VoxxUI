@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PanelModule } from 'voxx-ui/panel';
 
@@ -7,7 +7,7 @@ import { PanelModule } from 'voxx-ui/panel';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'panel-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, PanelModule],
+    imports: [AppDocPtViewer, PanelModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-panel header="Header" toggleable>

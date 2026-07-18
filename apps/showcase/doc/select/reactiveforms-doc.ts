@@ -8,7 +8,6 @@ import { SelectModule } from 'voxx-ui/select';
 import { ToastModule } from 'voxx-ui/toast';
 import { MessageModule } from 'voxx-ui/message';
 import { ButtonModule } from 'voxx-ui/button';
-import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -19,7 +18,7 @@ interface City {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, ReactiveFormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, ReactiveFormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>

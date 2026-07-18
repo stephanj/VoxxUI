@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'voxx-ui/rating';
@@ -8,7 +8,7 @@ import { RatingModule } from 'voxx-ui/rating';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'rating-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, RatingModule, FormsModule],
+    imports: [AppDocPtViewer, RatingModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-rating [(ngModel)]="value"></vx-rating>

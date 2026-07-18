@@ -27,23 +27,29 @@ interface Column {
                 <vx-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                     <ng-template #header let-columns>
                         <tr>
-                            <th *ngFor="let col of columns" style="width: 20%;">
-                                {{ col.header }}
-                            </th>
+                            @for (col of columns; track col) {
+                                <th style="width: 20%;">
+                                    {{ col.header }}
+                                </th>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #body let-rowData let-columns="columns">
                         <tr style="height:46px">
-                            <td *ngFor="let col of columns">
-                                {{ rowData[col.field] }}
-                            </td>
+                            @for (col of columns; track col) {
+                                <td>
+                                    {{ rowData[col.field] }}
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                     <ng-template #loadingbody let-columns="columns">
                         <tr style="height:46px">
-                            <td *ngFor="let col of columns; let even = even">
-                                <div class="h-4 rounded bg-surface-200 dark:bg-surface-700 animate-pulse" [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }"></div>
-                            </td>
+                            @for (col of columns; track col; let even = $even) {
+                                <td>
+                                    <div class="h-4 rounded bg-surface-200 dark:bg-surface-700 animate-pulse" [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }"></div>
+                                </td>
+                            }
                         </tr>
                     </ng-template>
                 </vx-table>

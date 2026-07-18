@@ -3,13 +3,12 @@ import { MessageModule } from 'voxx-ui/message';
 import { ButtonModule } from 'voxx-ui/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'life-doc',
     standalone: true,
-    imports: [MessageModule, ButtonModule, AppCodeModule, AppDocSectionText, CommonModule],
+    imports: [MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Messages can disappear automatically by defined the <i>life</i> in milliseconds.</p>

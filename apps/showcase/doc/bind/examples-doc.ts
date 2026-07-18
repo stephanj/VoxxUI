@@ -1,6 +1,6 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { BindModule } from 'voxx-ui/bind';
 import { TooltipModule } from 'voxx-ui/tooltip';
@@ -9,7 +9,7 @@ import { TooltipModule } from 'voxx-ui/tooltip';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'examples-doc',
     standalone: true,
-    imports: [AppCode, BindModule, TooltipModule, CommonModule, AppDocSectionText],
+    imports: [AppCode, BindModule, TooltipModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>vxBind</i> is a directive that accepts an object of HTML attributes.</p>

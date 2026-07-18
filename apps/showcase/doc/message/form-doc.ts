@@ -1,6 +1,6 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputMaskModule } from 'voxx-ui/inputmask';
@@ -11,7 +11,7 @@ import { MessageModule } from 'voxx-ui/message';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'form-doc',
     standalone: true,
-    imports: [FormsModule, MessageModule, InputTextModule, InputMaskModule, AppCodeModule, AppDocSectionText, CommonModule],
+    imports: [FormsModule, MessageModule, InputTextModule, InputMaskModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Validation errors in a form are displayed with the <i>error</i> severity.</p>

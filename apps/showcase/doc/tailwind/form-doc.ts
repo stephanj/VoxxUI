@@ -1,6 +1,6 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'voxx-ui/datepicker';
@@ -11,7 +11,7 @@ import { SelectModule } from 'voxx-ui/select';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'form-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule],
+    imports: [FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule],
     template: `
         <app-docsectiontext>
             <p>Using Tailwind utilities for the responsive layout of a form with VoxxUI components.</p>
@@ -37,10 +37,12 @@ import { SelectModule } from 'voxx-ui/select';
                         <label for="country" class="block font-semibold mb-2">Country</label>
                         <vx-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
                             <ng-template vxTemplate="selectedItem">
-                                <div class="flex items-center gap-2" *ngIf="selectedCountry">
-                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                                    <div>{{ selectedCountry.name }}</div>
-                                </div>
+                                @if (selectedCountry) {
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                                        <div>{{ selectedCountry.name }}</div>
+                                    </div>
+                                }
                             </ng-template>
                             <ng-template let-country vxTemplate="item">
                                 <div class="flex items-center gap-2">
