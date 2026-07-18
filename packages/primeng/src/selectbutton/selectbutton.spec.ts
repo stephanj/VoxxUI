@@ -187,8 +187,8 @@ describe('SelectButton', () => {
         });
 
         it('should emit onChange and onOptionClick events', () => {
-            spyOn(component.onChange, 'emit');
-            spyOn(component.onOptionClick, 'emit');
+            vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component.onOptionClick, 'emit').mockReturnValue(undefined);
 
             const mockEvent = new Event('click');
             component.onOptionSelect(mockEvent, component.options![0], 0);
@@ -345,7 +345,7 @@ describe('SelectButton', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             // Mock the disabled state by creating a spy
-            spyOn(component, '$disabled').and.returnValue(true);
+            vi.spyOn(component, '$disabled').mockReturnValue(true);
             const mockEvent = new Event('click');
             const initialValue = component.value;
 
@@ -464,7 +464,7 @@ class TestPrimeTemplateSelectButtonComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule, SharedModule],
+    imports: [SelectButton, FormsModule, SharedModule],
     template: `
         <vx-selectbutton [(ngModel)]="selectedValue" [options]="options">
             <!-- Item template with vxTemplate -->
@@ -490,7 +490,7 @@ class TestSelectButtonPTemplateComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule, SharedModule],
+    imports: [SelectButton, FormsModule, SharedModule],
     template: `
         <vx-selectbutton [(ngModel)]="selectedValue" [options]="options">
             <!-- Item template with #template reference -->
@@ -845,13 +845,12 @@ describe('SelectButton PassThrough Tests', () => {
     });
 
     describe('PT Case 5: Event binding', () => {
-        it('should handle onclick event through PT', (done) => {
+        it('should handle onclick event through PT', async () => {
             let clicked = false;
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
                         clicked = true;
-                        done();
                     }
                 }
             });
@@ -1169,7 +1168,7 @@ describe('SelectButton PassThrough Tests', () => {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule],
+    imports: [SelectButton, FormsModule],
     template: `<vx-selectbutton [options]="options" [pt]="{ root: 'INLINE_STRING' }" />`
 })
 class TestInlineStringPTComponent {
@@ -1179,7 +1178,7 @@ class TestInlineStringPTComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule],
+    imports: [SelectButton, FormsModule],
     template: `<vx-selectbutton [options]="options" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }" />`
 })
 class TestInlineObjectPTComponent {
@@ -1189,7 +1188,7 @@ class TestInlineObjectPTComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule],
+    imports: [SelectButton, FormsModule],
     template: `
         <vx-selectbutton [options]="options1" />
         <vx-selectbutton [options]="options2" />

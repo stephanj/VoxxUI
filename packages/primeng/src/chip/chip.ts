@@ -32,51 +32,43 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
  */
 @Component({
     selector: 'vx-chip',
-    standalone: true,
     imports: [CommonModule, TimesCircleIcon, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        <img [vxBind]="ptm('image')" [class]="cx('image')" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-        <ng-template #iconTemplate><span [vxBind]="ptm('icon')" *ngIf="icon" [class]="icon" [ngClass]="cx('icon')"></span></ng-template>
-        <div [vxBind]="ptm('label')" [class]="cx('label')" *ngIf="label">{{ label }}</div>
-        <ng-container *ngIf="removable">
-            <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
-                <span
-                    [vxBind]="ptm('removeIcon')"
-                    *ngIf="removeIcon"
-                    [class]="removeIcon"
-                    [ngClass]="cx('removeIcon')"
-                    (click)="close($event)"
-                    (keydown)="onKeydown($event)"
-                    [attr.tabindex]="disabled ? -1 : 0"
-                    [attr.aria-label]="removeAriaLabel"
-                    role="button"
-                ></span>
-                <svg
-                    [vxBind]="ptm('removeIcon')"
-                    data-p-icon="times-circle"
-                    *ngIf="!removeIcon"
-                    [class]="cx('removeIcon')"
-                    (click)="close($event)"
-                    (keydown)="onKeydown($event)"
-                    [attr.tabindex]="disabled ? -1 : 0"
-                    [attr.aria-label]="removeAriaLabel"
-                    role="button"
-                />
-            </ng-container>
-            <span
-                [vxBind]="ptm('removeIcon')"
-                *ngIf="removeIconTemplate || _removeIconTemplate"
-                [attr.tabindex]="disabled ? -1 : 0"
-                [class]="cx('removeIcon')"
-                (click)="close($event)"
-                (keydown)="onKeydown($event)"
-                [attr.aria-label]="removeAriaLabel"
-                role="button"
-            >
-                <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (image) {
+            <img [vxBind]="ptm('image')" [class]="cx('image')" [src]="image" (error)="imageError($event)" [alt]="alt" />
+        } @else {
+            @if (icon) {
+                <span [vxBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')"></span>
+            }
+        }
+        @if (label) {
+            <div [vxBind]="ptm('label')" [class]="cx('label')">{{ label }}</div>
+        }
+        @if (removable) {
+            @if (!removeIconTemplate && !_removeIconTemplate) {
+                @if (removeIcon) {
+                    <span
+                        [vxBind]="ptm('removeIcon')"
+                        [class]="removeIcon"
+                        [ngClass]="cx('removeIcon')"
+                        (click)="close($event)"
+                        (keydown)="onKeydown($event)"
+                        [attr.tabindex]="disabled ? -1 : 0"
+                        [attr.aria-label]="removeAriaLabel"
+                        role="button"
+                    ></span>
+                }
+                @if (!removeIcon) {
+                    <svg [vxBind]="ptm('removeIcon')" data-p-icon="times-circle" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.tabindex]="disabled ? -1 : 0" [attr.aria-label]="removeAriaLabel" role="button" />
+                }
+            }
+            @if (removeIconTemplate || _removeIconTemplate) {
+                <span [vxBind]="ptm('removeIcon')" [attr.tabindex]="disabled ? -1 : 0" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                    <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
+                </span>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

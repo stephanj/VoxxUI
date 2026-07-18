@@ -10,7 +10,6 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
-    HostListener,
     inject,
     Injectable,
     InjectionToken,
@@ -82,6 +81,7 @@ import {
     TableSelectAllChangeEvent
 } from 'voxx-ui/types/table';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'voxx-ui/utils';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 
@@ -3415,8 +3415,6 @@ export class TableBody extends BaseComponent {
 
     @Input() scrollerOptions: any;
 
-    subscription: Subscription;
-
     _value: any[] | undefined;
 
     onAfterViewInit() {
@@ -3434,7 +3432,7 @@ export class TableBody extends BaseComponent {
         public tableService: TableService
     ) {
         super();
-        this.subscription = this.dataTable.tableService.valueSource$.subscribe(() => {
+        this.dataTable.tableService.valueSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             if (this.dataTable.virtualScroll) {
                 this.cd.detectChanges();
             }
@@ -3490,12 +3488,6 @@ export class TableBody extends BaseComponent {
         }
 
         return groupRowSpan === 1 ? null : groupRowSpan;
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 
     updateFrozenRowStickyPosition() {
@@ -3669,7 +3661,10 @@ export class FrozenColumn extends BaseComponent {
         '[class]': "cx('sortableColumn')",
         '[tabindex]': 'isEnabled() ? "0" : null',
         role: 'columnheader',
-        '[attr.aria-sort]': 'sortOrder'
+        '[attr.aria-sort]': 'sortOrder',
+        '(click)': 'onClick($event)',
+        '(keydown.space)': 'onEnterKey($event)',
+        '(keydown.enter)': 'onEnterKey($event)'
     },
     providers: [TableStyle]
 })
@@ -3684,14 +3679,12 @@ export class SortableColumn extends BaseComponent {
 
     sortOrder: string | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(public dataTable: Table) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+            this.dataTable.tableService.sortSource$.pipe(takeUntilDestroyed()).subscribe((sortMeta) => {
                 this.updateSortState();
             });
         }
@@ -3719,8 +3712,6 @@ export class SortableColumn extends BaseComponent {
         this.sorted = sorted;
         this.sortOrder = sorted ? (sortOrder === 1 ? 'ascending' : 'descending') : 'none';
     }
-
-    @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled() && !this.isFilterElement(<HTMLElement>event.target)) {
             this.updateSortState();
@@ -3732,9 +3723,6 @@ export class SortableColumn extends BaseComponent {
             DomHandler.clearSelection();
         }
     }
-
-    @HostListener('keydown.space', ['$event'])
-    @HostListener('keydown.enter', ['$event'])
     onEnterKey(event: MouseEvent) {
         this.onClick(event);
 
@@ -3751,12 +3739,6 @@ export class SortableColumn extends BaseComponent {
 
     private isFilterElementIconOrButton(element: HTMLElement) {
         return getAttribute(element, '[data-pc-name="pccolumnfilterbutton"]') || getAttribute(element, '[data-pc-section="columnfilterbuttonicon"]');
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
@@ -3781,8 +3763,6 @@ export class SortableColumn extends BaseComponent {
 export class SortIcon extends BaseComponent {
     @Input() field: string | undefined;
 
-    subscription: Subscription | undefined;
-
     sortOrder: number | undefined;
 
     _componentStyle = inject(TableStyle);
@@ -3792,7 +3772,7 @@ export class SortIcon extends BaseComponent {
         public cd: ChangeDetectorRef
     ) {
         super();
-        this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+        this.dataTable.tableService.sortSource$.pipe(takeUntilDestroyed()).subscribe((sortMeta) => {
             this.updateSortState();
         });
     }
@@ -3842,12 +3822,6 @@ export class SortIcon extends BaseComponent {
     isMultiSorted() {
         return this.dataTable.sortMode === 'multiple' && this.getMultiSortMetaIndex() > -1;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
@@ -3856,7 +3830,10 @@ export class SortIcon extends BaseComponent {
     host: {
         '[class]': "cx('selectableRow')",
         '[tabindex]': 'setRowTabIndex()',
-        '[attr.data-p-selectable-row]': 'true'
+        '[attr.data-p-selectable-row]': 'true',
+        '(click)': 'onClick($event)',
+        '(touchend)': 'onTouchEnd($event)',
+        '(keydown)': 'onKeyDown($event)'
     },
     providers: [TableStyle]
 })
@@ -3869,8 +3846,6 @@ export class SelectableRow extends BaseComponent {
 
     selected: boolean | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(
@@ -3879,7 +3854,7 @@ export class SelectableRow extends BaseComponent {
     ) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+            this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.selected = this.dataTable.isSelected(this.data);
             });
         }
@@ -3896,8 +3871,6 @@ export class SelectableRow extends BaseComponent {
             this.selected = this.dataTable.isSelected(this.data);
         }
     }
-
-    @HostListener('click', ['$event'])
     onClick(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.handleRowClick({
@@ -3907,15 +3880,11 @@ export class SelectableRow extends BaseComponent {
             });
         }
     }
-
-    @HostListener('touchend', ['$event'])
     onTouchEnd(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.handleRowTouchEnd(event);
         }
     }
-
-    @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'ArrowDown':
@@ -4099,19 +4068,14 @@ export class SelectableRow extends BaseComponent {
     isEnabled() {
         return this.vxSelectableRowDisabled !== true;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
     selector: '[vxSelectableRowDblClick]',
     standalone: false,
     host: {
-        '[class]': 'cx("selectableRow")'
+        '[class]': 'cx("selectableRow")',
+        '(dblclick)': 'onClick($event)'
     },
     providers: [TableStyle]
 })
@@ -4124,8 +4088,6 @@ export class SelectableRowDblClick extends BaseComponent {
 
     selected: boolean | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(
@@ -4134,7 +4096,7 @@ export class SelectableRowDblClick extends BaseComponent {
     ) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+            this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.selected = this.dataTable.isSelected(this.data);
             });
         }
@@ -4145,8 +4107,6 @@ export class SelectableRowDblClick extends BaseComponent {
             this.selected = this.dataTable.isSelected(this.data);
         }
     }
-
-    @HostListener('dblclick', ['$event'])
     onClick(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.handleRowClick({
@@ -4160,12 +4120,6 @@ export class SelectableRowDblClick extends BaseComponent {
     isEnabled() {
         return this.vxSelectableRowDisabled !== true;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
@@ -4173,7 +4127,8 @@ export class SelectableRowDblClick extends BaseComponent {
     standalone: false,
     host: {
         '[class]': 'cx("contextMenuRowSelected")',
-        '[attr.tabindex]': 'isEnabled() ? 0 : undefined'
+        '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
+        '(contextmenu)': 'onContextMenu($event)'
     },
     providers: [TableStyle]
 })
@@ -4186,8 +4141,6 @@ export class ContextMenuRow extends BaseComponent {
 
     selected: boolean | undefined;
 
-    subscription: Subscription | undefined;
-
     _componentStyle = inject(TableStyle);
 
     constructor(
@@ -4196,13 +4149,11 @@ export class ContextMenuRow extends BaseComponent {
     ) {
         super();
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.contextMenuSource$.subscribe((data) => {
+            this.dataTable.tableService.contextMenuSource$.pipe(takeUntilDestroyed()).subscribe((data) => {
                 this.selected = data ? this.dataTable.equals(this.data, data) : false;
             });
         }
     }
-
-    @HostListener('contextmenu', ['$event'])
     onContextMenu(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.handleRowRightClick({
@@ -4219,17 +4170,14 @@ export class ContextMenuRow extends BaseComponent {
     isEnabled() {
         return this.vxContextMenuRowDisabled !== true;
     }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
 }
 
 @Directive({
     selector: '[vxRowToggler]',
-    standalone: false
+    standalone: false,
+    host: {
+        '(click)': 'onClick($event)'
+    }
 })
 export class RowToggler extends BaseComponent {
     @Input('vxRowToggler') data: any;
@@ -4239,8 +4187,6 @@ export class RowToggler extends BaseComponent {
     constructor(public dataTable: Table) {
         super();
     }
-
-    @HostListener('click', ['$event'])
     onClick(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.toggleRow(this.data, event);
@@ -4378,7 +4324,8 @@ export class ResizableColumn extends BaseComponent {
     selector: '[vxReorderableColumn]',
     standalone: false,
     host: {
-        '[class]': "cx('reorderableColumn')"
+        '[class]': "cx('reorderableColumn')",
+        '(drop)': 'onDrop($event)'
     },
     providers: [TableStyle]
 })
@@ -4474,8 +4421,6 @@ export class ReorderableColumn extends BaseComponent {
     onDragLeave(event: any) {
         this.dataTable.onColumnDragLeave(event);
     }
-
-    @HostListener('drop', ['$event'])
     onDrop(event: any) {
         if (this.isEnabled()) {
             this.dataTable.onColumnDrop(event, this.el.nativeElement);
@@ -4495,7 +4440,17 @@ export class ReorderableColumn extends BaseComponent {
     selector: '[vxEditableColumn]',
     standalone: false,
     host: {
-        '[attr.data-p-editable-column]': 'true'
+        '[attr.data-p-editable-column]': 'true',
+        '(click)': 'onClick($event)',
+        '(keydown.enter)': 'onEnterKeyDown($event)',
+        '(keydown.escape)': 'onEscapeKeyDown($event)',
+        '(keydown.tab)': 'onTabKeyDown($event); onShiftKeyDown($event)',
+        '(keydown.shift.tab)': 'onShiftKeyDown($event)',
+        '(keydown.meta.tab)': 'onShiftKeyDown($event)',
+        '(keydown.arrowdown)': 'onArrowDown($event)',
+        '(keydown.arrowup)': 'onArrowUp($event)',
+        '(keydown.arrowleft)': 'onArrowLeft($event)',
+        '(keydown.arrowright)': 'onArrowRight($event)'
     }
 })
 export class EditableColumn extends BaseComponent {
@@ -4529,8 +4484,6 @@ export class EditableColumn extends BaseComponent {
             !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-editable-column');
         }
     }
-
-    @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
         if (this.isEnabled()) {
             this.dataTable.selfClick = true;
@@ -4611,8 +4564,6 @@ export class EditableColumn extends BaseComponent {
             this.dataTable.overlaySubscription.unsubscribe();
         }
     }
-
-    @HostListener('keydown.enter', ['$event'])
     onEnterKeyDown(event: KeyboardEvent) {
         if (this.isEnabled() && !event.shiftKey) {
             if (this.dataTable.isEditingCellValid()) {
@@ -4622,8 +4573,6 @@ export class EditableColumn extends BaseComponent {
             event.preventDefault();
         }
     }
-
-    @HostListener('keydown.tab', ['$event'])
     onTabKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             if (this.dataTable.isEditingCellValid()) {
@@ -4633,8 +4582,6 @@ export class EditableColumn extends BaseComponent {
             event.preventDefault();
         }
     }
-
-    @HostListener('keydown.escape', ['$event'])
     onEscapeKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             if (this.dataTable.isEditingCellValid()) {
@@ -4644,10 +4591,6 @@ export class EditableColumn extends BaseComponent {
             event.preventDefault();
         }
     }
-
-    @HostListener('keydown.tab', ['$event'])
-    @HostListener('keydown.shift.tab', ['$event'])
-    @HostListener('keydown.meta.tab', ['$event'])
     onShiftKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             if (event.shiftKey) this.moveToPreviousCell(event);
@@ -4656,7 +4599,6 @@ export class EditableColumn extends BaseComponent {
             }
         }
     }
-    @HostListener('keydown.arrowdown', ['$event'])
     onArrowDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
@@ -4677,8 +4619,6 @@ export class EditableColumn extends BaseComponent {
             }
         }
     }
-
-    @HostListener('keydown.arrowup', ['$event'])
     onArrowUp(event: KeyboardEvent) {
         if (this.isEnabled()) {
             let currentCell = this.findCell(event.target);
@@ -4699,15 +4639,11 @@ export class EditableColumn extends BaseComponent {
             }
         }
     }
-
-    @HostListener('keydown.arrowleft', ['$event'])
     onArrowLeft(event: KeyboardEvent) {
         if (this.isEnabled()) {
             this.moveToPreviousCell(event);
         }
     }
-
-    @HostListener('keydown.arrowright', ['$event'])
     onArrowRight(event: KeyboardEvent) {
         if (this.isEnabled()) {
             this.moveToNextCell(event);
@@ -4862,7 +4798,8 @@ export class EditableRow extends BaseComponent {
     selector: '[vxInitEditableRow]',
     standalone: false,
     host: {
-        class: 'p-datatable-row-editor-init'
+        class: 'p-datatable-row-editor-init',
+        '(click)': 'onClick($event)'
     }
 })
 export class InitEditableRow extends BaseComponent {
@@ -4872,8 +4809,6 @@ export class InitEditableRow extends BaseComponent {
     ) {
         super();
     }
-
-    @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.dataTable.initRowEdit(this.editableRow.data);
         event.preventDefault();
@@ -4884,7 +4819,8 @@ export class InitEditableRow extends BaseComponent {
     selector: '[vxSaveEditableRow]',
     standalone: false,
     host: {
-        class: 'p-datatable-row-editor-save'
+        class: 'p-datatable-row-editor-save',
+        '(click)': 'onClick($event)'
     }
 })
 export class SaveEditableRow extends BaseComponent {
@@ -4894,8 +4830,6 @@ export class SaveEditableRow extends BaseComponent {
     ) {
         super();
     }
-
-    @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.dataTable.saveRowEdit(this.editableRow.data, this.editableRow.el.nativeElement);
         event.preventDefault();
@@ -4906,7 +4840,8 @@ export class SaveEditableRow extends BaseComponent {
     selector: '[vxCancelEditableRow]',
     standalone: false,
     host: {
-        '[class]': "cx('rowEditorCancel')"
+        '[class]': "cx('rowEditorCancel')",
+        '(click)': 'onClick($event)'
     },
     providers: [TableStyle]
 })
@@ -4918,7 +4853,6 @@ export class CancelEditableRow extends BaseComponent {
         super();
     }
     _componentStyle = inject(TableStyle);
-    @HostListener('click', ['$event'])
     onClick(event: Event) {
         this.dataTable.cancelRowEdit(this.editableRow.data);
         event.preventDefault();
@@ -5000,14 +4934,12 @@ export class TableRadioButton extends BaseComponent {
 
     checked: boolean | undefined;
 
-    subscription: Subscription;
-
     constructor(
         public dataTable: Table,
         public cd: ChangeDetectorRef
     ) {
         super();
-        this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.dataTable.isSelected(this.value);
 
             this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
@@ -5032,12 +4964,6 @@ export class TableRadioButton extends BaseComponent {
             this.inputViewChild?.inputViewChild.nativeElement?.focus();
         }
         DomHandler.clearSelection();
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
@@ -5069,14 +4995,12 @@ export class TableCheckbox extends BaseComponent {
 
     checked: boolean | undefined;
 
-    subscription: Subscription;
-
     constructor(
         public dataTable: Table,
         public tableService: TableService
     ) {
         super();
-        this.subscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.dataTable.isSelected(this.value);
             this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
             this.cd.markForCheck();
@@ -5098,12 +5022,6 @@ export class TableCheckbox extends BaseComponent {
             );
         }
         DomHandler.clearSelection();
-    }
-
-    onDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 }
 
@@ -5140,21 +5058,17 @@ export class TableHeaderCheckbox extends BaseComponent {
 
     checked: boolean | undefined;
 
-    selectionChangeSubscription: Subscription;
-
-    valueChangeSubscription: Subscription;
-
     constructor(
         public dataTable: Table,
         public tableService: TableService
     ) {
         super();
-        this.valueChangeSubscription = this.dataTable.tableService.valueSource$.subscribe(() => {
+        this.dataTable.tableService.valueSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.updateCheckedState();
             this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectAll : this.dataTable.config.translation.aria.unselectAll) : undefined);
         });
 
-        this.selectionChangeSubscription = this.dataTable.tableService.selectionSource$.subscribe(() => {
+        this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.updateCheckedState();
         });
     }
@@ -5175,16 +5089,6 @@ export class TableHeaderCheckbox extends BaseComponent {
 
     isDisabled() {
         return this.disabled() || !this.dataTable.value || !this.dataTable.value.length;
-    }
-
-    onDestroy() {
-        if (this.selectionChangeSubscription) {
-            this.selectionChangeSubscription.unsubscribe();
-        }
-
-        if (this.valueChangeSubscription) {
-            this.valueChangeSubscription.unsubscribe();
-        }
     }
 
     updateCheckedState() {
@@ -5234,6 +5138,9 @@ export class ReorderableRowHandle extends BaseComponent {
 @Directive({
     selector: '[vxReorderableRow]',
     standalone: false,
+    host: {
+        '(drop)': 'onDrop($event)'
+    },
     hostDirectives: [Bind]
 })
 export class ReorderableRow extends BaseComponent {
@@ -5355,8 +5262,6 @@ export class ReorderableRow extends BaseComponent {
     isEnabled() {
         return this.vxReorderableRowDisabled !== true;
     }
-
-    @HostListener('drop', ['$event'])
     onDrop(event: DragEvent) {
         if (this.isEnabled() && this.dataTable.rowDragging) {
             this.dataTable.onRowDrop(event, this.el.nativeElement);

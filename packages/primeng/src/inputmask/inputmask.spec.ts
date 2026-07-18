@@ -244,8 +244,8 @@ describe('InputMask', () => {
             component.inputViewChild = {
                 nativeElement: {
                     value: '',
-                    focus: jasmine.createSpy('focus'),
-                    setSelectionRange: jasmine.createSpy('setSelectionRange'),
+                    focus: vi.fn().mockName('focus'),
+                    setSelectionRange: vi.fn().mockName('setSelectionRange'),
                     selectionStart: 0,
                     selectionEnd: 0,
                     offsetParent: {},
@@ -309,8 +309,8 @@ describe('InputMask', () => {
         });
 
         it('should clear input value', () => {
-            spyOn(component, 'onModelChange');
-            spyOn(component.onClear, 'emit');
+            vi.spyOn(component as any, 'onModelChange').mockReturnValue(undefined);
+            vi.spyOn(component.onClear, 'emit').mockReturnValue(undefined);
 
             component.clear();
 
@@ -332,7 +332,7 @@ describe('InputMask', () => {
         });
 
         it('should handle focus event', async () => {
-            spyOn(testComponent, 'onInputFocus');
+            vi.spyOn(testComponent, 'onInputFocus').mockReturnValue(undefined);
             testFixture.detectChanges();
 
             const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
@@ -344,7 +344,7 @@ describe('InputMask', () => {
         });
 
         it('should handle blur event', async () => {
-            spyOn(testComponent, 'onInputBlur');
+            vi.spyOn(testComponent, 'onInputBlur').mockReturnValue(undefined);
             testFixture.detectChanges();
 
             const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
@@ -356,7 +356,7 @@ describe('InputMask', () => {
         });
 
         it('should handle keydown event', () => {
-            spyOn(testComponent, 'onKeydownEvent');
+            vi.spyOn(testComponent, 'onKeydownEvent').mockReturnValue(undefined);
             testFixture.detectChanges();
 
             // Simulate keydown event through the component's output binding
@@ -371,7 +371,7 @@ describe('InputMask', () => {
         });
 
         it('should handle input change event', () => {
-            spyOn(testComponent, 'onInputChange');
+            vi.spyOn(testComponent, 'onInputChange').mockReturnValue(undefined);
             testFixture.detectChanges();
 
             const inputMask = testFixture.debugElement.query(By.css('vx-inputmask')).componentInstance;
@@ -382,7 +382,7 @@ describe('InputMask', () => {
         });
 
         it('should emit onComplete when mask is fully filled', async () => {
-            spyOn(testComponent, 'onMaskComplete');
+            vi.spyOn(testComponent, 'onMaskComplete').mockReturnValue(undefined);
             testComponent.mask = '999';
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -398,7 +398,7 @@ describe('InputMask', () => {
         });
 
         it('should handle clear event when showClear is enabled', async () => {
-            spyOn(testComponent, 'onClearEvent');
+            vi.spyOn(testComponent, 'onClearEvent').mockReturnValue(undefined);
             testComponent.showClear = true;
             testComponent.value = '123-45-6789';
             testFixture.changeDetectorRef.markForCheck();
@@ -421,22 +421,22 @@ describe('InputMask', () => {
             component.inputViewChild = {
                 nativeElement: {
                     value: '',
-                    focus: jasmine.createSpy('focus'),
-                    setSelectionRange: jasmine.createSpy('setSelectionRange'),
+                    focus: vi.fn().mockName('focus'),
+                    setSelectionRange: vi.fn().mockName('setSelectionRange'),
                     selectionStart: 0,
                     selectionEnd: 0,
                     offsetParent: {},
                     ownerDocument: { activeElement: {} },
-                    dispatchEvent: jasmine.createSpy('dispatchEvent')
+                    dispatchEvent: vi.fn().mockName('dispatchEvent')
                 }
             } as any;
             fixture.detectChanges();
         });
 
         it('should process numeric input correctly', () => {
-            spyOn(component, 'caret').and.returnValue({ begin: 0, end: 0 });
-            spyOn(component, 'updateModel');
-            spyOn(component.onInput, 'emit');
+            vi.spyOn(component, 'caret').mockReturnValue({ begin: 0, end: 0 });
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined);
+            vi.spyOn(component.onInput, 'emit').mockReturnValue(undefined);
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 49 }); // '1'
             component.onKeyPress(keyEvent as any);
@@ -447,10 +447,10 @@ describe('InputMask', () => {
 
         it('should handle backspace correctly', () => {
             component.buffer = ['1', '2', '3', '-', '4', '5', '-', '_', '_', '_', '_'];
-            spyOn(component, 'caret').and.returnValue({ begin: 6, end: 6 });
-            spyOn(component, 'updateModel');
-            spyOn(component, 'clearBuffer');
-            spyOn(component, 'shiftL');
+            vi.spyOn(component, 'caret').mockReturnValue({ begin: 6, end: 6 });
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined);
+            vi.spyOn(component, 'clearBuffer').mockReturnValue(undefined);
+            vi.spyOn(component, 'shiftL').mockReturnValue(undefined);
 
             const backspaceEvent = new KeyboardEvent('keydown', { keyCode: 8 });
             component.onInputKeydown(backspaceEvent as any);
@@ -461,10 +461,10 @@ describe('InputMask', () => {
 
         it('should handle delete key correctly', () => {
             component.buffer = ['1', '2', '3', '-', '4', '5', '-', '_', '_', '_', '_'];
-            spyOn(component, 'caret').and.returnValue({ begin: 4, end: 4 });
-            spyOn(component, 'updateModel');
-            spyOn(component, 'clearBuffer');
-            spyOn(component, 'shiftL');
+            vi.spyOn(component, 'caret').mockReturnValue({ begin: 4, end: 4 });
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined);
+            vi.spyOn(component, 'clearBuffer').mockReturnValue(undefined);
+            vi.spyOn(component, 'shiftL').mockReturnValue(undefined);
 
             const deleteEvent = new KeyboardEvent('keydown', { keyCode: 46 });
             component.onInputKeydown(deleteEvent as any);
@@ -475,9 +475,9 @@ describe('InputMask', () => {
 
         it('should handle escape key correctly', () => {
             component.focusText = '123-45-';
-            spyOn(component, 'caret');
-            spyOn(component, 'checkVal').and.returnValue(7);
-            spyOn(component, 'updateModel');
+            vi.spyOn(component, 'caret').mockReturnValue(undefined);
+            vi.spyOn(component, 'checkVal').mockReturnValue(7);
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined);
 
             const escapeEvent = new KeyboardEvent('keydown', { keyCode: 27 });
             component.onInputKeydown(escapeEvent as any);
@@ -487,8 +487,8 @@ describe('InputMask', () => {
         });
 
         it('should handle enter key correctly', () => {
-            spyOn(component, 'onInputBlur');
-            spyOn(component, 'updateModel');
+            vi.spyOn(component, 'onInputBlur').mockReturnValue(undefined);
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined);
 
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
             component.onInputKeydown(enterEvent as any);
@@ -498,14 +498,14 @@ describe('InputMask', () => {
         });
 
         it('should ignore invalid characters', () => {
-            spyOn(component, 'caret').and.returnValue({ begin: 0, end: 0 });
-            spyOn(component, 'updateModel'); // Spy on updateModel to avoid null target error
+            vi.spyOn(component, 'caret').mockReturnValue({ begin: 0, end: 0 });
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined); // Spy on updateModel to avoid null target error
             const initialBuffer = component.buffer.slice();
 
             const mockEvent = {
                 target: { value: 'test' },
                 keyCode: 65, // 'A' for numeric mask
-                preventDefault: jasmine.createSpy('preventDefault')
+                preventDefault: vi.fn().mockName('preventDefault')
             } as any;
 
             component.onKeyPress(mockEvent);
@@ -516,7 +516,7 @@ describe('InputMask', () => {
 
         it('should not process input when readonly', () => {
             component.readonly = true;
-            spyOn(component, 'updateModel');
+            vi.spyOn(component, 'updateModel').mockReturnValue(undefined);
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 49 });
             component.onKeyPress(keyEvent as any);
@@ -678,8 +678,8 @@ describe('InputMask', () => {
                 }
             } as any;
 
-            spyOn(component, 'handleAndroidInput');
-            spyOn(component, 'handleInputChange');
+            vi.spyOn(component, 'handleAndroidInput').mockReturnValue(undefined);
+            vi.spyOn(component, 'handleInputChange').mockReturnValue(undefined);
 
             const inputEvent = new Event('input');
             component.onInputChange(inputEvent);
@@ -727,7 +727,7 @@ describe('InputMask', () => {
             } as any;
             fixture.detectChanges();
 
-            spyOn(component, 'clearBuffer');
+            vi.spyOn(component, 'clearBuffer').mockReturnValue(undefined);
             const blurEvent = new Event('blur');
             component.onInputBlur(blurEvent);
 
@@ -744,8 +744,8 @@ describe('InputMask', () => {
             } as any;
             fixture.detectChanges();
 
-            spyOn(component, 'checkVal');
-            const mockSetValue = jasmine.createSpy('setModelValue');
+            vi.spyOn(component, 'checkVal').mockReturnValue(undefined as any);
+            const mockSetValue = vi.fn().mockName('setModelValue');
 
             component.writeControlValue('123456789', mockSetValue);
 
@@ -763,7 +763,7 @@ describe('InputMask', () => {
             } as any;
             fixture.detectChanges();
 
-            const mockSetValue = jasmine.createSpy('setModelValue');
+            const mockSetValue = vi.fn().mockName('setModelValue');
             component.writeControlValue(null, mockSetValue);
 
             expect(component.inputViewChild!.nativeElement.value).toBe('' as any);
@@ -840,8 +840,8 @@ describe('InputMask', () => {
             component.inputViewChild = {
                 nativeElement: {
                     value: '',
-                    focus: jasmine.createSpy('focus'),
-                    setSelectionRange: jasmine.createSpy('setSelectionRange'),
+                    focus: vi.fn().mockName('focus'),
+                    setSelectionRange: vi.fn().mockName('setSelectionRange'),
                     selectionStart: 0,
                     selectionEnd: 0,
                     offsetParent: {},
@@ -1857,11 +1857,11 @@ describe('InputMaskDirective', () => {
             const directive = inputEl.injector.get(InputMaskDirective);
 
             directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '_', '_', '_', '_'];
-            spyOn(directive, 'shiftL');
-            spyOn(directive, 'clearBuffer');
+            vi.spyOn(directive, 'shiftL').mockReturnValue(undefined);
+            vi.spyOn(directive, 'clearBuffer').mockReturnValue(undefined);
 
             const backspaceEvent = new KeyboardEvent('keydown', { key: 'Backspace', keyCode: 8 });
-            spyOn(directive, 'caret').and.returnValue({ begin: 6, end: 6 });
+            vi.spyOn(directive, 'caret').mockReturnValue({ begin: 6, end: 6 });
 
             directive.onInputKeydown(backspaceEvent);
 
@@ -1878,11 +1878,11 @@ describe('InputMaskDirective', () => {
             const directive = inputEl.injector.get(InputMaskDirective);
 
             directive.buffer = ['1', '2', '3', '-', '4', '5', '-', '_', '_', '_', '_'];
-            spyOn(directive, 'shiftL');
-            spyOn(directive, 'clearBuffer');
+            vi.spyOn(directive, 'shiftL').mockReturnValue(undefined);
+            vi.spyOn(directive, 'clearBuffer').mockReturnValue(undefined);
 
             const deleteEvent = new KeyboardEvent('keydown', { key: 'Delete', keyCode: 46 });
-            spyOn(directive, 'caret').and.returnValue({ begin: 4, end: 4 });
+            vi.spyOn(directive, 'caret').mockReturnValue({ begin: 4, end: 4 });
 
             directive.onInputKeydown(deleteEvent);
 
@@ -1924,7 +1924,7 @@ describe('InputMaskDirective', () => {
             directive.buffer = ['1', '2', '_', '/', '_', '_', '/', '_', '_', '_', '_'];
             inputEl.value = '12_/__/____';
 
-            spyOn(directive, 'checkVal').and.callThrough();
+            vi.spyOn(directive, 'checkVal');
 
             inputEl.dispatchEvent(new Event('blur'));
             fixture.detectChanges();

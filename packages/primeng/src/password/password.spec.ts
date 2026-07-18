@@ -397,9 +397,9 @@ describe('Password', () => {
         });
 
         it('should clear password value', () => {
-            spyOn(component, 'onModelChange');
-            spyOn(component, 'writeValue');
-            spyOn(component.onClear, 'emit');
+            vi.spyOn(component as any, 'onModelChange').mockReturnValue(undefined);
+            vi.spyOn(component, 'writeValue').mockReturnValue(undefined);
+            vi.spyOn(component.onClear, 'emit').mockReturnValue(undefined);
 
             component.value = 'password123';
             component.clear();
@@ -456,7 +456,7 @@ describe('Password', () => {
         });
 
         it('should handle focus events', async () => {
-            spyOn(testComponent, 'onInputFocus');
+            vi.spyOn(testComponent, 'onInputFocus').mockReturnValue(undefined);
             testFixture.detectChanges();
             const inputEl = testFixture.debugElement.query(By.css('input'));
 
@@ -472,7 +472,7 @@ describe('Password', () => {
         });
 
         it('should handle blur events', async () => {
-            spyOn(testComponent, 'onInputBlur');
+            vi.spyOn(testComponent, 'onInputBlur').mockReturnValue(undefined);
             testFixture.detectChanges();
             const inputEl = testFixture.debugElement.query(By.css('input'));
 
@@ -529,7 +529,7 @@ describe('Password', () => {
         });
 
         it('should handle clear button click', async () => {
-            spyOn(testComponent, 'onClearEvent');
+            vi.spyOn(testComponent, 'onClearEvent').mockReturnValue(undefined);
             testComponent.showClear = true;
             testComponent.value = 'password123';
             testFixture.changeDetectorRef.markForCheck();
@@ -1062,7 +1062,7 @@ describe('Password', () => {
         });
 
         it('should handle component destruction', () => {
-            spyOn(component, 'ngOnDestroy').and.callThrough();
+            vi.spyOn(component, 'ngOnDestroy');
             component.ngOnDestroy();
             expect(component.ngOnDestroy).toHaveBeenCalled();
         });
@@ -1087,9 +1087,9 @@ describe('Password', () => {
         });
 
         it('should handle writeControlValue correctly', () => {
-            spyOn(component.cd, 'markForCheck');
-            spyOn(component, 'updateUI');
-            const mockSetValue = jasmine.createSpy('setModelValue');
+            vi.spyOn(component.cd, 'markForCheck').mockReturnValue(undefined);
+            vi.spyOn(component, 'updateUI').mockReturnValue(undefined);
+            const mockSetValue = vi.fn().mockName('setModelValue');
 
             component.feedback = true;
             component.writeControlValue('testPassword', mockSetValue);
@@ -1101,7 +1101,7 @@ describe('Password', () => {
         });
 
         it('should handle overlay service integration', () => {
-            spyOn(component.overlayService, 'add');
+            vi.spyOn(component.overlayService, 'add').mockReturnValue(undefined);
             const mockEvent = new Event('click');
 
             component.onOverlayClick(mockEvent);
@@ -1334,7 +1334,7 @@ describe('PasswordDirective', () => {
             component.feedback = true;
             fixture.detectChanges();
 
-            spyOn(directive, 'showOverlay');
+            vi.spyOn(directive, 'showOverlay').mockReturnValue(undefined);
             directive.onFocus();
             await fixture.whenStable();
 
@@ -1345,7 +1345,7 @@ describe('PasswordDirective', () => {
             component.feedback = true;
             fixture.detectChanges();
 
-            spyOn(directive, 'hideOverlay');
+            vi.spyOn(directive, 'hideOverlay').mockReturnValue(undefined);
             directive.onBlur();
             await fixture.whenStable();
 
@@ -1355,7 +1355,7 @@ describe('PasswordDirective', () => {
 
     describe('Input Events', () => {
         it('should handle input event', () => {
-            spyOn(directive, 'writeModelValue');
+            vi.spyOn(directive, 'writeModelValue').mockReturnValue(undefined);
             const inputEl = fixture.debugElement.query(By.css('input'));
 
             inputEl.nativeElement.value = 'test123';
@@ -1396,7 +1396,7 @@ describe('PasswordDirective', () => {
         });
 
         it('should handle window resize', () => {
-            spyOn(directive, 'hideOverlay');
+            vi.spyOn(directive, 'hideOverlay').mockReturnValue(undefined);
             directive.onWindowResize();
 
             // Should call hideOverlay on non-touch devices

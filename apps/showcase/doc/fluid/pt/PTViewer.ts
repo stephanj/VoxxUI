@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FluidModule } from 'voxx-ui/fluid';
 import { InputTextModule } from 'voxx-ui/inputtext';
@@ -8,7 +8,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'fluid-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, FluidModule, InputTextModule],
+    imports: [AppDocPtViewer, FluidModule, InputTextModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-fluid>

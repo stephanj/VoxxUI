@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'voxx-ui/selectbutton';
@@ -8,7 +8,7 @@ import { SelectButtonModule } from 'voxx-ui/selectbutton';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'selectbutton-pt-viewer',
     standalone: true,
-    imports: [CommonModule, FormsModule, AppDocPtViewer, SelectButtonModule],
+    imports: [FormsModule, AppDocPtViewer, SelectButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-selectbutton [(ngModel)]="value" [options]="options" />

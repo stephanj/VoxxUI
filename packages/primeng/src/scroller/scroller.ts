@@ -1,24 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    NgZone,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, QueryList, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primeuix/utils';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -47,54 +28,56 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
 @Component({
     selector: 'vx-scroller, vx-virtualscroller, vx-virtual-scroller, vx-virtualScroller',
     imports: [CommonModule, SpinnerIcon, SharedModule, Bind],
-    standalone: true,
     template: `
-        <ng-container *ngIf="!_disabled; else disabledContainer">
+        @if (!_disabled) {
             <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [vxBind]="ptm('root')">
-                <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
+                @if (contentTemplate || _contentTemplate) {
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
-                </ng-container>
-                <ng-template #buildInContent>
+                } @else {
                     <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [vxBind]="ptm('content')">
-                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
+                        @for (item of loadedItems; track _trackBy ? _trackBy(index, item) : item; let index = $index) {
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
-                        </ng-container>
+                        }
                     </div>
-                </ng-template>
-                <div *ngIf="_showSpacer" [class]="cx('spacer')" [ngStyle]="spacerStyle" [vxBind]="ptm('spacer')"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" [class]="cx('loader')" [vxBind]="ptm('loader')">
-                    <ng-container *ngIf="loaderTemplate || _loaderTemplate; else buildInLoader">
-                        <ng-container *ngFor="let item of loaderArr; let index = index">
-                            <ng-container
-                                *ngTemplateOutlet="
-                                    loaderTemplate || _loaderTemplate;
-                                    context: {
-                                        options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
-                                    }
-                                "
-                            ></ng-container>
-                        </ng-container>
-                    </ng-container>
-                    <ng-template #buildInLoader>
-                        <ng-container *ngIf="loaderIconTemplate || _loaderIconTemplate; else buildInLoaderIcon">
-                            <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
-                        </ng-container>
-                        <ng-template #buildInLoaderIcon>
-                            <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [vxBind]="ptm('loadingIcon')" />
-                        </ng-template>
-                    </ng-template>
-                </div>
+                }
+                @if (_showSpacer) {
+                    <div [class]="cx('spacer')" [ngStyle]="spacerStyle" [vxBind]="ptm('spacer')"></div>
+                }
+                @if (!loaderDisabled && _showLoader && d_loading) {
+                    <div [class]="cx('loader')" [vxBind]="ptm('loader')">
+                        @if (loaderTemplate || _loaderTemplate) {
+                            @for (item of loaderArr; track item; let index = $index) {
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        loaderTemplate || _loaderTemplate;
+                                        context: {
+                                            options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
+                                        }
+                                    "
+                                ></ng-container>
+                            }
+                        } @else {
+                            @if (loaderIconTemplate || _loaderIconTemplate) {
+                                <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
+                            } @else {
+                                <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [vxBind]="ptm('loadingIcon')" />
+                            }
+                        }
+                    </div>
+                }
             </div>
-        </ng-container>
-        <ng-template #disabledContainer>
+        } @else {
             <ng-content></ng-content>
-            <ng-container *ngIf="contentTemplate || _contentTemplate">
+            @if (contentTemplate || _contentTemplate) {
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }"></ng-container>
-            </ng-container>
-        </ng-template>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
+    host: {
+        '[style.height]': 'height'
+    },
     providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
     hostDirectives: [Bind]
 })
@@ -160,10 +143,10 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * The height/width of item according to orientation.
      * @group Props
      */
-    @Input() get itemSize(): number[] | number {
+    @Input() get itemSize(): number[] | number | undefined {
         return this._itemSize;
     }
-    set itemSize(val: number[] | number) {
+    set itemSize(val: number[] | number | undefined) {
         this._itemSize = val;
     }
     /**
@@ -384,7 +367,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     @ViewChild('content') contentViewChild: Nullable<ElementRef>;
 
-    @HostBinding('style.height') height: string;
+    height: string;
 
     _id: string | undefined;
 
@@ -396,7 +379,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     _items: any[] | undefined | null;
 
-    _itemSize: number | number[] = 0;
+    _itemSize: number | number[] | undefined = 0;
 
     _scrollHeight: string | undefined;
 
@@ -747,7 +730,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
             const { numToleratedItems } = this.calculateNumItems();
             const contentPos = this.getContentPosition();
-            const itemSize = this.itemSize;
+            const itemSize = this.itemSize ?? 0;
             const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
             const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
             const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });

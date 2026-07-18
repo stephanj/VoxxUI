@@ -8,7 +8,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostListener,
     inject,
     InjectionToken,
     input,
@@ -43,7 +42,6 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-toggleswitch, vx-toggleSwitch, vx-toggle-switch',
-    standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input
@@ -81,7 +79,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
         '[style]': "sx('root')",
         '[attr.data-p-checked]': 'checked()',
         '[attr.data-p-disabled]': '$disabled()',
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP',
+        '(click)': 'onHostClick($event)'
     },
     hostDirectives: [Bind]
 })
@@ -172,7 +171,6 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {
         this.onClick(event);
     }

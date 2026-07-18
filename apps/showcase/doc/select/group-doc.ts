@@ -4,13 +4,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'voxx-ui/select';
-import { CommonModule } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'group-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>

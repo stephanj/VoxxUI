@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'voxx-ui/api';
 import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
@@ -8,7 +8,7 @@ import { ConfirmDialogModule } from 'voxx-ui/confirmdialog';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'confirmdialog-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ConfirmDialogModule],
+    imports: [AppDocPtViewer, ConfirmDialogModule],
     providers: [ConfirmationService],
     template: `
         <app-docptviewer [docs]="docs">

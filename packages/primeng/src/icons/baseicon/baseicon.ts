@@ -5,7 +5,6 @@ import { BaseIconStyle } from './style/baseiconstyle';
 
 @Component({
     template: ` <ng-content></ng-content> `,
-    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BaseIconStyle],

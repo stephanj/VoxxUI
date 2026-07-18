@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'voxx-ui/inputnumber';
@@ -8,7 +8,7 @@ import { InputNumberModule } from 'voxx-ui/inputnumber';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'inputnumber-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, InputNumberModule, FormsModule],
+    imports: [AppDocPtViewer, InputNumberModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-inputnumber [(ngModel)]="value" inputId="stacked-buttons" [showButtons]="true" mode="currency" currency="USD" />

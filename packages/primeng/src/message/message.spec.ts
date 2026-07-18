@@ -34,7 +34,12 @@ class TestBasicMessageComponent {
     severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null = 'info';
     text: string | undefined;
     escape = true;
-    style: { [klass: string]: any } | null | undefined = null as any;
+    style:
+        | {
+              [klass: string]: any;
+          }
+        | null
+        | undefined = null as any;
     styleClass: string | undefined;
     closable = false;
     icon: string | undefined;
@@ -208,7 +213,7 @@ describe('Message', () => {
 
         it('should close message programmatically', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(messageInstance.onClose, 'emit');
+            vi.spyOn(messageInstance.onClose, 'emit').mockReturnValue(undefined);
 
             messageInstance.close(mockEvent);
 
@@ -504,7 +509,7 @@ describe('Message', () => {
             const messageInstance = messageEl.componentInstance as Message;
 
             // Spy on close method before ngAfterContentInit
-            spyOn(messageInstance, 'close');
+            vi.spyOn(messageInstance, 'close').mockReturnValue(undefined);
 
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
@@ -616,7 +621,7 @@ describe('Message', () => {
             const messageInstance = messageEl.componentInstance as Message;
 
             // Spy on close method before ngAfterContentInit
-            spyOn(messageInstance, 'close');
+            vi.spyOn(messageInstance, 'close').mockReturnValue(undefined);
 
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
@@ -794,7 +799,7 @@ describe('Message', () => {
 
             const messageEl = fixture.debugElement.query(By.css('vx-message'));
             const messageInstance = messageEl.componentInstance as Message;
-            spyOn(messageInstance.onClose, 'emit');
+            vi.spyOn(messageInstance.onClose, 'emit').mockReturnValue(undefined);
 
             const closeButton = fixture.debugElement.query(By.css('button'));
 

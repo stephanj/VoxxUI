@@ -4,7 +4,6 @@ import { BaseIcon } from 'voxx-ui/icons/baseicon';
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[data-p-icon="angle-double-right"]',
-    standalone: true,
     template: `
         <svg:path
             fill-rule="evenodd"

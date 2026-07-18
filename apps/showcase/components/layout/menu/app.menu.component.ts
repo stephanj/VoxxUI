@@ -1,6 +1,6 @@
 import { default as MenuData } from '@/assets/data/menu.json';
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, afterNextRender, Component, computed, ElementRef, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AutoComplete } from 'voxx-ui/autocomplete';
@@ -23,7 +23,9 @@ export interface MenuItem {
     template: ` <aside>
         <nav>
             <ol class="layout-menu">
-                <li *ngFor="let item of menu; let i = index" app-menuitem [item]="item" [root]="true"></li>
+                @for (item of menu; track item; let i = $index) {
+                    <li app-menuitem [item]="item" [root]="true"></li>
+                }
             </ol>
         </nav>
     </aside>`,
@@ -32,7 +34,7 @@ export interface MenuItem {
         '[class.active]': 'isActive()'
     },
     standalone: true,
-    imports: [CommonModule, RouterModule, AppMenuItemComponent]
+    imports: [RouterModule, AppMenuItemComponent]
 })
 export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];

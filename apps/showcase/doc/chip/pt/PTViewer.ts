@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChipModule } from 'voxx-ui/chip';
 
@@ -7,7 +7,7 @@ import { ChipModule } from 'voxx-ui/chip';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'chip-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ChipModule],
+    imports: [AppDocPtViewer, ChipModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-4">

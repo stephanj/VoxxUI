@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { AutoCompleteCompleteEvent } from 'voxx-ui/autocomplete';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { ToastModule } from 'voxx-ui/toast';
@@ -14,7 +14,7 @@ import { AppCode } from '@/components/doc/app.code';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-driven-forms-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <vx-toast />

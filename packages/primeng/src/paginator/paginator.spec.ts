@@ -101,9 +101,7 @@ class TestBasicPaginatorComponent {
         </vx-paginator>
     `
 })
-class TestPTemplatePaginatorComponent {
-    // Component with vxTemplate templates
-}
+class TestPTemplatePaginatorComponent {}
 
 // Test component for ContentChild template references
 @Component({
@@ -133,9 +131,7 @@ class TestPTemplatePaginatorComponent {
         </vx-paginator>
     `
 })
-class TestContentChildPaginatorComponent {
-    // Component with ContentChild template references
-}
+class TestContentChildPaginatorComponent {}
 
 // Test component for jump to page and dropdown templates
 @Component({
@@ -323,7 +319,7 @@ describe('Paginator', () => {
 
     describe('Event Handling', () => {
         it('should emit onPageChange when changing page', async () => {
-            spyOn(paginator.onPageChange, 'emit');
+            vi.spyOn(paginator.onPageChange, 'emit').mockReturnValue(undefined);
 
             paginator.changePage(2);
             await fixture.whenStable();
@@ -420,8 +416,8 @@ describe('Paginator', () => {
         });
 
         it('should handle rows per page change', async () => {
-            spyOn(paginator, 'onRppChange').and.callThrough();
-            spyOn(paginator, 'changePage').and.callThrough();
+            vi.spyOn(paginator, 'onRppChange');
+            vi.spyOn(paginator, 'changePage');
 
             paginator.onRppChange(new Event('change'));
             await fixture.whenStable();
@@ -435,7 +431,7 @@ describe('Paginator', () => {
             fixture.detectChanges();
             paginator.updatePageLinks();
 
-            spyOn(paginator, 'changePage').and.callThrough();
+            vi.spyOn(paginator, 'changePage');
 
             paginator.onPageDropdownChange({ value: 3, originalEvent: new Event('change') });
             await fixture.whenStable();
@@ -455,7 +451,7 @@ describe('Paginator', () => {
         });
 
         it('should handle invalid page numbers', () => {
-            spyOn(paginator.onPageChange, 'emit');
+            vi.spyOn(paginator.onPageChange, 'emit').mockReturnValue(undefined);
 
             paginator.changePage(-1);
             expect(paginator.onPageChange.emit).not.toHaveBeenCalled();
@@ -803,7 +799,7 @@ describe('Paginator', () => {
             const pageLink = fixture.debugElement.query(By.css('.p-paginator-page'));
             const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
-            spyOn(paginator, 'onPageLinkClick').and.callThrough();
+            vi.spyOn(paginator, 'onPageLinkClick');
 
             pageLink.nativeElement.dispatchEvent(enterEvent);
             pageLink.nativeElement.click();
@@ -903,7 +899,7 @@ describe('Paginator', () => {
             component.showJumpToPageInput = true;
             fixture.detectChanges();
 
-            spyOn(paginator, 'changePage').and.callThrough();
+            vi.spyOn(paginator, 'changePage');
 
             const input = fixture.debugElement.query(By.directive(InputNumber));
             const inputComponent = input.componentInstance as InputNumber;
@@ -1349,7 +1345,8 @@ describe('Paginator', () => {
     `
 })
 class TestDynamicPaginatorComponent {
-    @ViewChild('paginator') paginator!: Paginator;
+    @ViewChild('paginator')
+    paginator!: Paginator;
 
     totalRecords = 100;
     rows = 10;

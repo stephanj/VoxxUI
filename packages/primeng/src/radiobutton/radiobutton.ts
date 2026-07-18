@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -78,8 +77,7 @@ export class RadioControlRegistry {
  */
 @Component({
     selector: 'vx-radioButton, vx-radiobutton, vx-radio-button',
-    standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
+    imports: [AutoFocus, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -200,7 +198,7 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
 
     @ViewChild('input') inputViewChild!: ElementRef;
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
 
     public checked: Nullable<boolean>;
 

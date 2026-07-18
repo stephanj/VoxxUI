@@ -23,54 +23,57 @@ export const EDITOR_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-editor',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div [class]="cx('toolbar')" *ngIf="toolbar || headerTemplate || _headerTemplate" [vxBind]="ptm('toolbar')">
-            <ng-content select="vx-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-        </div>
-        <div [class]="cx('toolbar')" *ngIf="!toolbar && !headerTemplate && !_headerTemplate" [vxBind]="ptm('toolbar')">
-            <span class="ql-formats" [vxBind]="ptm('formats')">
-                <select class="ql-header" [vxBind]="ptm('header')">
-                    <option value="1" [vxBind]="ptm('option')">Heading</option>
-                    <option value="2" [vxBind]="ptm('option')">Subheading</option>
-                    <option selected [vxBind]="ptm('option')">Normal</option>
-                </select>
-                <select class="ql-font" [vxBind]="ptm('select')">
-                    <option selected [vxBind]="ptm('option')">Sans Serif</option>
-                    <option value="serif" [vxBind]="ptm('option')">Serif</option>
-                    <option value="monospace" [vxBind]="ptm('option')">Monospace</option>
-                </select>
-            </span>
-            <span class="ql-formats" [vxBind]="ptm('formats')">
-                <button class="ql-bold" aria-label="Bold" type="button" [vxBind]="ptm('bold')"></button>
-                <button class="ql-italic" aria-label="Italic" type="button" [vxBind]="ptm('italic')"></button>
-                <button class="ql-underline" aria-label="Underline" type="button" [vxBind]="ptm('underline')"></button>
-            </span>
-            <span class="ql-formats" [vxBind]="ptm('formats')">
-                <select class="ql-color" [vxBind]="ptm('color')"></select>
-                <select class="ql-background" [vxBind]="ptm('background')"></select>
-            </span>
-            <span class="ql-formats" [vxBind]="ptm('formats')">
-                <button class="ql-list" value="ordered" aria-label="Ordered List" type="button" [vxBind]="ptm('list')"></button>
-                <button class="ql-list" value="bullet" aria-label="Unordered List" type="button" [vxBind]="ptm('list')"></button>
-                <select class="ql-align" [vxBind]="ptm('select')">
-                    <option selected [vxBind]="ptm('option')"></option>
-                    <option value="center" [vxBind]="ptm('option')">center</option>
-                    <option value="right" [vxBind]="ptm('option')">right</option>
-                    <option value="justify" [vxBind]="ptm('option')">justify</option>
-                </select>
-            </span>
-            <span class="ql-formats" [vxBind]="ptm('formats')">
-                <button class="ql-link" aria-label="Insert Link" type="button" [vxBind]="ptm('link')"></button>
-                <button class="ql-image" aria-label="Insert Image" type="button" [vxBind]="ptm('image')"></button>
-                <button class="ql-code-block" aria-label="Insert Code Block" type="button" [vxBind]="ptm('codeBlock')"></button>
-            </span>
-            <span class="ql-formats" [vxBind]="ptm('formats')">
-                <button class="ql-clean" aria-label="Remove Styles" type="button" [vxBind]="ptm('clean')"></button>
-            </span>
-        </div>
+        @if (toolbar || headerTemplate || _headerTemplate) {
+            <div [class]="cx('toolbar')" [vxBind]="ptm('toolbar')">
+                <ng-content select="vx-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+            </div>
+        }
+        @if (!toolbar && !headerTemplate && !_headerTemplate) {
+            <div [class]="cx('toolbar')" [vxBind]="ptm('toolbar')">
+                <span class="ql-formats" [vxBind]="ptm('formats')">
+                    <select class="ql-header" [vxBind]="ptm('header')">
+                        <option value="1" [vxBind]="ptm('option')">Heading</option>
+                        <option value="2" [vxBind]="ptm('option')">Subheading</option>
+                        <option selected [vxBind]="ptm('option')">Normal</option>
+                    </select>
+                    <select class="ql-font" [vxBind]="ptm('select')">
+                        <option selected [vxBind]="ptm('option')">Sans Serif</option>
+                        <option value="serif" [vxBind]="ptm('option')">Serif</option>
+                        <option value="monospace" [vxBind]="ptm('option')">Monospace</option>
+                    </select>
+                </span>
+                <span class="ql-formats" [vxBind]="ptm('formats')">
+                    <button class="ql-bold" aria-label="Bold" type="button" [vxBind]="ptm('bold')"></button>
+                    <button class="ql-italic" aria-label="Italic" type="button" [vxBind]="ptm('italic')"></button>
+                    <button class="ql-underline" aria-label="Underline" type="button" [vxBind]="ptm('underline')"></button>
+                </span>
+                <span class="ql-formats" [vxBind]="ptm('formats')">
+                    <select class="ql-color" [vxBind]="ptm('color')"></select>
+                    <select class="ql-background" [vxBind]="ptm('background')"></select>
+                </span>
+                <span class="ql-formats" [vxBind]="ptm('formats')">
+                    <button class="ql-list" value="ordered" aria-label="Ordered List" type="button" [vxBind]="ptm('list')"></button>
+                    <button class="ql-list" value="bullet" aria-label="Unordered List" type="button" [vxBind]="ptm('list')"></button>
+                    <select class="ql-align" [vxBind]="ptm('select')">
+                        <option selected [vxBind]="ptm('option')"></option>
+                        <option value="center" [vxBind]="ptm('option')">center</option>
+                        <option value="right" [vxBind]="ptm('option')">right</option>
+                        <option value="justify" [vxBind]="ptm('option')">justify</option>
+                    </select>
+                </span>
+                <span class="ql-formats" [vxBind]="ptm('formats')">
+                    <button class="ql-link" aria-label="Insert Link" type="button" [vxBind]="ptm('link')"></button>
+                    <button class="ql-image" aria-label="Insert Image" type="button" [vxBind]="ptm('image')"></button>
+                    <button class="ql-code-block" aria-label="Insert Code Block" type="button" [vxBind]="ptm('codeBlock')"></button>
+                </span>
+                <span class="ql-formats" [vxBind]="ptm('formats')">
+                    <button class="ql-clean" aria-label="Remove Styles" type="button" [vxBind]="ptm('clean')"></button>
+                </span>
+            </div>
+        }
         <div [class]="cx('content')" [ngStyle]="style" [vxBind]="ptm('content')"></div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle, { provide: EDITOR_INSTANCE, useExisting: Editor }, { provide: PARENT_INSTANCE, useExisting: Editor }],

@@ -1,6 +1,6 @@
 import News from '@/assets/data/news.json';
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
+
 import { afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     templateUrl: './app.news.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, RouterModule]
+    imports: [RouterModule]
 })
 export class AppNewsComponent {
     storageKey: string = 'primeng';

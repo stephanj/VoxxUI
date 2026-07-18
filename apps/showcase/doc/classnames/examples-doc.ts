@@ -1,6 +1,6 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { ClassNamesModule } from 'voxx-ui/classnames';
 
@@ -8,7 +8,7 @@ import { ClassNamesModule } from 'voxx-ui/classnames';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'examples-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, ClassNamesModule, CommonModule],
+    imports: [AppDocSectionText, AppCode, ClassNamesModule],
     template: `
         <app-docsectiontext>
             <p>

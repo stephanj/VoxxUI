@@ -417,8 +417,8 @@ describe('Drawer', () => {
         });
 
         // TODO: This test requires BrowserAnimationsModule as show() is called in onAnimationStart
-        xit('should call show method when drawer becomes visible', async () => {
-            const showSpy = spyOn(drawerComponent, 'show').and.callThrough();
+        it.skip('should call show method when drawer becomes visible', async () => {
+            const showSpy = vi.spyOn(drawerComponent, 'show');
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -429,14 +429,14 @@ describe('Drawer', () => {
         });
 
         it('should call hide method with emit parameter', () => {
-            spyOn(drawerComponent, 'hide');
+            vi.spyOn(drawerComponent, 'hide').mockReturnValue(undefined);
             drawerComponent.hide(false);
             expect(drawerComponent.hide).toHaveBeenCalledWith(false);
         });
 
         it('should call close method with event parameter', () => {
             const mockEvent = new Event('click');
-            spyOn(drawerComponent, 'close');
+            vi.spyOn(drawerComponent, 'close').mockReturnValue(undefined);
             drawerComponent.close(mockEvent);
             expect(drawerComponent.close).toHaveBeenCalledWith(mockEvent);
         });
@@ -456,7 +456,7 @@ describe('Drawer', () => {
         });
 
         // TODO: This test requires BrowserAnimationsModule as onShow is emitted in show() which is called in onAnimationStart
-        xit('should emit onShow event when drawer is shown', async () => {
+        it.skip('should emit onShow event when drawer is shown', async () => {
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -482,7 +482,7 @@ describe('Drawer', () => {
         });
 
         // TODO: This test requires BrowserAnimationsModule as visibleChange is emitted in show() which is called in onAnimationStart
-        xit('should emit visibleChange event when visibility changes', async () => {
+        it.skip('should emit visibleChange event when visibility changes', async () => {
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1012,7 +1012,7 @@ describe('Drawer', () => {
         });
 
         // TODO: This test fails with ExpressionChangedAfterItHasBeenCheckedError in zoneless mode due to two-way binding
-        xit('should handle multiple drawer instances', async () => {
+        it.skip('should handle multiple drawer instances', async () => {
             const fixture1 = TestBed.createComponent(TestDrawerBasicComponent);
             const component1 = fixture1.componentInstance;
             fixture1.changeDetectorRef.markForCheck();

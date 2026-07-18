@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'voxx-ui/api';
 import { ButtonModule } from 'voxx-ui/button';
@@ -13,7 +13,7 @@ import { ToastModule } from 'voxx-ui/toast';
 @Component({
     selector: 'columnselection-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, ToastModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, ButtonModule, ToastModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Row selection with an element inside a column is implemented with templating.</p>
         </app-docsectiontext>

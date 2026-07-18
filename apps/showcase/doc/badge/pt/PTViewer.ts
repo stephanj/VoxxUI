@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BadgeModule } from 'voxx-ui/badge';
 
@@ -7,7 +7,7 @@ import { BadgeModule } from 'voxx-ui/badge';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'badge-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, BadgeModule],
+    imports: [AppDocPtViewer, BadgeModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-8">

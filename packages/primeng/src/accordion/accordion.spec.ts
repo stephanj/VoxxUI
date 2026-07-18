@@ -136,7 +136,8 @@ class TestCustomIconAccordionComponent {
     `
 })
 class TestPTAccordionComponent {
-    @Input() pt: any;
+    @Input()
+    pt: any;
 }
 
 describe('Accordion', () => {
@@ -354,7 +355,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(secondHeader, 'focus');
+            vi.spyOn(secondHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
 
@@ -368,7 +369,7 @@ describe('Accordion', () => {
 
             secondHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            spyOn(firstHeader, 'focus');
+            vi.spyOn(firstHeader, 'focus').mockReturnValue(undefined);
 
             secondHeader.dispatchEvent(event);
 
@@ -382,7 +383,7 @@ describe('Accordion', () => {
 
             lastHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(firstHeader, 'focus');
+            vi.spyOn(firstHeader, 'focus').mockReturnValue(undefined);
 
             lastHeader.dispatchEvent(event);
 
@@ -396,7 +397,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(lastHeader, 'focus');
+            vi.spyOn(lastHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
 
@@ -438,7 +439,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(thirdHeader, 'focus');
+            vi.spyOn(thirdHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
 
@@ -452,7 +453,7 @@ describe('Accordion', () => {
 
             lastHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(firstHeader, 'focus');
+            vi.spyOn(firstHeader, 'focus').mockReturnValue(undefined);
 
             lastHeader.dispatchEvent(event);
 
@@ -466,7 +467,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            spyOn(lastHeader, 'focus');
+            vi.spyOn(lastHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
 
@@ -502,7 +503,7 @@ describe('Accordion', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const spy = spyOn(accordion, 'updateValue');
+            const spy = vi.spyOn(accordion, 'updateValue').mockReturnValue(undefined);
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
             headers[0].nativeElement.click();
 

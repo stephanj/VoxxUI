@@ -7,13 +7,12 @@ import { ButtonModule } from 'voxx-ui/button';
 import { MessageModule } from 'voxx-ui/message';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { CommonModule } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, SelectButtonModule, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode, CommonModule],
+    imports: [ReactiveFormsModule, SelectButtonModule, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>SelectButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>

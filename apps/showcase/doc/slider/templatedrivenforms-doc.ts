@@ -5,7 +5,7 @@ import { SliderModule } from 'voxx-ui/slider';
 import { ToastModule } from 'voxx-ui/toast';
 import { MessageModule } from 'voxx-ui/message';
 import { ButtonModule } from 'voxx-ui/button';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
@@ -13,7 +13,7 @@ import { AppCode } from '@/components/doc/app.code';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, SliderModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, SliderModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <vx-toast />

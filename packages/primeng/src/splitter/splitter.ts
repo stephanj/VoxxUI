@@ -17,38 +17,38 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
  */
 @Component({
     selector: 'vx-splitter',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
+        @for (panel of panels; track panel; let i = $index) {
             <div [vxBind]="ptm('panel')" [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1">
                 <ng-container *ngTemplateOutlet="panel"></ng-container>
             </div>
-            <div
-                *ngIf="i !== panels.length - 1"
-                [vxBind]="ptm('gutter')"
-                [class]="cx('gutter')"
-                role="separator"
-                tabindex="-1"
-                (mousedown)="onGutterMouseDown($event, i)"
-                (touchstart)="onGutterTouchStart($event, i)"
-                (touchmove)="onGutterTouchMove($event)"
-                (touchend)="onGutterTouchEnd($event)"
-                [attr.data-p-gutter-resizing]="false"
-                [attr.data-p]="dataP"
-            >
+            @if (i !== panels.length - 1) {
                 <div
-                    [vxBind]="ptm('gutterHandle')"
-                    [class]="cx('gutterHandle')"
-                    tabindex="0"
-                    [ngStyle]="gutterStyle()"
-                    [attr.aria-orientation]="layout"
-                    [attr.aria-valuenow]="prevSize"
-                    (keyup)="onGutterKeyUp($event)"
-                    (keydown)="onGutterKeyDown($event, i)"
-                ></div>
-            </div>
-        </ng-template>
+                    [vxBind]="ptm('gutter')"
+                    [class]="cx('gutter')"
+                    role="separator"
+                    tabindex="-1"
+                    (mousedown)="onGutterMouseDown($event, i)"
+                    (touchstart)="onGutterTouchStart($event, i)"
+                    (touchmove)="onGutterTouchMove($event)"
+                    (touchend)="onGutterTouchEnd($event)"
+                    [attr.data-p-gutter-resizing]="false"
+                    [attr.data-p]="dataP"
+                >
+                    <div
+                        [vxBind]="ptm('gutterHandle')"
+                        [class]="cx('gutterHandle')"
+                        tabindex="0"
+                        [ngStyle]="gutterStyle()"
+                        [attr.aria-orientation]="layout"
+                        [attr.aria-valuenow]="prevSize"
+                        (keyup)="onGutterKeyUp($event)"
+                        (keydown)="onGutterKeyDown($event, i)"
+                    ></div>
+                </div>
+            }
+        }
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,

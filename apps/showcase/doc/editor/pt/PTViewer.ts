@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditorModule } from 'voxx-ui/editor';
@@ -8,7 +8,7 @@ import { EditorModule } from 'voxx-ui/editor';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'editor-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, EditorModule, FormsModule],
+    imports: [AppDocPtViewer, EditorModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-editor [(ngModel)]="value" [style]="{ height: '320px' }"></vx-editor>

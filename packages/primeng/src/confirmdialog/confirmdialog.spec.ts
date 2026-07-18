@@ -467,7 +467,7 @@ describe('ConfirmDialog', () => {
         });
 
         it('should handle accept action', async () => {
-            const acceptSpy = spyOn(confirmDialogInstance, 'onAccept').and.callThrough();
+            const acceptSpy = vi.spyOn(confirmDialogInstance, 'onAccept');
 
             confirmDialogInstance.onAccept();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -476,7 +476,7 @@ describe('ConfirmDialog', () => {
         });
 
         it('should handle reject action', async () => {
-            const rejectSpy = spyOn(confirmDialogInstance, 'onReject').and.callThrough();
+            const rejectSpy = vi.spyOn(confirmDialogInstance, 'onReject');
 
             confirmDialogInstance.onReject();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -940,7 +940,7 @@ describe('ConfirmDialog', () => {
         });
 
         it('should handle dialog visibility changes', async () => {
-            const visibilityChangeSpy = spyOn(confirmDialogInstance, 'onVisibleChange').and.callThrough();
+            const visibilityChangeSpy = vi.spyOn(confirmDialogInstance, 'onVisibleChange');
 
             confirmDialogInstance.onVisibleChange(true);
             await new Promise((resolve) => setTimeout(resolve, 0));

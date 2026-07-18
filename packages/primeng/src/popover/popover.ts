@@ -8,7 +8,6 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    HostListener,
     inject,
     InjectionToken,
     input,
@@ -44,7 +43,6 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
  */
 @Component({
     selector: 'vx-popover',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind, MotionModule],
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     hostDirectives: [Bind],
@@ -75,7 +73,10 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '(document:keydown.escape)': 'onEscapeKeydown($event)'
+    }
 })
 export class Popover extends BaseComponent<PopoverPassThrough> {
     componentName = 'Popover';
@@ -358,8 +359,8 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(event: MotionEvent) {
-        this.container = event.element as HTMLDivElement;
+    onAnimationStart(event: MotionEvent | undefined) {
+        this.container = event?.element as HTMLDivElement;
         this.container?.setAttribute(this.$attrSelector, '');
         this.appendOverlay();
         this.align();
@@ -426,8 +427,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         event.preventDefault();
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
-    onEscapeKeydown(_event: KeyboardEvent) {
+    onEscapeKeydown(_event: Event) {
         this.hide();
     }
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'voxx-ui/api';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'group-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>

@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'voxx-ui/api';
@@ -9,7 +9,7 @@ import { ToastModule } from 'voxx-ui/toast';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-doccopymarkdown',
     standalone: true,
-    imports: [CommonModule, SplitButtonModule, ToastModule],
+    imports: [SplitButtonModule, ToastModule],
     providers: [MessageService],
     template: `
         <vx-toast position="top-right" />

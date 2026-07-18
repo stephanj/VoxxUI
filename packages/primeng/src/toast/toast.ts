@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+    DestroyRef,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -22,6 +23,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { isEmpty, setAttribute, uuid } from '@primeuix/utils';
 import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'voxx-ui/api';
@@ -31,14 +33,12 @@ import { CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesCircleIcon, Ti
 import { MotionModule } from 'voxx-ui/motion';
 import { ToastCloseEvent, ToastHeadlessTemplateContext, ToastItemCloseEvent, ToastMessageTemplateContext, ToastPassThrough, ToastPositionType } from 'voxx-ui/types/toast';
 import { ZIndexUtils } from 'voxx-ui/utils';
-import { Subscription } from 'rxjs';
 import { ToastStyle } from './style/toaststyle';
 
 const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
 
 @Component({
     selector: 'vx-toastItem',
-    standalone: true,
     imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
         <div
@@ -63,11 +63,11 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                 <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
             } @else {
                 <div [vxBind]="ptm('messageContent')" [class]="cn(cx('messageContent'), message?.contentStyleClass)">
-                    <ng-container *ngIf="!template">
-                        @if (message.icon) {
+                    @if (!template) {
+                        @if (message?.icon) {
                             <span [vxBind]="ptm('messageIcon')" [class]="cn(cx('messageIcon'), message?.icon)"></span>
                         } @else {
-                            @switch (message.severity) {
+                            @switch (message?.severity) {
                                 @case ('success') {
                                     <svg [vxBind]="ptm('messageIcon')" data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
@@ -87,11 +87,11 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                         }
                         <div [vxBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
                             <div [vxBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
-                                {{ message.summary }}
+                                {{ message?.summary }}
                             </div>
-                            <div [vxBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
+                            <div [vxBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message?.detail }}</div>
                         </div>
-                    </ng-container>
+                    }
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
                     @if (message?.closable !== false) {
                         <div>
@@ -105,8 +105,10 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                                 autofocus
                                 [attr.data-p]="dataP"
                             >
-                                @if (message.closeIcon) {
-                                    <span [vxBind]="ptm('closeIcon')" *ngIf="message.closeIcon" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
+                                @if (message?.closeIcon) {
+                                    @if (message?.closeIcon) {
+                                        <span [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
+                                    }
                                 } @else {
                                     <svg [vxBind]="ptm('closeIcon')" data-p-icon="times" [class]="cx('closeIcon')" [attr.aria-hidden]="true" />
                                 }
@@ -148,11 +150,11 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     onAnimationEnd = output<HTMLElement>();
 
-    onBeforeEnter(event: MotionEvent) {
-        this.onAnimationStart.emit(event.element as HTMLElement);
+    onBeforeEnter(event: MotionEvent | undefined) {
+        this.onAnimationStart.emit(event?.element as HTMLElement);
     }
 
-    onAfterLeave(event: MotionEvent) {
+    onAfterLeave(event: MotionEvent | undefined) {
         if (!this.visible() && !this.isDestroyed) {
             this.onClose.emit({
                 index: <number>this.index,
@@ -160,7 +162,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             });
 
             if (!this.isDestroyed) {
-                this.onAnimationEnd.emit(event.element as HTMLElement);
+                this.onAnimationEnd.emit(event?.element as HTMLElement);
             }
         }
     }
@@ -254,24 +256,24 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
  */
 @Component({
     selector: 'vx-toast',
-    standalone: true,
-    imports: [CommonModule, ToastItem, SharedModule],
+    imports: [ToastItem, SharedModule],
     template: `
-        <vx-toastItem
-            *ngFor="let msg of messages; let i = index"
-            [message]="msg"
-            [index]="i"
-            [life]="life"
-            [clearAll]="clearAllTrigger()"
-            (onClose)="onMessageClose($event)"
-            (onAnimationEnd)="onAnimationEnd()"
-            (onAnimationStart)="onAnimationStart()"
-            [template]="template || _template"
-            [headlessTemplate]="headlessTemplate || _headlessTemplate"
-            [pt]="pt"
-            [unstyled]="unstyled()"
-            [motionOptions]="computedMotionOptions()"
-        ></vx-toastItem>
+        @for (msg of messages; track msg; let i = $index) {
+            <vx-toastItem
+                [message]="msg"
+                [index]="i"
+                [life]="life"
+                [clearAll]="clearAllTrigger()"
+                (onClose)="onMessageClose($event)"
+                (onAnimationEnd)="onAnimationEnd()"
+                (onAnimationStart)="onAnimationStart()"
+                [template]="template || _template"
+                [headlessTemplate]="headlessTemplate || _headlessTemplate"
+                [pt]="pt()"
+                [unstyled]="unstyled()"
+                [motionOptions]="computedMotionOptions()"
+            ></vx-toastItem>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -404,10 +406,6 @@ export class Toast extends BaseComponent<ToastPassThrough> {
      */
     @ContentChild('headless') headlessTemplate: TemplateRef<ToastHeadlessTemplateContext> | undefined;
 
-    messageSubscription: Subscription | undefined;
-
-    clearSubscription: Subscription | undefined;
-
     messages: ToastMessageOptions[] | null | undefined;
 
     messagesArchieve: ToastMessageOptions[] | undefined;
@@ -426,12 +424,14 @@ export class Toast extends BaseComponent<ToastPassThrough> {
 
     clearAllTrigger = signal<{} | null>(null);
 
+    destroyRef = inject(DestroyRef);
+
     constructor() {
         super();
     }
 
     onInit() {
-        this.messageSubscription = this.messageService.messageObserver.subscribe((messages) => {
+        this.messageService.messageObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((messages) => {
             if (messages) {
                 if (Array.isArray(messages)) {
                     const filteredMessages = messages.filter((m) => this.canAdd(m));
@@ -442,7 +442,7 @@ export class Toast extends BaseComponent<ToastPassThrough> {
             }
         });
 
-        this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
+        this.messageService.clearObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((key) => {
             if (key) {
                 if (this.key === key) {
                     this.clearAll();
@@ -580,16 +580,8 @@ export class Toast extends BaseComponent<ToastPassThrough> {
     }
 
     onDestroy() {
-        if (this.messageSubscription) {
-            this.messageSubscription.unsubscribe();
-        }
-
         if (this.el && this.autoZIndex) {
             ZIndexUtils.clear(this.el.nativeElement);
-        }
-
-        if (this.clearSubscription) {
-            this.clearSubscription.unsubscribe();
         }
 
         this.destroyStyle();

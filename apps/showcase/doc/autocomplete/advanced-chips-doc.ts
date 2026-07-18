@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
@@ -12,7 +12,7 @@ import { ChipModule } from 'voxx-ui/chip';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'advanced-chips-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
     providers: [ProductService],
     template: ` <app-docsectiontext>
             <p>This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.</p>

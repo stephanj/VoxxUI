@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectButtonModule } from 'voxx-ui/selectbutton';
@@ -12,7 +12,7 @@ import { TableModule } from 'voxx-ui/table';
 @Component({
     selector: 'size-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TableModule, SelectButtonModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [FormsModule, TableModule, SelectButtonModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>

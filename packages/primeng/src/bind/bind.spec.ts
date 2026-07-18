@@ -89,8 +89,8 @@ class TestBindStylesComponent {
     template: `<div [vxBind]="attrs"></div>`
 })
 class TestBindListenersComponent {
-    clickHandler = jasmine.createSpy('click');
-    hoverHandler = jasmine.createSpy('hover');
+    clickHandler = vi.fn().mockName('click');
+    hoverHandler = vi.fn().mockName('hover');
 
     attrs = {
         onclick: this.clickHandler,
@@ -105,7 +105,7 @@ class TestBindListenersComponent {
     template: `<div [vxBind]="attrs" class="existing-class" style="margin: 10px;"></div>`
 })
 class TestBindMixedComponent {
-    clickHandler = jasmine.createSpy('click');
+    clickHandler = vi.fn().mockName('click');
 
     attrs = {
         id: 'mixed-id',

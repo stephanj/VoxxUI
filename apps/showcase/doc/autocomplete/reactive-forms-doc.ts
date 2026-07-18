@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'voxx-ui/api';
-import { CommonModule } from '@angular/common';
+
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { ToastModule } from 'voxx-ui/toast';
 import { MessageModule } from 'voxx-ui/message';
@@ -18,7 +18,7 @@ interface AutoCompleteCompleteEvent {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'reactive-forms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, CommonModule, AppDocSectionText, AppCode],
+    imports: [ReactiveFormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>

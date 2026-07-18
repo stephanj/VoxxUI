@@ -18,7 +18,6 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
  */
 @Component({
     selector: 'vx-tablist',
-    standalone: true,
     imports: [CommonModule, ChevronLeftIcon, ChevronRightIcon, RippleModule, SharedModule, BindModule],
     template: `
         @if (showNavigators() && isPrevButtonEnabled()) {

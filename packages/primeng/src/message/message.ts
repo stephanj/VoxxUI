@@ -18,7 +18,6 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
  */
 @Component({
     selector: 'vx-message',
-    standalone: true,
     imports: [CommonModule, TimesIcon, Ripple, SharedModule, Bind, MotionModule],
     template: `
         <div [vxBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')" [attr.data-p]="dataP">
@@ -33,13 +32,17 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 @if (containerTemplate || _containerTemplate) {
                     <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                 } @else {
-                    <div *ngIf="!escape; else escapeOut">
-                        <span [vxBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
-                    </div>
-
-                    <ng-template #escapeOut>
-                        <span [vxBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
-                    </ng-template>
+                    @if (!escape) {
+                        <div>
+                            @if (!escape) {
+                                <span [vxBind]="ptm('text')" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
+                            }
+                        </div>
+                    } @else {
+                        @if (escape && text) {
+                            <span [vxBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
+                        }
+                    }
 
                     <span [vxBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
                         <ng-content></ng-content>
@@ -48,7 +51,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 @if (closable) {
                     <button [vxBind]="ptm('closeButton')" vxRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
                         @if (closeIcon) {
-                            <i [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
+                            <i [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon) ?? ''" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
                         }
                         @if (closeIconTemplate || _closeIconTemplate) {
                             <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>

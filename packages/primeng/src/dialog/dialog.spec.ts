@@ -396,7 +396,7 @@ describe('Dialog', () => {
 
             expect(dialogInstance.visible).toBe(true);
 
-            spyOn(component, 'onVisibleChangeEvent');
+            vi.spyOn(component, 'onVisibleChangeEvent').mockReturnValue(undefined);
             dialogInstance.close(new MouseEvent('click'));
             await new Promise((resolve) => setTimeout(resolve, 0));
             fixture.changeDetectorRef.markForCheck();
@@ -484,7 +484,7 @@ describe('Dialog', () => {
         });
 
         it('should emit visibleChange event when close method is called', async () => {
-            spyOn(dialogInstance.visibleChange, 'emit');
+            vi.spyOn(dialogInstance.visibleChange, 'emit').mockReturnValue(undefined);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -497,7 +497,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onMaximize event when maximize button is clicked', async () => {
-            spyOn(component, 'onMaximizeEvent');
+            vi.spyOn(component, 'onMaximizeEvent').mockReturnValue(undefined);
             component.maximizable = true;
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -513,7 +513,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onResizeInit event when resizing starts', async () => {
-            spyOn(component, 'onResizeInitEvent');
+            vi.spyOn(component, 'onResizeInitEvent').mockReturnValue(undefined);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -527,7 +527,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onDragEnd event when dragging ends', async () => {
-            spyOn(component, 'onDragEndEvent');
+            vi.spyOn(component, 'onDragEndEvent').mockReturnValue(undefined);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
@@ -576,7 +576,7 @@ describe('Dialog', () => {
                 dialogInstance.enableModality();
                 await new Promise((resolve) => setTimeout(resolve, 50));
 
-                spyOn(dialogInstance.visibleChange, 'emit');
+                vi.spyOn(dialogInstance.visibleChange, 'emit').mockReturnValue(undefined);
 
                 // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
@@ -816,7 +816,7 @@ describe('Dialog', () => {
                 code: 'Escape'
             });
 
-            spyOn(dialogInstance, 'close');
+            vi.spyOn(dialogInstance, 'close').mockReturnValue(undefined);
             document.dispatchEvent(escapeEvent);
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1242,7 +1242,7 @@ describe('Dialog', () => {
             // Set breakpoints on dialogInstance directly since it's an input property
             dialogInstance.breakpoints = { '960px': '75vw', '640px': '90vw' };
 
-            spyOn(dialogInstance, 'createStyle');
+            vi.spyOn(dialogInstance, 'createStyle').mockReturnValue(undefined);
             dialogInstance.ngOnInit();
 
             expect(dialogInstance.createStyle).toHaveBeenCalled();
@@ -1273,7 +1273,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
-            spyOn(dialogInstance, 'initDrag');
+            vi.spyOn(dialogInstance, 'initDrag').mockReturnValue(undefined);
 
             const titleBar = fixture.debugElement.query(By.css('[class*="header"]'));
             if (titleBar) {
@@ -1300,7 +1300,7 @@ describe('Dialog', () => {
 
         it('should emit onResizeInit event', () => {
             const mouseEvent = new MouseEvent('mousedown');
-            spyOn(component, 'onResizeInitEvent');
+            vi.spyOn(component, 'onResizeInitEvent').mockReturnValue(undefined);
 
             dialogInstance.onResizeInit.emit(mouseEvent);
 
@@ -1309,7 +1309,7 @@ describe('Dialog', () => {
 
         it('should emit onDragEnd event', () => {
             const dragEvent = new DragEvent('dragend');
-            spyOn(component, 'onDragEndEvent');
+            vi.spyOn(component, 'onDragEndEvent').mockReturnValue(undefined);
 
             dialogInstance.onDragEnd.emit(dragEvent);
 

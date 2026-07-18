@@ -39,9 +39,11 @@ import { Listbox } from './listbox';
         ></vx-listbox>
 
         <!-- Reactive Forms test -->
-        <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
-            <vx-listbox formControlName="selectedItems" [options]="formOptions" [multiple]="true"> </vx-listbox>
-        </form>
+        @if (showReactiveForm) {
+            <form [formGroup]="reactiveForm">
+                <vx-listbox formControlName="selectedItems" [options]="formOptions" [multiple]="true"> </vx-listbox>
+            </form>
+        }
     `
 })
 class TestListboxComponent {
@@ -161,7 +163,7 @@ describe('Listbox', () => {
         });
 
         it('should handle option selection', async () => {
-            spyOn(testComponent, 'onSelectionChange');
+            vi.spyOn(testComponent, 'onSelectionChange').mockReturnValue(undefined);
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             firstOption.nativeElement.click();
@@ -263,7 +265,7 @@ describe('Listbox', () => {
         });
 
         it('should not respond to clicks when disabled', async () => {
-            spyOn(testComponent, 'onSelectionChange');
+            vi.spyOn(testComponent, 'onSelectionChange').mockReturnValue(undefined);
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             firstOption.nativeElement.click();
@@ -326,7 +328,7 @@ describe('Listbox', () => {
         });
 
         it('should emit onChange event when selection changes', async () => {
-            spyOn(testComponent, 'onSelectionChange');
+            vi.spyOn(testComponent, 'onSelectionChange').mockReturnValue(undefined);
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             firstOption.nativeElement.click();
@@ -361,7 +363,7 @@ describe('Listbox', () => {
 
         it('should handle touch events', async () => {
             const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
-            spyOn(listboxComponent, 'onOptionTouchEnd').and.callThrough();
+            vi.spyOn(listboxComponent, 'onOptionTouchEnd');
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             if (firstOption) {
@@ -409,8 +411,8 @@ describe('Listbox', () => {
 
         it('should emit onDblClick event', async () => {
             const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
-            spyOn(listboxComponent.onDblClick, 'emit');
-            spyOn(listboxComponent, 'onOptionDoubleClick').and.callThrough();
+            vi.spyOn(listboxComponent.onDblClick, 'emit').mockReturnValue(undefined);
+            vi.spyOn(listboxComponent, 'onOptionDoubleClick');
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             if (firstOption) {
@@ -459,7 +461,7 @@ describe('Listbox', () => {
         });
 
         it('should not allow selection in readonly mode', async () => {
-            spyOn(testComponent, 'onSelectionChange');
+            vi.spyOn(testComponent, 'onSelectionChange').mockReturnValue(undefined);
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             if (firstOption) {
@@ -473,7 +475,7 @@ describe('Listbox', () => {
 
         it('should not handle touch events in readonly mode', async () => {
             const listboxComponent = testFixture.debugElement.query(By.css('vx-listbox')).componentInstance;
-            spyOn(listboxComponent, 'onOptionTouchEnd').and.callThrough();
+            vi.spyOn(listboxComponent, 'onOptionTouchEnd');
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             if (firstOption) {
@@ -803,7 +805,7 @@ describe('Listbox', () => {
         });
 
         it('should emit onChange event', async () => {
-            spyOn(testComponent, 'onSelectionChange');
+            vi.spyOn(testComponent, 'onSelectionChange').mockReturnValue(undefined);
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             firstOption?.nativeElement.click();
@@ -814,7 +816,7 @@ describe('Listbox', () => {
         });
 
         it('should emit onFocus event', async () => {
-            spyOn(testComponent, 'onFocus');
+            vi.spyOn(testComponent, 'onFocus').mockReturnValue(undefined);
 
             const listbox = testFixture.debugElement.query(By.css('[role="listbox"]'));
             listbox?.nativeElement.dispatchEvent(new FocusEvent('focus'));
@@ -825,7 +827,7 @@ describe('Listbox', () => {
         });
 
         it('should emit onBlur event', async () => {
-            spyOn(testComponent, 'onBlur');
+            vi.spyOn(testComponent, 'onBlur').mockReturnValue(undefined);
 
             const listbox = testFixture.debugElement.query(By.css('[role="listbox"]'));
             listbox?.nativeElement.dispatchEvent(new FocusEvent('blur'));
@@ -839,7 +841,7 @@ describe('Listbox', () => {
             testComponent.filter = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
-            spyOn(testComponent, 'onFilter');
+            vi.spyOn(testComponent, 'onFilter').mockReturnValue(undefined);
 
             const filterInput = testFixture.debugElement.query(By.css('input[vxInputText]'));
             if (filterInput) {
@@ -853,7 +855,7 @@ describe('Listbox', () => {
         });
 
         it('should emit onDblClick event', async () => {
-            spyOn(testComponent, 'onDblClick');
+            vi.spyOn(testComponent, 'onDblClick').mockReturnValue(undefined);
 
             const firstOption = testFixture.debugElement.query(By.css('.p-listbox-option'));
             if (firstOption) {
@@ -1133,8 +1135,12 @@ describe('Listbox', () => {
             <!-- Checkmark template -->
             <ng-template vxTemplate="checkmark" let-selected="selected">
                 <span class="custom-checkmark" data-testid="ptemplate-checkmark" [attr.data-selected]="selected">
-                    <i class="pi pi-check-circle" *ngIf="selected"></i>
-                    <i class="pi pi-circle" *ngIf="!selected"></i>
+                    @if (selected) {
+                        <i class="pi pi-check-circle"></i>
+                    }
+                    @if (!selected) {
+                        <i class="pi pi-circle"></i>
+                    }
                 </span>
             </ng-template>
 
@@ -1248,8 +1254,12 @@ class TestListboxPTemplateComponent {
             <!-- Checkmark template -->
             <ng-template #checkmark let-selected="selected">
                 <span class="custom-checkmark" data-testid="ref-checkmark" [attr.data-selected]="selected">
-                    <i class="pi pi-check-circle" *ngIf="selected"></i>
-                    <i class="pi pi-circle" *ngIf="!selected"></i>
+                    @if (selected) {
+                        <i class="pi pi-check-circle"></i>
+                    }
+                    @if (!selected) {
+                        <i class="pi pi-circle"></i>
+                    }
                 </span>
             </ng-template>
 
@@ -1902,11 +1912,11 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
     describe('All Event Emitters Comprehensive Test', () => {
         it('should emit all events with proper data', async () => {
-            spyOn(component, 'onChangeHandler');
-            spyOn(component, 'onFilterHandler');
-            spyOn(component, 'onFocusHandler');
-            spyOn(component, 'onBlurHandler');
-            spyOn(component, 'onDblClickHandler');
+            vi.spyOn(component, 'onChangeHandler').mockReturnValue(undefined);
+            vi.spyOn(component, 'onFilterHandler').mockReturnValue(undefined);
+            vi.spyOn(component, 'onFocusHandler').mockReturnValue(undefined);
+            vi.spyOn(component, 'onBlurHandler').mockReturnValue(undefined);
+            vi.spyOn(component, 'onDblClickHandler').mockReturnValue(undefined);
 
             // Set options manually since async may not load in test
             const listboxComponent = listboxElement.componentInstance;

@@ -39,49 +39,51 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
  */
 @Component({
     selector: 'vx-panel',
-    standalone: true,
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
-        <div [vxBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
-            <span [vxBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
-            <ng-content select="vx-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            <div [vxBind]="ptm('headerActions')" [class]="cx('headerActions')">
-                <ng-template *ngTemplateOutlet="iconsTemplate || _iconsTemplate"></ng-template>
-                <vx-button
-                    *ngIf="toggleable"
-                    [attr.id]="id + '_header'"
-                    severity="secondary"
-                    [text]="true"
-                    [rounded]="true"
-                    type="button"
-                    role="button"
-                    [styleClass]="cx('pcToggleButton')"
-                    [attr.aria-label]="buttonAriaLabel"
-                    [attr.aria-controls]="id + '_content'"
-                    [attr.aria-expanded]="!collapsed"
-                    (click)="onIconClick($event)"
-                    (keydown)="onKeyDown($event)"
-                    [buttonProps]="toggleButtonProps"
-                    [pt]="ptm('pcToggleButton')"
-                    [unstyled]="unstyled()"
-                >
-                    <ng-template #icon>
-                        <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
-                            <ng-container *ngIf="!collapsed">
-                                <svg data-p-icon="minus" [vxBind]="ptm('pcToggleButton.icon')" />
-                            </ng-container>
-
-                            <ng-container *ngIf="collapsed">
-                                <svg data-p-icon="plus" [vxBind]="ptm('pcToggleButton.icon')" />
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
-                    </ng-template>
-                </vx-button>
+        @if (showHeader) {
+            <div [vxBind]="ptm('header')" [class]="cx('header')" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
+                @if (_header) {
+                    <span [vxBind]="ptm('title')" [class]="cx('title')" [attr.id]="id + '_header'">{{ _header }}</span>
+                }
+                <ng-content select="vx-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                <div [vxBind]="ptm('headerActions')" [class]="cx('headerActions')">
+                    <ng-template *ngTemplateOutlet="iconsTemplate || _iconsTemplate"></ng-template>
+                    @if (toggleable) {
+                        <vx-button
+                            [attr.id]="id + '_header'"
+                            severity="secondary"
+                            [text]="true"
+                            [rounded]="true"
+                            type="button"
+                            role="button"
+                            [styleClass]="cx('pcToggleButton')"
+                            [attr.aria-label]="buttonAriaLabel"
+                            [attr.aria-controls]="id + '_content'"
+                            [attr.aria-expanded]="!collapsed"
+                            (click)="onIconClick($event)"
+                            (keydown)="onKeyDown($event)"
+                            [buttonProps]="toggleButtonProps"
+                            [pt]="ptm('pcToggleButton')"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon) {
+                                    @if (!collapsed) {
+                                        <svg data-p-icon="minus" [vxBind]="ptm('pcToggleButton.icon')" />
+                                    }
+                                    @if (collapsed) {
+                                        <svg data-p-icon="plus" [vxBind]="ptm('pcToggleButton.icon')" />
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
+                            </ng-template>
+                        </vx-button>
+                    }
+                </div>
             </div>
-        </div>
+        }
         <div
             [vxBind]="ptm('contentContainer')"
             [vxMotion]="!toggleable || (toggleable && !collapsed)"
@@ -101,10 +103,12 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                 </div>
 
-                <div [vxBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="vx-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                </div>
+                @if (footerFacet || footerTemplate || _footerTemplate) {
+                    <div [vxBind]="ptm('footer')" [class]="cx('footer')">
+                        <ng-content select="vx-footer"></ng-content>
+                        <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                    </div>
+                }
             </div>
         </div>
     `,
@@ -357,7 +361,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
     }
 
-    onToggleDone(event: MotionEvent) {
+    onToggleDone(event: MotionEvent | undefined) {
         this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 

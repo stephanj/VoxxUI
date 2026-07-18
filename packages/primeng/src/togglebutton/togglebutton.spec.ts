@@ -263,7 +263,7 @@ describe('ToggleButton', () => {
         });
 
         it('should emit onChange event on toggle', () => {
-            spyOn(toggleButtonInstance.onChange, 'emit');
+            vi.spyOn(toggleButtonInstance.onChange, 'emit').mockReturnValue(undefined);
 
             toggleButtonElement.nativeElement.click();
             fixture.detectChanges();
@@ -447,7 +447,7 @@ describe('ToggleButton', () => {
 
         it('should emit onChange event in reactive forms', () => {
             const formToggleButtonInstance = formToggleButton.componentInstance;
-            spyOn(formToggleButtonInstance.onChange, 'emit');
+            vi.spyOn(formToggleButtonInstance.onChange, 'emit').mockReturnValue(undefined);
 
             formToggleButton.nativeElement.click();
             testFixture.detectChanges();
@@ -535,7 +535,7 @@ describe('ToggleButton', () => {
 
         it('should toggle on Enter key', () => {
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockReturnValue(undefined);
 
             toggleButtonElement.nativeElement.dispatchEvent(enterEvent);
             fixture.detectChanges();
@@ -546,7 +546,7 @@ describe('ToggleButton', () => {
 
         it('should toggle on Space key', () => {
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(spaceEvent, 'preventDefault');
+            vi.spyOn(spaceEvent, 'preventDefault').mockReturnValue(undefined);
 
             toggleButtonElement.nativeElement.dispatchEvent(spaceEvent);
             fixture.detectChanges();

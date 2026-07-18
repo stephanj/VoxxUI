@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+    DestroyRef,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -11,7 +12,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostListener,
     inject,
     InjectionToken,
     input,
@@ -28,6 +28,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@primeuix/utils';
@@ -44,7 +45,6 @@ import { InputText } from 'voxx-ui/inputtext';
 import { Overlay } from 'voxx-ui/overlay';
 import { Nullable, VoidListener } from 'voxx-ui/ts-helpers';
 import type { PasswordIconTemplateContext, PasswordPassThrough } from 'voxx-ui/types/password';
-import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 
 const PASSWORD_DIRECTIVE_INSTANCE = new InjectionToken<PasswordDirective>('PASSWORD_DIRECTIVE_INSTANCE');
@@ -61,9 +61,12 @@ type Meter = {
  */
 @Directive({
     selector: '[vxPassword]',
-    standalone: true,
     host: {
-        '[class]': "cx('rootDirective')"
+        '[class]': "cx('rootDirective')",
+        '(input)': 'onInput($event)',
+        '(focus)': 'onFocus()',
+        '(blur)': 'onBlur()',
+        '(keyup)': 'onKeyup($event)'
     },
     providers: [PasswordStyle, { provide: PASSWORD_DIRECTIVE_INSTANCE, useExisting: PasswordDirective }, { provide: PARENT_INSTANCE, useExisting: PasswordDirective }],
     hostDirectives: [Bind]
@@ -144,7 +147,7 @@ export class PasswordDirective extends BaseEditableHolder {
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
 
     get hasFluid() {
         return this.fluid() ?? !!this.pcFluid;
@@ -181,7 +184,6 @@ export class PasswordDirective extends BaseEditableHolder {
         });
     }
 
-    @HostListener('input', ['$event'])
     onInput(e: Event) {
         this.writeModelValue(this.el.nativeElement.value);
     }
@@ -249,19 +251,16 @@ export class PasswordDirective extends BaseEditableHolder {
         }
     }
 
-    @HostListener('focus')
     onFocus() {
         this.showOverlay();
     }
 
-    @HostListener('blur')
     onBlur() {
         this.hideOverlay();
     }
 
     labelSignal = signal('');
 
-    @HostListener('keyup', ['$event'])
     onKeyup(e: Event) {
         if (this.feedback) {
             let value = (e.target as HTMLInputElement).value,
@@ -412,8 +411,7 @@ type Mapper<T, G> = (item: T, ...args: any[]) => G;
 
 @Pipe({
     name: 'mapper',
-    pure: true,
-    standalone: true
+    pure: true
 })
 export class MapperPipe implements PipeTransform {
     public transform<T, G>(value: T, mapper: Mapper<T, G>, ...args: unknown[]): G {
@@ -432,7 +430,6 @@ export const Password_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-password',
-    standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, Overlay, SharedModule, BindModule],
     template: `
         <input
@@ -465,43 +462,52 @@ export const Password_VALUE_ACCESSOR: any = {
             [pt]="ptm('pcInputText')"
             [unstyled]="unstyled()"
         />
-        <ng-container *ngIf="showClear && value != null">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [vxBind]="ptm('clearIcon')" />
+        @if (showClear && value != null) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear()" [vxBind]="ptm('clearIcon')" />
+            }
             <span (click)="clear()" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
-        </ng-container>
+        }
 
-        <ng-container *ngIf="toggleMask">
-            <ng-container *ngIf="unmasked">
-                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [vxBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
-                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [vxBind]="ptm('maskIcon')">
-                    <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
-                </span>
-            </ng-container>
-            <ng-container *ngIf="!unmasked">
-                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [vxBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
-                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [vxBind]="ptm('unmaskIcon')">
-                    <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
-                </span>
-            </ng-container>
-        </ng-container>
+        @if (toggleMask) {
+            @if (unmasked) {
+                @if (!hideIconTemplate && !_hideIconTemplate) {
+                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [vxBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
+                }
+                @if (hideIconTemplate || _hideIconTemplate) {
+                    <span (click)="onMaskToggle()" [vxBind]="ptm('maskIcon')">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
+                    </span>
+                }
+            }
+            @if (!unmasked) {
+                @if (!showIconTemplate && !_showIconTemplate) {
+                    <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [vxBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                }
+                @if (showIconTemplate || _showIconTemplate) {
+                    <span (click)="onMaskToggle()" [vxBind]="ptm('unmaskIcon')">
+                        <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
+                    </span>
+                }
+            }
+        }
 
         <vx-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
                 <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultContent">
+                    @if (contentTemplate || _contentTemplate) {
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                    </ng-container>
-                    <ng-template #defaultContent>
+                    } @else {
                         <div [class]="cx('content')" [vxBind]="ptm('content')">
                             <div [class]="cx('meter')" [vxBind]="ptm('meter')">
                                 <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                             </div>
                             <div [class]="cx('meterText')" [vxBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>
-                    </ng-template>
+                    }
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 </div>
             </ng-template>
@@ -761,9 +767,9 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     value: Nullable<string> = null;
 
-    translationSubscription: Nullable<Subscription>;
-
     _componentStyle = inject(PasswordStyle);
+
+    destroyRef = inject(DestroyRef);
 
     overlayService = inject(OverlayService);
 
@@ -771,7 +777,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.updateUI(this.value || '');
         });
     }
@@ -955,12 +961,6 @@ export class Password extends BaseInput<PasswordPassThrough> {
         if (this.feedback) this.updateUI(this.value || '');
         setModelValue(this.value);
         this.cd.markForCheck();
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
     }
 
     get containerDataP() {

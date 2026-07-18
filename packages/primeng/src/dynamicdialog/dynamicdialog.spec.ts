@@ -1,3 +1,4 @@
+import type { MockedObject } from 'vitest';
 import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -87,7 +88,9 @@ class DialogWithinDialogComponent {
             <h3>Maximizable Dialog</h3>
             <p>This dialog can be maximized</p>
             <div style="height: 200px; overflow-y: auto;">
-                <p *ngFor="let item of items">{{ item }}</p>
+                @for (item of items; track item) {
+                    <p>{{ item }}</p>
+                }
             </div>
         </div>
     `
@@ -122,12 +125,19 @@ class ResizableDialogComponent {}
 class DraggableDialogComponent {}
 
 describe('DynamicDialog', () => {
-    let mockDialogRef: jasmine.SpyObj<DynamicDialogRef>;
+    let mockDialogRef: MockedObject<DynamicDialogRef>;
     let mockConfig: DynamicDialogConfig;
 
     beforeEach(async () => {
         // Create spy objects
-        mockDialogRef = jasmine.createSpyObj('DynamicDialogRef', ['close', 'destroy', 'dragStart', 'dragEnd', 'resizeInit', 'resizeEnd', 'maximize'], {
+        mockDialogRef = {
+            close: vi.fn().mockName('DynamicDialogRef.close'),
+            destroy: vi.fn().mockName('DynamicDialogRef.destroy'),
+            dragStart: vi.fn().mockName('DynamicDialogRef.dragStart'),
+            dragEnd: vi.fn().mockName('DynamicDialogRef.dragEnd'),
+            resizeInit: vi.fn().mockName('DynamicDialogRef.resizeInit'),
+            resizeEnd: vi.fn().mockName('DynamicDialogRef.resizeEnd'),
+            maximize: vi.fn().mockName('DynamicDialogRef.maximize'),
             onClose: new Subject(),
             onDestroy: new Subject(),
             onDragStart: new Subject(),
@@ -136,7 +146,7 @@ describe('DynamicDialog', () => {
             onResizeEnd: new Subject(),
             onMaximize: new Subject(),
             onChildComponentLoaded: new Subject()
-        });
+        } as unknown as MockedObject<DynamicDialogRef>;
 
         mockConfig = new DynamicDialogConfig();
 
@@ -321,9 +331,9 @@ describe('DynamicDialog', () => {
             Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
 
             // Mock DomHandler.getOffset to avoid parentElement issues
-            spyOn(DomHandler, 'getOffset').and.returnValue({ left: 50, top: 50 });
-            spyOn(component, 'bindDocumentDragListener');
-            spyOn(component, 'bindDocumentDragEndListener');
+            vi.spyOn(DomHandler, 'getOffset').mockReturnValue({ left: 50, top: 50 });
+            vi.spyOn(component, 'bindDocumentDragListener').mockReturnValue(undefined);
+            vi.spyOn(component, 'bindDocumentDragEndListener').mockReturnValue(undefined);
 
             component.initDrag(mouseEvent);
 
@@ -354,7 +364,7 @@ describe('DynamicDialog', () => {
             component.container.style.position = 'absolute';
 
             // Mock getBoundingClientRect
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
+            vi.spyOn(component.container, 'getBoundingClientRect').mockReturnValue({
                 left: 50,
                 top: 50,
                 width: 200,
@@ -379,7 +389,7 @@ describe('DynamicDialog', () => {
             component.lastPageY = 100;
             component.container = document.createElement('div');
 
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
+            vi.spyOn(component.container, 'getBoundingClientRect').mockReturnValue({
                 left: 50,
                 top: 50,
                 width: 200,
@@ -400,7 +410,7 @@ describe('DynamicDialog', () => {
             component.dragging = true;
             const mouseEvent = new MouseEvent('mouseup');
 
-            spyOn(component.cd, 'detectChanges');
+            vi.spyOn(component.cd, 'detectChanges').mockReturnValue(undefined);
 
             component.endDrag(mouseEvent);
 
@@ -455,7 +465,7 @@ describe('DynamicDialog', () => {
             Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
 
-            spyOn(component, 'bindDocumentResizeListeners');
+            vi.spyOn(component, 'bindDocumentResizeListeners').mockReturnValue(undefined);
 
             component.initResize(mouseEvent);
 
@@ -473,7 +483,7 @@ describe('DynamicDialog', () => {
             component.contentViewChild = { nativeElement: document.createElement('div') } as any;
 
             // Mock element dimensions
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
+            vi.spyOn(component.container, 'getBoundingClientRect').mockReturnValue({
                 left: 50,
                 top: 50,
                 width: 200,
@@ -500,7 +510,7 @@ describe('DynamicDialog', () => {
             component.container.style.minHeight = '200px';
             component.contentViewChild = { nativeElement: document.createElement('div') } as any;
 
-            spyOn(component.container, 'getBoundingClientRect').and.returnValue({
+            vi.spyOn(component.container, 'getBoundingClientRect').mockReturnValue({
                 left: 50,
                 top: 50,
                 width: 280,
@@ -624,8 +634,8 @@ describe('DynamicDialog', () => {
             component.container = document.createElement('div');
             component.container.style.zIndex = '1000';
 
-            spyOn(component, 'hide');
-            spyOn(ZIndexUtils, 'getCurrent').and.returnValue(1000);
+            vi.spyOn(component, 'hide').mockReturnValue(undefined);
+            vi.spyOn(ZIndexUtils, 'getCurrent').mockReturnValue(1000);
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27 });
             component.bindDocumentEscapeListener();
@@ -658,7 +668,7 @@ describe('DynamicDialog', () => {
             const wrapperElement = document.createElement('div');
             document.body.appendChild(wrapperElement);
             component.wrapper = wrapperElement;
-            spyOn(component, 'enableModality').and.callThrough();
+            vi.spyOn(component, 'enableModality');
 
             // const animationEvent: AnimationEvent = {
             //     element: document.createElement('div'),
@@ -680,14 +690,14 @@ describe('DynamicDialog', () => {
 
         it('should handle dismissable mask click', () => {
             component.wrapper = document.createElement('div');
-            spyOn(component, 'hide');
+            vi.spyOn(component, 'hide').mockReturnValue(undefined);
 
             component.enableModality();
 
             // Simulate mask click
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'target', { value: component.wrapper });
-            spyOn(component.wrapper, 'isSameNode').and.returnValue(true);
+            vi.spyOn(component.wrapper, 'isSameNode').mockReturnValue(true);
 
             component.wrapper.dispatchEvent(mouseEvent);
 
@@ -697,7 +707,7 @@ describe('DynamicDialog', () => {
         it('should not close on mask click when dismissableMask is false', () => {
             mockConfig.dismissableMask = false;
             component.wrapper = document.createElement('div');
-            spyOn(component, 'hide');
+            vi.spyOn(component, 'hide').mockReturnValue(undefined);
 
             component.enableModality();
 
@@ -711,8 +721,8 @@ describe('DynamicDialog', () => {
             component.wrapper = document.createElement('div');
             component.enableModality();
 
-            spyOn(component, 'unbindMaskClickListener');
-            spyOn(component.cd, 'detectChanges');
+            vi.spyOn(component, 'unbindMaskClickListener').mockReturnValue(undefined);
+            vi.spyOn(component.cd, 'detectChanges').mockReturnValue(undefined);
 
             component.disableModality();
 
@@ -738,11 +748,14 @@ describe('DynamicDialog', () => {
 
         it('should load child component correctly', () => {
             const mockViewContainer = {
-                clear: jasmine.createSpy('clear'),
-                createComponent: jasmine.createSpy('createComponent').and.returnValue({
-                    setInput: jasmine.createSpy('setInput'),
-                    instance: new TestDialogContentComponent(mockDialogRef, mockConfig)
-                })
+                clear: vi.fn().mockName('clear'),
+                createComponent: vi
+                    .fn()
+                    .mockName('createComponent')
+                    .mockReturnValue({
+                        setInput: vi.fn().mockName('setInput'),
+                        instance: new TestDialogContentComponent(mockDialogRef, mockConfig)
+                    })
             };
 
             component.insertionPoint = {
@@ -800,7 +813,7 @@ describe('DynamicDialog', () => {
         it('should handle dialog opened within another dialog component', async () => {
             // Simulate opening a dialog within the current dialog component
             const innerDialogRef = new DynamicDialogRef();
-            const innerDialogSpy = spyOn(innerDialogRef, 'close').and.callThrough();
+            const innerDialogSpy = vi.spyOn(innerDialogRef, 'close');
 
             expect(innerDialogRef).toBeTruthy();
             expect(innerDialogRef.onClose).toBeTruthy();
@@ -831,14 +844,14 @@ describe('DynamicDialog', () => {
             component.wrapper = document.createElement('div');
             mockConfig.dismissableMask = true;
 
-            spyOn(component, 'hide');
+            vi.spyOn(component, 'hide').mockReturnValue(undefined);
 
             component.enableModality();
 
             // Simulate mask click on outer dialog
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'target', { value: component.wrapper });
-            spyOn(component.wrapper, 'isSameNode').and.returnValue(true);
+            vi.spyOn(component.wrapper, 'isSameNode').mockReturnValue(true);
 
             component.wrapper.dispatchEvent(mouseEvent);
 
@@ -861,12 +874,12 @@ describe('DynamicDialog', () => {
         });
 
         it('should cleanup all listeners on destroy', () => {
-            spyOn(component, 'onContainerDestroy');
-            spyOn(component, 'destroyStyle');
+            vi.spyOn(component, 'onContainerDestroy').mockReturnValue(undefined);
+            vi.spyOn(component, 'destroyStyle').mockReturnValue(undefined);
 
             // Simulate component ref
             component.componentRef = {
-                destroy: jasmine.createSpy('destroy')
+                destroy: vi.fn().mockName('destroy')
             } as any;
 
             component.ngOnDestroy();
@@ -877,10 +890,10 @@ describe('DynamicDialog', () => {
         });
 
         it('should unbind all global listeners', () => {
-            spyOn(component, 'unbindDocumentEscapeListener');
-            spyOn(component, 'unbindDocumentResizeListeners');
-            spyOn(component, 'unbindDocumentDragListener');
-            spyOn(component, 'unbindDocumentDragEndListener');
+            vi.spyOn(component, 'unbindDocumentEscapeListener').mockReturnValue(undefined);
+            vi.spyOn(component, 'unbindDocumentResizeListeners').mockReturnValue(undefined);
+            vi.spyOn(component, 'unbindDocumentDragListener').mockReturnValue(undefined);
+            vi.spyOn(component, 'unbindDocumentDragEndListener').mockReturnValue(undefined);
 
             component.unbindGlobalListeners();
 
@@ -895,8 +908,8 @@ describe('DynamicDialog', () => {
             mockConfig.autoZIndex = true;
             mockConfig.modal = true; // Enable modal so disableModality gets called
 
-            spyOn(component, 'unbindGlobalListeners');
-            spyOn(component, 'disableModality');
+            vi.spyOn(component, 'unbindGlobalListeners').mockReturnValue(undefined);
+            vi.spyOn(component, 'disableModality').mockReturnValue(undefined);
 
             component.onContainerDestroy();
 
@@ -909,7 +922,7 @@ describe('DynamicDialog', () => {
             component.styleElement = document.createElement('style');
             document.head.appendChild(component.styleElement);
 
-            spyOn(component.renderer, 'removeChild');
+            vi.spyOn(component.renderer, 'removeChild').mockReturnValue(undefined);
             const styleElement = component.styleElement;
 
             component.destroyStyle();
@@ -919,7 +932,7 @@ describe('DynamicDialog', () => {
         });
 
         it('should unbind mask click listener', () => {
-            const mockListener = jasmine.createSpy('mockListener');
+            const mockListener = vi.fn().mockName('mockListener');
             component.maskClickListener = mockListener;
 
             component.unbindMaskClickListener();
@@ -929,8 +942,8 @@ describe('DynamicDialog', () => {
         });
 
         it('should unbind document listeners correctly', () => {
-            const mockResizeListener = jasmine.createSpy('mockResizeListener');
-            const mockResizeEndListener = jasmine.createSpy('mockResizeEndListener');
+            const mockResizeListener = vi.fn().mockName('mockResizeListener');
+            const mockResizeEndListener = vi.fn().mockName('mockResizeEndListener');
 
             component.documentResizeListener = mockResizeListener;
             component.documentResizeEndListener = mockResizeEndListener;
@@ -945,8 +958,8 @@ describe('DynamicDialog', () => {
 
         it('should unbind drag listeners correctly', () => {
             // Set up actual listeners first
-            const mockDragListener = jasmine.createSpy('dragListener');
-            const mockDragEndListener = jasmine.createSpy('dragEndListener');
+            const mockDragListener = vi.fn().mockName('dragListener');
+            const mockDragEndListener = vi.fn().mockName('dragEndListener');
 
             component.documentDragListener = mockDragListener;
             component.documentDragEndListener = mockDragEndListener;
@@ -992,9 +1005,9 @@ describe('DynamicDialog', () => {
             // Reset styleElement so createStyle can run again
             component.styleElement = null as any;
 
-            spyOn(component.renderer, 'createElement').and.returnValue(document.createElement('style'));
-            spyOn(component.renderer, 'appendChild');
-            spyOn(component.renderer, 'setProperty');
+            vi.spyOn(component.renderer, 'createElement').mockReturnValue(document.createElement('style'));
+            vi.spyOn(component.renderer, 'appendChild').mockReturnValue(undefined);
+            vi.spyOn(component.renderer, 'setProperty').mockReturnValue(undefined);
 
             // Call createStyle directly
             component.createStyle();

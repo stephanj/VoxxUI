@@ -15,30 +15,41 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
  */
 @Component({
     selector: 'vx-card',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <div [vxBind]="ptm('header')" [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">
-            <ng-content select="vx-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-        </div>
+        @if (headerFacet || headerTemplate || _headerTemplate) {
+            <div [vxBind]="ptm('header')" [class]="cx('header')">
+                <ng-content select="vx-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+            </div>
+        }
         <div [vxBind]="ptm('body')" [class]="cx('body')">
-            <div [vxBind]="ptm('title')" [class]="cx('title')" *ngIf="header || titleTemplate || _titleTemplate">
-                <ng-container *ngIf="header && !_titleTemplate && !titleTemplate">{{ header }}</ng-container>
-                <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
-            </div>
-            <div [vxBind]="ptm('subtitle')" [class]="cx('subtitle')" *ngIf="subheader || subtitleTemplate || _subtitleTemplate">
-                <ng-container *ngIf="subheader && !_subtitleTemplate && !subtitleTemplate">{{ subheader }}</ng-container>
-                <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
-            </div>
+            @if (header || titleTemplate || _titleTemplate) {
+                <div [vxBind]="ptm('title')" [class]="cx('title')">
+                    @if (header && !_titleTemplate && !titleTemplate) {
+                        {{ header }}
+                    }
+                    <ng-container *ngTemplateOutlet="titleTemplate || _titleTemplate"></ng-container>
+                </div>
+            }
+            @if (subheader || subtitleTemplate || _subtitleTemplate) {
+                <div [vxBind]="ptm('subtitle')" [class]="cx('subtitle')">
+                    @if (subheader && !_subtitleTemplate && !subtitleTemplate) {
+                        {{ subheader }}
+                    }
+                    <ng-container *ngTemplateOutlet="subtitleTemplate || _subtitleTemplate"></ng-container>
+                </div>
+            }
             <div [vxBind]="ptm('content')" [class]="cx('content')">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </div>
-            <div [vxBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                <ng-content select="vx-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-            </div>
+            @if (footerFacet || footerTemplate || _footerTemplate) {
+                <div [vxBind]="ptm('footer')" [class]="cx('footer')">
+                    <ng-content select="vx-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                </div>
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

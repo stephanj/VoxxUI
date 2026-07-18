@@ -1,6 +1,6 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'voxx-ui/api';
 import { ButtonModule } from 'voxx-ui/button';
@@ -11,7 +11,7 @@ import { ToastModule } from 'voxx-ui/toast';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'headless-doc',
     standalone: true,
-    imports: [CommonModule, ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>

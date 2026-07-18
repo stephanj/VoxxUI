@@ -39,14 +39,20 @@ class TestDisabledFocusTrapComponent {
     selector: 'test-dynamic-focus-trap',
     template: `
         <div vxFocusTrap [vxFocusTrapDisabled]="trapDisabled">
-            <input type="text" *ngIf="showFirstInput" class="dynamic-first-input" />
+            @if (showFirstInput) {
+                <input type="text" class="dynamic-first-input" />
+            }
             <select class="select">
                 <option>Option 1</option>
                 <option>Option 2</option>
             </select>
-            <textarea *ngIf="showTextarea" class="textarea"></textarea>
+            @if (showTextarea) {
+                <textarea class="textarea"></textarea>
+            }
             <button class="dynamic-button">Dynamic Button</button>
-            <input type="checkbox" *ngIf="showCheckbox" class="checkbox" />
+            @if (showCheckbox) {
+                <input type="checkbox" class="checkbox" />
+            }
         </div>
     `
 })
@@ -122,9 +128,15 @@ class TestEmptyFocusTrapComponent {}
     selector: 'test-conditional-focus-trap',
     template: `
         <div vxFocusTrap [vxFocusTrapDisabled]="trapDisabled">
-            <input type="text" *ngIf="showElements" class="conditional-input" />
-            <button *ngIf="showElements" class="conditional-button">Button</button>
-            <div *ngIf="!showElements" class="no-focusable">No focusable elements</div>
+            @if (showElements) {
+                <input type="text" class="conditional-input" />
+            }
+            @if (showElements) {
+                <button class="conditional-button">Button</button>
+            }
+            @if (!showElements) {
+                <div class="no-focusable">No focusable elements</div>
+            }
         </div>
     `
 })
@@ -161,7 +173,7 @@ describe('FocusTrap', () => {
         });
 
         it('should have default values', () => {
-            expect(directive.vxFocusTrapDisabled).toBe(false);
+            expect(directive.vxFocusTrapDisabled()).toBe(false);
         });
 
         it('should inject platform ID and document', () => {
@@ -420,7 +432,7 @@ describe('FocusTrap', () => {
             const select = element.querySelector('.select') as HTMLElement;
             const firstHidden = directive.firstHiddenFocusableElement;
 
-            spyOn(select, 'focus');
+            vi.spyOn(select, 'focus').mockReturnValue(undefined);
 
             const focusEvent = new FocusEvent('focus', {
                 relatedTarget: null,
@@ -566,7 +578,7 @@ describe('FocusTrap', () => {
             expect(textarea.readOnly).toBe(true);
 
             // Readonly elements should still be focusable
-            spyOn(textarea, 'focus');
+            vi.spyOn(textarea, 'focus').mockReturnValue(undefined);
 
             const lastHidden = directive.lastHiddenFocusableElement;
             const focusEvent = new FocusEvent('focus', {
@@ -587,7 +599,7 @@ describe('FocusTrap', () => {
             expect(focusableDiv.getAttribute('tabindex')).toBe('0');
 
             // Should include div with tabindex in focus trap
-            spyOn(focusableDiv, 'focus');
+            vi.spyOn(focusableDiv, 'focus').mockReturnValue(undefined);
 
             const focusEvent = new FocusEvent('focus', {
                 relatedTarget: null,
@@ -606,7 +618,7 @@ describe('FocusTrap', () => {
             expect(linkElement.href).toBeTruthy();
 
             // Links should be included in focus trap
-            spyOn(linkElement, 'focus');
+            vi.spyOn(linkElement, 'focus').mockReturnValue(undefined);
 
             const focusEvent = new FocusEvent('focus', {
                 relatedTarget: null,
@@ -759,7 +771,12 @@ describe('FocusTrap', () => {
         it('should handle elements that cannot receive focus', () => {
             const nonFocusableElement = document.createElement('div');
             // Mock focus method that throws error
-            nonFocusableElement.focus = jasmine.createSpy('focus').and.throwError('Cannot focus');
+            nonFocusableElement.focus = vi
+                .fn()
+                .mockName('focus')
+                .mockImplementation(() => {
+                    throw new Error('Cannot focus');
+                });
 
             // Should handle gracefully when focus fails
             expect(() => {
@@ -770,55 +787,72 @@ describe('FocusTrap', () => {
         });
     });
 
-    describe('Lifecycle Hooks', () => {
-        let fixture: ComponentFixture<TestBasicFocusTrapComponent>;
+    describe('Lifecycle - Signal Input Changes (#16)', () => {
+        let fixture: ComponentFixture<TestDisabledFocusTrapComponent>;
+        let component: TestDisabledFocusTrapComponent;
         let directive: FocusTrap;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(TestBasicFocusTrapComponent);
+            fixture = TestBed.createComponent(TestDisabledFocusTrapComponent);
+            component = fixture.componentInstance;
             directive = fixture.debugElement.query(By.directive(FocusTrap)).injector.get(FocusTrap);
         });
 
-        it('should call ngOnInit and create hidden elements', () => {
-            spyOn(directive, 'createHiddenFocusableElements').and.callThrough();
+        it('should create hidden elements on first render via the disabled-state effect', async () => {
+            vi.spyOn(directive, 'createHiddenFocusableElements');
 
-            directive.ngOnInit();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges for vxFocusTrapDisabled', () => {
-            const changes = {
-                vxFocusTrapDisabled: {
-                    currentValue: true,
-                    previousValue: false,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
+        it('should remove hidden elements when vxFocusTrapDisabled changes to true', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            spyOn(directive, 'removeHiddenFocusableElements');
+            vi.spyOn(directive, 'removeHiddenFocusableElements');
 
-            directive.ngOnChanges(changes);
+            component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(directive.removeHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges when enabling focus trap', () => {
-            const changes = {
-                vxFocusTrapDisabled: {
-                    currentValue: false,
-                    previousValue: true,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
+        it('should recreate hidden elements when vxFocusTrapDisabled changes back to false', async () => {
+            component.disabled = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            spyOn(directive, 'createHiddenFocusableElements');
+            vi.spyOn(directive, 'createHiddenFocusableElements');
 
-            directive.ngOnChanges(changes);
+            component.disabled = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
+        });
+
+        it('should keep firing the pt hooks.onChanges passthrough exactly once when vxFocusTrapDisabled changes', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const hookSpy = vi.fn().mockName('onChangesHook');
+            directive.directivePT.set({ hooks: { onChanges: hookSpy } });
+            await fixture.whenStable();
+            hookSpy.mockClear();
+
+            component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // exactly-once delivery: the change arrives via ngOnChanges (signal inputs are
+            // reported there when written through template bindings) and the tracked-signal
+            // effect must not deliver it a second time (#16).
+            expect(hookSpy).toHaveBeenCalledTimes(1);
         });
     });
 

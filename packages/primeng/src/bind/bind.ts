@@ -7,7 +7,6 @@ import { cn, equals } from '@primeuix/utils';
  */
 @Directive({
     selector: '[vxBind]',
-    standalone: true,
     host: {
         '[style]': 'styles()',
         '[class]': 'classes()'

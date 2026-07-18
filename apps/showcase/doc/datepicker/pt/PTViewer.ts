@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'voxx-ui/datepicker';
@@ -8,7 +8,7 @@ import { DatePickerModule } from 'voxx-ui/datepicker';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'datepicker-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DatePickerModule, FormsModule],
+    imports: [AppDocPtViewer, DatePickerModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-datepicker [(ngModel)]="date" [showTime]="true" [showButtonBar]="true" [showIcon]="true" [iconDisplay]="'button'" placeholder="Select a date" class="w-full md:w-80" />

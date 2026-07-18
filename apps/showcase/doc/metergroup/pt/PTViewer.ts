@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MeterGroupModule } from 'voxx-ui/metergroup';
 
@@ -7,7 +7,7 @@ import { MeterGroupModule } from 'voxx-ui/metergroup';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'metergroup-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, MeterGroupModule],
+    imports: [AppDocPtViewer, MeterGroupModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-metergroup [value]="value" />

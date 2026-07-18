@@ -41,7 +41,6 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
  */
 @Component({
     selector: 'vx-overlay',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind, MotionModule],
     hostDirectives: [Bind],
     template: `
@@ -49,25 +48,27 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: null } }"></ng-container>
         } @else {
-            <div *ngIf="modalVisible" #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [vxBind]="ptm('root')" (click)="onOverlayClick()">
-                <vx-motion
-                    [visible]="visible"
-                    name="p-anchored-overlay"
-                    [appear]="true"
-                    [options]="computedMotionOptions()"
-                    (onBeforeEnter)="onOverlayBeforeEnter($event)"
-                    (onEnter)="onOverlayEnter($event)"
-                    (onAfterEnter)="onOverlayAfterEnter($event)"
-                    (onBeforeLeave)="onOverlayBeforeLeave($event)"
-                    (onLeave)="onOverlayLeave($event)"
-                    (onAfterLeave)="onOverlayAfterLeave($event)"
-                >
-                    <div #content [class]="cn(cx('content'), contentStyleClass)" [vxBind]="ptm('content')" (click)="onOverlayContentClick($event)">
-                        <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
-                    </div>
-                </vx-motion>
-            </div>
+            @if (modalVisible) {
+                <div #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [vxBind]="ptm('root')" (click)="onOverlayClick()">
+                    <vx-motion
+                        [visible]="visible"
+                        name="p-anchored-overlay"
+                        [appear]="true"
+                        [options]="computedMotionOptions()"
+                        (onBeforeEnter)="onOverlayBeforeEnter($event)"
+                        (onEnter)="onOverlayEnter($event)"
+                        (onAfterEnter)="onOverlayAfterEnter($event)"
+                        (onBeforeLeave)="onOverlayBeforeLeave($event)"
+                        (onLeave)="onOverlayLeave($event)"
+                        (onAfterLeave)="onOverlayAfterLeave($event)"
+                    >
+                        <div #content [class]="cn(cx('content'), contentStyleClass)" [vxBind]="ptm('content')" (click)="onOverlayContentClick($event)">
+                            <ng-content></ng-content>
+                            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
+                        </div>
+                    </vx-motion>
+                </div>
+            }
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -89,8 +90,8 @@ export class Overlay extends BaseComponent {
     @Input() get visible(): boolean {
         return this._visible;
     }
-    set visible(value: boolean) {
-        this._visible = value;
+    set visible(value: boolean | null | undefined) {
+        this._visible = value ?? false;
 
         if (this._visible && !this.modalVisible) {
             this.modalVisible = true;
@@ -257,7 +258,7 @@ export class Overlay extends BaseComponent {
      * @defaultValue false
      * @group Props
      */
-    inline = input<boolean>(false);
+    inline = input<boolean | undefined>(false);
     /**
      * The motion options.
      * @group Props
@@ -535,9 +536,9 @@ export class Overlay extends BaseComponent {
 
     container = signal<any>(undefined);
 
-    onOverlayBeforeEnter(event: MotionEvent) {
+    onOverlayBeforeEnter(event: MotionEvent | undefined) {
         this.handleEvents('onBeforeShow', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
-        this.container.set(this.overlayEl || event.element);
+        this.container.set(this.overlayEl || event?.element);
         this.show(this.overlayEl, true);
         this.hostAttrSelector() && this.overlayEl && this.overlayEl.setAttribute(this.hostAttrSelector(), '');
         this.appendOverlay();
@@ -548,25 +549,25 @@ export class Overlay extends BaseComponent {
         this.handleEvents('onBeforeEnter', event);
     }
 
-    onOverlayEnter(event: MotionEvent) {
+    onOverlayEnter(event: MotionEvent | undefined) {
         this.handleEvents('onEnter', event);
     }
 
-    onOverlayAfterEnter(event: MotionEvent) {
+    onOverlayAfterEnter(event: MotionEvent | undefined) {
         this.bindListeners();
         this.handleEvents('onAfterEnter', event);
     }
 
-    onOverlayBeforeLeave(event: MotionEvent) {
+    onOverlayBeforeLeave(event: MotionEvent | undefined) {
         this.handleEvents('onBeforeHide', { overlay: this.overlayEl, target: this.targetEl, mode: this.overlayMode });
         this.handleEvents('onBeforeLeave', event);
     }
 
-    onOverlayLeave(event: MotionEvent) {
+    onOverlayLeave(event: MotionEvent | undefined) {
         this.handleEvents('onLeave', event);
     }
 
-    onOverlayAfterLeave(event: MotionEvent) {
+    onOverlayAfterLeave(event: MotionEvent | undefined) {
         this.hide(this.overlayEl, true);
         this.container.set(null);
         this.unbindListeners();

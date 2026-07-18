@@ -1,11 +1,11 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-deferred-demo',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `
         @if (!visible) {
             <div class="card">

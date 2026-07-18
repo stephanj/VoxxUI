@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
@@ -8,7 +8,7 @@ import { AutoCompleteModule } from 'voxx-ui/autocomplete';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'autocomplete-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, AutoCompleteModule, FormsModule],
+    imports: [AppDocPtViewer, AutoCompleteModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-autocomplete [(ngModel)]="value" [dropdown]="true" [suggestions]="items" (completeMethod)="search($event)" appendTo="self" />

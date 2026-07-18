@@ -2,14 +2,14 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TableModule } from 'voxx-ui/table';
 
 @Component({
     selector: 'columnresizescrollablemode-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppCode, DeferredDemo],
+    imports: [TableModule, AppCode, DeferredDemo],
     template: ` <vx-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <vx-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">

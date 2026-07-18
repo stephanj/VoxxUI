@@ -40,16 +40,19 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
  */
 @Component({
     selector: 'vx-orderList, vx-orderlist, vx-order-list',
-    standalone: true,
     imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule, Bind],
     template: `
         <div [vxBind]="ptm('controls')" [class]="cx('controls')">
             <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" vxButton vxRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist" [unstyled]="unstyled()">
-                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" vxButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
+                @if (!moveUpIconTemplate && !_moveUpIconTemplate) {
+                    <svg data-p-icon="angle-up" vxButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
+                }
                 <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
             </button>
             <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" vxButton vxRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist" [unstyled]="unstyled()">
-                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" vxButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
+                @if (!moveTopIconTemplate && !_moveTopIconTemplate) {
+                    <svg data-p-icon="angle-double-up" vxButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
+                }
                 <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
             </button>
             <button
@@ -64,7 +67,9 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
-                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" vxButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
+                @if (!moveDownIconTemplate && !_moveDownIconTemplate) {
+                    <svg data-p-icon="angle-down" vxButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
+                }
                 <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
             </button>
             <button
@@ -79,7 +84,9 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
-                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" vxButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
+                @if (!moveBottomIconTemplate && !_moveBottomIconTemplate) {
+                    <svg data-p-icon="angle-double-down" vxButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
+                }
                 <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
             </button>
         </div>
@@ -111,36 +118,36 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
             hostName="orderlist"
             [unstyled]="unstyled()"
         >
-            <ng-container *ngIf="headerTemplate || _headerTemplate">
+            @if (headerTemplate || _headerTemplate) {
                 <ng-template #header>
                     <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="itemTemplate || _itemTemplate">
+            }
+            @if (itemTemplate || _itemTemplate) {
                 <ng-template #item let-option let-selected="selected" let-index="index">
                     <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="emptyMessageTemplate || _emptyMessageTemplate">
+            }
+            @if (emptyMessageTemplate || _emptyMessageTemplate) {
                 <ng-template #empty>
                     <ng-template *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="emptyFilterMessageTemplate || _emptyFilterMessageTemplate">
+            }
+            @if (emptyFilterMessageTemplate || _emptyFilterMessageTemplate) {
                 <ng-template #emptyfilter>
                     <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="filterIconTemplate || _filterIconTemplate">
+            }
+            @if (filterIconTemplate || _filterIconTemplate) {
                 <ng-template #filtericon>
                     <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="filterTemplate || _filterTemplate">
+            }
+            @if (filterTemplate || _filterTemplate) {
                 <ng-template #filter let-options="options">
                     <ng-template *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: options }"></ng-template>
                 </ng-template>
-            </ng-container>
+            }
         </vx-listbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,

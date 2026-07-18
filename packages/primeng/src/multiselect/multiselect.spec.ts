@@ -231,10 +231,12 @@ class TestFormMultiSelectComponent {
         <vx-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
             <ng-template vxTemplate="selectedItems" let-value let-removeChip="removeChip">
                 <div class="custom-selected-items">
-                    <div *ngFor="let city of value" class="custom-chip">
-                        {{ city.name }}
-                        <span class="remove-chip" (click)="removeChip(city)">×</span>
-                    </div>
+                    @for (city of value; track city) {
+                        <div class="custom-chip">
+                            {{ city.name }}
+                            <span class="remove-chip" (click)="removeChip(city)">×</span>
+                        </div>
+                    }
                 </div>
             </ng-template>
 
@@ -314,7 +316,9 @@ class TestGroupedMultiSelectComponent {
         <vx-multiselect [options]="options" [(ngModel)]="selectedCities" optionLabel="name">
             <ng-template #selecteditems let-value let-removeChip="removeChip">
                 <div class="content-child-selected">
-                    <div *ngFor="let city of value">{{ city.name }}</div>
+                    @for (city of value; track city) {
+                        <div>{{ city.name }}</div>
+                    }
                 </div>
             </ng-template>
 
@@ -562,7 +566,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onChange event when selection changes', async () => {
-            spyOn(component, 'onSelectionChange');
+            vi.spyOn(component, 'onSelectionChange').mockReturnValue(undefined);
 
             const option = component.options[0];
             multiSelect.onOptionSelect({
@@ -576,7 +580,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onFilter event when filtering', async () => {
-            spyOn(component, 'onFilter');
+            vi.spyOn(component, 'onFilter').mockReturnValue(undefined);
 
             const event = { target: { value: 'test' } } as any;
             multiSelect.onFilterInputChange(event);
@@ -585,7 +589,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onFocus event', () => {
-            spyOn(component, 'onFocus');
+            vi.spyOn(component, 'onFocus').mockReturnValue(undefined);
 
             multiSelect.onInputFocus(new FocusEvent('focus'));
 
@@ -593,7 +597,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onBlur event', () => {
-            spyOn(component, 'onBlur');
+            vi.spyOn(component, 'onBlur').mockReturnValue(undefined);
 
             multiSelect.onInputBlur(new FocusEvent('blur'));
 
@@ -601,7 +605,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onClick event', () => {
-            spyOn(component, 'onClick');
+            vi.spyOn(component, 'onClick').mockReturnValue(undefined);
 
             const clickEvent = new MouseEvent('click');
             multiSelect.onContainerClick(clickEvent);
@@ -610,7 +614,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onClear event', () => {
-            spyOn(component, 'onClear');
+            vi.spyOn(component, 'onClear').mockReturnValue(undefined);
 
             multiSelect.clear(new Event('click'));
 
@@ -618,7 +622,7 @@ describe('MultiSelect', () => {
         });
 
         it('should emit onSelectAllChange event', () => {
-            spyOn(component, 'onSelectAllChange');
+            vi.spyOn(component, 'onSelectAllChange').mockReturnValue(undefined);
             multiSelect.selectAll = true;
 
             multiSelect.onToggleAll({
@@ -654,7 +658,7 @@ describe('MultiSelect', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(component, 'onRemove');
+            vi.spyOn(component, 'onRemove').mockReturnValue(undefined);
 
             multiSelect.removeOption(component.options[0], new Event('click'));
 
@@ -673,8 +677,8 @@ describe('MultiSelect', () => {
 
         it('should handle arrow down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(keyEvent, 'stopPropagation');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
+            vi.spyOn(keyEvent, 'stopPropagation').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -687,8 +691,8 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(1);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(keyEvent, 'stopPropagation');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
+            vi.spyOn(keyEvent, 'stopPropagation').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -701,7 +705,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -713,7 +717,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -725,8 +729,8 @@ describe('MultiSelect', () => {
             expect(multiSelect.overlayVisible).toBe(true);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
-            spyOn(keyEvent, 'preventDefault');
-            spyOn(keyEvent, 'stopPropagation');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
+            vi.spyOn(keyEvent, 'stopPropagation').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -757,7 +761,7 @@ describe('MultiSelect', () => {
                 code: 'KeyA',
                 ctrlKey: true
             });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -771,7 +775,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(2);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -783,7 +787,7 @@ describe('MultiSelect', () => {
             multiSelect.focusedOptionIndex.set(0);
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -795,7 +799,7 @@ describe('MultiSelect', () => {
 
         it('should handle page down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'PageDown' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -804,7 +808,7 @@ describe('MultiSelect', () => {
 
         it('should handle page up key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'PageUp' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -813,7 +817,7 @@ describe('MultiSelect', () => {
 
         it('should handle character search', async () => {
             const keyEvent = new KeyboardEvent('keydown', { key: 'L' });
-            spyOn(keyEvent, 'preventDefault');
+            vi.spyOn(keyEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onKeyDown(keyEvent);
 
@@ -998,7 +1002,7 @@ describe('MultiSelect', () => {
             const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockReturnValue(undefined);
 
             multiSelect.onFilterKeyDown(enterEvent);
 
@@ -1145,7 +1149,7 @@ describe('MultiSelect', () => {
 
         it('should handle rapid click events', async () => {
             let clickCount = 0;
-            spyOn(multiSelect, 'onContainerClick').and.callFake(() => {
+            vi.spyOn(multiSelect, 'onContainerClick').mockImplementation(() => {
                 clickCount++;
                 return true;
             });
@@ -1430,7 +1434,7 @@ describe('MultiSelect Templates', () => {
         component.selectedCities = [component.options[0], component.options[1]];
         fixture.detectChanges();
 
-        spyOn(multiSelect, 'removeOption');
+        vi.spyOn(multiSelect, 'removeOption').mockReturnValue(undefined);
 
         const removeButton = fixture.debugElement.query(By.css('.remove-chip'));
         if (removeButton) {
@@ -1692,7 +1696,7 @@ describe('MultiSelect Virtual Scrolling', () => {
         component.lazy = true;
         fixture.detectChanges();
 
-        spyOn(component, 'onLazyLoad');
+        vi.spyOn(component, 'onLazyLoad').mockReturnValue(undefined);
 
         multiSelect.show();
         await fixture.whenStable();
@@ -1719,7 +1723,7 @@ describe('MultiSelect Virtual Scrolling', () => {
 
         // First check if scroller exists and if scrollInView method exists
         if (multiSelect.scroller && typeof multiSelect.scroller.scrollToIndex === 'function') {
-            const scrollSpy = spyOn(multiSelect.scroller, 'scrollToIndex');
+            const scrollSpy = vi.spyOn(multiSelect.scroller, 'scrollToIndex').mockReturnValue(undefined);
 
             if (typeof multiSelect.scrollInView === 'function') {
                 // scrollInView uses setTimeout(0) internally, so we need to wait
@@ -1727,7 +1731,7 @@ describe('MultiSelect Virtual Scrolling', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                if (scrollSpy.calls.count() > 0) {
+                if (vi.mocked(scrollSpy).mock.calls.length > 0) {
                     expect(scrollSpy).toHaveBeenCalledWith(500);
                 } else {
                     // scrollInView might not call scrollToIndex if element is found via scrollIntoView
@@ -1811,12 +1815,18 @@ describe('MultiSelect Virtual Scrolling', () => {
     `
 })
 class TestDynamicDataSourcesMultiSelectComponent {
-    @ViewChild('signalMultiSelect') signalMultiSelect!: MultiSelect;
-    @ViewChild('asyncMultiSelect') asyncMultiSelect!: MultiSelect;
-    @ViewChild('getterMultiSelect') getterMultiSelect!: MultiSelect;
-    @ViewChild('functionMultiSelect') functionMultiSelect!: MultiSelect;
-    @ViewChild('lateLoadMultiSelect') lateLoadMultiSelect!: MultiSelect;
-    @ViewChild('computedMultiSelect') computedMultiSelect!: MultiSelect;
+    @ViewChild('signalMultiSelect')
+    signalMultiSelect!: MultiSelect;
+    @ViewChild('asyncMultiSelect')
+    asyncMultiSelect!: MultiSelect;
+    @ViewChild('getterMultiSelect')
+    getterMultiSelect!: MultiSelect;
+    @ViewChild('functionMultiSelect')
+    functionMultiSelect!: MultiSelect;
+    @ViewChild('lateLoadMultiSelect')
+    lateLoadMultiSelect!: MultiSelect;
+    @ViewChild('computedMultiSelect')
+    computedMultiSelect!: MultiSelect;
 
     // Signals
     citySignal = signal<City[]>([
@@ -2056,13 +2066,20 @@ class TestDynamicDataSourcesMultiSelectComponent {
     `
 })
 class TestComprehensiveFormMultiSelectComponent {
-    @ViewChild('reactiveMultiSelect') reactiveMultiSelect!: MultiSelect;
-    @ViewChild('validatedMultiSelect') validatedMultiSelect!: MultiSelect;
-    @ViewChild('ngModelMultiSelect') ngModelMultiSelect!: MultiSelect;
-    @ViewChild('ngModelValidatedMultiSelect') ngModelValidatedMultiSelect!: MultiSelect;
-    @ViewChild('templateForm') templateForm!: NgForm;
-    @ViewChild('citiesModel') citiesModel!: NgModel;
-    @ViewChild('validatedModel') validatedModel!: NgModel;
+    @ViewChild('reactiveMultiSelect')
+    reactiveMultiSelect!: MultiSelect;
+    @ViewChild('validatedMultiSelect')
+    validatedMultiSelect!: MultiSelect;
+    @ViewChild('ngModelMultiSelect')
+    ngModelMultiSelect!: MultiSelect;
+    @ViewChild('ngModelValidatedMultiSelect')
+    ngModelValidatedMultiSelect!: MultiSelect;
+    @ViewChild('templateForm')
+    templateForm!: NgForm;
+    @ViewChild('citiesModel')
+    citiesModel!: NgModel;
+    @ViewChild('validatedModel')
+    validatedModel!: NgModel;
 
     allCities: City[] = [
         { name: 'New York', code: 'NY' },
@@ -2175,7 +2192,8 @@ class TestComprehensiveFormMultiSelectComponent {
     `
 })
 class TestViewChildMultiSelectComponent {
-    @ViewChild('mainMultiSelect') mainMultiSelect!: MultiSelect;
+    @ViewChild('mainMultiSelect')
+    mainMultiSelect!: MultiSelect;
 
     cities: City[] = [
         { name: 'ViewChild City 1', code: 'VC1' },
@@ -2314,12 +2332,18 @@ class TestViewChildMultiSelectComponent {
     `
 })
 class TestComplexEdgeCasesMultiSelectComponent {
-    @ViewChild('largeDataMultiSelect') largeDataMultiSelect!: MultiSelect;
-    @ViewChild('unicodeMultiSelect') unicodeMultiSelect!: MultiSelect;
-    @ViewChild('xssMultiSelect') xssMultiSelect!: MultiSelect;
-    @ViewChild('memoryMultiSelect') memoryMultiSelect!: MultiSelect;
-    @ViewChild('nullHandlingMultiSelect') nullHandlingMultiSelect!: MultiSelect;
-    @ViewChild('circularMultiSelect') circularMultiSelect!: MultiSelect;
+    @ViewChild('largeDataMultiSelect')
+    largeDataMultiSelect!: MultiSelect;
+    @ViewChild('unicodeMultiSelect')
+    unicodeMultiSelect!: MultiSelect;
+    @ViewChild('xssMultiSelect')
+    xssMultiSelect!: MultiSelect;
+    @ViewChild('memoryMultiSelect')
+    memoryMultiSelect!: MultiSelect;
+    @ViewChild('nullHandlingMultiSelect')
+    nullHandlingMultiSelect!: MultiSelect;
+    @ViewChild('circularMultiSelect')
+    circularMultiSelect!: MultiSelect;
 
     // Large dataset for performance testing
     largeDataset: City[] = [];
@@ -3473,7 +3497,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         });
 
         it('PT Case 5: should support event handlers in PT options', async () => {
-            const clickSpy = jasmine.createSpy('clickHandler');
+            const clickSpy = vi.fn().mockName('clickHandler');
 
             await TestBed.configureTestingModule({
                 imports: [MultiSelectModule, FormsModule],
@@ -3563,7 +3587,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         });
 
         it('PT Case 8: should test hooks - onAfterViewInit', async () => {
-            const hookSpy = jasmine.createSpy('onAfterViewInit');
+            const hookSpy = vi.fn().mockName('onAfterViewInit');
 
             await TestBed.configureTestingModule({
                 imports: [MultiSelectModule, FormsModule],

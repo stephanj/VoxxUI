@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'voxx-ui/chart';
@@ -10,7 +10,7 @@ import { ChartModule } from 'voxx-ui/chart';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'chart-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, FormsModule, ChartModule],
+    imports: [AppDocPtViewer, FormsModule, ChartModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-full md:w-[30rem]" />

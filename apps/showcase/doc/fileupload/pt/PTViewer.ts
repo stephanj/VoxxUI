@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FileUploadModule } from 'voxx-ui/fileupload';
 
@@ -7,7 +7,7 @@ import { FileUploadModule } from 'voxx-ui/fileupload';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'fileupload-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, FileUploadModule],
+    imports: [AppDocPtViewer, FileUploadModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">

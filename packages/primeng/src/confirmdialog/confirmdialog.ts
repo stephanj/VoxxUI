@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+    DestroyRef,
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -23,6 +24,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -31,7 +33,6 @@ import { Button } from 'voxx-ui/button';
 import { Dialog } from 'voxx-ui/dialog';
 import { Nullable } from 'voxx-ui/ts-helpers';
 import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'voxx-ui/types/confirmdialog';
-import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 
 const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_INSTANCE');
@@ -42,11 +43,10 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
  */
 @Component({
     selector: 'vx-confirmDialog, vx-confirmdialog, vx-confirm-dialog',
-    standalone: true,
     imports: [CommonModule, Button, Dialog, SharedModule, Bind],
     template: `
         <vx-dialog
-            [pt]="pt"
+            [pt]="$any(pt())"
             #dialog
             [visible]="visible"
             (visibleChange)="onVisibleChange($event)"
@@ -92,7 +92,9 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     @if (iconTemplate || _iconTemplate) {
                         <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
-                        <i [ngClass]="cx('icon')" [class]="option('icon')" [vxBind]="ptm('icon')" *ngIf="option('icon')"></i>
+                        @if (option('icon')) {
+                            <i [ngClass]="cx('icon')" [class]="option('icon')" [vxBind]="ptm('icon')"></i>
+                        }
                     }
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
@@ -107,40 +109,46 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
                 @if (!footerTemplate && !_footerTemplate) {
-                    <vx-button
-                        [pt]="ptm('pcRejectButton')"
-                        *ngIf="option('rejectVisible')"
-                        [label]="rejectButtonLabel"
-                        (onClick)="onReject()"
-                        [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
-                        [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
-                        [buttonProps]="getRejectButtonProps()"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [vxBind]="ptm('pcRejectButton')['icon']"></i>
-                            }
-                            <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
-                        </ng-template>
-                    </vx-button>
-                    <vx-button
-                        [pt]="ptm('pcAcceptButton')"
-                        [label]="acceptButtonLabel"
-                        (onClick)="onAccept()"
-                        [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
-                        *ngIf="option('acceptVisible')"
-                        [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
-                        [buttonProps]="getAcceptButtonProps()"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [vxBind]="ptm('pcAcceptButton')['icon']"></i>
-                            }
-                            <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
-                        </ng-template>
-                    </vx-button>
+                    @if (option('rejectVisible')) {
+                        <vx-button
+                            [pt]="ptm('pcRejectButton')"
+                            [label]="rejectButtonLabel"
+                            (onClick)="onReject()"
+                            [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
+                            [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
+                            [buttonProps]="getRejectButtonProps()"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
+                                    @if (option('rejectIcon')) {
+                                        <i [class]="option('rejectIcon')" [vxBind]="ptm('pcRejectButton')['icon']"></i>
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                            </ng-template>
+                        </vx-button>
+                    }
+                    @if (option('acceptVisible')) {
+                        <vx-button
+                            [pt]="ptm('pcAcceptButton')"
+                            [label]="acceptButtonLabel"
+                            (onClick)="onAccept()"
+                            [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
+                            [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
+                            [buttonProps]="getAcceptButtonProps()"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
+                                    @if (option('acceptIcon')) {
+                                        <i [class]="option('acceptIcon')" [vxBind]="ptm('pcAcceptButton')['icon']"></i>
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                            </ng-template>
+                        </vx-button>
+                    }
                 }
             </ng-template>
         </vx-dialog>
@@ -435,24 +443,22 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     contentContainer: Nullable<HTMLDivElement>;
 
-    subscription: Subscription;
-
     preWidth: number | undefined;
 
     styleElement: any;
 
     id = uuid('pn_id_');
 
-    ariaLabelledBy: string | null = this.getAriaLabelledBy();
+    destroyRef = inject(DestroyRef);
 
-    translationSubscription: Subscription | undefined;
+    ariaLabelledBy: string | null = this.getAriaLabelledBy();
 
     constructor(
         private confirmationService: ConfirmationService,
         public zone: NgZone
     ) {
         super();
-        this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
+        this.confirmationService.requireConfirmation$.pipe(takeUntilDestroyed()).subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
                 return;
@@ -486,7 +492,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
             this.createStyle();
         }
 
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             if (this.visible) {
                 this.cd.markForCheck();
             }
@@ -619,13 +625,8 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     }
 
     onDestroy() {
-        this.subscription.unsubscribe();
         // Unsubscribe from confirmation events if the dialogue is opened and this component is somehow destroyed.
         this.unsubscribeConfirmationEvents();
-
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
 
         this.destroyStyle();
     }

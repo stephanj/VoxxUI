@@ -7,7 +7,6 @@ import { SelectModule } from 'voxx-ui/select';
 import { ToastModule } from 'voxx-ui/toast';
 import { MessageModule } from 'voxx-ui/message';
 import { ButtonModule } from 'voxx-ui/button';
-import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -18,7 +17,7 @@ interface City {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule, CommonModule],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <vx-toast />

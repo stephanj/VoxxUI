@@ -74,7 +74,6 @@ const INPUTMASK_DIRECTIVE_INSTANCE = new InjectionToken<InputMaskDirective>('INP
  */
 @Directive({
     selector: '[vxInputMask]',
-    standalone: true,
     providers: [InputMaskStyle, { provide: INPUTMASK_DIRECTIVE_INSTANCE, useExisting: InputMaskDirective }, { provide: PARENT_INSTANCE, useExisting: InputMaskDirective }],
     host: {
         '[class.p-inputmask]': '!$unstyled()'
@@ -691,7 +690,6 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-inputmask, vx-inputMask, vx-input-mask',
-    standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule, BindModule],
     template: `
         <input
@@ -729,12 +727,16 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (paste)="handleInputChange($event)"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear()" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear()">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (value != null && $filled() && showClear && !$disabled()) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear()" />
+            }
+            @if (clearIconTemplate || _clearIconTemplate) {
+                <span [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')" (click)="clear()">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                </span>
+            }
+        }
     `,
     providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle, { provide: INPUTMASK_INSTANCE, useExisting: InputMask }, { provide: PARENT_INSTANCE, useExisting: InputMask }],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -442,7 +442,7 @@ describe('Table', () => {
         });
 
         it('should emit lazy load event', () => {
-            spyOn(testComponent, 'loadProducts');
+            vi.spyOn(testComponent, 'loadProducts').mockReturnValue(undefined);
             const tableInstance = testFixture.debugElement.query(By.css('vx-table')).componentInstance;
 
             tableInstance.onLazyLoad.emit({ first: 0, rows: 10 });
@@ -536,7 +536,7 @@ describe('Table', () => {
 
         it('should support CSV export for external analysis', () => {
             const tableInstance = ecommerceFixture.debugElement.query(By.css('vx-table')).componentInstance;
-            spyOn(tableInstance, 'exportCSV');
+            vi.spyOn(tableInstance, 'exportCSV').mockReturnValue(undefined);
 
             tableInstance.exportCSV({ selectionOnly: false });
             expect(tableInstance.exportCSV).toHaveBeenCalledWith({ selectionOnly: false });
@@ -582,7 +582,7 @@ describe('Table', () => {
             });
 
             it('should export data in multiple formats', () => {
-                spyOn(component, 'exportCSV');
+                vi.spyOn(component, 'exportCSV').mockReturnValue(undefined);
                 component.exportCSV();
                 expect(component.exportCSV).toHaveBeenCalled();
             });

@@ -5,12 +5,15 @@
     },
     "exclude": [
         "node_modules",
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "src/test-setup.ts"
     ],
     "angularCompilerOptions": {
         "disableTypeScriptVersionCheck": true,
         "fullTemplateTypeCheck": false,
         "annotateForClosureCompiler": false,
+        // TODO(#19): flip to true once src/table/table.ts is strict-template clean (39 remaining errors).
+        // Everything else in the library passes strictTemplates — verified via tsconfig.strictcheck.json (#14).
         "strictTemplates": false,
         "strictMetadataEmit": true,
         "skipTemplateCodegen": true,

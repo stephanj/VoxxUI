@@ -86,12 +86,12 @@ describe('ToggleSwitch', () => {
 
         it('should handle onClick correctly', () => {
             // Mock the input element to prevent errors
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
 
             const mockEvent = new Event('click');
-            spyOn(component.onChange, 'emit');
-            spyOn(component, 'onModelChange');
-            spyOn(component, 'writeModelValue').and.callThrough();
+            vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component as any, 'onModelChange').mockReturnValue(undefined);
+            vi.spyOn(component, 'writeModelValue');
 
             // Initially unchecked, should become checked
             component.writeModelValue(false);
@@ -107,10 +107,10 @@ describe('ToggleSwitch', () => {
 
         it('should handle onClick when checked', () => {
             // Mock the input element to prevent errors
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
 
             const mockEvent = new Event('click');
-            spyOn(component.onChange, 'emit');
+            vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
 
             // Initially checked, should become unchecked
             component.writeModelValue(true);
@@ -124,9 +124,9 @@ describe('ToggleSwitch', () => {
 
         it('should not handle onClick when disabled', () => {
             const mockEvent = new Event('click');
-            spyOn(component, '$disabled').and.returnValue(true);
-            spyOn(component.onChange, 'emit');
-            spyOn(component, 'writeModelValue');
+            vi.spyOn(component, '$disabled').mockReturnValue(true);
+            vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component, 'writeModelValue').mockReturnValue(undefined);
 
             component.onClick(mockEvent);
 
@@ -137,8 +137,8 @@ describe('ToggleSwitch', () => {
         it('should not handle onClick when readonly', () => {
             const mockEvent = new Event('click');
             component.readonly = true;
-            spyOn(component.onChange, 'emit');
-            spyOn(component, 'writeModelValue');
+            vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component, 'writeModelValue').mockReturnValue(undefined);
 
             component.onClick(mockEvent);
 
@@ -153,7 +153,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle blur events', () => {
             component.focused = true;
-            spyOn(component, 'onModelTouched');
+            vi.spyOn(component as any, 'onModelTouched').mockReturnValue(undefined);
 
             component.onBlur();
 
@@ -163,7 +163,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle host click events', () => {
             const mockEvent = new MouseEvent('click');
-            spyOn(component, 'onClick');
+            vi.spyOn(component, 'onClick').mockReturnValue(undefined);
 
             component.onHostClick(mockEvent);
 
@@ -302,7 +302,7 @@ describe('ToggleSwitch', () => {
         });
 
         it('should emit onChange event when clicked', async () => {
-            spyOn(testComponent, 'onToggleChange');
+            vi.spyOn(testComponent, 'onToggleChange').mockReturnValue(undefined);
 
             // Since DOM interaction and event emission may not work in test environment,
             // we'll trigger the component's onChange method directly
@@ -310,7 +310,7 @@ describe('ToggleSwitch', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await testFixture.whenStable();
 
-            expect(testComponent.onToggleChange).toHaveBeenCalledWith({ originalEvent: jasmine.any(Event), checked: true });
+            expect(testComponent.onToggleChange).toHaveBeenCalledWith({ originalEvent: expect.any(Event), checked: true });
         });
 
         it('should emit onChange event with correct event data', async () => {
@@ -332,7 +332,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle keyboard events on input', async () => {
             const input = testFixture.debugElement.query(By.css('input'));
-            spyOn(testComponent, 'onToggleChange');
+            vi.spyOn(testComponent, 'onToggleChange').mockReturnValue(undefined);
 
             if (input) {
                 input.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
@@ -348,7 +348,7 @@ describe('ToggleSwitch', () => {
             const toggleSwitch = testFixture.debugElement.query(By.css('vx-toggleswitch')).componentInstance;
 
             if (toggleSwitch && toggleSwitch.input) {
-                spyOn(toggleSwitch.input.nativeElement, 'focus');
+                vi.spyOn(toggleSwitch.input.nativeElement, 'focus').mockReturnValue(undefined);
 
                 const mockEvent = new Event('click');
                 toggleSwitch.onClick(mockEvent);
@@ -507,7 +507,7 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle rapid clicks', async () => {
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
 
             const mockEvent = new Event('click');
             let changeCount = 0;
@@ -526,7 +526,7 @@ describe('ToggleSwitch', () => {
         });
 
         it('should maintain state consistency after multiple operations', () => {
-            component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
 
             const mockEvent = new Event('click');
 
@@ -544,8 +544,8 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle writeControlValue correctly', () => {
-            const mockSetModelValue = jasmine.createSpy('setModelValue');
-            spyOn(component.cd, 'markForCheck');
+            const mockSetModelValue = vi.fn().mockName('setModelValue');
+            vi.spyOn(component.cd, 'markForCheck').mockReturnValue(undefined);
 
             component.writeControlValue('test-value', mockSetModelValue);
 
@@ -576,7 +576,7 @@ describe('ToggleSwitch', () => {
             component.readonly = true;
 
             const mockEvent = new Event('click');
-            spyOn(component, 'writeModelValue');
+            vi.spyOn(component, 'writeModelValue').mockReturnValue(undefined);
 
             component.onClick(mockEvent);
 
@@ -597,7 +597,7 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle disabled attribute', () => {
-            spyOn(component, '$disabled').and.returnValue(true);
+            vi.spyOn(component, '$disabled').mockReturnValue(true);
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.css('input'));
@@ -710,7 +710,7 @@ class TestNamedToggleSwitchComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, SharedModule],
     template: `
         <vx-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with vxTemplate -->
@@ -731,7 +731,7 @@ class TestToggleSwitchPTemplateComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, SharedModule],
     template: `
         <vx-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with #template reference -->

@@ -36,7 +36,9 @@ import { Editor } from './editor';
 })
 class TestBasicEditorComponent {
     text: string = '<div>Initial content</div>';
-    style: { [key: string]: any } | null = null as any;
+    style: {
+        [key: string]: any;
+    } | null = null as any;
     styleClass: string = '';
     placeholder: string = 'Enter text here...';
     readonly: boolean = false;
@@ -272,8 +274,8 @@ describe('Editor', () => {
 
         it('should handle readonly mode toggle', () => {
             if (editorInstance.quill) {
-                spyOn(editorInstance.quill, 'disable').and.stub();
-                spyOn(editorInstance.quill, 'enable').and.stub();
+                vi.spyOn(editorInstance.quill, 'disable').mockImplementation(() => {});
+                vi.spyOn(editorInstance.quill, 'enable').mockImplementation(() => {});
 
                 editorInstance.readonly = true;
                 expect(editorInstance.quill.disable).toHaveBeenCalled();
@@ -307,7 +309,7 @@ describe('Editor', () => {
         });
 
         it('should emit onInit event', () => {
-            spyOn(component, 'onInit');
+            vi.spyOn(component, 'onInit').mockReturnValue(undefined);
 
             editorInstance.onEditorInit.emit({
                 editor: editorInstance.quill
@@ -317,7 +319,7 @@ describe('Editor', () => {
         });
 
         it('should emit onTextChange event with correct parameters', () => {
-            spyOn(component, 'onTextChange');
+            vi.spyOn(component, 'onTextChange').mockReturnValue(undefined);
 
             const testEvent: EditorTextChangeEvent = {
                 htmlValue: '<div>New text</div>',
@@ -332,7 +334,7 @@ describe('Editor', () => {
         });
 
         it('should emit onSelectionChange event with correct parameters', () => {
-            spyOn(component, 'onSelectionChange');
+            vi.spyOn(component, 'onSelectionChange').mockReturnValue(undefined);
 
             const testEvent: EditorSelectionChangeEvent = {
                 range: { index: 0, length: 5 },
@@ -346,7 +348,7 @@ describe('Editor', () => {
         });
 
         it('should emit onEditorChange event with correct parameters', () => {
-            spyOn(component, 'onEditorChange');
+            vi.spyOn(component, 'onEditorChange').mockReturnValue(undefined);
 
             const testEvent: EditorChangeEvent = {
                 eventName: 'text-change',
@@ -359,7 +361,7 @@ describe('Editor', () => {
         });
 
         it('should emit onFocus event', () => {
-            spyOn(component, 'onFocus');
+            vi.spyOn(component, 'onFocus').mockReturnValue(undefined);
 
             const testEvent: EditorFocusEvent = {
                 source: 'user'
@@ -371,7 +373,7 @@ describe('Editor', () => {
         });
 
         it('should emit onBlur event', () => {
-            spyOn(component, 'onBlur');
+            vi.spyOn(component, 'onBlur').mockReturnValue(undefined);
 
             const testEvent: EditorBlurEvent = {
                 source: 'user'
@@ -515,7 +517,7 @@ describe('Editor', () => {
             const editorInstance = editorEl.componentInstance as Editor;
 
             if (editorInstance.quill) {
-                spyOn(editorInstance.quill, 'disable');
+                vi.spyOn(editorInstance.quill, 'disable').mockReturnValue(undefined);
                 editorInstance.readonly = true;
                 expect(editorInstance.quill.disable).toHaveBeenCalled();
             } else {
@@ -655,7 +657,7 @@ describe('Editor', () => {
         it('should cleanup event listeners on destroy', () => {
             if (editorInstance.quill && editorInstance.quill.root) {
                 const mockElement = {
-                    removeEventListener: jasmine.createSpy('removeEventListener')
+                    removeEventListener: vi.fn().mockName('removeEventListener')
                 };
 
                 // Mock the quill root element
@@ -1275,7 +1277,10 @@ describe('Editor', () => {
             });
 
             it('should handle multiple hooks on different PT sections', async () => {
-                const hookEvents: { section: string; hook: string }[] = [];
+                const hookEvents: {
+                    section: string;
+                    hook: string;
+                }[] = [];
 
                 @Component({
                     changeDetection: ChangeDetectionStrategy.Eager,

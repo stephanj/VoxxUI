@@ -13,7 +13,6 @@ export type PClassValue = string | number | boolean | undefined | null | { [key:
  */
 @Directive({
     selector: '[vxClass]',
-    standalone: true,
     host: {
         '[class]': 'classes()'
     }

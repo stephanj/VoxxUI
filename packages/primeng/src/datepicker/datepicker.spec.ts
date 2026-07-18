@@ -159,8 +159,12 @@ class TestReactiveFormDatePickerComponent {
             <ng-template vxTemplate="date" let-date="date">
                 <div class="custom-date" data-testid="date-template">
                     <span class="day">{{ date.day }}</span>
-                    <span class="month" *ngIf="date.month">{{ date.month }}</span>
-                    <span class="year" *ngIf="date.year">{{ date.year }}</span>
+                    @if (date.month) {
+                        <span class="month">{{ date.month }}</span>
+                    }
+                    @if (date.year) {
+                        <span class="year">{{ date.year }}</span>
+                    }
                 </div>
             </ng-template>
 
@@ -251,8 +255,12 @@ class TestPTemplatesDatePickerComponent {
             <ng-template #date let-date="date">
                 <div class="custom-date-ref" data-testid="date-ref-template">
                     <span class="day">{{ date?.day }}</span>
-                    <span class="month" *ngIf="date?.month">{{ date?.month }}</span>
-                    <span class="year" *ngIf="date?.year">{{ date?.year }}</span>
+                    @if (date?.month) {
+                        <span class="month">{{ date?.month }}</span>
+                    }
+                    @if (date?.year) {
+                        <span class="year">{{ date?.year }}</span>
+                    }
                 </div>
             </ng-template>
 
@@ -437,8 +445,8 @@ describe('DatePicker', () => {
         });
 
         it('should handle date selection', async () => {
-            spyOn(testComponent, 'onDateSelect');
-            spyOn(testComponent, 'onDateChange');
+            vi.spyOn(testComponent, 'onDateSelect').mockReturnValue(undefined);
+            vi.spyOn(testComponent, 'onDateChange').mockReturnValue(undefined);
 
             const testDate = new Date(2023, 5, 15); // June 15, 2023
             testComponent.selectedDate = testDate;
@@ -520,7 +528,7 @@ describe('DatePicker', () => {
         });
 
         it('should emit onFocus event', () => {
-            spyOn(testComponent, 'onDateFocus');
+            vi.spyOn(testComponent, 'onDateFocus').mockReturnValue(undefined);
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.dispatchEvent(new FocusEvent('focus'));
@@ -529,7 +537,7 @@ describe('DatePicker', () => {
         });
 
         it('should emit onBlur event', () => {
-            spyOn(testComponent, 'onDateBlur');
+            vi.spyOn(testComponent, 'onDateBlur').mockReturnValue(undefined);
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.dispatchEvent(new FocusEvent('blur'));
@@ -933,7 +941,7 @@ describe('DatePicker', () => {
             const currentMonth = datePickerComponent.currentMonth;
             const currentYear = datePickerComponent.currentYear;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.navForward(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -956,7 +964,7 @@ describe('DatePicker', () => {
             const currentMonth = datePickerComponent.currentMonth;
             const currentYear = datePickerComponent.currentYear;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.navBackward(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1021,7 +1029,7 @@ describe('DatePicker', () => {
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.switchToMonthView(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1037,7 +1045,7 @@ describe('DatePicker', () => {
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.switchToYearView(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1055,7 +1063,7 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
             const initialHour = datePickerComponent.currentHour;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.incrementHour(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1077,7 +1085,7 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
             const initialMinute = datePickerComponent.currentMinute;
 
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.incrementMinute(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1156,7 +1164,7 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
 
             // Test Today button
-            const mockEvent = { preventDefault: jasmine.createSpy('preventDefault') };
+            const mockEvent = { preventDefault: vi.fn().mockName('preventDefault') };
             datePickerComponent.onTodayButtonClick(mockEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();

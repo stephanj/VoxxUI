@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ButtonModule } from 'voxx-ui/button';
 import { OverlayModule } from 'voxx-ui/overlay';
@@ -8,7 +8,7 @@ import { OverlayModule } from 'voxx-ui/overlay';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'overlay-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, OverlayModule, ButtonModule],
+    imports: [AppDocPtViewer, OverlayModule, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-button label="Show Overlay" (click)="toggle()" />

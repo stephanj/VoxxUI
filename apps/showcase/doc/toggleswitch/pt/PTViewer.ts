@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AppDocPtViewer } from '@/components/doc/app.docptviewer';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -9,7 +8,7 @@ import { ToggleSwitchModule } from 'voxx-ui/toggleswitch';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'toggleswitch-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ToggleSwitchModule, FormsModule],
+    imports: [AppDocPtViewer, ToggleSwitchModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-toggleswitch [(ngModel)]="checked"></vx-toggleswitch>

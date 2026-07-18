@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { DestroyRef, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, numberAttribute, Output, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { resolveFieldData } from '@primeuix/utils';
 import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -20,7 +21,6 @@ import {
     DataViewPassThrough,
     DataViewSortEvent
 } from 'voxx-ui/types/dataview';
-import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 
 const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
@@ -31,7 +31,6 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
  */
 @Component({
     selector: 'vx-dataView, vx-dataview, vx-data-view',
-    standalone: true,
     imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule, Bind],
     template: `
         @if (loading) {
@@ -57,7 +56,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
         @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
             <vx-paginator
                 [rows]="rows"
-                [first]="first"
+                [first]="first ?? 0"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
@@ -84,7 +83,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                     *ngTemplateOutlet="
                         listTemplate;
                         context: {
-                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : (first ?? 0)) : (lazy ? 0 : (first ?? 0)) + (rows ?? 0)) : filteredValue || value
                         }
                     "
                 ></ng-container>
@@ -94,24 +93,24 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                     *ngTemplateOutlet="
                         gridTemplate;
                         context: {
-                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : (first ?? 0)) : (lazy ? 0 : (first ?? 0)) + (rows ?? 0)) : filteredValue || value
                         }
                     "
                 ></ng-container>
             }
             @if (isEmpty() && !loading) {
                 <div [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
-                    <ng-container *ngIf="!emptymessageTemplate; else empty">
+                    @if (!emptymessageTemplate) {
                         {{ emptyMessageLabel }}
-                    </ng-container>
-                    <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
+                    }
+                    <ng-container *ngTemplateOutlet="emptymessageTemplate"></ng-container>
                 </div>
             }
         </div>
         @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
             <vx-paginator
                 [rows]="rows"
-                [first]="first"
+                [first]="first ?? 0"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
@@ -408,8 +407,6 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     _layout: 'list' | 'grid' = 'list';
 
-    translationSubscription: Nullable<Subscription>;
-
     _componentStyle = inject(DataViewStyle);
 
     get emptyMessageLabel(): string {
@@ -418,12 +415,14 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     filterService = inject(FilterService);
 
+    destroyRef = inject(DestroyRef);
+
     onInit() {
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
 
-        this.translationSubscription = this.config.translationObserver.subscribe(() => {
+        this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.cd.markForCheck();
         });
         this.initialized = true;
@@ -541,12 +540,6 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
 
     hasFilter() {
         return this.filterValue && this.filterValue.trim().length > 0;
-    }
-
-    onDestroy() {
-        if (this.translationSubscription) {
-            this.translationSubscription.unsubscribe();
-        }
     }
 }
 

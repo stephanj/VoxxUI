@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'voxx-ui/colorpicker';
 import { AppCode } from '@/components/doc/app.code';
@@ -9,7 +9,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'basic-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>

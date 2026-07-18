@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'voxx-ui/button';
@@ -10,7 +10,7 @@ import { InputTextModule } from 'voxx-ui/inputtext';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'dialog-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DialogModule, ButtonModule, InputTextModule, FormsModule],
+    imports: [AppDocPtViewer, DialogModule, ButtonModule, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <vx-dialog [(visible)]="visible" header="Edit Profile" [maximizable]="true" maskStyleClass="!relative" [draggable]="false" class="!my-auto w-full">

@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { equals } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
@@ -15,7 +15,6 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
  */
 @Component({
     selector: 'vx-tabpanel',
-    standalone: true,
     imports: [NgTemplateOutlet, BindModule],
     template: `
         <ng-template #defaultContent>
@@ -69,7 +68,7 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
      * Template for initializing complex content when lazy is enabled.
      * @group Templates
      */
-    content = contentChild('content');
+    content = contentChild<TemplateRef<any>>('content');
 
     id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
 

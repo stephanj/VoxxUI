@@ -1,6 +1,6 @@
 import { CountryService } from '@/service/countryservice';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'voxx-ui/autocomplete';
 import { ButtonModule } from 'voxx-ui/button';
@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'template-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>

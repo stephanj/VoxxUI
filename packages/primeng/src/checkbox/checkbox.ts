@@ -48,7 +48,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-checkbox, vx-checkBox, vx-check-box',
-    standalone: true,
     imports: [CommonModule, SharedModule, CheckIcon, MinusIcon, BindModule],
     template: `
         <input
@@ -72,13 +71,19 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             (change)="handleChange($event)"
         />
         <div [class]="cx('box')" [vxBind]="ptm('box')" [attr.data-p]="dataP">
-            <ng-container *ngIf="!checkboxIconTemplate && !_checkboxIconTemplate">
-                <ng-container *ngIf="checked">
-                    <span *ngIf="checkboxIcon" [class]="cx('icon')" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
-                    <svg data-p-icon="check" *ngIf="!checkboxIcon" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
-                </ng-container>
-                <svg data-p-icon="minus" *ngIf="_indeterminate()" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
-            </ng-container>
+            @if (!checkboxIconTemplate && !_checkboxIconTemplate) {
+                @if (checked) {
+                    @if (checkboxIcon) {
+                        <span [class]="cx('icon') ?? ''" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
+                    }
+                    @if (!checkboxIcon) {
+                        <svg data-p-icon="check" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
+                    }
+                }
+                @if (_indeterminate()) {
+                    <svg data-p-icon="minus" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
+                }
+            }
             <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
         </div>
     `,
@@ -235,7 +240,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     $pcCheckbox: Checkbox | undefined = inject(CHECKBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

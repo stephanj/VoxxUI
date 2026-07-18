@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformServer } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'voxx-ui/api';
@@ -17,8 +17,7 @@ const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIREC
  */
 @Directive({
     selector: '[vxBadge]',
-    providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }],
-    standalone: true
+    providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }]
 })
 export class BadgeDirective extends BaseComponent {
     $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -69,7 +68,7 @@ export class BadgeDirective extends BaseComponent {
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null | undefined;
+    @Input() severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | 'help' | 'primary' | 'warning' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
@@ -279,8 +278,7 @@ export class BadgeDirective extends BaseComponent {
 @Component({
     selector: 'vx-badge',
     template: `{{ value() }}`,
-    standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],
@@ -321,7 +319,7 @@ export class Badge extends BaseComponent<BadgePassThrough> {
      * Severity type of the badge.
      * @group Props
      */
-    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>();
+    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | 'help' | 'primary' | 'warning' | null>();
     /**
      * Value to display inside the badge.
      * @group Props

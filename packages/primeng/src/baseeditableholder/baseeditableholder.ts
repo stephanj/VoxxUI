@@ -2,7 +2,7 @@ import { booleanAttribute, computed, Directive, input, signal } from '@angular/c
 import { ControlValueAccessor } from '@angular/forms';
 import { BaseModelHolder } from 'voxx-ui/basemodelholder';
 
-@Directive({ standalone: true })
+@Directive()
 export class BaseEditableHolder<PT = any> extends BaseModelHolder<PT> implements ControlValueAccessor {
     /**
      * There must be a value (if set).

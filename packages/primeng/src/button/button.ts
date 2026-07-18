@@ -55,7 +55,6 @@ const INTERNAL_BUTTON_CLASSES = {
 @Directive({
     selector: '[vxButtonLabel]',
     providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
-    standalone: true,
     host: {
         '[class.p-button-label]': '!$unstyled() && true'
     },
@@ -108,7 +107,6 @@ export class ButtonLabel extends BaseComponent {
 @Directive({
     selector: '[vxButtonIcon]',
     providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
-    standalone: true,
     host: {
         '[class.p-button-icon]': '!$unstyled() && true'
     },
@@ -163,7 +161,6 @@ export class ButtonIcon extends BaseComponent {
  */
 @Directive({
     selector: '[vxButton]',
-    standalone: true,
     providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
         '[class.p-button-icon-only]': '!$unstyled() && isIconOnly()',
@@ -248,7 +245,7 @@ export class ButtonDirective extends BaseComponent {
      * Defines the size of the button.
      * @group Props
      */
-    @Input() size: 'small' | 'large' | undefined;
+    @Input() size: 'small' | 'large' | null | undefined;
 
     /**
      * Add a border class without a background initially.
@@ -318,7 +315,7 @@ export class ButtonDirective extends BaseComponent {
         return this._label as string;
     }
 
-    set label(val: string) {
+    set label(val: string | undefined) {
         this._label = val;
 
         if (this.initialized) {
@@ -337,7 +334,7 @@ export class ButtonDirective extends BaseComponent {
         return this._icon as string;
     }
 
-    set icon(val: string) {
+    set icon(val: string | undefined) {
         this._icon = val;
 
         if (this.initialized) {
@@ -575,7 +572,6 @@ export class ButtonDirective extends BaseComponent {
  */
 @Component({
     selector: 'vx-button',
-    standalone: true,
     imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule, Bind],
     template: `
         <button
@@ -597,32 +593,33 @@ export class ButtonDirective extends BaseComponent {
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-            <ng-container *ngIf="loading || buttonProps?.loading">
-                <ng-container *ngIf="!loadingIconTemplate && !_loadingIconTemplate">
-                    <span *ngIf="loadingIcon || buttonProps?.loadingIcon" [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [vxBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
-                    <svg data-p-icon="spinner" *ngIf="!(loadingIcon || buttonProps?.loadingIcon)" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [vxBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
-                </ng-container>
-                <ng-template [ngIf]="loadingIconTemplate || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
-            </ng-container>
-            <ng-container *ngIf="!(loading || buttonProps?.loading)">
-                <span *ngIf="(icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate" [class]="cn(cx('icon'), icon || buttonProps?.icon)" [vxBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
-                <ng-template [ngIf]="!icon && (iconTemplate || _iconTemplate)" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
-            </ng-container>
-            <span
-                [class]="cx('label')"
-                [attr.aria-hidden]="(icon || buttonProps?.icon) && !(label || buttonProps?.label)"
-                *ngIf="!contentTemplate && !_contentTemplate && (label || buttonProps?.label)"
-                [vxBind]="ptm('label')"
-                [attr.data-p]="dataLabelP"
-                >{{ label || buttonProps?.label }}</span
-            >
-            <vx-badge
-                *ngIf="!contentTemplate && !_contentTemplate && (badge || buttonProps?.badge)"
-                [value]="badge || buttonProps?.badge"
-                [severity]="badgeSeverity || buttonProps?.badgeSeverity"
-                [pt]="ptm('pcBadge')"
-                [unstyled]="unstyled()"
-            ></vx-badge>
+            @if (loading || buttonProps?.loading) {
+                @if (!loadingIconTemplate && !_loadingIconTemplate) {
+                    @if (loadingIcon || buttonProps?.loadingIcon) {
+                        <span [class]="cn(cx('loadingIcon'), 'pi-spin', loadingIcon || buttonProps?.loadingIcon)" [vxBind]="ptm('loadingIcon')" [attr.aria-hidden]="true"></span>
+                    }
+                    @if (!(loadingIcon || buttonProps?.loadingIcon)) {
+                        <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [vxBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
+                    }
+                }
+                @if (loadingIconTemplate || _loadingIconTemplate) {
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
+                }
+            }
+            @if (!(loading || buttonProps?.loading)) {
+                @if ((icon || buttonProps?.icon) && !iconTemplate && !_iconTemplate) {
+                    <span [class]="cn(cx('icon'), icon || buttonProps?.icon)" [vxBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
+                }
+                @if (!icon && (iconTemplate || _iconTemplate)) {
+                    <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
+                }
+            }
+            @if (!contentTemplate && !_contentTemplate && (label || buttonProps?.label)) {
+                <span [class]="cx('label')" [attr.aria-hidden]="(icon || buttonProps?.icon) && !(label || buttonProps?.label)" [vxBind]="ptm('label')" [attr.data-p]="dataLabelP">{{ label || buttonProps?.label }}</span>
+            }
+            @if (!contentTemplate && !_contentTemplate && (badge || buttonProps?.badge)) {
+                <vx-badge [value]="badge || buttonProps?.badge" [severity]="badgeSeverity || buttonProps?.badgeSeverity" [pt]="ptm('pcBadge')" [unstyled]="unstyled()"></vx-badge>
+            }
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -709,7 +706,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
      * Defines the size of the button.
      * @group Props
      */
-    @Input() size: 'small' | 'large' | undefined;
+    @Input() size: 'small' | 'large' | null | undefined;
 
     /**
      * Specifies the variant of the component.
