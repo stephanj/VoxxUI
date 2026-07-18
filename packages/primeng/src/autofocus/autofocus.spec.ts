@@ -881,8 +881,8 @@ describe('AutoFocus', () => {
             textareaDirective.focused = false;
 
             // Input should not be called since shouldAutoFocus is now false
-            expect(inputDirective.autofocus).toBe(false);
-            expect(textareaDirective.autofocus).toBe(true);
+            expect(inputDirective.autofocus()).toBe(false);
+            expect(textareaDirective.autofocus()).toBe(true);
 
             textareaDirective.ngAfterContentChecked();
             await new Promise((resolve) => setTimeout(resolve, 10));
