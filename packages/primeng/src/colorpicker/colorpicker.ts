@@ -30,7 +30,6 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
  */
 @Component({
     selector: 'vx-colorPicker, vx-colorpicker, vx-color-picker',
-    standalone: true,
     imports: [CommonModule, AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
     hostDirectives: [Bind],
     template: `

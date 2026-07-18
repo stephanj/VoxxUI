@@ -13,7 +13,6 @@ const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
  */
 @Component({
     selector: 'vx-iconfield, vx-iconField, vx-icon-field',
-    standalone: true,
     imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,
     providers: [IconFieldStyle, { provide: ICONFIELD_INSTANCE, useExisting: IconField }, { provide: PARENT_INSTANCE, useExisting: IconField }],

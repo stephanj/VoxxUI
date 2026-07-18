@@ -32,7 +32,6 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
  */
 @Component({
     selector: 'vx-chip',
-    standalone: true,
     imports: [CommonModule, TimesCircleIcon, SharedModule, Bind],
     template: `
         <ng-content></ng-content>

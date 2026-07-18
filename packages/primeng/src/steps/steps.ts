@@ -15,7 +15,6 @@ import { StepsStyle } from './style/stepsstyle';
  */
 @Component({
     selector: 'vx-steps',
-    standalone: true,
     imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
     template: `
         <nav [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [attr.data-pc-name]="'steps'">

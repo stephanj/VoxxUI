@@ -48,7 +48,6 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-tieredMenuSub, vx-tieredmenusub',
-    standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, AngleRightIcon, SharedModule, BindModule, MotionModule],
     template: `
         @if (render()) {
@@ -436,7 +435,6 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
  */
 @Component({
     selector: 'vx-tieredMenu, vx-tieredmenu, vx-tiered-menu',
-    standalone: true,
     imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule, MotionModule],
     template: `
         @if (render() || !popup) {

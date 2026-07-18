@@ -15,7 +15,6 @@ const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
  */
 @Component({
     selector: 'vx-card',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [vxBind]="ptm('header')" [class]="cx('header')" *ngIf="headerFacet || headerTemplate || _headerTemplate">

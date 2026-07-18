@@ -14,7 +14,6 @@ const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTAN
  */
 @Component({
     selector: 'vx-avatarGroup, vx-avatar-group, vx-avatargroup',
-    standalone: true,
     imports: [CommonModule, SharedModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,

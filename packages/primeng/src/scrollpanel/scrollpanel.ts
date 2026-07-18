@@ -16,7 +16,6 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
  */
 @Component({
     selector: 'vx-scroll-panel, vx-scrollPanel, vx-scrollpanel',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [vxBind]="ptm('contentContainer')" [class]="cx('contentContainer')">

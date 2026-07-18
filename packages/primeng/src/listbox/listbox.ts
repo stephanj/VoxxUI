@@ -70,7 +70,6 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-listbox, vx-listBox, vx-list-box',
-    standalone: true,
     imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule],
     template: `
         <span

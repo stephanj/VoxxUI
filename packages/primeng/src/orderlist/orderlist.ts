@@ -40,7 +40,6 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
  */
 @Component({
     selector: 'vx-orderList, vx-orderlist, vx-order-list',
-    standalone: true,
     imports: [CommonModule, ButtonModule, Ripple, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, Listbox, FormsModule, SharedModule, Bind],
     template: `
         <div [vxBind]="ptm('controls')" [class]="cx('controls')">

@@ -24,7 +24,6 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-toggleButton, vx-togglebutton, vx-toggle-button',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     hostDirectives: [{ directive: Ripple }, Bind],
     host: {

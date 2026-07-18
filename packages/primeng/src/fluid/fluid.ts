@@ -14,7 +14,6 @@ const FLUID_INSTANCE = new InjectionToken<Fluid>('FLUID_INSTANCE');
 @Component({
     selector: 'vx-fluid',
     template: ` <ng-content></ng-content> `,
-    standalone: true,
     imports: [CommonModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

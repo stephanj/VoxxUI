@@ -48,7 +48,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-checkbox, vx-checkBox, vx-check-box',
-    standalone: true,
     imports: [CommonModule, SharedModule, CheckIcon, MinusIcon, BindModule],
     template: `
         <input

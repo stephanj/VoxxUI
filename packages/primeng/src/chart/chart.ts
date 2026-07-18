@@ -15,7 +15,6 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
  */
 @Component({
     selector: 'vx-chart',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <canvas

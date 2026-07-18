@@ -43,7 +43,6 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-selectButton, vx-selectbutton, vx-select-button',
-    standalone: true,
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule, BindModule],
     template: `
         @for (option of options; track getOptionLabel(option); let i = $index) {

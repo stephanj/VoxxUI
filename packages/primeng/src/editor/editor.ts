@@ -23,7 +23,6 @@ export const EDITOR_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-editor',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [class]="cx('toolbar')" *ngIf="toolbar || headerTemplate || _headerTemplate" [vxBind]="ptm('toolbar')">

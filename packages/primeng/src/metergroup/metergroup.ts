@@ -12,7 +12,6 @@ const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE'
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-meterGroupLabel, vx-metergrouplabel',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ol [class]="cx('labelList')" [vxBind]="ptm('labelList')" [attr.data-p]="dataP">
@@ -56,7 +55,6 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
  */
 @Component({
     selector: 'vx-meterGroup, vx-metergroup, vx-meter-group',
-    standalone: true,
     imports: [CommonModule, MeterGroupLabel, SharedModule, Bind],
     template: `
         @if (labelPosition === 'start') {

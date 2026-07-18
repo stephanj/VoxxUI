@@ -44,7 +44,6 @@ type SplitButtonIconPosition = 'left' | 'right';
  */
 @Component({
     selector: 'vx-splitbutton, vx-splitButton, vx-split-button',
-    standalone: true,
     imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
         <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultButton">

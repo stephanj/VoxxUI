@@ -15,7 +15,6 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
 
 @Component({
     selector: 'vx-dynamicDialog, vx-dynamicdialog, vx-dynamic-dialog',
-    standalone: true,
     imports: [CommonModule, SharedModule, DynamicDialogContent, Dialog, BindModule],
     template: `
         <vx-dialog

@@ -31,7 +31,6 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
  */
 @Component({
     selector: 'vx-dataView, vx-dataview, vx-data-view',
-    standalone: true,
     imports: [CommonModule, PaginatorModule, SpinnerIcon, SharedModule, Bind],
     template: `
         @if (loading) {

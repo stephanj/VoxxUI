@@ -80,7 +80,6 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'li[vxMultiSelectItem]',
-    standalone: true,
     imports: [CommonModule, Checkbox, FormsModule, SharedModule],
     template: `
         <vx-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant" [ariaLabel]="label" [pt]="getPTOptions('pcOptionCheckbox')" [unstyled]="unstyled()">
@@ -184,7 +183,6 @@ export class MultiSelectItem extends BaseComponent {
  */
 @Component({
     selector: 'vx-multiSelect, vx-multiselect, vx-multi-select',
-    standalone: true,
     imports: [CommonModule, MultiSelectItem, Overlay, SharedModule, Tooltip, Scroller, AutoFocus, CheckIcon, SearchIcon, TimesIcon, ChevronDownIcon, IconField, InputIcon, InputText, Chip, Checkbox, FormsModule, BindModule],
     hostDirectives: [Bind],
     template: `

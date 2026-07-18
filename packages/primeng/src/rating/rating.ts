@@ -46,7 +46,6 @@ export const RATING_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'vx-rating',
     imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
-    standalone: true,
     template: `
         <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
             <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [vxBind]="ptm('option')">

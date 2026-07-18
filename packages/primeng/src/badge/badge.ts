@@ -17,8 +17,7 @@ const BADGE_DIRECTIVE_INSTANCE = new InjectionToken<BadgeDirective>('BADGE_DIREC
  */
 @Directive({
     selector: '[vxBadge]',
-    providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }],
-    standalone: true
+    providers: [BadgeStyle, { provide: BADGE_DIRECTIVE_INSTANCE, useExisting: BadgeDirective }, { provide: PARENT_INSTANCE, useExisting: BadgeDirective }]
 })
 export class BadgeDirective extends BaseComponent {
     $pcBadgeDirective: BadgeDirective | undefined = inject(BADGE_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -279,7 +278,6 @@ export class BadgeDirective extends BaseComponent {
 @Component({
     selector: 'vx-badge',
     template: `{{ value() }}`,
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

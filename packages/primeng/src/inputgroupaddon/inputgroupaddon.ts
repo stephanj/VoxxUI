@@ -15,7 +15,6 @@ const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUP
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-inputgroup-addon, vx-inputGroupAddon',
     template: ` <ng-content></ng-content> `,
-    standalone: true,
     imports: [BindModule],
     host: {
         '[class]': "cn(cx('root'), styleClass)",

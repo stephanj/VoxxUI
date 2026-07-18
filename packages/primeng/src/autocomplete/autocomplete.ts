@@ -69,7 +69,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-autoComplete, vx-autocomplete, vx-auto-complete',
-    standalone: true,
     imports: [CommonModule, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, ChevronDownIcon, Chip, SharedModule, TimesIcon, BindModule],
     template: `
         <input

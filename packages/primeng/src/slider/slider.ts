@@ -25,7 +25,6 @@ export const SLIDER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-slider',
-    standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <span

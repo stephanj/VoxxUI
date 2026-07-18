@@ -47,7 +47,6 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-inputNumber, vx-inputnumber, vx-input-number',
-    standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, AngleUpIcon, AngleDownIcon, SharedModule, BindModule],
     template: `
         <input

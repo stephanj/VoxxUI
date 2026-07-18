@@ -14,7 +14,6 @@ const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE'
  */
 @Component({
     selector: 'vx-floatlabel, vx-floatLabel, vx-float-label',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,

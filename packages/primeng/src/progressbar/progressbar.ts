@@ -14,7 +14,6 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
  */
 @Component({
     selector: 'vx-progressBar, vx-progressbar, vx-progress-bar',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <div *ngIf="mode === 'determinate'" [class]="cn(cx('value'), valueStyleClass)" [vxBind]="ptm('value')" [style.width]="value + '%'" [style.display]="'flex'" [style.background]="color" [attr.data-p]="dataP">

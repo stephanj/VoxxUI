@@ -43,7 +43,6 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
  */
 @Component({
     selector: 'vx-paginator',
-    standalone: true,
     imports: [CommonModule, Select, InputNumber, FormsModule, Ripple, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon, SharedModule, Bind],
     template: `
         <div [vxBind]="ptm('contentStart')" [class]="cx('contentStart')" *ngIf="templateLeft">

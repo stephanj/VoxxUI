@@ -41,7 +41,6 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
  */
 @Component({
     selector: 'vx-overlay',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind, MotionModule],
     hostDirectives: [Bind],
     template: `

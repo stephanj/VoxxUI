@@ -74,7 +74,6 @@ const INPUTMASK_DIRECTIVE_INSTANCE = new InjectionToken<InputMaskDirective>('INP
  */
 @Directive({
     selector: '[vxInputMask]',
-    standalone: true,
     providers: [InputMaskStyle, { provide: INPUTMASK_DIRECTIVE_INSTANCE, useExisting: InputMaskDirective }, { provide: PARENT_INSTANCE, useExisting: InputMaskDirective }],
     host: {
         '[class.p-inputmask]': '!$unstyled()'
@@ -691,7 +690,6 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-inputmask, vx-inputMask, vx-input-mask',
-    standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, SharedModule, BindModule],
     template: `
         <input

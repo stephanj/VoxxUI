@@ -2,7 +2,7 @@ import { booleanAttribute, computed, Directive, inject, input } from '@angular/c
 import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
 import { Fluid } from 'voxx-ui/fluid';
 
-@Directive({ standalone: true })
+@Directive()
 export class BaseInput<PT = any> extends BaseEditableHolder<PT> {
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
 

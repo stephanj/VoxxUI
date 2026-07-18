@@ -78,7 +78,6 @@ export class RadioControlRegistry {
  */
 @Component({
     selector: 'vx-radioButton, vx-radiobutton, vx-radio-button',
-    standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input

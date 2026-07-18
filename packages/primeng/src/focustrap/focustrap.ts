@@ -8,8 +8,7 @@ import { BaseComponent } from 'voxx-ui/basecomponent';
  * @group Components
  */
 @Directive({
-    selector: '[vxFocusTrap]',
-    standalone: true
+    selector: '[vxFocusTrap]'
 })
 export class FocusTrap extends BaseComponent {
     /**

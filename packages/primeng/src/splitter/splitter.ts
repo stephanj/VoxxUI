@@ -17,7 +17,6 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
  */
 @Component({
     selector: 'vx-splitter',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">

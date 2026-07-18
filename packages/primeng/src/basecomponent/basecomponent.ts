@@ -10,7 +10,6 @@ import { BaseComponentStyle } from './style/basecomponentstyle';
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
 
 @Directive({
-    standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
 })
 export class BaseComponent<PT = any> implements Lifecycle {

@@ -42,7 +42,6 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-toggleswitch, vx-toggleSwitch, vx-toggle-switch',
-    standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
         <input

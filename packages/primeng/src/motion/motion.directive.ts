@@ -12,7 +12,6 @@ const MOTION_DIRECTIVE_INSTANCE = new InjectionToken<MotionDirective>('MOTION_DI
  */
 @Directive({
     selector: '[vxMotion]',
-    standalone: true,
     providers: [MotionStyle, { provide: MOTION_DIRECTIVE_INSTANCE, useExisting: MotionDirective }, { provide: PARENT_INSTANCE, useExisting: MotionDirective }]
 })
 export class MotionDirective extends BaseComponent {

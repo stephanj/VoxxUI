@@ -14,7 +14,6 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
  */
 @Component({
     selector: 'vx-tag',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-content></ng-content>

@@ -2,7 +2,7 @@ import { computed, Directive, signal } from '@angular/core';
 import { isNotEmpty } from '@primeuix/utils';
 import { BaseComponent } from 'voxx-ui/basecomponent';
 
-@Directive({ standalone: true })
+@Directive()
 export class BaseModelHolder<PT = any> extends BaseComponent<PT> {
     modelValue = signal<string | string[] | any | undefined>(undefined);
 

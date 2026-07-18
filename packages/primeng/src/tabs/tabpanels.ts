@@ -13,7 +13,6 @@ const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
  */
 @Component({
     selector: 'vx-tabpanels',
-    standalone: true,
     imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -14,7 +14,6 @@ import { RippleStyle } from './style/ripplestyle';
     host: {
         class: 'p-ripple'
     },
-    standalone: true,
     providers: [RippleStyle]
 })
 export class Ripple extends BaseComponent {

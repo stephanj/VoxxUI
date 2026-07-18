@@ -8,8 +8,7 @@ import { DomHandler } from 'voxx-ui/dom';
  * @group Components
  */
 @Directive({
-    selector: '[vxAutoFocus]',
-    standalone: true
+    selector: '[vxAutoFocus]'
 })
 export class AutoFocus extends BaseComponent {
     /**

@@ -42,7 +42,6 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
  */
 @Component({
     selector: 'vx-confirmDialog, vx-confirmdialog, vx-confirm-dialog',
-    standalone: true,
     imports: [CommonModule, Button, Dialog, SharedModule, Bind],
     template: `
         <vx-dialog

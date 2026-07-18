@@ -18,8 +18,7 @@ export class Header {}
 export class Footer {}
 
 @Directive({
-    selector: '[vxTemplate]',
-    standalone: true
+    selector: '[vxTemplate]'
 })
 export class PrimeTemplate {
     @Input() type: string | undefined;

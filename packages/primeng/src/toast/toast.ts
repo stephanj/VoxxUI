@@ -38,7 +38,6 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
 
 @Component({
     selector: 'vx-toastItem',
-    standalone: true,
     imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
         <div
@@ -254,7 +253,6 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
  */
 @Component({
     selector: 'vx-toast',
-    standalone: true,
     imports: [CommonModule, ToastItem, SharedModule],
     template: `
         <vx-toastItem

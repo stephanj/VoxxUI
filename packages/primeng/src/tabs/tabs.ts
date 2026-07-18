@@ -14,7 +14,6 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
  */
 @Component({
     selector: 'vx-tabs',
-    standalone: true,
     imports: [CommonModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,

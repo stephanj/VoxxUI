@@ -14,7 +14,6 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
  */
 @Component({
     selector: 'vx-avatar',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-content></ng-content>

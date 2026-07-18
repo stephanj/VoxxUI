@@ -39,7 +39,6 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
  */
 @Component({
     selector: 'vx-panel',
-    standalone: true,
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
         <div [vxBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">

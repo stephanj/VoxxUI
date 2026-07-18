@@ -28,7 +28,6 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
 @Component({
     selector: 'vx-scroller, vx-virtualscroller, vx-virtual-scroller, vx-virtualScroller',
     imports: [CommonModule, SpinnerIcon, SharedModule, Bind],
-    standalone: true,
     template: `
         <ng-container *ngIf="!_disabled; else disabledContainer">
             <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [vxBind]="ptm('root')">

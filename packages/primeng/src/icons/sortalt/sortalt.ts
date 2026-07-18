@@ -5,7 +5,6 @@ import { BaseIcon } from 'voxx-ui/icons/baseicon';
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[data-p-icon="sort-alt"]',
-    standalone: true,
     template: `
         <svg:g [attr.clip-path]="pathId">
             <svg:path

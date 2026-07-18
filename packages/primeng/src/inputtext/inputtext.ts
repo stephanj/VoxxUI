@@ -15,7 +15,6 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
  */
 @Directive({
     selector: '[vxInputText]',
-    standalone: true,
     host: {
         '[class]': "cx('root')",
         '[attr.data-p]': 'dataP',

@@ -60,7 +60,6 @@ type Meter = {
  */
 @Directive({
     selector: '[vxPassword]',
-    standalone: true,
     host: {
         '[class]': "cx('rootDirective')",
         '(input)': 'onInput($event)',
@@ -411,8 +410,7 @@ type Mapper<T, G> = (item: T, ...args: any[]) => G;
 
 @Pipe({
     name: 'mapper',
-    pure: true,
-    standalone: true
+    pure: true
 })
 export class MapperPipe implements PipeTransform {
     public transform<T, G>(value: T, mapper: Mapper<T, G>, ...args: unknown[]): G {
@@ -431,7 +429,6 @@ export const Password_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-password',
-    standalone: true,
     imports: [CommonModule, InputText, AutoFocus, TimesIcon, EyeSlashIcon, EyeIcon, Overlay, SharedModule, BindModule],
     template: `
         <input

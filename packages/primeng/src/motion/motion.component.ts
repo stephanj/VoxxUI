@@ -17,7 +17,6 @@ const MOTION_INSTANCE = new InjectionToken<Motion>('MOTION_INSTANCE');
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-motion',
-    standalone: true,
     imports: [CommonModule, BindModule],
     template: `
         @if (rendered()) {

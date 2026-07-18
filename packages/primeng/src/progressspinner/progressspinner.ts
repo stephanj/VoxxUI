@@ -14,7 +14,6 @@ const PROGRESSSPINNER_INSTANCE = new InjectionToken<ProgressSpinner>('PROGRESSSP
  */
 @Component({
     selector: 'vx-progressSpinner, vx-progress-spinner, vx-progressspinner',
-    standalone: true,
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <svg [class]="cx('spin')" [vxBind]="ptm('spin')" viewBox="25 25 50 50" [style.animation-duration]="animationDuration">

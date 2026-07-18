@@ -58,7 +58,6 @@ const ACCORDION_INSTANCE = new InjectionToken<Accordion>('ACCORDION_INSTANCE');
 @Component({
     selector: 'vx-accordion-panel, vx-accordionpanel',
     imports: [CommonModule, BindModule],
-    standalone: true,
     template: `<ng-content />`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -113,7 +112,6 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
 @Component({
     selector: 'vx-accordion-header, vx-accordionheader',
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, BindModule],
-    standalone: true,
     template: `
         <ng-content />
         @if (toggleicon) {
@@ -315,7 +313,6 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
 @Component({
     selector: 'vx-accordion-content, vx-accordioncontent',
     imports: [CommonModule, BindModule, MotionModule],
-    standalone: true,
     template: `
         <vx-motion [visible]="active()" name="p-collapsible" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
             <div [vxBind]="ptm('contentWrapper', ptParams())" [class]="cx('contentWrapper')">
@@ -376,7 +373,6 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
  */
 @Component({
     selector: 'vx-accordion',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: ` <ng-content />`,
     host: {

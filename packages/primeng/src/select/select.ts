@@ -72,7 +72,6 @@ export const SELECT_VALUE_ACCESSOR: any = {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-selectItem',
-    standalone: true,
     imports: [CommonModule, SharedModule, Ripple, CheckIcon, BlankIcon, BindModule],
     template: `
         <li
@@ -174,7 +173,6 @@ export class SelectItem extends BaseComponent {
 
 @Component({
     selector: 'vx-select',
-    standalone: true,
     imports: [CommonModule, SelectItem, Overlay, Tooltip, AutoFocus, TimesIcon, ChevronDownIcon, SearchIcon, InputText, IconField, InputIcon, Scroller, SharedModule, BindModule],
     template: `
         <span

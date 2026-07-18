@@ -55,7 +55,6 @@ const INTERNAL_BUTTON_CLASSES = {
 @Directive({
     selector: '[vxButtonLabel]',
     providers: [ButtonStyle, { provide: BUTTON_LABEL_INSTANCE, useExisting: ButtonLabel }, { provide: PARENT_INSTANCE, useExisting: ButtonLabel }],
-    standalone: true,
     host: {
         '[class.p-button-label]': '!$unstyled() && true'
     },
@@ -108,7 +107,6 @@ export class ButtonLabel extends BaseComponent {
 @Directive({
     selector: '[vxButtonIcon]',
     providers: [ButtonStyle, { provide: BUTTON_ICON_INSTANCE, useExisting: ButtonIcon }, { provide: PARENT_INSTANCE, useExisting: ButtonIcon }],
-    standalone: true,
     host: {
         '[class.p-button-icon]': '!$unstyled() && true'
     },
@@ -163,7 +161,6 @@ export class ButtonIcon extends BaseComponent {
  */
 @Directive({
     selector: '[vxButton]',
-    standalone: true,
     providers: [ButtonStyle, { provide: BUTTON_DIRECTIVE_INSTANCE, useExisting: ButtonDirective }, { provide: PARENT_INSTANCE, useExisting: ButtonDirective }],
     host: {
         '[class.p-button-icon-only]': '!$unstyled() && isIconOnly()',
@@ -575,7 +572,6 @@ export class ButtonDirective extends BaseComponent {
  */
 @Component({
     selector: 'vx-button',
-    standalone: true,
     imports: [CommonModule, Ripple, AutoFocus, SpinnerIcon, BadgeModule, SharedModule, Bind],
     template: `
         <button

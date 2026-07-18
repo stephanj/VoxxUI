@@ -8,7 +8,6 @@ import { VoidListener } from 'voxx-ui/ts-helpers';
  */
 @Directive({
     selector: '[vxStyleClass]',
-    standalone: true,
     host: {
         '(click)': 'clickListener()'
     }

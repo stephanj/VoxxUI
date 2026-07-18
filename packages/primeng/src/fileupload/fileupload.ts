@@ -55,7 +55,6 @@ const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE'
 
 @Component({
     selector: '[vxFileContent]',
-    standalone: true,
     template: `@for (file of files(); track file?.name + '-' + $index; let index = $index) {
         <div [class]="cx('file')" [vxBind]="$pcFileUpload.ptm('file')">
             <img role="presentation" [class]="cx('fileThumbnail')" [attr.alt]="file.name" [src]="file.objectURL" [width]="previewWidth()" [vxBind]="$pcFileUpload.ptm('fileThumbnail')" />
@@ -123,7 +122,6 @@ export class FileContent extends BaseComponent {
  */
 @Component({
     selector: 'vx-fileupload, vx-fileUpload',
-    standalone: true,
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
         <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [vxBind]="ptm('root')">

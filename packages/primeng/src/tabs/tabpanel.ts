@@ -15,7 +15,6 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
  */
 @Component({
     selector: 'vx-tabpanel',
-    standalone: true,
     imports: [NgTemplateOutlet, BindModule],
     template: `
         <ng-template #defaultContent>

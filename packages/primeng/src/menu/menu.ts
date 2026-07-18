@@ -47,8 +47,7 @@ import { MenuStyle } from './style/menustyle';
 const MENU_INSTANCE = new InjectionToken<Menu>('MENU_INSTANCE');
 
 @Pipe({
-    name: 'safeHtml',
-    standalone: true
+    name: 'safeHtml'
 })
 export class SafeHtmlPipe implements PipeTransform {
     constructor(
@@ -68,7 +67,6 @@ export class SafeHtmlPipe implements PipeTransform {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: '[vxMenuItemContent]',
-    standalone: true,
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule],
     template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item)" [attr.data-pc-section]="'content'" [vxBind]="getPTOptions('itemContent')">
         <ng-container *ngIf="!itemTemplate">
@@ -161,7 +159,6 @@ export class MenuItemContent extends BaseComponent {
  */
 @Component({
     selector: 'vx-menu',
-    standalone: true,
     imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule],
     template: `
         @if (!popup || overlayVisible) {

@@ -14,7 +14,6 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-inputgroup, vx-inputGroup, vx-input-group',
-    standalone: true,
     imports: [BindModule],
     template: ` <ng-content></ng-content> `,
     providers: [InputGroupStyle, { provide: INPUTGROUP_INSTANCE, useExisting: InputGroup }, { provide: PARENT_INSTANCE, useExisting: InputGroup }],

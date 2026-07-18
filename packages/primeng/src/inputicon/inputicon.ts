@@ -14,7 +14,6 @@ const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');
  */
 @Component({
     selector: 'vx-inputicon, vx-inputIcon',
-    standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `<ng-content></ng-content>`,
     encapsulation: ViewEncapsulation.None,
