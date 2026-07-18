@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -14,7 +13,7 @@ const FLOATLABEL_INSTANCE = new InjectionToken<FloatLabel>('FLOATLABEL_INSTANCE'
  */
 @Component({
     selector: 'vx-floatlabel, vx-floatLabel, vx-float-label',
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

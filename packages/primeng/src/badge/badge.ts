@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformServer } from '@angular/common';
+import { isPlatformServer } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'voxx-ui/api';
@@ -278,7 +278,7 @@ export class BadgeDirective extends BaseComponent {
 @Component({
     selector: 'vx-badge',
     template: `{{ value() }}`,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],

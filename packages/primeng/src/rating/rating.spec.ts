@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -123,7 +122,7 @@ class TestAdvancedRatingComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [Rating, FormsModule, CommonModule, SharedModule],
+    imports: [Rating, FormsModule, SharedModule],
     template: `
         <vx-rating [(ngModel)]="value" [stars]="stars">
             <!-- On icon template with vxTemplate directive -->
@@ -147,7 +146,7 @@ class TestRatingPTemplateComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [Rating, FormsModule, CommonModule, SharedModule],
+    imports: [Rating, FormsModule, SharedModule],
     template: `
         <vx-rating [(ngModel)]="value" [stars]="stars">
             <!-- On icon template with #template reference -->

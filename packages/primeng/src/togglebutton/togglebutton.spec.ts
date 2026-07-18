@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -125,7 +124,7 @@ class TestIconToggleButtonComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, SharedModule],
     template: `
         <vx-togglebutton [(ngModel)]="checked">
             <!-- Icon template with vxTemplate -->
@@ -150,7 +149,7 @@ class TestToggleButtonPTemplateComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, SharedModule],
     template: `
         <vx-togglebutton [(ngModel)]="checked">
             <!-- Icon template with #template reference -->

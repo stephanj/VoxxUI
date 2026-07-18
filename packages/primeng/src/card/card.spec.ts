@@ -125,9 +125,9 @@ class TestSimpleTextCardComponent {}
     standalone: false,
     template: `
         <vx-card [header]="header" [subheader]="subheader">
-            <ng-container *ngIf="showContent">
+            @if (showContent) {
                 <div class="dynamic-content">Dynamic Content</div>
-            </ng-container>
+            }
         </vx-card>
     `
 })

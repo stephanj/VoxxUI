@@ -17,9 +17,17 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        <span [vxBind]="ptm('label')" [class]="cx('label')" *ngIf="label; else iconTemplate" [attr.data-p]="dataP">{{ label }}</span>
-        <ng-template #iconTemplate><span [vxBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')" *ngIf="icon; else imageTemplate" [attr.data-p]="dataP"></span></ng-template>
-        <ng-template #imageTemplate><img [vxBind]="ptm('image')" [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" [attr.data-p]="dataP" /></ng-template>
+        @if (label) {
+            <span [vxBind]="ptm('label')" [class]="cx('label')" [attr.data-p]="dataP">{{ label }}</span>
+        } @else {
+            @if (icon) {
+                <span [vxBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')" [attr.data-p]="dataP"></span>
+            } @else {
+                @if (image) {
+                    <img [vxBind]="ptm('image')" [src]="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" [attr.data-p]="dataP" />
+                }
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

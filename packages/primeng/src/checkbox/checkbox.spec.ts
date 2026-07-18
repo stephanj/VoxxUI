@@ -93,7 +93,9 @@ class TestBasicCheckboxComponent {
     template: `
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <vx-checkbox formControlName="agreement" [binary]="true" inputId="agreement" [required]="required" (onChange)="onSelectionChange($event)"> </vx-checkbox>
-            <vx-checkbox formControlName="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" (onChange)="onSelectionChange($event)"> </vx-checkbox>
+            @for (ingredient of ingredients; track ingredient; let i = $index) {
+                <vx-checkbox formControlName="selectedIngredients" [value]="ingredient.value" [inputId]="'ingredient-' + i" (onChange)="onSelectionChange($event)"> </vx-checkbox>
+            }
         </form>
     `
 })
@@ -120,7 +122,11 @@ class TestReactiveFormCheckboxComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false,
-    template: ` <vx-checkbox [(ngModel)]="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </vx-checkbox> `
+    template: `
+        @for (ingredient of ingredients; track ingredient; let i = $index) {
+            <vx-checkbox [(ngModel)]="selectedIngredients" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </vx-checkbox>
+        }
+    `
 })
 class TestMultipleCheckboxComponent {
     selectedIngredients: string[] = [];
@@ -204,8 +210,12 @@ class TestStyledCheckboxComponent {
             <!-- Icon template with vxTemplate directive -->
             <ng-template vxTemplate="icon" let-checked>
                 <span class="custom-checkbox-icon" data-testid="ptemplate-icon">
-                    <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
-                    <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
+                    @if (checked) {
+                        <i class="pi pi-check custom-check-icon"></i>
+                    }
+                    @if (!checked) {
+                        <i class="pi pi-times custom-uncheck-icon"></i>
+                    }
                 </span>
             </ng-template>
         </vx-checkbox>
@@ -225,8 +235,12 @@ class TestCheckboxPTemplateComponent {
             <!-- Icon template with #template reference -->
             <ng-template #icon let-checked>
                 <span class="custom-checkbox-icon" data-testid="ref-icon">
-                    <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
-                    <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
+                    @if (checked) {
+                        <i class="pi pi-check custom-check-icon"></i>
+                    }
+                    @if (!checked) {
+                        <i class="pi pi-times custom-uncheck-icon"></i>
+                    }
                 </span>
             </ng-template>
         </vx-checkbox>

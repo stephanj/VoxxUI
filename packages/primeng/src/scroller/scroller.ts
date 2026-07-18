@@ -29,49 +29,49 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     selector: 'vx-scroller, vx-virtualscroller, vx-virtual-scroller, vx-virtualScroller',
     imports: [CommonModule, SpinnerIcon, SharedModule, Bind],
     template: `
-        <ng-container *ngIf="!_disabled; else disabledContainer">
+        @if (!_disabled) {
             <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [vxBind]="ptm('root')">
-                <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
+                @if (contentTemplate || _contentTemplate) {
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
-                </ng-container>
-                <ng-template #buildInContent>
+                } @else {
                     <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [vxBind]="ptm('content')">
-                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
+                        @for (item of loadedItems; track _trackBy(index, item); let index = $index) {
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
-                        </ng-container>
+                        }
                     </div>
-                </ng-template>
-                <div *ngIf="_showSpacer" [class]="cx('spacer')" [ngStyle]="spacerStyle" [vxBind]="ptm('spacer')"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" [class]="cx('loader')" [vxBind]="ptm('loader')">
-                    <ng-container *ngIf="loaderTemplate || _loaderTemplate; else buildInLoader">
-                        <ng-container *ngFor="let item of loaderArr; let index = index">
-                            <ng-container
-                                *ngTemplateOutlet="
-                                    loaderTemplate || _loaderTemplate;
-                                    context: {
-                                        options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
-                                    }
-                                "
-                            ></ng-container>
-                        </ng-container>
-                    </ng-container>
-                    <ng-template #buildInLoader>
-                        <ng-container *ngIf="loaderIconTemplate || _loaderIconTemplate; else buildInLoaderIcon">
-                            <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
-                        </ng-container>
-                        <ng-template #buildInLoaderIcon>
-                            <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [vxBind]="ptm('loadingIcon')" />
-                        </ng-template>
-                    </ng-template>
-                </div>
+                }
+                @if (_showSpacer) {
+                    <div [class]="cx('spacer')" [ngStyle]="spacerStyle" [vxBind]="ptm('spacer')"></div>
+                }
+                @if (!loaderDisabled && _showLoader && d_loading) {
+                    <div [class]="cx('loader')" [vxBind]="ptm('loader')">
+                        @if (loaderTemplate || _loaderTemplate) {
+                            @for (item of loaderArr; track item; let index = $index) {
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        loaderTemplate || _loaderTemplate;
+                                        context: {
+                                            options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
+                                        }
+                                    "
+                                ></ng-container>
+                            }
+                        } @else {
+                            @if (loaderIconTemplate || _loaderIconTemplate) {
+                                <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
+                            } @else {
+                                <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [vxBind]="ptm('loadingIcon')" />
+                            }
+                        }
+                    </div>
+                }
             </div>
-        </ng-container>
-        <ng-template #disabledContainer>
+        } @else {
             <ng-content></ng-content>
-            <ng-container *ngIf="contentTemplate || _contentTemplate">
+            @if (contentTemplate || _contentTemplate) {
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }"></ng-container>
-            </ng-container>
-        </ng-template>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,

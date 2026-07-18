@@ -462,43 +462,52 @@ export const Password_VALUE_ACCESSOR: any = {
             [pt]="ptm('pcInputText')"
             [unstyled]="unstyled()"
         />
-        <ng-container *ngIf="showClear && value != null">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [vxBind]="ptm('clearIcon')" />
+        @if (showClear && value != null) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear()" [vxBind]="ptm('clearIcon')" />
+            }
             <span (click)="clear()" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
             </span>
-        </ng-container>
+        }
 
-        <ng-container *ngIf="toggleMask">
-            <ng-container *ngIf="unmasked">
-                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [vxBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
-                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [vxBind]="ptm('maskIcon')">
-                    <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
-                </span>
-            </ng-container>
-            <ng-container *ngIf="!unmasked">
-                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [vxBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
-                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [vxBind]="ptm('unmaskIcon')">
-                    <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
-                </span>
-            </ng-container>
-        </ng-container>
+        @if (toggleMask) {
+            @if (unmasked) {
+                @if (!hideIconTemplate && !_hideIconTemplate) {
+                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [vxBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
+                }
+                @if (hideIconTemplate || _hideIconTemplate) {
+                    <span (click)="onMaskToggle()" [vxBind]="ptm('maskIcon')">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
+                    </span>
+                }
+            }
+            @if (!unmasked) {
+                @if (!showIconTemplate && !_showIconTemplate) {
+                    <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [vxBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                }
+                @if (showIconTemplate || _showIconTemplate) {
+                    <span (click)="onMaskToggle()" [vxBind]="ptm('unmaskIcon')">
+                        <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
+                    </span>
+                }
+            }
+        }
 
         <vx-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
                 <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultContent">
+                    @if (contentTemplate || _contentTemplate) {
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                    </ng-container>
-                    <ng-template #defaultContent>
+                    } @else {
                         <div [class]="cx('content')" [vxBind]="ptm('content')">
                             <div [class]="cx('meter')" [vxBind]="ptm('meter')">
                                 <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                             </div>
                             <div [class]="cx('meterText')" [vxBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>
-                    </ng-template>
+                    }
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 </div>
             </ng-template>

@@ -92,11 +92,17 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [ngStyle]="{ height: scrollerOptions?.itemSize + 'px' }"
             [class]="cx('option')"
         >
-            <ng-container *ngIf="checkmark">
-                <svg data-p-icon="check" *ngIf="selected" [class]="cx('optionCheckIcon')" [vxBind]="$pcSelect?.ptm('optionCheckIcon')" />
-                <svg data-p-icon="blank" *ngIf="!selected" [class]="cx('optionBlankIcon')" [vxBind]="$pcSelect?.ptm('optionBlankIcon')" />
-            </ng-container>
-            <span *ngIf="!template" [vxBind]="$pcSelect?.ptm('optionLabel')">{{ label ?? 'empty' }}</span>
+            @if (checkmark) {
+                @if (selected) {
+                    <svg data-p-icon="check" [class]="cx('optionCheckIcon')" [vxBind]="$pcSelect?.ptm('optionCheckIcon')" />
+                }
+                @if (!selected) {
+                    <svg data-p-icon="blank" [class]="cx('optionBlankIcon')" [vxBind]="$pcSelect?.ptm('optionBlankIcon')" />
+                }
+            }
+            @if (!template) {
+                <span [vxBind]="$pcSelect?.ptm('optionLabel')">{{ label ?? 'empty' }}</span>
+            }
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind } from 'voxx-ui/bind';
@@ -14,7 +13,7 @@ const FLUID_INSTANCE = new InjectionToken<Fluid>('FLUID_INSTANCE');
 @Component({
     selector: 'vx-fluid',
     template: ` <ng-content></ng-content> `,
-    imports: [CommonModule],
+    imports: [],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [FluidStyle, { provide: FLUID_INSTANCE, useExisting: Fluid }, { provide: PARENT_INSTANCE, useExisting: Fluid }],

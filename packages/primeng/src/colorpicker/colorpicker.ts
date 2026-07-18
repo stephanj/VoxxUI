@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
@@ -30,26 +29,27 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
  */
 @Component({
     selector: 'vx-colorPicker, vx-colorpicker, vx-color-picker',
-    imports: [CommonModule, AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
+    imports: [AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
     hostDirectives: [Bind],
     template: `
-        <input
-            *ngIf="!inline"
-            #input
-            type="text"
-            [class]="cx('preview')"
-            readonly
-            [attr.tabindex]="tabindex"
-            [attr.disabled]="$disabled() ? '' : undefined"
-            (click)="onInputClick()"
-            (keydown)="onInputKeydown($event)"
-            (focus)="onInputFocus()"
-            [attr.id]="inputId"
-            [style.backgroundColor]="inputBgColor"
-            [attr.aria-label]="ariaLabel"
-            [vxAutoFocus]="autofocus"
-            [vxBind]="ptm('preview')"
-        />
+        @if (!inline) {
+            <input
+                #input
+                type="text"
+                [class]="cx('preview')"
+                readonly
+                [attr.tabindex]="tabindex"
+                [attr.disabled]="$disabled() ? '' : undefined"
+                (click)="onInputClick()"
+                (keydown)="onInputKeydown($event)"
+                (focus)="onInputFocus()"
+                [attr.id]="inputId"
+                [style.backgroundColor]="inputBgColor"
+                [attr.aria-label]="ariaLabel"
+                [vxAutoFocus]="autofocus"
+                [vxBind]="ptm('preview')"
+            />
+        }
 
         <vx-overlay
             #overlay

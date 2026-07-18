@@ -93,9 +93,11 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
         </vx-autocomplete>
 
         <!-- Reactive Forms test -->
-        <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
-            <vx-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </vx-autocomplete>
-        </form>
+        @if (showReactiveForm) {
+            <form [formGroup]="reactiveForm">
+                <vx-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </vx-autocomplete>
+            </form>
+        }
     `
 })
 class TestAutocompleteComponent {

@@ -1,5 +1,22 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, EventEmitter, forwardRef, inject, InjectionToken, Input, input, InputSignalWithTransform, model, NgModule, Output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ContentChild,
+    EventEmitter,
+    forwardRef,
+        inject,
+    InjectionToken,
+    Input,
+    input,
+    InputSignalWithTransform,
+    model,
+    NgModule,
+    Output,
+    signal,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { findSingle, focus, getAttribute, uuid } from '@primeuix/utils';
 import { BlockableUI, SharedModule } from 'voxx-ui/api';
@@ -57,7 +74,7 @@ const ACCORDION_INSTANCE = new InjectionToken<Accordion>('ACCORDION_INSTANCE');
  */
 @Component({
     selector: 'vx-accordion-panel, vx-accordionpanel',
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: `<ng-content />`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -111,20 +128,28 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
  */
 @Component({
     selector: 'vx-accordion-header, vx-accordionheader',
-    imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, BindModule],
+    imports: [ChevronDownIcon, ChevronUpIcon, BindModule],
     template: `
         <ng-content />
         @if (toggleicon) {
             <ng-template *ngTemplateOutlet="toggleicon; context: { active: active() }"></ng-template>
         } @else {
-            <ng-container *ngIf="active()">
-                <span *ngIf="pcAccordion.collapseIcon" [class]="cn(cx('toggleicon'), pcAccordion.collapseIcon)" [attr.aria-hidden]="true" [vxBind]="ptm('toggleicon')"></span>
-                <svg data-p-icon="chevron-up" *ngIf="!pcAccordion.collapseIcon" [class]="cx('toggleicon')" [vxBind]="ptm('toggleicon')" [attr.aria-hidden]="true" />
-            </ng-container>
-            <ng-container *ngIf="!active()">
-                <span *ngIf="pcAccordion.expandIcon" [class]="cn(cx('toggleicon'), pcAccordion.expandIcon)" [attr.aria-hidden]="true" [vxBind]="ptm('toggleicon')"></span>
-                <svg data-p-icon="chevron-down" *ngIf="!pcAccordion.expandIcon" [attr.aria-hidden]="true" [vxBind]="ptm('toggleicon')" />
-            </ng-container>
+            @if (active()) {
+                @if (pcAccordion.collapseIcon) {
+                    <span [class]="cn(cx('toggleicon'), pcAccordion.collapseIcon)" [attr.aria-hidden]="true" [vxBind]="ptm('toggleicon')"></span>
+                }
+                @if (!pcAccordion.collapseIcon) {
+                    <svg data-p-icon="chevron-up" [class]="cx('toggleicon')" [vxBind]="ptm('toggleicon')" [attr.aria-hidden]="true" />
+                }
+            }
+            @if (!active()) {
+                @if (pcAccordion.expandIcon) {
+                    <span [class]="cn(cx('toggleicon'), pcAccordion.expandIcon)" [attr.aria-hidden]="true" [vxBind]="ptm('toggleicon')"></span>
+                }
+                @if (!pcAccordion.expandIcon) {
+                    <svg data-p-icon="chevron-down" [attr.aria-hidden]="true" [vxBind]="ptm('toggleicon')" />
+                }
+            }
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -312,7 +337,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
 
 @Component({
     selector: 'vx-accordion-content, vx-accordioncontent',
-    imports: [CommonModule, BindModule, MotionModule],
+    imports: [BindModule, MotionModule],
     template: `
         <vx-motion [visible]="active()" name="p-collapsible" hideStrategy="visibility" [mountOnEnter]="false" [unmountOnLeave]="false" [options]="computedMotionOptions()">
             <div [vxBind]="ptm('contentWrapper', ptParams())" [class]="cx('contentWrapper')">
@@ -373,7 +398,7 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
  */
 @Component({
     selector: 'vx-accordion',
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content />`,
     host: {
         '[class]': "cn(cx('root'), styleClass)",

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked } from '@angular/core';
 import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
@@ -17,7 +16,7 @@ const MOTION_INSTANCE = new InjectionToken<Motion>('MOTION_INSTANCE');
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-motion',
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: `
         @if (rendered()) {
             <ng-content />

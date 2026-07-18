@@ -100,9 +100,11 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
             }
             @if (isEmpty() && !loading) {
                 <div [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
-                    <ng-container *ngIf="!emptymessageTemplate; else empty">
+                    @if (!emptymessageTemplate) {
                         {{ emptyMessageLabel }}
-                    </ng-container>
+                    } @else {
+                        <ng-template [ngTemplateOutlet]="empty"></ng-template>
+                    }
                     <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
                 </div>
             }

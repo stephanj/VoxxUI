@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'voxx-ui/api';
@@ -18,7 +18,7 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
  */
 @Component({
     selector: 'vx-tab',
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,

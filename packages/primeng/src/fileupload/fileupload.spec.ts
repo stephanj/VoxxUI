@@ -776,10 +776,12 @@ class TestHashHeaderComponent {}
         <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template vxTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
-                    <div *ngFor="let file of files; let i = index" class="file-item">
-                        <span>{{ file.name }}</span>
-                        <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
-                    </div>
+                    @for (file of files; track file; let i = $index) {
+                        <div class="file-item">
+                            <span>{{ file.name }}</span>
+                            <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
+                        </div>
+                    }
                 </div>
             </ng-template>
         </vx-fileupload>
@@ -794,10 +796,12 @@ class TestPTemplateContentComponent {}
         <vx-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
-                    <div *ngFor="let file of files; let i = index" class="file-item">
-                        <span>{{ file.name }}</span>
-                        <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
-                    </div>
+                    @for (file of files; track file; let i = $index) {
+                        <div class="file-item">
+                            <span>{{ file.name }}</span>
+                            <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
+                        </div>
+                    }
                 </div>
             </ng-template>
         </vx-fileupload>
@@ -979,9 +983,13 @@ class TestContentContextComponent {
                 <div class="context-file-label">
                     <span [attr.data-files-array-length]="files?.length || 0">Files Array Length: {{ files?.length || 0 }}</span>
                     <span [attr.data-first-file-name]="files?.[0]?.name || 'none'">First File: {{ files?.[0]?.name || 'none' }}</span>
-                    <div class="file-details" *ngIf="files && files.length > 0">
-                        <div *ngFor="let file of files; let i = index" [attr.data-file-index]="i">{{ file.name }} ({{ file.size }} bytes)</div>
-                    </div>
+                    @if (files && files.length > 0) {
+                        <div class="file-details">
+                            @for (file of files; track file; let i = $index) {
+                                <div [attr.data-file-index]="i">{{ file.name }} ({{ file.size }} bytes)</div>
+                            }
+                        </div>
+                    }
                 </div>
             </ng-template>
         </vx-fileupload>
@@ -1658,26 +1666,36 @@ describe('FileUpload Advanced Template Combinations', () => {
 
                     <ng-template vxTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-progress="progress">
                         <div class="mixed-content">
-                            <div class="upload-section" *ngIf="files?.length">
-                                <h4>Ready to Upload ({{ files.length }})</h4>
-                                <div class="file-grid">
-                                    <div *ngFor="let file of files; let i = index" class="file-card" [attr.data-file-index]="i">
-                                        <div class="file-name">{{ file.name }}</div>
-                                        <div class="file-size">{{ file.size }} bytes</div>
+                            @if (files?.length) {
+                                <div class="upload-section">
+                                    <h4>Ready to Upload ({{ files.length }})</h4>
+                                    <div class="file-grid">
+                                        @for (file of files; track file; let i = $index) {
+                                            <div class="file-card" [attr.data-file-index]="i">
+                                                <div class="file-name">{{ file.name }}</div>
+                                                <div class="file-size">{{ file.size }} bytes</div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div class="completed-section" *ngIf="uploadedFiles?.length">
-                                <h4>Uploaded Files ({{ uploadedFiles.length }})</h4>
-                                <div class="uploaded-list">
-                                    <div *ngFor="let file of uploadedFiles" class="uploaded-item">{{ file.name }}</div>
+                            @if (uploadedFiles?.length) {
+                                <div class="completed-section">
+                                    <h4>Uploaded Files ({{ uploadedFiles.length }})</h4>
+                                    <div class="uploaded-list">
+                                        @for (file of uploadedFiles; track file) {
+                                            <div class="uploaded-item">{{ file.name }}</div>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div class="progress-section" *ngIf="progress > 0">
-                                <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
-                            </div>
+                            @if (progress > 0) {
+                                <div class="progress-section">
+                                    <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                                </div>
+                            }
                         </div>
                     </ng-template>
 

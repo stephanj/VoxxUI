@@ -710,7 +710,7 @@ class TestNamedToggleSwitchComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, SharedModule],
     template: `
         <vx-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with vxTemplate -->
@@ -731,7 +731,7 @@ class TestToggleSwitchPTemplateComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, SharedModule],
     template: `
         <vx-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with #template reference -->

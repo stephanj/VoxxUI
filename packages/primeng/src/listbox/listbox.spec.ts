@@ -39,9 +39,11 @@ import { Listbox } from './listbox';
         ></vx-listbox>
 
         <!-- Reactive Forms test -->
-        <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
-            <vx-listbox formControlName="selectedItems" [options]="formOptions" [multiple]="true"> </vx-listbox>
-        </form>
+        @if (showReactiveForm) {
+            <form [formGroup]="reactiveForm">
+                <vx-listbox formControlName="selectedItems" [options]="formOptions" [multiple]="true"> </vx-listbox>
+            </form>
+        }
     `
 })
 class TestListboxComponent {
@@ -1133,8 +1135,12 @@ describe('Listbox', () => {
             <!-- Checkmark template -->
             <ng-template vxTemplate="checkmark" let-selected="selected">
                 <span class="custom-checkmark" data-testid="ptemplate-checkmark" [attr.data-selected]="selected">
-                    <i class="pi pi-check-circle" *ngIf="selected"></i>
-                    <i class="pi pi-circle" *ngIf="!selected"></i>
+                    @if (selected) {
+                        <i class="pi pi-check-circle"></i>
+                    }
+                    @if (!selected) {
+                        <i class="pi pi-circle"></i>
+                    }
                 </span>
             </ng-template>
 
@@ -1248,8 +1254,12 @@ class TestListboxPTemplateComponent {
             <!-- Checkmark template -->
             <ng-template #checkmark let-selected="selected">
                 <span class="custom-checkmark" data-testid="ref-checkmark" [attr.data-selected]="selected">
-                    <i class="pi pi-check-circle" *ngIf="selected"></i>
-                    <i class="pi pi-circle" *ngIf="!selected"></i>
+                    @if (selected) {
+                        <i class="pi pi-check-circle"></i>
+                    }
+                    @if (!selected) {
+                        <i class="pi pi-circle"></i>
+                    }
                 </span>
             </ng-template>
 
