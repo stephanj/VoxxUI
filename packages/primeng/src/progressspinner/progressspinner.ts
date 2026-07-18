@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind } from 'voxx-ui/bind';
@@ -15,18 +15,18 @@ const PROGRESSSPINNER_INSTANCE = new InjectionToken<ProgressSpinner>('PROGRESSSP
     selector: 'vx-progressSpinner, vx-progress-spinner, vx-progressspinner',
     imports: [SharedModule, Bind],
     template: `
-        <svg [class]="cx('spin')" [vxBind]="ptm('spin')" viewBox="25 25 50 50" [style.animation-duration]="animationDuration">
-            <circle [class]="cx('circle')" [vxBind]="ptm('circle')" cx="50" cy="50" r="20" [attr.fill]="fill" [attr.stroke-width]="strokeWidth" stroke-miterlimit="10" />
+        <svg [class]="cx('spin')" [vxBind]="ptm('spin')" viewBox="25 25 50 50" [style.animation-duration]="animationDuration()">
+            <circle [class]="cx('circle')" [vxBind]="ptm('circle')" cx="50" cy="50" r="20" [attr.fill]="fill()" [attr.stroke-width]="strokeWidth()" stroke-miterlimit="10" />
         </svg>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ProgressSpinnerStyle, { provide: PROGRESSSPINNER_INSTANCE, useExisting: ProgressSpinner }, { provide: PARENT_INSTANCE, useExisting: ProgressSpinner }],
     host: {
-        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-label]': 'ariaLabel()',
         '[attr.role]': "'progressbar'",
         '[attr.aria-busy]': 'true',
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass())"
     },
     hostDirectives: [Bind]
 })
@@ -42,27 +42,27 @@ export class ProgressSpinner extends BaseComponent<ProgressSpinnerPassThrough> {
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * Width of the circle stroke.
      * @group Props
      */
-    @Input() strokeWidth: string = '2';
+    strokeWidth = input<string>('2');
     /**
      * Color for the background of the circle.
      * @group Props
      */
-    @Input() fill: string = 'none';
+    fill = input<string>('none');
     /**
      * Duration of the rotate animation.
      * @group Props
      */
-    @Input() animationDuration: string = '2s';
+    animationDuration = input<string>('2s');
     /**
      * Used to define a aria label attribute the current element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

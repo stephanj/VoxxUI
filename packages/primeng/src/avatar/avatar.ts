@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, InjectionToken, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, output, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind } from 'voxx-ui/bind';
@@ -14,17 +13,17 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
  */
 @Component({
     selector: 'vx-avatar',
-    imports: [CommonModule, SharedModule, Bind],
+    imports: [SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        @if (label) {
-            <span [vxBind]="ptm('label')" [class]="cx('label')" [attr.data-p]="dataP">{{ label }}</span>
+        @if (label()) {
+            <span [vxBind]="ptm('label')" [class]="cx('label')" [attr.data-p]="dataP">{{ label() }}</span>
         } @else {
-            @if (icon) {
-                <span [vxBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')" [attr.data-p]="dataP"></span>
+            @if (icon()) {
+                <span [vxBind]="ptm('icon')" [class]="cn(cx('icon'), icon())" [attr.data-p]="dataP"></span>
             } @else {
-                @if (image) {
-                    <img [vxBind]="ptm('image')" [src]="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" [attr.data-p]="dataP" />
+                @if (image()) {
+                    <img [vxBind]="ptm('image')" [src]="image()" (error)="imageError($event)" [attr.aria-label]="ariaLabel()" [attr.data-p]="dataP" />
                 }
             }
         }
@@ -32,9 +31,9 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
-        '[attr.aria-label]': 'ariaLabel',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[class]': "cn(cx('root'), styleClass())",
+        '[attr.aria-label]': 'ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[attr.data-p]': 'dataP'
     },
     providers: [AvatarStyle, { provide: AVATAR_INSTANCE, useExisting: Avatar }, { provide: PARENT_INSTANCE, useExisting: Avatar }],
@@ -54,49 +53,49 @@ export class Avatar extends BaseComponent<AvatarPassThrough> {
      * Defines the text to display.
      * @group Props
      */
-    @Input() label: string | undefined;
+    label = input<string | undefined>();
     /**
      * Defines the icon to display.
      * @group Props
      */
-    @Input() icon: string | undefined;
+    icon = input<string | undefined>();
     /**
      * Defines the image to display.
      * @group Props
      */
-    @Input() image: string | undefined;
+    image = input<string | undefined>();
     /**
      * Size of the element.
      * @group Props
      */
-    @Input() size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
+    size = input<'normal' | 'large' | 'xlarge' | undefined>('normal');
     /**
      * Shape of the element.
      * @group Props
      */
-    @Input() shape: 'square' | 'circle' | undefined = 'square';
+    shape = input<'square' | 'circle' | undefined>('square');
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * Establishes a string value that labels the component.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
     /**
      * This event is triggered if an error occurs while loading an image file.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
+    onImageError = output<Event>();
 
     _componentStyle = inject(AvatarStyle);
 
@@ -106,8 +105,8 @@ export class Avatar extends BaseComponent<AvatarPassThrough> {
 
     get dataP() {
         return this.cn({
-            [this.shape as string]: this.shape,
-            [this.size as string]: this.size
+            [this.shape() as string]: this.shape(),
+            [this.size() as string]: this.size()
         });
     }
 }
