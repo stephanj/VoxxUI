@@ -169,9 +169,9 @@ describe('Accordion', () => {
             expect(accordion.value()).toBeUndefined();
             expect(accordion.multiple()).toBe(false);
             expect(accordion.selectOnFocus()).toBe(false);
-            expect(accordion.transitionOptions).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
-            expect(accordion.expandIcon).toBeUndefined();
-            expect(accordion.collapseIcon).toBeUndefined();
+            expect(accordion.transitionOptions()).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+            expect(accordion.expandIcon()).toBeUndefined();
+            expect(accordion.collapseIcon()).toBeUndefined();
         });
 
         it('should accept custom values', async () => {
@@ -188,10 +188,10 @@ describe('Accordion', () => {
             expect(accordion.value()).toBe('tab1');
             expect(accordion.multiple()).toBe(true);
             expect(accordion.selectOnFocus()).toBe(true);
-            expect(accordion.expandIcon).toBe('pi pi-plus');
-            expect(accordion.collapseIcon).toBe('pi pi-minus');
-            expect(accordion.transitionOptions).toBe('200ms ease-in');
-            expect(accordion.styleClass).toBe('custom-accordion');
+            expect(accordion.expandIcon()).toBe('pi pi-plus');
+            expect(accordion.collapseIcon()).toBe('pi pi-minus');
+            expect(accordion.transitionOptions()).toBe('200ms ease-in');
+            expect(accordion.styleClass()).toBe('custom-accordion');
         });
 
         it('should render all accordion panels', () => {
@@ -652,8 +652,8 @@ describe('Accordion', () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
 
             // Check that custom expand icon is referenced (not necessarily displayed)
-            expect(accordion.expandIcon).toBe('pi pi-plus');
-            expect(accordion.collapseIcon).toBe('pi pi-minus');
+            expect(accordion.expandIcon()).toBe('pi pi-plus');
+            expect(accordion.collapseIcon()).toBe('pi pi-minus');
 
             headers[0].nativeElement.click();
             await fixture.whenStable();
