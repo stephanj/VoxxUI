@@ -85,11 +85,11 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                                 }
                             }
                         }
-                        <div [vxBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
-                            <div [vxBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
+                        <div [vxBind]="ptm('messageText')" [class]="cx('messageText')" [attr.data-p]="dataP">
+                            <div [vxBind]="ptm('summary')" [class]="cx('summary')" [attr.data-p]="dataP">
                                 {{ message?.summary }}
                             </div>
-                            <div [vxBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message?.detail }}</div>
+                            <div [vxBind]="ptm('detail')" [class]="cx('detail')" [attr.data-p]="dataP">{{ message?.detail }}</div>
                         </div>
                     }
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>

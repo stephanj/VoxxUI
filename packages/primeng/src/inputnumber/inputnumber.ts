@@ -56,7 +56,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             role="spinbutton"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [value]="formattedValue()"
-            [ngStyle]="inputStyle"
+            [style]="inputStyle"
             [variant]="$variant()"
             [invalid]="invalid()"
             [attr.aria-valuemin]="min()"
@@ -122,7 +122,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     [attr.data-p]="dataP"
                 >
                     @if (incrementButtonIcon) {
-                        <span [vxBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
+                        <span [vxBind]="ptm('incrementButtonIcon')" [class]="incrementButtonIcon"></span>
                     }
                     @if (!incrementButtonIcon) {
                         @if (!incrementButtonIconTemplate && !_incrementButtonIconTemplate) {
@@ -146,7 +146,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     [attr.data-p]="dataP"
                 >
                     @if (decrementButtonIcon) {
-                        <span [vxBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
+                        <span [vxBind]="ptm('decrementButtonIcon')" [class]="decrementButtonIcon"></span>
                     }
                     @if (!decrementButtonIcon) {
                         @if (!decrementButtonIconTemplate && !_decrementButtonIconTemplate) {
@@ -173,7 +173,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.data-p]="dataP"
             >
                 @if (incrementButtonIcon) {
-                    <span [vxBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
+                    <span [vxBind]="ptm('incrementButtonIcon')" [class]="incrementButtonIcon"></span>
                 }
                 @if (!incrementButtonIcon) {
                     @if (!incrementButtonIconTemplate && !_incrementButtonIconTemplate) {
@@ -199,7 +199,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.data-p]="dataP"
             >
                 @if (decrementButtonIcon) {
-                    <span [vxBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
+                    <span [vxBind]="ptm('decrementButtonIcon')" [class]="decrementButtonIcon"></span>
                 }
                 @if (!decrementButtonIcon) {
                     @if (!decrementButtonIconTemplate && !_decrementButtonIconTemplate) {

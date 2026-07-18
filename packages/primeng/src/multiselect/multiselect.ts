@@ -294,7 +294,7 @@ export class MultiSelectItem extends BaseComponent {
             } @else {
                 @if (!dropdownIconTemplate && !_dropdownIconTemplate) {
                     @if (dropdownIcon) {
-                        <span [vxBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon') ?? ''" [ngClass]="dropdownIcon" [attr.aria-hidden]="true" [attr.data-p]="dropdownIconDataP"></span>
+                        <span [vxBind]="ptm('dropdownIcon')" [class]="cn(cx('dropdownIcon'), dropdownIcon)" [attr.aria-hidden]="true" [attr.data-p]="dropdownIconDataP"></span>
                     }
                     @if (!dropdownIcon) {
                         <svg data-p-icon="chevron-down" [vxBind]="ptm('dropdownIcon')" [class]="cx('dropdownIcon')" [attr.aria-hidden]="true" [attr.data-p]="dropdownIconDataP" />
@@ -322,7 +322,7 @@ export class MultiSelectItem extends BaseComponent {
             (onHide)="onOverlayHide($event)"
         >
             <ng-template #content>
-                <div [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
+                <div [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP" [attr.id]="id + '_list'" [class]="cn(cx('overlay'), panelStyleClass)" [style]="panelStyle">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -439,7 +439,7 @@ export class MultiSelectItem extends BaseComponent {
                             <ul #items [vxBind]="ptm('list')" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                 @for (option of items; track option; let i = $index) {
                                     @if (isOptionGroup(option)) {
-                                        <li [vxBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                        <li [vxBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                             @if (!groupTemplate && option.optionGroup) {
                                                 <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                             }
@@ -475,7 +475,7 @@ export class MultiSelectItem extends BaseComponent {
                                 }
 
                                 @if (hasFilter() && isEmpty()) {
-                                    <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         @if (!emptyFilterTemplate && !_emptyFilterTemplate && !emptyTemplate && !_emptyTemplate) {
                                             {{ emptyFilterMessageLabel }}
                                         } @else {
@@ -484,7 +484,7 @@ export class MultiSelectItem extends BaseComponent {
                                     </li>
                                 }
                                 @if (!hasFilter() && isEmpty()) {
-                                    <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         @if (!emptyTemplate && !_emptyTemplate) {
                                             {{ emptyMessageLabel }}
                                         } @else {

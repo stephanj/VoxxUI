@@ -98,7 +98,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                             [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
                             [attr.aria-setsize]="getAriaSetSize()"
                             [attr.aria-posinset]="getAriaPosInset(index)"
-                            [ngStyle]="getItemProp(processedItem, 'style')"
+                            [style]="getItemProp(processedItem, 'style')"
                             [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                             [vxBind]="getPTOptions(processedItem, index, 'item')"
                             [vxTooltip]="getItemProp(processedItem, 'tooltip')"
@@ -114,7 +114,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             [attr.title]="getItemProp(processedItem, 'title')"
                                             [target]="getItemProp(processedItem, 'target')"
                                             [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
-                                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
+                                            [style]="getItemProp(processedItem, 'linkStyle')"
                                             [attr.tabindex]="-1"
                                             [vxBind]="getPTOptions(processedItem, index, 'itemLink')"
                                             vxRipple
@@ -122,20 +122,20 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             @if (getItemProp(processedItem, 'icon')) {
                                                 <span
                                                     [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                                    [style]="getItemProp(processedItem, 'iconStyle')"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                                     [attr.tabindex]="-1"
                                                 >
                                                 </span>
                                             }
                                             @if (getItemProp(processedItem, 'escape')) {
-                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [ngStyle]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [style]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
                                                     {{ getItemLabel(processedItem) }}
                                                 </span>
                                             } @else {
                                                 <span
                                                     [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                                    [style]="getItemProp(processedItem, 'labelStyle')"
                                                     [innerHTML]="getItemLabel(processedItem)"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemLabel')"
                                                 ></span>
@@ -162,7 +162,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                                             [target]="getItemProp(processedItem, 'target')"
                                             [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
-                                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
+                                            [style]="getItemProp(processedItem, 'linkStyle')"
                                             [fragment]="getItemProp(processedItem, 'fragment')"
                                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -175,7 +175,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             @if (getItemProp(processedItem, 'icon')) {
                                                 <span
                                                     [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                                    [style]="getItemProp(processedItem, 'iconStyle')"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                                     [attr.aria-hidden]="true"
                                                     [attr.tabindex]="-1"
@@ -183,13 +183,13 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                                 </span>
                                             }
                                             @if (getItemProp(processedItem, 'escape')) {
-                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [ngStyle]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [style]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
                                                     {{ getItemLabel(processedItem) }}
                                                 </span>
                                             } @else {
                                                 <span
                                                     [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                                    [style]="getItemProp(processedItem, 'labelStyle')"
                                                     [innerHTML]="getItemLabel(processedItem)"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemLabel')"
                                                 ></span>
@@ -434,7 +434,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                 #container
                 [id]="id"
                 [class]="cn(cx('root'), styleClass)"
-                [ngStyle]="style"
+                [style]="style"
                 [vxBind]="ptm('root')"
                 (click)="onOverlayClick($event)"
                 [vxMotion]="visible || !popup"

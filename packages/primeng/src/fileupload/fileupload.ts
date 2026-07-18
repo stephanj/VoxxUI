@@ -126,7 +126,7 @@ export class FileContent extends BaseComponent {
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
         @if (mode === 'advanced') {
-            <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [vxBind]="ptm('root')">
+            <div [class]="cn(cx('root'), styleClass)" [style]="style" [vxBind]="ptm('root')">
                 <input
                     [attr.aria-label]="browseFilesLabel"
                     #advancedfileinput
@@ -191,7 +191,7 @@ export class FileContent extends BaseComponent {
                             >
                                 <ng-template #icon>
                                     @if (uploadIcon) {
-                                        <span [ngClass]="uploadIcon" [attr.aria-hidden]="true" [vxBind]="ptm('pcUploadButton')?.icon"></span>
+                                        <span [class]="uploadIcon" [attr.aria-hidden]="true" [vxBind]="ptm('pcUploadButton')?.icon"></span>
                                     }
                                     @if (!uploadIcon) {
                                         @if (!uploadIconTemplate && !_uploadIconTemplate) {
@@ -218,7 +218,7 @@ export class FileContent extends BaseComponent {
                             >
                                 <ng-template #icon>
                                     @if (cancelIcon) {
-                                        <span [ngClass]="cancelIcon"></span>
+                                        <span [class]="cancelIcon"></span>
                                     }
                                     @if (!cancelIcon) {
                                         @if (!cancelIconTemplate && !_cancelIconTemplate) {
@@ -336,7 +336,7 @@ export class FileContent extends BaseComponent {
                         <ng-template #icon>
                             @if (hasFiles() && !auto) {
                                 @if (uploadIcon) {
-                                    <span class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [vxBind]="ptm('pcChooseButton')?.icon"></span>
+                                    <span class="p-button-icon p-button-icon-left" [class]="uploadIcon" [vxBind]="ptm('pcChooseButton')?.icon"></span>
                                 }
                                 @if (!uploadIcon) {
                                     @if (!uploadIconTemplate && !_uploadIconTemplate) {
@@ -350,7 +350,7 @@ export class FileContent extends BaseComponent {
                                 }
                             } @else {
                                 @if (chooseIcon) {
-                                    <span class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [vxBind]="ptm('pcChooseButton')?.icon"></span>
+                                    <span class="p-button-icon p-button-icon-left pi" [class]="chooseIcon" [vxBind]="ptm('pcChooseButton')?.icon"></span>
                                 }
                                 @if (!chooseIcon) {
                                     @if (!chooseIconTemplate && !_chooseIconTemplate) {

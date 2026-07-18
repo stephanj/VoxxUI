@@ -101,7 +101,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [attr.readonly]="readonlyInput ? '' : undefined"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 (input)="onUserInput($event)"
-                [ngStyle]="inputStyle"
+                [style]="inputStyle"
                 [class]="cn(cx('pcInputText'), inputStyleClass)"
                 [attr.placeholder]="placeholder"
                 [attr.tabindex]="tabindex"
@@ -138,7 +138,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     [vxBind]="ptm('dropdown')"
                 >
                     @if (icon) {
-                        <span [ngClass]="icon" [vxBind]="ptm('dropdownIcon')"></span>
+                        <span [class]="icon" [vxBind]="ptm('dropdownIcon')"></span>
                     }
                     @if (!icon) {
                         @if (!triggerIconTemplate && !_triggerIconTemplate) {
@@ -161,7 +161,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
             <div
                 #contentWrapper
                 [attr.id]="panelId"
-                [ngStyle]="panelStyle"
+                [style]="panelStyle"
                 [class]="cn(cx('panel'), panelStyleClass)"
                 [attr.aria-label]="getTranslation('chooseDate')"
                 [attr.role]="inline ? null : 'dialog'"
@@ -183,7 +183,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         (keydown)="onContainerButtonKeydown($event)"
                                         [styleClass]="cx('pcPrevButton')"
                                         (onClick)="onPrevButtonClick($event)"
-                                        [ngStyle]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
+                                        [style]="{ visibility: i === 0 ? 'visible' : 'hidden' }"
                                         type="button"
                                         [ariaLabel]="prevIconAriaLabel"
                                         [pt]="ptm('pcPrevButton')"
@@ -247,7 +247,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         (keydown)="onContainerButtonKeydown($event)"
                                         [styleClass]="cx('pcNextButton')"
                                         (onClick)="onNextButtonClick($event)"
-                                        [ngStyle]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
+                                        [style]="{ visibility: i === months.length - 1 ? 'visible' : 'hidden' }"
                                         [ariaLabel]="nextIconAriaLabel"
                                         [pt]="ptm('pcNextButton')"
                                         [attr.data-pc-group-section]="'navigator'"
@@ -292,7 +292,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                         <td [attr.aria-label]="date.day" [class]="cx('dayCell', { date })" [vxBind]="ptm('dayCell')">
                                                             @if (date.otherMonth ? showOtherMonths : true) {
                                                                 <span
-                                                                    [ngClass]="dayClass(date)"
+                                                                    [class]="dayClass(date)"
                                                                     (click)="onDateSelect($event, date)"
                                                                     draggable="false"
                                                                     [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
@@ -596,7 +596,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 [label]="getTranslation('today')"
                                 (keydown)="onContainerButtonKeydown($event)"
                                 (onClick)="onTodayButtonClick($event)"
-                                [ngClass]="todayButtonStyleClass"
+                                [class]="todayButtonStyleClass"
                                 severity="secondary"
                                 variant="text"
                                 size="small"
@@ -609,7 +609,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                 [label]="getTranslation('clear')"
                                 (keydown)="onContainerButtonKeydown($event)"
                                 (onClick)="onClearButtonClick($event)"
-                                [ngClass]="clearButtonStyleClass"
+                                [class]="clearButtonStyleClass"
                                 severity="secondary"
                                 variant="text"
                                 size="small"

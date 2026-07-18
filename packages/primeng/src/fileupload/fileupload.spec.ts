@@ -715,7 +715,6 @@ describe('FileUpload', () => {
         it('should clean up resources on destroy', () => {
             const mockListener = vi.fn().mockName('dragOverListener');
 
-
             component.dragOverListener = mockListener;
 
             component.ngOnDestroy();

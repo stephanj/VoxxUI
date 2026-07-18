@@ -158,7 +158,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         <div
             #container
             [class]="cn(cx('listContainer'), listStyleClass)"
-            [ngStyle]="listStyle"
+            [style]="listStyle"
             [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'"
             cdkDropList
             [cdkDropListData]="cdkDropData()"
@@ -216,11 +216,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     <ul
                         #list
                         [id]="id + '_list'"
-                        [class]="cx('list') ?? ''"
+                        [class]="cn(cx('list'), scrollerOptions.contentStyleClass)"
                         role="listbox"
                         [tabindex]="-1"
                         [attr.aria-multiselectable]="true"
-                        [ngClass]="scrollerOptions.contentStyleClass"
                         [style]="scrollerOptions.contentStyle"
                         [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         [attr.aria-label]="ariaLabel"
@@ -236,7 +235,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                     [class]="cx('optionGroup')"
                                     [vxBind]="getPTOptions(option.optionGroup, scrollerOptions, i, 'optionGroup')"
-                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [style]="{ height: scrollerOptions.itemSize + 'px' }"
                                     role="option"
                                     cdkDrag
                                     [cdkDragData]="option"
@@ -256,7 +255,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [class]="cx('option', { option, i, scrollerOptions })"
                                     role="option"
                                     [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
-                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [style]="{ height: scrollerOptions.itemSize + 'px' }"
                                     [attr.aria-label]="getOptionLabel(option)"
                                     [attr.aria-selected]="isSelected(option)"
                                     [attr.aria-disabled]="isOptionDisabled(option)"

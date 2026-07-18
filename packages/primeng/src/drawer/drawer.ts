@@ -69,7 +69,7 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                 @if (headlessTemplate || _headlessTemplate) {
                     <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
                 } @else {
-                    <div [vxBind]="ptm('header')" [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                    <div [vxBind]="ptm('header')" [class]="cx('header')" [attr.data-pc-section]="'header'">
                         <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                         @if (header) {
                             <div [vxBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
@@ -77,7 +77,7 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                         @if (showCloseIcon && closable) {
                             <vx-button
                                 [pt]="ptm('pcCloseButton')"
-                                [ngClass]="cx('pcCloseButton')"
+                                [class]="cx('pcCloseButton')"
                                 (onClick)="close($event)"
                                 (keydown.enter)="close($event)"
                                 [buttonProps]="closeButtonProps"
@@ -95,13 +95,13 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                         }
                     </div>
 
-                    <div [vxBind]="ptm('content')" [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                    <div [vxBind]="ptm('content')" [class]="cx('content')" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
                     </div>
 
                     @if (footerTemplate || _footerTemplate) {
-                        <div [vxBind]="ptm('footer')" [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                        <div [vxBind]="ptm('footer')" [class]="cx('footer')" [attr.data-pc-section]="'footer'">
                             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                         </div>
                     }

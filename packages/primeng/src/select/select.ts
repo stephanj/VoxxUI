@@ -89,7 +89,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [attr.data-p-highlight]="selected"
             [attr.data-p-selected]="selected"
             [attr.data-p-disabled]="disabled"
-            [ngStyle]="{ height: scrollerOptions?.itemSize + 'px' }"
+            [style]="{ height: scrollerOptions?.itemSize + 'px' }"
             [class]="cx('option')"
         >
             @if (checkmark) {
@@ -307,7 +307,7 @@ export class SelectItem extends BaseComponent {
             (onHide)="hide()"
         >
             <ng-template #content>
-                <div [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
+                <div [class]="cn(cx('overlay'), panelStyleClass)" [style]="panelStyle" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <span
                         #firstHiddenFocusableEl
                         role="presentation"
@@ -392,7 +392,7 @@ export class SelectItem extends BaseComponent {
                             <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [vxBind]="ptm('list')">
                                 @for (option of items; track option; let i = $index) {
                                     @if (isOptionGroup(option)) {
-                                        <li [class]="cx('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('optionGroup')">
+                                        <li [class]="cx('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('optionGroup')">
                                             @if (!groupTemplate && !_groupTemplate) {
                                                 <span [class]="cx('optionGroupLabel')" [vxBind]="ptm('optionGroupLabel')">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                             }
@@ -420,7 +420,7 @@ export class SelectItem extends BaseComponent {
                                     }
                                 }
                                 @if (filterValue && isEmpty()) {
-                                    <li [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('emptyMessage')">
+                                    <li [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('emptyMessage')">
                                         @if (!emptyFilterTemplate && !_emptyFilterTemplate && !emptyTemplate) {
                                             {{ emptyFilterMessageLabel }}
                                         } @else {
@@ -429,7 +429,7 @@ export class SelectItem extends BaseComponent {
                                     </li>
                                 }
                                 @if (!filterValue && isEmpty()) {
-                                    <li [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('emptyMessage')">
+                                    <li [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option" [vxBind]="ptm('emptyMessage')">
                                         @if (!emptyTemplate && !_emptyTemplate) {
                                             {{ emptyMessageLabel || emptyFilterMessageLabel }}
                                         } @else {

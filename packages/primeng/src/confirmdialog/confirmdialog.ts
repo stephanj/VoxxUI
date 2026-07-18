@@ -93,7 +93,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
                         @if (option('icon')) {
-                            <i [ngClass]="cx('icon')" [class]="option('icon')" [vxBind]="ptm('icon')"></i>
+                            <i [class]="cn(cx('icon'), option('icon'))" [vxBind]="ptm('icon')"></i>
                         }
                     }
                     @if (messageTemplate || _messageTemplate) {

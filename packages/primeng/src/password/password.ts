@@ -441,7 +441,7 @@ export const Password_VALUE_ACCESSOR: any = {
             [attr.tabindex]="tabindex"
             vxInputText
             [vxSize]="size()"
-            [ngStyle]="inputStyle"
+            [style]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [attr.type]="unmasked ? 'text' : 'password'"
             [attr.placeholder]="placeholder"
@@ -503,7 +503,7 @@ export const Password_VALUE_ACCESSOR: any = {
                     } @else {
                         <div [class]="cx('content')" [vxBind]="ptm('content')">
                             <div [class]="cx('meter')" [vxBind]="ptm('meter')">
-                                <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
+                                <div [class]="cx('meterLabel')" [style]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                             </div>
                             <div [class]="cx('meterText')" [vxBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>

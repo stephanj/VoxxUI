@@ -54,8 +54,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
         @if (renderMask()) {
             <div
                 [class]="cn(cx('mask'), maskStyleClass)"
-                [style]="sx('mask')"
-                [ngStyle]="maskStyle"
+                [style]="combinedMaskStyle"
                 [vxBind]="ptm('mask')"
                 [vxMotion]="maskVisible"
                 [vxMotionAppear]="true"
@@ -70,8 +69,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                     <div
                         #container
                         [class]="cn(cx('root'), styleClass)"
-                        [style]="sx('root')"
-                        [ngStyle]="style"
+                        [style]="combinedContainerStyle"
                         [vxBind]="ptm('root')"
                         vxFocusTrap
                         [vxFocusTrapDisabled]="focusTrap === false"
@@ -115,7 +113,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                             >
                                                 <ng-template #icon>
                                                     @if (maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate) {
-                                                        <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                                        <span [class]="maximized ? minimizeIcon : maximizeIcon"></span>
                                                     }
                                                     @if (!maximizeIcon && !maximizeButtonProps?.icon) {
                                                         @if (!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT) {
@@ -166,7 +164,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                     </div>
                                 </div>
                             }
-                            <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [vxBind]="ptm('content')">
+                            <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [vxBind]="ptm('content')">
                                 <ng-content></ng-content>
                                 <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                             </div>
@@ -421,6 +419,14 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             this._style = { ...value };
             this.originalStyle = value;
         }
+    }
+
+    get combinedMaskStyle() {
+        return { ...this.sx('mask'), ...this.maskStyle };
+    }
+
+    get combinedContainerStyle() {
+        return { ...this.sx('root'), ...this.style };
     }
     /**
      * Position of the dialog.

@@ -187,7 +187,7 @@ export class TableService {
             </ng-template>
         </vx-paginator>
 
-        <div #wrapper [class]="cx('tableContainer')" [ngStyle]="sx('tableContainer')" [vxBind]="ptm('tableContainer')" [attr.data-p]="dataP">
+        <div #wrapper [class]="cx('tableContainer')" [style]="sx('tableContainer')" [vxBind]="ptm('tableContainer')" [attr.data-p]="dataP">
             <vx-scroller
                 #scroller
                 *ngIf="virtualScroll"
@@ -237,7 +237,7 @@ export class TableService {
             <ng-template #buildInTable let-items let-scrollerOptions="options">
                 <table #table role="table" [class]="cn(cx('table'), tableStyleClass)" [vxBind]="ptm('table')" [style]="tableStyle" [attr.id]="id + '-table'">
                     <ng-container *ngTemplateOutlet="colGroupTemplate || _colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
-                    <thead role="rowgroup" #thead [class]="cx('thead')" [ngStyle]="sx('thead')" [vxBind]="ptm('thead')">
+                    <thead role="rowgroup" #thead [class]="cx('thead')" [style]="sx('thead')" [vxBind]="ptm('thead')">
                         <ng-container
                             *ngTemplateOutlet="
                                 headerGroupedTemplate || headerTemplate || _headerTemplate;
@@ -279,7 +279,7 @@ export class TableService {
                         [class]="cx('virtualScrollerSpacer')"
                         [vxBind]="ptm('virtualScrollerSpacer')"
                     ></tbody>
-                    <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [ngClass]="cx('footer')" [ngStyle]="sx('tfoot')" [vxBind]="ptm('tfoot')">
+                    <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate" #tfoot [class]="cx('footer')" [style]="sx('tfoot')" [vxBind]="ptm('tfoot')">
                         <ng-container
                             *ngTemplateOutlet="
                                 footerGroupedTemplate || footerTemplate || _footerTemplate || _footerGroupedTemplate;
@@ -339,16 +339,16 @@ export class TableService {
             </ng-template>
         </vx-paginator>
 
-        <div *ngIf="summaryTemplate || _summaryTemplate" [ngClass]="cx('footer')" [vxBind]="ptm('footer')">
+        <div *ngIf="summaryTemplate || _summaryTemplate" [class]="cx('footer')" [vxBind]="ptm('footer')">
             <ng-container *ngTemplateOutlet="summaryTemplate || _summaryTemplate"></ng-container>
         </div>
 
-        <div #resizeHelper [ngClass]="cx('columnResizeIndicator')" [vxBind]="ptm('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
-        <span #reorderIndicatorUp [ngClass]="cx('rowReorderIndicatorUp')" [vxBind]="ptm('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
+        <div #resizeHelper [class]="cx('columnResizeIndicator')" [vxBind]="ptm('columnResizeIndicator')" [style.display]="'none'" *ngIf="resizableColumns"></div>
+        <span #reorderIndicatorUp [class]="cx('rowReorderIndicatorUp')" [vxBind]="ptm('rowReorderIndicatorUp')" [style.display]="'none'" *ngIf="reorderableColumns">
             <svg data-p-icon="arrow-down" *ngIf="!reorderIndicatorUpIconTemplate && !_reorderIndicatorUpIconTemplate" [vxBind]="ptm('rowReorderIndicatorUp')['icon']" />
             <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate || _reorderIndicatorUpIconTemplate"></ng-template>
         </span>
-        <span #reorderIndicatorDown [ngClass]="cx('rowReorderIndicatorDown')" [vxBind]="ptm('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
+        <span #reorderIndicatorDown [class]="cx('rowReorderIndicatorDown')" [vxBind]="ptm('rowReorderIndicatorDown')" [style.display]="'none'" *ngIf="reorderableColumns">
             <svg data-p-icon="arrow-up" *ngIf="!reorderIndicatorDownIconTemplate && !_reorderIndicatorDownIconTemplate" [vxBind]="ptm('rowReorderIndicatorDown')['icon']" />
             <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate || _reorderIndicatorDownIconTemplate"></ng-template>
         </span>
@@ -5378,7 +5378,7 @@ export class ReorderableRow extends BaseComponent {
                             ></vx-select>
                         </div>
                         <div [class]="cx('filterRuleList')" [vxBind]="ptm('filterRuleList')">
-                            <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')" [vxBind]="ptm('filterRule')">
+                            <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [class]="cx('filterRule')" [vxBind]="ptm('filterRule')">
                                 <vx-select
                                     *ngIf="showMatchModes && matchModes"
                                     [options]="matchModes"

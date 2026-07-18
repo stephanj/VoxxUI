@@ -78,7 +78,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 vxInputText
                 [pt]="ptm('pcInputText')"
                 [class]="cn(cx('pcInputText'), inputStyleClass)"
-                [ngStyle]="inputStyle"
+                [style]="inputStyle"
                 [attr.type]="type"
                 [attr.value]="inputValue()"
                 [variant]="$variant()"
@@ -186,7 +186,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [vxAutoFocus]="autofocus"
                         [vxBind]="ptm('input')"
                         [class]="cx('pcInputText')"
-                        [ngStyle]="inputStyle"
+                        [style]="inputStyle"
                         [attr.type]="type"
                         [attr.id]="inputId"
                         [attr.autocomplete]="autocomplete"
@@ -234,7 +234,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
         @if (dropdown) {
             <button #ddBtn type="button" [vxBind]="ptm('dropdown')" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="$disabled()" vxRipple (click)="handleDropdownClick($event)" [attr.tabindex]="tabindex">
                 @if (dropdownIcon) {
-                    <span [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
+                    <span [class]="dropdownIcon" [attr.aria-hidden]="true"></span>
                 }
                 @if (!dropdownIcon) {
                     @if (!dropdownIconTemplate && !_dropdownIconTemplate) {
@@ -259,7 +259,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             [attr.data-p]="overlayDataP"
         >
             <ng-template #content>
-                <div [vxBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
+                <div [vxBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [style]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <div [vxBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
                         @if (virtualScroll) {
@@ -294,7 +294,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         <ul #items [vxBind]="ptm('list')" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             @for (option of items; track option; let i = $index) {
                                 @if (isOptionGroup(option)) {
-                                    <li [vxBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li [vxBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         @if (!groupTemplate) {
                                             <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                         }
@@ -305,7 +305,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                     <li
                                         vxRipple
                                         [vxBind]="getPTOptions(option, scrollerOptions, i, 'option')"
-                                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                        [style]="{ height: scrollerOptions.itemSize + 'px' }"
                                         [class]="cx('option', { option, i, scrollerOptions })"
                                         [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                         role="option"
@@ -335,7 +335,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 }
                             }
                             @if (!items || (items && items.length === 0 && showEmptyMessage)) {
-                                <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [style]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     @if (!emptyTemplate && !_emptyTemplate) {
                                         {{ searchResultMessageText }}
                                     }

@@ -30,7 +30,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     imports: [CommonModule, SpinnerIcon, SharedModule, Bind],
     template: `
         @if (!_disabled) {
-            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [vxBind]="ptm('root')">
+            <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [style]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [vxBind]="ptm('root')">
                 @if (contentTemplate || _contentTemplate) {
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 } @else {
@@ -41,7 +41,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
                     </div>
                 }
                 @if (_showSpacer) {
-                    <div [class]="cx('spacer')" [ngStyle]="spacerStyle" [vxBind]="ptm('spacer')"></div>
+                    <div [class]="cx('spacer')" [style]="spacerStyle" [vxBind]="ptm('spacer')"></div>
                 }
                 @if (!loaderDisabled && _showLoader && d_loading) {
                     <div [class]="cx('loader')" [vxBind]="ptm('loader')">

@@ -74,7 +74,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             @if (!checkboxIconTemplate && !_checkboxIconTemplate) {
                 @if (checked) {
                     @if (checkboxIcon) {
-                        <span [class]="cx('icon') ?? ''" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
+                        <span [class]="cn(cx('icon'), checkboxIcon)" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
                     }
                     @if (!checkboxIcon) {
                         <svg data-p-icon="check" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />

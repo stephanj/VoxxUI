@@ -577,7 +577,7 @@ export class ButtonDirective extends BaseComponent {
         <button
             [attr.type]="type || buttonProps?.type"
             [attr.aria-label]="ariaLabel || buttonProps?.ariaLabel"
-            [ngStyle]="style || buttonProps?.style"
+            [style]="style || buttonProps?.style"
             [disabled]="disabled || loading || buttonProps?.disabled"
             [class]="cn(cx('root'), styleClass, buttonProps?.styleClass)"
             (click)="onClick.emit($event)"
