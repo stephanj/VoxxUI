@@ -1073,7 +1073,7 @@ describe('Select', () => {
         });
 
         it('should focus programmatically', () => {
-            spyOn(selectInstance, 'applyFocus');
+            vi.spyOn(selectInstance, 'applyFocus').mockReturnValue(undefined);
             selectInstance.focus();
 
             expect(selectInstance.applyFocus).toHaveBeenCalled();
@@ -1096,8 +1096,8 @@ describe('Select', () => {
 
             const clickEvent = {
                 target: mockTarget,
-                preventDefault: jasmine.createSpy('preventDefault'),
-                stopPropagation: jasmine.createSpy('stopPropagation')
+                preventDefault: vi.fn().mockName('preventDefault'),
+                stopPropagation: vi.fn().mockName('stopPropagation')
             } as any;
 
             selectInstance.onContainerClick(clickEvent);
@@ -1403,8 +1403,8 @@ describe('Select', () => {
 
             const clickEvent = {
                 target: mockTarget,
-                preventDefault: jasmine.createSpy('preventDefault'),
-                stopPropagation: jasmine.createSpy('stopPropagation')
+                preventDefault: vi.fn().mockName('preventDefault'),
+                stopPropagation: vi.fn().mockName('stopPropagation')
             } as any;
 
             selectInstance.onContainerClick(clickEvent);
@@ -3114,7 +3114,7 @@ describe('Select Advanced Accessibility', () => {
             // Ensure overlay is open before testing close
 
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
-            spyOn(escapeEvent, 'preventDefault');
+            vi.spyOn(escapeEvent, 'preventDefault').mockReturnValue(undefined);
             selectInstance.onKeyDown(escapeEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();

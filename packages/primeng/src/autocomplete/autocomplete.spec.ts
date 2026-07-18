@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest';
 import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -780,7 +781,7 @@ describe('AutoComplete', () => {
         });
 
         it('should emit completeMethod event', async () => {
-            spyOn(testComponent, 'onSearch').and.callThrough();
+            vi.spyOn(testComponent, 'onSearch');
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
             inputElement.nativeElement.value = 'test';
@@ -791,7 +792,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             expect(testComponent.onSearch).toHaveBeenCalled();
-            const callArgs = (testComponent.onSearch as jasmine.Spy).calls.mostRecent().args[0];
+            const callArgs = vi.mocked(testComponent.onSearch as Mock).mock.lastCall![0];
             expect(callArgs.query).toBe('test');
         });
 
@@ -865,7 +866,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const dropdownButton = testFixture.debugElement.query(By.css('button[type="button"]'));
-            expect(dropdownButton).toBeTruthy('Dropdown button should exist');
+            expect(dropdownButton).toBeTruthy();
 
             dropdownButton.nativeElement.click();
             testFixture.detectChanges();
@@ -1418,15 +1419,15 @@ describe('AutoComplete', () => {
         it('should handle null/undefined values', async () => {
             testComponent.selectedValue = null as any;
             testFixture.changeDetectorRef.markForCheck();
-            await expectAsync(testFixture.whenStable()).toBeResolved();
+            await expect(testFixture.whenStable()).resolves.not.toThrow();
 
             testComponent.selectedValue = undefined as any;
             testFixture.changeDetectorRef.markForCheck();
-            await expectAsync(testFixture.whenStable()).toBeResolved();
+            await expect(testFixture.whenStable()).resolves.not.toThrow();
         });
 
         it('should handle rapid input changes with debouncing', async () => {
-            spyOn(testComponent, 'onSearch');
+            vi.spyOn(testComponent, 'onSearch').mockReturnValue(undefined);
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
 
@@ -1453,7 +1454,7 @@ describe('AutoComplete', () => {
             autocompleteInstance.minQueryLength = 3; // Use the correct property name
 
             testComponent.minLength = 3;
-            spyOn(testComponent, 'onSearch').and.callThrough();
+            vi.spyOn(testComponent, 'onSearch');
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -1565,7 +1566,7 @@ describe('AutoComplete', () => {
         it('should handle completeOnFocus feature', async () => {
             testComponent.completeOnFocus = true;
             testComponent.suggestions = mockItems;
-            spyOn(testComponent, 'onSearch').and.callThrough();
+            vi.spyOn(testComponent, 'onSearch');
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             autocompleteInstance.completeOnFocus = true;
@@ -1593,7 +1594,7 @@ describe('AutoComplete', () => {
             await basicFixture.whenStable();
 
             basicFixture.changeDetectorRef.markForCheck();
-            await expectAsync(basicFixture.whenStable()).toBeResolved();
+            await expect(basicFixture.whenStable()).resolves.not.toThrow();
         });
 
         it('should handle invalid option configuration', async () => {
@@ -1603,12 +1604,12 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             testFixture.changeDetectorRef.markForCheck();
-            await expectAsync(testFixture.whenStable()).toBeResolved();
+            await expect(testFixture.whenStable()).resolves.not.toThrow();
         });
 
         it('should handle search method errors gracefully', async () => {
             // Spy on console.error to avoid cluttering test output
-            spyOn(console, 'error');
+            vi.spyOn(console, 'error').mockReturnValue(undefined);
 
             testComponent.onSearch = () => {
                 console.error('Search failed');
@@ -1644,7 +1645,7 @@ describe('AutoComplete', () => {
             autocompleteInstance.delay = 500;
 
             testComponent.delay = 500;
-            spyOn(testComponent, 'onSearch').and.callThrough();
+            vi.spyOn(testComponent, 'onSearch');
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -1860,7 +1861,7 @@ describe('AutoComplete', () => {
                         getData: () => 'Item1,Item2,Item3'
                     },
                     target: inputElement.nativeElement,
-                    preventDefault: jasmine.createSpy('preventDefault')
+                    preventDefault: vi.fn().mockName('preventDefault')
                 };
 
                 autocompleteComponent.onInputPaste(pasteEvent);
@@ -2007,7 +2008,7 @@ describe('AutoComplete', () => {
                         getData: () => 'Item1,Item2,Item3'
                     },
                     target: inputElement.nativeElement,
-                    preventDefault: jasmine.createSpy('preventDefault')
+                    preventDefault: vi.fn().mockName('preventDefault')
                 };
 
                 autocompleteComponent.onInputPaste(pasteEvent);

@@ -798,13 +798,13 @@ describe('MeterGroup', () => {
         });
 
         it('should call ngAfterViewInit', () => {
-            spyOn(meterGroup, 'ngAfterViewInit').and.callThrough();
+            vi.spyOn(meterGroup, 'ngAfterViewInit');
             meterGroup.ngAfterViewInit();
             expect(meterGroup.ngAfterViewInit).toHaveBeenCalled();
         });
 
         it('should call ngAfterContentInit', () => {
-            spyOn(meterGroup, 'ngAfterContentInit').and.callThrough();
+            vi.spyOn(meterGroup, 'ngAfterContentInit');
             meterGroup.ngAfterContentInit();
             expect(meterGroup.ngAfterContentInit).toHaveBeenCalled();
         });

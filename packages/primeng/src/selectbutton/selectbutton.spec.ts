@@ -187,8 +187,8 @@ describe('SelectButton', () => {
         });
 
         it('should emit onChange and onOptionClick events', () => {
-            spyOn(component.onChange, 'emit');
-            spyOn(component.onOptionClick, 'emit');
+            vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component.onOptionClick, 'emit').mockReturnValue(undefined);
 
             const mockEvent = new Event('click');
             component.onOptionSelect(mockEvent, component.options![0], 0);
@@ -345,7 +345,7 @@ describe('SelectButton', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             // Mock the disabled state by creating a spy
-            spyOn(component, '$disabled').and.returnValue(true);
+            vi.spyOn(component, '$disabled').mockReturnValue(true);
             const mockEvent = new Event('click');
             const initialValue = component.value;
 
@@ -845,13 +845,12 @@ describe('SelectButton PassThrough Tests', () => {
     });
 
     describe('PT Case 5: Event binding', () => {
-        it('should handle onclick event through PT', (done) => {
+        it('should handle onclick event through PT', async () => {
             let clicked = false;
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
                         clicked = true;
-                        done();
                     }
                 }
             });

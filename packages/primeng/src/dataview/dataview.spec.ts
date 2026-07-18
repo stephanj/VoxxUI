@@ -285,7 +285,7 @@ describe('DataView', () => {
                 pageCount: 3
             };
 
-            spyOn(dataview.onPage, 'emit');
+            vi.spyOn(dataview.onPage, 'emit').mockReturnValue(undefined);
             dataview.paginate(paginatorState);
 
             expect(dataview.first).toBe(3);
@@ -302,7 +302,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(dataview.onSort, 'emit');
+            vi.spyOn(dataview.onSort, 'emit').mockReturnValue(undefined);
             dataview.sort();
 
             expect(dataview.first).toBe(0);
@@ -449,7 +449,7 @@ describe('DataView', () => {
             const lazyComponent = lazyFixture.componentInstance;
             lazyComponent.lazy = true;
 
-            spyOn(lazyComponent, 'onLazyLoadEvent');
+            vi.spyOn(lazyComponent, 'onLazyLoadEvent').mockReturnValue(undefined);
             lazyFixture.changeDetectorRef.markForCheck();
             await lazyFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -463,7 +463,7 @@ describe('DataView', () => {
             lazyComponent.lazy = true;
             lazyComponent.lazyLoadOnInit = false;
 
-            spyOn(lazyComponent, 'onLazyLoadEvent');
+            vi.spyOn(lazyComponent, 'onLazyLoadEvent').mockReturnValue(undefined);
             lazyFixture.changeDetectorRef.markForCheck();
             await lazyFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -476,7 +476,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(component, 'onPageEvent');
+            vi.spyOn(component, 'onPageEvent').mockReturnValue(undefined);
 
             dataview.paginate({ first: 3, rows: 2, page: 1, pageCount: 3 });
 
@@ -492,7 +492,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(component, 'onSortEvent');
+            vi.spyOn(component, 'onSortEvent').mockReturnValue(undefined);
 
             dataview.sort();
 
@@ -503,7 +503,7 @@ describe('DataView', () => {
         });
 
         it('should emit onChangeLayout event when layout changes', async () => {
-            spyOn(component, 'onChangeLayoutEvent');
+            vi.spyOn(component, 'onChangeLayoutEvent').mockReturnValue(undefined);
 
             component.layout = 'grid';
             fixture.changeDetectorRef.markForCheck();
@@ -521,7 +521,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(component, 'onLazyLoadEvent');
+            vi.spyOn(component, 'onLazyLoadEvent').mockReturnValue(undefined);
 
             dataview.paginate({ first: 3, rows: 2, page: 1, pageCount: 3 });
 
@@ -534,7 +534,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(component, 'onLazyLoadEvent');
+            vi.spyOn(component, 'onLazyLoadEvent').mockReturnValue(undefined);
 
             dataview.sort();
 
@@ -997,7 +997,7 @@ describe('DataView', () => {
     describe('Lifecycle and Cleanup', () => {
         it('should unsubscribe from translation observer on destroy', () => {
             const translationSub = dataview.translationSubscription;
-            spyOn(translationSub!, 'unsubscribe');
+            vi.spyOn(translationSub!, 'unsubscribe').mockReturnValue(undefined);
 
             fixture.destroy();
 
@@ -1005,7 +1005,7 @@ describe('DataView', () => {
         });
 
         it('should call ngAfterViewInit', () => {
-            spyOn(dataview, 'ngAfterViewInit');
+            vi.spyOn(dataview, 'ngAfterViewInit').mockReturnValue(undefined);
             dataview.ngAfterViewInit();
             expect(dataview.ngAfterViewInit).toHaveBeenCalled();
         });
@@ -1032,7 +1032,7 @@ describe('DataView', () => {
 
             const lazyDataview = lazyFixture.debugElement.query(By.directive(DataView)).componentInstance;
 
-            spyOn(lazyDataview.onLazyLoad, 'emit');
+            vi.spyOn(lazyDataview.onLazyLoad, 'emit').mockReturnValue(undefined);
 
             lazyComponent.sortField = 'name';
             lazyFixture.changeDetectorRef.markForCheck();
@@ -1661,7 +1661,8 @@ describe('DataView', () => {
     `
 })
 class TestDynamicDataViewComponent {
-    @ViewChild('dataView') dataView!: DataView;
+    @ViewChild('dataView')
+    dataView!: DataView;
 
     value = [
         { id: 1, name: 'Product 1', price: 100 },

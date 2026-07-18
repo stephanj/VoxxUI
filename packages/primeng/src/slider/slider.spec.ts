@@ -237,8 +237,8 @@ describe('Slider', () => {
 
         it('should handle step change correctly', () => {
             component.step = 10;
-            spyOn(component, 'updateValue');
-            spyOn(component, 'updateHandleValue');
+            vi.spyOn(component, 'updateValue').mockReturnValue(undefined);
+            vi.spyOn(component, 'updateHandleValue').mockReturnValue(undefined);
 
             component.handleStepChange(35, 20);
 
@@ -277,14 +277,14 @@ describe('Slider', () => {
         });
 
         it('should emit onChange event for single slider', async () => {
-            spyOn(testComponent, 'onSliderChange');
+            vi.spyOn(testComponent, 'onSliderChange').mockReturnValue(undefined);
 
             // Trigger the event directly since DOM-based event testing can be unreliable
             testComponent.onSliderChange({ event: new Event('change'), value: 50 });
             await new Promise((resolve) => setTimeout(resolve, 100));
             await testFixture.whenStable();
 
-            expect(testComponent.onSliderChange).toHaveBeenCalledWith({ event: jasmine.any(Event), value: 50 });
+            expect(testComponent.onSliderChange).toHaveBeenCalledWith({ event: expect.any(Event), value: 50 });
         });
 
         it('should emit onChange event for range slider', async () => {
@@ -295,25 +295,25 @@ describe('Slider', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await testFixture.whenStable();
 
-            spyOn(testComponent, 'onSliderChange');
+            vi.spyOn(testComponent, 'onSliderChange').mockReturnValue(undefined);
 
             // Trigger the event directly since DOM-based event testing can be unreliable
             testComponent.onSliderChange({ event: new Event('change'), values: [20, 80] });
             await new Promise((resolve) => setTimeout(resolve, 100));
             await testFixture.whenStable();
 
-            expect(testComponent.onSliderChange).toHaveBeenCalledWith({ event: jasmine.any(Event), values: [20, 80] });
+            expect(testComponent.onSliderChange).toHaveBeenCalledWith({ event: expect.any(Event), values: [20, 80] });
         });
 
         it('should emit onSlideEnd event', async () => {
-            spyOn(testComponent, 'onSlideEnd');
+            vi.spyOn(testComponent, 'onSlideEnd').mockReturnValue(undefined);
 
             // Trigger the event directly since DOM-based event testing can be unreliable
             testComponent.onSlideEnd({ originalEvent: new Event('mouseup'), value: 75 });
             await new Promise((resolve) => setTimeout(resolve, 100));
             await testFixture.whenStable();
 
-            expect(testComponent.onSlideEnd).toHaveBeenCalledWith({ originalEvent: jasmine.any(Event), value: 75 });
+            expect(testComponent.onSlideEnd).toHaveBeenCalledWith({ originalEvent: expect.any(Event), value: 75 });
         });
 
         it('should handle keyboard navigation', () => {
@@ -718,7 +718,7 @@ describe('Slider', () => {
 
         it('should handle zero step value', () => {
             component.step = undefined as any;
-            spyOn(component, 'updateValue');
+            vi.spyOn(component, 'updateValue').mockReturnValue(undefined);
 
             const mockEvent = new Event('keydown');
             component.incrementValue(mockEvent, undefined);
@@ -727,9 +727,9 @@ describe('Slider', () => {
         });
 
         it('should handle writeControlValue for single slider', () => {
-            spyOn(component, 'updateHandleValue');
-            spyOn(component, 'updateDiffAndOffset');
-            spyOn(component.cd, 'markForCheck');
+            vi.spyOn(component, 'updateHandleValue').mockReturnValue(undefined);
+            vi.spyOn(component, 'updateDiffAndOffset').mockReturnValue(undefined);
+            vi.spyOn(component.cd, 'markForCheck').mockReturnValue(undefined);
 
             component.writeControlValue(75);
 
@@ -741,9 +741,9 @@ describe('Slider', () => {
 
         it('should handle writeControlValue for range slider', () => {
             component.range = true;
-            spyOn(component, 'updateHandleValue');
-            spyOn(component, 'updateDiffAndOffset');
-            spyOn(component.cd, 'markForCheck');
+            vi.spyOn(component, 'updateHandleValue').mockReturnValue(undefined);
+            vi.spyOn(component, 'updateDiffAndOffset').mockReturnValue(undefined);
+            vi.spyOn(component.cd, 'markForCheck').mockReturnValue(undefined);
 
             component.writeControlValue([30, 70]);
 
@@ -763,12 +763,12 @@ describe('Slider', () => {
         });
 
         it('should handle touch events correctly', () => {
-            spyOn(component, 'updateDomData');
+            vi.spyOn(component, 'updateDomData').mockReturnValue(undefined);
             component.orientation = 'horizontal';
 
             const mockTouchEvent = {
                 changedTouches: [{ clientX: 100, clientY: 100 }],
-                preventDefault: jasmine.createSpy('preventDefault')
+                preventDefault: vi.fn().mockName('preventDefault')
             } as unknown as TouchEvent;
 
             component.onDragStart(mockTouchEvent, 0);
@@ -780,11 +780,11 @@ describe('Slider', () => {
 
         it('should handle mouse down with animation', () => {
             component.animate = true;
-            spyOn(component, 'updateDomData');
+            vi.spyOn(component, 'updateDomData').mockReturnValue(undefined);
 
             const mockEvent = {
-                target: { focus: jasmine.createSpy('focus') },
-                preventDefault: jasmine.createSpy('preventDefault')
+                target: { focus: vi.fn().mockName('focus') },
+                preventDefault: vi.fn().mockName('preventDefault')
             } as unknown as Event;
 
             component.onMouseDown(mockEvent);
@@ -812,7 +812,7 @@ describe('Slider', () => {
         });
 
         it('should handle component destruction', () => {
-            spyOn(component, 'unbindDragListeners');
+            vi.spyOn(component, 'unbindDragListeners').mockReturnValue(undefined);
 
             component.ngOnDestroy();
 
@@ -987,8 +987,8 @@ describe('Slider', () => {
                 }
             } as any;
 
-            spyOnProperty(window, 'scrollX', 'get').and.returnValue(5);
-            spyOnProperty(window, 'scrollY', 'get').and.returnValue(10);
+            vi.spyOn(window, 'scrollX', 'get').mockReturnValue(5);
+            vi.spyOn(window, 'scrollY', 'get').mockReturnValue(10);
 
             component.updateDomData();
 
@@ -1025,8 +1025,8 @@ describe('Slider', () => {
 
         it('should handle bar click events', async () => {
             component.sliderHandleClick = false;
-            spyOn(component, 'updateDomData');
-            spyOn(component, 'handleChange');
+            vi.spyOn(component, 'updateDomData').mockReturnValue(undefined);
+            vi.spyOn(component, 'handleChange').mockReturnValue(undefined);
 
             const mockEvent = new Event('click');
             component.onBarClick(mockEvent);
@@ -1039,8 +1039,8 @@ describe('Slider', () => {
 
         it('should ignore bar click when handle is clicked', () => {
             component.sliderHandleClick = true;
-            spyOn(component, 'updateDomData');
-            spyOn(component, 'handleChange');
+            vi.spyOn(component, 'updateDomData').mockReturnValue(undefined);
+            vi.spyOn(component, 'handleChange').mockReturnValue(undefined);
 
             const mockEvent = new Event('click');
             component.onBarClick(mockEvent);
@@ -1052,8 +1052,8 @@ describe('Slider', () => {
 
         it('should handle focus on slider handles', () => {
             component.range = true;
-            component.sliderHandleStart = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
-            component.sliderHandleEnd = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
+            component.sliderHandleStart = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
+            component.sliderHandleEnd = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
             component.values = [20, 80];
             component.handleIndex = 0;
 
@@ -1067,8 +1067,8 @@ describe('Slider', () => {
             component.el = {
                 nativeElement: {
                     classList: {
-                        remove: jasmine.createSpy('remove'),
-                        add: jasmine.createSpy('add')
+                        remove: vi.fn().mockName('remove'),
+                        add: vi.fn().mockName('add')
                     }
                 }
             } as any;
@@ -1080,12 +1080,12 @@ describe('Slider', () => {
             });
 
             const mockEvent = {
-                target: { focus: jasmine.createSpy('focus') },
-                preventDefault: jasmine.createSpy('preventDefault')
+                target: { focus: vi.fn().mockName('focus') },
+                preventDefault: vi.fn().mockName('preventDefault')
             } as unknown as Event;
 
-            spyOn(component, 'updateDomData');
-            spyOn(component, 'bindDragListeners');
+            vi.spyOn(component, 'updateDomData').mockReturnValue(undefined);
+            vi.spyOn(component, 'bindDragListeners').mockReturnValue(undefined);
 
             component.onMouseDown(mockEvent);
 

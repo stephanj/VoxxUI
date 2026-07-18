@@ -5,7 +5,8 @@
     },
     "exclude": [
         "node_modules",
-        "**/*.spec.ts"
+        "**/*.spec.ts",
+        "src/test-setup.ts"
     ],
     "angularCompilerOptions": {
         "disableTypeScriptVersionCheck": true,

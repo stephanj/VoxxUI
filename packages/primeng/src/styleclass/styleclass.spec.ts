@@ -260,7 +260,7 @@ describe('StyleClass', () => {
 
     describe('Click Handler Tests', () => {
         it('should handle click event', async () => {
-            spyOn(styleClassInstance, 'toggle');
+            vi.spyOn(styleClassInstance, 'toggle').mockReturnValue(undefined);
             component.toggleClass = 'active';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -271,7 +271,7 @@ describe('StyleClass', () => {
         });
 
         it('should call enter method when target is hidden', async () => {
-            spyOn(styleClassInstance, 'enter');
+            vi.spyOn(styleClassInstance, 'enter').mockReturnValue(undefined);
             component.enterActiveClass = 'slide-in';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -289,7 +289,7 @@ describe('StyleClass', () => {
         });
 
         it('should call leave method when target is visible', async () => {
-            spyOn(styleClassInstance, 'leave');
+            vi.spyOn(styleClassInstance, 'leave').mockReturnValue(undefined);
             component.leaveActiveClass = 'slide-out';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -430,7 +430,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'bindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'bindDocumentClickListener').mockReturnValue(undefined);
 
             styleClassInstance.enter();
 
@@ -442,7 +442,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'bindDocumentKeydownListener');
+            vi.spyOn(styleClassInstance, 'bindDocumentKeydownListener').mockReturnValue(undefined);
 
             styleClassInstance.enter();
 
@@ -454,7 +454,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'bindResizeListener');
+            vi.spyOn(styleClassInstance, 'bindResizeListener').mockReturnValue(undefined);
 
             styleClassInstance.enter();
 
@@ -517,7 +517,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'unbindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'unbindDocumentClickListener').mockReturnValue(undefined);
 
             styleClassInstance.leave();
 
@@ -529,7 +529,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'unbindDocumentKeydownListener');
+            vi.spyOn(styleClassInstance, 'unbindDocumentKeydownListener').mockReturnValue(undefined);
 
             styleClassInstance.leave();
 
@@ -541,7 +541,7 @@ describe('StyleClass', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            spyOn(styleClassInstance, 'unbindResizeListener');
+            vi.spyOn(styleClassInstance, 'unbindResizeListener').mockReturnValue(undefined);
 
             styleClassInstance.leave();
 
@@ -691,7 +691,7 @@ describe('StyleClass', () => {
                 configurable: true
             });
 
-            spyOn(styleClassInstance, 'leave');
+            vi.spyOn(styleClassInstance, 'leave').mockReturnValue(undefined);
             styleClassInstance.bindDocumentKeydownListener();
 
             const escapeEvent = new KeyboardEvent('keydown', {
@@ -761,8 +761,8 @@ describe('StyleClass', () => {
             const resizeButton = resizeFixture.debugElement.query(By.directive(StyleClass));
             const resizeInstance = resizeButton.injector.get(StyleClass);
 
-            spyOn(resizeInstance, 'bindElementResizeListener');
-            spyOn(resizeInstance, 'bindWindowResizeListener');
+            vi.spyOn(resizeInstance, 'bindElementResizeListener').mockReturnValue(undefined);
+            vi.spyOn(resizeInstance, 'bindWindowResizeListener').mockReturnValue(undefined);
 
             resizeInstance.resizeSelector = '#resize-target';
             resizeInstance.bindResizeListener();
@@ -774,8 +774,8 @@ describe('StyleClass', () => {
             const resizeButton = resizeFixture.debugElement.query(By.directive(StyleClass));
             const resizeInstance = resizeButton.injector.get(StyleClass);
 
-            spyOn(resizeInstance, 'unbindElementResizeListener');
-            spyOn(resizeInstance, 'unbindWindowResizeListener');
+            vi.spyOn(resizeInstance, 'unbindElementResizeListener').mockReturnValue(undefined);
+            vi.spyOn(resizeInstance, 'unbindWindowResizeListener').mockReturnValue(undefined);
 
             resizeInstance.unbindResizeListener();
 
@@ -1040,7 +1040,7 @@ describe('StyleClass', () => {
         });
 
         it('should cleanup event listener if exists', () => {
-            const mockListener = jasmine.createSpy('eventListener');
+            const mockListener = vi.fn().mockName('eventListener');
             styleClassInstance.eventListener = mockListener;
 
             styleClassInstance.ngOnDestroy();
@@ -1067,7 +1067,7 @@ describe('StyleClass', () => {
         });
 
         it('should call enter method programmatically', async () => {
-            spyOn(styleClassInstance, 'bindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'bindDocumentClickListener').mockReturnValue(undefined);
             component.hideOnOutsideClick = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1078,7 +1078,7 @@ describe('StyleClass', () => {
         });
 
         it('should call leave method programmatically', async () => {
-            spyOn(styleClassInstance, 'unbindDocumentClickListener');
+            vi.spyOn(styleClassInstance, 'unbindDocumentClickListener').mockReturnValue(undefined);
             component.hideOnOutsideClick = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();

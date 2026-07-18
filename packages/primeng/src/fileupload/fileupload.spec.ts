@@ -78,7 +78,7 @@ describe('FileUpload', () => {
             fixture.detectChanges();
 
             if (component.advancedFileInput?.nativeElement) {
-                spyOn(component.advancedFileInput.nativeElement, 'click');
+                vi.spyOn(component.advancedFileInput.nativeElement, 'click').mockReturnValue(undefined);
                 component.choose();
                 expect(component.advancedFileInput.nativeElement.click).toHaveBeenCalled();
             } else {
@@ -89,7 +89,7 @@ describe('FileUpload', () => {
 
         it('should clear files programmatically', () => {
             component.files = [new File(['test'], 'test.txt', { type: 'text/plain' })];
-            spyOn(component.onClear, 'emit');
+            vi.spyOn(component.onClear, 'emit').mockReturnValue(undefined);
 
             component.clear();
 
@@ -100,7 +100,7 @@ describe('FileUpload', () => {
         it('should remove file by index', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
-            spyOn(component.onRemove, 'emit');
+            vi.spyOn(component.onRemove, 'emit').mockReturnValue(undefined);
 
             const event = new Event('click');
             component.remove(event, 0);
@@ -115,7 +115,7 @@ describe('FileUpload', () => {
         it('should upload files when upload method called', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
-            spyOn(component, 'uploader');
+            vi.spyOn(component, 'uploader').mockReturnValue(undefined);
 
             component.upload();
 
@@ -128,7 +128,7 @@ describe('FileUpload', () => {
             fixture.detectChanges();
 
             if (component.basicFileInput?.nativeElement) {
-                spyOn(component.basicFileInput.nativeElement, 'click');
+                vi.spyOn(component.basicFileInput.nativeElement, 'click').mockReturnValue(undefined);
                 component.onBasicUploaderClick();
                 expect(component.basicFileInput.nativeElement.click).toHaveBeenCalled();
             } else {
@@ -206,7 +206,7 @@ describe('FileUpload', () => {
 
     describe('File Selection Events', () => {
         it('should emit onSelect event when files are selected', async () => {
-            spyOn(component.onSelect, 'emit');
+            vi.spyOn(component.onSelect, 'emit').mockReturnValue(undefined);
             component.multiple = true;
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
@@ -254,7 +254,7 @@ describe('FileUpload', () => {
             component.auto = true;
             component.name = 'test';
             component.url = 'https://test.com/upload';
-            spyOn(component, 'upload');
+            vi.spyOn(component, 'upload').mockReturnValue(undefined);
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             const event = {
@@ -280,8 +280,8 @@ describe('FileUpload', () => {
         it('should handle drag enter event', () => {
             component.disabled = false;
             const dragEvent = new DragEvent('dragenter');
-            spyOn(dragEvent, 'stopPropagation');
-            spyOn(dragEvent, 'preventDefault');
+            vi.spyOn(dragEvent, 'stopPropagation').mockReturnValue(undefined);
+            vi.spyOn(dragEvent, 'preventDefault').mockReturnValue(undefined);
 
             component.onDragEnter(dragEvent);
 
@@ -292,8 +292,8 @@ describe('FileUpload', () => {
         it('should handle drag over event', () => {
             component.disabled = false;
             const dragEvent = new DragEvent('dragover');
-            spyOn(dragEvent, 'stopPropagation');
-            spyOn(dragEvent, 'preventDefault');
+            vi.spyOn(dragEvent, 'stopPropagation').mockReturnValue(undefined);
+            vi.spyOn(dragEvent, 'preventDefault').mockReturnValue(undefined);
 
             component.onDragOver(dragEvent);
 
@@ -317,13 +317,13 @@ describe('FileUpload', () => {
         it('should handle drop event', async () => {
             component.disabled = false;
             component.multiple = true;
-            spyOn(component, 'onFileSelect');
+            vi.spyOn(component, 'onFileSelect').mockReturnValue(undefined);
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             const dropEvent = {
                 dataTransfer: { files: [testFile] },
-                stopPropagation: jasmine.createSpy('stopPropagation'),
-                preventDefault: jasmine.createSpy('preventDefault')
+                stopPropagation: vi.fn().mockName('stopPropagation'),
+                preventDefault: vi.fn().mockName('preventDefault')
             };
 
             component.onDrop(dropEvent);
@@ -337,7 +337,7 @@ describe('FileUpload', () => {
         it('should not handle drag events when disabled', () => {
             component.disabled = true;
             const dragEvent = new DragEvent('dragenter');
-            spyOn(dragEvent, 'stopPropagation');
+            vi.spyOn(dragEvent, 'stopPropagation').mockReturnValue(undefined);
 
             component.onDragEnter(dragEvent);
 
@@ -363,9 +363,9 @@ describe('FileUpload', () => {
             const testFile = new File(['test content'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
-            spyOn(component.onBeforeUpload, 'emit');
-            spyOn(component.onSend, 'emit');
-            spyOn(component.onUpload, 'emit');
+            vi.spyOn(component.onBeforeUpload, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component.onSend, 'emit').mockReturnValue(undefined);
+            vi.spyOn(component.onUpload, 'emit').mockReturnValue(undefined);
 
             component.uploader();
             await fixture.whenStable();
@@ -396,7 +396,7 @@ describe('FileUpload', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
-            spyOn(component.onError, 'emit');
+            vi.spyOn(component.onError, 'emit').mockReturnValue(undefined);
 
             component.uploader();
             await fixture.whenStable();
@@ -413,7 +413,7 @@ describe('FileUpload', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
             component.files = [testFile];
 
-            spyOn(component.uploadHandler, 'emit');
+            vi.spyOn(component.uploadHandler, 'emit').mockReturnValue(undefined);
 
             component.uploader();
             await fixture.whenStable();
@@ -485,10 +485,10 @@ describe('FileUpload', () => {
         });
 
         it('should handle keyboard navigation in basic mode', () => {
-            spyOn(component, 'onBasicUploaderClick');
+            vi.spyOn(component, 'onBasicUploaderClick').mockReturnValue(undefined);
 
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
-            spyOn(spaceEvent, 'preventDefault');
+            vi.spyOn(spaceEvent, 'preventDefault').mockReturnValue(undefined);
 
             component.onBasicKeydown(spaceEvent);
 
@@ -497,10 +497,10 @@ describe('FileUpload', () => {
         });
 
         it('should handle Enter key in basic mode', () => {
-            spyOn(component, 'onBasicUploaderClick');
+            vi.spyOn(component, 'onBasicUploaderClick').mockReturnValue(undefined);
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
-            spyOn(enterEvent, 'preventDefault');
+            vi.spyOn(enterEvent, 'preventDefault').mockReturnValue(undefined);
 
             component.onBasicKeydown(enterEvent);
 
@@ -713,10 +713,12 @@ describe('FileUpload', () => {
 
     describe('Memory Management', () => {
         it('should clean up resources on destroy', () => {
-            const mockSubscription = jasmine.createSpyObj('Subscription', ['unsubscribe']);
-            const mockListener = jasmine.createSpy('dragOverListener');
+            const mockSubscription = {
+                unsubscribe: vi.fn().mockName('Subscription.unsubscribe')
+            };
+            const mockListener = vi.fn().mockName('dragOverListener');
 
-            component.translationSubscription = mockSubscription;
+            component.translationSubscription = mockSubscription as any;
             component.dragOverListener = mockListener;
 
             component.ngOnDestroy();
@@ -726,7 +728,7 @@ describe('FileUpload', () => {
         });
 
         it('should revoke object URLs on image load', () => {
-            spyOn(window.URL, 'revokeObjectURL');
+            vi.spyOn(window.URL, 'revokeObjectURL').mockReturnValue(undefined);
             const mockImg = { src: 'blob:test-url' };
 
             component.onImageLoad(mockImg);
@@ -1364,7 +1366,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should execute chooseCallback from template context', () => {
             if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'choose');
+                vi.spyOn(fileUploadComponent, 'choose').mockReturnValue(undefined);
 
                 const chooseBtn = testFixture.debugElement.query(By.css('.choose-btn'));
                 if (chooseBtn) {
@@ -1382,7 +1384,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should execute clearCallback from template context', () => {
             if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'clear');
+                vi.spyOn(fileUploadComponent, 'clear').mockReturnValue(undefined);
 
                 const clearBtn = testFixture.debugElement.query(By.css('.clear-btn'));
                 if (clearBtn) {
@@ -1400,7 +1402,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should execute uploadCallback from template context', () => {
             if (fileUploadComponent) {
-                spyOn(fileUploadComponent, 'upload');
+                vi.spyOn(fileUploadComponent, 'upload').mockReturnValue(undefined);
 
                 const uploadBtn = testFixture.debugElement.query(By.css('.upload-btn'));
                 if (uploadBtn) {
@@ -1503,8 +1505,8 @@ describe('FileUpload CSS Classes and Styling', () => {
     it('should show drag highlight class on drag over', () => {
         component.disabled = false;
         const dragEvent = new DragEvent('dragover');
-        spyOn(dragEvent, 'stopPropagation');
-        spyOn(dragEvent, 'preventDefault');
+        vi.spyOn(dragEvent, 'stopPropagation').mockReturnValue(undefined);
+        vi.spyOn(dragEvent, 'preventDefault').mockReturnValue(undefined);
 
         component.onDragOver(dragEvent);
 
@@ -1545,7 +1547,7 @@ describe('FileUpload Accessibility', () => {
         component.mode = 'basic';
         fixture.detectChanges();
 
-        spyOn(component, 'onBasicUploaderClick');
+        vi.spyOn(component, 'onBasicUploaderClick').mockReturnValue(undefined);
 
         const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
         component.onBasicKeydown(spaceEvent);
@@ -1607,7 +1609,7 @@ describe('FileUpload Performance and Edge Cases', () => {
 
     it('should handle browser compatibility issues', () => {
         // Mock the isIE11 method to return true
-        spyOn(component, 'isIE11').and.returnValue(true);
+        vi.spyOn(component, 'isIE11').mockReturnValue(true);
 
         const result = component.isIE11();
         expect(result).toBe(true);

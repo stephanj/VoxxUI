@@ -78,7 +78,8 @@ class TestNoScrollScrollPanelComponent {}
     `
 })
 class TestPTScrollPanelComponent {
-    @Input() pt: any;
+    @Input()
+    pt: any;
 }
 
 describe('ScrollPanel', () => {
@@ -334,8 +335,8 @@ describe('ScrollPanel', () => {
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
-            spyOn(arrowDownEvent, 'preventDefault');
-            spyOn(arrowUpEvent, 'preventDefault');
+            vi.spyOn(arrowDownEvent, 'preventDefault').mockReturnValue(undefined);
+            vi.spyOn(arrowUpEvent, 'preventDefault').mockReturnValue(undefined);
 
             scrollPanel.onKeyDown(arrowDownEvent);
             expect(arrowDownEvent.preventDefault).toHaveBeenCalled();
@@ -353,8 +354,8 @@ describe('ScrollPanel', () => {
             const arrowRightEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
             const arrowLeftEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
 
-            spyOn(arrowRightEvent, 'preventDefault');
-            spyOn(arrowLeftEvent, 'preventDefault');
+            vi.spyOn(arrowRightEvent, 'preventDefault').mockReturnValue(undefined);
+            vi.spyOn(arrowLeftEvent, 'preventDefault').mockReturnValue(undefined);
 
             scrollPanel.onKeyDown(arrowRightEvent);
             expect(arrowRightEvent.preventDefault).toHaveBeenCalled();
@@ -407,8 +408,8 @@ describe('ScrollPanel', () => {
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: false });
 
-            spyOn(yBar.nativeElement, 'focus');
-            spyOn(mouseEvent, 'preventDefault');
+            vi.spyOn(yBar.nativeElement, 'focus').mockReturnValue(undefined);
+            vi.spyOn(mouseEvent, 'preventDefault').mockReturnValue(undefined);
 
             scrollPanel.onYBarMouseDown(mouseEvent);
 
@@ -424,8 +425,8 @@ describe('ScrollPanel', () => {
             const mouseEvent = new MouseEvent('mousedown');
             Object.defineProperty(mouseEvent, 'pageX', { value: 150, writable: false });
 
-            spyOn(xBar.nativeElement, 'focus');
-            spyOn(mouseEvent, 'preventDefault');
+            vi.spyOn(xBar.nativeElement, 'focus').mockReturnValue(undefined);
+            vi.spyOn(mouseEvent, 'preventDefault').mockReturnValue(undefined);
 
             scrollPanel.onXBarMouseDown(mouseEvent);
 
@@ -574,7 +575,7 @@ describe('ScrollPanel', () => {
         });
 
         it('should refresh scrollbar position and size', async () => {
-            spyOn(scrollPanel, 'moveBar');
+            vi.spyOn(scrollPanel, 'moveBar').mockReturnValue(undefined);
 
             scrollPanel.refresh();
 
@@ -721,21 +722,21 @@ describe('ScrollPanel', () => {
 
     describe('Memory Management', () => {
         it('should bind and unbind document mouse listeners', () => {
-            spyOn(document, 'addEventListener');
-            spyOn(document, 'removeEventListener');
+            vi.spyOn(document, 'addEventListener').mockReturnValue(undefined);
+            vi.spyOn(document, 'removeEventListener').mockReturnValue(undefined);
 
             scrollPanel.bindDocumentMouseListeners();
-            expect(document.addEventListener).toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-            expect(document.addEventListener).toHaveBeenCalledWith('mouseup', jasmine.any(Function));
+            expect(document.addEventListener).toHaveBeenCalledWith('mousemove', expect.any(Function));
+            expect(document.addEventListener).toHaveBeenCalledWith('mouseup', expect.any(Function));
 
             scrollPanel.unbindDocumentMouseListeners();
-            expect(document.removeEventListener).toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-            expect(document.removeEventListener).toHaveBeenCalledWith('mouseup', jasmine.any(Function));
+            expect(document.removeEventListener).toHaveBeenCalledWith('mousemove', expect.any(Function));
+            expect(document.removeEventListener).toHaveBeenCalledWith('mouseup', expect.any(Function));
         });
 
         it('should cleanup listeners on destroy', async () => {
             scrollPanel.initialized = true;
-            spyOn(scrollPanel, 'unbindListeners');
+            vi.spyOn(scrollPanel, 'unbindListeners').mockReturnValue(undefined);
 
             fixture.destroy();
 

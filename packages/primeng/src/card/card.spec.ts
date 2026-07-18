@@ -24,7 +24,11 @@ class TestCustomCardComponent {
     header: string | undefined;
     subheader: string | undefined;
     styleClass: string | undefined;
-    style: { [key: string]: any } | undefined;
+    style:
+        | {
+              [key: string]: any;
+          }
+        | undefined;
 }
 
 @Component({
@@ -93,11 +97,16 @@ class TestFacetCardComponent {}
     `
 })
 class TestContentChildCardComponent {
-    @ViewChild('header') headerTemplate!: TemplateRef<any>;
-    @ViewChild('title') titleTemplate!: TemplateRef<any>;
-    @ViewChild('subtitle') subtitleTemplate!: TemplateRef<any>;
-    @ViewChild('content') contentTemplate!: TemplateRef<any>;
-    @ViewChild('footer') footerTemplate!: TemplateRef<any>;
+    @ViewChild('header')
+    headerTemplate!: TemplateRef<any>;
+    @ViewChild('title')
+    titleTemplate!: TemplateRef<any>;
+    @ViewChild('subtitle')
+    subtitleTemplate!: TemplateRef<any>;
+    @ViewChild('content')
+    contentTemplate!: TemplateRef<any>;
+    @ViewChild('footer')
+    footerTemplate!: TemplateRef<any>;
 }
 
 @Component({
@@ -842,7 +851,7 @@ describe('Card', () => {
 
             const cardInstance = templateFixture.debugElement.query(By.directive(Card)).componentInstance;
 
-            spyOn(cardInstance, 'ngAfterContentInit').and.callThrough();
+            vi.spyOn(cardInstance, 'ngAfterContentInit');
 
             // Trigger ngAfterContentInit manually
             cardInstance.ngAfterContentInit();
@@ -1071,7 +1080,7 @@ describe('Card', () => {
         });
 
         describe('Case 2: Object Values with Attributes and Styles', () => {
-            xit('should apply PT object with class, style and data attributes to root', async () => {
+            it.skip('should apply PT object with class, style and data attributes to root', async () => {
                 // Skipped: PT style binding causes infinite loop with current implementation
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('pt', {
@@ -1089,7 +1098,7 @@ describe('Card', () => {
                 expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             });
 
-            xit('should apply PT object with attributes to header', async () => {
+            it.skip('should apply PT object with attributes to header', async () => {
                 // Skipped: PT style binding causes infinite loop
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test');
@@ -1166,7 +1175,7 @@ describe('Card', () => {
             });
         });
 
-        xdescribe('Case 4: Instance-based Functions', () => {
+        describe.skip('Case 4: Instance-based Functions', () => {
             it('should apply PT function using instance header state', async () => {
                 const fixture = TestBed.createComponent(Card);
                 fixture.componentRef.setInput('header', 'Test Header');
@@ -1414,9 +1423,9 @@ describe('Card', () => {
             });
         });
 
-        xdescribe('Case 8: PT Hooks', () => {
+        describe.skip('Case 8: PT Hooks', () => {
             // Skipped: Card component hooks support needs to be verified
-            xit('should execute onAfterViewInit hook from PT', async () => {
+            it.skip('should execute onAfterViewInit hook from PT', async () => {
                 let hookExecuted = false;
 
                 @Component({
@@ -1448,7 +1457,7 @@ describe('Card', () => {
                 expect(hookExecuted).toBe(true);
             });
 
-            xit('should execute onBeforeMount hook from PT', async () => {
+            it.skip('should execute onBeforeMount hook from PT', async () => {
                 let beforeMountExecuted = false;
 
                 @Component({
@@ -1479,7 +1488,7 @@ describe('Card', () => {
                 expect(beforeMountExecuted).toBe(true);
             });
 
-            xit('should execute onAfterContentInit hook from PT', async () => {
+            it.skip('should execute onAfterContentInit hook from PT', async () => {
                 let contentInitExecuted = false;
 
                 @Component({
@@ -1510,7 +1519,7 @@ describe('Card', () => {
                 expect(contentInitExecuted).toBe(true);
             });
 
-            xit('should execute multiple lifecycle hooks from PT', async () => {
+            it.skip('should execute multiple lifecycle hooks from PT', async () => {
                 const executedHooks: string[] = [];
 
                 @Component({

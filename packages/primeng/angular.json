@@ -15,11 +15,25 @@
                         "tsConfig": "tsconfig.json"
                     }
                 },
-                "test": {
-                    "builder": "@angular/build:karma",
+                "test-build": {
+                    "builder": "@angular/build:application",
                     "options": {
                         "tsConfig": "tsconfig.spec.json",
-                        "scripts": []
+                        "aot": false
+                    }
+                },
+                "test": {
+                    "builder": "@angular/build:unit-test",
+                    "options": {
+                        "tsConfig": "tsconfig.spec.json",
+                        "buildTarget": "voxx-ui:test-build",
+                        "runner": "vitest",
+                        "browsers": [
+                            "chromiumHeadless"
+                        ],
+                        "setupFiles": [
+                            "src/test-setup.ts"
+                        ]
                     }
                 },
                 "lint": {

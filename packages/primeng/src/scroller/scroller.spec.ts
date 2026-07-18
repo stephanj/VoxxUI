@@ -793,7 +793,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll to specified options', async () => {
-            const scrollToSpy = spyOn(scroller.elementViewChild?.nativeElement, 'scrollTo');
+            const scrollToSpy = vi.spyOn(scroller.elementViewChild?.nativeElement, 'scrollTo').mockReturnValue(undefined);
             const scrollOptions: ScrollToOptions = { left: 100, top: 200, behavior: 'smooth' };
 
             scroller.scrollTo(scrollOptions);
@@ -801,7 +801,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll to index for vertical orientation', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockReturnValue(undefined);
             component.orientation = 'vertical';
             component.itemSize = 50;
 
@@ -813,11 +813,11 @@ describe('Scroller', () => {
             scroller.first = 0;
             scroller.last = 10;
             scroller.numItemsInViewport = 5;
-            spyOn(scroller, 'calculateNumItems').and.returnValue({
+            vi.spyOn(scroller, 'calculateNumItems').mockReturnValue({
                 numItemsInViewport: 5,
                 numToleratedItems: 2
             });
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -831,7 +831,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll to index for both orientation', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockReturnValue(undefined);
             component.orientation = 'both';
             component.itemSize = [50, 100];
 
@@ -842,11 +842,11 @@ describe('Scroller', () => {
             // Set up required properties for scrollToIndex to work
             scroller.first = { rows: 0, cols: 0 };
             scroller.last = { rows: 10, cols: 10 };
-            spyOn(scroller, 'calculateNumItems').and.returnValue({
+            vi.spyOn(scroller, 'calculateNumItems').mockReturnValue({
                 numItemsInViewport: { rows: 5, cols: 5 },
                 numToleratedItems: [2, 2]
             });
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -860,7 +860,7 @@ describe('Scroller', () => {
         });
 
         it('should handle invalid scroll index gracefully', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockReturnValue(undefined);
             component.orientation = 'vertical';
 
             fixture.changeDetectorRef.markForCheck();
@@ -872,7 +872,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll item into view with to-start', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockReturnValue(undefined);
             component.orientation = 'vertical';
             component.itemSize = 50;
 
@@ -883,7 +883,7 @@ describe('Scroller', () => {
             // Set up required properties for scrollInView to work
             // The condition for scrolling is: viewport.first - first > index
             // So: 8 - 0 > 5 = 8 > 5 = true, so scrolling should occur
-            spyOn(scroller, 'getRenderedRange').and.returnValue({
+            vi.spyOn(scroller, 'getRenderedRange').mockReturnValue({
                 first: 0,
                 last: 10,
                 viewport: {
@@ -897,7 +897,7 @@ describe('Scroller', () => {
         });
 
         it('should scroll item into view with to-end', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockReturnValue(undefined);
             component.orientation = 'vertical';
             component.itemSize = 50;
 
@@ -908,7 +908,7 @@ describe('Scroller', () => {
             // Set up required properties for scrollInView to work
             // The condition for scrolling is: viewport.last - first <= index + 1
             // So: 4 - 0 <= 5 + 1 = 4 <= 6 = true, so scrolling should occur
-            spyOn(scroller, 'getRenderedRange').and.returnValue({
+            vi.spyOn(scroller, 'getRenderedRange').mockReturnValue({
                 first: 0,
                 last: 10,
                 viewport: {
@@ -933,7 +933,7 @@ describe('Scroller', () => {
         });
 
         it('should calculate number of items in viewport', async () => {
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -1053,7 +1053,7 @@ describe('Scroller', () => {
         });
 
         it('should emit onLazyLoad event', async () => {
-            spyOn(component, 'onLazyLoad');
+            vi.spyOn(component, 'onLazyLoad').mockReturnValue(undefined);
 
             scroller._lazy = true;
             scroller._step = 10;
@@ -1071,8 +1071,8 @@ describe('Scroller', () => {
         });
 
         it('should emit onScroll event', async () => {
-            spyOn(component, 'onScroll');
-            spyOn(scroller, 'onScrollChange'); // Mock to prevent null access
+            vi.spyOn(component, 'onScroll').mockReturnValue(undefined);
+            vi.spyOn(scroller, 'onScrollChange').mockReturnValue(undefined); // Mock to prevent null access
             const mockEvent = new Event('scroll');
 
             scroller.onContainerScroll(mockEvent);
@@ -1080,14 +1080,14 @@ describe('Scroller', () => {
         });
 
         it('should emit onScrollIndexChange event', async () => {
-            spyOn(component, 'onScrollIndexChange');
-            spyOn(scroller, 'onScrollPositionChange').and.returnValue({
+            vi.spyOn(component, 'onScrollIndexChange').mockReturnValue(undefined);
+            vi.spyOn(scroller, 'onScrollPositionChange').mockReturnValue({
                 first: 5,
                 last: 10,
                 isRangeChanged: true,
                 scrollPos: 100
             });
-            spyOn(scroller, 'setContentPosition');
+            vi.spyOn(scroller, 'setContentPosition').mockReturnValue(undefined);
 
             // Set up initial state
             scroller.first = 0;
@@ -1109,8 +1109,8 @@ describe('Scroller', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            spyOn(scroller, 'onScrollChange');
-            spyOn(scroller, 'isPageChanged').and.returnValue(false);
+            vi.spyOn(scroller, 'onScrollChange').mockReturnValue(undefined);
+            vi.spyOn(scroller, 'isPageChanged').mockReturnValue(false);
             const mockEvent = new Event('scroll');
 
             scroller.onContainerScroll(mockEvent);
@@ -1122,7 +1122,7 @@ describe('Scroller', () => {
         });
 
         it('should handle events through options', async () => {
-            const mockOnScroll = jasmine.createSpy('onScroll');
+            const mockOnScroll = vi.fn().mockName('onScroll');
             component.options = { onScroll: mockOnScroll };
 
             fixture.changeDetectorRef.markForCheck();
@@ -1284,7 +1284,7 @@ describe('Scroller', () => {
 
         it('should handle scroll position changes', async () => {
             const mockEvent = { target: { scrollTop: 100, scrollLeft: 0 } } as any;
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -1301,7 +1301,7 @@ describe('Scroller', () => {
         });
 
         it('should calculate viewport items correctly', async () => {
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 10,
@@ -1397,16 +1397,16 @@ describe('Scroller', () => {
         });
 
         it('should scroll to index for both orientation', async () => {
-            spyOn(scroller, 'scrollTo');
+            vi.spyOn(scroller, 'scrollTo').mockReturnValue(undefined);
 
             // Set up required properties for scrollToIndex to work
             scroller.first = { rows: 0, cols: 0 };
             scroller.last = { rows: 10, cols: 10 };
-            spyOn(scroller, 'calculateNumItems').and.returnValue({
+            vi.spyOn(scroller, 'calculateNumItems').mockReturnValue({
                 numItemsInViewport: { rows: 5, cols: 5 },
                 numToleratedItems: [2, 2]
             });
-            spyOn(scroller, 'getContentPosition').and.returnValue({
+            vi.spyOn(scroller, 'getContentPosition').mockReturnValue({
                 left: 0,
                 right: 0,
                 top: 0,
@@ -1730,7 +1730,7 @@ describe('Scroller', () => {
         });
 
         it('should handle window resize gracefully', async () => {
-            spyOn(scroller, 'init');
+            vi.spyOn(scroller, 'init').mockReturnValue(undefined);
 
             // Trigger window resize
             scroller.onWindowResize();
@@ -1743,7 +1743,7 @@ describe('Scroller', () => {
         });
 
         it('should clean up resources on destroy', async () => {
-            spyOn(scroller, 'unbindResizeListener');
+            vi.spyOn(scroller, 'unbindResizeListener').mockReturnValue(undefined);
 
             fixture.destroy();
             expect(scroller.unbindResizeListener).toHaveBeenCalled();

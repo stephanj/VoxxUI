@@ -541,7 +541,7 @@ describe('SplitButton', () => {
 
     describe('Event Handling', () => {
         it('should emit onClick event when default button is clicked', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
+            const clickSpy = vi.spyOn(component, 'onButtonClick').mockReturnValue(undefined);
 
             defaultButton.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -552,7 +552,7 @@ describe('SplitButton', () => {
         });
 
         it('should emit onDropdownClick event when dropdown button is clicked', async () => {
-            const dropdownClickSpy = spyOn(component, 'onDropdownClick');
+            const dropdownClickSpy = vi.spyOn(component, 'onDropdownClick').mockReturnValue(undefined);
 
             dropdownButton.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -592,7 +592,7 @@ describe('SplitButton', () => {
         });
 
         it('should emit onMenuShow event when menu is shown', async () => {
-            const showSpy = spyOn(component, 'onMenuShow');
+            const showSpy = vi.spyOn(component, 'onMenuShow').mockReturnValue(undefined);
 
             splitButtonInstance.onShow();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -603,7 +603,7 @@ describe('SplitButton', () => {
         });
 
         it('should emit onMenuHide event when menu is hidden', async () => {
-            const hideSpy = spyOn(component, 'onMenuHide');
+            const hideSpy = vi.spyOn(component, 'onMenuHide').mockReturnValue(undefined);
 
             splitButtonInstance.onHide();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -614,8 +614,8 @@ describe('SplitButton', () => {
         });
 
         it('should not emit events when disabled', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
-            const dropdownClickSpy = spyOn(component, 'onDropdownClick');
+            const clickSpy = vi.spyOn(component, 'onButtonClick').mockReturnValue(undefined);
+            const dropdownClickSpy = vi.spyOn(component, 'onDropdownClick').mockReturnValue(undefined);
 
             component.disabled = true;
             fixture.changeDetectorRef.markForCheck();
@@ -636,8 +636,8 @@ describe('SplitButton', () => {
         it('should open menu with ArrowDown key on dropdown button', async () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
-            const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault');
-            const toggleSpy = spyOn(splitButtonInstance.menu!, 'toggle');
+            const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockReturnValue(undefined);
+            const toggleSpy = vi.spyOn(splitButtonInstance.menu!, 'toggle').mockReturnValue(undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -651,8 +651,8 @@ describe('SplitButton', () => {
         it('should open menu with ArrowUp key on dropdown button', async () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'ArrowUp', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
-            const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault');
-            const toggleSpy = spyOn(splitButtonInstance.menu!, 'toggle');
+            const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockReturnValue(undefined);
+            const toggleSpy = vi.spyOn(splitButtonInstance.menu!, 'toggle').mockReturnValue(undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -665,7 +665,7 @@ describe('SplitButton', () => {
         it('should not handle other keys', async () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'Enter', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
-            const preventDefaultSpy = spyOn(keydownEvent, 'preventDefault');
+            const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockReturnValue(undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1254,7 +1254,7 @@ describe('SplitButton', () => {
         });
 
         it('should call onClick.emit in onDefaultButtonClick', () => {
-            const emitSpy = spyOn(splitButtonInstance.onClick, 'emit');
+            const emitSpy = vi.spyOn(splitButtonInstance.onClick, 'emit').mockReturnValue(undefined);
             const mockEvent = new MouseEvent('click');
 
             splitButtonInstance.onDefaultButtonClick(mockEvent);
@@ -1263,7 +1263,7 @@ describe('SplitButton', () => {
         });
 
         it('should call onDropdownClick.emit in onDropdownButtonClick', () => {
-            const emitSpy = spyOn(splitButtonInstance.onDropdownClick, 'emit');
+            const emitSpy = vi.spyOn(splitButtonInstance.onDropdownClick, 'emit').mockReturnValue(undefined);
             const mockEvent = new MouseEvent('click');
 
             splitButtonInstance.onDropdownButtonClick(mockEvent);
