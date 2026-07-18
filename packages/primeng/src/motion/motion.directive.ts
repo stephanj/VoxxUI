@@ -23,7 +23,7 @@ export class MotionDirective extends BaseComponent {
      * Whether the element is visible or not.
      * @group Props
      */
-    visible = input<boolean>(false, { alias: 'vxMotion' });
+    visible = input<boolean | null | undefined>(false, { alias: 'vxMotion' });
     /**
      * The name of the motion. It can be a predefined motion name or a custom one.
      * phases:
@@ -113,7 +113,7 @@ export class MotionDirective extends BaseComponent {
      * The motion options.
      * @group Props
      */
-    options = input<MotionOptions>({}, { alias: 'vxMotionOptions' });
+    options = input<MotionOptions | undefined>({}, { alias: 'vxMotionOptions' });
 
     /******************** Outputs ********************/
 

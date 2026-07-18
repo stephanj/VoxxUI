@@ -80,83 +80,103 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         [vxMotionName]="'p-dialog'"
                         [vxMotionOptions]="computedMotionOptions()"
                         (vxMotionOnBeforeEnter)="onBeforeEnter($event)"
-                        (vxMotionOnAfterEnter)="onAfterEnter($event)"
-                        (vxMotionOnBeforeLeave)="onBeforeLeave($event)"
-                        (vxMotionOnAfterLeave)="onAfterLeave($event)"
+                        (vxMotionOnAfterEnter)="onAfterEnter()"
+                        (vxMotionOnBeforeLeave)="onBeforeLeave()"
+                        (vxMotionOnAfterLeave)="onAfterLeave()"
                         [attr.role]="role"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-modal]="true"
                         [attr.data-p]="dataP"
                     >
-                        <ng-container *ngIf="_headlessTemplate || headlessTemplate || headlessT; else notHeadless">
+                        @if (_headlessTemplate || headlessTemplate || headlessT) {
                             <ng-container *ngTemplateOutlet="_headlessTemplate || headlessTemplate || headlessT"></ng-container>
-                        </ng-container>
-
-                        <ng-template #notHeadless>
-                            <div *ngIf="resizable" [class]="cx('resizeHandle')" [vxBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
-                            <div #titlebar [class]="cx('header')" [vxBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                                <span [id]="ariaLabelledBy" [class]="cx('title')" [vxBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
-                                <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT; context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
-                                <div [class]="cx('headerActions')" [vxBind]="ptm('headerActions')">
-                                    <vx-button
-                                        [pt]="ptm('pcMaximizeButton')"
-                                        *ngIf="maximizable"
-                                        [styleClass]="cx('pcMaximizeButton')"
-                                        [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
-                                        (onClick)="maximize()"
-                                        (keydown.enter)="maximize()"
-                                        [tabindex]="maximizable ? '0' : '-1'"
-                                        [buttonProps]="maximizeButtonProps"
-                                        [unstyled]="unstyled()"
-                                        [attr.data-pc-group-section]="'headericon'"
-                                    >
-                                        <ng-template #icon>
-                                            <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                                            <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                                <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
-                                                <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
-                                            </ng-container>
-                                            <ng-container *ngIf="!maximized">
-                                                <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
-                                            </ng-container>
-                                            <ng-container *ngIf="maximized">
-                                                <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
-                                            </ng-container>
-                                        </ng-template>
-                                    </vx-button>
-                                    <vx-button
-                                        [pt]="ptm('pcCloseButton')"
-                                        *ngIf="closable"
-                                        [styleClass]="cx('pcCloseButton')"
-                                        [ariaLabel]="closeAriaLabel"
-                                        (onClick)="close($event)"
-                                        (keydown.enter)="close($event)"
-                                        [tabindex]="closeTabindex"
-                                        [buttonProps]="closeButtonProps"
-                                        [unstyled]="unstyled()"
-                                        [attr.data-pc-group-section]="'headericon'"
-                                    >
-                                        <ng-template #icon>
-                                            <ng-container *ngIf="!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon">
-                                                <span *ngIf="closeIcon" [class]="closeIcon"></span>
-                                                <svg data-p-icon="times" *ngIf="!closeIcon" />
-                                            </ng-container>
-                                            <span *ngIf="_closeiconTemplate || closeIconTemplate || closeIconT">
-                                                <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
-                                            </span>
-                                        </ng-template>
-                                    </vx-button>
+                        } @else {
+                            @if (resizable) {
+                                <div [class]="cx('resizeHandle')" [vxBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
+                            }
+                            @if (showHeader) {
+                                <div #titlebar [class]="cx('header')" [vxBind]="ptm('header')" (mousedown)="initDrag($event)">
+                                    @if (!_headerTemplate && !headerTemplate && !headerT) {
+                                        <span [id]="ariaLabelledBy" [class]="cx('title')" [vxBind]="ptm('title')">{{ header }}</span>
+                                    }
+                                    <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT; context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
+                                    <div [class]="cx('headerActions')" [vxBind]="ptm('headerActions')">
+                                        @if (maximizable) {
+                                            <vx-button
+                                                [pt]="ptm('pcMaximizeButton')"
+                                                [styleClass]="cx('pcMaximizeButton')"
+                                                [ariaLabel]="maximized ? minimizeLabel : maximizeLabel"
+                                                (onClick)="maximize()"
+                                                (keydown.enter)="maximize()"
+                                                [tabindex]="maximizable ? '0' : '-1'"
+                                                [buttonProps]="maximizeButtonProps"
+                                                [unstyled]="unstyled()"
+                                                [attr.data-pc-group-section]="'headericon'"
+                                            >
+                                                <ng-template #icon>
+                                                    @if (maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate) {
+                                                        <span [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                                    }
+                                                    @if (!maximizeIcon && !maximizeButtonProps?.icon) {
+                                                        @if (!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT) {
+                                                            <svg data-p-icon="window-maximize" />
+                                                        }
+                                                        @if (maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT) {
+                                                            <svg data-p-icon="window-minimize" />
+                                                        }
+                                                    }
+                                                    @if (!maximized) {
+                                                        <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
+                                                    }
+                                                    @if (maximized) {
+                                                        <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
+                                                    }
+                                                </ng-template>
+                                            </vx-button>
+                                        }
+                                        @if (closable) {
+                                            <vx-button
+                                                [pt]="ptm('pcCloseButton')"
+                                                [styleClass]="cx('pcCloseButton')"
+                                                [ariaLabel]="closeAriaLabel"
+                                                (onClick)="close($event)"
+                                                (keydown.enter)="close($event)"
+                                                [tabindex]="closeTabindex"
+                                                [buttonProps]="closeButtonProps"
+                                                [unstyled]="unstyled()"
+                                                [attr.data-pc-group-section]="'headericon'"
+                                            >
+                                                <ng-template #icon>
+                                                    @if (!_closeiconTemplate && !closeIconTemplate && !closeIconT && !closeButtonProps?.icon) {
+                                                        @if (closeIcon) {
+                                                            <span [class]="closeIcon"></span>
+                                                        }
+                                                        @if (!closeIcon) {
+                                                            <svg data-p-icon="times" />
+                                                        }
+                                                    }
+                                                    @if (_closeiconTemplate || closeIconTemplate || closeIconT) {
+                                                        <span>
+                                                            <ng-template *ngTemplateOutlet="_closeiconTemplate || closeIconTemplate || closeIconT"></ng-template>
+                                                        </span>
+                                                    }
+                                                </ng-template>
+                                            </vx-button>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [vxBind]="ptm('content')">
                                 <ng-content></ng-content>
                                 <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
                             </div>
-                            <div #footer [class]="cx('footer')" [vxBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
-                                <ng-content select="vx-footer"></ng-content>
-                                <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
-                            </div>
-                        </ng-template>
+                            @if (_footerTemplate || footerTemplate || footerT) {
+                                <div #footer [class]="cx('footer')" [vxBind]="ptm('footer')">
+                                    <ng-content select="vx-footer"></ng-content>
+                                    <ng-container *ngTemplateOutlet="_footerTemplate || footerTemplate || footerT"></ng-container>
+                                </div>
+                            }
+                        }
                     </div>
                 }
             </div>
@@ -467,7 +487,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Header template.
      * @group Templates
      */
-    @Input('content') headerTemplate: TemplateRef<void> | undefined;
+    @Input('content') headerTemplate: TemplateRef<any> | undefined;
     /**
      * Content template.
      * @group Templates
@@ -503,7 +523,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<void> | undefined;
+    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<any> | undefined;
 
     /**
      * Custom content template.
@@ -605,7 +625,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     _componentStyle = inject(DialogStyle);
 
-    headerT: TemplateRef<void> | undefined;
+    headerT: TemplateRef<any> | undefined;
 
     contentT: TemplateRef<void> | undefined;
 
@@ -1083,8 +1103,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-    onBeforeEnter(event: MotionEvent) {
-        this.container.set(event.element as HTMLDivElement);
+    onBeforeEnter(event: MotionEvent | undefined) {
+        this.container.set(event?.element as HTMLDivElement);
         this.wrapper = this.container()?.parentElement;
         this.$attrSelector && this.container()?.setAttribute(this.$attrSelector, '');
         this.appendContainer();

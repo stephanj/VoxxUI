@@ -46,7 +46,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
     imports: [CommonModule, Button, Dialog, SharedModule, Bind],
     template: `
         <vx-dialog
-            [pt]="pt"
+            [pt]="$any(pt())"
             #dialog
             [visible]="visible"
             (visibleChange)="onVisibleChange($event)"
@@ -92,7 +92,9 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     @if (iconTemplate || _iconTemplate) {
                         <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
-                        <i [ngClass]="cx('icon')" [class]="option('icon')" [vxBind]="ptm('icon')" *ngIf="option('icon')"></i>
+                        @if (option('icon')) {
+                            <i [ngClass]="cx('icon')" [class]="option('icon')" [vxBind]="ptm('icon')"></i>
+                        }
                     }
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
@@ -107,40 +109,46 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
                 @if (!footerTemplate && !_footerTemplate) {
-                    <vx-button
-                        [pt]="ptm('pcRejectButton')"
-                        *ngIf="option('rejectVisible')"
-                        [label]="rejectButtonLabel"
-                        (onClick)="onReject()"
-                        [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
-                        [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
-                        [buttonProps]="getRejectButtonProps()"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
-                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [vxBind]="ptm('pcRejectButton')['icon']"></i>
-                            }
-                            <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
-                        </ng-template>
-                    </vx-button>
-                    <vx-button
-                        [pt]="ptm('pcAcceptButton')"
-                        [label]="acceptButtonLabel"
-                        (onClick)="onAccept()"
-                        [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
-                        *ngIf="option('acceptVisible')"
-                        [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
-                        [buttonProps]="getAcceptButtonProps()"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
-                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [vxBind]="ptm('pcAcceptButton')['icon']"></i>
-                            }
-                            <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
-                        </ng-template>
-                    </vx-button>
+                    @if (option('rejectVisible')) {
+                        <vx-button
+                            [pt]="ptm('pcRejectButton')"
+                            [label]="rejectButtonLabel"
+                            (onClick)="onReject()"
+                            [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
+                            [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
+                            [buttonProps]="getRejectButtonProps()"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
+                                    @if (option('rejectIcon')) {
+                                        <i [class]="option('rejectIcon')" [vxBind]="ptm('pcRejectButton')['icon']"></i>
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                            </ng-template>
+                        </vx-button>
+                    }
+                    @if (option('acceptVisible')) {
+                        <vx-button
+                            [pt]="ptm('pcAcceptButton')"
+                            [label]="acceptButtonLabel"
+                            (onClick)="onAccept()"
+                            [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
+                            [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
+                            [buttonProps]="getAcceptButtonProps()"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
+                                    @if (option('acceptIcon')) {
+                                        <i [class]="option('acceptIcon')" [vxBind]="ptm('pcAcceptButton')['icon']"></i>
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                            </ng-template>
+                        </vx-button>
+                    }
                 }
             </ng-template>
         </vx-dialog>

@@ -68,9 +68,9 @@ export interface ScrollerContentOptions {
     contentStyleClass?: string;
     items?: any[];
     loading?: boolean;
-    itemSize?: number;
-    rows?: any[];
-    columns?: any[];
+    itemSize?: number | number[];
+    rows?: any[] | null;
+    columns?: any[] | null;
     spacerStyle?: { [klass: string]: any } | null | undefined;
     contentStyle?: { [klass: string]: any } | null | undefined;
     vertical?: boolean;

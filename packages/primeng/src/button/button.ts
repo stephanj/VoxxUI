@@ -245,7 +245,7 @@ export class ButtonDirective extends BaseComponent {
      * Defines the size of the button.
      * @group Props
      */
-    @Input() size: 'small' | 'large' | undefined;
+    @Input() size: 'small' | 'large' | null | undefined;
 
     /**
      * Add a border class without a background initially.
@@ -315,7 +315,7 @@ export class ButtonDirective extends BaseComponent {
         return this._label as string;
     }
 
-    set label(val: string) {
+    set label(val: string | undefined) {
         this._label = val;
 
         if (this.initialized) {
@@ -334,7 +334,7 @@ export class ButtonDirective extends BaseComponent {
         return this._icon as string;
     }
 
-    set icon(val: string) {
+    set icon(val: string | undefined) {
         this._icon = val;
 
         if (this.initialized) {
@@ -706,7 +706,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
      * Defines the size of the button.
      * @group Props
      */
-    @Input() size: 'small' | 'large' | undefined;
+    @Input() size: 'small' | 'large' | null | undefined;
 
     /**
      * Specifies the variant of the component.

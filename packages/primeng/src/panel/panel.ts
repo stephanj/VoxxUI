@@ -361,7 +361,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         }
     }
 
-    onToggleDone(event: MotionEvent) {
+    onToggleDone(event: MotionEvent | undefined) {
         this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 

@@ -74,7 +74,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             @if (!checkboxIconTemplate && !_checkboxIconTemplate) {
                 @if (checked) {
                     @if (checkboxIcon) {
-                        <span [class]="cx('icon')" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
+                        <span [class]="cx('icon') ?? ''" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
                     }
                     @if (!checkboxIcon) {
                         <svg data-p-icon="check" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
@@ -240,7 +240,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     $pcCheckbox: Checkbox | undefined = inject(CHECKBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
 
     onAfterContentInit() {
         this.templates?.forEach((item) => {

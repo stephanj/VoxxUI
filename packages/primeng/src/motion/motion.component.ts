@@ -47,7 +47,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
      * Whether the element is visible or not.
      * @group Props
      */
-    visible = input<boolean>(false);
+    visible = input<boolean | null | undefined>(false);
     /**
      * Whether to mount the element on enter.
      * @group Props

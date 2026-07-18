@@ -55,7 +55,7 @@ export class SafeHtmlPipe implements PipeTransform {
         private readonly sanitizer: DomSanitizer
     ) {}
 
-    public transform(value: string): SafeHtml {
+    public transform(value: string | null | undefined): SafeHtml | string | null | undefined {
         if (!value || !isPlatformBrowser(this.platformId)) {
             return value;
         }
@@ -72,13 +72,13 @@ export class SafeHtmlPipe implements PipeTransform {
         @if (!itemTemplate) {
             @if (!item?.routerLink) {
                 <a
-                    [attr.title]="item.title"
-                    [attr.href]="item.url || null"
-                    [attr.data-automationid]="item.automationId"
+                    [attr.title]="item?.title"
+                    [attr.href]="item?.url || null"
+                    [attr.data-automationid]="item?.automationId"
                     [attr.tabindex]="-1"
                     [class]="cn(cx('itemLink'), item?.linkClass)"
                     [ngStyle]="item?.linkStyle"
-                    [target]="item.target"
+                    [target]="item?.target"
                     [vxBind]="getPTOptions('itemLink')"
                     vxRipple
                 >
@@ -87,22 +87,22 @@ export class SafeHtmlPipe implements PipeTransform {
             }
             @if (item?.routerLink) {
                 <a
-                    [routerLink]="item.routerLink"
-                    [attr.data-automationid]="item.automationId"
+                    [routerLink]="item?.routerLink"
+                    [attr.data-automationid]="item?.automationId"
                     [attr.tabindex]="-1"
-                    [attr.title]="item.title"
-                    [queryParams]="item.queryParams"
+                    [attr.title]="item?.title"
+                    [queryParams]="item?.queryParams"
                     routerLinkActive="p-menu-item-link-active"
-                    [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                    [routerLinkActiveOptions]="item?.routerLinkActiveOptions || { exact: false }"
                     [class]="cn(cx('itemLink'), item?.linkClass)"
                     [ngStyle]="item?.linkStyle"
-                    [target]="item.target"
-                    [fragment]="item.fragment"
-                    [queryParamsHandling]="item.queryParamsHandling"
-                    [preserveFragment]="item.preserveFragment"
-                    [skipLocationChange]="item.skipLocationChange"
-                    [replaceUrl]="item.replaceUrl"
-                    [state]="item.state"
+                    [target]="item?.target"
+                    [fragment]="item?.fragment"
+                    [queryParamsHandling]="item?.queryParamsHandling"
+                    [preserveFragment]="item?.preserveFragment"
+                    [skipLocationChange]="item?.skipLocationChange"
+                    [replaceUrl]="item?.replaceUrl"
+                    [state]="item?.state"
                     [vxBind]="getPTOptions('itemLink')"
                     vxRipple
                 >
@@ -116,16 +116,16 @@ export class SafeHtmlPipe implements PipeTransform {
         }
 
         <ng-template #itemContent>
-            @if (item.icon) {
-                <span [class]="cn(cx('itemIcon', { item }), item.iconClass)" [vxBind]="getPTOptions('itemIcon')" [ngStyle]="item.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
+            @if (item?.icon) {
+                <span [class]="cn(cx('itemIcon', { item }), item?.iconClass)" [vxBind]="getPTOptions('itemIcon')" [ngStyle]="item?.iconStyle" [attr.data-pc-section]="'itemicon'"></span>
             }
-            @if (item.escape !== false) {
-                <span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [vxBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'">{{ item.label }}</span>
+            @if (item?.escape !== false) {
+                <span [class]="cn(cx('itemLabel'), item?.labelClass)" [ngStyle]="item?.labelStyle" [vxBind]="getPTOptions('itemLabel')" [attr.data-pc-section]="'itemlabel'">{{ item?.label }}</span>
             } @else {
-                <span [class]="cn(cx('itemLabel'), item.labelClass)" [ngStyle]="item.labelStyle" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item.label | safeHtml" [vxBind]="getPTOptions('itemLabel')"></span>
+                <span [class]="cn(cx('itemLabel'), item?.labelClass)" [ngStyle]="item?.labelStyle" [attr.data-pc-section]="'itemlabel'" [innerHTML]="item?.label | safeHtml" [vxBind]="getPTOptions('itemLabel')"></span>
             }
-            @if (item.badge) {
-                <vx-badge [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions('pcBadge')" [unstyled]="unstyled()" />
+            @if (item?.badge) {
+                <vx-badge [styleClass]="item?.badgeStyleClass" [value]="item?.badge" [pt]="getPTOptions('pcBadge')" [unstyled]="unstyled()" />
             }
         </ng-template>
     </div>`,
@@ -208,8 +208,8 @@ export class MenuItemContent extends BaseComponent {
                     (blur)="onListBlur($event)"
                     (keydown)="onListKeyDown($event)"
                 >
-                    @for (submenu of model; track submenu; let i = $index) {
-                        <ng-template let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
+                    @if (hasSubMenu()) {
+                        @for (submenu of model; track submenu; let i = $index) {
                             @if (submenu.separator && submenu.visible !== false) {
                                 <li [class]="cx('separator')" [vxBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
                             }
@@ -262,10 +262,10 @@ export class MenuItemContent extends BaseComponent {
                                     ></li>
                                 }
                             }
-                        </ng-template>
+                        }
                     }
-                    @for (item of model; track item; let i = $index) {
-                        <ng-template let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
+                    @if (!hasSubMenu()) {
+                        @for (item of model; track item; let i = $index) {
                             @if (item.separator && item.visible !== false) {
                                 <li [class]="cx('separator')" [vxBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
                             }
@@ -291,7 +291,7 @@ export class MenuItemContent extends BaseComponent {
                                     [attr.id]="menuitemId(item, id, i)"
                                 ></li>
                             }
-                        </ng-template>
+                        }
                     }
                 </ul>
                 @if (endTemplate ?? _endTemplate) {
@@ -578,8 +578,8 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         return this.tabindex !== undefined ? this.tabindex.toString() : null;
     }
 
-    onOverlayBeforeEnter(event: MotionEvent) {
-        this.container = event.element as HTMLElement;
+    onOverlayBeforeEnter(event: MotionEvent | undefined) {
+        this.container = event?.element as HTMLElement;
 
         if (this.container) {
             addStyle(this.container, { position: 'absolute', top: '0' });

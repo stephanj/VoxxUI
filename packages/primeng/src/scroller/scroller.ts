@@ -35,7 +35,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 } @else {
                     <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [vxBind]="ptm('content')">
-                        @for (item of loadedItems; track _trackBy(index, item); let index = $index) {
+                        @for (item of loadedItems; track _trackBy ? _trackBy(index, item) : item; let index = $index) {
                             <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         }
                     </div>
@@ -143,10 +143,10 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * The height/width of item according to orientation.
      * @group Props
      */
-    @Input() get itemSize(): number[] | number {
+    @Input() get itemSize(): number[] | number | undefined {
         return this._itemSize;
     }
-    set itemSize(val: number[] | number) {
+    set itemSize(val: number[] | number | undefined) {
         this._itemSize = val;
     }
     /**
@@ -379,7 +379,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     _items: any[] | undefined | null;
 
-    _itemSize: number | number[] = 0;
+    _itemSize: number | number[] | undefined = 0;
 
     _scrollHeight: string | undefined;
 
@@ -730,7 +730,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
             const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
             const { numToleratedItems } = this.calculateNumItems();
             const contentPos = this.getContentPosition();
-            const itemSize = this.itemSize;
+            const itemSize = this.itemSize ?? 0;
             const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
             const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
             const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });

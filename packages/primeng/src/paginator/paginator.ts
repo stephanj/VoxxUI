@@ -590,7 +590,7 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
         event.preventDefault();
     }
 
-    onRppChange(event: Event): void {
+    onRppChange(event: SelectChangeEvent | Event): void {
         this.changePage(this.getPage());
     }
 

@@ -80,7 +80,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      */
     invalid = input(undefined, { transform: booleanAttribute });
 
-    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
 
     _componentStyle = inject(InputTextStyle);
 

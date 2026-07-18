@@ -460,9 +460,9 @@ export interface Month {
      */
     year?: number;
     /**
-     * Array of dates.
+     * Array of date rows (weeks), each row holding day metadata objects.
      */
-    dates?: Date[];
+    dates?: any[][];
     /**
      * Array of week numbers.
      */

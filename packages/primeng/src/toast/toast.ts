@@ -64,10 +64,10 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
             } @else {
                 <div [vxBind]="ptm('messageContent')" [class]="cn(cx('messageContent'), message?.contentStyleClass)">
                     @if (!template) {
-                        @if (message.icon) {
+                        @if (message?.icon) {
                             <span [vxBind]="ptm('messageIcon')" [class]="cn(cx('messageIcon'), message?.icon)"></span>
                         } @else {
-                            @switch (message.severity) {
+                            @switch (message?.severity) {
                                 @case ('success') {
                                     <svg [vxBind]="ptm('messageIcon')" data-p-icon="check" [class]="cx('messageIcon')" [attr.aria-hidden]="true" />
                                 }
@@ -87,9 +87,9 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                         }
                         <div [vxBind]="ptm('messageText')" [ngClass]="cx('messageText')" [attr.data-p]="dataP">
                             <div [vxBind]="ptm('summary')" [ngClass]="cx('summary')" [attr.data-p]="dataP">
-                                {{ message.summary }}
+                                {{ message?.summary }}
                             </div>
-                            <div [vxBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message.detail }}</div>
+                            <div [vxBind]="ptm('detail')" [ngClass]="cx('detail')" [attr.data-p]="dataP">{{ message?.detail }}</div>
                         </div>
                     }
                     <ng-container *ngTemplateOutlet="template; context: { $implicit: message }"></ng-container>
@@ -105,8 +105,8 @@ const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
                                 autofocus
                                 [attr.data-p]="dataP"
                             >
-                                @if (message.closeIcon) {
-                                    @if (message.closeIcon) {
+                                @if (message?.closeIcon) {
+                                    @if (message?.closeIcon) {
                                         <span [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), message?.closeIcon)"></span>
                                     }
                                 } @else {
@@ -150,11 +150,11 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
 
     onAnimationEnd = output<HTMLElement>();
 
-    onBeforeEnter(event: MotionEvent) {
-        this.onAnimationStart.emit(event.element as HTMLElement);
+    onBeforeEnter(event: MotionEvent | undefined) {
+        this.onAnimationStart.emit(event?.element as HTMLElement);
     }
 
-    onAfterLeave(event: MotionEvent) {
+    onAfterLeave(event: MotionEvent | undefined) {
         if (!this.visible() && !this.isDestroyed) {
             this.onClose.emit({
                 index: <number>this.index,
@@ -162,7 +162,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
             });
 
             if (!this.isDestroyed) {
-                this.onAnimationEnd.emit(event.element as HTMLElement);
+                this.onAnimationEnd.emit(event?.element as HTMLElement);
             }
         }
     }
@@ -256,7 +256,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
  */
 @Component({
     selector: 'vx-toast',
-    imports: [CommonModule, ToastItem, SharedModule],
+    imports: [ToastItem, SharedModule],
     template: `
         @for (msg of messages; track msg; let i = $index) {
             <vx-toastItem
@@ -269,7 +269,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
                 (onAnimationStart)="onAnimationStart()"
                 [template]="template || _template"
                 [headlessTemplate]="headlessTemplate || _headlessTemplate"
-                [pt]="pt"
+                [pt]="pt()"
                 [unstyled]="unstyled()"
                 [motionOptions]="computedMotionOptions()"
             ></vx-toastItem>

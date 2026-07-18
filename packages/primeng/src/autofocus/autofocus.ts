@@ -15,7 +15,7 @@ export class AutoFocus extends BaseComponent {
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input('vxAutoFocus') autofocus: boolean = false;
+    @Input('vxAutoFocus') autofocus: boolean | undefined = false;
 
     focused: boolean = false;
 

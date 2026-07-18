@@ -51,7 +51,7 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 @if (closable) {
                     <button [vxBind]="ptm('closeButton')" vxRipple type="button" [class]="cx('closeButton')" (click)="close($event)" [attr.aria-label]="closeAriaLabel" [attr.data-p]="dataP">
                         @if (closeIcon) {
-                            <i [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon)" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
+                            <i [vxBind]="ptm('closeIcon')" [class]="cn(cx('closeIcon'), closeIcon) ?? ''" [ngClass]="closeIcon" [attr.data-p]="dataP"></i>
                         }
                         @if (closeIconTemplate || _closeIconTemplate) {
                             <ng-container *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-container>

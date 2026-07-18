@@ -71,158 +71,179 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     selector: 'vx-autoComplete, vx-autocomplete, vx-auto-complete',
     imports: [CommonModule, Overlay, InputText, Ripple, Scroller, AutoFocus, TimesCircleIcon, SpinnerIcon, ChevronDownIcon, Chip, SharedModule, TimesIcon, BindModule],
     template: `
-        <input
-            *ngIf="!multiple"
-            #focusInput
-            [vxAutoFocus]="autofocus"
-            vxInputText
-            [pt]="ptm('pcInputText')"
-            [class]="cn(cx('pcInputText'), inputStyleClass)"
-            [ngStyle]="inputStyle"
-            [attr.type]="type"
-            [attr.value]="inputValue()"
-            [variant]="$variant()"
-            [invalid]="invalid()"
-            [attr.id]="inputId"
-            [attr.autocomplete]="autocomplete"
-            aria-autocomplete="list"
-            role="combobox"
-            [attr.placeholder]="placeholder"
-            [attr.name]="name()"
-            [attr.minlength]="minlength()"
-            [vxSize]="size()"
-            [attr.min]="min()"
-            [attr.max]="max()"
-            [attr.pattern]="pattern()"
-            [attr.size]="inputSize()"
-            [attr.maxlength]="maxlength()"
-            [attr.tabindex]="!$disabled() ? tabindex : -1"
-            [attr.required]="required() ? '' : undefined"
-            [attr.readonly]="readonly ? '' : undefined"
-            [attr.disabled]="$disabled() ? '' : undefined"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-required]="required()"
-            [attr.aria-expanded]="overlayVisible ?? false"
-            [attr.aria-controls]="overlayVisible ? id + '_list' : null"
-            [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
-            (input)="onInput($event)"
-            (keydown)="onKeyDown($event)"
-            (change)="onInputChange($event)"
-            (focus)="onInputFocus($event)"
-            (blur)="onInputBlur($event)"
-            (paste)="onInputPaste($event)"
-            (keyup)="onInputKeyUp($event)"
-            [fluid]="hasFluid"
-            [vxInputTextUnstyled]="unstyled()"
-        />
-        <ng-container *ngIf="$filled() && !$disabled() && showClear && !loading">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (!multiple) {
+            <input
+                #focusInput
+                [vxAutoFocus]="autofocus"
+                vxInputText
+                [pt]="ptm('pcInputText')"
+                [class]="cn(cx('pcInputText'), inputStyleClass)"
+                [ngStyle]="inputStyle"
+                [attr.type]="type"
+                [attr.value]="inputValue()"
+                [variant]="$variant()"
+                [invalid]="invalid()"
+                [attr.id]="inputId"
+                [attr.autocomplete]="autocomplete"
+                aria-autocomplete="list"
+                role="combobox"
+                [attr.placeholder]="placeholder"
+                [attr.name]="name()"
+                [attr.minlength]="minlength()"
+                [vxSize]="size()"
+                [attr.min]="min()"
+                [attr.max]="max()"
+                [attr.pattern]="pattern()"
+                [attr.size]="inputSize()"
+                [attr.maxlength]="maxlength()"
+                [attr.tabindex]="!$disabled() ? tabindex : -1"
+                [attr.required]="required() ? '' : undefined"
+                [attr.readonly]="readonly ? '' : undefined"
+                [attr.disabled]="$disabled() ? '' : undefined"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-required]="required()"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                (input)="onInput($event)"
+                (keydown)="onKeyDown($event)"
+                (change)="onInputChange($event)"
+                (focus)="onInputFocus($event)"
+                (blur)="onInputBlur($event)"
+                (paste)="onInputPaste($event)"
+                (keyup)="onInputKeyUp($event)"
+                [fluid]="hasFluid"
+                [vxInputTextUnstyled]="unstyled()"
+            />
+        }
+        @if ($filled() && !$disabled() && showClear && !loading) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true" />
+            }
+            @if (clearIconTemplate || _clearIconTemplate) {
+                <span [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" [attr.aria-hidden]="true">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                </span>
+            }
+        }
 
-        <ul
-            *ngIf="multiple"
-            #multiContainer
-            [vxBind]="ptm('inputMultiple')"
-            [class]="cx('inputMultiple')"
-            [attr.data-p]="inputMultipleDataP"
-            [tabindex]="-1"
-            role="listbox"
-            [attr.aria-orientation]="'horizontal'"
-            [attr.aria-activedescendant]="focused ? focusedMultipleOptionId : undefined"
-            (focus)="onMultipleContainerFocus($event)"
-            (blur)="onMultipleContainerBlur($event)"
-            (keydown)="onMultipleContainerKeyDown($event)"
-        >
-            <li
-                #token
-                *ngFor="let option of modelValue(); let i = index"
-                [vxBind]="ptm('chipItem')"
-                [class]="cx('chipItem', { i })"
-                [attr.id]="id + '_multiple_option_' + i"
-                role="option"
-                [attr.aria-label]="getOptionLabel(option)"
-                [attr.aria-setsize]="modelValue().length"
-                [attr.aria-posinset]="i + 1"
-                [attr.aria-selected]="true"
+        @if (multiple) {
+            <ul
+                #multiContainer
+                [vxBind]="ptm('inputMultiple')"
+                [class]="cx('inputMultiple')"
+                [attr.data-p]="inputMultipleDataP"
+                [tabindex]="-1"
+                role="listbox"
+                [attr.aria-orientation]="'horizontal'"
+                [attr.aria-activedescendant]="focused ? focusedMultipleOptionId : undefined"
+                (focus)="onMultipleContainerFocus($event)"
+                (blur)="onMultipleContainerBlur($event)"
+                (keydown)="onMultipleContainerKeyDown($event)"
             >
-                <vx-chip
-                    [pt]="ptm('pcChip')"
-                    [class]="cx('pcChip')"
-                    [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)"
-                    [disabled]="$disabled()"
-                    [removable]="true"
-                    (onRemove)="!readonly ? removeOption($event, i) : ''"
-                    [unstyled]="unstyled()"
-                >
-                    <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <ng-template #removeicon>
-                        <span *ngIf="!removeIconTemplate && !_removeIconTemplate" [vxBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
-                            <svg data-p-icon="times-circle" [class]="cx('chipIcon')" [attr.aria-hidden]="true" />
-                        </span>
-                        <span *ngIf="removeIconTemplate || _removeIconTemplate" [vxBind]="ptm('chipIcon')" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { removeCallback: removeOption.bind(this), index: i, class: cx('chipIcon') }"></ng-template>
-                        </span>
-                    </ng-template>
-                </vx-chip>
-            </li>
-            <li [vxBind]="ptm('inputChip')" [class]="cx('inputChip')" role="option">
-                <input
-                    #focusInput
-                    #multiIn
-                    [vxAutoFocus]="autofocus"
-                    [vxBind]="ptm('input')"
-                    [class]="cx('pcInputText')"
-                    [ngStyle]="inputStyle"
-                    [attr.type]="type"
-                    [attr.id]="inputId"
-                    [attr.autocomplete]="autocomplete"
-                    [attr.name]="name()"
-                    [attr.minlength]="minlength()"
-                    [attr.maxlength]="maxlength()"
-                    [attr.size]="size()"
-                    [attr.min]="min()"
-                    [attr.max]="max()"
-                    [attr.pattern]="pattern()"
-                    role="combobox"
-                    [attr.placeholder]="!$filled() ? placeholder : null"
-                    aria-autocomplete="list"
-                    [attr.tabindex]="!$disabled() ? tabindex : -1"
-                    [attr.required]="required() ? '' : undefined"
-                    [attr.readonly]="readonly ? '' : undefined"
-                    [attr.disabled]="$disabled() ? '' : undefined"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    [attr.aria-required]="required()"
-                    [attr.aria-expanded]="overlayVisible ?? false"
-                    [attr.aria-controls]="overlayVisible ? id + '_list' : null"
-                    [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
-                    (input)="onInput($event)"
-                    (keydown)="onKeyDown($event)"
-                    (change)="onInputChange($event)"
-                    (focus)="onInputFocus($event)"
-                    (blur)="onInputBlur($event)"
-                    (paste)="onInputPaste($event)"
-                    (keyup)="onInputKeyUp($event)"
-                />
-            </li>
-        </ul>
-        <ng-container *ngIf="loading">
-            <svg data-p-icon="spinner" *ngIf="!loadingIconTemplate && !_loadingIconTemplate" [vxBind]="ptm('loader')" [class]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
-            <span *ngIf="loadingIconTemplate || _loadingIconTemplate" [vxBind]="ptm('loader')" [class]="cx('loader')" [attr.aria-hidden]="true">
-                <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
-            </span>
-        </ng-container>
-        <button #ddBtn type="button" [vxBind]="ptm('dropdown')" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="$disabled()" vxRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
-            <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
-            <ng-container *ngIf="!dropdownIcon">
-                <svg data-p-icon="chevron-down" [vxBind]="ptm('dropdown')" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
-                <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
-            </ng-container>
-        </button>
+                @for (option of modelValue(); track option; let i = $index) {
+                    <li
+                        #token
+                        [vxBind]="ptm('chipItem')"
+                        [class]="cx('chipItem', { i })"
+                        [attr.id]="id + '_multiple_option_' + i"
+                        role="option"
+                        [attr.aria-label]="getOptionLabel(option)"
+                        [attr.aria-setsize]="modelValue().length"
+                        [attr.aria-posinset]="i + 1"
+                        [attr.aria-selected]="true"
+                    >
+                        <vx-chip
+                            [pt]="ptm('pcChip')"
+                            [class]="cx('pcChip')"
+                            [label]="!selectedItemTemplate && !_selectedItemTemplate && getOptionLabel(option)"
+                            [disabled]="$disabled()"
+                            [removable]="true"
+                            (onRemove)="!readonly ? removeOption($event, i) : ''"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-container *ngTemplateOutlet="selectedItemTemplate || _selectedItemTemplate; context: { $implicit: option }"></ng-container>
+                            <ng-template #removeicon>
+                                @if (!removeIconTemplate && !_removeIconTemplate) {
+                                    <span [vxBind]="ptm('chipIcon')" [class]="cx('chipIcon')" (click)="!readonly && !$disabled() ? removeOption($event, i) : ''">
+                                        <svg data-p-icon="times-circle" [class]="cx('chipIcon')" [attr.aria-hidden]="true" />
+                                    </span>
+                                }
+                                @if (removeIconTemplate || _removeIconTemplate) {
+                                    <span [vxBind]="ptm('chipIcon')" [attr.aria-hidden]="true">
+                                        <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate; context: { removeCallback: removeOption.bind(this), index: i, class: cx('chipIcon') }"></ng-template>
+                                    </span>
+                                }
+                            </ng-template>
+                        </vx-chip>
+                    </li>
+                }
+                <li [vxBind]="ptm('inputChip')" [class]="cx('inputChip')" role="option">
+                    <input
+                        #focusInput
+                        #multiIn
+                        [vxAutoFocus]="autofocus"
+                        [vxBind]="ptm('input')"
+                        [class]="cx('pcInputText')"
+                        [ngStyle]="inputStyle"
+                        [attr.type]="type"
+                        [attr.id]="inputId"
+                        [attr.autocomplete]="autocomplete"
+                        [attr.name]="name()"
+                        [attr.minlength]="minlength()"
+                        [attr.maxlength]="maxlength()"
+                        [attr.size]="size()"
+                        [attr.min]="min()"
+                        [attr.max]="max()"
+                        [attr.pattern]="pattern()"
+                        role="combobox"
+                        [attr.placeholder]="!$filled() ? placeholder : null"
+                        aria-autocomplete="list"
+                        [attr.tabindex]="!$disabled() ? tabindex : -1"
+                        [attr.required]="required() ? '' : undefined"
+                        [attr.readonly]="readonly ? '' : undefined"
+                        [attr.disabled]="$disabled() ? '' : undefined"
+                        [attr.aria-label]="ariaLabel"
+                        [attr.aria-labelledby]="ariaLabelledBy"
+                        [attr.aria-required]="required()"
+                        [attr.aria-expanded]="overlayVisible ?? false"
+                        [attr.aria-controls]="overlayVisible ? id + '_list' : null"
+                        [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
+                        (input)="onInput($event)"
+                        (keydown)="onKeyDown($event)"
+                        (change)="onInputChange($event)"
+                        (focus)="onInputFocus($event)"
+                        (blur)="onInputBlur($event)"
+                        (paste)="onInputPaste($event)"
+                        (keyup)="onInputKeyUp($event)"
+                    />
+                </li>
+            </ul>
+        }
+        @if (loading) {
+            @if (!loadingIconTemplate && !_loadingIconTemplate) {
+                <svg data-p-icon="spinner" [vxBind]="ptm('loader')" [class]="cx('loader')" [spin]="true" [attr.aria-hidden]="true" />
+            }
+            @if (loadingIconTemplate || _loadingIconTemplate) {
+                <span [vxBind]="ptm('loader')" [class]="cx('loader')" [attr.aria-hidden]="true">
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate || _loadingIconTemplate"></ng-template>
+                </span>
+            }
+        }
+        @if (dropdown) {
+            <button #ddBtn type="button" [vxBind]="ptm('dropdown')" [attr.aria-label]="dropdownAriaLabel" [class]="cx('dropdown')" [disabled]="$disabled()" vxRipple (click)="handleDropdownClick($event)" [attr.tabindex]="tabindex">
+                @if (dropdownIcon) {
+                    <span [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
+                }
+                @if (!dropdownIcon) {
+                    @if (!dropdownIconTemplate && !_dropdownIconTemplate) {
+                        <svg data-p-icon="chevron-down" [vxBind]="ptm('dropdown')" />
+                    }
+                    <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
+                }
+            </button>
+        }
         <vx-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
@@ -241,43 +262,46 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <div [vxBind]="ptm('overlay')" [class]="cn(cx('overlay'), panelStyleClass)" [ngStyle]="panelStyle">
                     <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
                     <div [vxBind]="ptm('listContainer')" [class]="cx('listContainer')" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [tabindex]="-1">
-                        <vx-scroller
-                            *ngIf="virtualScroll"
-                            #scroller
-                            [tabindex]="-1"
-                            [pt]="ptm('virtualScroller')"
-                            [items]="visibleOptions()"
-                            [style]="{ height: scrollHeight }"
-                            [itemSize]="virtualScrollItemSize"
-                            [autoSize]="true"
-                            [lazy]="lazy"
-                            (onLazyLoad)="onLazyLoad.emit($event)"
-                            [options]="virtualScrollOptions"
-                        >
-                            <ng-template #content let-items let-scrollerOptions="options">
-                                <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
-                            </ng-template>
-                            <ng-container *ngIf="loaderTemplate || _loaderTemplate">
-                                <ng-template #loader let-scrollerOptions="options">
-                                    <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                        @if (virtualScroll) {
+                            <vx-scroller
+                                #scroller
+                                [tabindex]="-1"
+                                [pt]="ptm('virtualScroller')"
+                                [items]="visibleOptions()"
+                                [style]="{ height: scrollHeight }"
+                                [itemSize]="virtualScrollItemSize"
+                                [autoSize]="true"
+                                [lazy]="lazy"
+                                (onLazyLoad)="onLazyLoad.emit($event)"
+                                [options]="virtualScrollOptions"
+                            >
+                                <ng-template #content let-items let-scrollerOptions="options">
+                                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
                                 </ng-template>
-                            </ng-container>
-                        </vx-scroller>
-                        <ng-container *ngIf="!virtualScroll">
+                                @if (loaderTemplate || _loaderTemplate) {
+                                    <ng-template #loader let-scrollerOptions="options">
+                                        <ng-container *ngTemplateOutlet="loaderTemplate || _loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                                    </ng-template>
+                                }
+                            </vx-scroller>
+                        }
+                        @if (!virtualScroll) {
                             <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
-                        </ng-container>
+                        }
                     </div>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
                         <ul #items [vxBind]="ptm('list')" [class]="cn(cx('list'), scrollerOptions.contentStyleClass)" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
-                            <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                                <ng-container *ngIf="isOptionGroup(option)">
+                            @for (option of items; track option; let i = $index) {
+                                @if (isOptionGroup(option)) {
                                     <li [vxBind]="ptm('optionGroup')" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [class]="cx('optionGroup')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                        <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                        @if (!groupTemplate) {
+                                            <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                        }
                                         <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                     </li>
-                                </ng-container>
-                                <ng-container *ngIf="!isOptionGroup(option)">
+                                }
+                                @if (!isOptionGroup(option)) {
                                     <li
                                         vxRipple
                                         [vxBind]="getPTOptions(option, scrollerOptions, i, 'option')"
@@ -295,7 +319,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                         (click)="onOptionSelect($event, option)"
                                         (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                     >
-                                        <span *ngIf="!itemTemplate && !_itemTemplate">{{ getOptionLabel(option) }}</span>
+                                        @if (!itemTemplate && !_itemTemplate) {
+                                            <span>{{ getOptionLabel(option) }}</span>
+                                        }
                                         <ng-container
                                             *ngTemplateOutlet="
                                                 itemTemplate || _itemTemplate;
@@ -306,14 +332,16 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                             "
                                         ></ng-container>
                                     </li>
-                                </ng-container>
-                            </ng-template>
-                            <li *ngIf="!items || (items && items.length === 0 && showEmptyMessage)" [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                <ng-container *ngIf="!emptyTemplate && !_emptyTemplate; else empty">
-                                    {{ searchResultMessageText }}
-                                </ng-container>
-                                <ng-container #empty *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
-                            </li>
+                                }
+                            }
+                            @if (!items || (items && items.length === 0 && showEmptyMessage)) {
+                                <li [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    @if (!emptyTemplate && !_emptyTemplate) {
+                                        {{ searchResultMessageText }}
+                                    }
+                                    <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
+                                </li>
+                            }
                         </ul>
                     </ng-template>
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>

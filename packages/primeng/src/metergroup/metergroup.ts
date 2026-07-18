@@ -15,7 +15,7 @@ const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE'
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ol [class]="cx('labelList')" [vxBind]="ptm('labelList')" [attr.data-p]="dataP">
-            @for (labelItem of value; track parentInstance.trackByFn(index, labelItem); let index = $index) {
+            @for (labelItem of value; track parentInstance.trackByFn(index); let index = $index) {
                 <li [class]="cx('label')" [vxBind]="ptm('label')">
                     @if (!iconTemplate) {
                         @if (labelItem.icon) {
@@ -33,11 +33,11 @@ const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE'
     `
 })
 export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
-    @Input() value: any[] = [];
+    @Input() value: any[] | undefined = [];
 
     @Input() labelPosition: 'start' | 'end' = 'end';
 
-    @Input() labelOrientation: 'horizontal' | 'vertical' = 'horizontal';
+    @Input() labelOrientation: 'horizontal' | 'vertical' | undefined = 'horizontal';
 
     @Input() min: number;
 
@@ -51,7 +51,7 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
 
     get dataP() {
         return this.cn({
-            [this.labelOrientation]: this.labelOrientation
+            [this.labelOrientation ?? 'horizontal']: this.labelOrientation
         });
     }
 }
@@ -65,13 +65,13 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
     template: `
         @if (labelPosition === 'start') {
             @if (!labelTemplate && !_labelTemplate) {
-                <vx-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate || _iconTemplate" [pt]="pt" [unstyled]="unstyled()" />
+                <vx-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate || _iconTemplate" [pt]="pt()" [unstyled]="unstyled()" />
             }
             <ng-container *ngTemplateOutlet="labelTemplate || labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         }
         <ng-container *ngTemplateOutlet="startTemplate || _startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         <div [class]="cx('meters')" [vxBind]="ptm('meters')" [attr.data-p]="dataP">
-            @for (meterItem of value; track trackByFn(index, meterItem); let index = $index) {
+            @for (meterItem of value; track trackByFn(index); let index = $index) {
                 <ng-container
                     *ngTemplateOutlet="
                         meterTemplate || _meterTemplate;
@@ -80,14 +80,14 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
                             index: index,
                             orientation: this.orientation,
                             class: cx('meter'),
-                            size: percentValue(meterItem.value),
+                            size: percentValue(meterItem.value ?? 0),
                             totalPercent: totalPercent(),
                             dataP: dataP
                         }
                     "
                 >
                 </ng-container>
-                @if (!meterTemplate && !_meterTemplate && meterItem.value > 0) {
+                @if (!meterTemplate && !_meterTemplate && (meterItem.value ?? 0) > 0) {
                     <span [class]="cx('meter')" [attr.data-p]="dataP" [vxBind]="ptm('meter')" [ngStyle]="meterStyle(meterItem)"></span>
                 }
             }
@@ -95,7 +95,7 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
         <ng-container *ngTemplateOutlet="endTemplate || _endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         @if (labelPosition === 'end') {
             @if (!labelTemplate && !_labelTemplate) {
-                <vx-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate || _iconTemplate" [pt]="pt" [unstyled]="unstyled()" />
+                <vx-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate || _iconTemplate" [pt]="pt()" [unstyled]="unstyled()" />
             }
             <ng-container *ngTemplateOutlet="labelTemplate || _labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         }

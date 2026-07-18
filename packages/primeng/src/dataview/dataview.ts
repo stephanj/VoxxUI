@@ -56,7 +56,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
         @if (paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')) {
             <vx-paginator
                 [rows]="rows"
-                [first]="first"
+                [first]="first ?? 0"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"
@@ -83,7 +83,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                     *ngTemplateOutlet="
                         listTemplate;
                         context: {
-                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : (first ?? 0)) : (lazy ? 0 : (first ?? 0)) + (rows ?? 0)) : filteredValue || value
                         }
                     "
                 ></ng-container>
@@ -93,7 +93,7 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                     *ngTemplateOutlet="
                         gridTemplate;
                         context: {
-                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value
+                            $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : (first ?? 0)) : (lazy ? 0 : (first ?? 0)) + (rows ?? 0)) : filteredValue || value
                         }
                     "
                 ></ng-container>
@@ -102,17 +102,15 @@ const DATAVIEW_INSTANCE = new InjectionToken<DataView>('DATAVIEW_INSTANCE');
                 <div [vxBind]="ptm('emptyMessage')" [class]="cx('emptyMessage')">
                     @if (!emptymessageTemplate) {
                         {{ emptyMessageLabel }}
-                    } @else {
-                        <ng-template [ngTemplateOutlet]="empty"></ng-template>
                     }
-                    <ng-container #empty *ngTemplateOutlet="emptymessageTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="emptymessageTemplate"></ng-container>
                 </div>
             }
         </div>
         @if (paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')) {
             <vx-paginator
                 [rows]="rows"
-                [first]="first"
+                [first]="first ?? 0"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
                 [alwaysShow]="alwaysShowPaginator"

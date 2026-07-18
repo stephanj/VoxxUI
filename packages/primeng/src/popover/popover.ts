@@ -359,8 +359,8 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
     }
 
-    onAnimationStart(event: MotionEvent) {
-        this.container = event.element as HTMLDivElement;
+    onAnimationStart(event: MotionEvent | undefined) {
+        this.container = event?.element as HTMLDivElement;
         this.container?.setAttribute(this.$attrSelector, '');
         this.appendOverlay();
         this.align();
@@ -427,7 +427,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         event.preventDefault();
     }
 
-    onEscapeKeydown(_event: KeyboardEvent) {
+    onEscapeKeydown(_event: Event) {
         this.hide();
     }
 

@@ -57,7 +57,7 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                 [vxMotionLeaveActiveClass]="$leaveAnimation()"
                 [vxMotionOptions]="computedMotionOptions()"
                 (vxMotionOnBeforeEnter)="onBeforeEnter($event)"
-                (vxMotionOnAfterLeave)="onAfterLeave($event)"
+                (vxMotionOnAfterLeave)="onAfterLeave()"
                 [class]="cn(cx('root'), styleClass)"
                 [style]="style"
                 role="complementary"
@@ -462,8 +462,8 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.mask = null;
     }
 
-    onBeforeEnter(event: MotionEvent) {
-        this.container = event.element as HTMLDivElement;
+    onBeforeEnter(event: MotionEvent | undefined) {
+        this.container = event?.element as HTMLDivElement;
         this.appendContainer();
         this.show();
 
