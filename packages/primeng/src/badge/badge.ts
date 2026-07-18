@@ -1,5 +1,5 @@
 import { isPlatformServer } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, input, NgModule, untracked, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -45,45 +45,38 @@ export class BadgeDirective extends BaseComponent {
      * When specified, disables the component.
      * @group Props
      */
-    @Input('badgeDisabled') public disabled: boolean;
+    disabled = input<boolean | undefined>(undefined, { alias: 'badgeDisabled' });
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() public badgeSize: 'large' | 'xlarge' | 'small' | null | undefined;
+    badgeSize = input<'large' | 'xlarge' | 'small' | null | undefined>();
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      * @deprecated use badgeSize instead.
      */
-    @Input() public set size(value: 'large' | 'xlarge' | 'small' | null | undefined) {
-        this._size = value;
-        console.log('size property is deprecated and will removed in v18, use badgeSize instead.');
-    }
-    get size() {
-        return this._size;
-    }
-    _size: 'large' | 'xlarge' | 'small' | null | undefined;
+    size = input<'large' | 'xlarge' | 'small' | null | undefined>();
     /**
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | 'help' | 'primary' | 'warning' | null | undefined;
+    severity = input<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | 'help' | 'primary' | 'warning' | null | undefined>();
     /**
      * Value to display inside the badge.
      * @group Props
      */
-    @Input() public value: string | number;
+    value = input<string | number | undefined>();
     /**
      * Inline style of the element.
      * @group Props
      */
-    @Input() badgeStyle: { [klass: string]: any } | null | undefined;
+    badgeStyle = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Class of the element.
      * @group Props
      */
-    @Input() badgeStyleClass: string;
+    badgeStyleClass = input<string | undefined>();
 
     private id!: string;
 
@@ -96,8 +89,10 @@ export class BadgeDirective extends BaseComponent {
     }
 
     private get canUpdateBadge(): boolean {
-        return isNotEmpty(this.id) && !this.disabled;
+        return isNotEmpty(this.id) && !this.disabled();
     }
+
+    private _previousSeverity: string | null | undefined;
 
     constructor() {
         super();
@@ -109,34 +104,48 @@ export class BadgeDirective extends BaseComponent {
         effect(() => {
             this.vxBadgeUnstyled() && this.directiveUnstyled.set(this.vxBadgeUnstyled());
         });
-    }
 
-    onChanges(changes: SimpleChanges): void {
-        const { value, size, severity, disabled, badgeStyle, badgeStyleClass } = changes;
+        // Signal-native replacements for the former onChanges branches (#16).
+        // Every input is a pure input(), so no trackSignalChanges() registration is
+        // needed; the initial effect runs are no-ops because the badge element is
+        // only created in onAfterViewInit (canUpdateBadge is false until then).
+        effect(() => {
+            if (this.size()) {
+                console.log('size property is deprecated and will removed in v18, use badgeSize instead.');
+            }
+        });
 
-        if (disabled) {
-            this.toggleDisableState();
-        }
+        effect(() => {
+            this.disabled();
+            untracked(() => this.toggleDisableState());
+        });
 
-        if (!this.canUpdateBadge) {
-            return;
-        }
+        effect(() => {
+            const severity = this.severity();
+            untracked(() => {
+                if (this.canUpdateBadge && !Object.is(this._previousSeverity, severity)) {
+                    this.setSeverity(this._previousSeverity as any);
+                }
+                this._previousSeverity = severity;
+            });
+        });
 
-        if (severity) {
-            this.setSeverity(severity.previousValue);
-        }
+        effect(() => {
+            this.badgeSize();
+            this.size();
+            untracked(() => this.canUpdateBadge && this.setSizeClasses());
+        });
 
-        if (size) {
-            this.setSizeClasses();
-        }
+        effect(() => {
+            this.value();
+            untracked(() => this.canUpdateBadge && this.setValue());
+        });
 
-        if (value) {
-            this.setValue();
-        }
-
-        if (badgeStyle || badgeStyleClass) {
-            this.applyStyles();
-        }
+        effect(() => {
+            this.badgeStyle();
+            this.badgeStyleClass();
+            untracked(() => this.canUpdateBadge && this.applyStyles());
+        });
     }
 
     onAfterViewInit(): void {
@@ -146,6 +155,7 @@ export class BadgeDirective extends BaseComponent {
             return;
         }
         this.id = uuid('pn_id_') + '_badge';
+        this._previousSeverity = this.severity();
         this.renderBadgeContent();
     }
 
@@ -156,12 +166,14 @@ export class BadgeDirective extends BaseComponent {
             return;
         }
 
-        if (this.value != null) {
+        const value = this.value();
+
+        if (value != null) {
             if (hasClass(badge, 'p-badge-dot')) {
                 removeClass(badge, 'p-badge-dot');
             }
 
-            if (this.value && String(this.value).length === 1) {
+            if (value && String(value).length === 1) {
                 addClass(badge, 'p-badge-circle');
             } else {
                 removeClass(badge, 'p-badge-circle');
@@ -175,7 +187,7 @@ export class BadgeDirective extends BaseComponent {
         }
 
         badge.textContent = '';
-        const badgeValue = this.value != null ? String(this.value) : '';
+        const badgeValue = value != null ? String(value) : '';
         this.renderer.appendChild(badge, this.document.createTextNode(badgeValue));
     }
 
@@ -186,23 +198,26 @@ export class BadgeDirective extends BaseComponent {
             return;
         }
 
-        if (this.badgeSize) {
-            if (this.badgeSize === 'large') {
+        const badgeSize = this.badgeSize();
+        const size = this.size();
+
+        if (badgeSize) {
+            if (badgeSize === 'large') {
                 addClass(badge, 'p-badge-lg');
                 removeClass(badge, 'p-badge-xl');
             }
 
-            if (this.badgeSize === 'xlarge') {
+            if (badgeSize === 'xlarge') {
                 addClass(badge, 'p-badge-xl');
                 removeClass(badge, 'p-badge-lg');
             }
-        } else if (this.size && !this.badgeSize) {
-            if (this.size === 'large') {
+        } else if (size && !badgeSize) {
+            if (size === 'large') {
                 addClass(badge, 'p-badge-lg');
                 removeClass(badge, 'p-badge-xl');
             }
 
-            if (this.size === 'xlarge') {
+            if (size === 'xlarge') {
                 addClass(badge, 'p-badge-xl');
                 removeClass(badge, 'p-badge-lg');
             }
@@ -213,7 +228,7 @@ export class BadgeDirective extends BaseComponent {
     }
 
     private renderBadgeContent(): void {
-        if (this.disabled) {
+        if (this.disabled()) {
             return;
         }
 
@@ -229,13 +244,16 @@ export class BadgeDirective extends BaseComponent {
     }
 
     private applyStyles(): void {
-        if (this.badgeEl && this.badgeStyle && typeof this.badgeStyle === 'object') {
-            for (const [key, value] of Object.entries(this.badgeStyle)) {
+        const badgeStyle = this.badgeStyle();
+        const badgeStyleClass = this.badgeStyleClass();
+
+        if (this.badgeEl && badgeStyle && typeof badgeStyle === 'object') {
+            for (const [key, value] of Object.entries(badgeStyle)) {
                 this.renderer.setStyle(this.badgeEl, key, value);
             }
         }
-        if (this.badgeEl && this.badgeStyleClass) {
-            this.badgeEl.classList.add(...this.badgeStyleClass.split(' '));
+        if (this.badgeEl && badgeStyleClass) {
+            this.badgeEl.classList.add(...badgeStyleClass.split(' '));
         }
     }
 
@@ -246,8 +264,8 @@ export class BadgeDirective extends BaseComponent {
             return;
         }
 
-        if (this.severity) {
-            addClass(badge, `p-badge-${this.severity}`);
+        if (this.severity()) {
+            addClass(badge, `p-badge-${this.severity()}`);
         }
 
         if (oldSeverity) {
@@ -260,7 +278,7 @@ export class BadgeDirective extends BaseComponent {
             return;
         }
 
-        if (this.disabled) {
+        if (this.disabled()) {
             const badge = this.activeElement?.querySelector(`#${this.id}`);
 
             if (badge) {
