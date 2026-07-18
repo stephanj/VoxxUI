@@ -161,7 +161,7 @@ describe('FocusTrap', () => {
         });
 
         it('should have default values', () => {
-            expect(directive.vxFocusTrapDisabled).toBe(false);
+            expect(directive.vxFocusTrapDisabled()).toBe(false);
         });
 
         it('should inject platform ID and document', () => {
@@ -775,55 +775,72 @@ describe('FocusTrap', () => {
         });
     });
 
-    describe('Lifecycle Hooks', () => {
-        let fixture: ComponentFixture<TestBasicFocusTrapComponent>;
+    describe('Lifecycle - Signal Input Changes (#16)', () => {
+        let fixture: ComponentFixture<TestDisabledFocusTrapComponent>;
+        let component: TestDisabledFocusTrapComponent;
         let directive: FocusTrap;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(TestBasicFocusTrapComponent);
+            fixture = TestBed.createComponent(TestDisabledFocusTrapComponent);
+            component = fixture.componentInstance;
             directive = fixture.debugElement.query(By.directive(FocusTrap)).injector.get(FocusTrap);
         });
 
-        it('should call ngOnInit and create hidden elements', () => {
+        it('should create hidden elements on first render via the disabled-state effect', async () => {
             vi.spyOn(directive, 'createHiddenFocusableElements');
 
-            directive.ngOnInit();
+            fixture.detectChanges();
+            await fixture.whenStable();
 
             expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges for vxFocusTrapDisabled', () => {
-            const changes = {
-                vxFocusTrapDisabled: {
-                    currentValue: true,
-                    previousValue: false,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
+        it('should remove hidden elements when vxFocusTrapDisabled changes to true', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            vi.spyOn(directive, 'removeHiddenFocusableElements').mockReturnValue(undefined);
+            vi.spyOn(directive, 'removeHiddenFocusableElements');
 
-            directive.ngOnChanges(changes);
+            component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(directive.removeHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges when enabling focus trap', () => {
-            const changes = {
-                vxFocusTrapDisabled: {
-                    currentValue: false,
-                    previousValue: true,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
+        it('should recreate hidden elements when vxFocusTrapDisabled changes back to false', async () => {
+            component.disabled = true;
+            fixture.detectChanges();
+            await fixture.whenStable();
 
-            vi.spyOn(directive, 'createHiddenFocusableElements').mockReturnValue(undefined);
+            vi.spyOn(directive, 'createHiddenFocusableElements');
 
-            directive.ngOnChanges(changes);
+            component.disabled = false;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
+        });
+
+        it('should keep firing the pt hooks.onChanges passthrough exactly once when vxFocusTrapDisabled changes', async () => {
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            const hookSpy = vi.fn().mockName('onChangesHook');
+            directive.directivePT.set({ hooks: { onChanges: hookSpy } });
+            await fixture.whenStable();
+            hookSpy.mockClear();
+
+            component.disabled = true;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            // exactly-once delivery: the change arrives via ngOnChanges (signal inputs are
+            // reported there when written through template bindings) and the tracked-signal
+            // effect must not deliver it a second time (#16).
+            expect(hookSpy).toHaveBeenCalledTimes(1);
         });
     });
 

@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, inject, Input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { booleanAttribute, Directive, effect, inject, input, NgModule, PLATFORM_ID } from '@angular/core';
 import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@primeuix/utils';
 import { BaseComponent } from 'voxx-ui/basecomponent';
 
@@ -13,9 +13,10 @@ import { BaseComponent } from 'voxx-ui/basecomponent';
 export class FocusTrap extends BaseComponent {
     /**
      * When set as true, focus wouldn't be managed.
+     * @defaultValue false
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) vxFocusTrapDisabled: boolean = false;
+    vxFocusTrapDisabled = input(false, { transform: booleanAttribute });
 
     platformId = inject(PLATFORM_ID);
 
@@ -25,20 +26,24 @@ export class FocusTrap extends BaseComponent {
 
     lastHiddenFocusableElement!: HTMLElement;
 
-    onInit() {
-        if (isPlatformBrowser(this.platformId) && !this.vxFocusTrapDisabled) {
-            !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
-        }
-    }
+    constructor() {
+        super();
 
-    onChanges(changes: SimpleChanges) {
-        if (changes.vxFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
-            if (changes.vxFocusTrapDisabled.currentValue) {
-                this.removeHiddenFocusableElements();
-            } else {
-                this.createHiddenFocusableElements();
+        // Signal-native replacement for the former onInit/onChanges pair (#16):
+        // covers both the initial value and every subsequent change of the input.
+        // No trackSignalChanges() registration is needed - vxFocusTrapDisabled is a pure
+        // input(), so every write to it already reaches onChanges/pt hooks via ngOnChanges.
+        effect(() => {
+            const disabled = this.vxFocusTrapDisabled();
+
+            if (isPlatformBrowser(this.platformId)) {
+                if (disabled) {
+                    this.removeHiddenFocusableElements();
+                } else if (!this.firstHiddenFocusableElement?.isConnected && !this.lastHiddenFocusableElement?.isConnected) {
+                    this.createHiddenFocusableElements();
+                }
             }
-        }
+        });
     }
 
     removeHiddenFocusableElements() {
