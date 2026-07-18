@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Directive, Input, NgModule, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, input, NgModule, TemplateRef } from '@angular/core';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
@@ -21,14 +21,14 @@ export class Footer {}
     selector: '[vxTemplate]'
 })
 export class PrimeTemplate {
-    @Input() type: string | undefined;
+    type = input<string | undefined>();
 
-    @Input('vxTemplate') name: string | undefined;
+    name = input<string | undefined>(undefined, { alias: 'vxTemplate' });
 
     constructor(public template: TemplateRef<any>) {}
 
     getType(): string {
-        return this.name!;
+        return this.name()!;
     }
 }
 
