@@ -1,7 +1,7 @@
 import Versions from '@/assets/data/versions.json';
 import { AppConfiguratorComponent } from '@/components/layout/configurator/app.configurator.component';
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, afterNextRender, booleanAttribute, Component, computed, ElementRef, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { StyleClass } from 'voxx-ui/styleclass';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-topbar',
     standalone: true,
-    imports: [CommonModule, FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
+    imports: [FormsModule, StyleClass, RouterModule, AppConfiguratorComponent],
     template: `<div class="layout-topbar">
         <div class="layout-topbar-inner">
             <div class="layout-topbar-logo-container">
@@ -30,7 +30,7 @@ import { StyleClass } from 'voxx-ui/styleclass';
                 </li>
                 <li>
                     <button type="button" class="topbar-item" (click)="toggleDarkMode()">
-                        <i class="pi" [ngClass]="{ 'pi-moon': isDarkMode(), 'pi-sun': !isDarkMode() }"></i>
+                        <i class="pi" [class]="{ 'pi-moon': isDarkMode(), 'pi-sun': !isDarkMode() }"></i>
                     </button>
                 </li>
                 @if (showConfigurator) {

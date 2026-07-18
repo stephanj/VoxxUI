@@ -1,6 +1,5 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
@@ -35,7 +34,7 @@ const presets = {
                             type="button"
                             [title]="primaryColor.name"
                             (click)="updateColors($event, 'primary', primaryColor)"
-                            [ngClass]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
+                            [class]="{ 'active-color': primaryColor.name === selectedPrimaryColor() }"
                             [style]="{
                                 'background-color': primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor?.palette['500']
                             }"
@@ -52,7 +51,7 @@ const presets = {
                             type="button"
                             [title]="surface.name"
                             (click)="updateColors($event, 'surface', surface)"
-                            [ngClass]="{ 'active-color': selectedSurfaceColor() ? selectedSurfaceColor() === surface.name : configService.appState().darkTheme ? surface.name === 'zinc' : surface.name === 'slate' }"
+                            [class]="{ 'active-color': selectedSurfaceColor() ? selectedSurfaceColor() === surface.name : configService.appState().darkTheme ? surface.name === 'zinc' : surface.name === 'slate' }"
                             [style]="{
                                 'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500']
                             }"
@@ -84,7 +83,7 @@ const presets = {
     host: {
         class: 'config-panel hidden'
     },
-    imports: [CommonModule, FormsModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
+    imports: [FormsModule, ButtonModule, RadioButtonModule, SelectButton, ToggleSwitchModule]
 })
 export class AppConfiguratorComponent {
     get ripple() {

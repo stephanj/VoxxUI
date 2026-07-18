@@ -1,5 +1,4 @@
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -13,7 +12,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-main',
     template: `
-        <div class="layout-wrapper" [ngClass]="containerClass()">
+        <div class="layout-wrapper" [class]="containerClass()">
             <!-- <app-news /> -->
             <app-topbar />
             @if (isMenuActive()) {
@@ -29,7 +28,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppMenuComponent, AppTopBarComponent]
+    imports: [RouterOutlet, AppFooterComponent, AppMenuComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
