@@ -176,14 +176,14 @@ describe('Popover', () => {
         });
 
         it('should have default values', () => {
-            expect(popoverInstance.dismissable).toBe(true);
+            expect(popoverInstance.dismissable()).toBe(true);
             // appendTo can be a function or string, check if it's truthy
             expect(popoverInstance.appendTo).toBeTruthy();
-            expect(popoverInstance.autoZIndex).toBe(true);
-            expect(popoverInstance.baseZIndex).toBe(0);
-            expect(popoverInstance.focusOnShow).toBe(true);
-            expect(popoverInstance.showTransitionOptions).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
-            expect(popoverInstance.hideTransitionOptions).toBe('.1s linear');
+            expect(popoverInstance.autoZIndex()).toBe(true);
+            expect(popoverInstance.baseZIndex()).toBe(0);
+            expect(popoverInstance.focusOnShow()).toBe(true);
+            expect(popoverInstance.showTransitionOptions()).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
+            expect(popoverInstance.hideTransitionOptions()).toBe('.1s linear');
             expect(popoverInstance.overlayVisible).toBe(false);
             expect(popoverInstance.render).toBe(false);
         });
@@ -198,12 +198,12 @@ describe('Popover', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(popoverInstance.dismissable).toBe(false);
-            expect(popoverInstance.baseZIndex).toBe(1000);
-            expect(popoverInstance.focusOnShow).toBe(false);
-            expect(popoverInstance.ariaLabel).toBe('Custom popover');
-            expect(popoverInstance.styleClass).toBe('custom-class');
-            expect(popoverInstance.style).toEqual({ width: '300px', height: '200px' });
+            expect(popoverInstance.dismissable()).toBe(false);
+            expect(popoverInstance.baseZIndex()).toBe(1000);
+            expect(popoverInstance.focusOnShow()).toBe(false);
+            expect(popoverInstance.ariaLabel()).toBe('Custom popover');
+            expect(popoverInstance.styleClass()).toBe('custom-class');
+            expect(popoverInstance.style()).toEqual({ width: '300px', height: '200px' });
         });
     });
 
@@ -361,7 +361,7 @@ describe('Popover', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                expect(popoverInstance.contentTemplate).toBeTruthy();
+                expect(popoverInstance.contentTemplate()).toBeTruthy();
             });
 
             it('should provide closeCallback context to template', async () => {
@@ -444,8 +444,8 @@ describe('Popover', () => {
             const mockEvent = new MouseEvent('click');
             const target = component.targetButton.nativeElement;
 
-            popoverInstance.ariaLabel = 'Test popover';
-            popoverInstance.ariaLabelledBy = 'test-label';
+            vi.spyOn(popoverInstance, 'ariaLabel').mockReturnValue('Test popover');
+            vi.spyOn(popoverInstance, 'ariaLabelledBy').mockReturnValue('test-label');
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -543,7 +543,7 @@ describe('Popover', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(popoverInstance.style).toEqual({ border: '2px solid red', padding: '10px' });
+            expect(popoverInstance.style()).toEqual({ border: '2px solid red', padding: '10px' });
 
             const mockEvent = new MouseEvent('click');
             const target = component.targetButton.nativeElement;
@@ -558,19 +558,19 @@ describe('Popover', () => {
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('[role="dialog"]'));
-            if (popoverElement && popoverInstance.style) {
+            if (popoverElement && popoverInstance.style()) {
                 // Simulate ngStyle behavior
-                Object.keys(popoverInstance.style).forEach((key) => {
-                    popoverElement.nativeElement.style[key] = popoverInstance.style![key];
+                Object.keys(popoverInstance.style()!).forEach((key) => {
+                    popoverElement.nativeElement.style[key] = popoverInstance.style()![key];
                 });
 
                 expect(popoverElement.nativeElement.style.border).toBe('2px solid red');
                 expect(popoverElement.nativeElement.style.padding).toBe('10px');
             }
 
-            expect(popoverInstance.style).toBeTruthy();
-            expect(Object.keys(popoverInstance.style!)).toContain('border');
-            expect(Object.keys(popoverInstance.style!)).toContain('padding');
+            expect(popoverInstance.style()).toBeTruthy();
+            expect(Object.keys(popoverInstance.style()!)).toContain('border');
+            expect(Object.keys(popoverInstance.style()!)).toContain('padding');
         });
     });
 
@@ -773,7 +773,7 @@ describe('Popover', () => {
             popoverInstance.overlaySubscription = mockSubscription as any;
 
             popoverInstance.container = document.createElement('div');
-            popoverInstance.autoZIndex = true;
+            vi.spyOn(popoverInstance, 'autoZIndex').mockReturnValue(true);
 
             popoverInstance.ngOnDestroy();
 
