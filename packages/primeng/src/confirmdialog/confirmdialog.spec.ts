@@ -934,9 +934,9 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
 
             const dialog = fixture.debugElement.query(By.directive(Dialog));
-            expect(dialog.componentInstance.visible).toBe(true);
-            expect(dialog.componentInstance.draggable).toBe(false);
-            expect(dialog.componentInstance.blockScroll).toBe(false);
+            expect(dialog.componentInstance.visible()).toBe(true);
+            expect(dialog.componentInstance.draggable()).toBe(false);
+            expect(dialog.componentInstance.blockScroll()).toBe(false);
         });
 
         it('should handle dialog visibility changes', async () => {
