@@ -1,4 +1,4 @@
-import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, Input, input, NgModule, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
 import { IconFieldPassThrough } from 'voxx-ui/types/iconfield';
@@ -25,7 +25,7 @@ const ICONFIELD_INSTANCE = new InjectionToken<IconField>('ICONFIELD_INSTANCE');
 export class IconField extends BaseComponent<IconFieldPassThrough> implements AfterViewChecked {
     componentName = 'IconField';
 
-    @Input() hostName: any = '';
+    hostName = input<any>('');
 
     _componentStyle = inject(IconFieldStyle);
 

@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { BaseModelHolder } from 'voxx-ui/basemodelholder';
@@ -26,7 +26,7 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     componentName = 'InputText';
 
-    @Input() hostName: any = '';
+    hostName = input<any>('');
 
     /**
      * Used to pass attributes to DOM elements inside the InputText component.

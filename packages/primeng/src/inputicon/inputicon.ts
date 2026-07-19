@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
@@ -26,7 +26,7 @@ const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');
 export class InputIcon extends BaseComponent<InputIconPassThrough> {
     componentName = 'InputIcon';
 
-    @Input() hostName: any = '';
+    hostName = input<any>('');
     /**
      * Style class of the element.
      * @deprecated since v20.0.0, use `class` instead.
