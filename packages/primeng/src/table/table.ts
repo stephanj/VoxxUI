@@ -3819,7 +3819,7 @@ export class SortableColumn extends BaseComponent {
     providers: [TableStyle]
 })
 export class SortIcon extends BaseComponent {
-    @Input() field: string | undefined;
+    field = input<string | undefined>(undefined);
 
     sortOrder: number | undefined;
 
@@ -3845,9 +3845,9 @@ export class SortIcon extends BaseComponent {
 
     updateSortState() {
         if (this.dataTable.sortMode === 'single') {
-            this.sortOrder = this.dataTable.isSorted(<string>this.field) ? this.dataTable.sortOrder : 0;
+            this.sortOrder = this.dataTable.isSorted(<string>this.field()) ? this.dataTable.sortOrder : 0;
         } else if (this.dataTable.sortMode === 'multiple') {
-            let sortMeta = this.dataTable.getSortMeta(<string>this.field);
+            let sortMeta = this.dataTable.getSortMeta(<string>this.field());
             this.sortOrder = sortMeta ? sortMeta.order : 0;
         }
 
@@ -3861,7 +3861,7 @@ export class SortIcon extends BaseComponent {
         if (multiSortMeta && this.dataTable.sortMode === 'multiple' && this.dataTable.showInitialSortBadge && multiSortMeta.length > 1) {
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
-                if (meta.field === this.field || meta.field === this.field) {
+                if (meta.field === this.field() || meta.field === this.field()) {
                     index = i;
                     break;
                 }
@@ -4912,24 +4912,38 @@ export class CancelEditableRow extends BaseComponent {
     imports: [CommonModule],
     template: `
         @if (editing) {
-            <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="inputTemplate() || _inputTemplate()"></ng-container>
         }
         @if (!editing) {
-            <ng-container *ngTemplateOutlet="outputTemplate || _outputTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="outputTemplate() || _outputTemplate()"></ng-container>
         }
     `,
     encapsulation: ViewEncapsulation.None
 })
 export class CellEditor extends BaseComponent {
-    @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
+    _templates = contentChildren(PrimeTemplate);
 
-    @ContentChild('input') _inputTemplate: TemplateRef<any>;
+    _inputTemplate = contentChild<TemplateRef<any>>('input');
 
-    @ContentChild('output') _outputTemplate: TemplateRef<any>;
+    _outputTemplate = contentChild<TemplateRef<any>>('output');
 
-    inputTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Former `ngAfterContentInit` template map (#19): the `input`/`output` `vxTemplate` types
+     * resolve to the last matching projected template.
+     */
+    inputTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                .filter((item) => item.getType() === 'input')
+                .at(-1)?.template
+    );
 
-    outputTemplate: Nullable<TemplateRef<any>>;
+    outputTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                .filter((item) => item.getType() === 'output')
+                .at(-1)?.template
+    );
 
     constructor(
         public dataTable: Table,
@@ -4937,20 +4951,6 @@ export class CellEditor extends BaseComponent {
         @Optional() public editableRow: EditableRow
     ) {
         super();
-    }
-
-    onAfterContentInit() {
-        (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-
-                case 'output':
-                    this.outputTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     get editing(): boolean {
@@ -4963,21 +4963,23 @@ export class CellEditor extends BaseComponent {
 @Component({
     selector: 'vx-tableRadioButton',
     imports: [RadioButtonModule, FormsModule],
-    template: `<vx-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
+    template: `<vx-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel()" [binary]="true" [value]="value()" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton extends BaseComponent {
-    @Input() value: any;
+    value = input<any>();
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     readonly index = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    ariaLabelInput = input<string | undefined>(undefined, { alias: 'ariaLabel' });
 
-    @ViewChild('rb') inputViewChild: Nullable<RadioButton>;
+    ariaLabel = linkedSignal<string | undefined>(() => this.ariaLabelInput());
+
+    inputViewChild = viewChild<RadioButton>('rb');
 
     checked: boolean | undefined;
 
@@ -4987,15 +4989,15 @@ export class TableRadioButton extends BaseComponent {
     ) {
         super();
         this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
-            this.checked = this.dataTable.isSelected(this.value);
+            this.checked = this.dataTable.isSelected(this.value());
 
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
+            this.ariaLabel.set(this.ariaLabel() || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined));
             this.cd.markForCheck();
         });
     }
 
     onInit() {
-        this.checked = this.dataTable.isSelected(this.value);
+        this.checked = this.dataTable.isSelected(this.value());
     }
 
     onClick(event: RadioButtonClickEvent) {
@@ -5005,10 +5007,10 @@ export class TableRadioButton extends BaseComponent {
                     originalEvent: event.originalEvent,
                     rowIndex: this.index()
                 },
-                this.value
+                this.value()
             );
 
-            this.inputViewChild?.inputViewChild().nativeElement?.focus();
+            this.inputViewChild()?.inputViewChild().nativeElement?.focus();
         }
         DomHandler.clearSelection();
     }
@@ -5018,7 +5020,7 @@ export class TableRadioButton extends BaseComponent {
     selector: 'vx-tableCheckbox',
     imports: [CommonModule, CheckboxModule, FormsModule, SharedModule],
     template: `
-        <vx-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
+        <vx-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel()" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate || dataTable._checkboxIconTemplate; as template) {
                 <ng-template vxTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5030,7 +5032,7 @@ export class TableRadioButton extends BaseComponent {
     encapsulation: ViewEncapsulation.None
 })
 export class TableCheckbox extends BaseComponent {
-    @Input() value: any;
+    value = input<any>();
 
     readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     readonly required = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
@@ -5038,7 +5040,9 @@ export class TableCheckbox extends BaseComponent {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    ariaLabelInput = input<string | undefined>(undefined, { alias: 'ariaLabel' });
+
+    ariaLabel = linkedSignal<string | undefined>(() => this.ariaLabelInput());
 
     checked: boolean | undefined;
 
@@ -5048,14 +5052,14 @@ export class TableCheckbox extends BaseComponent {
     ) {
         super();
         this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
-            this.checked = this.dataTable.isSelected(this.value);
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined);
+            this.checked = this.dataTable.isSelected(this.value());
+            this.ariaLabel.set(this.ariaLabel() || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectRow : this.dataTable.config.translation.aria.unselectRow) : undefined));
             this.cd.markForCheck();
         });
     }
 
     onInit() {
-        this.checked = this.dataTable.isSelected(this.value);
+        this.checked = this.dataTable.isSelected(this.value());
     }
 
     onClick({ originalEvent }: CheckboxChangeEvent) {
@@ -5065,7 +5069,7 @@ export class TableCheckbox extends BaseComponent {
                     originalEvent: originalEvent!,
                     rowIndex: this.index() || 0
                 },
-                this.value
+                this.value()
             );
         }
         DomHandler.clearSelection();
@@ -5076,7 +5080,7 @@ export class TableCheckbox extends BaseComponent {
     selector: 'vx-tableHeaderCheckbox',
     imports: [CommonModule, CheckboxModule, FormsModule, SharedModule],
     template: `
-        <vx-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
+        <vx-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel()" [unstyled]="unstyled()">
             @if (dataTable.headerCheckboxIconTemplate || dataTable._headerCheckboxIconTemplate; as template) {
                 <ng-template vxTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5101,7 +5105,9 @@ export class TableHeaderCheckbox extends BaseComponent {
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    ariaLabelInput = input<string | undefined>(undefined, { alias: 'ariaLabel' });
+
+    ariaLabel = linkedSignal<string | undefined>(() => this.ariaLabelInput());
 
     checked: boolean | undefined;
 
@@ -5112,7 +5118,7 @@ export class TableHeaderCheckbox extends BaseComponent {
         super();
         this.dataTable.tableService.valueSource$.pipe(takeUntilDestroyed()).subscribe(() => {
             this.checked = this.updateCheckedState();
-            this.ariaLabel = this.ariaLabel || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectAll : this.dataTable.config.translation.aria.unselectAll) : undefined);
+            this.ariaLabel.set(this.ariaLabel() || (this.dataTable.config.translation.aria ? (this.checked ? this.dataTable.config.translation.aria.selectAll : this.dataTable.config.translation.aria.unselectAll) : undefined));
         });
 
         this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
@@ -5329,26 +5335,26 @@ export class ReorderableRow extends BaseComponent {
     imports: [CommonModule, FormsModule, ButtonModule, SelectModule, MotionModule, Bind, forwardRef(() => ColumnFilterFormElement), FilterIcon, FilterFillIcon, TrashIcon, PlusIcon],
     template: `
         <div [class]="cx('filter')">
-            @if (display === 'row') {
+            @if (display() === 'row') {
                 <vx-columnFilterFormElement
                     class="p-fluid"
-                    [type]="type"
-                    [field]="field"
-                    [ariaLabel]="ariaLabel"
-                    [filterConstraint]="dataTable.filters[field]"
-                    [filterTemplate]="filterTemplate || _filterTemplate"
-                    [placeholder]="placeholder"
-                    [minFractionDigits]="minFractionDigits"
-                    [maxFractionDigits]="maxFractionDigits"
-                    [prefix]="prefix"
-                    [suffix]="suffix"
-                    [locale]="locale"
-                    [localeMatcher]="localeMatcher"
-                    [currency]="currency"
-                    [currencyDisplay]="currencyDisplay"
-                    [useGrouping]="useGrouping"
-                    [showButtons]="showButtons"
-                    [filterOn]="filterOn"
+                    [type]="type()"
+                    [field]="field()"
+                    [ariaLabel]="ariaLabel()"
+                    [filterConstraint]="dataTable.filters[field()]"
+                    [filterTemplate]="filterTemplate() || _filterTemplate()"
+                    [placeholder]="placeholder()"
+                    [minFractionDigits]="minFractionDigits()"
+                    [maxFractionDigits]="maxFractionDigits()"
+                    [prefix]="prefix()"
+                    [suffix]="suffix()"
+                    [locale]="locale()"
+                    [localeMatcher]="localeMatcher()"
+                    [currency]="currency()"
+                    [currencyDisplay]="currencyDisplay()"
+                    [useGrouping]="useGrouping()"
+                    [showButtons]="showButtons()"
+                    [filterOn]="filterOn()"
                     [pt]="pt()"
                     [unstyled]="unstyled()"
                 ></vx-columnFilterFormElement>
@@ -5363,21 +5369,21 @@ export class ReorderableRow extends BaseComponent {
                     [attr.aria-expanded]="overlayVisible ?? false"
                     (click)="toggleMenu($event)"
                     (keydown)="onToggleButtonKeyDown($event)"
-                    [buttonProps]="filterButtonProps?.filter"
+                    [buttonProps]="filterButtonProps()?.filter"
                     #menuButton
                     [unstyled]="unstyled()"
                 >
                     <ng-template #icon>
                         <ng-container>
-                            @if (!filterIconTemplate && !_filterIconTemplate && !hasFilter) {
+                            @if (!filterIconTemplate() && !_filterIconTemplate() && !hasFilter) {
                                 <svg data-p-icon="filter" [vxBind]="ptm('pcColumnFilterButton')['icon']" />
                             }
-                            @if (!filterIconTemplate && !_filterIconTemplate && hasFilter) {
+                            @if (!filterIconTemplate() && !_filterIconTemplate() && hasFilter) {
                                 <svg data-p-icon="filter-fill" [vxBind]="ptm('pcColumnFilterButton')['icon']" />
                             }
-                            @if (filterIconTemplate || _filterIconTemplate) {
+                            @if (filterIconTemplate() || _filterIconTemplate()) {
                                 <span [vxBind]="ptm('pcColumnFilterButton')['icon']" [attr.data-pc-section]="'columnfilterbuttonicon'">
-                                    <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate() || _filterIconTemplate(); context: { hasFilter: hasFilter }"></ng-template>
                                 </span>
                             }
                         </ng-container>
@@ -5386,7 +5392,7 @@ export class ReorderableRow extends BaseComponent {
             }
             @if (renderOverlay()) {
                 <div
-                    [vxMotion]="showMenu && overlayVisible"
+                    [vxMotion]="showMenu() && overlayVisible"
                     [vxMotionAppear]="true"
                     vxMotionName="p-anchored-overlay"
                     (vxMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
@@ -5400,8 +5406,8 @@ export class ReorderableRow extends BaseComponent {
                     (click)="onContentClick()"
                     (keydown.escape)="onEscape()"
                 >
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: field }"></ng-container>
-                    @if (display === 'row') {
+                    <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate(); context: { $implicit: field() }"></ng-container>
+                    @if (display() === 'row') {
                         <ul [class]="cx('filterConstraintList')" [vxBind]="ptm('filterConstraintList')">
                             @for (matchMode of matchModes; track matchMode; let i = $index) {
                                 <li
@@ -5416,7 +5422,7 @@ export class ReorderableRow extends BaseComponent {
                                     {{ matchMode.label }}
                                 </li>
                             }
-                            <li [class]="cx('filterConstraintSeparator')" [vxBind]="ptm('filterConstraintSeparator', { context: { index: i } })"></li>
+                            <li [class]="cx('filterConstraintSeparator')" [vxBind]="ptm('filterConstraintSeparator', { context: { index: matchModes?.length } })"></li>
                             <li [class]="cx('filterConstraint')" [vxBind]="ptm('emtpyFilterLabel')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
                                 {{ noFilterLabel }}
                             </li>
@@ -5427,7 +5433,7 @@ export class ReorderableRow extends BaseComponent {
                                 <vx-select
                                     [options]="operatorOptions"
                                     [pt]="ptm('pcFilterOperatorDropdown')"
-                                    [ngModel]="operator"
+                                    [ngModel]="operator()"
                                     (ngModelChange)="onOperatorChange($event)"
                                     [styleClass]="cx('pcFilterOperatorDropdown')"
                                     [unstyled]="unstyled()"
@@ -5437,7 +5443,7 @@ export class ReorderableRow extends BaseComponent {
                         <div [class]="cx('filterRuleList')" [vxBind]="ptm('filterRuleList')">
                             @for (fieldConstraint of fieldConstraints; track fieldConstraint) {
                                 <div [class]="cx('filterRule')" [vxBind]="ptm('filterRule')">
-                                    @if (showMatchModes && matchModes) {
+                                    @if (showMatchModes() && matchModes) {
                                         <vx-select
                                             [options]="matchModes"
                                             [ngModel]="fieldConstraint.matchMode"
@@ -5448,21 +5454,21 @@ export class ReorderableRow extends BaseComponent {
                                         ></vx-select>
                                     }
                                     <vx-columnFilterFormElement
-                                        [type]="type"
-                                        [field]="field"
+                                        [type]="type()"
+                                        [field]="field()"
                                         [filterConstraint]="fieldConstraint"
-                                        [filterTemplate]="filterTemplate || _filterTemplate"
-                                        [placeholder]="placeholder"
-                                        [minFractionDigits]="minFractionDigits"
-                                        [maxFractionDigits]="maxFractionDigits"
-                                        [prefix]="prefix"
-                                        [suffix]="suffix"
-                                        [locale]="locale"
-                                        [localeMatcher]="localeMatcher"
-                                        [currency]="currency"
-                                        [currencyDisplay]="currencyDisplay"
-                                        [useGrouping]="useGrouping"
-                                        [filterOn]="filterOn"
+                                        [filterTemplate]="filterTemplate() || _filterTemplate()"
+                                        [placeholder]="placeholder()"
+                                        [minFractionDigits]="minFractionDigits()"
+                                        [maxFractionDigits]="maxFractionDigits()"
+                                        [prefix]="prefix()"
+                                        [suffix]="suffix()"
+                                        [locale]="locale()"
+                                        [localeMatcher]="localeMatcher()"
+                                        [currency]="currency()"
+                                        [currencyDisplay]="currencyDisplay()"
+                                        [useGrouping]="useGrouping()"
+                                        [filterOn]="filterOn()"
                                         [pt]="pt()"
                                         [unstyled]="unstyled()"
                                     ></vx-columnFilterFormElement>
@@ -5477,14 +5483,14 @@ export class ReorderableRow extends BaseComponent {
                                                 (onClick)="removeConstraint(fieldConstraint)"
                                                 [ariaLabel]="removeRuleButtonLabel"
                                                 [label]="removeRuleButtonLabel"
-                                                [buttonProps]="filterButtonProps?.popover?.removeRule"
+                                                [buttonProps]="filterButtonProps()?.popover?.removeRule"
                                                 [unstyled]="unstyled()"
                                             >
                                                 <ng-template #icon>
-                                                    @if (!removeRuleIconTemplate && !_removeRuleIconTemplate) {
+                                                    @if (!removeRuleIconTemplate() && !_removeRuleIconTemplate()) {
                                                         <svg data-p-icon="trash" [vxBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
                                                     }
-                                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate || _removeRuleIconTemplate"></ng-template>
+                                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate() || _removeRuleIconTemplate()"></ng-template>
                                                 </ng-template>
                                             </vx-button>
                                         }
@@ -5502,44 +5508,44 @@ export class ReorderableRow extends BaseComponent {
                                 [text]="true"
                                 size="small"
                                 (onClick)="addConstraint()"
-                                [buttonProps]="filterButtonProps?.popover?.addRule"
+                                [buttonProps]="filterButtonProps()?.popover?.addRule"
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    @if (!addRuleIconTemplate && !_addRuleIconTemplate) {
+                                    @if (!addRuleIconTemplate() && !_addRuleIconTemplate()) {
                                         <svg data-p-icon="plus" [vxBind]="ptm('pcAddRuleButtonLabel')['icon']" />
                                     }
-                                    <ng-template *ngTemplateOutlet="addRuleIconTemplate || _addRuleIconTemplate"></ng-template>
+                                    <ng-template *ngTemplateOutlet="addRuleIconTemplate() || _addRuleIconTemplate()"></ng-template>
                                 </ng-template>
                             </vx-button>
                         }
                         <div [class]="cx('filterButtonbar')" [vxBind]="ptm('filterButtonBar')">
-                            @if (showClearButton) {
+                            @if (showClearButton()) {
                                 <vx-button
                                     #clearBtn
                                     [outlined]="true"
                                     (onClick)="clearFilter()"
                                     [attr.aria-label]="clearButtonLabel"
                                     [label]="clearButtonLabel"
-                                    [buttonProps]="filterButtonProps?.popover?.clear"
+                                    [buttonProps]="filterButtonProps()?.popover?.clear"
                                     [pt]="ptm('pcFilterClearButton')"
                                     [unstyled]="unstyled()"
                                 />
                             }
-                            @if (showApplyButton) {
+                            @if (showApplyButton()) {
                                 <vx-button
                                     (onClick)="applyFilter()"
                                     size="small"
                                     [label]="applyButtonLabel"
                                     [attr.aria-label]="applyButtonLabel"
-                                    [buttonProps]="filterButtonProps?.popover?.apply"
+                                    [buttonProps]="filterButtonProps()?.popover?.apply"
                                     [pt]="ptm('pcFilterApplyButton')"
                                     [unstyled]="unstyled()"
                                 />
                             }
                         </div>
                     }
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate; context: { $implicit: field }"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate() || _footerTemplate(); context: { $implicit: field() }"></ng-container>
                 </div>
             }
         </div>
@@ -5570,142 +5576,142 @@ export class ColumnFilter extends BaseComponent {
      * Property represented by the column.
      * @group Props
      */
-    @Input() field: string | undefined;
+    field = input<string | undefined>(undefined);
     /**
      * Type of the input.
      * @group Props
      */
-    @Input() type: string = 'text';
+    type = input<string>('text');
     /**
      * Filter display.
      * @group Props
      */
-    @Input() display: string = 'row';
+    display = input<string>('row');
     /**
      * Decides whether to display filter menu popup.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showMenu: boolean = true;
+    showMenu = input(true, { transform: booleanAttribute });
     /**
      * Filter match mode.
      * @group Props
      */
-    @Input() matchMode: string | undefined;
+    matchMode = input<string | undefined>(undefined);
     /**
      * Filter operator.
      * @defaultValue 'AND'
      * @group Props
      */
-    @Input() operator: string = FilterOperator.AND;
+    operatorInput = input<string>(FilterOperator.AND, { alias: 'operator' });
+
+    operator = linkedSignal<string>(() => this.operatorInput());
     /**
      * Decides whether to display filter operator.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showOperator: boolean = true;
+    showOperator = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display clear filter button when display is menu.
      * @defaultValue true
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showClearButton: boolean = true;
+    showClearButton = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display apply filter button when display is menu.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showApplyButton: boolean = true;
+    showApplyButton = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display filter match modes when display is menu.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showMatchModes: boolean = true;
+    showMatchModes = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to display add filter button when display is menu.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showAddButton: boolean = true;
+    showAddButton = input(true, { transform: booleanAttribute });
     /**
      * Decides whether to close popup on clear button click.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnClear: boolean = true;
+    hideOnClear = input(true, { transform: booleanAttribute });
     /**
      * Filter placeholder.
      * @group Props
      */
-    @Input() placeholder: string | undefined;
+    placeholder = input<string | undefined>(undefined);
     /**
      * Filter match mode options.
      * @group Props
      */
-    @Input() matchModeOptions: SelectItem[] | undefined;
+    matchModeOptions = input<SelectItem[] | undefined>(undefined);
     /**
      * Defines maximum amount of constraints.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxConstraints: number = 2;
+    maxConstraints = input(2, { transform: numberAttribute });
     /**
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    minFractionDigits: number | undefined;
+    minFractionDigits = input<number | undefined, unknown>(undefined, { transform: (value: unknown) => numberAttribute(value, undefined) });
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    maxFractionDigits: number | undefined;
+    maxFractionDigits = input<number | undefined, unknown>(undefined, { transform: (value: unknown) => numberAttribute(value, undefined) });
     /**
      * Defines prefix of the filter.
      * @group Props
      */
-    @Input() prefix: string | undefined;
+    prefix = input<string | undefined>(undefined);
     /**
      * Defines suffix of the filter.
      * @group Props
      */
-    @Input() suffix: string | undefined;
+    suffix = input<string | undefined>(undefined);
     /**
      * Defines filter locale.
      * @group Props
      */
-    @Input() locale: string | undefined;
+    locale = input<string | undefined>(undefined);
     /**
      * Defines filter locale matcher.
      * @group Props
      */
-    @Input() localeMatcher: string | undefined;
+    localeMatcher = input<string | undefined>(undefined);
     /**
      * Enables currency input.
      * @group Props
      */
-    @Input() currency: string | undefined;
+    currency = input<string | undefined>(undefined);
     /**
      * Defines the display of the currency input.
      * @group Props
      */
-    @Input() currencyDisplay: string | undefined;
+    currencyDisplay = input<string | undefined>(undefined);
     /**
      * Default trigger to run filtering on built-in text and numeric filters, valid values are 'enter' and 'input'.
      * @defaultValue enter
      * @group Props
      */
-    @Input() filterOn: string | undefined = 'enter';
+    filterOn = input<string | undefined>('enter');
     /**
      * Defines if filter grouping will be enabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+    useGrouping = input(true, { transform: booleanAttribute });
     /**
      * Defines the visibility of buttons.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showButtons: boolean = true;
+    showButtons = input(true, { transform: booleanAttribute });
     /**
      * Defines the aria-label of the form element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>(undefined);
     /**
      * Used to pass all filter button property object
      * @defaultValue {
@@ -5722,7 +5728,7 @@ export class ColumnFilter extends BaseComponent {
      }
      @group Props
      */
-    @Input() filterButtonProps: TableFilterButtonPropsOptions = {
+    filterButtonProps = input<TableFilterButtonPropsOptions>({
         filter: { severity: 'secondary', text: true, rounded: true },
         inline: {
             clear: { severity: 'secondary', text: true, rounded: true }
@@ -5733,7 +5739,7 @@ export class ColumnFilter extends BaseComponent {
             apply: { size: 'small' },
             clear: { outlined: true, size: 'small' }
         }
-    };
+    });
     motionOptions = input<MotionOptions | undefined>(undefined);
 
     computedMotionOptions = computed<MotionOptions>(() => {
@@ -5747,23 +5753,19 @@ export class ColumnFilter extends BaseComponent {
      * @param {AnimationEvent} originalEvent - animation event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{
-        originalEvent: AnimationEvent;
-    }>();
+    onShow = output<{ originalEvent: AnimationEvent }>();
     /**
      * Callback to invoke on overlay is hidden.
      * @param {AnimationEvent} originalEvent - animation event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{
-        originalEvent: AnimationEvent;
-    }>();
+    onHide = output<{ originalEvent: AnimationEvent }>();
 
-    @ViewChild(Button, { static: false, read: ElementRef }) icon: ElementRef | undefined;
+    icon = viewChild(Button, { read: ElementRef });
 
-    @ViewChild('clearBtn') clearButtonViewChild: Nullable<ElementRef>;
+    clearButtonViewChild = viewChild<ElementRef>('clearBtn');
 
-    @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<any>>;
+    _templates = contentChildren(PrimeTemplate);
 
     overlaySubscription: Subscription | undefined;
 
@@ -5773,45 +5775,80 @@ export class ColumnFilter extends BaseComponent {
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<any>;
-    _headerTemplate: Nullable<TemplateRef<any>>;
+    headerTemplate = contentChild<TemplateRef<any>>('header', { descendants: false });
+    _headerTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => item.getType() === 'header')
+                .at(-1)?.template
+    );
 
     /**
      * Custom filter template.
      * @group Templates
      */
-    @ContentChild('filter', { descendants: false }) filterTemplate: TemplateRef<any>;
-    _filterTemplate: Nullable<TemplateRef<any>>;
+    filterTemplate = contentChild<TemplateRef<any>>('filter', { descendants: false });
+    _filterTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => !['header', 'footer', 'filtericon', 'clearfiltericon', 'removeruleicon', 'addruleicon'].includes(item.getType()))
+                .at(-1)?.template
+    );
 
     /**
      * Custom footer template.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: TemplateRef<any>;
-    _footerTemplate: Nullable<TemplateRef<any>>;
+    footerTemplate = contentChild<TemplateRef<any>>('footer', { descendants: false });
+    _footerTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => item.getType() === 'footer')
+                .at(-1)?.template
+    );
     /**
      * Custom filter icon template.
      * @group Templates
      */
-    @ContentChild('filtericon', { descendants: false }) filterIconTemplate: TemplateRef<any>;
-    _filterIconTemplate: Nullable<TemplateRef<any>>;
+    filterIconTemplate = contentChild<TemplateRef<any>>('filtericon', { descendants: false });
+    _filterIconTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => item.getType() === 'filtericon')
+                .at(-1)?.template
+    );
 
     /**
      * Custom remove rule button icon template.
      * @group Templates
      */
-    @ContentChild('removeruleicon', { descendants: false }) removeRuleIconTemplate: TemplateRef<any>;
-    _removeRuleIconTemplate: Nullable<TemplateRef<any>>;
+    removeRuleIconTemplate = contentChild<TemplateRef<any>>('removeruleicon', { descendants: false });
+    _removeRuleIconTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => item.getType() === 'removeruleicon')
+                .at(-1)?.template
+    );
 
     /**
      * Custom add rule button icon template.
      * @group Templates
      */
-    @ContentChild('addruleicon', { descendants: false }) addRuleIconTemplate: TemplateRef<any>;
-    _addRuleIconTemplate: Nullable<TemplateRef<any>>;
+    addRuleIconTemplate = contentChild<TemplateRef<any>>('addruleicon', { descendants: false });
+    _addRuleIconTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => item.getType() === 'addruleicon')
+                .at(-1)?.template
+    );
 
-    @ContentChild('clearfiltericon', { descendants: false }) clearFilterIconTemplate: TemplateRef<any>;
-    _clearFilterIconTemplate: Nullable<TemplateRef<any>>;
+    clearFilterIconTemplate = contentChild<TemplateRef<any>>('clearfiltericon', { descendants: false });
+    _clearFilterIconTemplate = computed<TemplateRef<any> | undefined>(
+        () =>
+            this._templates()
+                ?.filter((item) => item.getType() === 'clearfiltericon')
+                .at(-1)?.template
+    );
 
     operatorOptions: any[] | undefined;
 
@@ -5838,7 +5875,7 @@ export class ColumnFilter extends BaseComponent {
     overlayId: any;
 
     get fieldConstraints(): FilterMetadata[] | undefined | null {
-        return this.dataTable.filters ? <FilterMetadata[]>this.dataTable.filters[<string>this.field] : null;
+        return this.dataTable.filters ? <FilterMetadata[]>this.dataTable.filters[<string>this.field()] : null;
     }
 
     get showRemoveIcon(): boolean {
@@ -5846,15 +5883,15 @@ export class ColumnFilter extends BaseComponent {
     }
 
     get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
+        return this.showMenu() && (this.display() === 'row' ? this.type() !== 'boolean' : true);
     }
 
     get isShowOperator(): boolean {
-        return this.showOperator && this.type !== 'boolean';
+        return this.showOperator() && this.type() !== 'boolean';
     }
 
     get isShowAddConstraint(): boolean | undefined | null {
-        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
+        return this.showAddButton() && this.type() !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints();
     }
 
     get showMenuButtonLabel() {
@@ -5903,7 +5940,7 @@ export class ColumnFilter extends BaseComponent {
 
     onInit() {
         this.overlayId = UniqueComponentId();
-        if (!this.dataTable.filters[<string>this.field]) {
+        if (!this.dataTable.filters[<string>this.field()]) {
             this.initFieldFilterConstraint();
         }
 
@@ -5918,8 +5955,8 @@ export class ColumnFilter extends BaseComponent {
 
     generateMatchModeOptions() {
         this.matchModes =
-            this.matchModeOptions ||
-            (this.config as any).filterMatchModeOptions[this.type]?.map((key: any) => {
+            this.matchModeOptions() ||
+            (this.config as any).filterMatchModeOptions[this.type()]?.map((key: any) => {
                 return {
                     label: this.config.getTranslation(key),
                     value: key
@@ -5940,54 +5977,16 @@ export class ColumnFilter extends BaseComponent {
         ];
     }
 
-    onAfterContentInit() {
-        (this._templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this._headerTemplate = item.template;
-                    break;
-
-                case 'filter':
-                    this._filterTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this._footerTemplate = item.template;
-                    break;
-
-                case 'filtericon':
-                    this._filterIconTemplate = item.template;
-                    break;
-
-                case 'clearfiltericon':
-                    this._clearFilterIconTemplate = item.template;
-                    break;
-
-                case 'removeruleicon':
-                    this._removeRuleIconTemplate = item.template;
-                    break;
-
-                case 'addruleicon':
-                    this._addRuleIconTemplate = item.template;
-                    break;
-
-                default:
-                    this._filterTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
     initFieldFilterConstraint() {
         let defaultMatchMode = this.getDefaultMatchMode();
-        this.dataTable.filters[<string>this.field] =
-            this.display == 'row'
+        this.dataTable.filters[<string>this.field()] =
+            this.display() == 'row'
                 ? { value: null, matchMode: defaultMatchMode }
                 : [
                       {
                           value: null,
                           matchMode: defaultMatchMode,
-                          operator: this.operator
+                          operator: this.operator()
                       }
                   ];
     }
@@ -5995,13 +5994,13 @@ export class ColumnFilter extends BaseComponent {
     onMenuMatchModeChange(value: any, filterMeta: FilterMetadata) {
         filterMeta.matchMode = value;
 
-        if (!this.showApplyButton) {
+        if (!this.showApplyButton()) {
             this.dataTable._filter();
         }
     }
 
     onRowMatchModeChange(matchMode: string) {
-        const fieldFilter = <FilterMetadata>this.dataTable.filters[<string>this.field];
+        const fieldFilter = <FilterMetadata>this.dataTable.filters[<string>this.field()];
         fieldFilter.matchMode = matchMode;
 
         if (fieldFilter.value) {
@@ -6045,33 +6044,33 @@ export class ColumnFilter extends BaseComponent {
     }
 
     isRowMatchModeSelected(matchMode: string) {
-        return (<FilterMetadata>this.dataTable.filters[<string>this.field]).matchMode === matchMode;
+        return (<FilterMetadata>this.dataTable.filters[<string>this.field()]).matchMode === matchMode;
     }
 
     addConstraint() {
-        (<FilterMetadata[]>this.dataTable.filters[<string>this.field]).push({
+        (<FilterMetadata[]>this.dataTable.filters[<string>this.field()]).push({
             value: null,
             matchMode: this.getDefaultMatchMode(),
             operator: this.getDefaultOperator()
         });
-        DomHandler.focus(this.clearButtonViewChild?.nativeElement);
+        DomHandler.focus(this.clearButtonViewChild()?.nativeElement);
     }
 
     removeConstraint(filterMeta: FilterMetadata) {
-        this.dataTable.filters[<string>this.field] = (<FilterMetadata[]>this.dataTable.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
-        if (!this.showApplyButton) {
+        this.dataTable.filters[<string>this.field()] = (<FilterMetadata[]>this.dataTable.filters[<string>this.field()]).filter((meta) => meta !== filterMeta);
+        if (!this.showApplyButton()) {
             this.dataTable._filter();
         }
-        DomHandler.focus(this.clearButtonViewChild?.nativeElement);
+        DomHandler.focus(this.clearButtonViewChild()?.nativeElement);
     }
 
     onOperatorChange(value: any) {
-        (<FilterMetadata[]>this.dataTable.filters[<string>this.field]).forEach((filterMeta) => {
+        (<FilterMetadata[]>this.dataTable.filters[<string>this.field()]).forEach((filterMeta) => {
             filterMeta.operator = value;
-            this.operator = value;
+            this.operator.set(value);
         });
 
-        if (!this.showApplyButton) {
+        if (!this.showApplyButton()) {
             this.dataTable._filter();
         }
     }
@@ -6110,7 +6109,7 @@ export class ColumnFilter extends BaseComponent {
 
     onEscape() {
         this.overlayVisible = false;
-        this.icon?.nativeElement.focus();
+        this.icon()?.nativeElement.focus();
     }
 
     findNextItem(item: HTMLLIElement): any {
@@ -6182,26 +6181,27 @@ export class ColumnFilter extends BaseComponent {
     }
 
     getDefaultMatchMode(): string {
-        if (this.matchMode) {
-            return this.matchMode;
+        const matchMode = this.matchMode();
+        if (matchMode) {
+            return matchMode;
         } else {
-            if (this.type === 'text') return FilterMatchMode.STARTS_WITH;
-            else if (this.type === 'numeric') return FilterMatchMode.EQUALS;
-            else if (this.type === 'date') return FilterMatchMode.DATE_IS;
+            if (this.type() === 'text') return FilterMatchMode.STARTS_WITH;
+            else if (this.type() === 'numeric') return FilterMatchMode.EQUALS;
+            else if (this.type() === 'date') return FilterMatchMode.DATE_IS;
             else return FilterMatchMode.CONTAINS;
         }
     }
 
     getDefaultOperator(): string | undefined {
-        return this.dataTable.filters ? (<FilterMetadata[]>this.dataTable.filters[<string>(<string>this.field)])[0].operator : this.operator;
+        return this.dataTable.filters ? (<FilterMetadata[]>this.dataTable.filters[<string>(<string>this.field())])[0].operator : this.operator();
     }
 
     hasRowFilter() {
-        return this.dataTable.filters[<string>this.field] && !this.dataTable.isFilterBlank((<FilterMetadata>this.dataTable.filters[<string>this.field]).value);
+        return this.dataTable.filters[<string>this.field()] && !this.dataTable.isFilterBlank((<FilterMetadata>this.dataTable.filters[<string>this.field()]).value);
     }
 
     get hasFilter(): boolean {
-        let fieldFilter = this.dataTable.filters[<string>this.field];
+        let fieldFilter = this.dataTable.filters[<string>this.field()];
         if (fieldFilter) {
             if (Array.isArray(fieldFilter)) return !this.dataTable.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
             else return !this.dataTable.isFilterBlank(fieldFilter.value);
@@ -6216,8 +6216,8 @@ export class ColumnFilter extends BaseComponent {
             findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
-            this.icon?.nativeElement.isSameNode(event.target) ||
-            this.icon?.nativeElement.contains(event.target) ||
+            this.icon()?.nativeElement.isSameNode(event.target) ||
+            this.icon()?.nativeElement.contains(event.target) ||
             findSingle(event.target, '[data-pc-name="pcaddrulebuttonlabel"]') ||
             findSingle(event.target.parentElement, '[data-pc-name="pcaddrulebuttonlabel"]') ||
             findSingle(event.target, '[data-pc-name="pcfilterremoverulebutton"]') ||
@@ -6268,7 +6268,7 @@ export class ColumnFilter extends BaseComponent {
 
     bindScrollListener() {
         if (!this.scrollHandler) {
-            this.scrollHandler = new ConnectedOverlayScrollHandler(this.icon?.nativeElement, () => {
+            this.scrollHandler = new ConnectedOverlayScrollHandler(this.icon()?.nativeElement, () => {
                 if (this.overlayVisible) {
                     this.hide();
                 }
@@ -6299,7 +6299,7 @@ export class ColumnFilter extends BaseComponent {
     clearFilter() {
         this.initFieldFilterConstraint();
         this.dataTable._filter();
-        if (this.hideOnClear) this.hide();
+        if (this.hideOnClear()) this.hide();
     }
 
     applyFilter() {
@@ -6333,76 +6333,76 @@ export class ColumnFilter extends BaseComponent {
     selector: 'vx-columnFilterFormElement',
     imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule],
     template: `
-        @if (filterTemplate) {
+        @if (filterTemplate()) {
             <ng-container
                 *ngTemplateOutlet="
-                    filterTemplate;
+                    filterTemplate();
                     context: {
-                        $implicit: filterConstraint.value,
+                        $implicit: filterConstraint().value,
                         filterCallback: filterCallback,
-                        type: type,
-                        field: field,
-                        filterConstraint: filterConstraint,
-                        placeholder: placeholder,
-                        minFractionDigits: minFractionDigits,
-                        maxFractionDigits: maxFractionDigits,
-                        prefix: prefix,
-                        suffix: suffix,
-                        locale: locale,
-                        localeMatcher: localeMatcher,
-                        currency: currency,
-                        currencyDisplay: currencyDisplay,
-                        useGrouping: useGrouping,
+                        type: type(),
+                        field: field(),
+                        filterConstraint: filterConstraint(),
+                        placeholder: placeholder(),
+                        minFractionDigits: minFractionDigits(),
+                        maxFractionDigits: maxFractionDigits(),
+                        prefix: prefix(),
+                        suffix: suffix(),
+                        locale: locale(),
+                        localeMatcher: localeMatcher(),
+                        currency: currency(),
+                        currencyDisplay: currencyDisplay(),
+                        useGrouping: useGrouping(),
                         showButtons: showButtons
                     }
                 "
             ></ng-container>
         } @else {
-            @switch (type) {
+            @switch (type()) {
                 @case ('text') {
                     <input
                         type="text"
-                        [ariaLabel]="ariaLabel"
+                        [ariaLabel]="ariaLabel()"
                         vxInputText
                         [pt]="ptm('pcFilterInputText')"
-                        [value]="filterConstraint?.value"
+                        [value]="filterConstraint()?.value"
                         (input)="onModelChange($event.target.value)"
                         (keydown.enter)="onTextInputEnterKeyDown($event)"
-                        [attr.placeholder]="placeholder"
+                        [attr.placeholder]="placeholder()"
                         [unstyled]="unstyled()"
                     />
                 }
                 @case ('numeric') {
                     <vx-inputNumber
-                        [ngModel]="filterConstraint?.value"
+                        [ngModel]="filterConstraint()?.value"
                         (ngModelChange)="onModelChange($event)"
                         (onKeyDown)="onNumericInputKeyDown($event)"
                         [showButtons]="showButtons"
-                        [minFractionDigits]="minFractionDigits"
-                        [maxFractionDigits]="maxFractionDigits"
-                        [ariaLabel]="ariaLabel"
-                        [prefix]="prefix"
-                        [suffix]="suffix"
-                        [placeholder]="placeholder"
-                        [mode]="currency ? 'currency' : 'decimal'"
-                        [locale]="locale"
-                        [localeMatcher]="localeMatcher"
-                        [currency]="currency"
-                        [currencyDisplay]="currencyDisplay"
-                        [useGrouping]="useGrouping"
+                        [minFractionDigits]="minFractionDigits()"
+                        [maxFractionDigits]="maxFractionDigits()"
+                        [ariaLabel]="ariaLabel()"
+                        [prefix]="prefix()"
+                        [suffix]="suffix()"
+                        [placeholder]="placeholder()"
+                        [mode]="currency() ? 'currency' : 'decimal'"
+                        [locale]="locale()"
+                        [localeMatcher]="localeMatcher()"
+                        [currency]="currency()"
+                        [currencyDisplay]="currencyDisplay()"
+                        [useGrouping]="useGrouping()"
                         [pt]="ptm('pcFilterInputNumber')"
                         [unstyled]="unstyled()"
                     ></vx-inputNumber>
                 }
                 @case ('boolean') {
-                    <vx-checkbox [pt]="ptm('pcFilterCheckbox')" [indeterminate]="filterConstraint?.value === null" [binary]="true" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" [unstyled]="unstyled()" />
+                    <vx-checkbox [pt]="ptm('pcFilterCheckbox')" [indeterminate]="filterConstraint()?.value === null" [binary]="true" [ngModel]="filterConstraint()?.value" (ngModelChange)="onModelChange($event)" [unstyled]="unstyled()" />
                 }
                 @case ('date') {
                     <vx-datepicker
                         [pt]="ptm('pcFilterDatePicker')"
-                        [ariaLabel]="ariaLabel"
-                        [placeholder]="placeholder"
-                        [ngModel]="filterConstraint?.value"
+                        [ariaLabel]="ariaLabel()"
+                        [placeholder]="placeholder()"
+                        [ngModel]="filterConstraint()?.value"
                         (ngModelChange)="onModelChange($event)"
                         appendTo="body"
                         [unstyled]="unstyled()"
@@ -6426,42 +6426,40 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
         this.bindDirectiveInstance.setAttrs(this.ptm('columnFilterFormElement'));
     }
 
-    @Input() field: string | undefined;
+    field = input<string | undefined>(undefined);
 
-    @Input() type: string | undefined;
+    type = input<string | undefined>(undefined);
 
-    @Input() filterConstraint: FilterMetadata | undefined;
+    filterConstraint = input<FilterMetadata | undefined>(undefined);
 
-    @Input() filterTemplate: Nullable<TemplateRef<any>>;
+    filterTemplate = input<Nullable<TemplateRef<any>>>(undefined);
 
-    @Input() placeholder: string | undefined;
+    placeholder = input<string | undefined>(undefined);
 
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    minFractionDigits: number | undefined;
+    minFractionDigits = input<number | undefined, unknown>(undefined, { transform: (value: unknown) => numberAttribute(value, undefined) });
 
-    @Input({ transform: (value: unknown) => numberAttribute(value, undefined) })
-    maxFractionDigits: number | undefined;
+    maxFractionDigits = input<number | undefined, unknown>(undefined, { transform: (value: unknown) => numberAttribute(value, undefined) });
 
-    @Input() prefix: string | undefined;
+    prefix = input<string | undefined>(undefined);
 
-    @Input() suffix: string | undefined;
+    suffix = input<string | undefined>(undefined);
 
-    @Input() locale: string | undefined;
+    locale = input<string | undefined>(undefined);
 
-    @Input() localeMatcher: string | undefined;
+    localeMatcher = input<string | undefined>(undefined);
 
-    @Input() currency: string | undefined;
+    currency = input<string | undefined>(undefined);
 
-    @Input() currencyDisplay: string | undefined;
+    currencyDisplay = input<string | undefined>(undefined);
 
-    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+    useGrouping = input(true, { transform: booleanAttribute });
 
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>(undefined);
 
-    @Input() filterOn: string | undefined;
+    filterOn = input<string | undefined>(undefined);
 
     get showButtons(): boolean {
-        return this.colFilter.showButtons;
+        return this.colFilter.showButtons();
     }
 
     filterCallback: any;
@@ -6475,15 +6473,15 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
 
     onInit() {
         this.filterCallback = (value: any) => {
-            (<any>this.filterConstraint).value = value;
+            (<any>this.filterConstraint()).value = value;
             this.dataTable._filter();
         };
     }
 
     onModelChange(value: any) {
-        (<any>this.filterConstraint).value = value;
+        (<any>this.filterConstraint()).value = value;
 
-        if (this.type === 'date' || this.type === 'boolean' || ((this.type === 'text' || this.type === 'numeric') && this.filterOn === 'input') || !value) {
+        if (this.type() === 'date' || this.type() === 'boolean' || ((this.type() === 'text' || this.type() === 'numeric') && this.filterOn() === 'input') || !value) {
             this.dataTable._filter();
         }
     }
