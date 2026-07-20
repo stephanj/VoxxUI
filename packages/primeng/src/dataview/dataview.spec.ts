@@ -728,8 +728,8 @@ describe('DataView', () => {
             const paginator = fixture.debugElement.query(By.css('vx-paginator')).componentInstance;
             expect(paginator.rows).toBe(2);
             expect(paginator.totalRecords).toBe(5);
-            expect(paginator.rowsPerPageOptions).toEqual([2, 5, 10]);
-            expect(paginator.showCurrentPageReport).toBe(true);
+            expect(paginator.rowsPerPageOptions()).toEqual([2, 5, 10]);
+            expect(paginator.showCurrentPageReport()).toBe(true);
         });
 
         it('should render custom paginator templates', async () => {

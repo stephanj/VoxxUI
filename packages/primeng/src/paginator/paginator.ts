@@ -1,24 +1,19 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChild,
-    ContentChildren,
+    contentChild,
+    contentChildren,
     ElementRef,
-    EventEmitter,
     inject,
     InjectionToken,
     input,
-    Input,
+    linkedSignal,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnInit,
-    Output,
-    QueryList,
+    output,
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation
@@ -31,7 +26,6 @@ import { Select, SelectChangeEvent } from 'voxx-ui/select';
 import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from 'voxx-ui/icons';
 import { InputNumber } from 'voxx-ui/inputnumber';
 import { Ripple } from 'voxx-ui/ripple';
-import { Nullable } from 'voxx-ui/ts-helpers';
 import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from 'voxx-ui/types/paginator';
 import { PaginatorStyle } from './style/paginatorstyle';
 
@@ -45,37 +39,37 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
     selector: 'vx-paginator',
     imports: [CommonModule, Select, InputNumber, FormsModule, Ripple, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon, SharedModule, Bind],
     template: `
-        @if (templateLeft) {
+        @if (templateLeft()) {
             <div [vxBind]="ptm('contentStart')" [class]="cx('contentStart')">
-                <ng-container *ngTemplateOutlet="templateLeft; context: { $implicit: paginatorState }"></ng-container>
+                <ng-container *ngTemplateOutlet="templateLeft(); context: { $implicit: paginatorState }"></ng-container>
             </div>
         }
-        @if (showCurrentPageReport) {
+        @if (showCurrentPageReport()) {
             <span [vxBind]="ptm('current')" [class]="cx('current')">{{ currentPageReport }}</span>
         }
-        @if (showFirstLastIcon) {
+        @if (showFirstLastIcon()) {
             <button [vxBind]="ptm('first')" type="button" (click)="changePageToFirst($event)" vxRipple [class]="cx('first')" [attr.aria-label]="getAriaLabel('firstPageLabel')">
-                @if (!firstPageLinkIconTemplate && !_firstPageLinkIconTemplate) {
+                @if (!firstPageLinkIconTemplate() && !_firstPageLinkIconTemplate()) {
                     <svg [vxBind]="ptm('firstIcon')" data-p-icon="angle-double-left" [class]="cx('firstIcon')" />
                 }
-                @if (firstPageLinkIconTemplate || _firstPageLinkIconTemplate) {
+                @if (firstPageLinkIconTemplate() || _firstPageLinkIconTemplate()) {
                     <span [class]="cx('firstIcon')">
-                        <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate || _firstPageLinkIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate() || _firstPageLinkIconTemplate()"></ng-template>
                     </span>
                 }
             </button>
         }
         <button [vxBind]="ptm('prev')" type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" vxRipple [class]="cx('prev')" [attr.aria-label]="getAriaLabel('prevPageLabel')">
-            @if (!previousPageLinkIconTemplate && !_previousPageLinkIconTemplate) {
+            @if (!previousPageLinkIconTemplate() && !_previousPageLinkIconTemplate()) {
                 <svg [vxBind]="ptm('prevIcon')" data-p-icon="angle-left" [class]="cx('prevIcon')" />
             }
-            @if (previousPageLinkIconTemplate || _previousPageLinkIconTemplate) {
+            @if (previousPageLinkIconTemplate() || _previousPageLinkIconTemplate()) {
                 <span [class]="cx('prevIcon')">
-                    <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate || _previousPageLinkIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate() || _previousPageLinkIconTemplate()"></ng-template>
                 </span>
             }
         </button>
-        @if (showPageLinks) {
+        @if (showPageLinks()) {
             <span [vxBind]="ptm('pages')" [class]="cx('pages')">
                 @for (pageLink of pageLinks; track pageLink) {
                     <button
@@ -92,7 +86,7 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
                 }
             </span>
         }
-        @if (showJumpToPageDropdown) {
+        @if (showJumpToPageDropdown()) {
             <vx-select
                 [options]="pageItems"
                 [ngModel]="getPage()"
@@ -100,77 +94,77 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
                 [attr.aria-label]="getAriaLabel('jumpToPageDropdownLabel')"
                 [styleClass]="cx('pcJumpToPageDropdown')"
                 (onChange)="onPageDropdownChange($event)"
-                [appendTo]="dropdownAppendTo || $appendTo()"
-                [scrollHeight]="dropdownScrollHeight"
+                [appendTo]="dropdownAppendTo() || $appendTo()"
+                [scrollHeight]="dropdownScrollHeight()"
                 [pt]="ptm('pcJumpToPageDropdown')"
                 [unstyled]="unstyled()"
             >
                 <ng-template vxTemplate="selectedItem">{{ currentPageReport }}</ng-template>
-                @if (jumpToPageItemTemplate) {
+                @if (jumpToPageItemTemplate()) {
                     <ng-template let-item vxTemplate="item">
-                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"></ng-container>
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate(); context: { $implicit: item }"></ng-container>
                     </ng-template>
                 }
-                @if (dropdownIconTemplate || _dropdownIconTemplate) {
+                @if (dropdownIconTemplate() || _dropdownIconTemplate()) {
                     <ng-template vxTemplate="dropdownicon">
-                        <ng-container *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownIconTemplate() || _dropdownIconTemplate()"></ng-container>
                     </ng-template>
                 }
             </vx-select>
         }
         <button [vxBind]="ptm('next')" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" vxRipple [class]="cx('next')" [attr.aria-label]="getAriaLabel('nextPageLabel')">
-            @if (!nextPageLinkIconTemplate && !_nextPageLinkIconTemplate) {
+            @if (!nextPageLinkIconTemplate() && !_nextPageLinkIconTemplate()) {
                 <svg [vxBind]="ptm('nextIcon')" data-p-icon="angle-right" [class]="cx('nextIcon')" />
             }
-            @if (nextPageLinkIconTemplate || _nextPageLinkIconTemplate) {
+            @if (nextPageLinkIconTemplate() || _nextPageLinkIconTemplate()) {
                 <span [class]="cx('nextIcon')">
-                    <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate || _nextPageLinkIconTemplate"></ng-template>
+                    <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate() || _nextPageLinkIconTemplate()"></ng-template>
                 </span>
             }
         </button>
-        @if (showFirstLastIcon) {
+        @if (showFirstLastIcon()) {
             <button [vxBind]="ptm('last')" type="button" [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)" vxRipple [class]="cx('last')" [attr.aria-label]="getAriaLabel('lastPageLabel')">
-                @if (!lastPageLinkIconTemplate && !_lastPageLinkIconTemplate) {
+                @if (!lastPageLinkIconTemplate() && !_lastPageLinkIconTemplate()) {
                     <svg [vxBind]="ptm('lastIcon')" data-p-icon="angle-double-right" [class]="cx('lastIcon')" />
                 }
-                @if (lastPageLinkIconTemplate || _lastPageLinkIconTemplate) {
+                @if (lastPageLinkIconTemplate() || _lastPageLinkIconTemplate()) {
                     <span [class]="cx('lastIcon')">
-                        <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate || _lastPageLinkIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate() || _lastPageLinkIconTemplate()"></ng-template>
                     </span>
                 }
             </button>
         }
-        @if (showJumpToPageInput) {
+        @if (showJumpToPageInput()) {
             <vx-inputnumber [pt]="ptm('pcJumpToPageInput')" [ngModel]="currentPage()" [class]="cx('pcJumpToPageInput')" [disabled]="empty()" (ngModelChange)="changePage($event - 1)" [unstyled]="unstyled()"></vx-inputnumber>
         }
-        @if (rowsPerPageOptions) {
+        @if (rowsPerPageOptions()) {
             <vx-select
                 [options]="rowsPerPageItems"
                 [(ngModel)]="rows"
                 [styleClass]="cx('pcRowPerPageDropdown')"
                 [disabled]="empty()"
                 (onChange)="onRppChange($event)"
-                [appendTo]="dropdownAppendTo || $appendTo()"
-                [scrollHeight]="dropdownScrollHeight"
+                [appendTo]="dropdownAppendTo() || $appendTo()"
+                [scrollHeight]="dropdownScrollHeight()"
                 [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
                 [pt]="ptm('pcRowPerPageDropdown')"
                 [unstyled]="unstyled()"
             >
-                @if (dropdownItemTemplate) {
+                @if (dropdownItemTemplate()) {
                     <ng-template let-item vxTemplate="item">
-                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"></ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate(); context: { $implicit: item }"></ng-container>
                     </ng-template>
                 }
-                @if (dropdownIconTemplate || _dropdownIconTemplate) {
+                @if (dropdownIconTemplate() || _dropdownIconTemplate()) {
                     <ng-template vxTemplate="dropdownicon">
-                        <ng-container *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownIconTemplate() || _dropdownIconTemplate()"></ng-container>
                     </ng-template>
                 }
             </vx-select>
         }
-        @if (templateRight) {
+        @if (templateRight()) {
             <div [vxBind]="ptm('contentEnd')" [class]="cx('contentEnd')">
-                <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
+                <ng-container *ngTemplateOutlet="templateRight(); context: { $implicit: paginatorState }"></ng-container>
             </div>
         }
     `,
@@ -178,7 +172,7 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [PaginatorStyle, { provide: PAGINATOR_INSTANCE, useExisting: Paginator }, { provide: PARENT_INSTANCE, useExisting: Paginator }],
     host: {
-        '[class]': "cn(cx('paginator'), styleClass)",
+        '[class]': "cn(cx('paginator'), styleClass())",
         '[style.display]': 'display'
     },
     hostDirectives: [Bind]
@@ -197,118 +191,169 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
      * Number of page links to display.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) pageLinkSize: number = 5;
+    // pageLinkSize / totalRecords / rows / first are internally mutated (page navigation, the
+    // rows-per-page dropdown two-way binding) or written imperatively by specs. Each is an
+    // aliased input() feeding a writable linkedSignal, exposed via get/set so every `this.xxx`
+    // read/write site and template binding stays unchanged (#18).
+    pageLinkSizeInput = input<number, unknown>(5, { alias: 'pageLinkSize', transform: numberAttribute });
+    private _pageLinkSizeState = linkedSignal(() => this.pageLinkSizeInput());
+    /**
+     * Number of page links to display.
+     * @group Props
+     */
+    get pageLinkSize(): number {
+        return this._pageLinkSizeState();
+    }
+    set pageLinkSize(val: number) {
+        this._pageLinkSizeState.set(val);
+    }
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>(undefined);
+    alwaysShowInput = input<boolean, unknown>(true, { alias: 'alwaysShow', transform: booleanAttribute });
+    private _alwaysShowState = linkedSignal(() => this.alwaysShowInput());
     /**
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) alwaysShow: boolean = true;
+    get alwaysShow(): boolean {
+        return this._alwaysShowState();
+    }
+    set alwaysShow(val: boolean) {
+        this._alwaysShowState.set(val);
+    }
     /**
      * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @deprecated since v20.0.0. Use `appendTo` instead.
      * @group Props
      */
-    @Input() dropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    dropdownAppendTo = input<HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any>(undefined);
     /**
      * Template instance to inject into the left side of the paginator.
      * @param {PaginatorTemplateContext} context - Paginator template context.
      * @see {@link PaginatorTemplateContext}
      * @group Props
      */
-    @Input() templateLeft: TemplateRef<PaginatorTemplateContext> | undefined;
+    templateLeft = input<TemplateRef<PaginatorTemplateContext> | undefined>(undefined);
     /**
      * Template instance to inject into the right side of the paginator.
      * @param {PaginatorTemplateContext} context - Paginator template context.
      * @see {@link PaginatorTemplateContext}
      * @group Props
      */
-    @Input() templateRight: TemplateRef<PaginatorTemplateContext> | undefined;
+    templateRight = input<TemplateRef<PaginatorTemplateContext> | undefined>(undefined);
     /**
      * Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() dropdownScrollHeight: string = '200px';
+    dropdownScrollHeight = input<string>('200px');
+    currentPageReportTemplateInput = input<string>('{currentPage} of {totalPages}', { alias: 'currentPageReportTemplate' });
+    private _currentPageReportTemplateState = linkedSignal(() => this.currentPageReportTemplateInput());
     /**
      * Template of the current page report element. Available placeholders are {currentPage},{totalPages},{rows},{first},{last} and {totalRecords}
      * @group Props
      */
-    @Input() currentPageReportTemplate: string = '{currentPage} of {totalPages}';
+    get currentPageReportTemplate(): string {
+        return this._currentPageReportTemplateState();
+    }
+    set currentPageReportTemplate(val: string) {
+        this._currentPageReportTemplateState.set(val);
+    }
     /**
      * Whether to display current page report.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
+    showCurrentPageReport = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
+    showFirstLastIcon = input<boolean, unknown>(true, { transform: booleanAttribute });
+    totalRecordsInput = input<number, unknown>(0, { alias: 'totalRecords', transform: numberAttribute });
+    private _totalRecordsState = linkedSignal(() => this.totalRecordsInput());
     /**
      * Number of total records.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) totalRecords: number = 0;
+    get totalRecords(): number {
+        return this._totalRecordsState();
+    }
+    set totalRecords(val: number) {
+        this._totalRecordsState.set(val);
+    }
+    rowsInput = input<number, unknown>(0, { alias: 'rows', transform: numberAttribute });
+    private _rowsState = linkedSignal(() => this.rowsInput());
     /**
      * Data count to display per page.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rows: number = 0;
+    get rows(): number {
+        return this._rowsState();
+    }
+    set rows(val: number) {
+        this._rowsState.set(val);
+    }
     /**
      * Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}]
      * @group Props
      */
-    @Input() rowsPerPageOptions: any[] | undefined;
+    rowsPerPageOptions = input<any[] | undefined>(undefined);
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
+    showJumpToPageDropdown = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Whether to display a input to navigate to any page.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
+    showJumpToPageInput = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Template instance to inject into the jump to page dropdown item inside in the paginator.
      * @param {PaginatorDropdownItemTemplateContext} context - dropdown item context.
      * @see {@link PaginatorDropdownItemTemplateContext}
      * @group Props
      */
-    @Input() jumpToPageItemTemplate: TemplateRef<PaginatorDropdownItemTemplateContext> | undefined;
+    jumpToPageItemTemplate = input<TemplateRef<PaginatorDropdownItemTemplateContext> | undefined>(undefined);
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
+    showPageLinks = input<boolean, unknown>(true, { transform: booleanAttribute });
+    localeInput = input<string | undefined>(undefined, { alias: 'locale' });
+    private _localeState = linkedSignal(() => this.localeInput());
     /**
      * Locale to be used in formatting.
      * @group Props
      */
-    @Input() locale: string | undefined;
+    get locale(): string | undefined {
+        return this._localeState();
+    }
+    set locale(val: string | undefined) {
+        this._localeState.set(val);
+    }
     /**
      * Template instance to inject into the rows per page dropdown item inside in the paginator.
      * @param {PaginatorDropdownItemTemplateContext} context - dropdown item context.
      * @see {@link PaginatorDropdownItemTemplateContext}
      * @group Props
      */
-    @Input() dropdownItemTemplate: TemplateRef<PaginatorDropdownItemTemplateContext> | undefined;
+    dropdownItemTemplate = input<TemplateRef<PaginatorDropdownItemTemplateContext> | undefined>(undefined);
 
+    firstInput = input<number>(0, { alias: 'first' });
+    private _firstState = linkedSignal(() => this.firstInput());
     /**
      * Zero-relative number of the first row to be displayed.
      * @group Props
      */
-    @Input() get first(): number {
-        return this._first;
+    get first(): number {
+        return this._firstState();
     }
-
     set first(val: number) {
-        this._first = val;
+        this._firstState.set(val);
     }
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
@@ -321,49 +366,78 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
      * @param {PaginatorState} event - Paginator state.
      * @group Emits
      */
-    @Output() onPageChange: EventEmitter<PaginatorState> = new EventEmitter<PaginatorState>();
+    onPageChange = output<PaginatorState>();
 
     /**
      * Template for the dropdown icon.
      * @group Templates
      */
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: Nullable<TemplateRef<void>>;
+    dropdownIconTemplate = contentChild<TemplateRef<void>>('dropdownicon', { descendants: false });
 
     /**
      * Template for the first page link icon.
      * @group Templates
      */
-    @ContentChild('firstpagelinkicon', { descendants: false }) firstPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    firstPageLinkIconTemplate = contentChild<TemplateRef<void>>('firstpagelinkicon', { descendants: false });
 
     /**
      * Template for the previous page link icon.
      * @group Templates
      */
-    @ContentChild('previouspagelinkicon', { descendants: false }) previousPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    previousPageLinkIconTemplate = contentChild<TemplateRef<void>>('previouspagelinkicon', { descendants: false });
 
     /**
      * Template for the last page link icon.
      * @group Templates
      */
-    @ContentChild('lastpagelinkicon', { descendants: false }) lastPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    lastPageLinkIconTemplate = contentChild<TemplateRef<void>>('lastpagelinkicon', { descendants: false });
 
     /**
      * Template for the next page link icon.
      * @group Templates
      */
-    @ContentChild('nextpagelinkicon', { descendants: false }) nextPageLinkIconTemplate: Nullable<TemplateRef<void>>;
+    nextPageLinkIconTemplate = contentChild<TemplateRef<void>>('nextpagelinkicon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    templates = contentChildren(PrimeTemplate);
 
-    _dropdownIconTemplate: TemplateRef<void> | undefined;
+    /**
+     * Former `ngAfterContentInit` template map (#18): each icon `vxTemplate` type resolves to the
+     * last matching projected template.
+     */
+    _dropdownIconTemplate = computed<TemplateRef<void> | undefined>(
+        () =>
+            this.templates()
+                .filter((item) => item.getType() === 'dropdownicon')
+                .at(-1)?.template
+    );
 
-    _firstPageLinkIconTemplate: TemplateRef<void> | undefined;
+    _firstPageLinkIconTemplate = computed<TemplateRef<void> | undefined>(
+        () =>
+            this.templates()
+                .filter((item) => item.getType() === 'firstpagelinkicon')
+                .at(-1)?.template
+    );
 
-    _previousPageLinkIconTemplate: TemplateRef<void> | undefined;
+    _previousPageLinkIconTemplate = computed<TemplateRef<void> | undefined>(
+        () =>
+            this.templates()
+                .filter((item) => item.getType() === 'previouspagelinkicon')
+                .at(-1)?.template
+    );
 
-    _lastPageLinkIconTemplate: TemplateRef<void> | undefined;
+    _lastPageLinkIconTemplate = computed<TemplateRef<void> | undefined>(
+        () =>
+            this.templates()
+                .filter((item) => item.getType() === 'lastpagelinkicon')
+                .at(-1)?.template
+    );
 
-    _nextPageLinkIconTemplate: TemplateRef<void> | undefined;
+    _nextPageLinkIconTemplate = computed<TemplateRef<void> | undefined>(
+        () =>
+            this.templates()
+                .filter((item) => item.getType() === 'nextpagelinkicon')
+                .at(-1)?.template
+    );
 
     pageLinks: number[] | undefined;
 
@@ -372,10 +446,6 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
     rowsPerPageItems: SelectItem[] | undefined;
 
     paginatorState: any;
-
-    _first: number = 0;
-
-    _page: number = 0;
 
     _componentStyle = inject(PaginatorStyle);
 
@@ -391,32 +461,6 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
 
     onInit() {
         this.updatePaginatorState();
-    }
-
-    onAfterContentInit(): void {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'dropdownicon':
-                    this._dropdownIconTemplate = item.template;
-                    break;
-
-                case 'firstpagelinkicon':
-                    this._firstPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'previouspagelinkicon':
-                    this._previousPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'lastpagelinkicon':
-                    this._lastPageLinkIconTemplate = item.template;
-                    break;
-
-                case 'nextpagelinkicon':
-                    this._nextPageLinkIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     getAriaLabel(labelType: keyof Aria): string | undefined {
@@ -439,20 +483,25 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
     }
 
     onChanges(simpleChange: SimpleChanges): void {
-        if (simpleChange.totalRecords) {
+        // The internally-mutated inputs are aliased signal inputs (`totalRecordsInput` aliased
+        // `totalRecords`, etc.), so ngOnChanges reports them under their class-property key; the
+        // pure `rowsPerPageOptions` input keeps its own name. Accept either key for robustness.
+        const first = simpleChange.firstInput ?? simpleChange.first;
+
+        if (simpleChange.totalRecordsInput ?? simpleChange.totalRecords) {
             this.updatePageLinks();
             this.updatePaginatorState();
             this.updateFirst();
             this.updateRowsPerPageOptions();
         }
 
-        if (simpleChange.first) {
-            this._first = simpleChange.first.currentValue;
+        if (first) {
+            this.first = first.currentValue;
             this.updatePageLinks();
             this.updatePaginatorState();
         }
 
-        if (simpleChange.rows) {
+        if (simpleChange.rowsInput ?? simpleChange.rows) {
             this.updatePageLinks();
             this.updatePaginatorState();
         }
@@ -461,17 +510,17 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
             this.updateRowsPerPageOptions();
         }
 
-        if (simpleChange.pageLinkSize) {
+        if (simpleChange.pageLinkSizeInput ?? simpleChange.pageLinkSize) {
             this.updatePageLinks();
         }
     }
 
     updateRowsPerPageOptions(): void {
-        if (this.rowsPerPageOptions) {
+        if (this.rowsPerPageOptions()) {
             this.rowsPerPageItems = [];
             let showAllItem: SelectItem | null = null;
 
-            for (let opt of this.rowsPerPageOptions) {
+            for (let opt of this.rowsPerPageOptions()!) {
                 if (typeof opt == 'object' && opt['showAll']) {
                     showAllItem = { label: opt['showAll'], value: this.totalRecords };
                 } else {
@@ -522,7 +571,7 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
             this.pageLinks.push(i + 1);
         }
 
-        if (this.showJumpToPageDropdown) {
+        if (this.showJumpToPageDropdown()) {
             this.pageItems = [];
             for (let i = 0; i < this.getPageCount(); i++) {
                 this.pageItems.push({ label: String(i + 1), value: i });
@@ -534,7 +583,7 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
         var pc = this.getPageCount();
 
         if (p >= 0 && p < pc) {
-            this._first = this.rows * p;
+            this.first = this.rows * p;
             var state = {
                 page: p,
                 first: this.first,
@@ -620,8 +669,8 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
         return this.currentPageReportTemplate
             .replace('{currentPage}', String(this.currentPage()))
             .replace('{totalPages}', String(this.getPageCount()))
-            .replace('{first}', String(this.totalRecords > 0 ? this._first + 1 : 0))
-            .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
+            .replace('{first}', String(this.totalRecords > 0 ? this.first + 1 : 0))
+            .replace('{last}', String(Math.min(this.first + this.rows, this.totalRecords)))
             .replace('{rows}', String(this.rows))
             .replace('{totalRecords}', String(this.totalRecords));
     }

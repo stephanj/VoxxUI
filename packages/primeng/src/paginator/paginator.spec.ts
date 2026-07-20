@@ -180,9 +180,9 @@ describe('Paginator', () => {
         it('should initialize with default values', () => {
             expect(paginator.pageLinkSize).toBe(5);
             expect(paginator.alwaysShow).toBe(true);
-            expect(paginator.showFirstLastIcon).toBe(true);
-            expect(paginator.showPageLinks).toBe(true);
-            expect(paginator.dropdownScrollHeight).toBe('200px');
+            expect(paginator.showFirstLastIcon()).toBe(true);
+            expect(paginator.showPageLinks()).toBe(true);
+            expect(paginator.dropdownScrollHeight()).toBe('200px');
         });
 
         it('should initialize with provided input values', () => {
@@ -509,7 +509,8 @@ describe('Paginator', () => {
             const testFixture = TestBed.createComponent(TestBasicPaginatorComponent);
             const testPaginator = testFixture.debugElement.query(By.directive(Paginator)).componentInstance;
 
-            testPaginator.rowsPerPageOptions = undefined as any;
+            // rowsPerPageOptions input is left at its default (undefined) here - no change
+            // detection is run on this fixture, so the host binding is never applied.
             testPaginator.updateRowsPerPageOptions();
             expect(testPaginator.rowsPerPageItems).toBeUndefined();
 
@@ -650,13 +651,13 @@ describe('Paginator', () => {
             it('should apply jump to page item template', async () => {
                 await dropdownFixture.whenStable();
 
-                expect(dropdownPaginator.jumpToPageItemTemplate).toBeDefined();
+                expect(dropdownPaginator.jumpToPageItemTemplate()).toBeDefined();
             });
 
             it('should apply dropdown item template', async () => {
                 await dropdownFixture.whenStable();
 
-                expect(dropdownPaginator.dropdownItemTemplate).toBeDefined();
+                expect(dropdownPaginator.dropdownItemTemplate()).toBeDefined();
             });
 
             it('should handle showAll option in rows per page', () => {
@@ -967,7 +968,7 @@ describe('Paginator', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.styleClass).toBe('custom-paginator-class');
+            expect(paginator.styleClass()).toBe('custom-paginator-class');
         });
 
         it('should handle alwaysShow property', async () => {
@@ -986,17 +987,17 @@ describe('Paginator', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.dropdownAppendTo).toBe(element);
+            expect(paginator.dropdownAppendTo()).toBe(element);
         });
 
         it('should handle dropdownScrollHeight property', async () => {
-            expect(paginator.dropdownScrollHeight).toBe('200px');
+            expect(paginator.dropdownScrollHeight()).toBe('200px');
 
             component.dropdownScrollHeight = '300px';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.dropdownScrollHeight).toBe('300px');
+            expect(paginator.dropdownScrollHeight()).toBe('300px');
         });
 
         it('should handle currentPageReportTemplate property', async () => {
@@ -1013,17 +1014,17 @@ describe('Paginator', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.showCurrentPageReport).toBe(false);
+            expect(paginator.showCurrentPageReport()).toBe(false);
         });
 
         it('should handle showFirstLastIcon property', async () => {
-            expect(paginator.showFirstLastIcon).toBe(true);
+            expect(paginator.showFirstLastIcon()).toBe(true);
 
             component.showFirstLastIcon = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.showFirstLastIcon).toBe(false);
+            expect(paginator.showFirstLastIcon()).toBe(false);
         });
 
         it('should handle totalRecords property changes', async () => {
@@ -1052,7 +1053,7 @@ describe('Paginator', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.rowsPerPageOptions).toEqual(options);
+            expect(paginator.rowsPerPageOptions()).toEqual(options);
         });
 
         it('should handle showJumpToPageDropdown property', async () => {
@@ -1060,7 +1061,7 @@ describe('Paginator', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.showJumpToPageDropdown).toBe(true);
+            expect(paginator.showJumpToPageDropdown()).toBe(true);
         });
 
         it('should handle showJumpToPageInput property', async () => {
@@ -1068,17 +1069,17 @@ describe('Paginator', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.showJumpToPageInput).toBe(true);
+            expect(paginator.showJumpToPageInput()).toBe(true);
         });
 
         it('should handle showPageLinks property', async () => {
-            expect(paginator.showPageLinks).toBe(true);
+            expect(paginator.showPageLinks()).toBe(true);
 
             component.showPageLinks = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(paginator.showPageLinks).toBe(false);
+            expect(paginator.showPageLinks()).toBe(false);
         });
 
         it('should handle locale property', async () => {
@@ -1124,10 +1125,10 @@ describe('Paginator', () => {
         });
 
         it('should handle template properties', () => {
-            expect(paginator.templateLeft).toBeDefined();
-            expect(paginator.templateRight).toBeDefined();
-            expect(paginator.jumpToPageItemTemplate).toBeUndefined();
-            expect(paginator.dropdownItemTemplate).toBeUndefined();
+            expect(paginator.templateLeft()).toBeDefined();
+            expect(paginator.templateRight()).toBeDefined();
+            expect(paginator.jumpToPageItemTemplate()).toBeUndefined();
+            expect(paginator.dropdownItemTemplate()).toBeUndefined();
         });
 
         it('should handle edge case values for numeric inputs', async () => {
@@ -1208,20 +1209,20 @@ describe('Paginator', () => {
 
         it('should handle dynamic boolean property changes', async () => {
             await dynamicFixture.whenStable();
-            expect(dynamicPaginator.showFirstLastIcon).toBe(true);
+            expect(dynamicPaginator.showFirstLastIcon()).toBe(true);
 
             // Toggle boolean properties
             dynamicComponent.toggleShowFirstLastIcon();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicPaginator.showFirstLastIcon).toBe(false);
+            expect(dynamicPaginator.showFirstLastIcon()).toBe(false);
 
             dynamicComponent.toggleShowFirstLastIcon();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicPaginator.showFirstLastIcon).toBe(true);
+            expect(dynamicPaginator.showFirstLastIcon()).toBe(true);
         });
 
         it('should handle dynamic rowsPerPageOptions changes', async () => {
@@ -1231,14 +1232,14 @@ describe('Paginator', () => {
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicPaginator.rowsPerPageOptions).toEqual([5, 10, 15]);
+            expect(dynamicPaginator.rowsPerPageOptions()).toEqual([5, 10, 15]);
 
             // Update with showAll option
             dynamicComponent.updateRowsPerPageOptions([10, 20, 30, { showAll: 'All' }]);
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
-            expect(dynamicPaginator.rowsPerPageOptions).toEqual([10, 20, 30, { showAll: 'All' }]);
+            expect(dynamicPaginator.rowsPerPageOptions()).toEqual([10, 20, 30, { showAll: 'All' }]);
         });
 
         it('should handle dynamic template changes', async () => {
