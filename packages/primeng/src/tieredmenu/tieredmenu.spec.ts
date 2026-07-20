@@ -229,24 +229,24 @@ describe('TieredMenu', () => {
         });
 
         it('should have default property values', () => {
-            expect(tieredMenu.popup).toBeFalsy();
-            expect(tieredMenu.disabled).toBe(false);
-            expect(tieredMenu.autoDisplay).toBe(true);
-            expect(tieredMenu.autoZIndex).toBe(true);
-            expect(tieredMenu.baseZIndex).toBe(0);
-            expect(tieredMenu.tabindex).toBe(0);
+            expect(tieredMenu.popup()).toBeFalsy();
+            expect(tieredMenu.disabled()).toBe(false);
+            expect(tieredMenu.autoDisplay()).toBe(true);
+            expect(tieredMenu.autoZIndex()).toBe(true);
+            expect(tieredMenu.baseZIndex()).toBe(0);
+            expect(tieredMenu.tabindex()).toBe(0);
         });
 
         it('should generate unique id', () => {
-            expect(tieredMenu.id).toBeDefined();
-            expect(tieredMenu.id).toMatch(/^pn_id_/);
+            expect(tieredMenu.$id()).toBeDefined();
+            expect(tieredMenu.$id()).toMatch(/^pn_id_/);
         });
 
         it('should process menu items correctly', () => {
-            expect(tieredMenu.processedItems).toBeDefined();
-            expect(tieredMenu.processedItems.length).toBe(2);
-            expect(tieredMenu.processedItems[0].item.label).toBe('File');
-            expect(tieredMenu.processedItems[1].item.label).toBe('Edit');
+            expect(tieredMenu.processedItems()).toBeDefined();
+            expect(tieredMenu.processedItems().length).toBe(2);
+            expect(tieredMenu.processedItems()[0].item.label).toBe('File');
+            expect(tieredMenu.processedItems()[1].item.label).toBe('Edit');
         });
     });
 
@@ -258,8 +258,8 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.model).toEqual(newModel);
-            expect(tieredMenu.processedItems.length).toBe(1);
+            expect(tieredMenu.model()).toEqual(newModel);
+            expect(tieredMenu.processedItems().length).toBe(1);
         });
 
         it('should bind styleClass', async () => {
@@ -268,7 +268,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.styleClass).toBe('custom-class');
+            expect(tieredMenu.styleClass()).toBe('custom-class');
         });
 
         it('should bind style object', async () => {
@@ -278,7 +278,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.style).toEqual(customStyle);
+            expect(tieredMenu.style()).toEqual(customStyle);
         });
 
         it('should bind popup property', async () => {
@@ -287,7 +287,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.popup).toBe(true);
+            expect(tieredMenu.popup()).toBe(true);
         });
 
         it('should bind disabled property', async () => {
@@ -296,7 +296,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.disabled).toBe(true);
+            expect(tieredMenu.disabled()).toBe(true);
         });
 
         it('should bind autoDisplay property', async () => {
@@ -305,7 +305,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.autoDisplay).toBe(false);
+            expect(tieredMenu.autoDisplay()).toBe(false);
         });
     });
 
@@ -373,7 +373,7 @@ describe('TieredMenu', () => {
         });
 
         it('should create popup menu', () => {
-            expect(popupTieredMenu.popup).toBe(true);
+            expect(popupTieredMenu.popup()).toBe(true);
             expect(popupTieredMenu.visible).toBeFalsy();
         });
 
@@ -427,7 +427,7 @@ describe('TieredMenu', () => {
             await popupFixture.whenStable();
 
             // Directly trigger the command on the save item
-            const saveItem = popupTieredMenu.processedItems[0].items[0]; // Actions -> Save
+            const saveItem = popupTieredMenu.processedItems()[0].items[0]; // Actions -> Save
             const mockClickEvent = {
                 originalEvent: { preventDefault: () => {} },
                 processedItem: saveItem
@@ -716,7 +716,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
 
             // Verify the style is set on the component
-            expect(tieredMenu.style).toEqual({ 'background-color': 'red', border: '1px solid blue' });
+            expect(tieredMenu.style()).toEqual({ 'background-color': 'red', border: '1px solid blue' });
         });
 
         it('should have default CSS classes', () => {
@@ -862,7 +862,7 @@ describe('TieredMenu', () => {
         });
 
         it('should handle breakpoint property', () => {
-            expect(breakpointTieredMenu.breakpoint).toBe('768px');
+            expect(breakpointTieredMenu.breakpoint()).toBe('768px');
         });
 
         it('should bind media query listener', () => {
@@ -961,8 +961,8 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.model).toEqual([]);
-            expect(tieredMenu.processedItems.length).toBe(0);
+            expect(tieredMenu.model()).toEqual([]);
+            expect(tieredMenu.processedItems().length).toBe(0);
         });
 
         it('should handle null/undefined model', async () => {
@@ -971,7 +971,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.model).toBeNull();
+            expect(tieredMenu.model()).toBeNull();
         });
 
         it('should handle items with no subitems', async () => {
@@ -980,8 +980,8 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.processedItems.length).toBe(1);
-            expect(tieredMenu.processedItems[0].items.length).toBe(0);
+            expect(tieredMenu.processedItems().length).toBe(1);
+            expect(tieredMenu.processedItems()[0].items.length).toBe(0);
         });
 
         it('should handle deeply nested items', async () => {
@@ -1005,7 +1005,7 @@ describe('TieredMenu', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(tieredMenu.processedItems[0].items[0].items[0].items.length).toBe(1);
+            expect(tieredMenu.processedItems()[0].items[0].items[0].items.length).toBe(1);
         });
     });
 
@@ -1264,12 +1264,12 @@ describe('TieredMenu', () => {
                 pt = {
                     root: ({ instance }: any) => ({
                         class: {
-                            DISABLED: instance?.disabled
+                            DISABLED: instance?.disabled?.()
                         }
                     }),
                     item: ({ instance }: any) => ({
                         style: {
-                            'background-color': instance?.disabled ? 'yellow' : 'red'
+                            'background-color': instance?.disabled?.() ? 'yellow' : 'red'
                         }
                     })
                 };
