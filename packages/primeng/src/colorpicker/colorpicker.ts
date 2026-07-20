@@ -198,7 +198,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
 
     shown: Nullable<boolean>;
 
-    overlayVisible: Nullable<boolean>;
+    overlayVisible: boolean = false;
 
     documentMousemoveListener: VoidListener;
 

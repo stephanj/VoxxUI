@@ -857,7 +857,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     timeout: Nullable<any>;
 
-    overlayVisible: boolean | undefined;
+    overlayVisible: boolean = false;
 
     suggestionsUpdated: Nullable<boolean>;
 

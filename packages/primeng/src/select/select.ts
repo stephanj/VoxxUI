@@ -1000,7 +1000,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     focused: Nullable<boolean>;
 
-    overlayVisible: Nullable<boolean>;
+    overlayVisible: boolean = false;
 
     optionsChanged: Nullable<boolean>;
 

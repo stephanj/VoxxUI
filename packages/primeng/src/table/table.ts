@@ -61,7 +61,7 @@ import { TrashIcon } from 'voxx-ui/icons/trash';
 import { InputNumberModule } from 'voxx-ui/inputnumber';
 import { InputTextModule } from 'voxx-ui/inputtext';
 import { MotionModule } from 'voxx-ui/motion';
-import { PaginatorModule } from 'voxx-ui/paginator';
+import { PaginatorModule, PaginatorState } from 'voxx-ui/paginator';
 import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'voxx-ui/radiobutton';
 import { Scroller, ScrollerModule } from 'voxx-ui/scroller';
 import { SelectModule } from 'voxx-ui/select';
@@ -163,7 +163,7 @@ export class TableService {
         @if (paginator() && (paginatorPosition() === 'top' || paginatorPosition() == 'both')) {
             <vx-paginator
                 [rows]="rows()"
-                [first]="first()"
+                [first]="first() ?? 0"
                 [totalRecords]="totalRecords()"
                 [pageLinkSize]="pageLinks()"
                 [alwaysShow]="alwaysShowPaginator()"
@@ -224,7 +224,7 @@ export class TableService {
                     }"
                     [scrollHeight]="scrollHeight() !== 'flex' ? undefined : '100%'"
                     [itemSize]="virtualScrollItemSize()"
-                    [step]="rows()"
+                    [step]="rows() ?? 0"
                     [delay]="lazy() ? virtualScrollDelay() : 0"
                     [inline]="true"
                     [autoSize]="true"
@@ -232,7 +232,7 @@ export class TableService {
                     (onLazyLoad)="onLazyItemLoad($event)"
                     [loaderDisabled]="true"
                     [showSpacer]="false"
-                    [showLoader]="loadingBodyTemplate() || _loadingBodyTemplate()"
+                    [showLoader]="!!(loadingBodyTemplate() || _loadingBodyTemplate())"
                     [options]="virtualScrollOptions()"
                     [pt]="ptm('virtualScroller')"
                 >
@@ -327,7 +327,7 @@ export class TableService {
         @if (paginator() && (paginatorPosition() === 'bottom' || paginatorPosition() == 'both')) {
             <vx-paginator
                 [rows]="rows()"
-                [first]="first()"
+                [first]="first() ?? 0"
                 [totalRecords]="totalRecords()"
                 [pageLinkSize]="pageLinks()"
                 [alwaysShow]="alwaysShowPaginator()"
@@ -1534,7 +1534,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         }
     }
 
-    onPageChange(event: TablePageEvent) {
+    onPageChange(event: PaginatorState) {
         this.first.set(event.first);
         this.rows.set(event.rows);
 
@@ -3710,8 +3710,8 @@ export class FrozenColumn extends BaseComponent {
         role: 'columnheader',
         '[attr.aria-sort]': 'sortOrder',
         '(click)': 'onClick($event)',
-        '(keydown.space)': 'onEnterKey($event)',
-        '(keydown.enter)': 'onEnterKey($event)'
+        '(keydown.space)': 'onEnterKey($any($event))',
+        '(keydown.enter)': 'onEnterKey($any($event))'
     },
     providers: [TableStyle]
 })
@@ -4492,15 +4492,15 @@ export class ReorderableColumn extends BaseComponent {
     host: {
         '[attr.data-p-editable-column]': 'true',
         '(click)': 'onClick($event)',
-        '(keydown.enter)': 'onEnterKeyDown($event)',
-        '(keydown.escape)': 'onEscapeKeyDown($event)',
-        '(keydown.tab)': 'onTabKeyDown($event); onShiftKeyDown($event)',
-        '(keydown.shift.tab)': 'onShiftKeyDown($event)',
-        '(keydown.meta.tab)': 'onShiftKeyDown($event)',
-        '(keydown.arrowdown)': 'onArrowDown($event)',
-        '(keydown.arrowup)': 'onArrowUp($event)',
-        '(keydown.arrowleft)': 'onArrowLeft($event)',
-        '(keydown.arrowright)': 'onArrowRight($event)'
+        '(keydown.enter)': 'onEnterKeyDown($any($event))',
+        '(keydown.escape)': 'onEscapeKeyDown($any($event))',
+        '(keydown.tab)': 'onTabKeyDown($any($event)); onShiftKeyDown($any($event))',
+        '(keydown.shift.tab)': 'onShiftKeyDown($any($event))',
+        '(keydown.meta.tab)': 'onShiftKeyDown($any($event))',
+        '(keydown.arrowdown)': 'onArrowDown($any($event))',
+        '(keydown.arrowup)': 'onArrowUp($any($event))',
+        '(keydown.arrowleft)': 'onArrowLeft($any($event))',
+        '(keydown.arrowright)': 'onArrowRight($any($event))'
     }
 })
 export class EditableColumn extends BaseComponent {
@@ -4963,14 +4963,14 @@ export class CellEditor extends BaseComponent {
 @Component({
     selector: 'vx-tableRadioButton',
     imports: [RadioButtonModule, FormsModule],
-    template: `<vx-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel()" [binary]="true" [value]="value()" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
+    template: `<vx-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name() ?? ''" [ariaLabel]="ariaLabel()" [binary]="true" [value]="value()" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
 export class TableRadioButton extends BaseComponent {
     value = input<any>();
 
-    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly disabled = input<boolean, unknown>(false, { transform: booleanAttribute });
     readonly index = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
@@ -5020,7 +5020,7 @@ export class TableRadioButton extends BaseComponent {
     selector: 'vx-tableCheckbox',
     imports: [CommonModule, CheckboxModule, FormsModule, SharedModule],
     template: `
-        <vx-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel()" [unstyled]="unstyled()">
+        <vx-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name() ?? ''" [ariaLabel]="ariaLabel()" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate() || dataTable._checkboxIconTemplate(); as template) {
                 <ng-template vxTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5034,8 +5034,8 @@ export class TableRadioButton extends BaseComponent {
 export class TableCheckbox extends BaseComponent {
     value = input<any>();
 
-    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
-    readonly required = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly disabled = input<boolean, unknown>(false, { transform: booleanAttribute });
+    readonly required = input<boolean, unknown>(false, { transform: booleanAttribute });
     readonly index = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
@@ -5080,7 +5080,7 @@ export class TableCheckbox extends BaseComponent {
     selector: 'vx-tableHeaderCheckbox',
     imports: [CommonModule, CheckboxModule, FormsModule, SharedModule],
     template: `
-        <vx-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel()" [unstyled]="unstyled()">
+        <vx-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name() ?? ''" [ariaLabel]="ariaLabel()" [unstyled]="unstyled()">
             @if (dataTable.headerCheckboxIconTemplate() || dataTable._headerCheckboxIconTemplate(); as template) {
                 <ng-template vxTemplate="icon">
                     <ng-template *ngTemplateOutlet="template; context: { $implicit: checked }" />
@@ -5101,7 +5101,7 @@ export class TableHeaderCheckbox extends BaseComponent {
         this.bindDirectiveInstance.setAttrs(this.ptm('headerCheckbox'));
     }
 
-    readonly disabled = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
+    readonly disabled = input<boolean, unknown>(false, { transform: booleanAttribute });
     readonly inputId = input<string | undefined>();
     readonly name = input<string | undefined>();
 
@@ -5341,7 +5341,7 @@ export class ReorderableRow extends BaseComponent {
                     [type]="type()"
                     [field]="field()"
                     [ariaLabel]="ariaLabel()"
-                    [filterConstraint]="dataTable.filters()[field()]"
+                    [filterConstraint]="$any(dataTable.filters()[field()!])"
                     [filterTemplate]="filterTemplate() || _filterTemplate()"
                     [placeholder]="placeholder()"
                     [minFractionDigits]="minFractionDigits()"
@@ -5353,7 +5353,6 @@ export class ReorderableRow extends BaseComponent {
                     [currency]="currency()"
                     [currencyDisplay]="currencyDisplay()"
                     [useGrouping]="useGrouping()"
-                    [showButtons]="showButtons()"
                     [filterOn]="filterOn()"
                     [pt]="pt()"
                     [unstyled]="unstyled()"
@@ -6130,8 +6129,8 @@ export class ColumnFilter extends BaseComponent {
         this.selfClick = true;
     }
 
-    onOverlayBeforeEnter(event: MotionEvent) {
-        this.overlay = event.element as HTMLElement;
+    onOverlayBeforeEnter(event: MotionEvent | undefined) {
+        this.overlay = event?.element as HTMLElement;
         if (this.overlay && this.overlay.parentElement !== this.document.body) {
             const buttonEl = <HTMLButtonElement>findSingle(this.el.nativeElement, '[data-pc-name="pccolumnfilterbutton"]');
             appendChild(this.document.body, this.overlay);
@@ -6156,7 +6155,7 @@ export class ColumnFilter extends BaseComponent {
         this.focusOnFirstElement();
     }
 
-    onOverlayAnimationAfterLeave(event: MotionEvent) {
+    onOverlayAnimationAfterLeave(event: MotionEvent | undefined) {
         this.restoreOverlayAppend();
         this.onOverlayHide();
         this.renderOverlay.set(false);
@@ -6338,7 +6337,7 @@ export class ColumnFilter extends BaseComponent {
                 *ngTemplateOutlet="
                     filterTemplate();
                     context: {
-                        $implicit: filterConstraint().value,
+                        $implicit: filterConstraint()?.value,
                         filterCallback: filterCallback,
                         type: type(),
                         field: field(),
@@ -6367,7 +6366,7 @@ export class ColumnFilter extends BaseComponent {
                         [pt]="ptm('pcFilterInputText')"
                         [value]="filterConstraint()?.value"
                         (input)="onModelChange($event.target.value)"
-                        (keydown.enter)="onTextInputEnterKeyDown($event)"
+                        (keydown.enter)="onTextInputEnterKeyDown($any($event))"
                         [attr.placeholder]="placeholder()"
                         [unstyled]="unstyled()"
                     />
