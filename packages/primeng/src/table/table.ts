@@ -5,9 +5,12 @@ import {
     ChangeDetectorRef,
     Component,
     computed,
+    contentChild,
+    contentChildren,
     ContentChild,
     ContentChildren,
     Directive,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -16,15 +19,20 @@ import {
     InjectionToken,
     input,
     Input,
+    linkedSignal,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
     Optional,
     Output,
+    output,
     QueryList,
     signal,
     SimpleChanges,
     TemplateRef,
+    untracked,
+    viewChild,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -3596,22 +3604,23 @@ export class RowGroupHeader extends BaseComponent {
     providers: [TableStyle]
 })
 export class FrozenColumn extends BaseComponent {
-    @Input() get frozen(): boolean {
-        return this._frozen;
-    }
+    frozen = input<boolean>(true);
 
-    set frozen(val: boolean) {
-        this._frozen = val;
-        Promise.resolve(null).then(() => this.updateStickyPosition());
-    }
-
-    @Input() alignFrozen: string = 'left';
+    alignFrozen = input<string>('left');
 
     resizeListener: VoidListener;
 
     private resizeObserver?: ResizeObserver;
 
     _componentStyle = inject(TableStyle);
+
+    constructor() {
+        super();
+        effect(() => {
+            this.frozen();
+            Promise.resolve(null).then(() => this.updateStickyPosition());
+        });
+    }
 
     onAfterViewInit() {
         this.bindResizeListener();
@@ -3656,11 +3665,9 @@ export class FrozenColumn extends BaseComponent {
         }, time);
     }
 
-    _frozen: boolean = true;
-
     updateStickyPosition() {
-        if (this._frozen) {
-            if (this.alignFrozen === 'right') {
+        if (this.frozen()) {
+            if (this.alignFrozen() === 'right') {
                 let right = 0;
                 let sibling = this.el.nativeElement.nextElementSibling;
                 while (sibling) {
@@ -3710,9 +3717,9 @@ export class FrozenColumn extends BaseComponent {
     providers: [TableStyle]
 })
 export class SortableColumn extends BaseComponent {
-    @Input('vxSortableColumn') field: string | undefined;
+    field = input<string | undefined>(undefined, { alias: 'vxSortableColumn' });
 
-    @Input({ transform: booleanAttribute }) vxSortableColumnDisabled: boolean | undefined;
+    vxSortableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
     role = this.el.nativeElement?.tagName !== 'TH' ? 'columnheader' : null;
 
@@ -3742,10 +3749,10 @@ export class SortableColumn extends BaseComponent {
         let sortOrder = 0;
 
         if (this.dataTable.sortMode === 'single') {
-            sorted = this.dataTable.isSorted(<string>this.field) as boolean;
+            sorted = this.dataTable.isSorted(<string>this.field()) as boolean;
             sortOrder = this.dataTable.sortOrder;
         } else if (this.dataTable.sortMode === 'multiple') {
-            const sortMeta = this.dataTable.getSortMeta(<string>this.field);
+            const sortMeta = this.dataTable.getSortMeta(<string>this.field());
             sorted = !!sortMeta;
             sortOrder = sortMeta ? sortMeta.order : 0;
         }
@@ -3758,7 +3765,7 @@ export class SortableColumn extends BaseComponent {
             this.updateSortState();
             this.dataTable.sort({
                 originalEvent: event,
-                field: this.field
+                field: this.field()
             });
 
             DomHandler.clearSelection();
@@ -3771,7 +3778,7 @@ export class SortableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxSortableColumnDisabled !== true;
+        return this.vxSortableColumnDisabled() !== true;
     }
 
     isFilterElement(element: HTMLElement) {
@@ -3888,11 +3895,11 @@ export class SortIcon extends BaseComponent {
     providers: [TableStyle]
 })
 export class SelectableRow extends BaseComponent {
-    @Input('vxSelectableRow') data: any;
+    data = input<any>(undefined, { alias: 'vxSelectableRow' });
 
-    @Input('vxSelectableRowIndex') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'vxSelectableRowIndex' });
 
-    @Input({ transform: booleanAttribute }) vxSelectableRowDisabled: boolean | undefined;
+    vxSelectableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     selected: boolean | undefined;
 
@@ -3905,28 +3912,28 @@ export class SelectableRow extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
-                this.selected = this.dataTable.isSelected(this.data);
+                this.selected = this.dataTable.isSelected(this.data());
             });
         }
     }
 
     setRowTabIndex() {
         if (this.dataTable.selectionMode === 'single' || this.dataTable.selectionMode === 'multiple') {
-            return !this.dataTable.selection ? 0 : this.dataTable.anchorRowIndex === this.index ? 0 : -1;
+            return !this.dataTable.selection ? 0 : this.dataTable.anchorRowIndex === this.index() ? 0 : -1;
         }
     }
 
     onInit() {
         if (this.isEnabled()) {
-            this.selected = this.dataTable.isSelected(this.data);
+            this.selected = this.dataTable.isSelected(this.data());
         }
     }
     onClick(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.handleRowClick({
                 originalEvent: event,
-                rowData: this.data,
-                rowIndex: this.index
+                rowData: this.data(),
+                rowIndex: this.index()
             });
         }
     }
@@ -4010,8 +4017,8 @@ export class SelectableRow extends BaseComponent {
 
         this.dataTable.handleRowClick({
             originalEvent: event,
-            rowData: this.data,
-            rowIndex: this.index
+            rowData: this.data(),
+            rowIndex: this.index()
         });
     }
 
@@ -4024,8 +4031,8 @@ export class SelectableRow extends BaseComponent {
             const lastSelectableRowIndex = DomHandler.getAttribute(lastRow, 'index');
 
             this.dataTable.anchorRowIndex = lastSelectableRowIndex;
-            this.dataTable.selection = data.slice(this.index || 0, data.length);
-            this.dataTable.selectRange(event, this.index || 0);
+            this.dataTable.selection = data.slice(this.index() || 0, data.length);
+            this.dataTable.selectRange(event, this.index() || 0);
         }
         event.preventDefault();
     }
@@ -4040,8 +4047,8 @@ export class SelectableRow extends BaseComponent {
             const firstSelectableRowIndex = DomHandler.getAttribute(firstRow, 'index');
 
             this.dataTable.anchorRowIndex = this.dataTable.anchorRowIndex || firstSelectableRowIndex || 0;
-            this.dataTable.selection = data.slice(0, (this.index || 0) + 1);
-            this.dataTable.selectRange(event, this.index || 0);
+            this.dataTable.selection = data.slice(0, (this.index() || 0) + 1);
+            this.dataTable.selectRange(event, this.index() || 0);
         }
         event.preventDefault();
     }
@@ -4062,14 +4069,14 @@ export class SelectableRow extends BaseComponent {
                     firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dataTable.selection[0], data);
                     lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dataTable.selection[this.dataTable.selection.length - 1], data);
 
-                    index = (this.index || 0) <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                    index = (this.index() || 0) <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
                 } else {
                     index = ObjectUtils.findIndexInList(this.dataTable.selection, data);
                 }
 
                 this.dataTable.anchorRowIndex = index || 0;
-                this.dataTable.selection = index !== this.index ? data.slice(Math.min(index || 0, this.index || 0), Math.max(index || 0, this.index || 0) + 1) : [this.data];
-                this.dataTable.selectRange(event, this.index || 0);
+                this.dataTable.selection = index !== this.index() ? data.slice(Math.min(index || 0, this.index() || 0), Math.max(index || 0, this.index() || 0) + 1) : [this.data()];
+                this.dataTable.selectRange(event, this.index() || 0);
             }
 
             event.preventDefault();
@@ -4116,7 +4123,7 @@ export class SelectableRow extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxSelectableRowDisabled !== true;
+        return this.vxSelectableRowDisabled() !== true;
     }
 }
 
@@ -4129,11 +4136,11 @@ export class SelectableRow extends BaseComponent {
     providers: [TableStyle]
 })
 export class SelectableRowDblClick extends BaseComponent {
-    @Input('vxSelectableRowDblClick') data: any;
+    data = input<any>(undefined, { alias: 'vxSelectableRowDblClick' });
 
-    @Input('vxSelectableRowIndex') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'vxSelectableRowIndex' });
 
-    @Input({ transform: booleanAttribute }) vxSelectableRowDisabled: boolean | undefined;
+    vxSelectableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     selected: boolean | undefined;
 
@@ -4146,28 +4153,28 @@ export class SelectableRowDblClick extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
-                this.selected = this.dataTable.isSelected(this.data);
+                this.selected = this.dataTable.isSelected(this.data());
             });
         }
     }
 
     onInit() {
         if (this.isEnabled()) {
-            this.selected = this.dataTable.isSelected(this.data);
+            this.selected = this.dataTable.isSelected(this.data());
         }
     }
     onClick(event: Event) {
         if (this.isEnabled()) {
             this.dataTable.handleRowClick({
                 originalEvent: event,
-                rowData: this.data,
-                rowIndex: this.index
+                rowData: this.data(),
+                rowIndex: this.index()
             });
         }
     }
 
     isEnabled() {
-        return this.vxSelectableRowDisabled !== true;
+        return this.vxSelectableRowDisabled() !== true;
     }
 }
 
@@ -4181,11 +4188,11 @@ export class SelectableRowDblClick extends BaseComponent {
     providers: [TableStyle]
 })
 export class ContextMenuRow extends BaseComponent {
-    @Input('vxContextMenuRow') data: any;
+    data = input<any>(undefined, { alias: 'vxContextMenuRow' });
 
-    @Input('vxContextMenuRowIndex') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'vxContextMenuRowIndex' });
 
-    @Input({ transform: booleanAttribute }) vxContextMenuRowDisabled: boolean | undefined;
+    vxContextMenuRowDisabled = input(undefined, { transform: booleanAttribute });
 
     selected: boolean | undefined;
 
@@ -4198,7 +4205,7 @@ export class ContextMenuRow extends BaseComponent {
         super();
         if (this.isEnabled()) {
             this.dataTable.tableService.contextMenuSource$.pipe(takeUntilDestroyed()).subscribe((data) => {
-                this.selected = data ? this.dataTable.equals(this.data, data) : false;
+                this.selected = data ? this.dataTable.equals(this.data(), data) : false;
             });
         }
     }
@@ -4206,8 +4213,8 @@ export class ContextMenuRow extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.handleRowRightClick({
                 originalEvent: event,
-                rowData: this.data,
-                rowIndex: this.index
+                rowData: this.data(),
+                rowIndex: this.index()
             });
 
             this.el.nativeElement.focus();
@@ -4216,7 +4223,7 @@ export class ContextMenuRow extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxContextMenuRowDisabled !== true;
+        return this.vxContextMenuRowDisabled() !== true;
     }
 }
 
@@ -4227,22 +4234,22 @@ export class ContextMenuRow extends BaseComponent {
     }
 })
 export class RowToggler extends BaseComponent {
-    @Input('vxRowToggler') data: any;
+    data = input<any>(undefined, { alias: 'vxRowToggler' });
 
-    @Input({ transform: booleanAttribute }) vxRowTogglerDisabled: boolean | undefined;
+    vxRowTogglerDisabled = input(undefined, { transform: booleanAttribute });
 
     constructor(public dataTable: Table) {
         super();
     }
     onClick(event: Event) {
         if (this.isEnabled()) {
-            this.dataTable.toggleRow(this.data, event);
+            this.dataTable.toggleRow(this.data(), event);
             event.preventDefault();
         }
     }
 
     isEnabled() {
-        return this.vxRowTogglerDisabled !== true;
+        return this.vxRowTogglerDisabled() !== true;
     }
 }
 
@@ -4254,7 +4261,7 @@ export class RowToggler extends BaseComponent {
     providers: [TableStyle]
 })
 export class ResizableColumn extends BaseComponent {
-    @Input({ transform: booleanAttribute }) vxResizableColumnDisabled: boolean | undefined;
+    vxResizableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
     resizer: HTMLSpanElement | undefined;
 
@@ -4353,7 +4360,7 @@ export class ResizableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxResizableColumnDisabled !== true;
+        return this.vxResizableColumnDisabled() !== true;
     }
 
     onDestroy() {
@@ -4375,7 +4382,7 @@ export class ResizableColumn extends BaseComponent {
     providers: [TableStyle]
 })
 export class ReorderableColumn extends BaseComponent {
-    @Input({ transform: booleanAttribute }) vxReorderableColumnDisabled: boolean | undefined;
+    vxReorderableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
     dragStartListener: VoidListener;
 
@@ -4473,7 +4480,7 @@ export class ReorderableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxReorderableColumnDisabled !== true;
+        return this.vxReorderableColumnDisabled() !== true;
     }
 
     onDestroy() {
@@ -4498,15 +4505,15 @@ export class ReorderableColumn extends BaseComponent {
     }
 })
 export class EditableColumn extends BaseComponent {
-    @Input('vxEditableColumn') data: any;
+    data = input<any>(undefined, { alias: 'vxEditableColumn' });
 
-    @Input('vxEditableColumnField') field: any;
+    field = input<any>(undefined, { alias: 'vxEditableColumnField' });
 
-    @Input('vxEditableColumnRowIndex') rowIndex: number | undefined;
+    rowIndex = input<number | undefined>(undefined, { alias: 'vxEditableColumnRowIndex' });
 
-    @Input({ transform: booleanAttribute }) vxEditableColumnDisabled: boolean | undefined;
+    vxEditableColumnDisabled = input(undefined, { transform: booleanAttribute });
 
-    @Input() vxFocusCellSelector: string | undefined;
+    vxFocusCellSelector = input<string | undefined>(undefined);
 
     overlayEventListener: any;
 
@@ -4519,7 +4526,7 @@ export class EditableColumn extends BaseComponent {
 
     public onChanges(changes: SimpleChanges): void {
         if (this.el.nativeElement && !changes.data?.firstChange) {
-            this.dataTable.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
+            this.dataTable.updateEditingCell(this.el.nativeElement, this.data(), this.field(), <number>this.rowIndex());
         }
     }
 
@@ -4548,18 +4555,18 @@ export class EditableColumn extends BaseComponent {
     }
 
     openCell() {
-        this.dataTable.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
+        this.dataTable.updateEditingCell(this.el.nativeElement, this.data(), this.field(), <number>this.rowIndex());
         !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'true');
 
         this.dataTable.onEditInit.emit({
-            field: this.field,
-            data: this.data,
-            index: <number>this.rowIndex
+            field: this.field(),
+            data: this.data(),
+            index: <number>this.rowIndex()
         });
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                let focusCellSelector = this.vxFocusCellSelector || 'input, textarea, select';
+                let focusCellSelector = this.vxFocusCellSelector() || 'input, textarea, select';
                 let focusableElement = DomHandler.findSingle(this.el.nativeElement, focusCellSelector);
 
                 if (focusableElement) {
@@ -4591,7 +4598,7 @@ export class EditableColumn extends BaseComponent {
             this.dataTable.onEditCancel.emit(eventData);
 
             this.dataTable.value.forEach((element) => {
-                if (element[this.dataTable.editingCellField] === this.data) {
+                if (element[this.dataTable.editingCellField] === this.data()) {
                     element[this.dataTable.editingCellField] = this.dataTable.editingCellData;
                 }
             });
@@ -4814,7 +4821,7 @@ export class EditableColumn extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxEditableColumnDisabled !== true;
+        return this.vxEditableColumnDisabled() !== true;
     }
 
     onDestroy() {
@@ -4828,12 +4835,12 @@ export class EditableColumn extends BaseComponent {
     selector: '[vxEditableRow]'
 })
 export class EditableRow extends BaseComponent {
-    @Input('vxEditableRow') data: any;
+    data = input<any>(undefined, { alias: 'vxEditableRow' });
 
-    @Input({ transform: booleanAttribute }) vxEditableRowDisabled: boolean | undefined;
+    vxEditableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     isEnabled() {
-        return this.vxEditableRowDisabled !== true;
+        return this.vxEditableRowDisabled() !== true;
     }
 }
 
@@ -4852,7 +4859,7 @@ export class InitEditableRow extends BaseComponent {
         super();
     }
     onClick(event: Event) {
-        this.dataTable.initRowEdit(this.editableRow.data);
+        this.dataTable.initRowEdit(this.editableRow.data());
         event.preventDefault();
     }
 }
@@ -4872,7 +4879,7 @@ export class SaveEditableRow extends BaseComponent {
         super();
     }
     onClick(event: Event) {
-        this.dataTable.saveRowEdit(this.editableRow.data, this.editableRow.el.nativeElement);
+        this.dataTable.saveRowEdit(this.editableRow.data(), this.editableRow.el.nativeElement);
         event.preventDefault();
     }
 }
@@ -4894,7 +4901,7 @@ export class CancelEditableRow extends BaseComponent {
     }
     _componentStyle = inject(TableStyle);
     onClick(event: Event) {
-        this.dataTable.cancelRowEdit(this.editableRow.data);
+        this.dataTable.cancelRowEdit(this.editableRow.data());
         event.preventDefault();
     }
 }
@@ -4948,7 +4955,7 @@ export class CellEditor extends BaseComponent {
 
     get editing(): boolean {
         return (
-            (this.dataTable.editingCell && this.editableColumn && this.dataTable.editingCell === this.editableColumn.el.nativeElement) || (this.editableRow && this.dataTable.editMode === 'row' && this.dataTable.isRowEditing(this.editableRow.data))
+            (this.dataTable.editingCell && this.editableColumn && this.dataTable.editingCell === this.editableColumn.el.nativeElement) || (this.editableRow && this.dataTable.editMode === 'row' && this.dataTable.isRowEditing(this.editableRow.data()))
         );
     }
 }
@@ -5190,9 +5197,9 @@ export class ReorderableRow extends BaseComponent {
         this.bindDirectiveInstance.setAttrs(this.ptm('reorderableRow'));
     }
 
-    @Input('vxReorderableRow') index: number | undefined;
+    index = input<number | undefined>(undefined, { alias: 'vxReorderableRow' });
 
-    @Input({ transform: booleanAttribute }) vxReorderableRowDisabled: boolean | undefined;
+    vxReorderableRowDisabled = input(undefined, { transform: booleanAttribute });
 
     mouseDownListener: VoidListener;
 
@@ -5280,7 +5287,7 @@ export class ReorderableRow extends BaseComponent {
     }
 
     onDragStart(event: DragEvent) {
-        this.dataTable.onRowDragStart(event, <number>this.index);
+        this.dataTable.onRowDragStart(event, <number>this.index());
     }
 
     onDragEnd(event: DragEvent) {
@@ -5289,7 +5296,7 @@ export class ReorderableRow extends BaseComponent {
     }
 
     onDragOver(event: DragEvent) {
-        this.dataTable.onRowDragOver(event, <number>this.index, this.el.nativeElement);
+        this.dataTable.onRowDragOver(event, <number>this.index(), this.el.nativeElement);
         event.preventDefault();
     }
 
@@ -5298,7 +5305,7 @@ export class ReorderableRow extends BaseComponent {
     }
 
     isEnabled() {
-        return this.vxReorderableRowDisabled !== true;
+        return this.vxReorderableRowDisabled() !== true;
     }
     onDrop(event: DragEvent) {
         if (this.isEnabled() && this.dataTable.rowDragging) {
