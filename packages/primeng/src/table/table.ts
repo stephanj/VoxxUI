@@ -3266,8 +3266,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     imports: [CommonModule],
     template: `
         @if (!dataTable.expandedRowTemplate && !dataTable._expandedRowTemplate) {
-            @for (rowData of value; track dataTable.rowTrackBy(rowIndex, rowData); let rowIndex = $index) {
-                @if ((dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate) && !dataTable.virtualScroll && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))) {
+            @for (rowData of value(); track dataTable.rowTrackBy(rowIndex, rowData); let rowIndex = $index) {
+                @if ((dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate) && !dataTable.virtualScroll && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value(), rowData, getRowIndex(rowIndex))) {
                     <ng-container role="row">
                         <ng-container
                             *ngTemplateOutlet="
@@ -3275,9 +3275,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                                 context: {
                                     $implicit: rowData,
                                     rowIndex: getRowIndex(rowIndex),
-                                    columns: columns,
+                                    columns: columns(),
                                     editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                    frozen: frozen
+                                    frozen: frozen()
                                 }
                             "
                         ></ng-container>
@@ -3286,13 +3286,13 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 @if (dataTable.rowGroupMode !== 'rowspan') {
                     <ng-container
                         *ngTemplateOutlet="
-                            rowData ? template : dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate;
+                            rowData ? template() : dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate;
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
+                                columns: columns(),
                                 editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen()
                             }
                         "
                     ></ng-container>
@@ -3300,20 +3300,20 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 @if (dataTable.rowGroupMode === 'rowspan') {
                     <ng-container
                         *ngTemplateOutlet="
-                            rowData ? template : dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate;
+                            rowData ? template() : dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate;
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
+                                columns: columns(),
                                 editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen,
-                                rowgroup: shouldRenderRowspan(value, rowData, rowIndex),
-                                rowspan: calculateRowGroupSize(value, rowData, rowIndex)
+                                frozen: frozen(),
+                                rowgroup: shouldRenderRowspan(value(), rowData, rowIndex),
+                                rowspan: calculateRowGroupSize(value(), rowData, rowIndex)
                             }
                         "
                     ></ng-container>
                 }
-                @if ((dataTable.groupFooterTemplate || dataTable._groupFooterTemplate) && !dataTable.virtualScroll && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))) {
+                @if ((dataTable.groupFooterTemplate || dataTable._groupFooterTemplate) && !dataTable.virtualScroll && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value(), rowData, getRowIndex(rowIndex))) {
                     <ng-container role="row">
                         <ng-container
                             *ngTemplateOutlet="
@@ -3321,9 +3321,9 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                                 context: {
                                     $implicit: rowData,
                                     rowIndex: getRowIndex(rowIndex),
-                                    columns: columns,
+                                    columns: columns(),
                                     editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                    frozen: frozen
+                                    frozen: frozen()
                                 }
                             "
                         ></ng-container>
@@ -3331,24 +3331,24 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 }
             }
         }
-        @if ((dataTable.expandedRowTemplate || dataTable._expandedRowTemplate) && !(frozen && (dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate))) {
-            @for (rowData of value; track dataTable.rowTrackBy(rowIndex, rowData); let rowIndex = $index) {
+        @if ((dataTable.expandedRowTemplate || dataTable._expandedRowTemplate) && !(frozen() && (dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate))) {
+            @for (rowData of value(); track dataTable.rowTrackBy(rowIndex, rowData); let rowIndex = $index) {
                 @if (!(dataTable.groupHeaderTemplate && dataTable._groupHeaderTemplate)) {
                     <ng-container
                         *ngTemplateOutlet="
-                            template;
+                            template();
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
+                                columns: columns(),
                                 expanded: dataTable.isRowExpanded(rowData),
                                 editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                frozen: frozen
+                                frozen: frozen()
                             }
                         "
                     ></ng-container>
                 }
-                @if ((dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate) && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value, rowData, getRowIndex(rowIndex))) {
+                @if ((dataTable.groupHeaderTemplate || dataTable._groupHeaderTemplate) && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupHeader(value(), rowData, getRowIndex(rowIndex))) {
                     <ng-container role="row">
                         <ng-container
                             *ngTemplateOutlet="
@@ -3356,10 +3356,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                                 context: {
                                     $implicit: rowData,
                                     rowIndex: getRowIndex(rowIndex),
-                                    columns: columns,
+                                    columns: columns(),
                                     expanded: dataTable.isRowExpanded(rowData),
                                     editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                    frozen: frozen
+                                    frozen: frozen()
                                 }
                             "
                         ></ng-container>
@@ -3372,12 +3372,12 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                frozen: frozen
+                                columns: columns(),
+                                frozen: frozen()
                             }
                         "
                     ></ng-container>
-                    @if ((dataTable.groupFooterTemplate || dataTable._groupFooterTemplate) && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value, rowData, getRowIndex(rowIndex))) {
+                    @if ((dataTable.groupFooterTemplate || dataTable._groupFooterTemplate) && dataTable.rowGroupMode === 'subheader' && shouldRenderRowGroupFooter(value(), rowData, getRowIndex(rowIndex))) {
                         <ng-container role="row">
                             <ng-container
                                 *ngTemplateOutlet="
@@ -3385,10 +3385,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                                     context: {
                                         $implicit: rowData,
                                         rowIndex: getRowIndex(rowIndex),
-                                        columns: columns,
+                                        columns: columns(),
                                         expanded: dataTable.isRowExpanded(rowData),
                                         editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                                        frozen: frozen
+                                        frozen: frozen()
                                     }
                                 "
                             ></ng-container>
@@ -3397,18 +3397,18 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 }
             }
         }
-        @if ((dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate) && frozen) {
-            @for (rowData of value; track dataTable.rowTrackBy(rowIndex, rowData); let rowIndex = $index) {
+        @if ((dataTable.frozenExpandedRowTemplate || dataTable._frozenExpandedRowTemplate) && frozen()) {
+            @for (rowData of value(); track dataTable.rowTrackBy(rowIndex, rowData); let rowIndex = $index) {
                 <ng-container
                     *ngTemplateOutlet="
-                        template;
+                        template();
                         context: {
                             $implicit: rowData,
                             rowIndex: getRowIndex(rowIndex),
-                            columns: columns,
+                            columns: columns(),
                             expanded: dataTable.isRowExpanded(rowData),
                             editing: dataTable.editMode === 'row' && dataTable.isRowEditing(rowData),
-                            frozen: frozen
+                            frozen: frozen()
                         }
                     "
                 ></ng-container>
@@ -3419,8 +3419,8 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                             context: {
                                 $implicit: rowData,
                                 rowIndex: getRowIndex(rowIndex),
-                                columns: columns,
-                                frozen: frozen
+                                columns: columns(),
+                                frozen: frozen()
                             }
                         "
                     ></ng-container>
@@ -3428,10 +3428,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             }
         }
         @if (dataTable.loading) {
-            <ng-container *ngTemplateOutlet="dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
+            <ng-container *ngTemplateOutlet="dataTable.loadingBodyTemplate || dataTable._loadingBodyTemplate; context: { $implicit: columns(), frozen: frozen() }"></ng-container>
         }
         @if (dataTable.isEmpty() && !dataTable.loading) {
-            <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate || dataTable._emptyMessageTemplate; context: { $implicit: columns, frozen: frozen }"></ng-container>
+            <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate || dataTable._emptyMessageTemplate; context: { $implicit: columns(), frozen: frozen() }"></ng-container>
         }
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -3443,34 +3443,20 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 export class TableBody extends BaseComponent {
     hostName = 'Table';
 
-    @Input('vxTableBody') columns: any[] | undefined;
+    columns = input<any[] | undefined>(undefined, { alias: 'vxTableBody' });
 
-    @Input('vxTableBodyTemplate') template: Nullable<TemplateRef<any>>;
+    template = input<Nullable<TemplateRef<any>>>(undefined, { alias: 'vxTableBodyTemplate' });
 
-    @Input() get value(): any[] | undefined {
-        return this._value;
-    }
-    set value(val: any[] | undefined) {
-        this._value = val;
-        if (this.frozenRows) {
-            this.updateFrozenRowStickyPosition();
-        }
+    value = input<any[] | undefined>(undefined, { alias: 'value' });
 
-        if (this.dataTable.scrollable && this.dataTable.rowGroupMode === 'subheader') {
-            this.updateFrozenRowGroupHeaderStickyPosition();
-        }
-    }
+    frozen = input(undefined, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
+    frozenRows = input(undefined, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) frozenRows: boolean | undefined;
-
-    @Input() scrollerOptions: any;
-
-    _value: any[] | undefined;
+    scrollerOptions = input<any>();
 
     onAfterViewInit() {
-        if (this.frozenRows) {
+        if (this.frozenRows()) {
             this.updateFrozenRowStickyPosition();
         }
 
@@ -3488,6 +3474,20 @@ export class TableBody extends BaseComponent {
             if (this.dataTable.virtualScroll) {
                 this.cd.detectChanges();
             }
+        });
+
+        // Former `value` setter side effect (#19): reposition frozen rows / group header on value change.
+        effect(() => {
+            this.value();
+            untracked(() => {
+                if (this.frozenRows()) {
+                    this.updateFrozenRowStickyPosition();
+                }
+
+                if (this.dataTable.scrollable && this.dataTable.rowGroupMode === 'subheader') {
+                    this.updateFrozenRowGroupHeaderStickyPosition();
+                }
+            });
         });
     }
 
@@ -3555,7 +3555,7 @@ export class TableBody extends BaseComponent {
 
     getScrollerOption(option: any, options?: any) {
         if (this.dataTable.virtualScroll) {
-            options = options || this.scrollerOptions;
+            options = options || this.scrollerOptions();
             return options ? options[option] : null;
         }
 
@@ -3571,7 +3571,7 @@ export class TableBody extends BaseComponent {
     get dataP() {
         return this.cn({
             hoverable: this.dataTable.rowHover || this.dataTable.selectionMode,
-            frozen: this.frozen
+            frozen: this.frozen()
         });
     }
 }
