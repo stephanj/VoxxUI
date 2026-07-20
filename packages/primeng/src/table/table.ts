@@ -10,6 +10,7 @@ import {
     Directive,
     ElementRef,
     EventEmitter,
+    forwardRef,
     inject,
     Injectable,
     InjectionToken,
@@ -127,7 +128,7 @@ export class TableService {
  */
 @Component({
     selector: 'vx-table',
-    standalone: false,
+    imports: [CommonModule, SharedModule, PaginatorModule, ScrollerModule, forwardRef(() => TableBody), Bind, SpinnerIcon, ArrowDownIcon, ArrowUpIcon],
     template: `
         <div [class]="cx('mask')" [vxBind]="ptm('mask')" *ngIf="loading && showLoader" animate.enter="p-overlay-mask-enter-active" animate.leave="p-overlay-mask-leave-active">
             <i *ngIf="loadingIcon" [class]="cn(cx('loadingIcon'), loadingIcon)" [vxBind]="ptm('loadingIcon')"></i>
@@ -3213,7 +3214,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
 @Component({
     selector: '[vxTableBody]',
-    standalone: false,
+    imports: [CommonModule],
     template: `
         <ng-container *ngIf="!dataTable.expandedRowTemplate && !dataTable._expandedRowTemplate">
             <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="value" [ngForTrackBy]="dataTable.rowTrackBy">
@@ -3526,7 +3527,6 @@ export class TableBody extends BaseComponent {
 
 @Directive({
     selector: '[vxRowGroupHeader]',
-    standalone: false,
     host: {
         '[class]': 'cx("rowGroupHeader")',
         '[style]': 'sx("rowGroupHeader")'
@@ -3547,7 +3547,6 @@ export class RowGroupHeader extends BaseComponent {
 
 @Directive({
     selector: '[vxFrozenColumn]',
-    standalone: false,
     host: {
         '[class]': 'cx("frozenColumn")'
     },
@@ -3656,7 +3655,6 @@ export class FrozenColumn extends BaseComponent {
 }
 @Directive({
     selector: '[vxSortableColumn]',
-    standalone: false,
     host: {
         '[class]': "cx('sortableColumn')",
         '[tabindex]': 'isEnabled() ? "0" : null',
@@ -3744,7 +3742,7 @@ export class SortableColumn extends BaseComponent {
 
 @Component({
     selector: 'vx-sortIcon',
-    standalone: false,
+    imports: [CommonModule, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, BadgeModule],
     template: `
         <ng-container *ngIf="!(dataTable.sortIconTemplate || dataTable._sortIconTemplate)">
             <svg data-p-icon="sort-alt" [class]="cx('sortableColumnIcon')" *ngIf="sortOrder === 0" />
@@ -3826,7 +3824,6 @@ export class SortIcon extends BaseComponent {
 
 @Directive({
     selector: '[vxSelectableRow]',
-    standalone: false,
     host: {
         '[class]': "cx('selectableRow')",
         '[tabindex]': 'setRowTabIndex()',
@@ -4072,7 +4069,6 @@ export class SelectableRow extends BaseComponent {
 
 @Directive({
     selector: '[vxSelectableRowDblClick]',
-    standalone: false,
     host: {
         '[class]': 'cx("selectableRow")',
         '(dblclick)': 'onClick($event)'
@@ -4124,7 +4120,6 @@ export class SelectableRowDblClick extends BaseComponent {
 
 @Directive({
     selector: '[vxContextMenuRow]',
-    standalone: false,
     host: {
         '[class]': 'cx("contextMenuRowSelected")',
         '[attr.tabindex]': 'isEnabled() ? 0 : undefined',
@@ -4174,7 +4169,6 @@ export class ContextMenuRow extends BaseComponent {
 
 @Directive({
     selector: '[vxRowToggler]',
-    standalone: false,
     host: {
         '(click)': 'onClick($event)'
     }
@@ -4201,7 +4195,6 @@ export class RowToggler extends BaseComponent {
 
 @Directive({
     selector: '[vxResizableColumn]',
-    standalone: false,
     host: {
         '[class]': "cx('resizableColumn')"
     },
@@ -4322,7 +4315,6 @@ export class ResizableColumn extends BaseComponent {
 
 @Directive({
     selector: '[vxReorderableColumn]',
-    standalone: false,
     host: {
         '[class]': "cx('reorderableColumn')",
         '(drop)': 'onDrop($event)'
@@ -4438,7 +4430,6 @@ export class ReorderableColumn extends BaseComponent {
 
 @Directive({
     selector: '[vxEditableColumn]',
-    standalone: false,
     host: {
         '[attr.data-p-editable-column]': 'true',
         '(click)': 'onClick($event)',
@@ -4781,8 +4772,7 @@ export class EditableColumn extends BaseComponent {
 }
 
 @Directive({
-    selector: '[vxEditableRow]',
-    standalone: false
+    selector: '[vxEditableRow]'
 })
 export class EditableRow extends BaseComponent {
     @Input('vxEditableRow') data: any;
@@ -4796,7 +4786,6 @@ export class EditableRow extends BaseComponent {
 
 @Directive({
     selector: '[vxInitEditableRow]',
-    standalone: false,
     host: {
         class: 'p-datatable-row-editor-init',
         '(click)': 'onClick($event)'
@@ -4817,7 +4806,6 @@ export class InitEditableRow extends BaseComponent {
 
 @Directive({
     selector: '[vxSaveEditableRow]',
-    standalone: false,
     host: {
         class: 'p-datatable-row-editor-save',
         '(click)': 'onClick($event)'
@@ -4838,7 +4826,6 @@ export class SaveEditableRow extends BaseComponent {
 
 @Directive({
     selector: '[vxCancelEditableRow]',
-    standalone: false,
     host: {
         '[class]': "cx('rowEditorCancel')",
         '(click)': 'onClick($event)'
@@ -4862,7 +4849,7 @@ export class CancelEditableRow extends BaseComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-cellEditor',
-    standalone: false,
+    imports: [CommonModule],
     template: `
         <ng-container *ngIf="editing">
             <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate"></ng-container>
@@ -4915,7 +4902,7 @@ export class CellEditor extends BaseComponent {
 
 @Component({
     selector: 'vx-tableRadioButton',
-    standalone: false,
+    imports: [RadioButtonModule, FormsModule],
     template: `<vx-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
@@ -4969,7 +4956,7 @@ export class TableRadioButton extends BaseComponent {
 
 @Component({
     selector: 'vx-tableCheckbox',
-    standalone: false,
+    imports: [CommonModule, CheckboxModule, FormsModule, SharedModule],
     template: `
         <vx-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate || dataTable._checkboxIconTemplate; as template) {
@@ -5027,7 +5014,7 @@ export class TableCheckbox extends BaseComponent {
 
 @Component({
     selector: 'vx-tableHeaderCheckbox',
-    standalone: false,
+    imports: [CommonModule, CheckboxModule, FormsModule, SharedModule],
     template: `
         <vx-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.headerCheckboxIconTemplate || dataTable._headerCheckboxIconTemplate; as template) {
@@ -5108,7 +5095,6 @@ export class TableHeaderCheckbox extends BaseComponent {
 
 @Directive({
     selector: '[vxReorderableRowHandle]',
-    standalone: false,
     host: {
         '[class]': "cx('reorderableRowHandle')"
     },
@@ -5137,7 +5123,6 @@ export class ReorderableRowHandle extends BaseComponent {
 
 @Directive({
     selector: '[vxReorderableRow]',
-    standalone: false,
     host: {
         '(drop)': 'onDrop($event)'
     },
@@ -5281,7 +5266,7 @@ export class ReorderableRow extends BaseComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-columnFilter, vx-column-filter, vx-columnfilter',
-    standalone: false,
+    imports: [CommonModule, FormsModule, ButtonModule, SelectModule, MotionModule, Bind, forwardRef(() => ColumnFilterFormElement), FilterIcon, FilterFillIcon, TrashIcon, PlusIcon],
     template: `
         <div [class]="cx('filter')">
             <vx-columnFilterFormElement
@@ -6264,7 +6249,7 @@ export class ColumnFilter extends BaseComponent {
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-columnFilterFormElement',
-    standalone: false,
+    imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule],
     template: `
         <ng-container *ngIf="filterTemplate; else builtInElement">
             <ng-container
@@ -6466,7 +6451,32 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
         TrashIcon,
         RadioButtonModule,
         BindModule,
-        MotionModule
+        MotionModule,
+        Table,
+        SortableColumn,
+        FrozenColumn,
+        RowGroupHeader,
+        SelectableRow,
+        RowToggler,
+        ContextMenuRow,
+        ResizableColumn,
+        ReorderableColumn,
+        EditableColumn,
+        CellEditor,
+        TableBody,
+        SortIcon,
+        TableRadioButton,
+        TableCheckbox,
+        TableHeaderCheckbox,
+        ReorderableRowHandle,
+        ReorderableRow,
+        SelectableRowDblClick,
+        EditableRow,
+        InitEditableRow,
+        SaveEditableRow,
+        CancelEditableRow,
+        ColumnFilter,
+        ColumnFilterFormElement
     ],
     exports: [
         Table,
@@ -6495,33 +6505,6 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
         ColumnFilter,
         ColumnFilterFormElement,
         ScrollerModule
-    ],
-    declarations: [
-        Table,
-        SortableColumn,
-        FrozenColumn,
-        RowGroupHeader,
-        SelectableRow,
-        RowToggler,
-        ContextMenuRow,
-        ResizableColumn,
-        ReorderableColumn,
-        EditableColumn,
-        CellEditor,
-        TableBody,
-        SortIcon,
-        TableRadioButton,
-        TableCheckbox,
-        TableHeaderCheckbox,
-        ReorderableRowHandle,
-        ReorderableRow,
-        SelectableRowDblClick,
-        EditableRow,
-        InitEditableRow,
-        SaveEditableRow,
-        CancelEditableRow,
-        ColumnFilter,
-        ColumnFilterFormElement
     ],
     providers: [TableStyle]
 })

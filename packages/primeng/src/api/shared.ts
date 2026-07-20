@@ -4,16 +4,14 @@ import { ChangeDetectionStrategy, Component, Directive, input, NgModule, Templat
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-header',
-    template: '<ng-content></ng-content>',
-    standalone: false
+    template: '<ng-content></ng-content>'
 })
 export class Header {}
 
 @Component({
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'vx-footer',
-    template: '<ng-content></ng-content>',
-    standalone: false
+    template: '<ng-content></ng-content>'
 })
 export class Footer {}
 
@@ -33,8 +31,7 @@ export class PrimeTemplate {
 }
 
 @NgModule({
-    imports: [CommonModule, PrimeTemplate],
-    exports: [Header, Footer, PrimeTemplate],
-    declarations: [Header, Footer]
+    imports: [CommonModule, PrimeTemplate, Header, Footer],
+    exports: [Header, Footer, PrimeTemplate]
 })
 export class SharedModule {}
