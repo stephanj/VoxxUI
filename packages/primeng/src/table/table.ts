@@ -404,7 +404,7 @@ export class TableService {
         }
     `,
     providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }],
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass())",
@@ -3433,7 +3433,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate() || dataTable._emptyMessageTemplate(); context: { $implicit: columns(), frozen: frozen() }"></ng-container>
         }
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.data-p]': 'dataP'
@@ -3758,6 +3758,8 @@ export class SortableColumn extends BaseComponent {
 
         this.sorted = sorted;
         this.sortOrder = sorted ? (sortOrder === 1 ? 'ascending' : 'descending') : 'none';
+
+        this.cd.markForCheck();
     }
     onClick(event: MouseEvent) {
         if (this.isEnabled() && !this.isFilterElement(<HTMLElement>event.target)) {
@@ -3912,6 +3914,7 @@ export class SelectableRow extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.selected = this.dataTable.isSelected(this.data());
+                this.cd.markForCheck();
             });
         }
     }
@@ -4153,6 +4156,7 @@ export class SelectableRowDblClick extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.tableService.selectionSource$.pipe(takeUntilDestroyed()).subscribe(() => {
                 this.selected = this.dataTable.isSelected(this.data());
+                this.cd.markForCheck();
             });
         }
     }
@@ -4205,6 +4209,7 @@ export class ContextMenuRow extends BaseComponent {
         if (this.isEnabled()) {
             this.dataTable.tableService.contextMenuSource$.pipe(takeUntilDestroyed()).subscribe((data) => {
                 this.selected = data ? this.dataTable.equals(this.data(), data) : false;
+                this.cd.markForCheck();
             });
         }
     }
