@@ -167,7 +167,7 @@ describe('Overlay', () => {
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
-                        class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
+                        class: instance?.visible() ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
                     })
                 });
                 fixture.changeDetectorRef.markForCheck();
@@ -265,11 +265,13 @@ describe('Overlay', () => {
                 expect(emitterAccessed).toBe(true);
             });
 
-            it('should access visibleChange emitter through instance in pt', async () => {
+            it('should access visible model through instance in pt', async () => {
+                // `visible` is now a `model()`; its two-way `visibleChange` output is no longer a
+                // separate instance property, so consumers reach the two-way binding via the model.
                 let emitterAccessed = false;
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
-                        if (instance.visibleChange) {
+                        if (instance.visible) {
                             emitterAccessed = true;
                         }
                         return {};
