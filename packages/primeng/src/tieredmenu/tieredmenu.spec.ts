@@ -935,12 +935,12 @@ describe('TieredMenu', () => {
 
             // Find the directive bound via the `tooltip` property on the MenuItem:
             // `content` is the @Input('vxTooltip') property set directly by Angular
-            const directiveViaTooltipProp = tooltipDirectives.find((d) => d.content === 'Save the file');
+            const directiveViaTooltipProp = tooltipDirectives.find((d) => d.content() === 'Save the file');
             expect(directiveViaTooltipProp, 'Tooltip directive not found for item with tooltip property').toBeTruthy();
 
             // Find the directive bound via `tooltipOptions.tooltipLabel`:
             // `tooltipOptions` is the @Input() property set directly by Angular
-            const directiveViaTooltipOptions = tooltipDirectives.find((d) => (d.tooltipOptions as any)?.tooltipLabel === 'Delete the file');
+            const directiveViaTooltipOptions = tooltipDirectives.find((d) => (d.tooltipOptions() as any)?.tooltipLabel === 'Delete the file');
             expect(directiveViaTooltipOptions, 'Tooltip directive not found for item with tooltipOptions.tooltipLabel').toBeTruthy();
 
             // Activate each directive and verify the tooltip container (DOM element) is spawned
