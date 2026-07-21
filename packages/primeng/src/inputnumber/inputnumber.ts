@@ -12,6 +12,7 @@ import {
     InjectionToken,
     Injector,
     input,
+    model,
     NgModule,
     numberAttribute,
     output,
@@ -59,7 +60,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [invalid]="invalid()"
             [attr.aria-valuemin]="min()"
             [attr.aria-valuemax]="max()"
-            [attr.aria-valuenow]="value"
+            [attr.aria-valuenow]="value()"
             [attr.placeholder]="placeholder()"
             [attr.aria-label]="ariaLabel()"
             [attr.aria-labelledby]="ariaLabelledBy()"
@@ -93,7 +94,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
             [attr.data-p]="dataP"
         />
-        @if (buttonLayout() != 'vertical' && showClear() && value) {
+        @if (buttonLayout() != 'vertical' && showClear() && value()) {
             @if (!clearIconTemplate() && !_clearIconTemplate()) {
                 <svg data-p-icon="times" [vxBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
             }
@@ -468,7 +469,31 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 .at(-1)?.template
     );
 
-    value: Nullable<number>;
+    /**
+     * Signal Forms (Angular v22) value model — also the canonical render source.
+     *
+     * InputNumber historically stored its committed numeric value in a plain
+     * mutable field; only `writeControlValue` (form → view) ever touched the shared
+     * `modelValue`. Exposing `value` as a `model<number | null>()` makes it usable
+     * directly with the `[formField]` directive as a `FormValueControl<number | null>`
+     * (aligned with Angular's own `transformedValue` example), while every render
+     * binding (`formattedValue()`, `aria-valuenow`, the clear icon) reads from it.
+     *
+     * All user-input write paths (spinner, keystroke/paste parsing, clear, blur)
+     * are routed through {@link updateModel}/{@link clear}, which call
+     * {@link BaseEditableHolder.writeModelValue} so the change lands in both this
+     * model and `modelValue` — letting a bound Signal Form field observe user edits.
+     * {@link BaseEditableHolder.bindFormValue} keeps the two in sync in the other
+     * direction (field → view), reusing the same `writeControlValue` the CVA uses.
+     *
+     * Note: we intentionally omit `implements FormValueControl<number | null>`; the
+     * `[formField]` directive detects the `value` model structurally, so the
+     * integration works at runtime, and the nominal declaration adds no value here.
+     * The classic `NG_VALUE_ACCESSOR` path is untouched, so `[(ngModel)]` /
+     * `formControlName` keep working unchanged.
+     * @group Props
+     */
+    value = model<number | null>();
 
     focused: Nullable<boolean>;
 
@@ -634,6 +659,9 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     constructor(public readonly injector: Injector) {
         super();
+        // Two-way sync the FormValueControl `value` model with the shared `modelValue`
+        // (field → view reuses `writeControlValue`, the same path the CVA uses).
+        this.bindFormValue(this.value);
     }
 
     onInit() {
@@ -760,8 +788,10 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     }
 
     clear() {
-        this.value = null;
-        this.onModelChange(this.value);
+        // Route through the shared write path so the `value` model + `modelValue`
+        // (and thus any bound Signal Form field) observe the cleared value.
+        this.writeModelValue(null);
+        this.onModelChange(null);
         this.onClear.emit();
     }
 
@@ -1468,20 +1498,25 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         this.input().nativeElement.value = this.formatValue(newValueString);
         this.input().nativeElement.setAttribute('aria-valuenow', newValueString);
         this.updateModel(event, newValueNumber);
-        this.onModelTouched();
+        // markTouched fires the classic `onModelTouched` callback AND emits the
+        // Signal Forms `touch` output, marking a bound field touched on blur.
+        this.markTouched();
         this.onBlur.emit(event);
     }
 
     formattedValue() {
-        const val = !this.value && !this.allowEmpty() ? 0 : this.value;
+        const val = !this.value() && !this.allowEmpty() ? 0 : this.value();
         return this.formatValue(val);
     }
 
     updateModel(event: Event, value: any) {
         const isBlurUpdateOnMode = this.ngControl?.control?.updateOn === 'blur';
 
-        if (this.value !== value) {
-            this.value = value;
+        if (this.value() !== value) {
+            // `writeModelValue` sets both `modelValue` and the `value` model, so a
+            // bound Signal Form field observes the user edit (the plain field used
+            // to be the only thing updated here).
+            this.writeModelValue(value);
 
             if (!(isBlurUpdateOnMode && this.focused)) {
                 this.onModelChange(value);
@@ -1498,8 +1533,10 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value ? Number(value) : value;
-        setModelValue(value);
+        // Coerce once, then let the shared write path fan the value out to both
+        // `modelValue` and the `value` model (used by every render binding).
+        const coerced = value ? Number(value) : value;
+        setModelValue(coerced);
         this.cd.markForCheck();
     }
 
