@@ -264,6 +264,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [disabled]="isOptionDisabled(option)"
                                     [id]="$id() + '_' + getOptionIndex(i, {})"
                                     [class]="cx('option', { option, i, scrollerOptions: {} })"
+                                    [attr.aria-label]="getOptionLabel(option)"
+                                    [attr.aria-setsize]="ariaSetSize"
+                                    [attr.aria-posinset]="getAriaPosInset(getOptionIndex(i, {}))"
                                     [attr.data-p-selected]="isSelected(option)"
                                     [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, {})"
                                     [attr.data-p-disabled]="isOptionDisabled(option)"
@@ -1090,8 +1093,14 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * `metaKeySelection` keeps the hand-rolled engine because the aria selection
      * model has no ctrl/cmd-gated "meta" selection mode — it is a documented,
      * screen-reader-visible behavior the primitive cannot express.
+     *
+     * `selectOnFocus` keeps the hand-rolled engine because VoxxUI selects on plain
+     * focus/hover in single mode, whereas aria's `follow` selection mode only selects
+     * on arrow navigation (never on hover) and is all-or-nothing — the primitive can't
+     * express VoxxUI's shim, so we keep the whole feature hand-rolled (mirrors the Tabs
+     * `selectOnFocus` decision in #26).
      */
-    useAria = computed(() => !this.virtualScroll() && !this.metaKeySelection());
+    useAria = computed(() => !this.virtualScroll() && !this.metaKeySelection() && !this.selectOnFocus());
 
     /** The in-template `[ngListbox]` primitive instance (present only on the aria path). */
     ariaListbox = viewChild(AriaListbox);

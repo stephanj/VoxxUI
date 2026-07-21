@@ -2856,6 +2856,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             [virtualScroll]="virtualScroll"
             [virtualScrollItemSize]="30"
             [metaKeySelection]="metaKeySelection"
+            [selectOnFocus]="selectOnFocus"
             (onChange)="onChange($event)"
         ></vx-listbox>
     `
@@ -2873,6 +2874,7 @@ class AriaPilotHost {
     multiple: boolean = false;
     virtualScroll: boolean = false;
     metaKeySelection: boolean = false;
+    selectOnFocus: boolean = false;
     lastChange: ListboxChangeEvent | undefined;
     onChange(e: ListboxChangeEvent) {
         this.lastChange = e;
@@ -2917,6 +2919,14 @@ describe('Listbox @angular/aria pilot (#27)', () => {
 
     it('falls back to the hand-rolled engine under metaKeySelection', async () => {
         host.metaKeySelection = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(listbox().useAria()).toBe(false);
+        expect(listbox().ariaListbox()).toBeFalsy();
+    });
+
+    it('falls back to the hand-rolled engine under selectOnFocus', async () => {
+        host.selectOnFocus = true;
         fixture.detectChanges();
         await fixture.whenStable();
         expect(listbox().useAria()).toBe(false);
