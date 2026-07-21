@@ -11,6 +11,7 @@ import {
     inject,
     InjectionToken,
     input,
+    model,
     NgModule,
     numberAttribute,
     output,
@@ -88,6 +89,30 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
     $pcToggleSwitch: ToggleSwitch | undefined = inject(TOGGLESWITCH_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    /**
+     * Signal Forms (Angular v22) value model.
+     *
+     * Exposing a `value` `model()` makes ToggleSwitch usable directly with the
+     * `[formField]` directive as a `FormValueControl` — the field value is the
+     * component's `trueValue`/`falseValue`. It is kept in sync with `modelValue`
+     * (the render source that `checked()` derives from) by
+     * {@link BaseEditableHolder.bindFormValue}. The classic `NG_VALUE_ACCESSOR`
+     * path is untouched, so `[(ngModel)]`/`formControlName` keep working.
+     *
+     * Note: we deliberately do not add `implements FormValueControl<any>` because
+     * ToggleSwitch also exposes a derived `checked()` accessor (for `trueValue`/
+     * `falseValue` support), which the contract's `checked?: undefined` guard
+     * forbids. The `[formField]` directive detects the `value` model structurally,
+     * so the integration works at runtime regardless.
+     * @group Props
+     */
+    value = model<any>();
+
+    constructor() {
+        super();
+        this.bindFormValue(this.value);
+    }
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -193,7 +218,7 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
 
     onBlur() {
         this.focused = false;
-        this.onModelTouched();
+        this.markTouched();
     }
 
     checked() {

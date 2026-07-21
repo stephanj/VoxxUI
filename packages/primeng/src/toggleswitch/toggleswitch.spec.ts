@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
@@ -1361,5 +1362,179 @@ describe('PassThrough (PT) Tests', () => {
 
             expect(hookCalls).toContain('onDestroy');
         });
+    });
+});
+
+@Component({
+    standalone: true,
+    imports: [ToggleSwitch, FormField],
+    template: `<vx-toggleswitch [formField]="agreementForm.agree" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormToggleSwitchComponent {
+    model = signal<{ agree: boolean }>({ agree: false });
+
+    agreementForm = form(this.model, (p) => {
+        // Custom "must be true" validator so we can exercise invalid-state binding.
+        validate(p.agree, ({ value }) => (value() ? undefined : { kind: 'mustAgree', message: 'You must agree' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [ToggleSwitch, FormField],
+    template: `<vx-toggleswitch [formField]="settingsForm.notifications" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledToggleSwitchComponent {
+    model = signal<{ notifications: boolean }>({ notifications: true });
+
+    settingsForm = form(this.model, (p) => {
+        disabled(p.notifications, () => true);
+    });
+}
+
+describe('ToggleSwitch Signal Forms (FormValueControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormToggleSwitchComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormToggleSwitchComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ agree: true });
+        await flush(fixture);
+
+        const toggle = fixture.debugElement.query(By.directive(ToggleSwitch)).componentInstance as ToggleSwitch;
+        expect(toggle.value()).toBe(true);
+        expect(toggle.checked()).toBe(true);
+        expect(host.agreementForm.agree().value()).toBe(true);
+    });
+
+    it('writes user interaction back into the field value (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormToggleSwitchComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormToggleSwitchComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const toggleEl = fixture.debugElement.query(By.directive(ToggleSwitch)).nativeElement as HTMLElement;
+        toggleEl.click();
+        await flush(fixture);
+
+        expect(host.model().agree).toBe(true);
+        expect(host.agreementForm.agree().value()).toBe(true);
+        expect(host.agreementForm.agree().dirty()).toBe(true);
+    });
+
+    it('binds the disabled state from the field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormDisabledToggleSwitchComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormDisabledToggleSwitchComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const toggle = fixture.debugElement.query(By.directive(ToggleSwitch)).componentInstance as ToggleSwitch;
+        expect(host.settingsForm.notifications().disabled()).toBe(true);
+        expect(toggle.$disabled()).toBe(true);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        expect(input.hasAttribute('disabled')).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormToggleSwitchComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormToggleSwitchComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.agreementForm.agree().touched()).toBe(false);
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.agreementForm.agree().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormToggleSwitchComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormToggleSwitchComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const toggle = fixture.debugElement.query(By.directive(ToggleSwitch)).componentInstance as ToggleSwitch;
+        // agree === false -> validator fails -> field invalid -> invalid input bound to control
+        expect(host.agreementForm.agree().valid()).toBe(false);
+        expect(toggle.invalid()).toBe(true);
+        expect(toggle.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ agree: true });
+        await flush(fixture);
+        expect(host.agreementForm.agree().valid()).toBe(true);
+        expect(toggle.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormToggleSwitchComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormToggleSwitchComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const toggleEl = fixture.debugElement.query(By.directive(ToggleSwitch)).nativeElement as HTMLElement;
+        toggleEl.click();
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.agreementForm.agree().dirty()).toBe(true);
+        expect(host.agreementForm.agree().touched()).toBe(true);
+
+        host.agreementForm.agree().reset();
+        await flush(fixture);
+        expect(host.agreementForm.agree().dirty()).toBe(false);
+        expect(host.agreementForm.agree().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [ToggleSwitch, FormsModule],
+            template: `<vx-toggleswitch [(ngModel)]="checked" />`
+        })
+        class NgModelHostComponent {
+            checked = false;
+        }
+
+        TestBed.configureTestingModule({
+            imports: [NgModelHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const toggleEl = fixture.debugElement.query(By.directive(ToggleSwitch)).nativeElement as HTMLElement;
+        toggleEl.click();
+        await flush(fixture);
+        expect(host.checked).toBe(true);
     });
 });
