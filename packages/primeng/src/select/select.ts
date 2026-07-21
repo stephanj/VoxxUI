@@ -15,6 +15,7 @@ import {
     InjectionToken,
     input,
     linkedSignal,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -975,6 +976,38 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     _offIconTemplate = computed(() => this._templateMap()['officon'] as TemplateRef<void> | undefined);
 
+    /**
+     * Signal Forms (Angular v22) value model — the current selected value.
+     *
+     * Exposing a `value` `model()` makes Select usable directly with the
+     * `[formField]` directive as a `FormValueControl`. It is kept two-way in sync
+     * with `modelValue` (the render source that `label()`, `isSelected()` etc.
+     * derive from) by {@link BaseEditableHolder.bindFormValue}:
+     * - **field → view**: a Signal Form writing the field runs `writeControlValue`
+     *   (the same path as the CVA `writeValue`), updating `modelValue`.
+     * - **view → field**: every user selection routes through `updateModel` →
+     *   `writeModelValue`, which reflects the new value back into this model so the
+     *   bound `FieldTree` observes the selection.
+     *
+     * ## `value` name collision
+     * Select historically stored its selected value in a **plain mutable `value`
+     * field**, read/written by `updateModel`, `writeControlValue` and `clear`. That
+     * field is now this `model()`, making the model the single source of truth for
+     * the selected value — reads become `value()` and writes go through
+     * `writeModelValue` (which syncs the model). The public property name is
+     * unchanged, so any external code reading `.value` keeps working (now as a
+     * signal getter).
+     *
+     * Note: like ToggleSwitch, we deliberately do **not** add
+     * `implements FormValueControl<any>`. The `[formField]` directive detects the
+     * `value` model structurally, so the integration works at runtime while
+     * avoiding the contract's nominal member guards that clash with Select's large
+     * existing API. The classic `NG_VALUE_ACCESSOR` path is untouched, so
+     * `[(ngModel)]`/`formControlName` keep working.
+     * @group Props
+     */
+    value = model<any>();
+
     filterOptions: SelectFilterOptions | undefined;
 
     /**
@@ -993,8 +1026,6 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * Generated unique id, seeded by the `id` input.
      */
     $id = linkedSignal(() => this.id() ?? uuid('pn_id_'));
-
-    value: any;
 
     hover: Nullable<boolean>;
 
@@ -1124,6 +1155,10 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         public filterService: FilterService
     ) {
         super();
+        // Two-way bind the Signal Forms `value` model with `modelValue` (see the
+        // `value` field docs). Registers `value` as the FormValueControl source so
+        // user selections (via `writeModelValue`) flow back into a bound FieldTree.
+        this.bindFormValue(this.value);
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1240,8 +1275,10 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     updateModel(value, event?) {
-        this.value = value;
         this.onModelChange(value);
+        // `writeModelValue` (BaseEditableHolder override) updates `modelValue` and
+        // reflects the value into the bound `value` model for Signal Forms, so the
+        // selection is the single write path for both forms systems.
         this.writeModelValue(value);
         this.selectedOptionUpdated = true;
     }
@@ -1443,7 +1480,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     onOverlayAfterLeave(event: any) {
         this.itemsWrapper = null;
-        this.onModelTouched();
+        this.markTouched();
         this.onHide.emit(event);
     }
     /**
@@ -1492,7 +1529,9 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.onBlur.emit(event);
 
         if (!this.preventModelTouched && !this.overlayVisible) {
-            this.onModelTouched();
+            // markTouched() fires the classic onModelTouched callback AND emits the
+            // Signal Forms `touch` output so a bound FieldTree is marked touched.
+            this.markTouched();
         }
         this.preventModelTouched = false;
     }
@@ -1950,8 +1989,8 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     public clear(event?: Event) {
         this.updateModel(null, event);
         this.clearEditableLabel();
-        this.onModelTouched();
-        this.onChange.emit({ originalEvent: event, value: this.value });
+        this.markTouched();
+        this.onChange.emit({ originalEvent: event, value: this.value() });
         this.onClear.emit(event as Event);
         this.resetFilter();
     }
@@ -1967,9 +2006,10 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             this.resetFilter();
         }
 
-        this.value = value;
         this.allowModelChange() && this.onModelChange(value);
-        setModelValue(this.value);
+        // `setModelValue` is `writeModelValue`, which sets `modelValue` and syncs the
+        // bound `value` model, keeping the selected value as the single source.
+        setModelValue(value);
         this.updateEditableLabel();
         this.cd.markForCheck();
     }

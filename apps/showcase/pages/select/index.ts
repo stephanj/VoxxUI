@@ -15,6 +15,7 @@ import { LazyVirtualScrollDoc } from '@/doc/select/lazyvirtualscroll-doc';
 import { LoadingStateDoc } from '@/doc/select/loadingstate-doc';
 import { PTComponent } from '@/doc/select/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/select/reactiveforms-doc';
+import { SignalFormsDoc } from '@/doc/select/signalforms-doc';
 import { SizesDoc } from '@/doc/select/sizes-doc';
 import { TemplateDoc } from '@/doc/select/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/select/templatedrivenforms-doc';
@@ -122,7 +123,8 @@ export class SelectDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc },
+                { id: 'signalforms', label: 'Signal Forms', component: SignalFormsDoc }
             ]
         },
         {

@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DebugElement, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
+import { provideVoxxUI } from 'voxx-ui/config';
 import { BehaviorSubject, timer } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Select } from './select';
@@ -4482,5 +4484,223 @@ describe('Select PT (PassThrough)', () => {
                 expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');
             }
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// Signal Forms (FormValueControl) integration — mirrors toggleswitch.spec.ts
+// ---------------------------------------------------------------------------
+
+const SF_OPTIONS = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' }
+];
+
+@Component({
+    standalone: true,
+    imports: [Select, FormField, FormsModule],
+    template: `<vx-select [formField]="cityForm.city" [options]="options" optionLabel="name" optionValue="code" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormSelectComponent {
+    options = SF_OPTIONS;
+
+    model = signal<{ city: string | null }>({ city: null });
+
+    cityForm = form(this.model, (p) => {
+        // Custom "required" validator so we can exercise invalid-state binding.
+        validate(p.city, ({ value }) => (value() ? undefined : { kind: 'required', message: 'City is required' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [Select, FormField],
+    template: `<vx-select [formField]="settingsForm.city" [options]="options" optionLabel="name" optionValue="code" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledSelectComponent {
+    options = SF_OPTIONS;
+
+    model = signal<{ city: string | null }>({ city: 'RM' });
+
+    settingsForm = form(this.model, (p) => {
+        disabled(p.city, () => true);
+    });
+}
+
+describe('Select Signal Forms (FormValueControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormSelectComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ city: 'RM' });
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        expect(select.value()).toBe('RM');
+        expect(select.modelValue()).toBe('RM');
+        expect(select.label()).toBe('Rome');
+        expect(host.cityForm.city().value()).toBe('RM');
+    });
+
+    it('writes user selection back into the field value (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        // Real selection write path (option click / keyboard select route here).
+        select.onOptionSelect(null, SF_OPTIONS[2]);
+        await flush(fixture);
+
+        expect(select.value()).toBe('LDN');
+        expect(host.model().city).toBe('LDN');
+        expect(host.cityForm.city().value()).toBe('LDN');
+        expect(host.cityForm.city().dirty()).toBe(true);
+    });
+
+    it('clears the field value through clear() (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormSelectComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ city: 'RM' });
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        select.clear();
+        await flush(fixture);
+
+        expect(select.value()).toBeNull();
+        expect(host.model().city).toBeNull();
+        expect(host.cityForm.city().value()).toBeNull();
+    });
+
+    it('binds the disabled state from the field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormDisabledSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormDisabledSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        expect(host.settingsForm.city().disabled()).toBe(true);
+        expect(select.$disabled()).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.cityForm.city().touched()).toBe(false);
+        const focusInput = fixture.debugElement.query(By.css('[role="combobox"]')).nativeElement as HTMLElement;
+        focusInput.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.cityForm.city().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        // city === null -> validator fails -> field invalid -> invalid input bound to control
+        expect(host.cityForm.city().valid()).toBe(false);
+        expect(select.invalid()).toBe(true);
+        expect(select.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ city: 'NY' });
+        await flush(fixture);
+        expect(host.cityForm.city().valid()).toBe(true);
+        expect(select.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        select.onOptionSelect(null, SF_OPTIONS[0]);
+        const focusInput = fixture.debugElement.query(By.css('[role="combobox"]')).nativeElement as HTMLElement;
+        focusInput.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.cityForm.city().dirty()).toBe(true);
+        expect(host.cityForm.city().touched()).toBe(true);
+
+        host.cityForm.city().reset();
+        await flush(fixture);
+        expect(host.cityForm.city().dirty()).toBe(false);
+        expect(host.cityForm.city().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [Select, FormsModule],
+            template: `<vx-select [(ngModel)]="city" [options]="options" optionLabel="name" optionValue="code" />`,
+            changeDetection: ChangeDetectionStrategy.Eager
+        })
+        class NgModelHostComponent {
+            options = SF_OPTIONS;
+            city: string | null = null;
+        }
+
+        TestBed.configureTestingModule({
+            imports: [NgModelHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const select = fixture.debugElement.query(By.directive(Select)).componentInstance as Select;
+        select.onOptionSelect(null, SF_OPTIONS[1]);
+        await flush(fixture);
+        expect(host.city).toBe('RM');
+        expect(select.value()).toBe('RM');
+
+        // form -> view: writing ngModel updates the control and the value model
+        host.city = 'IST';
+        fixture.changeDetectorRef.markForCheck();
+        await flush(fixture);
+        expect(select.modelValue()).toBe('IST');
+        expect(select.value()).toBe('IST');
     });
 });
