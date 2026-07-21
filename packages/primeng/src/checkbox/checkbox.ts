@@ -6,16 +6,19 @@ import {
     computed,
     contentChild,
     contentChildren,
+    effect,
     ElementRef,
     forwardRef,
     inject,
     InjectionToken,
     input,
     linkedSignal,
+    model,
     NgModule,
     numberAttribute,
     output,
     TemplateRef,
+    untracked,
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -51,7 +54,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             type="checkbox"
             [attr.value]="value()"
             [attr.name]="name()"
-            [checked]="checked"
+            [checked]="$checked"
             [attr.tabindex]="tabindex()"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly() ? '' : undefined"
@@ -67,7 +70,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
         />
         <div [class]="cx('box')" [vxBind]="ptm('box')" [attr.data-p]="dataP">
             @if (!checkboxIconTemplate() && !_checkboxIconTemplate()) {
-                @if (checked) {
+                @if ($checked) {
                     @if (checkboxIcon()) {
                         <span [class]="cn(cx('icon'), checkboxIcon())" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
                     }
@@ -79,7 +82,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     <svg data-p-icon="minus" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
                 }
             }
-            <ng-template *ngTemplateOutlet="checkboxIconTemplate() || _checkboxIconTemplate(); context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
+            <ng-template *ngTemplateOutlet="checkboxIconTemplate() || _checkboxIconTemplate(); context: { checked: $checked, class: cx('icon'), dataP: dataP }"></ng-template>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle, { provide: CHECKBOX_INSTANCE, useExisting: Checkbox }, { provide: PARENT_INSTANCE, useExisting: Checkbox }],
@@ -87,8 +90,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass())",
-        '[attr.data-p-highlight]': 'checked',
-        '[attr.data-p-checked]': 'checked',
+        '[attr.data-p-highlight]': '$checked',
+        '[attr.data-p-checked]': '$checked',
         '[attr.data-p-disabled]': '$disabled()',
         '[attr.data-p]': 'dataP'
     },
@@ -212,7 +215,63 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     inputViewChild = viewChild.required<ElementRef>('input');
 
-    get checked() {
+    /**
+     * Signal Forms (Angular v22) boolean `checked` model.
+     *
+     * Exposing a `checked` `model()` makes the **binary** checkbox usable directly
+     * with the `[formField]` directive as a `FormCheckboxControl` — the field value
+     * is the boolean checked state. Group mode is unaffected: its form value is the
+     * `T[]` array carried by the `value` *input* + `ControlValueAccessor` path, which
+     * this model does not touch. The classic `NG_VALUE_ACCESSOR` path is untouched,
+     * so `[(ngModel)]`/`formControlName` keep working in both modes.
+     *
+     * Verified against `@angular/core@22.0.7` custom-control detection
+     * (`initializeCustomControlStatus`): the `[formField]` directive first looks for
+     * a `value` *model* and only then for a `checked` model. The checkbox's `value`
+     * is a plain `input()` (no `valueChange` output), so it is **not** detected as a
+     * `value` model; the `checked` model is, and the control is bound as a checkbox.
+     *
+     * The model is left `undefined` until a Signal Form writes it, so classic-forms
+     * usage (where `checked` is never set) never has its `modelValue` clobbered by
+     * the sync effect below.
+     *
+     * Note: we deliberately do not add `implements FormCheckboxControl` because the
+     * checkbox also exposes a `value` *input* for group mode, which the contract's
+     * `value?: undefined` guard forbids. `[formField]` detects the `checked` model
+     * structurally at runtime, so the integration works regardless.
+     * @group Props
+     */
+    checked = model<boolean | undefined>(undefined);
+
+    constructor() {
+        super();
+        // Signal Forms (binary): reflect the boolean `checked` model into the shared
+        // `modelValue` (`trueValue`/`falseValue`). Guarded on `binary()` and a defined
+        // `checked` so group mode and classic-forms usage are never disturbed.
+        effect(() => {
+            if (!this.binary()) {
+                return;
+            }
+            const checked = this.checked();
+            untracked(() => {
+                if (checked === undefined) {
+                    return;
+                }
+                const desired = checked ? this.trueValue() : this.falseValue();
+                if (this.modelValue() !== desired) {
+                    this.writeControlValue(desired, this.writeModelValue.bind(this));
+                }
+            });
+        });
+    }
+
+    /**
+     * Display checked state. Derives from `modelValue` (binary: `=== trueValue`,
+     * group: membership in the value array) and is forced `false` while indeterminate.
+     * Distinct from the Signal Forms {@link checked} model, which stores the bound
+     * boolean field value.
+     */
+    get $checked() {
         return this._indeterminate() ? false : this.binary() ? this.modelValue() === this.trueValue() : contains(this.value(), this.modelValue());
     }
 
@@ -274,7 +333,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
         const currentModelValue = selfControl && !formControl ? selfControl.value : this.modelValue();
 
         if (!this.binary()) {
-            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value()));
+            if (this.$checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value()));
             else newModelValue = currentModelValue ? [...currentModelValue, this.value()] : [this.value()];
 
             this.onModelChange(newModelValue);
@@ -284,9 +343,12 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
                 formControl.setValue(newModelValue);
             }
         } else {
-            newModelValue = this._indeterminate() ? this.trueValue() : this.checked ? this.falseValue() : this.trueValue();
+            newModelValue = this._indeterminate() ? this.trueValue() : this.$checked ? this.falseValue() : this.trueValue();
             this.writeModelValue(newModelValue);
             this.onModelChange(newModelValue);
+            // Signal Forms: reflect the user toggle into the boolean `checked` model
+            // so the bound `FieldTree` stays in sync (view -> field).
+            this.checked.set(newModelValue === this.trueValue());
         }
 
         if (this._indeterminate()) {
@@ -310,7 +372,8 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     onInputBlur(event) {
         this.focused = false;
         this.onBlur.emit(event);
-        this.onModelTouched();
+        // Fires the classic `onModelTouched` and emits the Signal Forms `touch` output.
+        this.markTouched();
     }
 
     focus() {
@@ -325,13 +388,20 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
         setModelValue(value);
+        // Signal Forms (binary): mirror the written value into the boolean `checked`
+        // model so `[formField]`/`[(checked)]` stay in sync (field -> view). The
+        // `[formField]` directive drives the checkbox through its `ControlValueAccessor`
+        // (an `NG_VALUE_ACCESSOR` is provided), so this is where the field value lands.
+        if (this.binary()) {
+            this.checked.set(value === this.trueValue());
+        }
         this.cd.markForCheck();
     }
 
     get dataP() {
         return this.cn({
             invalid: this.invalid(),
-            checked: this.checked,
+            checked: this.$checked,
             disabled: this.$disabled(),
             filled: this.$variant() === 'filled',
             [this.size() as string]: this.size()

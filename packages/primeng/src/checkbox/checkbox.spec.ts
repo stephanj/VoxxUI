@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { CheckboxChangeEvent } from 'voxx-ui/types/checkbox';
 import { Checkbox } from './checkbox';
 
@@ -339,13 +341,13 @@ describe('Checkbox', () => {
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
 
             expect(testComponent.value).toBeFalsy();
-            expect(checkboxInstance.checked).toBe(false);
+            expect(checkboxInstance.$checked).toBe(false);
 
             inputElement.nativeElement.click();
             await testFixture.whenStable();
 
             expect(testComponent.value).toBe(true);
-            expect(checkboxInstance.checked).toBe(true);
+            expect(checkboxInstance.$checked).toBe(true);
             expect(testComponent.changeEvent?.checked).toBe(true);
         });
 
@@ -371,7 +373,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             expect(checkboxInstance._indeterminate()).toBe(true);
-            expect(checkboxInstance.checked).toBe(false);
+            expect(checkboxInstance.$checked).toBe(false);
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
             inputElement.nativeElement.click();
@@ -1509,5 +1511,219 @@ describe('Checkbox', () => {
                 expect(checkboxElement.getAttribute('data-binary')).toBe('true');
             });
         });
+    });
+});
+
+@Component({
+    standalone: true,
+    imports: [Checkbox, FormField],
+    template: `<vx-checkbox binary [formField]="agreementForm.agree" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormCheckboxComponent {
+    model = signal<{ agree: boolean }>({ agree: false });
+
+    agreementForm = form(this.model, (p) => {
+        // Custom "must be true" validator so we can exercise invalid-state binding.
+        validate(p.agree, ({ value }) => (value() ? undefined : { kind: 'mustAgree', message: 'You must agree' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [Checkbox, FormField],
+    template: `<vx-checkbox binary [formField]="settingsForm.notifications" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledCheckboxComponent {
+    model = signal<{ notifications: boolean }>({ notifications: true });
+
+    settingsForm = form(this.model, (p) => {
+        disabled(p.notifications, () => true);
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [Checkbox, FormsModule],
+    template: `
+        @for (item of items; track item) {
+            <vx-checkbox [(ngModel)]="selected" [value]="item" name="grp" />
+        }
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestGroupNgModelCheckboxComponent {
+    items = ['cheese', 'mushroom', 'pepper'];
+    selected: string[] = [];
+}
+
+describe('Checkbox Signal Forms (FormCheckboxControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormCheckboxComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ agree: true });
+        await flush(fixture);
+
+        const checkbox = fixture.debugElement.query(By.directive(Checkbox)).componentInstance as Checkbox;
+        expect(checkbox.checked()).toBe(true);
+        expect(checkbox.$checked).toBe(true);
+        expect(host.agreementForm.agree().value()).toBe(true);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        expect(input.checked).toBe(true);
+    });
+
+    it('writes user interaction back into the field value (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormCheckboxComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.click();
+        await flush(fixture);
+
+        expect(host.model().agree).toBe(true);
+        expect(host.agreementForm.agree().value()).toBe(true);
+        expect(host.agreementForm.agree().dirty()).toBe(true);
+    });
+
+    it('binds the disabled state from the field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormDisabledCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormDisabledCheckboxComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const checkbox = fixture.debugElement.query(By.directive(Checkbox)).componentInstance as Checkbox;
+        expect(host.settingsForm.notifications().disabled()).toBe(true);
+        expect(checkbox.$disabled()).toBe(true);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        expect(input.hasAttribute('disabled')).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormCheckboxComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.agreementForm.agree().touched()).toBe(false);
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.agreementForm.agree().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormCheckboxComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const checkbox = fixture.debugElement.query(By.directive(Checkbox)).componentInstance as Checkbox;
+        // agree === false -> validator fails -> field invalid -> invalid input bound to control
+        expect(host.agreementForm.agree().valid()).toBe(false);
+        expect(checkbox.invalid()).toBe(true);
+        expect(checkbox.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ agree: true });
+        await flush(fixture);
+        expect(host.agreementForm.agree().valid()).toBe(true);
+        expect(checkbox.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormCheckboxComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.click();
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.agreementForm.agree().dirty()).toBe(true);
+        expect(host.agreementForm.agree().touched()).toBe(true);
+
+        host.agreementForm.agree().reset();
+        await flush(fixture);
+        expect(host.agreementForm.agree().dirty()).toBe(false);
+        expect(host.agreementForm.agree().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormCheckboxControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [Checkbox, FormsModule],
+            template: `<vx-checkbox binary [(ngModel)]="checked" />`
+        })
+        class NgModelHostComponent {
+            checked = false;
+        }
+
+        TestBed.configureTestingModule({
+            imports: [NgModelHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.click();
+        await flush(fixture);
+        expect(host.checked).toBe(true);
+    });
+
+    it('leaves group (array) mode intact under ngModel — the checked model does not clobber it', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestGroupNgModelCheckboxComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestGroupNgModelCheckboxComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const inputs = fixture.debugElement.queryAll(By.css('input')).map((d) => d.nativeElement as HTMLInputElement);
+        inputs[0].click();
+        await flush(fixture);
+        expect(host.selected).toEqual(['cheese']);
+
+        inputs[2].click();
+        await flush(fixture);
+        expect(host.selected).toEqual(['cheese', 'pepper']);
+
+        inputs[0].click();
+        await flush(fixture);
+        expect(host.selected).toEqual(['pepper']);
     });
 });
