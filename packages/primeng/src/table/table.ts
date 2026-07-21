@@ -1300,7 +1300,23 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     dropPosition: number | undefined | null;
 
-    editingCell: Element | undefined | null;
+    /**
+     * Backing signal for {@link editingCell}. Kept as a signal so the OnPush
+     * `CellEditor` (#9) re-renders reactively when cell editing starts/stops:
+     * its `editing` getter reads `dataTable.editingCell` in the template, so a
+     * signal read there registers CellEditor as a consumer and marks it dirty
+     * on change. The public getter/setter preserve the plain-field API used by
+     * the ~11 imperative read/write sites throughout the table.
+     */
+    private _editingCell = signal<Element | undefined | null>(null);
+
+    get editingCell(): Element | undefined | null {
+        return this._editingCell();
+    }
+
+    set editingCell(value: Element | undefined | null) {
+        this._editingCell.set(value);
+    }
 
     editingCellData: any;
 
@@ -4911,7 +4927,7 @@ export class CancelEditableRow extends BaseComponent {
 }
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-cellEditor',
     imports: [CommonModule],
     template: `
@@ -5335,7 +5351,7 @@ export class ReorderableRow extends BaseComponent {
  * @group Components
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-columnFilter, vx-column-filter, vx-columnfilter',
     imports: [CommonModule, FormsModule, ButtonModule, SelectModule, MotionModule, Bind, forwardRef(() => ColumnFilterFormElement), FilterIcon, FilterFillIcon, TrashIcon, PlusIcon],
     template: `
@@ -6333,7 +6349,7 @@ export class ColumnFilter extends BaseComponent {
 }
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-columnFilterFormElement',
     imports: [CommonModule, FormsModule, InputTextModule, InputNumberModule, CheckboxModule, DatePickerModule],
     template: `

@@ -73,7 +73,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
             }
         }
     `,
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[style.height]': 'height'
