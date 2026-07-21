@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, effect, inject, InjectionToken, input, NgModule, NgZone, output, untracked, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent } from 'voxx-ui/basecomponent';
@@ -19,10 +19,10 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
     template: `
         <canvas
             role="img"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.width]="responsive && !width ? null : width"
-            [attr.height]="responsive && !height ? null : height"
+            [attr.aria-label]="ariaLabel()"
+            [attr.aria-labelledby]="ariaLabelledBy()"
+            [attr.width]="responsive() && !width() ? null : width()"
+            [attr.height]="responsive() && !height() ? null : height()"
             (click)="onCanvasClick($event)"
             [vxBind]="ptm('canvas')"
         ></canvas>
@@ -51,82 +51,73 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
      * Type of the chart.
      * @group Props
      */
-    @Input() type: 'bar' | 'line' | 'scatter' | 'bubble' | 'pie' | 'doughnut' | 'polarArea' | 'radar' | undefined;
+    type = input<'bar' | 'line' | 'scatter' | 'bubble' | 'pie' | 'doughnut' | 'polarArea' | 'radar' | undefined>();
     /**
      * Array of per-chart plugins to customize the chart behaviour.
      * @group Props
      */
-    @Input() plugins: any[] = [];
+    plugins = input<any[]>([]);
     /**
      * Width of the chart.
      * @group Props
      */
-    @Input() width: string | undefined;
+    width = input<string | undefined>();
     /**
      * Height of the chart.
      * @group Props
      */
-    @Input() height: string | undefined;
+    height = input<string | undefined>();
     /**
      * Whether the chart is redrawn on screen size change.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) responsive: boolean = true;
+    responsive = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
     /**
      * Data to display.
      * @group Props
      */
-    @Input() get data(): any {
-        return this._data;
-    }
-    set data(val: any) {
-        this._data = val;
-        this.reinit();
-    }
+    data = input<any>();
     /**
      * Options to customize the chart.
      * @group Props
      */
-    @Input() get options(): any {
-        return this._options;
-    }
-    set options(val: any) {
-        this._options = val;
-        this.reinit();
-    }
+    options = input<any>({});
     /**
      * Callback to execute when an element on chart is clicked.
      * @group Emits
      */
-    @Output() onDataSelect: EventEmitter<any> = new EventEmitter<any>();
+    onDataSelect = output<any>();
 
     isBrowser: boolean = false;
 
     initialized: boolean | undefined;
 
-    _data: any;
-
-    _options: any = {};
-
     chart: any;
 
     _componentStyle = inject(ChartStyle);
 
-    constructor(
-        public el: ElementRef,
-        private zone: NgZone
-    ) {
+    private zone: NgZone = inject(NgZone);
+
+    constructor() {
         super();
+
+        // Signal-native replacement for the former data/options setters (#16):
+        // re-create the chart whenever either changes after initialization.
+        effect(() => {
+            this.data();
+            this.options();
+            untracked(() => this.reinit());
+        });
     }
 
     onAfterViewInit() {
@@ -147,20 +138,20 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
 
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
-            let opts = this.options || {};
-            opts.responsive = this.responsive;
+            let opts = this.options() || {};
+            opts.responsive = this.responsive();
 
             // allows chart to resize in responsive mode
-            if (opts.responsive && (this.height || this.width)) {
+            if (opts.responsive && (this.height() || this.width())) {
                 opts.maintainAspectRatio = false;
             }
 
             this.zone.runOutsideAngular(() => {
                 this.chart = new Chart(this.el.nativeElement.children[0], {
-                    type: this.type,
-                    data: this.data,
-                    options: this.options,
-                    plugins: this.plugins
+                    type: this.type(),
+                    data: this.data(),
+                    options: this.options(),
+                    plugins: this.plugins()
                 });
             });
         }

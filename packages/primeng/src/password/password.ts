@@ -5,27 +5,24 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChild,
-    ContentChildren,
+    contentChild,
+    contentChildren,
     Directive,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
     NgModule,
     NgZone,
     numberAttribute,
-    Output,
+    output,
     Pipe,
     PipeTransform,
-    QueryList,
     signal,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -96,36 +93,34 @@ export class PasswordDirective extends BaseEditableHolder {
      * Text to prompt password entry. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() promptLabel: string = 'Enter a password';
+    promptLabel = input<string>('Enter a password');
     /**
      * Text for a weak password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() weakLabel: string = 'Weak';
+    weakLabel = input<string>('Weak');
     /**
      * Text for a medium password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() mediumLabel: string = 'Medium';
+    mediumLabel = input<string>('Medium');
     /**
      * Text for a strong password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() strongLabel: string = 'Strong';
+    strongLabel = input<string>('Strong');
     /**
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) feedback: boolean = true;
+    feedback = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Sets the visibility of the password field.
      * @defaultValue false
      * @type boolean
      * @group Props
      */
-    @Input() set showPassword(show: boolean) {
-        this.el.nativeElement.type = show ? 'text' : 'password';
-    }
+    showPassword = input<boolean | undefined>();
     /**
      * Specifies the input variant of the component.
      * @defaultValue 'outlined'
@@ -182,6 +177,15 @@ export class PasswordDirective extends BaseEditableHolder {
         effect(() => {
             this.vxPasswordUnstyled() && this.directiveUnstyled.set(this.vxPasswordUnstyled());
         });
+
+        // Mirrors the former `showPassword` @Input setter: only reacts once the input is bound.
+        effect(() => {
+            const show = this.showPassword();
+
+            if (show !== undefined) {
+                this.el.nativeElement.type = show ? 'text' : 'password';
+            }
+        });
     }
 
     onInput(e: Event) {
@@ -208,7 +212,7 @@ export class PasswordDirective extends BaseEditableHolder {
 
             this.info = this.renderer.createElement('div');
             this.renderer.addClass(this.info, 'p-password-meter-text');
-            this.renderer.setProperty(this.info, 'textContent', this.promptLabel);
+            this.renderer.setProperty(this.info, 'textContent', this.promptLabel());
             this.renderer.appendChild(this.content, this.info);
 
             this.renderer.setStyle(this.panel, 'minWidth', `${this.el.nativeElement.offsetWidth}px`);
@@ -218,7 +222,7 @@ export class PasswordDirective extends BaseEditableHolder {
     }
 
     showOverlay() {
-        if (this.feedback) {
+        if (this.feedback()) {
             if (!this.panel) {
                 this.createPanel();
             }
@@ -237,7 +241,7 @@ export class PasswordDirective extends BaseEditableHolder {
     }
 
     hideOverlay() {
-        if (this.feedback && this.panel) {
+        if (this.feedback() && this.panel) {
             addClass(this.panel, 'p-connected-overlay-hidden');
             removeClass(this.panel, 'p-connected-overlay-visible');
             this.unbindScrollListener();
@@ -262,25 +266,25 @@ export class PasswordDirective extends BaseEditableHolder {
     labelSignal = signal('');
 
     onKeyup(e: Event) {
-        if (this.feedback) {
+        if (this.feedback()) {
             let value = (e.target as HTMLInputElement).value,
                 label: string | null = null,
                 meterPos: string | null = null;
 
             if (value.length === 0) {
-                label = this.promptLabel;
+                label = this.promptLabel();
                 meterPos = '0px 0px';
             } else {
                 var score = this.testStrength(value);
 
                 if (score < 30) {
-                    label = this.weakLabel;
+                    label = this.weakLabel();
                     meterPos = '0px -10px';
                 } else if (score >= 30 && score < 80) {
-                    label = this.mediumLabel;
+                    label = this.mediumLabel();
                     meterPos = '0px -20px';
                 } else if (score >= 80) {
-                    label = this.strongLabel;
+                    label = this.strongLabel();
                     meterPos = '0px -30px';
                 }
 
@@ -434,22 +438,22 @@ export const Password_VALUE_ACCESSOR: any = {
     template: `
         <input
             #input
-            [attr.label]="label"
-            [attr.aria-label]="ariaLabel"
-            [attr.aria-labelledBy]="ariaLabelledBy"
-            [attr.id]="inputId"
-            [attr.tabindex]="tabindex"
+            [attr.label]="label()"
+            [attr.aria-label]="ariaLabel()"
+            [attr.aria-labelledBy]="ariaLabelledBy()"
+            [attr.id]="inputId()"
+            [attr.tabindex]="tabindex()"
             vxInputText
             [vxSize]="size()"
-            [ngStyle]="inputStyle"
-            [class]="cn(cx('pcInputText'), inputStyleClass)"
+            [style]="inputStyle()"
+            [class]="cn(cx('pcInputText'), inputStyleClass())"
             [attr.type]="unmasked ? 'text' : 'password'"
-            [attr.placeholder]="placeholder"
-            [attr.autocomplete]="autocomplete"
+            [attr.placeholder]="placeholder()"
+            [attr.autocomplete]="autocomplete()"
             [value]="value"
             [variant]="$variant()"
             [attr.name]="name()"
-            [attr.maxlength]="maxlength() || maxLength"
+            [attr.maxlength]="maxlength() || maxLength()"
             [attr.minlength]="minlength()"
             [attr.required]="required() ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
@@ -458,57 +462,57 @@ export const Password_VALUE_ACCESSOR: any = {
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keyup)="onKeyUp($event)"
-            [vxAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus()"
             [pt]="ptm('pcInputText')"
             [unstyled]="unstyled()"
         />
-        @if (showClear && value != null) {
-            @if (!clearIconTemplate && !_clearIconTemplate) {
+        @if (showClear() && value != null) {
+            @if (!clearIconTemplate() && !_clearIconTemplate()) {
                 <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear()" [vxBind]="ptm('clearIcon')" />
             }
             <span (click)="clear()" [class]="cx('clearIcon')" [vxBind]="ptm('clearIcon')">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                <ng-template *ngTemplateOutlet="clearIconTemplate() || _clearIconTemplate()"></ng-template>
             </span>
         }
 
-        @if (toggleMask) {
+        @if (toggleMask()) {
             @if (unmasked) {
-                @if (!hideIconTemplate && !_hideIconTemplate) {
+                @if (!hideIconTemplate() && !_hideIconTemplate()) {
                     <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [vxBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
                 }
-                @if (hideIconTemplate || _hideIconTemplate) {
+                @if (hideIconTemplate() || _hideIconTemplate()) {
                     <span (click)="onMaskToggle()" [vxBind]="ptm('maskIcon')">
-                        <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
+                        <ng-template *ngTemplateOutlet="hideIconTemplate() || _hideIconTemplate(); context: { class: cx('maskIcon') }"></ng-template>
                     </span>
                 }
             }
             @if (!unmasked) {
-                @if (!showIconTemplate && !_showIconTemplate) {
+                @if (!showIconTemplate() && !_showIconTemplate()) {
                     <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [vxBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
                 }
-                @if (showIconTemplate || _showIconTemplate) {
+                @if (showIconTemplate() || _showIconTemplate()) {
                     <span (click)="onMaskToggle()" [vxBind]="ptm('unmaskIcon')">
-                        <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
+                        <ng-template *ngTemplateOutlet="showIconTemplate() || _showIconTemplate(); context: { class: cx('unmaskIcon') }"></ng-template>
                     </span>
                 }
             }
         }
 
-        <vx-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
+        <vx-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions()" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
                 <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [vxBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    @if (contentTemplate || _contentTemplate) {
-                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate()"></ng-container>
+                    @if (contentTemplate() || _contentTemplate()) {
+                        <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate()"></ng-container>
                     } @else {
                         <div [class]="cx('content')" [vxBind]="ptm('content')">
                             <div [class]="cx('meter')" [vxBind]="ptm('meter')">
-                                <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
+                                <div [class]="cx('meterLabel')" [style]="{ width: meter ? meter.width : '' }" [vxBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                             </div>
                             <div [class]="cx('meterText')" [vxBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>
                     }
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate() || _footerTemplate()"></ng-container>
                 </div>
             </ng-template>
         </vx-overlay>
@@ -517,7 +521,7 @@ export const Password_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cn(cx('root'), styleClass())",
         '[style]': "sx('root')",
         '[attr.data-p]': 'containerDataP'
     },
@@ -538,121 +542,121 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
     /**
      * Label of the input for accessibility.
      * @group Props
      */
-    @Input() label: string | undefined;
+    label = input<string | undefined>();
     /**
      * Text to prompt password entry. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() promptLabel: string | undefined;
+    promptLabel = input<string | undefined>();
     /**
      * Regex value for medium regex.
      * @group Props
      */
-    @Input() mediumRegex: string = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
+    mediumRegex = input<string>('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})');
     /**
      * Regex value for strong regex.
      * @group Props
      */
-    @Input() strongRegex: string = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})';
+    strongRegex = input<string>('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
     /**
      * Text for a weak password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() weakLabel: string | undefined;
+    weakLabel = input<string | undefined>();
     /**
      * Text for a medium password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() mediumLabel: string | undefined;
+    mediumLabel = input<string | undefined>();
     /**
      * specifies the maximum number of characters allowed in the input element.
      * @deprecated since v20.0.0, use maxlength instead.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxLength: number | undefined;
+    maxLength = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Text for a strong password. Defaults to VoxxUI I18N API configuration.
      * @group Props
      */
-    @Input() strongLabel: string | undefined;
+    strongLabel = input<string | undefined>();
     /**
      * Identifier of the accessible input element.
      * @group Props
      */
-    @Input() inputId: string | undefined;
+    inputId = input<string | undefined>();
     /**
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) feedback: boolean = true;
+    feedback = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
+    toggleMask = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Style class of the input field.
      * @group Props
      */
-    @Input() inputStyleClass: string | undefined;
+    inputStyleClass = input<string | undefined>();
     /**
      * Style class of the element.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * Inline style of the input field.
      * @group Props
      */
-    @Input() inputStyle: { [klass: string]: any } | null | undefined;
+    inputStyle = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Transition options of the show animation.
      * @group Props
      * @deprecated since v21.0.0, use `motionOptions` instead.
      */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+    showTransitionOptions = input<string>('.12s cubic-bezier(0, 0, 0.2, 1)');
     /**
      * Transition options of the hide animation.
      * @group Props
      * @deprecated since v21.0.0, use `motionOptions` instead.
      */
-    @Input() hideTransitionOptions: string = '.1s linear';
+    hideTransitionOptions = input<string>('.1s linear');
     /**
      * Specify automated assistance in filling out password by browser.
      * @group Props
      */
-    @Input() autocomplete: string | undefined;
+    autocomplete = input<string | undefined>();
     /**
      * Advisory information to display on input.
      * @group Props
      */
-    @Input() placeholder: string | undefined;
+    placeholder = input<string | undefined>();
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showClear: boolean = false;
+    showClear = input<boolean, unknown>(false, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex?: number;
+    tabindex = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -668,52 +672,52 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * Whether to use overlay API feature. The properties of overlay API can be used like an object in it.
      * @group Props
      */
-    @Input() overlayOptions: OverlayOptions | undefined;
+    overlayOptions = input<OverlayOptions | undefined>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus = output<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur = output<Event>();
     /**
      * Callback to invoke when clear button is clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
+    onClear = output<any>();
 
-    @ViewChild('overlay') overlayViewChild!: Overlay;
+    overlayViewChild = viewChild<Overlay>('overlay');
 
-    @ViewChild('input') input!: ElementRef;
+    input = viewChild<ElementRef>('input');
 
     /**
      * Custom template of content.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<void>>;
+    contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
 
     /**
      * Custom template of footer.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
+    footerTemplate = contentChild<TemplateRef<void>>('footer', { descendants: false });
 
     /**
      * Custom template of header.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
+    headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
 
     /**
      * Custom template of clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
+    clearIconTemplate = contentChild<TemplateRef<void>>('clearicon', { descendants: false });
 
     /**
      * Custom template of hide icon.
@@ -721,7 +725,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @see {@link PasswordIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('hideicon', { descendants: false }) hideIconTemplate: Nullable<TemplateRef<PasswordIconTemplateContext>>;
+    hideIconTemplate = contentChild<TemplateRef<PasswordIconTemplateContext>>('hideicon', { descendants: false });
 
     /**
      * Custom template of show icon.
@@ -729,23 +733,52 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * @see {@link PasswordIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<PasswordIconTemplateContext>>;
+    showIconTemplate = contentChild<TemplateRef<PasswordIconTemplateContext>>('showicon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    templates = contentChildren(PrimeTemplate);
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _contentTemplate: TemplateRef<void> | undefined;
+    /**
+     * Map of the `vxTemplate`-declared templates, keyed by template type. Unknown types fall
+     * back to the `content` key, matching the pre-signal `ngAfterContentInit` behavior.
+     */
+    private _templateMap = computed(() => {
+        const map: Record<string, TemplateRef<any> | undefined> = {};
 
-    _footerTemplate: TemplateRef<void> | undefined;
+        for (const item of this.templates()) {
+            const type = item.getType();
 
-    _headerTemplate: TemplateRef<void> | undefined;
+            switch (type) {
+                case 'content':
+                case 'header':
+                case 'footer':
+                case 'clearicon':
+                case 'hideicon':
+                case 'showicon':
+                    map[type] = item.template;
+                    break;
 
-    _clearIconTemplate: TemplateRef<void> | undefined;
+                default:
+                    map['content'] = item.template;
+                    break;
+            }
+        }
 
-    _hideIconTemplate: TemplateRef<PasswordIconTemplateContext> | undefined;
+        return map;
+    });
 
-    _showIconTemplate: TemplateRef<PasswordIconTemplateContext> | undefined;
+    _contentTemplate = computed(() => this._templateMap()['content'] as TemplateRef<void> | undefined);
+
+    _footerTemplate = computed(() => this._templateMap()['footer'] as TemplateRef<void> | undefined);
+
+    _headerTemplate = computed(() => this._templateMap()['header'] as TemplateRef<void> | undefined);
+
+    _clearIconTemplate = computed(() => this._templateMap()['clearicon'] as TemplateRef<void> | undefined);
+
+    _hideIconTemplate = computed(() => this._templateMap()['hideicon'] as TemplateRef<PasswordIconTemplateContext> | undefined);
+
+    _showIconTemplate = computed(() => this._templateMap()['showicon'] as TemplateRef<PasswordIconTemplateContext> | undefined);
 
     overlayVisible: boolean = false;
 
@@ -757,9 +790,9 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     unmasked: boolean = false;
 
-    mediumCheckRegExp!: RegExp;
+    mediumCheckRegExp = computed(() => new RegExp(this.mediumRegex()));
 
-    strongCheckRegExp!: RegExp;
+    strongCheckRegExp = computed(() => new RegExp(this.strongRegex()));
 
     resizeListener: VoidListener;
 
@@ -775,44 +808,8 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onInit() {
         this.infoText = this.promptText();
-        this.mediumCheckRegExp = new RegExp(this.mediumRegex);
-        this.strongCheckRegExp = new RegExp(this.strongRegex);
         this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
             this.updateUI(this.value || '');
-        });
-    }
-
-    onAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this._contentTemplate = item.template;
-                    break;
-
-                case 'header':
-                    this._headerTemplate = item.template;
-                    break;
-
-                case 'footer':
-                    this._footerTemplate = item.template;
-                    break;
-
-                case 'clearicon':
-                    this._clearIconTemplate = item.template;
-                    break;
-
-                case 'hideicon':
-                    this._hideIconTemplate = item.template;
-                    break;
-
-                case 'showicon':
-                    this._showIconTemplate = item.template;
-                    break;
-
-                default:
-                    this._contentTemplate = item.template;
-                    break;
-            }
         });
     }
 
@@ -823,7 +820,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onInputFocus(event: Event) {
         this.focused = true;
-        if (this.feedback) {
+        if (this.feedback()) {
             this.overlayVisible = true;
         }
 
@@ -832,7 +829,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onInputBlur(event: Event) {
         this.focused = false;
-        if (this.feedback) {
+        if (this.feedback()) {
             this.overlayVisible = false;
         }
 
@@ -841,7 +838,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
     }
 
     onKeyUp(event: KeyboardEvent) {
-        if (this.feedback) {
+        if (this.feedback()) {
             let value = (event.target as HTMLInputElement).value;
             this.updateUI(value);
 
@@ -910,27 +907,27 @@ export class Password extends BaseInput<PasswordPassThrough> {
     testStrength(str: string) {
         let level = 0;
 
-        if (this.strongCheckRegExp?.test(str)) level = 3;
-        else if (this.mediumCheckRegExp?.test(str)) level = 2;
+        if (this.strongCheckRegExp().test(str)) level = 3;
+        else if (this.mediumCheckRegExp().test(str)) level = 2;
         else if (str.length) level = 1;
 
         return level;
     }
 
     promptText() {
-        return this.promptLabel || this.getTranslation(TranslationKeys.PASSWORD_PROMPT);
+        return this.promptLabel() || this.getTranslation(TranslationKeys.PASSWORD_PROMPT);
     }
 
     weakText() {
-        return this.weakLabel || this.getTranslation(TranslationKeys.WEAK);
+        return this.weakLabel() || this.getTranslation(TranslationKeys.WEAK);
     }
 
     mediumText() {
-        return this.mediumLabel || this.getTranslation(TranslationKeys.MEDIUM);
+        return this.mediumLabel() || this.getTranslation(TranslationKeys.MEDIUM);
     }
 
     strongText() {
-        return this.strongLabel || this.getTranslation(TranslationKeys.STRONG);
+        return this.strongLabel() || this.getTranslation(TranslationKeys.STRONG);
     }
 
     inputType(unmasked: boolean) {
@@ -945,7 +942,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
         this.value = null;
         this.onModelChange(this.value);
         this.writeValue(this.value);
-        this.onClear.emit();
+        this.onClear.emit(undefined);
     }
 
     /**
@@ -958,7 +955,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
         if (value === undefined) this.value = null;
         else this.value = value;
 
-        if (this.feedback) this.updateUI(this.value || '');
+        if (this.feedback()) this.updateUI(this.value || '');
         setModelValue(this.value);
         this.cd.markForCheck();
     }

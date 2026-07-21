@@ -12,7 +12,7 @@ const classes = {
     root: ({ instance }) => [
         'p-chip p-component',
         {
-            'p-disabled': instance.disabled
+            'p-disabled': instance.disabled()
         }
     ],
     image: 'p-chip-image',

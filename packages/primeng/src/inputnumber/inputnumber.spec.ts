@@ -202,13 +202,13 @@ describe('InputNumber', () => {
         });
 
         it('should have default values', () => {
-            expect(component.showButtons).toBe(false);
-            expect(component.format).toBe(true);
-            expect(component.buttonLayout).toBe('stacked');
-            expect(component.mode).toBe('decimal');
-            expect(component.useGrouping).toBe(true);
-            expect(component.allowEmpty).toBe(true);
-            expect(component.showClear).toBe(false);
+            expect(component.showButtons()).toBe(false);
+            expect(component.format()).toBe(true);
+            expect(component.buttonLayout()).toBe('stacked');
+            expect(component.mode()).toBe('decimal');
+            expect(component.useGrouping()).toBe(true);
+            expect(component.allowEmpty()).toBe(true);
+            expect(component.showClear()).toBe(false);
             expect(component.step()).toBeUndefined();
         });
 
@@ -239,9 +239,9 @@ describe('InputNumber', () => {
         // });
 
         it('should format currency correctly', () => {
-            component.mode = 'currency';
-            component.currency = 'USD';
-            component.locale = 'en-US';
+            fixture.componentRef.setInput('mode', 'currency');
+            fixture.componentRef.setInput('currency', 'USD');
+            fixture.componentRef.setInput('locale', 'en-US');
             fixture.detectChanges();
 
             const formatted = component.formatValue(1234.56);
@@ -249,9 +249,9 @@ describe('InputNumber', () => {
         });
 
         it('should handle prefix and suffix', () => {
-            component.prefix = '$ ';
-            component.suffix = ' USD';
-            component.format = true;
+            fixture.componentRef.setInput('prefix', '$ ');
+            fixture.componentRef.setInput('suffix', ' USD');
+            fixture.componentRef.setInput('format', true);
             component.value = 100;
             fixture.detectChanges();
 
@@ -276,8 +276,8 @@ describe('InputNumber', () => {
         });
 
         it('should handle fraction digits correctly', () => {
-            component.minFractionDigits = 2;
-            component.maxFractionDigits = 4;
+            fixture.componentRef.setInput('minFractionDigits', 2);
+            fixture.componentRef.setInput('maxFractionDigits', 4);
             component.value = 123.1;
             fixture.detectChanges();
 
@@ -723,8 +723,8 @@ describe('InputNumber', () => {
 
         it('should handle currency formatting with vxTemplates', () => {
             const inputNumberInstance = inputNumberElement.componentInstance;
-            expect(inputNumberInstance.mode).toBe('currency');
-            expect(inputNumberInstance.currency).toBe('USD');
+            expect(inputNumberInstance.mode()).toBe('currency');
+            expect(inputNumberInstance.currency()).toBe('USD');
             expect(templateComponent.value).toBe(1234.56);
         });
     });
@@ -808,8 +808,8 @@ describe('InputNumber', () => {
 
         it('should handle currency formatting with #templates', () => {
             const inputNumberInstance = inputNumberElement.componentInstance;
-            expect(inputNumberInstance.mode).toBe('currency');
-            expect(inputNumberInstance.currency).toBe('USD');
+            expect(inputNumberInstance.mode()).toBe('currency');
+            expect(inputNumberInstance.currency()).toBe('USD');
             expect(templateComponent.value).toBe(1234.56);
         });
     });
@@ -972,8 +972,8 @@ describe('InputNumber', () => {
 
             // Test that currency mode is set correctly
             const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
-            expect(inputNumberInstance.mode).toBe('currency');
-            expect(inputNumberInstance.currency).toBe('USD');
+            expect(inputNumberInstance.mode()).toBe('currency');
+            expect(inputNumberInstance.currency()).toBe('USD');
         });
 
         it('should format EUR currency correctly', async () => {
@@ -986,8 +986,8 @@ describe('InputNumber', () => {
 
             // Test that EUR currency mode is set correctly
             const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
-            expect(inputNumberInstance.mode).toBe('currency');
-            expect(inputNumberInstance.currency).toBe('EUR');
+            expect(inputNumberInstance.mode()).toBe('currency');
+            expect(inputNumberInstance.currency()).toBe('EUR');
         });
 
         it('should handle different currency display modes', async () => {
@@ -1000,8 +1000,8 @@ describe('InputNumber', () => {
 
             // Test that currency display mode is set correctly
             const inputNumberInstance = testFixture.debugElement.query(By.css('vx-inputNumber')).componentInstance;
-            expect(inputNumberInstance.currencyDisplay).toBe('code');
-            expect(inputNumberInstance.currency).toBe('USD');
+            expect(inputNumberInstance.currencyDisplay()).toBe('code');
+            expect(inputNumberInstance.currency()).toBe('USD');
         });
 
         it('should handle different locales', async () => {

@@ -242,9 +242,9 @@ describe('Card', () => {
         });
 
         it('should have default values', () => {
-            expect(card.header).toBeUndefined();
-            expect(card.subheader).toBeUndefined();
-            expect(card.styleClass).toBeUndefined();
+            expect(card.header()).toBeUndefined();
+            expect(card.subheader()).toBeUndefined();
+            expect(card.styleClass()).toBeUndefined();
         });
 
         it('should have correct host attributes', async () => {
@@ -838,11 +838,11 @@ describe('Card', () => {
 
             const cardInstance = templateFixture.debugElement.query(By.directive(Card)).componentInstance;
 
-            expect(cardInstance._headerTemplate).toBeTruthy();
-            expect(cardInstance._titleTemplate).toBeTruthy();
-            expect(cardInstance._subtitleTemplate).toBeTruthy();
-            expect(cardInstance._contentTemplate).toBeTruthy();
-            expect(cardInstance._footerTemplate).toBeTruthy();
+            expect(cardInstance._headerTemplate()).toBeTruthy();
+            expect(cardInstance._titleTemplate()).toBeTruthy();
+            expect(cardInstance._subtitleTemplate()).toBeTruthy();
+            expect(cardInstance._contentTemplate()).toBeTruthy();
+            expect(cardInstance._footerTemplate()).toBeTruthy();
         });
 
         it('should handle templates with ngAfterContentInit lifecycle', async () => {

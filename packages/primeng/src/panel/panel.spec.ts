@@ -149,12 +149,12 @@ describe('Panel', () => {
             const fixture = TestBed.createComponent(Panel);
             const panel = fixture.componentInstance;
 
-            expect(panel.showHeader).toBe(true);
-            expect(panel.toggler).toBe('icon');
-            expect(panel.iconPos).toBe('end');
-            expect(panel.transitionOptions).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
-            expect(panel.collapsed).toBeUndefined();
-            expect(panel.toggleable).toBeUndefined();
+            expect(panel.showHeader()).toBe(true);
+            expect(panel.toggler()).toBe('icon');
+            expect(panel.iconPos()).toBe('end');
+            expect(panel.transitionOptions()).toBe('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+            expect(panel.collapsed()).toBeUndefined();
+            expect(panel.toggleable()).toBeUndefined();
         });
 
         it('should accept custom values', async () => {
@@ -167,12 +167,12 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            expect(panelInstance.toggleable).toBe(true);
-            expect(panelInstance.collapsed).toBe(true);
-            expect(panelInstance.showHeader).toBe(false);
-            expect(panelInstance.toggler).toBe('header');
-            expect(panelInstance.iconPos).toBe('start');
-            expect(panelInstance.transitionOptions).toBe('200ms ease-in');
+            expect(panelInstance.toggleable()).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
+            expect(panelInstance.showHeader()).toBe(false);
+            expect(panelInstance.toggler()).toBe('header');
+            expect(panelInstance.iconPos()).toBe('start');
+            expect(panelInstance.transitionOptions()).toBe('200ms ease-in');
         });
     });
 
@@ -235,7 +235,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             expect(testComponent.collapsedChangeEvent).toBe(true);
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
         });
 
         it('should toggle panel when header is clicked and toggler is header', async () => {
@@ -250,7 +250,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             expect(testComponent.collapsedChangeEvent).toBe(true);
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
         });
 
         it('should not toggle when header is clicked and toggler is icon', async () => {
@@ -264,7 +264,7 @@ describe('Panel', () => {
             headerEl.nativeElement.click();
 
             expect(testComponent.collapsedChangeEvent).toBeUndefined();
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
         });
 
         it('should expand collapsed panel', async () => {
@@ -278,7 +278,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             expect(testComponent.collapsedChangeEvent).toBe(false);
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
         });
     });
 
@@ -342,7 +342,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
-            expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe((panelInstance.collapsed ?? false).toString());
+            expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe((panelInstance.collapsed() ?? false).toString());
         });
 
         it('should set aria-expanded on toggle button', async () => {
@@ -352,13 +352,13 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
-            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
+            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed()).toString());
 
             testComponent.collapsed = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
+            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed()).toString());
         });
     });
 
@@ -435,7 +435,7 @@ describe('Panel', () => {
 
             const panelComponent = fixture.debugElement.query(By.directive(Panel)).componentInstance;
             const customHeaderIcon = fixture.debugElement.query(By.css('.custom-header-icon'));
-            expect(customHeaderIcon?.nativeElement.textContent.trim()).toBe(panelComponent.collapsed ? '➕' : '➖');
+            expect(customHeaderIcon?.nativeElement.textContent.trim()).toBe(panelComponent.collapsed() ? '➕' : '➖');
         });
     });
 
@@ -498,13 +498,13 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('vx-button'));
-            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
+            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed()).toString());
 
             testComponent.collapsed = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
+            expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed()).toString());
         });
     });
 
@@ -517,17 +517,17 @@ describe('Panel', () => {
 
     describe('Component ID', () => {
         it('should generate unique ID if not provided', () => {
-            expect(panelInstance.id).toBeDefined();
-            expect(panelInstance.id).toContain('pn_id_');
+            expect(panelInstance.id()).toBeDefined();
+            expect(panelInstance.id()).toContain('pn_id_');
         });
 
         it('should use provided ID', () => {
             const fixture = TestBed.createComponent(Panel);
             const panel = fixture.componentInstance;
-            panel.id = 'my-custom-panel-id';
+            fixture.componentRef.setInput('id', 'my-custom-panel-id');
             fixture.detectChanges();
 
-            expect(panel.id).toBe('my-custom-panel-id');
+            expect(panel.id()).toBe('my-custom-panel-id');
         });
     });
 
@@ -546,12 +546,12 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const initialCollapsed = panelInstance.collapsed;
+            const initialCollapsed = panelInstance.collapsed();
             panelInstance.toggle(new MouseEvent('click'));
 
             // Note: toggle() method works programmatically even when toggleable is false
             // The toggleable property only affects UI interactions (button visibility)
-            expect(panelInstance.collapsed).toBe(!initialCollapsed);
+            expect(panelInstance.collapsed()).toBe(!initialCollapsed);
         });
 
         it('should prevent default on toggle', () => {
@@ -579,38 +579,38 @@ describe('Panel', () => {
     describe('Public Methods', () => {
         it('should expand programmatically', async () => {
             testComponent.toggleable = true;
-            panelInstance.collapsed = true;
+            panelInstance.collapsed.set(true);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             panelInstance.expand();
 
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
             expect(testComponent.collapsedChangeEvent).toBe(false);
         });
 
         it('should collapse programmatically', async () => {
             testComponent.toggleable = true;
-            panelInstance.collapsed = true;
+            panelInstance.collapsed.set(true);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             panelInstance.collapse();
 
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
             expect(testComponent.collapsedChangeEvent).toBe(true);
         });
 
         it('should toggle programmatically', async () => {
             testComponent.toggleable = true;
-            panelInstance.collapsed = false;
+            panelInstance.collapsed.set(false);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             const event = new MouseEvent('click');
             panelInstance.toggle(event);
 
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
         });
 
         it('should call updateTabIndex when expanding', () => {
@@ -708,7 +708,7 @@ describe('Panel', () => {
         });
 
         it('should handle missing contentWrapper in updateTabIndex', () => {
-            panelInstance.contentWrapperViewChild = undefined as any;
+            (panelInstance as any).contentWrapperViewChild = () => undefined;
 
             expect(() => panelInstance.updateTabIndex()).not.toThrow();
         });
@@ -719,7 +719,7 @@ describe('Panel', () => {
 
             const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
 
-            panel.collapsed = true;
+            panel.collapsed.set(true);
             panel.updateTabIndex();
 
             const inputs = fixture.nativeElement.querySelectorAll('input');
@@ -756,11 +756,11 @@ describe('Panel', () => {
             const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
 
             // First collapse
-            panel.collapsed = true;
+            panel.collapsed.set(true);
             panel.updateTabIndex();
 
             // Then expand
-            panel.collapsed = false;
+            panel.collapsed.set(false);
             panel.updateTabIndex();
 
             const inputs = fixture.nativeElement.querySelectorAll('input');
@@ -793,7 +793,7 @@ describe('Panel', () => {
             const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
 
             // Get the focusable div inside the panel content wrapper
-            const contentWrapper = panel.contentWrapperViewChild.nativeElement;
+            const contentWrapper = panel.contentWrapperViewChild()!.nativeElement;
             const focusableDiv = contentWrapper.querySelector('div[tabindex]');
 
             // Initially should have tabindex="0"
@@ -802,13 +802,13 @@ describe('Panel', () => {
             expect(initialTabindex).toBe('0');
 
             // When collapsed, should set tabindex="-1"
-            panel.collapsed = true;
+            panel.collapsed.set(true);
             panel.updateTabIndex();
 
             expect(focusableDiv.getAttribute('tabindex')).toBe('-1');
 
             // When expanded back, component removes the tabindex to restore normal tab order
-            panel.collapsed = false;
+            panel.collapsed.set(false);
             panel.updateTabIndex();
 
             // After expanding, tabindex should be removed (null)
@@ -859,28 +859,28 @@ describe('Panel', () => {
             testFixture.detectChanges();
 
             // Test that panel works independently
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
 
             // First toggle
             panelInstance.toggle(new MouseEvent('click'));
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
 
             // Toggle back
             panelInstance.toggle(new MouseEvent('click'));
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
         });
     });
 
     describe('Content Container DOM Visibility', () => {
         it('should hide content container from DOM when collapsed after animation', async () => {
             // Initial state - expanded
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
 
             let contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
             expect(contentContainer).toBeTruthy();
 
             // Disable animations to prevent ExpressionChangedAfterItHasBeenCheckedError
-            panelInstance.transitionOptions = '0ms';
+            vi.spyOn(panelInstance, 'transitionOptions').mockReturnValue('0ms');
             testFixture.detectChanges();
 
             // Toggle to collapse
@@ -890,7 +890,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
             testFixture.detectChanges();
 
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
 
             // Content container should still exist during animation
             contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
@@ -901,7 +901,7 @@ describe('Panel', () => {
             panelInstance.onToggleDone({ type: 'done' } as any);
             await testFixture.whenStable(); // For setTimeout(0)
             testFixture.detectChanges();
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
 
             // Content container should still be in DOM after animation
             contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
@@ -914,7 +914,7 @@ describe('Panel', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
 
             // Content container should still be in DOM when collapsed
             let contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
@@ -928,7 +928,7 @@ describe('Panel', () => {
             testFixture.detectChanges();
 
             // After toggle click - should be expanded and animating
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
 
             // Content container should appear during animation
             contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
@@ -940,7 +940,7 @@ describe('Panel', () => {
             await testFixture.whenStable(); // For setTimeout(0)
             testFixture.detectChanges();
 
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
 
             // Content container should still exist
             contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
@@ -949,7 +949,7 @@ describe('Panel', () => {
 
         it('should handle programmatic collapse/expand with DOM visibility', async () => {
             // Initial expanded state
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
 
             let contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
             expect(contentContainer).toBeTruthy();
@@ -959,7 +959,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
             testFixture.detectChanges();
 
-            expect(panelInstance.collapsed).toBe(true);
+            expect(panelInstance.collapsed()).toBe(true);
 
             // Should still be visible (not animating, so no DOM removal)
             contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
@@ -970,7 +970,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
             testFixture.detectChanges();
 
-            expect(panelInstance.collapsed).toBe(false);
+            expect(panelInstance.collapsed()).toBe(false);
 
             contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
             expect(contentContainer).toBeTruthy();
@@ -1079,7 +1079,7 @@ describe('Panel', () => {
             it('should apply PT class to header section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test Header';
+                fixture.componentRef.setInput('header', 'Test Header');
                 fixture.componentRef.setInput('pt', { header: 'HEADER_CLASS' });
                 fixture.detectChanges();
 
@@ -1090,7 +1090,7 @@ describe('Panel', () => {
             it('should apply PT class to title section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test Title';
+                fixture.componentRef.setInput('header', 'Test Title');
                 fixture.componentRef.setInput('pt', { title: 'TITLE_CLASS' });
                 fixture.detectChanges();
 
@@ -1101,8 +1101,8 @@ describe('Panel', () => {
             it('should apply PT class to icons section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
-                panel.toggleable = true;
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('toggleable', true);
                 fixture.componentRef.setInput('pt', { headerActions: 'ICONS_CLASS' });
                 fixture.detectChanges();
 
@@ -1154,7 +1154,7 @@ describe('Panel', () => {
             it('should apply PT object with attributes to title', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
+                fixture.componentRef.setInput('header', 'Test');
                 fixture.componentRef.setInput('pt', {
                     title: {
                         class: 'TITLE_OBJECT_CLASS',
@@ -1189,7 +1189,7 @@ describe('Panel', () => {
             it('should apply mixed PT values to multiple sections', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
+                fixture.componentRef.setInput('header', 'Test');
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_MIXED_CLASS'
@@ -1220,7 +1220,7 @@ describe('Panel', () => {
             it('should apply PT with custom class', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel.collapsed = true;
+                panel.collapsed.set(true);
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'CUSTOM_COLLAPSED'
@@ -1235,7 +1235,7 @@ describe('Panel', () => {
             it('should apply PT with dynamic styles', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
+                fixture.componentRef.setInput('header', 'Test');
                 fixture.componentRef.setInput('pt', {
                     title: {
                         style: { 'background-color': 'yellow' }
@@ -1250,9 +1250,9 @@ describe('Panel', () => {
             it('should update classes when state changes', async () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
-                panel.toggleable = true;
-                panel.collapsed = false;
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('toggleable', true);
+                panel.collapsed.set(false);
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'DYNAMIC_CLASS'
@@ -1264,7 +1264,7 @@ describe('Panel', () => {
                 expect(rootEl.classList.contains('DYNAMIC_CLASS')).toBe(true);
 
                 // Toggle to collapsed
-                panel.collapsed = true;
+                panel.collapsed.set(true);
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
@@ -1276,7 +1276,7 @@ describe('Panel', () => {
             it('should handle onclick event through PT on title section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
+                fixture.componentRef.setInput('header', 'Test');
                 let clicked = false;
 
                 fixture.componentRef.setInput('pt', {
@@ -1301,7 +1301,7 @@ describe('Panel', () => {
             it('should handle onclick event through PT on header section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
+                fixture.componentRef.setInput('header', 'Test');
                 let headerClicked = false;
 
                 fixture.componentRef.setInput('pt', {
@@ -1347,8 +1347,8 @@ describe('Panel', () => {
             it('should apply PT to multiple sections simultaneously', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
-                panel._header = 'Test';
-                panel.toggleable = true;
+                fixture.componentRef.setInput('header', 'Test');
+                fixture.componentRef.setInput('toggleable', true);
 
                 fixture.componentRef.setInput('pt', {
                     root: { class: 'MULTI_ROOT_CLASS' },

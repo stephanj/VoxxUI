@@ -152,9 +152,9 @@ describe('RadioButton', () => {
         it('should initialize with default properties', () => {
             expect(radioInstance.checked).toBeFalsy();
             expect(radioInstance.focused).toBeFalsy();
-            expect(radioInstance.value).toBe('option1');
-            expect(radioInstance.binary).toBeFalsy();
-            expect(radioInstance.autofocus).toBeFalsy();
+            expect(radioInstance.value()).toBe('option1');
+            expect(radioInstance.binary()).toBeFalsy();
+            expect(radioInstance.autofocus()).toBeFalsy();
         });
 
         it('should render input element with correct attributes', () => {
@@ -236,11 +236,11 @@ describe('RadioButton', () => {
         });
 
         it('should programmatically focus', () => {
-            vi.spyOn(radioInstance.inputViewChild.nativeElement, 'focus').mockReturnValue(undefined);
+            vi.spyOn(radioInstance.inputViewChild().nativeElement, 'focus').mockReturnValue(undefined);
 
             radioInstance.focus();
 
-            expect(radioInstance.inputViewChild.nativeElement.focus).toHaveBeenCalled();
+            expect(radioInstance.inputViewChild().nativeElement.focus).toHaveBeenCalled();
         });
 
         it('should update checked state when model value changes', async () => {
@@ -470,7 +470,7 @@ describe('RadioButton', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(radioInstance.autofocus).toBe(true);
+            expect(radioInstance.autofocus()).toBe(true);
         });
 
         it('should handle disabled state properly', () => {
@@ -515,7 +515,7 @@ describe('RadioButton', () => {
         });
 
         it('should work in binary mode', async () => {
-            expect(radioInstance.binary).toBe(true);
+            expect(radioInstance.binary()).toBe(true);
             expect(radioInstance.checked).toBe(false);
 
             const inputElement = fixture.debugElement.query(By.css('input'));

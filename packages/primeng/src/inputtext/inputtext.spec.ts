@@ -141,13 +141,13 @@ describe('InputText', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(inputDirective.vxSize).toBe('large');
+            expect(inputDirective.vxSize()).toBe('large');
 
             component.size = 'small';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(inputDirective.vxSize).toBe('small');
+            expect(inputDirective.vxSize()).toBe('small');
         });
 
         it('should apply variant styles', async () => {

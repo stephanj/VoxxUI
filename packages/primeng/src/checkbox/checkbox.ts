@@ -4,23 +4,19 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChild,
-    ContentChildren,
+    contentChild,
+    contentChildren,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
+    linkedSignal,
     NgModule,
     numberAttribute,
-    Output,
-    QueryList,
-    signal,
-    SimpleChanges,
+    output,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
@@ -31,7 +27,6 @@ import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
 import { Bind, BindModule } from 'voxx-ui/bind';
 import { CheckIcon } from 'voxx-ui/icons/check';
 import { MinusIcon } from 'voxx-ui/icons/minus';
-import { Nullable } from 'voxx-ui/ts-helpers';
 import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'voxx-ui/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 
@@ -52,31 +47,31 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <input
             #input
-            [attr.id]="inputId"
+            [attr.id]="inputId()"
             type="checkbox"
-            [attr.value]="value"
+            [attr.value]="value()"
             [attr.name]="name()"
             [checked]="checked"
-            [attr.tabindex]="tabindex"
+            [attr.tabindex]="tabindex()"
             [attr.required]="required() ? '' : undefined"
-            [attr.readonly]="readonly ? '' : undefined"
+            [attr.readonly]="readonly() ? '' : undefined"
             [attr.disabled]="$disabled() ? '' : undefined"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-label]="ariaLabel"
-            [style]="inputStyle"
-            [class]="cn(cx('input'), inputClass)"
+            [attr.aria-labelledby]="ariaLabelledBy()"
+            [attr.aria-label]="ariaLabel()"
+            [style]="inputStyle()"
+            [class]="cn(cx('input'), inputClass())"
             [vxBind]="ptm('input')"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="handleChange($event)"
         />
         <div [class]="cx('box')" [vxBind]="ptm('box')" [attr.data-p]="dataP">
-            @if (!checkboxIconTemplate && !_checkboxIconTemplate) {
+            @if (!checkboxIconTemplate() && !_checkboxIconTemplate()) {
                 @if (checked) {
-                    @if (checkboxIcon) {
-                        <span [class]="cx('icon') ?? ''" [ngClass]="checkboxIcon" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
+                    @if (checkboxIcon()) {
+                        <span [class]="cn(cx('icon'), checkboxIcon())" [vxBind]="ptm('icon')" [attr.data-p]="dataP"></span>
                     }
-                    @if (!checkboxIcon) {
+                    @if (!checkboxIcon()) {
                         <svg data-p-icon="check" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
                     }
                 }
@@ -84,14 +79,14 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     <svg data-p-icon="minus" [class]="cx('icon')" [vxBind]="ptm('icon')" [attr.data-p]="dataP" />
                 }
             }
-            <ng-template *ngTemplateOutlet="checkboxIconTemplate || _checkboxIconTemplate; context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
+            <ng-template *ngTemplateOutlet="checkboxIconTemplate() || _checkboxIconTemplate(); context: { checked: checked, class: cx('icon'), dataP: dataP }"></ng-template>
         </div>
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle, { provide: CHECKBOX_INSTANCE, useExisting: Checkbox }, { provide: PARENT_INSTANCE, useExisting: Checkbox }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)",
+        '[class]': "cn(cx('root'), styleClass())",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
         '[attr.data-p-disabled]': '$disabled()',
@@ -102,88 +97,88 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     componentName = 'Checkbox';
 
-    @Input() hostName: any = '';
+    hostName = input<any>('');
     /**
      * Value of the checkbox.
      * @group Props
      */
-    @Input() value: any;
+    value = input<any>();
     /**
      * Allows to select a boolean value instead of multiple values.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) binary: boolean | undefined;
+    binary = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    tabindex = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined;
+    inputId = input<string | undefined>();
     /**
      * Inline style of the input element.
      * @group Props
      */
-    @Input() inputStyle: { [klass: string]: any } | null | undefined;
+    inputStyle = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * Style class of the input element.
      * @group Props
      */
-    @Input() inputClass: string | undefined;
+    inputClass = input<string | undefined>();
     /**
      * When present, it specifies input state as indeterminate.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) indeterminate: boolean = false;
+    indeterminate = input<boolean, unknown>(false, { transform: booleanAttribute });
     /**
      * Form control value.
      * @group Props
      */
-    @Input() formControl: FormControl | undefined;
+    formControl = input<FormControl | undefined>();
     /**
      * Icon class of the checkbox icon.
      * @group Props
      */
-    @Input() checkboxIcon: string | undefined;
+    checkboxIcon = input<string | undefined>();
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
+    readonly = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Value in checked state.
      * @group Props
      */
-    @Input() trueValue: any = true;
+    trueValue = input<any>(true);
     /**
      * Value in unchecked state.
      * @group Props
      */
-    @Input() falseValue: any = false;
+    falseValue = input<any>(false);
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -201,36 +196,54 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
      * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
+    onChange = output<CheckboxChangeEvent>();
     /**
      * Callback to invoke when the receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus = output<Event>();
     /**
      * Callback to invoke when the loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur = output<Event>();
 
-    @ViewChild('input') inputViewChild: Nullable<ElementRef>;
+    inputViewChild = viewChild.required<ElementRef>('input');
 
     get checked() {
-        return this._indeterminate() ? false : this.binary ? this.modelValue() === this.trueValue : contains(this.value, this.modelValue());
+        return this._indeterminate() ? false : this.binary() ? this.modelValue() === this.trueValue() : contains(this.value(), this.modelValue());
     }
 
-    _indeterminate = signal<any>(undefined);
+    /**
+     * Indeterminate display state. Follows the `indeterminate` input and is reset locally when
+     * the user toggles the checkbox (see {@link updateModel}) — a subsequent `indeterminate`
+     * input change takes over again (`linkedSignal`, #16).
+     */
+    _indeterminate = linkedSignal<boolean>(() => this.indeterminate());
     /**
      * Custom checkbox icon template.
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) checkboxIconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
+    checkboxIconTemplate = contentChild<TemplateRef<CheckboxIconTemplateContext>>('icon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    templates = contentChildren(PrimeTemplate);
 
-    _checkboxIconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
+    _checkboxIconTemplate = computed<TemplateRef<CheckboxIconTemplateContext> | undefined>(() => {
+        let iconTemplate: TemplateRef<CheckboxIconTemplateContext> | undefined;
+
+        for (const item of this.templates()) {
+            switch (item.getType()) {
+                case 'icon':
+                case 'checkboxicon':
+                    iconTemplate = item.template;
+                    break;
+            }
+        }
+
+        return iconTemplate;
+    });
 
     focused: boolean = false;
 
@@ -241,25 +254,6 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     $pcCheckbox: Checkbox | undefined = inject(CHECKBOX_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
-
-    onAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'icon':
-                    this._checkboxIconTemplate = item.template;
-                    break;
-                case 'checkboxicon':
-                    this._checkboxIconTemplate = item.template;
-                    break;
-            }
-        });
-    }
-
-    onChanges(changes: SimpleChanges) {
-        if (changes.indeterminate) {
-            this._indeterminate.set(changes.indeterminate.currentValue);
-        }
-    }
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -275,20 +269,22 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
          * */
         const selfControl = this.injector.get<NgControl | null>(NgControl, null, { optional: true, self: true });
 
-        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.modelValue();
+        const formControl = this.formControl();
 
-        if (!this.binary) {
-            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value));
-            else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
+        const currentModelValue = selfControl && !formControl ? selfControl.value : this.modelValue();
+
+        if (!this.binary()) {
+            if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value()));
+            else newModelValue = currentModelValue ? [...currentModelValue, this.value()] : [this.value()];
 
             this.onModelChange(newModelValue);
             this.writeModelValue(newModelValue);
 
-            if (this.formControl) {
-                this.formControl.setValue(newModelValue);
+            if (formControl) {
+                formControl.setValue(newModelValue);
             }
         } else {
-            newModelValue = this._indeterminate() ? this.trueValue : this.checked ? this.falseValue : this.trueValue;
+            newModelValue = this._indeterminate() ? this.trueValue() : this.checked ? this.falseValue() : this.trueValue();
             this.writeModelValue(newModelValue);
             this.onModelChange(newModelValue);
         }
@@ -301,7 +297,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     }
 
     handleChange(event) {
-        if (!this.readonly) {
+        if (!this.readonly()) {
             this.updateModel(event);
         }
     }
@@ -318,7 +314,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
     }
 
     focus() {
-        this.inputViewChild?.nativeElement.focus();
+        this.inputViewChild().nativeElement.focus();
     }
 
     /**

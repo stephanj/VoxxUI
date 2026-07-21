@@ -31,29 +31,29 @@ describe('ToggleSwitch', () => {
         });
 
         it('should have default values', () => {
-            expect(component.trueValue).toBe(true);
-            expect(component.falseValue).toBe(false);
+            expect(component.trueValue()).toBe(true);
+            expect(component.falseValue()).toBe(false);
             expect(component.focused).toBe(false);
-            expect(component.readonly).toBeUndefined();
-            expect(component.tabindex).toBeUndefined();
+            expect(component.readonly()).toBeUndefined();
+            expect(component.tabindex()).toBeUndefined();
         });
 
         it('should accept custom values', () => {
-            component.trueValue = 'yes';
-            component.falseValue = 'no';
-            component.styleClass = 'custom-class';
-            component.inputId = 'test-input';
-            component.readonly = true;
-            component.tabindex = 5;
+            fixture.componentRef.setInput('trueValue', 'yes');
+            fixture.componentRef.setInput('falseValue', 'no');
+            fixture.componentRef.setInput('styleClass', 'custom-class');
+            fixture.componentRef.setInput('inputId', 'test-input');
+            fixture.componentRef.setInput('readonly', true);
+            fixture.componentRef.setInput('tabindex', 5);
 
             fixture.detectChanges();
 
-            expect(component.trueValue).toBe('yes');
-            expect(component.falseValue).toBe('no');
-            expect(component.styleClass).toBe('custom-class');
-            expect(component.inputId).toBe('test-input');
-            expect(component.readonly).toBe(true);
-            expect(component.tabindex).toBe(5);
+            expect(component.trueValue()).toBe('yes');
+            expect(component.falseValue()).toBe('no');
+            expect(component.styleClass()).toBe('custom-class');
+            expect(component.inputId()).toBe('test-input');
+            expect(component.readonly()).toBe(true);
+            expect(component.tabindex()).toBe(5);
         });
 
         it('should handle size input', () => {
@@ -75,8 +75,8 @@ describe('ToggleSwitch', () => {
             expect(component.checked()).toBe(false);
 
             // Test with custom true/false values
-            component.trueValue = 'on';
-            component.falseValue = 'off';
+            fixture.componentRef.setInput('trueValue', 'on');
+            fixture.componentRef.setInput('falseValue', 'off');
             component.writeModelValue('on');
             expect(component.checked()).toBe(true);
 
@@ -86,7 +86,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle onClick correctly', () => {
             // Mock the input element to prevent errors
-            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
+            (component as any).input = () => ({ nativeElement: { focus: vi.fn().mockName('focus') } });
 
             const mockEvent = new Event('click');
             vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
@@ -107,7 +107,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle onClick when checked', () => {
             // Mock the input element to prevent errors
-            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
+            (component as any).input = () => ({ nativeElement: { focus: vi.fn().mockName('focus') } });
 
             const mockEvent = new Event('click');
             vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
@@ -136,7 +136,7 @@ describe('ToggleSwitch', () => {
 
         it('should not handle onClick when readonly', () => {
             const mockEvent = new Event('click');
-            component.readonly = true;
+            fixture.componentRef.setInput('readonly', true);
             vi.spyOn(component.onChange, 'emit').mockReturnValue(undefined);
             vi.spyOn(component, 'writeModelValue').mockReturnValue(undefined);
 
@@ -347,13 +347,13 @@ describe('ToggleSwitch', () => {
         it('should focus input element after click', () => {
             const toggleSwitch = testFixture.debugElement.query(By.css('vx-toggleswitch')).componentInstance;
 
-            if (toggleSwitch && toggleSwitch.input) {
-                vi.spyOn(toggleSwitch.input.nativeElement, 'focus').mockReturnValue(undefined);
+            if (toggleSwitch && toggleSwitch.input()) {
+                vi.spyOn(toggleSwitch.input().nativeElement, 'focus').mockReturnValue(undefined);
 
                 const mockEvent = new Event('click');
                 toggleSwitch.onClick(mockEvent);
 
-                expect(toggleSwitch.input.nativeElement.focus).toHaveBeenCalled();
+                expect(toggleSwitch.input().nativeElement.focus).toHaveBeenCalled();
             } else {
                 expect(toggleSwitch).toBeTruthy();
             }
@@ -457,8 +457,8 @@ describe('ToggleSwitch', () => {
 
     describe('Edge Cases', () => {
         it('should handle custom trueValue and falseValue', () => {
-            component.trueValue = 1;
-            component.falseValue = 0;
+            fixture.componentRef.setInput('trueValue', 1);
+            fixture.componentRef.setInput('falseValue', 0);
 
             component.writeModelValue(1);
             expect(component.checked()).toBe(true);
@@ -471,8 +471,8 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle string trueValue and falseValue', () => {
-            component.trueValue = 'enabled';
-            component.falseValue = 'disabled';
+            fixture.componentRef.setInput('trueValue', 'enabled');
+            fixture.componentRef.setInput('falseValue', 'disabled');
 
             component.writeModelValue('enabled');
             expect(component.checked()).toBe(true);
@@ -485,8 +485,8 @@ describe('ToggleSwitch', () => {
             const trueObj = { status: 'active' };
             const falseObj = { status: 'inactive' };
 
-            component.trueValue = trueObj;
-            component.falseValue = falseObj;
+            fixture.componentRef.setInput('trueValue', trueObj);
+            fixture.componentRef.setInput('falseValue', falseObj);
 
             component.writeModelValue(trueObj);
             expect(component.checked()).toBe(true);
@@ -496,8 +496,8 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle null and undefined values', () => {
-            component.trueValue = true;
-            component.falseValue = false;
+            fixture.componentRef.setInput('trueValue', true);
+            fixture.componentRef.setInput('falseValue', false);
 
             component.writeModelValue(null);
             expect(component.checked()).toBe(false);
@@ -507,7 +507,7 @@ describe('ToggleSwitch', () => {
         });
 
         it('should handle rapid clicks', async () => {
-            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
+            (component as any).input = () => ({ nativeElement: { focus: vi.fn().mockName('focus') } });
 
             const mockEvent = new Event('click');
             let changeCount = 0;
@@ -526,7 +526,7 @@ describe('ToggleSwitch', () => {
         });
 
         it('should maintain state consistency after multiple operations', () => {
-            component.input = { nativeElement: { focus: vi.fn().mockName('focus') } } as any;
+            (component as any).input = () => ({ nativeElement: { focus: vi.fn().mockName('focus') } });
 
             const mockEvent = new Event('click');
 
@@ -556,24 +556,24 @@ describe('ToggleSwitch', () => {
 
     describe('Input Properties and Styling', () => {
         it('should handle styleClass input', () => {
-            component.styleClass = 'custom-toggle';
-            expect(component.styleClass).toBe('custom-toggle');
+            fixture.componentRef.setInput('styleClass', 'custom-toggle');
+            expect(component.styleClass()).toBe('custom-toggle');
         });
 
         it('should handle inputId', () => {
-            component.inputId = 'my-toggle-input';
+            fixture.componentRef.setInput('inputId', 'my-toggle-input');
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.css('input'));
             if (input) {
                 expect(input.nativeElement.getAttribute('id')).toBe('my-toggle-input');
             } else {
-                expect(component.inputId).toBe('my-toggle-input');
+                expect(component.inputId()).toBe('my-toggle-input');
             }
         });
 
         it('should handle readonly state', () => {
-            component.readonly = true;
+            fixture.componentRef.setInput('readonly', true);
 
             const mockEvent = new Event('click');
             vi.spyOn(component, 'writeModelValue').mockReturnValue(undefined);

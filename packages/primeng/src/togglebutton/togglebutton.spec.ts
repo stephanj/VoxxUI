@@ -201,11 +201,11 @@ describe('ToggleButton', () => {
 
         it('should have default values', () => {
             expect(toggleButtonInstance.checked).toBeFalsy();
-            expect(toggleButtonInstance.onLabel).toBe('Yes');
-            expect(toggleButtonInstance.offLabel).toBe('No');
-            expect(toggleButtonInstance.iconPos).toBe('left');
-            expect(toggleButtonInstance.tabindex).toBe(0);
-            expect(toggleButtonInstance.autofocus).toBeFalsy();
+            expect(toggleButtonInstance.onLabel()).toBe('Yes');
+            expect(toggleButtonInstance.offLabel()).toBe('No');
+            expect(toggleButtonInstance.iconPos()).toBe('left');
+            expect(toggleButtonInstance.tabindex()).toBe(0);
+            expect(toggleButtonInstance.autofocus()).toBeFalsy();
         });
 
         it('should accept custom input values', async () => {
@@ -218,11 +218,11 @@ describe('ToggleButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(toggleButtonInstance.onLabel).toBe('Custom Yes');
-            expect(toggleButtonInstance.offLabel).toBe('Custom No');
-            expect(toggleButtonInstance.iconPos).toBe('right');
-            expect(toggleButtonInstance.tabindex).toBe(5);
-            expect(toggleButtonInstance.ariaLabel).toBe('Custom Toggle');
+            expect(toggleButtonInstance.onLabel()).toBe('Custom Yes');
+            expect(toggleButtonInstance.offLabel()).toBe('Custom No');
+            expect(toggleButtonInstance.iconPos()).toBe('right');
+            expect(toggleButtonInstance.tabindex()).toBe(5);
+            expect(toggleButtonInstance.ariaLabel()).toBe('Custom Toggle');
         });
 
         it('should initialize with false checked state', () => {
@@ -390,7 +390,7 @@ describe('ToggleButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(toggleButtonInstance.size).toBe('large');
+            expect(toggleButtonInstance.size()).toBe('large');
         });
     });
 

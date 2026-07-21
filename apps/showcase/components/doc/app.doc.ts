@@ -1,5 +1,5 @@
 import { Doc } from '@/domain/doc';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -12,27 +12,27 @@ import { AppDocThemingSection } from './app.docthemingsection';
 @Component({
     selector: 'app-doc',
     standalone: true,
-    imports: [CommonModule, AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection, AppDocPtSection],
+    imports: [AppDocFeaturesSection, AppDocApiSection, AppDocThemingSection, AppDocPtSection],
     providers: [AppDocService],
     template: ` <div class="doc-component">
         <ul class="doc-tabmenu">
             @if (isComponentDoc()) {
-                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 0 }">
+                <li [class]="{ 'doc-tabmenu-active': docService.activeTab() === 0 }">
                     <button type="button" (click)="activateTab(0)">FEATURES</button>
                 </li>
             }
             @if (apiDocs()) {
-                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 1 }">
+                <li [class]="{ 'doc-tabmenu-active': docService.activeTab() === 1 }">
                     <button type="button" (click)="activateTab(1)">API</button>
                 </li>
             }
             @if (themeDocs()) {
-                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 2 }">
+                <li [class]="{ 'doc-tabmenu-active': docService.activeTab() === 2 }">
                     <button type="button" (click)="activateTab(2)">THEMING</button>
                 </li>
             }
             @if (ptDocs()) {
-                <li [ngClass]="{ 'doc-tabmenu-active': docService.activeTab() === 3 }">
+                <li [class]="{ 'doc-tabmenu-active': docService.activeTab() === 3 }">
                     <button type="button" (click)="activateTab(3)">PASSTHROUGH</button>
                 </li>
             }
@@ -45,23 +45,23 @@ import { AppDocThemingSection } from './app.docthemingsection';
                     [docs]="docs()"
                     [componentName]="isComponentDoc() ? _componentName() : ''"
                     [docType]="docType()"
-                    [ngStyle]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }"
+                    [style]="{ display: docService.activeTab() === 0 ? 'flex' : 'none' }"
                 />
             }
             @if (apiDocs()) {
                 @defer (when docService.activeTab() === 1) {
-                    <app-docapisection [docs]="apiDocs()" [header]="header() ?? _componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
+                    <app-docapisection [docs]="apiDocs()" [header]="header() ?? _componentName()" class="doc-tabpanel" [style]="{ display: docService.activeTab() === 1 ? 'flex' : 'none' }" />
                 }
             }
 
             @if (themeDocs()) {
                 @defer (when docService.activeTab() === 2) {
-                    <app-docthemingsection [header]="header()" [docs]="themeDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
+                    <app-docthemingsection [header]="header()" [docs]="themeDocs()" [componentName]="_componentName()" class="doc-tabpanel" [style]="{ display: docService.activeTab() === 2 ? 'flex' : 'none' }" />
                 }
             }
             @if (ptDocs()) {
                 @defer (when docService.activeTab() === 3) {
-                    <app-docptsection [ptComponent]="ptDocs()" [componentName]="_componentName()" class="doc-tabpanel" [ngStyle]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
+                    <app-docptsection [ptComponent]="ptDocs()" [componentName]="_componentName()" class="doc-tabpanel" [style]="{ display: docService.activeTab() === 3 ? 'flex' : 'none' }" />
                 }
             }
         </div>

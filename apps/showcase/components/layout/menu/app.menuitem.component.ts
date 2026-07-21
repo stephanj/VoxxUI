@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, booleanAttribute, Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { StyleClass } from 'voxx-ui/styleclass';
@@ -12,7 +11,7 @@ import { MenuItem } from './app.menu.component';
         @if (root && item.children) {
             <button vxButton type="button" class="px-link" vxStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-slidedown" leaveToClass="hidden" leaveActiveClass="animate-slideup">
                 <div class="menu-icon">
-                    <i [ngClass]="item.icon"></i>
+                    <i [class]="item.icon"></i>
                 </div>
                 <span>{{ item.name }}</span>
                 <span class="menu-toggle">
@@ -27,7 +26,7 @@ import { MenuItem } from './app.menu.component';
             <a [href]="item.href" target="_blank" rel="noopener noreferrer">
                 @if (item.icon && root) {
                     <div class="menu-icon">
-                        <i [ngClass]="item.icon"></i>
+                        <i [class]="item.icon"></i>
                     </div>
                 }
                 <span>{{ item.name }}</span>
@@ -40,7 +39,7 @@ import { MenuItem } from './app.menu.component';
             <a [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
                 @if (item.icon && root) {
                     <div class="menu-icon">
-                        <i [ngClass]="item.icon"></i>
+                        <i [class]="item.icon"></i>
                     </div>
                 }
                 <span>{{ item.name }}</span>
@@ -53,7 +52,7 @@ import { MenuItem } from './app.menu.component';
             <span class="menu-child-category">{{ item.name }}</span>
         }
         @if (item.children) {
-            <div class="overflow-y-hidden transition-all duration-[400ms] ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
+            <div class="overflow-y-hidden transition-all duration-[400ms] ease-in-out" [class]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
                 <ol>
                     @for (child of item.children; track child) {
                         <li app-menuitem [root]="false" [item]="child"></li>
@@ -63,7 +62,7 @@ import { MenuItem } from './app.menu.component';
         }
     `,
     standalone: true,
-    imports: [CommonModule, StyleClass, RouterModule, Tag]
+    imports: [StyleClass, RouterModule, Tag]
 })
 export class AppMenuItemComponent {
     @Input() item: MenuItem;

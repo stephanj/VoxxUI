@@ -1,24 +1,4 @@
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Injectable,
-    InjectionToken,
-    Injector,
-    input,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewChild
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, Injectable, InjectionToken, Injector, input, NgModule, numberAttribute, output, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'voxx-ui/api';
 import { AutoFocus } from 'voxx-ui/autofocus';
@@ -58,7 +38,7 @@ export class RadioControlRegistry {
     select(accessor: RadioButton) {
         this.accessors.forEach((c) => {
             if (this.isSameGroup(c, accessor) && c[1] !== accessor) {
-                c[1].writeValue(accessor.value);
+                c[1].writeValue(accessor.value());
             }
         });
     }
@@ -81,7 +61,7 @@ export class RadioControlRegistry {
     template: `
         <input
             #input
-            [attr.id]="inputId"
+            [attr.id]="inputId()"
             type="radio"
             [class]="cx('input')"
             [attr.name]="name()"
@@ -89,14 +69,14 @@ export class RadioControlRegistry {
             [attr.disabled]="$disabled() ? '' : undefined"
             [checked]="checked"
             [attr.value]="modelValue()"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledby]="ariaLabelledBy()"
+            [attr.aria-label]="ariaLabel()"
             [attr.aria-checked]="checked"
-            [attr.tabindex]="tabindex"
+            [attr.tabindex]="tabindex()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (change)="onChange($event)"
-            [vxAutoFocus]="autofocus"
+            [vxAutoFocus]="autofocus()"
             [vxBind]="ptm('input')"
         />
         <div [class]="cx('box')" [vxBind]="ptm('box')">
@@ -128,43 +108,43 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
      * Value of the radiobutton.
      * @group Props
      */
-    @Input() value: any;
+    value = input<any>();
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+    tabindex = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
      */
-    @Input() inputId: string | undefined;
+    inputId = input<string | undefined>();
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
     /**
      * Used to define a string that labels the input element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Allows to select a boolean value.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) binary: boolean | undefined;
+    binary = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -182,21 +162,21 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
      * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<RadioButtonClickEvent> = new EventEmitter<RadioButtonClickEvent>();
+    onClick = output<RadioButtonClickEvent>();
     /**
      * Callback to invoke when the receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus = output<Event>();
     /**
      * Callback to invoke when the loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur = output<Event>();
 
-    @ViewChild('input') inputViewChild!: ElementRef;
+    inputViewChild = viewChild.required<ElementRef>('input');
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant() || undefined);
 
@@ -227,9 +207,9 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
         if (!this.$disabled()) {
             this.checked = true;
             this.writeModelValue(this.checked);
-            this.onModelChange(this.value);
+            this.onModelChange(this.value());
             this.registry.select(this);
-            this.onClick.emit({ originalEvent: event, value: this.value });
+            this.onClick.emit({ originalEvent: event, value: this.value() });
         }
     }
 
@@ -249,7 +229,7 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
      * @group Method
      */
     public focus() {
-        this.inputViewChild.nativeElement.focus();
+        this.inputViewChild().nativeElement.focus();
     }
 
     /**
@@ -259,7 +239,7 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.checked = !this.binary ? value == this.value : !!value;
+        this.checked = !this.binary() ? value == this.value() : !!value;
         setModelValue(this.checked);
         this.cd.markForCheck();
     }

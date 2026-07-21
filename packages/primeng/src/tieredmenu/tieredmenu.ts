@@ -4,25 +4,23 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChild,
-    ContentChildren,
+    contentChild,
+    contentChildren,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     Inject,
     inject,
     InjectionToken,
-    Input,
     input,
+    linkedSignal,
     NgModule,
     numberAttribute,
-    Output,
-    QueryList,
+    output,
     Renderer2,
     signal,
     TemplateRef,
-    ViewChild,
+    viewChild,
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
@@ -54,27 +52,27 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
             <ul
                 #sublist
                 role="menu"
-                [class]="root ? cx('rootList') : cx('submenu')"
-                [id]="menuId + '_list'"
-                [tabindex]="tabindex"
-                [attr.aria-label]="ariaLabel"
-                [attr.aria-labelledBy]="ariaLabelledBy"
-                [attr.aria-activedescendant]="focusedItemId"
+                [class]="root() ? cx('rootList') : cx('submenu')"
+                [id]="menuId() + '_list'"
+                [tabindex]="tabindex()"
+                [attr.aria-label]="ariaLabel()"
+                [attr.aria-labelledBy]="ariaLabelledBy()"
+                [attr.aria-activedescendant]="focusedItemId()"
                 [attr.aria-orientation]="'vertical'"
-                [vxBind]="_ptm(root ? 'rootList' : 'submenu')"
+                [vxBind]="_ptm(root() ? 'rootList' : 'submenu')"
                 (keydown)="menuKeydown.emit($event)"
                 (focus)="menuFocus.emit($event)"
                 (blur)="menuBlur.emit($event)"
-                [style]="inlineStyles"
-                [vxMotion]="root ? true : visible"
-                [vxMotionDisabled]="root"
+                [style]="inlineStyles()"
+                [vxMotion]="root() ? true : visible()"
+                [vxMotionDisabled]="root()"
                 [vxMotionAppear]="true"
                 [vxMotionName]="'p-anchored-overlay'"
-                [vxMotionOptions]="motionOptions"
+                [vxMotionOptions]="motionOptions()"
                 (vxMotionOnBeforeEnter)="onBeforeEnter($event)"
                 (vxMotionOnAfterLeave)="onAfterLeave()"
             >
-                @for (processedItem of items; track processedItem; let index = $index) {
+                @for (processedItem of items(); track processedItem; let index = $index) {
                     @if (isItemVisible(processedItem) && getItemProp(processedItem, 'separator')) {
                         <li
                             [attr.id]="getItemId(processedItem)"
@@ -98,7 +96,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                             [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
                             [attr.aria-setsize]="getAriaSetSize()"
                             [attr.aria-posinset]="getAriaPosInset(index)"
-                            [ngStyle]="getItemProp(processedItem, 'style')"
+                            [style]="getItemProp(processedItem, 'style')"
                             [class]="cn(cx('item', { processedItem }), getItemProp(processedItem, 'styleClass'))"
                             [vxBind]="getPTOptions(processedItem, index, 'item')"
                             [vxTooltip]="getItemProp(processedItem, 'tooltip')"
@@ -106,7 +104,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                             [vxTooltipUnstyled]="unstyled()"
                         >
                             <div [class]="cx('itemContent')" [vxBind]="getPTOptions(processedItem, index, 'itemContent')" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
-                                @if (!itemTemplate) {
+                                @if (!itemTemplate()) {
                                     @if (!getItemProp(processedItem, 'routerLink')) {
                                         <a
                                             [attr.href]="getItemProp(processedItem, 'url')"
@@ -114,7 +112,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             [attr.title]="getItemProp(processedItem, 'title')"
                                             [target]="getItemProp(processedItem, 'target')"
                                             [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
-                                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
+                                            [style]="getItemProp(processedItem, 'linkStyle')"
                                             [attr.tabindex]="-1"
                                             [vxBind]="getPTOptions(processedItem, index, 'itemLink')"
                                             vxRipple
@@ -122,20 +120,20 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             @if (getItemProp(processedItem, 'icon')) {
                                                 <span
                                                     [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                                    [style]="getItemProp(processedItem, 'iconStyle')"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                                     [attr.tabindex]="-1"
                                                 >
                                                 </span>
                                             }
                                             @if (getItemProp(processedItem, 'escape')) {
-                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [ngStyle]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [style]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
                                                     {{ getItemLabel(processedItem) }}
                                                 </span>
                                             } @else {
                                                 <span
                                                     [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                                    [style]="getItemProp(processedItem, 'labelStyle')"
                                                     [innerHTML]="getItemLabel(processedItem)"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemLabel')"
                                                 ></span>
@@ -144,10 +142,10 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                                 <span [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
                                             }
                                             @if (isItemGroup(processedItem)) {
-                                                @if (!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate) {
+                                                @if (!tieredMenu.submenuIconTemplate() && !tieredMenu._submenuIconTemplate()) {
                                                     <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [vxBind]="getPTOptions(processedItem, index, 'submenuIcon')" [attr.aria-hidden]="true" />
                                                 }
-                                                <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.aria-hidden]="true"></ng-template>
+                                                <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate() || tieredMenu._submenuIconTemplate()" [attr.aria-hidden]="true"></ng-template>
                                             }
                                         </a>
                                     }
@@ -162,7 +160,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                                             [target]="getItemProp(processedItem, 'target')"
                                             [class]="cn(cx('itemLink'), getItemProp(processedItem, 'linkClass'))"
-                                            [ngStyle]="getItemProp(processedItem, 'linkStyle')"
+                                            [style]="getItemProp(processedItem, 'linkStyle')"
                                             [fragment]="getItemProp(processedItem, 'fragment')"
                                             [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                             [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -175,7 +173,7 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                             @if (getItemProp(processedItem, 'icon')) {
                                                 <span
                                                     [class]="cn(cx('itemIcon'), getItemProp(processedItem, 'icon'), getItemProp(processedItem, 'iconClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                                    [style]="getItemProp(processedItem, 'iconStyle')"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemIcon')"
                                                     [attr.aria-hidden]="true"
                                                     [attr.tabindex]="-1"
@@ -183,13 +181,13 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                                 </span>
                                             }
                                             @if (getItemProp(processedItem, 'escape')) {
-                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [ngStyle]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
+                                                <span [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))" [style]="getItemProp(processedItem, 'labelStyle')" [vxBind]="getPTOptions(processedItem, index, 'itemLabel')">
                                                     {{ getItemLabel(processedItem) }}
                                                 </span>
                                             } @else {
                                                 <span
                                                     [class]="cn(cx('itemLabel'), getItemProp(processedItem, 'labelClass'))"
-                                                    [ngStyle]="getItemProp(processedItem, 'labelStyle')"
+                                                    [style]="getItemProp(processedItem, 'labelStyle')"
                                                     [innerHTML]="getItemLabel(processedItem)"
                                                     [vxBind]="getPTOptions(processedItem, index, 'itemLabel')"
                                                 ></span>
@@ -198,33 +196,33 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
                                                 <span [class]="cn(cx('itemBadge'), getItemProp(processedItem, 'badgeStyleClass'))">{{ getItemProp(processedItem, 'badge') }}</span>
                                             }
                                             @if (isItemGroup(processedItem)) {
-                                                @if (!tieredMenu.submenuIconTemplate && !tieredMenu._submenuIconTemplate) {
+                                                @if (!tieredMenu.submenuIconTemplate() && !tieredMenu._submenuIconTemplate()) {
                                                     <svg data-p-icon="angle-right" [class]="cx('submenuIcon')" [vxBind]="getPTOptions(processedItem, index, 'submenuIcon')" [attr.aria-hidden]="true" />
                                                 }
-                                                <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate || tieredMenu._submenuIconTemplate" [attr.aria-hidden]="true"></ng-template>
+                                                <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate() || tieredMenu._submenuIconTemplate()" [attr.aria-hidden]="true"></ng-template>
                                             }
                                         </a>
                                     }
                                 }
-                                @if (itemTemplate) {
-                                    <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
+                                @if (itemTemplate()) {
+                                    <ng-template *ngTemplateOutlet="itemTemplate(); context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
                                 }
                             </div>
                             @if (isItemVisible(processedItem) && isItemGroup(processedItem)) {
                                 <vx-tieredmenusub
                                     [items]="processedItem.items"
-                                    [itemTemplate]="itemTemplate"
-                                    [autoDisplay]="autoDisplay"
-                                    [menuId]="menuId"
+                                    [itemTemplate]="itemTemplate()"
+                                    [autoDisplay]="autoDisplay()"
+                                    [menuId]="menuId()"
                                     [visible]="isItemActive(processedItem) && isItemGroup(processedItem)"
                                     [activeItemPath]="activeItemPath()"
-                                    [focusedItemId]="focusedItemId"
+                                    [focusedItemId]="focusedItemId()"
                                     [ariaLabelledBy]="getItemId(processedItem)"
-                                    [level]="level + 1"
+                                    [level]="level() + 1"
                                     (itemClick)="itemClick.emit($event)"
                                     (itemMouseEnter)="onItemMouseEnter($event)"
                                     [pt]="pt()"
-                                    [motionOptions]="motionOptions"
+                                    [motionOptions]="motionOptions()"
                                     [unstyled]="unstyled()"
                                 ></vx-tieredmenusub>
                             }
@@ -242,62 +240,60 @@ const TIEREDMENUSUB_INSTANCE = new InjectionToken<TieredMenuSub>('TIEREDMENUSUB_
     hostDirectives: [Bind]
 })
 export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
-    @Input() get visible(): boolean {
-        return this._visible;
-    }
-    set visible(value: boolean) {
-        this._visible = value;
+    visible = input<boolean>(false);
 
-        if (this._visible || this.root) {
-            this.render.set(true);
-        }
-    }
+    items = input<any[]>([]);
 
-    @Input() items: any[];
+    itemTemplate = input<TemplateRef<TieredMenuItemTemplateContext> | undefined>();
 
-    @Input() itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
+    root = input<boolean | undefined, unknown>(false, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
+    autoDisplay = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
+    autoZIndex = input<boolean, unknown>(true, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
+    baseZIndex = input<number, unknown>(0, { transform: numberAttribute });
 
-    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
+    popup = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
 
-    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
+    menuId = input<string | undefined>();
 
-    @Input() menuId: string | undefined;
+    ariaLabel = input<string | undefined>();
 
-    @Input() ariaLabel: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
 
-    @Input() ariaLabelledBy: string | undefined;
+    level = input<number, unknown>(0, { transform: numberAttribute });
 
-    @Input({ transform: numberAttribute }) level: number = 0;
-
-    @Input() focusedItemId: string | undefined;
+    focusedItemId = input<string | undefined>();
 
     activeItemPath = input<any[]>([]);
 
-    @Input() motionOptions: MotionOptions | undefined;
+    motionOptions = input<MotionOptions | undefined>();
 
-    @Input({ transform: numberAttribute }) tabindex: number = 0;
+    tabindex = input<number, unknown>(0, { transform: numberAttribute });
 
-    @Input() inlineStyles: { [klass: string]: any } | null | undefined;
+    inlineStyles = input<{ [klass: string]: any } | null | undefined>();
 
-    @Output() itemClick: EventEmitter<any> = new EventEmitter();
+    itemClick = output<any>();
 
-    @Output() itemMouseEnter: EventEmitter<any> = new EventEmitter();
+    itemMouseEnter = output<any>();
 
-    @Output() menuFocus: EventEmitter<any> = new EventEmitter();
+    menuFocus = output<any>();
 
-    @Output() menuBlur: EventEmitter<any> = new EventEmitter();
+    menuBlur = output<any>();
 
-    @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
+    menuKeydown = output<any>();
 
-    @ViewChild('sublist') sublistViewChild: ElementRef;
+    sublistViewChild = viewChild<ElementRef>('sublist');
 
-    render = signal<boolean>(false);
+    /**
+     * Rendered state of the sublist. Becomes true as soon as the sublist becomes visible (or is
+     * the root list) and stays true until the leave animation finishes (`onAfterLeave`).
+     */
+    render = linkedSignal<boolean, boolean>({
+        source: computed(() => this.visible() || !!this.root()),
+        computation: (source, previous) => source || (previous?.value ?? false)
+    });
 
     _componentStyle = inject(TieredMenuStyle);
 
@@ -306,8 +302,6 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     $pcTieredMenu: TieredMenu | undefined = inject(TIEREDMENU_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     $pcTieredMenuSub: TieredMenuSub | undefined = inject(TIEREDMENUSUB_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
-
-    _visible: boolean = false;
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -324,7 +318,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     positionSubmenu(sublist) {
         if (isPlatformBrowser(this.tieredMenu.platformId)) {
             if (sublist) {
-                nestedPosition(sublist, this.level);
+                nestedPosition(sublist, this.level());
             }
         }
     }
@@ -334,7 +328,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     }
 
     getItemId(processedItem: any): string {
-        return processedItem.item?.id ?? `${this.menuId}_${processedItem.key}`;
+        return processedItem.item?.id ?? `${this.menuId()}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -346,17 +340,19 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     }
 
     getAriaSetSize() {
-        return this.items.filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
+        return this.items().filter((processedItem) => this.isItemVisible(processedItem) && !this.getItemProp(processedItem, 'separator')).length;
     }
 
     getAriaPosInset(index: number) {
         return (
             index -
-            this.items.slice(0, index).filter((processedItem) => {
-                const isItemVisible = this.isItemVisible(processedItem);
-                const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
-                return !isItemVisible || isVisibleSeparator;
-            }).length +
+            this.items()
+                .slice(0, index)
+                .filter((processedItem) => {
+                    const isItemVisible = this.isItemVisible(processedItem);
+                    const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
+                    return !isItemVisible || isVisibleSeparator;
+                }).length +
             1
         );
     }
@@ -377,7 +373,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     }
 
     isItemFocused(processedItem: any): boolean {
-        return this.focusedItemId === this.getItemId(processedItem);
+        return this.focusedItemId() === this.getItemId(processedItem);
     }
 
     isItemGroup(processedItem: any): boolean {
@@ -402,7 +398,7 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onItemMouseEnter(param: any) {
-        if (this.autoDisplay) {
+        if (this.autoDisplay()) {
             const { event, processedItem } = param;
             this.itemMouseEnter.emit({ originalEvent: event, processedItem });
         }
@@ -429,18 +425,18 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
     selector: 'vx-tieredMenu, vx-tieredmenu, vx-tiered-menu',
     imports: [CommonModule, TieredMenuSub, RouterModule, TooltipModule, SharedModule, BindModule, MotionModule],
     template: `
-        @if (render() || !popup) {
+        @if (render() || !popup()) {
             <div
                 #container
-                [id]="id"
-                [class]="cn(cx('root'), styleClass)"
-                [ngStyle]="style"
+                [id]="$id()"
+                [class]="cn(cx('root'), styleClass())"
+                [style]="style()"
                 [vxBind]="ptm('root')"
                 (click)="onOverlayClick($event)"
-                [vxMotion]="visible || !popup"
+                [vxMotion]="visible || !popup()"
                 [vxMotionName]="'p-anchored-overlay'"
                 [vxMotionAppear]="true"
-                [vxMotionDisabled]="!popup"
+                [vxMotionDisabled]="!popup()"
                 [vxMotionOptions]="computedMotionOptions()"
                 (vxMotionOnBeforeEnter)="onOverlayBeforeEnter($event)"
                 (vxMotionOnAfterEnter)="onOverlayAfterEnter()"
@@ -450,16 +446,16 @@ export class TieredMenuSub extends BaseComponent<TieredMenuPassThrough> {
                     #rootmenu
                     [root]="true"
                     [visible]="true"
-                    [items]="processedItems"
-                    [itemTemplate]="itemTemplate || _itemTemplate"
-                    [menuId]="id"
-                    [tabindex]="!disabled ? tabindex : -1"
-                    [ariaLabel]="ariaLabel"
-                    [ariaLabelledBy]="ariaLabelledBy"
-                    [baseZIndex]="baseZIndex"
-                    [autoZIndex]="autoZIndex"
-                    [autoDisplay]="autoDisplay"
-                    [popup]="popup"
+                    [items]="processedItems()"
+                    [itemTemplate]="itemTemplate() || _itemTemplate()"
+                    [menuId]="$id()"
+                    [tabindex]="!disabled() ? tabindex() : -1"
+                    [ariaLabel]="ariaLabel()"
+                    [ariaLabelledBy]="ariaLabelledBy()"
+                    [baseZIndex]="baseZIndex()"
+                    [autoZIndex]="autoZIndex()"
+                    [autoDisplay]="autoDisplay()"
+                    [popup]="popup()"
                     [focusedItemId]="focused ? focusedItemId : undefined"
                     [activeItemPath]="activeItemPath()"
                     (itemClick)="onItemClick($event)"
@@ -486,86 +482,84 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * An array of menuitems.
      * @group Props
      */
-    @Input() set model(value: MenuItem[] | undefined) {
-        this._model = value;
-        this._processedItems = this.createProcessedItems(this._model || []);
-    }
-    get model(): MenuItem[] | undefined {
-        return this._model;
-    }
+    model = input<MenuItem[] | undefined>();
     /**
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
+    popup = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * The breakpoint to define the maximum width boundary.
      * @group Props
      */
-    @Input() breakpoint: string = '960px';
+    breakpoint = input<string>('960px');
     /**
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
+    autoZIndex = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
+    baseZIndex = input<number, unknown>(0, { transform: numberAttribute });
     /**
      * Whether to show a root submenu on mouse over.
      * @defaultValue true
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
+    autoDisplay = input<boolean | undefined, unknown>(true, { transform: booleanAttribute });
     /**
      * Transition options of the show animation.
      * @group Props
      * @deprecated since v21.0.0, use `motionOptions` instead.
      */
-    @Input() showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
+    showTransitionOptions = input<string>('.12s cubic-bezier(0, 0, 0.2, 1)');
     /**
      * Transition options of the hide animation.
      * @group Props
      * @deprecated since v21.0.0, use `motionOptions` instead.
      */
-    @Input() hideTransitionOptions: string = '.1s linear';
+    hideTransitionOptions = input<string>('.1s linear');
     /**
      * Current id state as a string.
      * @group Props
      */
-    @Input() id: string | undefined;
+    id = input<string | undefined>();
+    /**
+     * Effective id: the `id` input when provided, otherwise a generated unique id.
+     */
+    $id = linkedSignal(() => this.id() || uuid('pn_id_'));
     /**
      * Defines a string value that labels an interactive element.
      * @group Props
      */
-    @Input() ariaLabel: string | undefined;
+    ariaLabel = input<string | undefined>();
     /**
      * Identifier of the underlying input element.
      * @group Props
      */
-    @Input() ariaLabelledBy: string | undefined;
+    ariaLabelledBy = input<string | undefined>();
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) disabled: boolean = false;
+    disabled = input<boolean, unknown>(false, { transform: booleanAttribute });
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) tabindex: number = 0;
+    tabindex = input<number, unknown>(0, { transform: numberAttribute });
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -588,30 +582,39 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    onShow = output<any>();
     /**
      * Callback to invoke when overlay menu is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
+    onHide = output<any>();
 
-    @ViewChild('rootmenu') rootmenu: TieredMenuSub | undefined;
+    rootmenu = viewChild<TieredMenuSub>('rootmenu');
 
-    @ViewChild('container') containerViewChild: ElementRef<any> | undefined;
+    containerViewChild = viewChild<ElementRef<any>>('container');
     /**
      * Custom submenu icon template.
      * @group Templates
      */
-    @ContentChild('submenuicon', { descendants: false }) submenuIconTemplate: TemplateRef<void> | undefined;
+    submenuIconTemplate = contentChild<TemplateRef<void>>('submenuicon', { descendants: false });
     /**
      * Custom item template.
      * @param {TieredMenuItemTemplateContext} context - item context.
      * @see {@link TieredMenuItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
+    itemTemplate = contentChild<TemplateRef<TieredMenuItemTemplateContext>>('item', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    templates = contentChildren(PrimeTemplate);
+
+    _submenuIconTemplate = computed<TemplateRef<void> | undefined>(() => this.templates().find((item) => item.getType() === 'submenuicon')?.template);
+
+    _itemTemplate = computed<TemplateRef<TieredMenuItemTemplateContext> | undefined>(
+        () =>
+            this.templates()
+                .filter((item) => item.getType() !== 'submenuicon')
+                .at(-1)?.template
+    );
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -645,9 +648,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     searchTimeout: any;
 
-    _processedItems: any[];
-
-    _model: MenuItem[] | undefined;
+    processedItems = computed<any[]>(() => this.createProcessedItems(this.model() || []));
 
     _componentStyle = inject(TieredMenuStyle);
 
@@ -659,25 +660,14 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     public queryMatches = signal<boolean>(false);
 
-    _submenuIconTemplate: TemplateRef<void> | undefined;
-
-    _itemTemplate: TemplateRef<TieredMenuItemTemplateContext> | undefined;
-
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
-        return processedItem ? processedItem.items : this.processedItems;
-    }
-
-    get processedItems() {
-        if (!this._processedItems || !this._processedItems.length) {
-            this._processedItems = this.createProcessedItems(this.model || []);
-        }
-        return this._processedItems;
+        return processedItem ? processedItem.items : this.processedItems();
     }
 
     get focusedItemId() {
         const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.$id()}${isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
     }
 
     constructor(public overlayService: OverlayService) {
@@ -701,31 +691,12 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     onInit() {
         this.bindMatchMediaListener();
-        this.id = this.id || uuid('pn_id_');
-    }
-
-    onAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'submenuicon':
-                    this._submenuIconTemplate = item.template;
-                    break;
-
-                case 'item':
-                    this._itemTemplate = item.template;
-                    break;
-
-                default:
-                    this._itemTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     bindMatchMediaListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.matchMediaListener) {
-                const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+                const query = window.matchMedia(`(max-width: ${this.breakpoint()})`);
 
                 this.query = query;
                 this.queryMatches.set(query.matches);
@@ -817,7 +788,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayClick(event: MouseEvent) {
-        if (this.popup) {
+        if (this.popup()) {
             this.overlayService.add({
                 originalEvent: event,
                 target: this.el.nativeElement
@@ -838,7 +809,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             this.focusedItemInfo.set({ index, level, parentKey, item });
 
             this.dirty = true;
-            focus(this.rootmenu?.sublistViewChild?.nativeElement);
+            focus(this.rootmenu()?.sublistViewChild()?.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -847,7 +818,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 this.hide(originalEvent);
                 this.changeFocusedItemIndex(originalEvent, rootProcessedItem?.index ?? -1);
 
-                focus(this.rootmenu?.sublistViewChild?.nativeElement);
+                focus(this.rootmenu()?.sublistViewChild()?.nativeElement);
             }
         }
     }
@@ -858,7 +829,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 this.onItemChange(event, 'hover');
             }
         } else {
-            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay }, 'hover');
+            this.onItemChange({ event, processedItem: event.processedItem, focus: this.autoDisplay() }, 'hover');
         }
     }
 
@@ -954,7 +925,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
                 !grouped && this.onItemChange({ originalEvent: event, processedItem });
             }
 
-            this.popup && this.hide(event, true);
+            this.popup() && this.hide(event, true);
             event.preventDefault();
         } else {
             const itemIndex = this.focusedItemInfo().index !== -1 ? this.findPrevItemIndex(this.focusedItemInfo().index) : this.findLastFocusedItemIndex();
@@ -1019,12 +990,12 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = <any>findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const element = <any>findSingle(this.rootmenu()?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
             const anchorElement = element && (<any>findSingle(element, '[data-pc-section="itemlink"]') || findSingle(element, 'a,button'));
 
             anchorElement ? anchorElement.click() : element && element.click();
 
-            if (!this.popup) {
+            if (!this.popup()) {
                 const processedItem = this.visibleItems[this.focusedItemInfo().index];
                 const grouped = this.isProccessedItemGroup(processedItem);
 
@@ -1048,7 +1019,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         this.focusedItemInfo.set({ index, level, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
+        isFocus && focus(this.rootmenu()?.sublistViewChild()?.nativeElement);
 
         if (type === 'hover' && this.queryMatches()) {
             return;
@@ -1059,7 +1030,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        if (this.focusedItemInfo().index === -1 && !this.popup) {
+        if (this.focusedItemInfo().index === -1 && !this.popup()) {
             // this.onArrowDownKey(event);
         }
     }
@@ -1072,7 +1043,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayBeforeEnter(event: MotionEvent | undefined) {
-        if (this.popup) {
+        if (this.popup()) {
             this.container = event?.element as HTMLElement;
             addStyle(this.container!, { position: 'absolute' });
             this.moveOnTop();
@@ -1084,7 +1055,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     onOverlayAfterEnter() {
-        if (this.popup) {
+        if (this.popup()) {
             this.bindOutsideClickListener();
             this.bindResizeListener();
             this.bindScrollListener();
@@ -1092,7 +1063,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             this.scrollInView();
         }
 
-        focus(this.rootmenu?.sublistViewChild?.nativeElement);
+        focus(this.rootmenu()?.sublistViewChild()?.nativeElement);
     }
 
     onOverlayAfterLeave() {
@@ -1133,8 +1104,8 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     moveOnTop() {
-        if (this.autoZIndex) {
-            ZIndexUtils.set('menu', this.container, this.baseZIndex + this.config.zIndex.menu);
+        if (this.autoZIndex()) {
+            ZIndexUtils.set('menu', this.container, this.baseZIndex() + this.config.zIndex.menu);
         }
     }
 
@@ -1143,14 +1114,14 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * @group Method
      */
     hide(event?, isFocus?: boolean) {
-        if (this.popup) {
+        if (this.popup()) {
             this.onHide.emit({});
             this.visible = false;
         }
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.relatedTarget || this.target || this.rootmenu?.sublistViewChild?.nativeElement);
+        isFocus && focus(this.relatedTarget || this.target || this.rootmenu()?.sublistViewChild()?.nativeElement);
         this.dirty = false;
     }
 
@@ -1169,7 +1140,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
      * @group Method
      */
     show(event: any, isFocus?) {
-        if (this.popup) {
+        if (this.popup()) {
             this.visible = true;
             this.target = this.target || event.currentTarget;
             this.relatedTarget = event.relatedTarget || null;
@@ -1180,7 +1151,7 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
 
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
-        isFocus && focus(this.rootmenu?.sublistViewChild?.nativeElement);
+        isFocus && focus(this.rootmenu()?.sublistViewChild()?.nativeElement);
 
         this.cd.markForCheck();
     }
@@ -1266,8 +1237,8 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
     }
 
     scrollInView(index: number = -1) {
-        const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = findSingle(this.rootmenu?.el?.nativeElement, `li[id="${id}"]`);
+        const id = index !== -1 ? `${this.$id()}_${index}` : this.focusedItemId;
+        const element = findSingle(this.rootmenu()?.el?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1309,8 +1280,9 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    const isOutsideContainer = this.containerViewChild && !this.containerViewChild.nativeElement.contains(event.target);
-                    const isOutsideTarget = this.popup ? !(this.target && (this.target === event.target || this.target.contains(event.target))) : true;
+                    const container = this.containerViewChild()?.nativeElement;
+                    const isOutsideContainer = container && !container.contains(event.target);
+                    const isOutsideTarget = this.popup() ? !(this.target && (this.target === event.target || this.target.contains(event.target))) : true;
                     if (isOutsideContainer && isOutsideTarget) {
                         this.hide();
                     }
@@ -1342,13 +1314,13 @@ export class TieredMenu extends BaseComponent<TieredMenuPassThrough> {
             this.target = null;
         }
 
-        if (this.container && this.autoZIndex) {
+        if (this.container && this.autoZIndex()) {
             ZIndexUtils.clear(this.container);
         }
     }
 
     onDestroy() {
-        if (this.popup) {
+        if (this.popup()) {
             if (this.scrollHandler) {
                 this.scrollHandler.destroy();
                 this.scrollHandler = null;

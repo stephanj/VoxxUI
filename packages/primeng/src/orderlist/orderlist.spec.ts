@@ -414,16 +414,16 @@ describe('OrderList', () => {
         });
 
         it('should have default values', () => {
-            expect(orderList.controlsPosition).toBe('left');
-            expect(orderList.metaKeySelection).toBe(false);
-            expect(orderList.dragdrop).toBe(false);
-            expect(orderList.breakpoint).toBe('960px');
-            expect(orderList.filterMatchMode).toBe('contains');
-            expect(orderList.scrollHeight).toBe('14rem');
-            expect(orderList.autoOptionFocus).toBe(true);
-            expect(orderList.stripedRows).toBeFalsy();
-            expect(orderList.disabled).toBe(false);
-            expect(orderList.responsive).toBeFalsy();
+            expect(orderList.controlsPosition()).toBe('left');
+            expect(orderList.metaKeySelection()).toBe(false);
+            expect(orderList.dragdrop()).toBe(false);
+            expect(orderList.breakpoint()).toBe('960px');
+            expect(orderList.filterMatchMode()).toBe('contains');
+            expect(orderList.scrollHeight()).toBe('14rem');
+            expect(orderList.autoOptionFocus()).toBe(true);
+            expect(orderList.stripedRows()).toBeFalsy();
+            expect(orderList.disabled()).toBe(false);
+            expect(orderList.responsive()).toBeFalsy();
         });
 
         it('should accept custom values', async () => {
@@ -437,23 +437,22 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.header).toBe('Custom Header');
-            expect(orderList.responsive).toBe(true);
-            expect(orderList.stripedRows).toBe(true);
-            expect(orderList.metaKeySelection).toBe(true);
-            expect(orderList.dragdrop).toBe(true);
-            expect(orderList.controlsPosition).toBe('right');
-            expect(orderList.filterBy).toBe('name');
+            expect(orderList.header()).toBe('Custom Header');
+            expect(orderList.responsive()).toBe(true);
+            expect(orderList.stripedRows()).toBe(true);
+            expect(orderList.metaKeySelection()).toBe(true);
+            expect(orderList.dragdrop()).toBe(true);
+            expect(orderList.controlsPosition()).toBe('right');
+            expect(orderList.filterBy()).toBe('name');
         });
 
         it('should initialize with provided value', () => {
-            expect(orderList.value).toEqual(component.products);
-            expect(orderList.value?.length).toBe(5);
+            expect(orderList.value()).toEqual(component.products);
+            expect(orderList.value()?.length).toBe(5);
         });
 
         it('should initialize selection as empty array', () => {
-            expect(orderList.selection).toEqual([]);
-            expect(orderList.d_selection).toEqual([]);
+            expect(orderList.selection()).toEqual([]);
         });
 
         it('should generate unique id', () => {
@@ -476,10 +475,11 @@ describe('OrderList', () => {
 
             // Product B (index 1) should move to index 0
             // Product D (index 3) should move to index 2
-            expect(component.products[0]).toEqual(initialOrder[1]); // Product B
-            expect(component.products[1]).toEqual(initialOrder[0]); // Product A
-            expect(component.products[2]).toEqual(initialOrder[3]); // Product D
-            expect(component.products[3]).toEqual(initialOrder[2]); // Product C
+            const value = orderList.value()!;
+            expect(value[0]).toEqual(initialOrder[1]); // Product B
+            expect(value[1]).toEqual(initialOrder[0]); // Product A
+            expect(value[2]).toEqual(initialOrder[3]); // Product D
+            expect(value[3]).toEqual(initialOrder[2]); // Product C
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
@@ -491,8 +491,8 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             // Selected items should move to the beginning (B first, then D in final positions)
-            expect(component.products[0].id).toBe('2'); // Product B moved to top
-            expect(component.products[1].id).toBe('4'); // Product D moved to second
+            expect(orderList.value()![0].id).toBe('2'); // Product B moved to top
+            expect(orderList.value()![1].id).toBe('4'); // Product D moved to second
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
@@ -505,8 +505,8 @@ describe('OrderList', () => {
 
             // Product D (index 3) should move to index 4
             // Product B (index 1) should move to index 2
-            expect(component.products[2].id).toBe('2'); // Product B moved down
-            expect(component.products[4].id).toBe('4'); // Product D moved down
+            expect(orderList.value()![2].id).toBe('2'); // Product B moved down
+            expect(orderList.value()![4].id).toBe('4'); // Product D moved down
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
@@ -518,8 +518,8 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             // Selected items should move to the end (B first, then D)
-            expect(component.products[3].id).toBe('2'); // Product B moved to end
-            expect(component.products[4].id).toBe('4'); // Product D moved to end
+            expect(orderList.value()![3].id).toBe('2'); // Product B moved to end
+            expect(orderList.value()![4].id).toBe('4'); // Product D moved to end
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
 
@@ -531,7 +531,7 @@ describe('OrderList', () => {
 
             orderList.moveUp();
 
-            expect(component.products).toEqual(initialOrder);
+            expect(orderList.value()).toEqual(initialOrder);
         });
 
         it('should move multiple selected items even when some cannot move up', async () => {
@@ -548,11 +548,11 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             // First item (A) should stay at position 0 (can't move up)
-            expect(component.products[0]).toEqual(initialOrder[0]); // Product A stays
+            expect(orderList.value()![0]).toEqual(initialOrder[0]); // Product A stays
             // Third item (C) should move to position 1 (was at 2, moves up)
-            expect(component.products[1]).toEqual(initialOrder[2]); // Product C moved up
+            expect(orderList.value()![1]).toEqual(initialOrder[2]); // Product C moved up
             // Fifth item (E) should move to position 3 (was at 4, moves up)
-            expect(component.products[3]).toEqual(initialOrder[4]); // Product E moved up
+            expect(orderList.value()![3]).toEqual(initialOrder[4]); // Product E moved up
 
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
@@ -571,11 +571,11 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             // First item (A) should move to position 1 (was at 0, moves down)
-            expect(component.products[1]).toEqual(initialOrder[0]); // Product A moved down
+            expect(orderList.value()![1]).toEqual(initialOrder[0]); // Product A moved down
             // Third item (C) should move to position 3 (was at 2, moves down)
-            expect(component.products[3]).toEqual(initialOrder[2]); // Product C moved down
+            expect(orderList.value()![3]).toEqual(initialOrder[2]); // Product C moved down
             // Fifth item (E) should stay at position 4 (can't move down)
-            expect(component.products[4]).toEqual(initialOrder[4]); // Product E stays
+            expect(orderList.value()![4]).toEqual(initialOrder[4]); // Product E stays
 
             expect(component.onReorder).toHaveBeenCalledWith(component.selection);
         });
@@ -693,7 +693,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             expect(component.onSelectionChange).toHaveBeenCalledWith(newSelection);
-            expect(orderList.d_selection).toEqual(newSelection);
+            expect(orderList.selection()).toEqual(newSelection);
         });
 
         it('should emit onSelectionChange event with originalEvent', async () => {
@@ -796,7 +796,8 @@ describe('OrderList', () => {
             templateFixture.detectChanges();
 
             // After ngAfterContentInit, some templates should be set
-            const hasIconTemplates = templateOrderList._moveUpIconTemplate || templateOrderList._moveTopIconTemplate || templateOrderList._moveDownIconTemplate || templateOrderList._moveBottomIconTemplate || templateOrderList._filterIconTemplate;
+            const hasIconTemplates =
+                templateOrderList._moveUpIconTemplate() || templateOrderList._moveTopIconTemplate() || templateOrderList._moveDownIconTemplate() || templateOrderList._moveBottomIconTemplate() || templateOrderList._filterIconTemplate();
             expect(hasIconTemplates).toBeTruthy();
         });
 
@@ -806,7 +807,7 @@ describe('OrderList', () => {
             templateFixture.detectChanges();
 
             // ContentChild templates should be populated for template references
-            const hasContentChildTemplates = templateOrderList.headerTemplate || templateOrderList.itemTemplate || templateOrderList.emptyMessageTemplate || templateOrderList.emptyFilterMessageTemplate;
+            const hasContentChildTemplates = templateOrderList.headerTemplate() || templateOrderList.itemTemplate() || templateOrderList.emptyMessageTemplate() || templateOrderList.emptyFilterMessageTemplate();
             expect(hasContentChildTemplates).toBeTruthy();
         });
     });
@@ -866,8 +867,8 @@ describe('OrderList', () => {
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
             moveUpButton.nativeElement.click();
 
-            expect(component.products[1].name).toBe('Item 3');
-            expect(component.products[2].name).toBe('Item 2');
+            expect(orderList.value()![1].name).toBe('Item 3');
+            expect(orderList.value()![2].name).toBe('Item 2');
         });
 
         it('should move items to top when clicking move top button', async () => {
@@ -879,8 +880,8 @@ describe('OrderList', () => {
             moveTopButton.nativeElement.click();
             await fixture.whenStable();
 
-            expect(component.products[0].name).toBe('Item 4');
-            expect(component.products[1].name).toBe('Item 1');
+            expect(orderList.value()![0].name).toBe('Item 4');
+            expect(orderList.value()![1].name).toBe('Item 1');
         });
 
         it('should move items down when clicking move down button', async () => {
@@ -892,8 +893,8 @@ describe('OrderList', () => {
             moveDownButton.nativeElement.click();
             await fixture.whenStable();
 
-            expect(component.products[1].name).toBe('Item 3');
-            expect(component.products[2].name).toBe('Item 2');
+            expect(orderList.value()![1].name).toBe('Item 3');
+            expect(orderList.value()![2].name).toBe('Item 2');
         });
 
         it('should move items to bottom when clicking move bottom button', async () => {
@@ -905,8 +906,8 @@ describe('OrderList', () => {
             moveBottomButton.nativeElement.click();
             await fixture.whenStable();
 
-            expect(component.products[4].name).toBe('Item 2');
-            expect(component.products[3].name).toBe('Item 5');
+            expect(orderList.value()![4].name).toBe('Item 2');
+            expect(orderList.value()![3].name).toBe('Item 5');
         });
 
         it('should handle multiple item selection', async () => {
@@ -918,10 +919,10 @@ describe('OrderList', () => {
             moveUpButton.nativeElement.click();
             await fixture.whenStable();
 
-            expect(component.products[0].name).toBe('Item 2'); // Item 2 moved up
-            expect(component.products[1].name).toBe('Item 1'); // Item 1 moved down
-            expect(component.products[2].name).toBe('Item 4'); // Item 4 moved up
-            expect(component.products[3].name).toBe('Item 3'); // Item 3 moved down
+            expect(orderList.value()![0].name).toBe('Item 2'); // Item 2 moved up
+            expect(orderList.value()![1].name).toBe('Item 1'); // Item 1 moved down
+            expect(orderList.value()![2].name).toBe('Item 4'); // Item 4 moved up
+            expect(orderList.value()![3].name).toBe('Item 3'); // Item 3 moved down
         });
     });
 
@@ -930,7 +931,7 @@ describe('OrderList', () => {
             component.dragdrop = true;
             fixture.detectChanges();
 
-            expect(orderList.dragdrop).toBe(true);
+            expect(orderList.dragdrop()).toBe(true);
         });
 
         it('should handle drop event', () => {
@@ -953,7 +954,7 @@ describe('OrderList', () => {
 
             orderList.onDrop(dragDropEvent);
 
-            expect(component.products[2]).toEqual({
+            expect(orderList.value()![2]).toEqual({
                 id: '1',
                 code: 'P001',
                 name: 'Product A',
@@ -1029,11 +1030,11 @@ describe('OrderList', () => {
                 // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
                 // After removal: [Product B, Product D, Product E]
                 // Insert at position 0: [Product A, Product C, Product B, Product D, Product E]
-                expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
-                expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
-                expect(component.products[2]).toEqual(originalOrder[1]); // Product B moved to position 2
-                expect(component.products[3]).toEqual(originalOrder[3]); // Product D moved to position 3
-                expect(component.products[4]).toEqual(originalOrder[4]); // Product E moved to position 4
+                expect(orderList.value()![0]).toEqual(originalOrder[0]); // Product A moved to position 0
+                expect(orderList.value()![1]).toEqual(originalOrder[2]); // Product C moved to position 1
+                expect(orderList.value()![2]).toEqual(originalOrder[1]); // Product B moved to position 2
+                expect(orderList.value()![3]).toEqual(originalOrder[3]); // Product D moved to position 3
+                expect(orderList.value()![4]).toEqual(originalOrder[4]); // Product E moved to position 4
                 expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2]]);
             });
 
@@ -1060,7 +1061,7 @@ describe('OrderList', () => {
                 orderList.onDrop(dragDropEvent);
 
                 // Only the dragged item should move
-                expect(component.products[3]).toEqual(originalItem);
+                expect(orderList.value()![3]).toEqual(originalItem);
                 expect(component.onReorder).toHaveBeenCalledWith([originalItem]);
             });
 
@@ -1086,7 +1087,7 @@ describe('OrderList', () => {
                 orderList.onDrop(dragDropEvent);
 
                 // Only the dragged item should move
-                expect(component.products[3]).toEqual(originalItem);
+                expect(orderList.value()![3]).toEqual(originalItem);
                 expect(component.onReorder).toHaveBeenCalledWith([originalItem]);
             });
 
@@ -1117,11 +1118,11 @@ describe('OrderList', () => {
                 // itemsBefore = 1 (only A is before position 1), targetIndex = 1 - 1 = 0
                 // After removal: [Product B, Product E]
                 // Insert at position 0: [Product A, Product C, Product D, Product B, Product E]
-                expect(component.products[0]).toEqual(originalOrder[0]); // Product A moved to position 0
-                expect(component.products[1]).toEqual(originalOrder[2]); // Product C moved to position 1
-                expect(component.products[2]).toEqual(originalOrder[3]); // Product D moved to position 2
-                expect(component.products[3]).toEqual(originalOrder[1]); // Product B moved to position 3
-                expect(component.products[4]).toEqual(originalOrder[4]); // Product E remains at position 4
+                expect(orderList.value()![0]).toEqual(originalOrder[0]); // Product A moved to position 0
+                expect(orderList.value()![1]).toEqual(originalOrder[2]); // Product C moved to position 1
+                expect(orderList.value()![2]).toEqual(originalOrder[3]); // Product D moved to position 2
+                expect(orderList.value()![3]).toEqual(originalOrder[1]); // Product B moved to position 3
+                expect(orderList.value()![4]).toEqual(originalOrder[4]); // Product E remains at position 4
                 expect(component.onReorder).toHaveBeenCalledWith([originalOrder[0], originalOrder[2], originalOrder[3]]);
             });
         });
@@ -1206,25 +1207,24 @@ describe('OrderList', () => {
             expect(listbox).toBeTruthy();
 
             // Test selection through component
-            orderList.d_selection = [component.products[0]];
+            orderList.selection.set([component.products[0]]);
             expect(orderList.isSelected(component.products[0])).toBe(true);
             expect(orderList.isSelected(component.products[1])).toBe(false);
         });
 
         it('should handle multiple selection', () => {
-            orderList.d_selection = [component.products[0], component.products[2]];
+            orderList.selection.set([component.products[0], component.products[2]]);
 
             expect(orderList.isSelected(component.products[0])).toBe(true);
             expect(orderList.isSelected(component.products[1])).toBe(false);
             expect(orderList.isSelected(component.products[2])).toBe(true);
         });
 
-        it('should update selection through setter', () => {
+        it('should update selection through the model signal', () => {
             const newSelection = [component.products[1], component.products[3]];
-            orderList.selection = newSelection;
+            orderList.selection.set(newSelection);
 
-            expect(orderList.d_selection).toEqual(newSelection);
-            expect(orderList.selection).toEqual(newSelection);
+            expect(orderList.selection()).toEqual(newSelection);
         });
 
         it('should handle meta key selection', async () => {
@@ -1232,7 +1232,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.metaKeySelection).toBe(true);
+            expect(orderList.metaKeySelection()).toBe(true);
         });
 
         it('should handle selection change events', async () => {
@@ -1249,7 +1249,7 @@ describe('OrderList', () => {
 
             expect(component.onSelectionChange).toHaveBeenCalledWith(changeEvent.value);
             expect(component.onSelectionChangeEvent).toHaveBeenCalledWith(changeEvent);
-            expect(orderList.d_selection).toEqual(changeEvent.value);
+            expect(orderList.selection()).toEqual(changeEvent.value);
         });
     });
 
@@ -1261,9 +1261,9 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.ariaLabel).toBe('Product order list');
-            expect(orderList.ariaLabelledBy).toBe('header-id');
-            expect(orderList.ariaFilterLabel).toBe('Filter products');
+            expect(orderList.ariaLabel()).toBe('Product order list');
+            expect(orderList.ariaLabelledBy()).toBe('header-id');
+            expect(orderList.ariaFilterLabel()).toBe('Filter products');
         });
 
         it('should have move button ARIA labels', () => {
@@ -1278,7 +1278,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.tabindex).toBe(5);
+            expect(orderList.tabindex()).toBe(5);
         });
 
         it('should handle autoOptionFocus', async () => {
@@ -1286,7 +1286,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.autoOptionFocus).toBe(false);
+            expect(orderList.autoOptionFocus()).toBe(false);
         });
 
         it('should handle focus and blur events', () => {
@@ -1359,7 +1359,7 @@ describe('OrderList', () => {
             const endTime = performance.now();
 
             expect(endTime - startTime).toBeLessThan(1000);
-            expect(orderList.value?.length).toBe(1000);
+            expect(orderList.value()?.length).toBe(1000);
         });
 
         it('should handle malformed data', () => {
@@ -1401,7 +1401,7 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.listStyle).toEqual({ height: '400px', border: '1px solid red' });
+            expect(orderList.listStyle()).toEqual({ height: '400px', border: '1px solid red' });
         });
 
         it('should handle responsive styling', async () => {
@@ -1410,8 +1410,8 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.responsive).toBe(true);
-            expect(orderList.breakpoint).toBe('768px');
+            expect(orderList.responsive()).toBe(true);
+            expect(orderList.breakpoint()).toBe('768px');
         });
 
         it('should apply striped rows', async () => {
@@ -1419,15 +1419,19 @@ describe('OrderList', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.stripedRows).toBe(true);
+            expect(orderList.stripedRows()).toBe(true);
         });
 
         it('should handle controls position', async () => {
+            const orderListElement = fixture.debugElement.query(By.css('vx-orderlist'));
+            expect(orderListElement.nativeElement.className).toContain('p-orderlist-controls-left');
+
             component.controlsPosition = 'right';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(orderList.controlsPosition).toBe('right');
+            expect(orderList.controlsPosition()).toBe('right');
+            expect(orderListElement.nativeElement.className).toContain('p-orderlist-controls-right');
         });
 
         it('should apply button styles', async () => {
@@ -1457,7 +1461,7 @@ describe('OrderList', () => {
 
         it('should handle rapid selection changes', async () => {
             let changeCount = 0;
-            orderList.selectionChange.subscribe(() => changeCount++);
+            orderList.selection.subscribe(() => changeCount++);
 
             // Rapid selection changes
             for (let i = 0; i < 5; i++) {
@@ -1475,15 +1479,18 @@ describe('OrderList', () => {
     describe('Lifecycle and Cleanup', () => {
         it('should initialize properly', () => {
             expect(orderList.id).toMatch(/^pn_id_/);
-            expect(orderList.d_selection).toEqual([]);
+            expect(orderList.selection()).toEqual([]);
             expect(orderList.filterService).toBeTruthy();
         });
 
-        it('should handle ngOnInit correctly', () => {
+        it('should handle ngOnInit correctly', async () => {
             vi.spyOn(orderList, 'createStyle').mockReturnValue(undefined);
 
-            orderList.responsive = true;
-            orderList.filterBy = 'name';
+            component.responsive = true;
+            component.filterBy = 'name';
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
+
             orderList.ngOnInit();
 
             expect(orderList.createStyle).toHaveBeenCalled();
@@ -1501,7 +1508,6 @@ describe('OrderList', () => {
         });
 
         it('should destroy style on destroy', () => {
-            orderList.responsive = true;
             orderList.ngOnInit();
             orderList.createStyle();
 
@@ -1514,19 +1520,20 @@ describe('OrderList', () => {
         it('should handle value changes', () => {
             const newProducts = [{ id: '10', code: 'P010', name: 'New Product', description: 'New Description', price: 1000, quantity: 1, inventoryStatus: 'INSTOCK', category: 'New Category' }];
 
-            orderList.value = newProducts;
+            orderList.value.set(newProducts);
 
-            expect(orderList._value).toEqual(newProducts);
+            expect(orderList.value()).toEqual(newProducts);
         });
 
-        it('should handle value changes with filter', () => {
-            orderList.filterBy = 'name';
+        it('should handle value changes with filter', async () => {
             orderList.filterValue = 'test';
             vi.spyOn(orderList, 'filter').mockReturnValue(undefined);
 
             const newProducts = [{ id: '10', code: 'P010', name: 'Test Product', description: 'Test Description', price: 1000, quantity: 1, inventoryStatus: 'INSTOCK', category: 'Test Category' }];
 
-            orderList.value = newProducts;
+            component.products = newProducts;
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
             expect(orderList.filter).toHaveBeenCalled();
         });
@@ -1535,7 +1542,7 @@ describe('OrderList', () => {
     describe('TrackBy Function', () => {
         it('should use default trackBy function', () => {
             const item = { id: '1', name: 'Test' };
-            const result = orderList.trackBy(0, item);
+            const result = orderList.trackBy()(0, item);
             expect(result).toBe(item.id);
         });
 
@@ -1545,7 +1552,7 @@ describe('OrderList', () => {
             fixture.detectChanges();
 
             const item = { id: '1', code: 'TEST', name: 'Test' };
-            const result = orderList.trackBy(0, item);
+            const result = orderList.trackBy()(0, item);
             expect(result).toBe('TEST');
         });
     });
@@ -1571,16 +1578,16 @@ describe('OrderList', () => {
             it('should process all vxTemplate templates in ngAfterContentInit', async () => {
                 await comprehensiveFixture.whenStable();
 
-                expect(comprehensiveOrderList._itemTemplate).toBeDefined();
-                expect(comprehensiveOrderList._headerTemplate).toBeDefined();
-                expect(comprehensiveOrderList._emptyMessageTemplate).toBeDefined();
-                expect(comprehensiveOrderList._emptyFilterMessageTemplate).toBeDefined();
-                expect(comprehensiveOrderList._filterTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveUpIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveTopIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveDownIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
-                expect(comprehensiveOrderList._filterIconTemplate).toBeDefined();
+                expect(comprehensiveOrderList._itemTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._headerTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._emptyMessageTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._emptyFilterMessageTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._filterTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._moveUpIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._moveTopIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._moveDownIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._moveBottomIconTemplate()).toBeDefined();
+                expect(comprehensiveOrderList._filterIconTemplate()).toBeDefined();
             });
 
             it('should apply item template with context (product, selected, index)', async () => {
@@ -1597,7 +1604,7 @@ describe('OrderList', () => {
 
             it('should apply item template with selection context', async () => {
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
-                comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
+                comprehensiveOrderList.selection.set([comprehensiveComponent.products[0]]);
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
                 await comprehensiveFixture.whenStable();
@@ -1619,7 +1626,7 @@ describe('OrderList', () => {
                     expect(headerElement.nativeElement.textContent).toBe('Custom OrderList Header with vxTemplate');
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._headerTemplate).toBeDefined();
+                    expect(comprehensiveOrderList._headerTemplate()).toBeDefined();
                 }
             });
 
@@ -1669,7 +1676,7 @@ describe('OrderList', () => {
                     expect(filterElement.nativeElement.placeholder).toBe('Search products...');
                 } else {
                     // Fallback: verify filter is configured
-                    expect(comprehensiveOrderList._filterTemplate).toBeDefined();
+                    expect(comprehensiveOrderList._filterTemplate()).toBeDefined();
                 }
             });
 
@@ -1687,7 +1694,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveUpIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList._moveUpIconTemplate()).toBeDefined();
                 }
             });
 
@@ -1705,7 +1712,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveTopIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList._moveTopIconTemplate()).toBeDefined();
                 }
             });
 
@@ -1723,7 +1730,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveDownIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList._moveDownIconTemplate()).toBeDefined();
                 }
             });
 
@@ -1741,7 +1748,7 @@ describe('OrderList', () => {
                     }
                 } else {
                     // Fallback: verify template is configured
-                    expect(comprehensiveOrderList._moveBottomIconTemplate).toBeDefined();
+                    expect(comprehensiveOrderList._moveBottomIconTemplate()).toBeDefined();
                 }
             });
         });
@@ -1767,16 +1774,16 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 const hasTemplates =
-                    contentChildOrderList.itemTemplate ||
-                    contentChildOrderList.headerTemplate ||
-                    contentChildOrderList.emptyMessageTemplate ||
-                    contentChildOrderList.emptyFilterMessageTemplate ||
-                    contentChildOrderList.filterTemplate ||
-                    contentChildOrderList.moveUpIconTemplate ||
-                    contentChildOrderList.moveTopIconTemplate ||
-                    contentChildOrderList.moveDownIconTemplate ||
-                    contentChildOrderList.moveBottomIconTemplate ||
-                    contentChildOrderList.filterIconTemplate;
+                    contentChildOrderList.itemTemplate() ||
+                    contentChildOrderList.headerTemplate() ||
+                    contentChildOrderList.emptyMessageTemplate() ||
+                    contentChildOrderList.emptyFilterMessageTemplate() ||
+                    contentChildOrderList.filterTemplate() ||
+                    contentChildOrderList.moveUpIconTemplate() ||
+                    contentChildOrderList.moveTopIconTemplate() ||
+                    contentChildOrderList.moveDownIconTemplate() ||
+                    contentChildOrderList.moveBottomIconTemplate() ||
+                    contentChildOrderList.filterIconTemplate();
 
                 expect(hasTemplates).toBeTruthy();
             });
@@ -1858,7 +1865,7 @@ describe('OrderList', () => {
 
                 // Add selection - set both component and orderList selection
                 comprehensiveComponent.selection = [comprehensiveComponent.products[0]];
-                comprehensiveOrderList.selection = [comprehensiveComponent.products[0]];
+                comprehensiveOrderList.selection.set([comprehensiveComponent.products[0]]);
                 comprehensiveFixture.changeDetectorRef.markForCheck();
                 comprehensiveFixture.detectChanges();
                 await comprehensiveFixture.whenStable();

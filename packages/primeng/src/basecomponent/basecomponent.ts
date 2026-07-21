@@ -79,7 +79,8 @@ export class BaseComponent<PT = any> implements Lifecycle {
     }
 
     private get $hostName() {
-        return this['hostName'];
+        const hostName = this['hostName'];
+        return isFunction(hostName) ? hostName() : hostName;
     }
 
     get $el() {

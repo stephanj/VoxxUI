@@ -1,4 +1,4 @@
-import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, Input, NgModule } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { BaseModelHolder } from 'voxx-ui/basemodelholder';
@@ -26,7 +26,7 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
 export class InputText extends BaseModelHolder<InputTextPassThrough> {
     componentName = 'InputText';
 
-    @Input() hostName: any = '';
+    hostName = input<any>('');
 
     /**
      * Used to pass attributes to DOM elements inside the InputText component.
@@ -60,7 +60,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('vxSize') vxSize: 'large' | 'small' | undefined;
+    vxSize = input<'large' | 'small' | undefined>();
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -122,7 +122,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
             invalid: this.invalid(),
             fluid: this.hasFluid,
             filled: this.$variant() === 'filled',
-            [this.vxSize as string]: this.vxSize
+            [this.vxSize() as string]: this.vxSize()
         });
     }
 }

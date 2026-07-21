@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { DestroyRef, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, Input, NgModule, numberAttribute, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DestroyRef, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, inject, input, model, NgModule, viewChild, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { find, findSingle } from '@primeuix/utils';
 import { MenuItem, SharedModule } from 'voxx-ui/api';
 import { BaseComponent } from 'voxx-ui/basecomponent';
 import { TooltipModule } from 'voxx-ui/tooltip';
-import { Nullable } from 'voxx-ui/ts-helpers';
 import { StepsStyle } from './style/stepsstyle';
 
 /**
@@ -15,16 +13,16 @@ import { StepsStyle } from './style/stepsstyle';
  */
 @Component({
     selector: 'vx-steps',
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule],
+    imports: [RouterModule, TooltipModule, SharedModule],
     template: `
-        <nav [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [attr.data-pc-name]="'steps'">
+        <nav [class]="cn(cx('root'), styleClass())" [style]="style()" [attr.data-pc-name]="'steps'">
             <ul #list [attr.data-pc-section]="'menu'" [class]="cx('list')">
-                @for (item of model; track item.label; let i = $index) {
+                @for (item of model(); track item.label; let i = $index) {
                     @if (item.visible !== false) {
                         <li
                             [class]="cx('item', { item, index: i })"
                             #menuitem
-                            [ngStyle]="item.style"
+                            [style]="item.style"
                             [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
                             [attr.id]="item.id"
                             vxTooltip
@@ -44,15 +42,15 @@ import { StepsStyle } from './style/stepsstyle';
                                     (keydown)="onItemKeydown($event, item, i)"
                                     [target]="item.target"
                                     [attr.tabindex]="getItemTabIndex(item, i)"
-                                    [attr.aria-expanded]="i === activeIndex"
-                                    [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
+                                    [attr.aria-expanded]="i === activeIndex()"
+                                    [attr.aria-disabled]="item.disabled || (readonly() && i !== activeIndex())"
                                     [fragment]="item.fragment"
                                     [queryParamsHandling]="item.queryParamsHandling"
                                     [preserveFragment]="item.preserveFragment"
                                     [skipLocationChange]="item.skipLocationChange"
                                     [replaceUrl]="item.replaceUrl"
                                     [state]="item.state"
-                                    [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                                    [attr.ariaCurrentWhenActive]="exact() ? 'step' : undefined"
                                 >
                                     <span [class]="cx('itemNumber')">{{ i + 1 }}</span>
                                     @if (item.escape !== false) {
@@ -70,9 +68,9 @@ import { StepsStyle } from './style/stepsstyle';
                                     (keydown)="onItemKeydown($event, item, i)"
                                     [target]="item.target"
                                     [attr.tabindex]="getItemTabIndex(item, i)"
-                                    [attr.aria-expanded]="i === activeIndex"
-                                    [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
-                                    [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
+                                    [attr.aria-expanded]="i === activeIndex()"
+                                    [attr.aria-disabled]="item.disabled || (readonly() && i !== activeIndex())"
+                                    [attr.ariaCurrentWhenActive]="exact() && (!item.disabled || readonly()) ? 'step' : undefined"
                                 >
                                     <span [class]="cx('itemNumber')">{{ i + 1 }}</span>
                                     @if (item.escape !== false) {
@@ -95,43 +93,36 @@ import { StepsStyle } from './style/stepsstyle';
 export class Steps extends BaseComponent {
     componentName = 'Steps';
     /**
-     * Index of the active item.
+     * Index of the active item. Two-way bindable.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) activeIndex: number = 0;
+    activeIndex = model<number>(0);
     /**
      * An array of menu items.
      * @group Props
      */
-    @Input() model: MenuItem[] | undefined;
+    model = input<MenuItem[] | undefined>();
     /**
      * Whether the items are clickable or not.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean = true;
+    readonly = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Style class of the component.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * Whether to apply 'router-link-active-exact' class if route exactly matches the item path.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) exact: boolean = true;
-    /**
-     * Callback to invoke when the new step is selected.
-     * @param {number} number - current index.
-     * @group Emits
-     */
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
-
-    @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
+    exact = input<boolean, unknown>(true, { transform: booleanAttribute });
+    listViewChild = viewChild<ElementRef>('list');
 
     router = inject(Router);
 
@@ -146,12 +137,12 @@ export class Steps extends BaseComponent {
     }
 
     onItemClick(event: Event, item: MenuItem, i: number) {
-        if (this.readonly || item.disabled) {
+        if (this.readonly() || item.disabled) {
             event.preventDefault();
             return;
         }
 
-        this.activeIndexChange.emit(i);
+        this.activeIndex.set(i);
 
         if (!item.url && !item.routerLink) {
             event.preventDefault();
@@ -193,10 +184,10 @@ export class Steps extends BaseComponent {
             }
 
             case 'Tab':
-                if (i !== (this.activeIndex ?? -1)) {
-                    const siblings = <any>find(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
+                if (i !== (this.activeIndex() ?? -1)) {
+                    const siblings = <any>find(this.listViewChild()?.nativeElement, '[data-pc-section="menuitem"]');
                     siblings[i].children[0].tabIndex = '-1';
-                    siblings[this.activeIndex ?? 0].children[0].tabIndex = '0';
+                    siblings[this.activeIndex() ?? 0].children[0].tabIndex = '0';
                 }
                 break;
 
@@ -249,13 +240,13 @@ export class Steps extends BaseComponent {
     }
 
     findFirstItem() {
-        const firstSibling = findSingle(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
+        const firstSibling = findSingle(this.listViewChild()?.nativeElement, '[data-pc-section="menuitem"]');
 
         return firstSibling ? firstSibling.children[0] : null;
     }
 
     findLastItem() {
-        const siblings = find(this.listViewChild?.nativeElement, '[data-pc-section="menuitem"]');
+        const siblings = find(this.listViewChild()?.nativeElement, '[data-pc-section="menuitem"]');
 
         return siblings ? siblings[siblings.length - 1].children[0] : null;
     }
@@ -267,11 +258,11 @@ export class Steps extends BaseComponent {
     }
 
     isClickableRouterLink(item: MenuItem) {
-        return item.routerLink && !this.readonly && !item.disabled;
+        return item.routerLink && !this.readonly() && !item.disabled;
     }
 
     isItemDisabled(item: MenuItem, index: number): boolean {
-        return item.disabled || (this.readonly && !this.isActive(item, index));
+        return item.disabled || (this.readonly() && !this.isActive(item, index));
     }
 
     isActive(item: MenuItem, index: number) {
@@ -281,7 +272,7 @@ export class Steps extends BaseComponent {
             return this.router.isActive(this.router.createUrlTree(routerLink, { relativeTo: this.route }).toString(), false);
         }
 
-        return index === this.activeIndex;
+        return index === this.activeIndex();
     }
 
     getItemTabIndex(item: MenuItem, index: number): string {
@@ -289,7 +280,7 @@ export class Steps extends BaseComponent {
             return '-1';
         }
 
-        if (!item.disabled && this.activeIndex === index) {
+        if (!item.disabled && this.activeIndex() === index) {
             return item.tabindex || '0';
         }
 

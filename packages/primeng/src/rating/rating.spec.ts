@@ -193,16 +193,16 @@ describe('Rating', () => {
         });
 
         it('should initialize with default properties', () => {
-            expect(ratingInstance.stars).toBe(5 as any);
-            expect(ratingInstance.readonly).toBeFalsy();
+            expect(ratingInstance.stars()).toBe(5 as any);
+            expect(ratingInstance.readonly()).toBeFalsy();
             expect(ratingInstance.value).toBeNull();
-            expect(ratingInstance.autofocus).toBeFalsy();
+            expect(ratingInstance.autofocus()).toBeFalsy();
         });
 
         it('should create stars array', () => {
             expect(ratingInstance.starsArray).toBeDefined();
-            expect(ratingInstance.starsArray?.length).toBe(5 as any);
-            expect(ratingInstance.starsArray).toEqual([0, 1, 2, 3, 4]);
+            expect(ratingInstance.starsArray()?.length).toBe(5 as any);
+            expect(ratingInstance.starsArray()).toEqual([0, 1, 2, 3, 4]);
         });
 
         it('should render correct number of star options', () => {
@@ -354,8 +354,8 @@ describe('Rating', () => {
         });
 
         it('should support custom number of stars', () => {
-            expect(ratingInstance.stars).toBe(10);
-            expect(ratingInstance.starsArray?.length).toBe(10);
+            expect(ratingInstance.stars()).toBe(10);
+            expect(ratingInstance.starsArray()?.length).toBe(10);
 
             // Find divs that are direct children of ng-template and contain input elements
             const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
@@ -698,7 +698,7 @@ describe('Rating', () => {
 
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
             // Check that the vxAutoFocus directive is applied - look for the attribute it adds
-            expect(ratingInstance.autofocus).toBe(true);
+            expect(ratingInstance.autofocus()).toBe(true);
         });
     });
 
@@ -766,7 +766,7 @@ describe('Rating', () => {
             newRatingInstance.ngOnInit();
             newFixture.detectChanges();
 
-            expect(newRatingInstance.starsArray?.length).toBe(0 as any);
+            expect(newRatingInstance.starsArray()?.length).toBe(0 as any);
 
             const starOptions = newFixture.debugElement.queryAll(By.css('input[type="radio"]'));
             expect(starOptions.length).toBe(0 as any);
@@ -964,7 +964,7 @@ describe('Rating', () => {
 
             // Verify that the rating component works correctly
             expect(ratingInstance.value).toBe(3 as any);
-            expect(ratingInstance.stars).toBe(5 as any);
+            expect(ratingInstance.stars()).toBe(5 as any);
         });
     });
 
@@ -1069,7 +1069,7 @@ describe('Rating', () => {
 
             // Verify that the rating component works correctly
             expect(ratingInstance.value).toBe(3 as any);
-            expect(ratingInstance.stars).toBe(5 as any);
+            expect(ratingInstance.stars()).toBe(5 as any);
         });
     });
 

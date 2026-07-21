@@ -758,9 +758,11 @@ describe('DynamicDialog', () => {
                     })
             };
 
-            component.insertionPoint = {
-                viewContainerRef: mockViewContainer as any
-            } as any;
+            // insertionPoint is a signal view query — replace it with a function returning the mock
+            (component as any).insertionPoint = () =>
+                ({
+                    viewContainerRef: mockViewContainer as any
+                }) as any;
 
             component.loadChildComponent(TestDialogContentComponent);
 

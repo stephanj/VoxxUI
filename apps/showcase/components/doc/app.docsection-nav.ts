@@ -1,5 +1,5 @@
 import { Doc } from '@/domain/doc';
-import { CommonModule, DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
@@ -12,20 +12,20 @@ import { fromEvent } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-docsection-nav',
     standalone: true,
-    imports: [CommonModule, ButtonModule, RouterLink],
+    imports: [ButtonModule, RouterLink],
     template: `
         <div class="doc-section-nav-container">
             <ul #nav class="doc-section-nav">
                 @for (doc of docs(); track doc.label) {
                     @if (!doc.isInterface) {
-                        <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === doc.id }">
+                        <li class="navbar-item" [class]="{ 'active-navbar-item': activeId() === doc.id }">
                             <div class="navbar-item-content">
                                 <button (click)="onButtonClick(doc)">{{ doc.label }}</button>
                             </div>
                             @if (doc.children) {
                                 <ul>
                                     @for (child of doc.children; track child.label) {
-                                        <li class="navbar-item" [ngClass]="{ 'active-navbar-item': activeId() === child.id }">
+                                        <li class="navbar-item" [class]="{ 'active-navbar-item': activeId() === child.id }">
                                             <div class="navbar-item-content">
                                                 <button (click)="onButtonClick(child)">
                                                     {{ child.label }}

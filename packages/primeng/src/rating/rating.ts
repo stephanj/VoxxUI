@@ -1,23 +1,5 @@
-import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    numberAttribute,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
@@ -45,9 +27,9 @@ export const RATING_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-rating',
-    imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
+    imports: [NgTemplateOutlet, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
     template: `
-        @for (star of starsArray; track star; let i = $index) {
+        @for (star of starsArray(); track star; let i = $index) {
             <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [vxBind]="ptm('option')">
                 <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [vxBind]="ptm('hiddenOptionInputContainer')">
                     <input
@@ -56,37 +38,37 @@ export const RATING_VALUE_ACCESSOR: any = {
                         [attr.name]="name() || nameattr + '_name'"
                         [attr.value]="modelValue()"
                         [attr.required]="required() ? '' : undefined"
-                        [attr.readonly]="readonly ? '' : undefined"
+                        [attr.readonly]="readonly() ? '' : undefined"
                         [attr.disabled]="$disabled() ? '' : undefined"
                         [checked]="value === star + 1"
                         [attr.aria-label]="starAriaLabel(star + 1)"
                         (focus)="onInputFocus($event, star + 1)"
                         (blur)="onInputBlur($event)"
                         (change)="onChange($event, star + 1)"
-                        [vxAutoFocus]="autofocus"
+                        [vxAutoFocus]="autofocus()"
                         [vxBind]="ptm('hiddenOptionInput')"
                     />
                 </span>
                 @if (star + 1 <= (value ?? 0)) {
-                    @if (onIconTemplate || _onIconTemplate) {
-                        <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
+                    @if (onIconTemplate() || _onIconTemplate()) {
+                        <ng-container *ngTemplateOutlet="onIconTemplate() || _onIconTemplate() || null; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
                     } @else {
-                        @if (iconOnClass) {
-                            <span [class]="cx('onIcon') ?? ''" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [vxBind]="ptm('onIcon')"></span>
+                        @if (iconOnClass()) {
+                            <span [class]="cn(cx('onIcon'), iconOnClass())" [style]="iconOnStyle()" [vxBind]="ptm('onIcon')"></span>
                         }
-                        @if (!iconOnClass) {
-                            <svg data-p-icon="star-fill" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [vxBind]="ptm('onIcon')" />
+                        @if (!iconOnClass()) {
+                            <svg data-p-icon="star-fill" [style]="iconOnStyle()" [class]="cx('onIcon')" [vxBind]="ptm('onIcon')" />
                         }
                     }
                 } @else {
-                    @if (offIconTemplate || _offIconTemplate) {
-                        <ng-container *ngTemplateOutlet="offIconTemplate || _offIconTemplate; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
+                    @if (offIconTemplate() || _offIconTemplate()) {
+                        <ng-container *ngTemplateOutlet="offIconTemplate() || _offIconTemplate() || null; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
                     } @else {
-                        @if (iconOffClass) {
-                            <span [class]="cx('offIcon') ?? ''" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [vxBind]="ptm('offIcon')"></span>
+                        @if (iconOffClass()) {
+                            <span [class]="cn(cx('offIcon'), iconOffClass())" [style]="iconOffStyle()" [vxBind]="ptm('offIcon')"></span>
                         }
-                        @if (!iconOffClass) {
-                            <svg data-p-icon="star" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [vxBind]="ptm('offIcon')" />
+                        @if (!iconOffClass()) {
+                            <svg data-p-icon="star" [style]="iconOffStyle()" [class]="cx('offIcon')" [vxBind]="ptm('offIcon')" />
                         }
                     }
                 }
@@ -117,75 +99,75 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
      * When present, changing the value is not possible.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
+    readonly = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Number of stars.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) stars: number = 5;
+    stars = input<number, unknown>(5, { transform: numberAttribute });
     /**
      * Style class of the on icon.
      * @group Props
      */
-    @Input() iconOnClass: string | undefined;
+    iconOnClass = input<string | undefined>();
     /**
      * Inline style of the on icon.
      * @group Props
      */
-    @Input() iconOnStyle: { [klass: string]: any } | null | undefined;
+    iconOnStyle = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Style class of the off icon.
      * @group Props
      */
-    @Input() iconOffClass: string | undefined;
+    iconOffClass = input<string | undefined>();
     /**
      * Inline style of the off icon.
      * @group Props
      */
-    @Input() iconOffStyle: { [klass: string]: any } | null | undefined;
+    iconOffStyle = input<{ [klass: string]: any } | null | undefined>();
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    autofocus = input<boolean | undefined, unknown>(undefined, { transform: booleanAttribute });
     /**
      * Emitted on value change.
      * @param {RatingRateEvent} value - Custom rate event.
      * @group Emits
      */
-    @Output() onRate: EventEmitter<RatingRateEvent> = new EventEmitter<RatingRateEvent>();
+    onRate = output<RatingRateEvent>();
     /**
      * Emitted when the rating receives focus.
      * @param {Event} value - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onFocus = output<FocusEvent>();
     /**
      * Emitted when the rating loses focus.
      * @param {Event} value - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onBlur = output<FocusEvent>();
     /**
      * Custom on icon template.
      * @param {RatingIconTemplateContext} context - icon context.
      * @see {@link RatingIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('onicon', { descendants: false }) onIconTemplate: Nullable<TemplateRef<RatingIconTemplateContext>>;
+    onIconTemplate = contentChild<TemplateRef<RatingIconTemplateContext>>('onicon', { descendants: false });
     /**
      * Custom off icon template.
      * @param {RatingIconTemplateContext} context - icon context.
      * @see {@link RatingIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<RatingIconTemplateContext>>;
+    offIconTemplate = contentChild<TemplateRef<RatingIconTemplateContext>>('officon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    templates = contentChildren(PrimeTemplate);
 
     value: Nullable<number>;
 
-    public starsArray: Nullable<number[]>;
+    starsArray = computed<number[]>(() => Array.from({ length: this.stars() }, (_, i) => i));
 
     isFocusVisibleItem: boolean = true;
 
@@ -195,34 +177,16 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
 
     _componentStyle = inject(RatingStyle);
 
-    _onIconTemplate: TemplateRef<RatingIconTemplateContext> | undefined;
+    _onIconTemplate = computed<TemplateRef<RatingIconTemplateContext> | undefined>(() => this.templates().find((item) => item.getType() === 'onicon')?.template);
 
-    _offIconTemplate: TemplateRef<RatingIconTemplateContext> | undefined;
+    _offIconTemplate = computed<TemplateRef<RatingIconTemplateContext> | undefined>(() => this.templates().find((item) => item.getType() === 'officon')?.template);
 
     onInit() {
         this.nameattr = this.nameattr || uuid('pn_id_');
-        this.starsArray = [];
-        for (let i = 0; i < this.stars; i++) {
-            this.starsArray[i] = i;
-        }
-    }
-
-    onAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'onicon':
-                    this._onIconTemplate = item.template;
-                    break;
-
-                case 'officon':
-                    this._offIconTemplate = item.template;
-                    break;
-            }
-        });
     }
 
     onOptionClick(event, value) {
-        if (!this.readonly && !this.$disabled()) {
+        if (!this.readonly() && !this.$disabled()) {
             this.onOptionSelect(event, value);
             this.isFocusVisibleItem = false;
             const firstFocusableEl = <any>getFirstFocusableElement(event.currentTarget, '');
@@ -232,7 +196,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     }
 
     onOptionSelect(event, value) {
-        if (!this.readonly && !this.$disabled()) {
+        if (!this.readonly() && !this.$disabled()) {
             if (this.focusedOptionIndex() === value || value === this.value) {
                 this.focusedOptionIndex.set(-1);
                 this.updateModel(event, null);
@@ -254,7 +218,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     }
 
     onInputFocus(event, value) {
-        if (!this.readonly && !this.$disabled()) {
+        if (!this.readonly() && !this.$disabled()) {
             this.focusedOptionIndex.set(value);
             this.isFocusVisibleItem = event.sourceCapabilities?.firesTouchEvents === false;
 
@@ -278,7 +242,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     }
 
     getIconTemplate(i: number): Nullable<TemplateRef<RatingIconTemplateContext>> {
-        return !this.value || i >= this.value ? this.offIconTemplate || this._offIconTemplate : this.onIconTemplate || this.offIconTemplate;
+        return !this.value || i >= this.value ? this.offIconTemplate() || this._offIconTemplate() : this.onIconTemplate() || this.offIconTemplate();
     }
 
     /**
@@ -293,12 +257,12 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     }
 
     get isCustomIcon(): boolean {
-        return !!(this.onIconTemplate || this._onIconTemplate || this.offIconTemplate || this._offIconTemplate);
+        return !!(this.onIconTemplate() || this._onIconTemplate() || this.offIconTemplate() || this._offIconTemplate());
     }
 
     get dataP() {
         return this.cn({
-            readonly: this.readonly,
+            readonly: this.readonly(),
             disabled: this.$disabled()
         });
     }

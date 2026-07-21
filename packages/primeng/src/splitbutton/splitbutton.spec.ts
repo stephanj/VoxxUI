@@ -350,23 +350,23 @@ describe('SplitButton', () => {
         });
 
         it('should have correct default values', () => {
-            expect(splitButtonInstance.iconPos).toBe('left');
-            expect(splitButtonInstance.raised).toBe(false);
-            expect(splitButtonInstance.rounded).toBe(false);
-            expect(splitButtonInstance.text).toBe(false);
-            expect(splitButtonInstance.outlined).toBe(false);
-            expect(splitButtonInstance.plain).toBe(false);
-            expect(splitButtonInstance.disabled).toBe(false);
-            expect(splitButtonInstance.buttonDisabled).toBe(false);
-            expect(splitButtonInstance.menuButtonDisabled).toBe(false);
-            expect(splitButtonInstance.showTransitionOptions).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
-            expect(splitButtonInstance.hideTransitionOptions).toBe('.1s linear');
+            expect(splitButtonInstance.iconPos()).toBe('left');
+            expect(splitButtonInstance.raised()).toBe(false);
+            expect(splitButtonInstance.rounded()).toBe(false);
+            expect(splitButtonInstance.text()).toBe(false);
+            expect(splitButtonInstance.outlined()).toBe(false);
+            expect(splitButtonInstance.plain()).toBe(false);
+            expect(splitButtonInstance.disabled()).toBe(false);
+            expect(splitButtonInstance.$buttonDisabled()).toBe(false);
+            expect(splitButtonInstance.$menuButtonDisabled()).toBe(false);
+            expect(splitButtonInstance.showTransitionOptions()).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
+            expect(splitButtonInstance.hideTransitionOptions()).toBe('.1s linear');
         });
 
         it('should render with correct structure', () => {
             expect(defaultButton).toBeTruthy();
             expect(dropdownButton).toBeTruthy();
-            expect(splitButtonInstance.menu).toBeTruthy();
+            expect(splitButtonInstance.menu()).toBeTruthy();
         });
 
         it('should generate unique aria id', () => {
@@ -389,8 +389,8 @@ describe('SplitButton', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
-            expect(splitButtonInstance.model).toEqual(newModel);
-            expect(splitButtonInstance.menu?.model).toEqual(newModel);
+            expect(splitButtonInstance.model()).toEqual(newModel);
+            expect(splitButtonInstance.menu()?.model()).toEqual(newModel);
         });
 
         it('should update label property', async () => {
@@ -399,7 +399,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.label).toBe('Updated Label');
+            expect(splitButtonInstance.label()).toBe('Updated Label');
             expect(defaultButton.textContent?.trim()).toContain('Updated Label');
         });
 
@@ -409,7 +409,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.icon).toBe('pi pi-star');
+            expect(splitButtonInstance.icon()).toBe('pi pi-star');
         });
 
         it('should update iconPos property', async () => {
@@ -418,7 +418,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.iconPos).toBe('right');
+            expect(splitButtonInstance.iconPos()).toBe('right');
         });
 
         it('should update severity property', async () => {
@@ -427,7 +427,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('success');
+            expect(splitButtonInstance.severity()).toBe('success');
         });
 
         it('should update disabled property', async () => {
@@ -436,9 +436,9 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.disabled).toBe(true);
-            expect(splitButtonInstance.buttonDisabled).toBe(true);
-            expect(splitButtonInstance.menuButtonDisabled).toBe(true);
+            expect(splitButtonInstance.disabled()).toBe(true);
+            expect(splitButtonInstance.$buttonDisabled()).toBe(true);
+            expect(splitButtonInstance.$menuButtonDisabled()).toBe(true);
         });
 
         it('should update buttonDisabled property independently', async () => {
@@ -447,7 +447,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.buttonDisabled).toBe(true);
+            expect(splitButtonInstance.$buttonDisabled()).toBe(true);
             expect(defaultButton.disabled).toBe(true);
         });
 
@@ -457,7 +457,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.menuButtonDisabled).toBe(true);
+            expect(splitButtonInstance.$menuButtonDisabled()).toBe(true);
             expect(dropdownButton.disabled).toBe(true);
         });
 
@@ -467,7 +467,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.styleClass).toBe('custom-splitbutton');
+            expect(splitButtonInstance.styleClass()).toBe('custom-splitbutton');
         });
 
         it('should update menuStyle property', async () => {
@@ -477,7 +477,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.menuStyle).toEqual(customMenuStyle);
+            expect(splitButtonInstance.menuStyle()).toEqual(customMenuStyle);
         });
 
         it('should update menuStyleClass property', async () => {
@@ -486,7 +486,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.menuStyleClass).toBe('custom-menu');
+            expect(splitButtonInstance.menuStyleClass()).toBe('custom-menu');
         });
 
         it('should update dropdownIcon property', async () => {
@@ -495,7 +495,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.dropdownIcon).toBe('pi pi-angle-double-down');
+            expect(splitButtonInstance.dropdownIcon()).toBe('pi pi-angle-double-down');
         });
 
         it('should update tabindex property', async () => {
@@ -504,7 +504,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.tabindex).toBe(5);
+            expect(splitButtonInstance.tabindex()).toBe(5);
         });
 
         it('should update autofocus property', async () => {
@@ -513,7 +513,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.autofocus).toBe(true);
+            expect(splitButtonInstance.autofocus()).toBe(true);
         });
 
         it('should update tooltip properties', async () => {
@@ -523,8 +523,8 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.tooltip).toBe('Custom tooltip');
-            expect(splitButtonInstance.tooltipOptions).toEqual({ tooltipPosition: 'bottom' });
+            expect(splitButtonInstance.tooltip()).toBe('Custom tooltip');
+            expect(splitButtonInstance.tooltipOptions()).toEqual({ tooltipPosition: 'bottom' });
         });
 
         it('should update transition options', async () => {
@@ -534,8 +534,8 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.showTransitionOptions).toBe('.15s ease-in');
-            expect(splitButtonInstance.hideTransitionOptions).toBe('.1s ease-out');
+            expect(splitButtonInstance.showTransitionOptions()).toBe('.15s ease-in');
+            expect(splitButtonInstance.hideTransitionOptions()).toBe('.1s ease-out');
         });
     });
 
@@ -571,7 +571,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             // Menu show may be async, check via onShow method instead
-            expect(splitButtonInstance.menu).toBeTruthy();
+            expect(splitButtonInstance.menu()).toBeTruthy();
         });
 
         it('should hide menu when default button is clicked', async () => {
@@ -637,7 +637,7 @@ describe('SplitButton', () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
             const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockReturnValue(undefined);
-            const toggleSpy = vi.spyOn(splitButtonInstance.menu!, 'toggle').mockReturnValue(undefined);
+            const toggleSpy = vi.spyOn(splitButtonInstance.menu()!, 'toggle').mockReturnValue(undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -652,7 +652,7 @@ describe('SplitButton', () => {
             const keydownEvent = new KeyboardEvent('keydown', { code: 'ArrowUp', bubbles: true });
             Object.defineProperty(keydownEvent, 'currentTarget', { value: dropdownButton, writable: false, configurable: true });
             const preventDefaultSpy = vi.spyOn(keydownEvent, 'preventDefault').mockReturnValue(undefined);
-            const toggleSpy = vi.spyOn(splitButtonInstance.menu!, 'toggle').mockReturnValue(undefined);
+            const toggleSpy = vi.spyOn(splitButtonInstance.menu()!, 'toggle').mockReturnValue(undefined);
 
             splitButtonInstance.onDropdownButtonKeydown(keydownEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -682,7 +682,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.raised).toBe(true);
+            expect(splitButtonInstance.raised()).toBe(true);
         });
 
         it('should apply rounded styling', async () => {
@@ -691,7 +691,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.rounded).toBe(true);
+            expect(splitButtonInstance.rounded()).toBe(true);
         });
 
         it('should apply text styling', async () => {
@@ -700,7 +700,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.text).toBe(true);
+            expect(splitButtonInstance.text()).toBe(true);
         });
 
         it('should apply outlined styling', async () => {
@@ -709,7 +709,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.outlined).toBe(true);
+            expect(splitButtonInstance.outlined()).toBe(true);
         });
 
         it('should apply plain styling', async () => {
@@ -718,7 +718,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.plain).toBe(true);
+            expect(splitButtonInstance.plain()).toBe(true);
         });
 
         it('should apply size variations', async () => {
@@ -728,7 +728,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.size).toBe('small');
+            expect(splitButtonInstance.size()).toBe('small');
 
             // Large size
             component.size = 'large';
@@ -736,7 +736,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.size).toBe('large');
+            expect(splitButtonInstance.size()).toBe('large');
         });
     });
 
@@ -747,7 +747,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('primary');
+            expect(splitButtonInstance.severity()).toBe('primary');
         });
 
         it('should apply secondary severity', async () => {
@@ -756,7 +756,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('secondary');
+            expect(splitButtonInstance.severity()).toBe('secondary');
         });
 
         it('should apply success severity', async () => {
@@ -765,7 +765,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('success');
+            expect(splitButtonInstance.severity()).toBe('success');
         });
 
         it('should apply info severity', async () => {
@@ -774,7 +774,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('info');
+            expect(splitButtonInstance.severity()).toBe('info');
         });
 
         it('should apply warn severity', async () => {
@@ -783,7 +783,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('warn');
+            expect(splitButtonInstance.severity()).toBe('warn');
         });
 
         it('should apply danger severity', async () => {
@@ -792,7 +792,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('danger');
+            expect(splitButtonInstance.severity()).toBe('danger');
         });
 
         it('should apply help severity', async () => {
@@ -801,7 +801,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('help');
+            expect(splitButtonInstance.severity()).toBe('help');
         });
 
         it('should apply contrast severity', async () => {
@@ -810,7 +810,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.severity).toBe('contrast');
+            expect(splitButtonInstance.severity()).toBe('contrast');
         });
     });
 
@@ -821,7 +821,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.icon).toBe('pi pi-save');
+            expect(splitButtonInstance.icon()).toBe('pi pi-save');
         });
 
         it('should handle different icon positions', async () => {
@@ -833,14 +833,14 @@ describe('SplitButton', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(splitButtonInstance.iconPos).toBe('left');
+            expect(splitButtonInstance.iconPos()).toBe('left');
 
             // Right position
             component.iconPos = 'right';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
-            expect(splitButtonInstance.iconPos).toBe('right');
+            expect(splitButtonInstance.iconPos()).toBe('right');
         });
 
         it('should display dropdown icon', () => {
@@ -848,7 +848,7 @@ describe('SplitButton', () => {
             dropdownIconFixture.detectChanges();
 
             const dropdownSplitButton = dropdownIconFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
-            expect(dropdownSplitButton.dropdownIcon).toBe('pi pi-angle-down');
+            expect(dropdownSplitButton.dropdownIcon()).toBe('pi pi-angle-down');
         });
     });
 
@@ -863,7 +863,7 @@ describe('SplitButton', () => {
             const commandSplitButton = commandFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
 
             // Execute first menu item command directly
-            const firstMenuItem = commandSplitButton.model[0];
+            const firstMenuItem = commandSplitButton.model()![0];
             if (firstMenuItem.command) {
                 firstMenuItem.command();
             }
@@ -986,7 +986,7 @@ describe('SplitButton', () => {
                 expect(() => splitButtonInstance.ngAfterContentInit()).not.toThrow();
 
                 // Test that contentTemplate property exists (ContentChild)
-                expect(splitButtonInstance.contentTemplate).toBeDefined();
+                expect(splitButtonInstance.contentTemplate()).toBeDefined();
 
                 // Verify content container is rendered
                 const buttonElements = contentTemplateFixture.debugElement.queryAll(By.css('button'));
@@ -1002,8 +1002,8 @@ describe('SplitButton', () => {
                 const splitButtonInstance = contentTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
 
                 // @ContentChild('content') should set contentTemplate
-                expect(splitButtonInstance.contentTemplate).toBeDefined();
-                expect(splitButtonInstance.contentTemplate).toBeInstanceOf(TemplateRef);
+                expect(splitButtonInstance.contentTemplate()).toBeDefined();
+                expect(splitButtonInstance.contentTemplate()).toBeInstanceOf(TemplateRef);
             });
 
             it("should process dropdownIconTemplate from @ContentChild('dropdownicon')", async () => {
@@ -1015,8 +1015,8 @@ describe('SplitButton', () => {
                 const splitButtonInstance = contentTemplateFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
 
                 // @ContentChild('dropdownicon') should set dropdownIconTemplate
-                expect(splitButtonInstance.dropdownIconTemplate).toBeDefined();
-                expect(splitButtonInstance.dropdownIconTemplate).toBeInstanceOf(TemplateRef);
+                expect(splitButtonInstance.dropdownIconTemplate()).toBeDefined();
+                expect(splitButtonInstance.dropdownIconTemplate()).toBeInstanceOf(TemplateRef);
             });
         });
 
@@ -1105,7 +1105,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.expandAriaLabel).toBe('Show additional actions');
+            expect(splitButtonInstance.expandAriaLabel()).toBe('Show additional actions');
         });
 
         it('should handle tabindex correctly', async () => {
@@ -1149,7 +1149,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.styleClass).toBe('my-custom-splitbutton');
+            expect(splitButtonInstance.styleClass()).toBe('my-custom-splitbutton');
         });
 
         it('should apply menuStyleClass', async () => {
@@ -1158,7 +1158,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.menuStyleClass).toBe('custom-menu-class');
+            expect(splitButtonInstance.menuStyleClass()).toBe('custom-menu-class');
         });
     });
 
@@ -1170,7 +1170,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(splitButtonInstance.model).toEqual([]);
+            expect(splitButtonInstance.model()).toEqual([]);
         });
 
         it('should handle undefined model', async () => {
@@ -1180,7 +1180,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(splitButtonInstance.model).toBeUndefined();
+            expect(splitButtonInstance.model()).toBeUndefined();
         });
 
         it('should handle empty label gracefully', async () => {
@@ -1190,7 +1190,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(splitButtonInstance.label).toBe('' as any);
+            expect(splitButtonInstance.label()).toBe('' as any);
         });
 
         it('should handle undefined label', async () => {
@@ -1200,7 +1200,7 @@ describe('SplitButton', () => {
             fixture.detectChanges();
 
             expect(() => fixture.detectChanges()).not.toThrow();
-            expect(splitButtonInstance.label).toBeUndefined();
+            expect(splitButtonInstance.label()).toBeUndefined();
         });
 
         it('should handle invalid icon gracefully', async () => {
@@ -1282,8 +1282,8 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.buttonProps).toBeDefined();
-            expect(splitButtonInstance.buttonProps!['ariaLabel']).toBe('Custom aria label');
+            expect(splitButtonInstance.buttonProps()).toBeDefined();
+            expect(splitButtonInstance.buttonProps()!['ariaLabel']).toBe('Custom aria label');
         });
 
         it('should handle menuButtonProps', async () => {
@@ -1295,8 +1295,8 @@ describe('SplitButton', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(splitButtonInstance.menuButtonProps).toBeDefined();
-            expect(splitButtonInstance.menuButtonProps!['ariaLabel']).toBe('Menu button');
+            expect(splitButtonInstance.menuButtonProps()).toBeDefined();
+            expect(splitButtonInstance.menuButtonProps()!['ariaLabel']).toBe('Menu button');
         });
     });
 
@@ -1313,9 +1313,9 @@ describe('SplitButton', () => {
             const buttonDisabled = disabledButtons[1].componentInstance;
             const menuDisabled = disabledButtons[2].componentInstance;
 
-            expect(fullDisabled.disabled).toBe(true);
-            expect(buttonDisabled.buttonDisabled).toBe(true);
-            expect(menuDisabled.menuButtonDisabled).toBe(true);
+            expect(fullDisabled.disabled()).toBe(true);
+            expect(buttonDisabled.buttonDisabled()).toBe(true);
+            expect(menuDisabled.menuButtonDisabled()).toBe(true);
         });
     });
 
@@ -1325,8 +1325,8 @@ describe('SplitButton', () => {
             tooltipFixture.detectChanges();
 
             const tooltipSplitButton = tooltipFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
-            expect(tooltipSplitButton.tooltip).toBe('This is a tooltip');
-            expect(tooltipSplitButton.tooltipOptions).toEqual({ tooltipPosition: 'top' });
+            expect(tooltipSplitButton.tooltip()).toBe('This is a tooltip');
+            expect(tooltipSplitButton.tooltipOptions()).toEqual({ tooltipPosition: 'top' });
         });
     });
 
@@ -1336,7 +1336,7 @@ describe('SplitButton', () => {
             autofocusFixture.detectChanges();
 
             const autofocusSplitButton = autofocusFixture.debugElement.query(By.directive(SplitButton)).componentInstance;
-            expect(autofocusSplitButton.autofocus).toBe(true);
+            expect(autofocusSplitButton.autofocus()).toBe(true);
         });
     });
 });

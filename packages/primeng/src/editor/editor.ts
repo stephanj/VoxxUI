@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformServer } from '@angular/common';
-import { afterNextRender, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect, forwardRef, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@primeuix/utils';
 import { Header, PrimeTemplate, SharedModule } from 'voxx-ui/api';
@@ -25,13 +25,13 @@ export const EDITOR_VALUE_ACCESSOR: any = {
     selector: 'vx-editor',
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        @if (toolbar || headerTemplate || _headerTemplate) {
+        @if (toolbar() || headerTemplate() || _headerTemplate()) {
             <div [class]="cx('toolbar')" [vxBind]="ptm('toolbar')">
                 <ng-content select="vx-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate()"></ng-container>
             </div>
         }
-        @if (!toolbar && !headerTemplate && !_headerTemplate) {
+        @if (!toolbar() && !headerTemplate() && !_headerTemplate()) {
             <div [class]="cx('toolbar')" [vxBind]="ptm('toolbar')">
                 <span class="ql-formats" [vxBind]="ptm('formats')">
                     <select class="ql-header" [vxBind]="ptm('header')">
@@ -74,13 +74,13 @@ export const EDITOR_VALUE_ACCESSOR: any = {
                 </span>
             </div>
         }
-        <div [class]="cx('content')" [ngStyle]="style" [vxBind]="ptm('content')"></div>
+        <div [class]="cx('content')" [style]="style()" [vxBind]="ptm('content')"></div>
     `,
     providers: [EDITOR_VALUE_ACCESSOR, EditorStyle, { provide: EDITOR_INSTANCE, useExisting: Editor }, { provide: PARENT_INSTANCE, useExisting: Editor }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cn(cx('root'), styleClass)"
+        '[class]': "cn(cx('root'), styleClass())"
     },
     hostDirectives: [Bind]
 })
@@ -99,102 +99,90 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      * Inline style of the container.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    style = input<{ [klass: string]: any } | null | undefined>();
     /**
      * Style class of the container.
      * @deprecated since v20.0.0, use `class` instead.
      * @group Props
      */
-    @Input() styleClass: string | undefined;
+    styleClass = input<string | undefined>();
     /**
      * Placeholder text to show when editor is empty.
      * @group Props
      */
-    @Input() placeholder: string | undefined;
+    placeholder = input<string | undefined>();
     /**
      * Whitelist of formats to display, see [here](https://quilljs.com/docs/formats/) for available options.
      * @group Props
      */
-    @Input() formats: string[] | undefined;
+    formats = input<string[] | undefined>();
     /**
      * Modules configuration of Editor, see [here](https://quilljs.com/docs/modules/) for available options.
      * @group Props
      */
-    @Input() modules: object | undefined;
+    modules = input<object | undefined>();
     /**
      * DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
      * @group Props
      */
-    @Input() bounds: HTMLElement | string | undefined;
+    bounds = input<HTMLElement | string | undefined>();
     /**
      * DOM Element or a CSS selector for a DOM Element, specifying which container has the scrollbars (i.e. overflow-y: auto), if is has been changed from the default ql-editor with custom CSS. Necessary to fix scroll jumping bugs when Quill is set to auto grow its height, and another ancestor container is responsible from the scrolling..
      * @group Props
      */
-    @Input() scrollingContainer: HTMLElement | string | undefined;
+    scrollingContainer = input<HTMLElement | string | undefined>();
     /**
      * Shortcut for debug. Note debug is a static method and will affect other instances of Quill editors on the page. Only warning and error messages are enabled by default.
      * @group Props
      */
-    @Input() debug: string | undefined;
+    debug = input<string | undefined>();
     /**
      * Whether to instantiate the editor to read-only mode.
      * @group Props
      */
-    @Input() get readonly(): boolean {
-        return this._readonly;
-    }
-    set readonly(val: boolean) {
-        this._readonly = val;
-
-        if (this.quill) {
-            if (this._readonly) this.quill.disable();
-            else this.quill.enable();
-        }
-    }
+    readonly = input<boolean>(false);
     /**
      * Callback to invoke when the quill modules are loaded.
      * @param {EditorInitEvent} event - custom event.
      * @group Emits
      */
-    @Output('onInit') onEditorInit: EventEmitter<EditorInitEvent> = new EventEmitter<EditorInitEvent>();
+    onEditorInit = output<EditorInitEvent>({ alias: 'onInit' });
     /**
      * Callback to invoke when text of editor changes.
      * @param {EditorTextChangeEvent} event - custom event.
      * @group Emits
      */
-    @Output() onTextChange: EventEmitter<EditorTextChangeEvent> = new EventEmitter<EditorTextChangeEvent>();
+    onTextChange = output<EditorTextChangeEvent>();
     /**
      * Callback to invoke when selection of the text changes.
      * @param {EditorSelectionChangeEvent} event - custom event.
      * @group Emits
      */
-    @Output() onSelectionChange: EventEmitter<EditorSelectionChangeEvent> = new EventEmitter<EditorSelectionChangeEvent>();
+    onSelectionChange = output<EditorSelectionChangeEvent>();
     /**
      * Callback to invoke when editor content changes (combines both text and selection changes).
      * @param {EditorChangeEvent} event - custom event.
      * @group Emits
      */
-    @Output() onEditorChange: EventEmitter<EditorChangeEvent> = new EventEmitter<EditorChangeEvent>();
+    onEditorChange = output<EditorChangeEvent>();
     /**
      * Callback to invoke when editor receives focus.
      * @param {EditorFocusEvent} event - custom event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<EditorFocusEvent> = new EventEmitter<EditorFocusEvent>();
+    onFocus = output<EditorFocusEvent>();
     /**
      * Callback to invoke when editor loses focus.
      * @param {EditorBlurEvent} event - custom event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<EditorBlurEvent> = new EventEmitter<EditorBlurEvent>();
+    onBlur = output<EditorBlurEvent>();
 
-    @ContentChild(Header) toolbar: any;
+    toolbar = contentChild(Header);
 
     value: Nullable<string>;
 
     delayedCommand: Function | null = null;
-
-    _readonly: boolean = false;
 
     quill: any;
 
@@ -204,11 +192,11 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      * Custom item template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<any>>;
+    headerTemplate = contentChild<TemplateRef<any>>('header', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    templates = contentChildren(PrimeTemplate);
 
-    _headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate = computed<TemplateRef<any> | undefined>(() => this.templates().find((item) => item.getType() === 'header')?.template);
 
     private get isAttachedQuillEditorToDOM(): boolean | undefined {
         return this.quillElements?.editorElement?.isConnected;
@@ -231,14 +219,14 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
             this.initQuillElements();
             this.initQuillEditor();
         });
-    }
 
-    onAfterContentInit() {
-        this.templates.forEach((item) => {
-            switch (item.getType()) {
-                case 'header':
-                    this.headerTemplate = item.template;
-                    break;
+        // Signal-native replacement for the former readonly setter side effect (#16/#17).
+        effect(() => {
+            const readonly = this.readonly();
+
+            if (this.quill) {
+                if (readonly) this.quill.disable();
+                else this.quill.enable();
             }
         });
     }
@@ -307,16 +295,16 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
 
         const { toolbarElement, editorElement } = this.quillElements;
         let defaultModule = { toolbar: toolbarElement };
-        let modules = this.modules ? { ...defaultModule, ...this.modules } : defaultModule;
+        let modules = this.modules() ? { ...defaultModule, ...this.modules() } : defaultModule;
         this.quill = new this.dynamicQuill(editorElement, {
             modules: modules,
-            placeholder: this.placeholder,
-            readOnly: this.readonly,
+            placeholder: this.placeholder(),
+            readOnly: this.readonly(),
             theme: 'snow',
-            formats: this.formats,
-            bounds: this.bounds,
-            debug: this.debug,
-            scrollingContainer: this.scrollingContainer
+            formats: this.formats(),
+            bounds: this.bounds(),
+            debug: this.debug(),
+            scrollingContainer: this.scrollingContainer()
         });
 
         const isQuill2 = this.dynamicQuill.version.startsWith('2');

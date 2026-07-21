@@ -35,9 +35,9 @@ const classes = {
         'p-datepicker-panel p-component',
         {
             'p-datepicker-panel p-component': true,
-            'p-datepicker-panel-inline': instance.inline,
+            'p-datepicker-panel-inline': instance.inline(),
             'p-disabled': instance.$disabled(),
-            'p-datepicker-timeonly': instance.timeOnly
+            'p-datepicker-timeonly': instance.timeOnly()
         }
     ],
     calendarContainer: 'p-datepicker-calendar-container',

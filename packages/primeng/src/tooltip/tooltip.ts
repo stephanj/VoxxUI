@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, Input, NgModule, NgZone, numberAttribute, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, signal, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@primeuix/utils';
 import { TooltipOptions } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -30,99 +30,93 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      * Position of the tooltip.
      * @group Props
      */
-    @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' | string | undefined;
+    tooltipPosition = input<'right' | 'left' | 'top' | 'bottom' | string | undefined>();
     /**
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | 'both' = 'hover';
+    tooltipEvent = input<'hover' | 'focus' | 'both'>('hover');
     /**
      * Type of CSS position.
      * @group Props
      */
-    @Input() positionStyle: string | undefined;
+    positionStyle = input<string | undefined>();
     /**
      * Style class of the tooltip.
      * @group Props
      */
-    @Input() tooltipStyleClass: string | undefined;
+    tooltipStyleClass = input<string | undefined>();
     /**
      * Whether the z-index should be managed automatically to always go on top or have a fixed value.
      * @group Props
      */
-    @Input() tooltipZIndex: string | undefined;
+    tooltipZIndex = input<string | undefined>();
     /**
      * By default the tooltip contents are rendered as text. Set to false to support html tags in the content.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) escape: boolean = true;
+    escape = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Delay to show the tooltip in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) showDelay: number | undefined;
+    showDelay = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Delay to hide the tooltip in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) hideDelay: number | undefined;
+    hideDelay = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Time to wait in milliseconds to hide the tooltip even it is active.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) life: number | undefined;
+    life = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Specifies the additional vertical offset of the tooltip from its default position.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) positionTop: number | undefined;
+    positionTop = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Specifies the additional horizontal offset of the tooltip from its default position.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) positionLeft: number | undefined;
+    positionLeft = input<number | undefined, unknown>(undefined, { transform: numberAttribute });
     /**
      * Whether to hide tooltip when hovering over tooltip content.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoHide: boolean = true;
+    autoHide = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Automatically adjusts the element position when there is not enough space on the selected position.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fitContent: boolean = true;
+    fitContent = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Whether to hide tooltip on escape key press.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) hideOnEscape: boolean = true;
+    hideOnEscape = input<boolean, unknown>(true, { transform: booleanAttribute });
     /**
      * Whether to show the tooltip only when the target text overflows (e.g., ellipsis is active).
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) showOnEllipsis: boolean = false;
+    showOnEllipsis = input<boolean, unknown>(false, { transform: booleanAttribute });
     /**
      * Content of the tooltip.
      * @group Props
      */
-    @Input('vxTooltip') content: string | TemplateRef<HTMLElement> | undefined;
+    content = input<string | TemplateRef<HTMLElement> | undefined>(undefined, { alias: 'vxTooltip' });
     /**
      * When present, it specifies that the component should be disabled.
      * @defaultValue false
      * @group Props
      */
-    @Input('tooltipDisabled') get disabled(): boolean {
-        return this._disabled as boolean;
-    }
-    set disabled(val: boolean) {
-        this._disabled = val;
-        this.deactivate();
-    }
+    disabled = input<boolean | undefined>(undefined, { alias: 'tooltipDisabled' });
     /**
      * Specifies the tooltip configuration options for the component.
      * @group Props
      */
-    @Input() tooltipOptions: TooltipOptions | undefined;
+    tooltipOptions = input<TooltipOptions | undefined>();
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -132,28 +126,71 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _tooltipOptions = {
-        tooltipLabel: null,
-        tooltipPosition: 'right',
-        tooltipEvent: 'hover',
-        appendTo: 'body',
-        positionStyle: null,
-        tooltipStyleClass: null,
-        tooltipZIndex: 'auto',
-        escape: true,
-        disabled: null,
-        showDelay: null,
-        hideDelay: null,
-        positionTop: null,
-        positionLeft: null,
-        life: null,
-        autoHide: true,
-        hideOnEscape: true,
-        showOnEllipsis: false,
-        id: uuid('pn_id_') + '_tooltip'
-    };
+    private readonly _tooltipId = uuid('pn_id_') + '_tooltip';
 
-    _disabled: boolean | undefined;
+    /**
+     * Imperative option overrides applied through `setOption()`. They take precedence over
+     * defaults, individual inputs and the `tooltipOptions` aggregate.
+     */
+    _optionOverrides = signal<Record<string, any>>({});
+
+    /**
+     * Resolved tooltip options. Signal-native replacement of the former `onChanges` ->
+     * `setOption()` sync: defaults, then individual inputs (unset ones are skipped), then the
+     * `tooltipOptions` aggregate (matching the original `onChanges` order where the
+     * `tooltipOptions` merge ran last), then imperative `setOption()` overrides.
+     */
+    _tooltipOptions = computed<Record<string, any>>(() => {
+        const individual: Record<string, any> = {
+            tooltipLabel: this.content(),
+            tooltipPosition: this.tooltipPosition(),
+            tooltipEvent: this.tooltipEvent(),
+            appendTo: this.appendTo(),
+            positionStyle: this.positionStyle(),
+            tooltipStyleClass: this.tooltipStyleClass(),
+            tooltipZIndex: this.tooltipZIndex(),
+            escape: this.escape(),
+            disabled: this.disabled(),
+            showDelay: this.showDelay(),
+            hideDelay: this.hideDelay(),
+            positionTop: this.positionTop(),
+            positionLeft: this.positionLeft(),
+            life: this.life(),
+            autoHide: this.autoHide(),
+            hideOnEscape: this.hideOnEscape(),
+            showOnEllipsis: this.showOnEllipsis()
+        };
+
+        for (const key of Object.keys(individual)) {
+            if (individual[key] === undefined) {
+                delete individual[key];
+            }
+        }
+
+        return {
+            tooltipLabel: null,
+            tooltipPosition: 'right',
+            tooltipEvent: 'hover',
+            appendTo: 'body',
+            positionStyle: null,
+            tooltipStyleClass: null,
+            tooltipZIndex: 'auto',
+            escape: true,
+            disabled: null,
+            showDelay: null,
+            hideDelay: null,
+            positionTop: null,
+            positionLeft: null,
+            life: null,
+            autoHide: true,
+            hideOnEscape: true,
+            showOnEllipsis: false,
+            id: this._tooltipId,
+            ...individual,
+            ...(this.tooltipOptions() || {}),
+            ...this._optionOverrides()
+        };
+    });
 
     container: any;
 
@@ -268,62 +305,18 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
     }
 
+    /**
+     * Option values themselves are resolved reactively by the `_tooltipOptions` computed; only
+     * the imperative side effects of the former per-input sync remain here. This hook still
+     * fires for signal inputs written through template bindings or `setInput()` (#16), which is
+     * how tooltips that are currently shown pick up content/option changes in the DOM.
+     */
     onChanges(simpleChange: SimpleChanges) {
-        if (simpleChange.tooltipPosition) {
-            this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
-        }
-
-        if (simpleChange.tooltipEvent) {
-            this.setOption({ tooltipEvent: simpleChange.tooltipEvent.currentValue });
-        }
-
-        if (simpleChange.appendTo) {
-            this.setOption({ appendTo: simpleChange.appendTo.currentValue });
-        }
-
-        if (simpleChange.positionStyle) {
-            this.setOption({ positionStyle: simpleChange.positionStyle.currentValue });
-        }
-
-        if (simpleChange.tooltipStyleClass) {
-            this.setOption({ tooltipStyleClass: simpleChange.tooltipStyleClass.currentValue });
-        }
-
-        if (simpleChange.tooltipZIndex) {
-            this.setOption({ tooltipZIndex: simpleChange.tooltipZIndex.currentValue });
-        }
-
-        if (simpleChange.escape) {
-            this.setOption({ escape: simpleChange.escape.currentValue });
-        }
-
-        if (simpleChange.showDelay) {
-            this.setOption({ showDelay: simpleChange.showDelay.currentValue });
-        }
-
-        if (simpleChange.hideDelay) {
-            this.setOption({ hideDelay: simpleChange.hideDelay.currentValue });
-        }
-
-        if (simpleChange.life) {
-            this.setOption({ life: simpleChange.life.currentValue });
-        }
-
-        if (simpleChange.positionTop) {
-            this.setOption({ positionTop: simpleChange.positionTop.currentValue });
-        }
-
-        if (simpleChange.positionLeft) {
-            this.setOption({ positionLeft: simpleChange.positionLeft.currentValue });
-        }
-
         if (simpleChange.disabled) {
-            this.setOption({ disabled: simpleChange.disabled.currentValue });
+            this.deactivate();
         }
 
         if (simpleChange.content) {
-            this.setOption({ tooltipLabel: simpleChange.content.currentValue });
-
             if (this.active) {
                 if (simpleChange.content.currentValue) {
                     if (this.container && this.container.offsetParent) {
@@ -338,20 +331,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             }
         }
 
-        if (simpleChange.autoHide) {
-            this.setOption({ autoHide: simpleChange.autoHide.currentValue });
-        }
-
-        if (simpleChange.showOnEllipsis) {
-            this.setOption({ showOnEllipsis: simpleChange.showOnEllipsis.currentValue });
-        }
-
-        if (simpleChange.id) {
-            this.setOption({ id: simpleChange.id.currentValue });
-        }
-
         if (simpleChange.tooltipOptions) {
-            this._tooltipOptions = { ...this._tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
             this.deactivate();
 
             if (this.active) {
@@ -515,7 +495,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
         this.container.style.display = 'none';
 
-        if (this.fitContent) {
+        if (this.fitContent()) {
             this.container.style.width = 'fit-content';
         }
 
@@ -702,11 +682,11 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     setOption(option: any) {
-        this._tooltipOptions = { ...this._tooltipOptions, ...option };
+        this._optionOverrides.update((overrides) => ({ ...overrides, ...option }));
     }
 
     getOption(option: string) {
-        return this._tooltipOptions[option as keyof typeof this.tooltipOptions];
+        return this._tooltipOptions()[option];
     }
 
     getTarget(el: Element) {

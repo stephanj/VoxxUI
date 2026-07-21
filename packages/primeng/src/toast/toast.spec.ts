@@ -152,16 +152,16 @@ describe('Toast', () => {
             const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            expect(toastInstance.autoZIndex).toBe(true);
-            expect(toastInstance.baseZIndex).toBe(0);
-            expect(toastInstance.life).toBe(3000);
-            expect(toastInstance.position).toBe('top-right');
-            expect(toastInstance.preventOpenDuplicates).toBe(false);
-            expect(toastInstance.preventDuplicates).toBe(false);
-            expect(toastInstance.showTransformOptions).toBe('translateY(100%)');
-            expect(toastInstance.hideTransformOptions).toBe('translateY(-100%)');
-            expect(toastInstance.showTransitionOptions).toBe('300ms ease-out');
-            expect(toastInstance.hideTransitionOptions).toBe('250ms ease-in');
+            expect(toastInstance.autoZIndex()).toBe(true);
+            expect(toastInstance.baseZIndex()).toBe(0);
+            expect(toastInstance.life()).toBe(3000);
+            expect(toastInstance.position()).toBe('top-right');
+            expect(toastInstance.preventOpenDuplicates()).toBe(false);
+            expect(toastInstance.preventDuplicates()).toBe(false);
+            expect(toastInstance.showTransformOptions()).toBe('translateY(100%)');
+            expect(toastInstance.hideTransformOptions()).toBe('translateY(-100%)');
+            expect(toastInstance.showTransitionOptions()).toBe('300ms ease-out');
+            expect(toastInstance.hideTransitionOptions()).toBe('250ms ease-in');
         });
 
         it('should accept custom values', async () => {
@@ -179,13 +179,13 @@ describe('Toast', () => {
             const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            expect(toastInstance.key).toBe('custom-key');
-            expect(toastInstance.autoZIndex).toBe(false);
-            expect(toastInstance.baseZIndex).toBe(1000);
-            expect(toastInstance.life).toBe(5000);
-            expect(toastInstance.position).toBe('bottom-left');
-            expect(toastInstance.preventOpenDuplicates).toBe(true);
-            expect(toastInstance.preventDuplicates).toBe(true);
+            expect(toastInstance.key()).toBe('custom-key');
+            expect(toastInstance.autoZIndex()).toBe(false);
+            expect(toastInstance.baseZIndex()).toBe(1000);
+            expect(toastInstance.life()).toBe(5000);
+            expect(toastInstance.position()).toBe('bottom-left');
+            expect(toastInstance.preventOpenDuplicates()).toBe(true);
+            expect(toastInstance.preventDuplicates()).toBe(true);
         });
     });
 
@@ -464,21 +464,21 @@ describe('Toast', () => {
             const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            expect(toastInstance.position).toBe('bottom-center');
+            expect(toastInstance.position()).toBe('bottom-center');
         });
 
         it('should update position dynamically', async () => {
             const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            expect(toastInstance.position).toBe('top-left');
+            expect(toastInstance.position()).toBe('top-left');
 
             component.position = 'bottom-right';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(toastInstance.position).toBe('bottom-right');
+            expect(toastInstance.position()).toBe('bottom-right');
         });
     });
 
@@ -598,8 +598,8 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
 
             toastInstance.ngAfterContentInit();
-            expect(toastInstance._template).toBeTruthy();
-            expect(toastInstance._headlessTemplate).toBeTruthy();
+            expect(toastInstance._template()).toBeTruthy();
+            expect(toastInstance._headlessTemplate()).toBeTruthy();
         });
 
         it('should render vxTemplate message content correctly', async () => {
@@ -657,7 +657,7 @@ describe('Toast', () => {
             const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            expect(toastInstance.styleClass).toBe('custom-toast-class');
+            expect(toastInstance.styleClass()).toBe('custom-toast-class');
         });
 
         it('should handle breakpoints configuration', async () => {
@@ -672,7 +672,7 @@ describe('Toast', () => {
             const toastEl = fixture.debugElement.query(By.css('vx-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
 
-            expect(toastInstance.breakpoints).toEqual(component.breakpoints);
+            expect(toastInstance.breakpoints()).toEqual(component.breakpoints);
         });
     });
 
@@ -838,8 +838,8 @@ describe('Toast', () => {
             const toast1El = fixture.debugElement.query(By.css('vx-toast'));
             const toast2El = fixture2.debugElement.query(By.css('vx-toast'));
 
-            expect(toast1El.componentInstance.key).toBe('test');
-            expect(toast2El.componentInstance.key).toBe('test2');
+            expect(toast1El.componentInstance.key()).toBe('test');
+            expect(toast2El.componentInstance.key()).toBe('test2');
         });
     });
 
@@ -1031,8 +1031,8 @@ describe('Toast', () => {
                 host: ({ instance }: any) => {
                     return {
                         class: {
-                            POSITION_BOTTOM_LEFT: instance?.position === 'bottom-left',
-                            POSITION_TOP_RIGHT: instance?.position === 'top-right'
+                            POSITION_BOTTOM_LEFT: instance?.position() === 'bottom-left',
+                            POSITION_TOP_RIGHT: instance?.position() === 'top-right'
                         }
                     };
                 }
@@ -1058,7 +1058,7 @@ describe('Toast', () => {
                 root: ({ instance }: any) => {
                     return {
                         style: {
-                            opacity: instance?.life > 2000 ? '1' : '0.5'
+                            opacity: instance?.life() > 2000 ? '1' : '0.5'
                         }
                     };
                 }
@@ -1413,10 +1413,10 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should create ToastItem component', () => {
@@ -1424,11 +1424,11 @@ describe('ToastItem', () => {
         });
 
         it('should have default values', () => {
-            expect(component.message as any).toBeUndefined();
-            expect(component.index).toBeUndefined();
-            expect(component.life).toBeUndefined();
-            expect(component.template).toBeUndefined();
-            expect(component.headlessTemplate).toBeUndefined();
+            expect(component.message() as any).toBeUndefined();
+            expect(component.index()).toBeUndefined();
+            expect(component.life()).toBeUndefined();
+            expect(component.template()).toBeUndefined();
+            expect(component.headlessTemplate()).toBeUndefined();
         });
 
         it('should accept input values', async () => {
@@ -1438,16 +1438,16 @@ describe('ToastItem', () => {
                 detail: 'Test message'
             };
 
-            component.message = testMessage;
-            component.index = 0;
-            component.life = 5000;
+            fixture.componentRef.setInput('message', testMessage);
+            fixture.componentRef.setInput('index', 0);
+            fixture.componentRef.setInput('life', 5000);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(component.message as any).toEqual(testMessage);
-            expect(component.index).toBe(0);
-            expect(component.life).toBe(5000);
+            expect(component.message() as any).toEqual(testMessage);
+            expect(component.index()).toBe(0);
+            expect(component.life()).toBe(5000);
         });
     });
 
@@ -1455,29 +1455,29 @@ describe('ToastItem', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Test',
                 detail: 'Test message'
-            };
-            component.index = 0;
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('index', 0);
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
         });
 
         it('should initialize timeout for non-sticky messages', async () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'success',
                 summary: 'Auto Close',
                 detail: 'This message will close automatically',
                 sticky: false
-            };
-            component.life = 1000;
+            });
+            fixture.componentRef.setInput('life', 1000);
 
             component.initTimeout();
 
@@ -1489,12 +1489,12 @@ describe('ToastItem', () => {
         });
 
         it('should not initialize timeout for sticky messages', () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Sticky',
                 detail: 'This message is sticky',
                 sticky: true
-            };
+            });
 
             vi.spyOn(window, 'setTimeout').mockReturnValue(undefined as any);
             component.initTimeout();
@@ -1542,17 +1542,17 @@ describe('ToastItem', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'success',
                 summary: 'Test',
                 detail: 'Test message',
                 closable: true
-            };
-            component.index = 0;
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('index', 0);
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1583,18 +1583,18 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should display message content', async () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'success',
                 summary: 'Success Message',
                 detail: 'Operation completed successfully'
-            };
+            });
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1610,11 +1610,11 @@ describe('ToastItem', () => {
             const severities = ['success', 'info', 'error', 'warn'];
 
             for (const severity of severities) {
-                component.message = {
+                fixture.componentRef.setInput('message', {
                     severity: severity as any,
                     summary: `${severity} message`,
                     detail: 'Test detail'
-                } as any;
+                } as any);
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.detectChanges();
@@ -1626,12 +1626,12 @@ describe('ToastItem', () => {
         });
 
         it('should display custom icon when provided', async () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Custom Icon',
                 detail: 'Message with custom icon',
                 icon: 'pi pi-custom'
-            };
+            });
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1641,12 +1641,12 @@ describe('ToastItem', () => {
         });
 
         it('should hide close button when closable is false', async () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Non-closable',
                 detail: 'Cannot be closed',
                 closable: false
-            };
+            });
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1660,15 +1660,15 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Accessible Message',
                 detail: 'This message is accessible'
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
             fixture.detectChanges();
         });
 
@@ -1680,7 +1680,7 @@ describe('ToastItem', () => {
         });
 
         it('should have correct close button aria-label', async () => {
-            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('message', { ...(component.message() as any), closable: true });
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1700,15 +1700,15 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Test',
                 detail: 'Test message'
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
             fixture.detectChanges();
         });
 
@@ -1721,8 +1721,8 @@ describe('ToastItem', () => {
         });
 
         it('should not leak memory with multiple timeouts', async () => {
-            component.message = { ...(component.message as any), sticky: false };
-            component.life = 1000;
+            fixture.componentRef.setInput('message', { ...(component.message() as any), sticky: false });
+            fixture.componentRef.setInput('life', 1000);
 
             vi.spyOn(component, 'clearTimeout');
 
@@ -1743,15 +1743,15 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Test',
                 detail: 'Test message'
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should apply pt message class', () => {
@@ -1807,7 +1807,7 @@ describe('ToastItem', () => {
         });
 
         it('should apply pt closeButton class', () => {
-            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('message', { ...(component.message() as any), closable: true });
             fixture.componentRef.setInput('pt', { closeButton: 'CLOSE_BUTTON_CLASS' } as any);
             fixture.detectChanges();
 
@@ -1816,7 +1816,7 @@ describe('ToastItem', () => {
         });
 
         it('should apply pt closeIcon class', () => {
-            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('message', { ...(component.message() as any), closable: true });
             fixture.componentRef.setInput('pt', { closeIcon: 'CLOSE_ICON_CLASS' } as any);
             fixture.detectChanges();
 
@@ -1825,7 +1825,7 @@ describe('ToastItem', () => {
         });
 
         it('should apply multiple pt classes', () => {
-            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('message', { ...(component.message() as any), closable: true });
             fixture.componentRef.setInput('pt', {
                 message: 'MESSAGE_CLASS',
                 messageContent: 'CONTENT_CLASS',
@@ -1849,15 +1849,15 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'success',
                 summary: 'Test',
                 detail: 'Test message'
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should apply pt message with object containing class, style, data attribute', () => {
@@ -1909,7 +1909,7 @@ describe('ToastItem', () => {
         });
 
         it('should apply pt closeButton with object properties', () => {
-            component.message = { ...(component.message as any), closable: true };
+            fixture.componentRef.setInput('message', { ...(component.message() as any), closable: true });
             fixture.componentRef.setInput('pt', {
                 closeButton: {
                     class: 'CLOSE_BTN_OBJECT_CLASS',
@@ -1930,16 +1930,16 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'warn',
                 summary: 'Test',
                 detail: 'Test message',
                 closable: true
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should apply mixed pt values (objects and strings)', () => {
@@ -1972,24 +1972,24 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should apply pt message class based on instance severity', () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'error',
                 summary: 'Error',
                 detail: 'Error message'
-            };
+            });
             fixture.componentRef.setInput('pt', {
                 message: ({ instance }: any) => {
                     return {
                         class: {
-                            SEVERITY_ERROR: instance?.message?.severity === 'error',
-                            SEVERITY_SUCCESS: instance?.message?.severity === 'success'
+                            SEVERITY_ERROR: instance?.message()?.severity === 'error',
+                            SEVERITY_SUCCESS: instance?.message()?.severity === 'success'
                         }
                     };
                 }
@@ -2002,16 +2002,16 @@ describe('ToastItem', () => {
         });
 
         it('should apply pt summary style based on message content', () => {
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Important',
                 detail: 'Test'
-            };
+            });
             fixture.componentRef.setInput('pt', {
                 summary: ({ instance }: any) => {
                     return {
                         style: {
-                            'font-weight': instance?.message?.summary?.includes('Important') ? 'bold' : 'normal'
+                            'font-weight': instance?.message()?.summary?.includes('Important') ? 'bold' : 'normal'
                         }
                     };
                 }
@@ -2028,15 +2028,15 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Test',
                 detail: 'Test message'
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should bind onclick event to message element via pt', async () => {
@@ -2157,15 +2157,15 @@ describe('ToastItem', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ToastItem);
             component = fixture.componentInstance;
-            component.message = {
+            fixture.componentRef.setInput('message', {
                 severity: 'info',
                 summary: 'Test',
                 detail: 'Test message'
-            };
-            component.showTransformOptions = 'translateY(100%)';
-            component.hideTransformOptions = 'translateY(-100%)';
-            component.showTransitionOptions = '300ms ease-out';
-            component.hideTransitionOptions = '250ms ease-in';
+            });
+            fixture.componentRef.setInput('showTransformOptions', 'translateY(100%)');
+            fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
+            fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
+            fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
         });
 
         it('should call onInit hook from pt', () => {

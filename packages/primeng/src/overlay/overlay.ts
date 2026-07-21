@@ -1,25 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    NgZone,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect, ElementRef, inject, InjectionToken, input, model, NgModule, NgZone, output, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'voxx-ui/api';
@@ -46,12 +26,12 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
     template: `
         @if (inline()) {
             <ng-content></ng-content>
-            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: null } }"></ng-container>
+            <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate(); context: { $implicit: { mode: null } }"></ng-container>
         } @else {
-            @if (modalVisible) {
+            @if (modalVisible()) {
                 <div #overlay [class]="cn(cx('root'), styleClass)" [style]="sx('root')" [vxBind]="ptm('root')" (click)="onOverlayClick()">
                     <vx-motion
-                        [visible]="visible"
+                        [visible]="visible()"
                         name="p-anchored-overlay"
                         [appear]="true"
                         [options]="computedMotionOptions()"
@@ -64,7 +44,7 @@ const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
                     >
                         <div #content [class]="cn(cx('content'), contentStyleClass)" [vxBind]="ptm('content')" (click)="onOverlayContentClick($event)">
                             <ng-content></ng-content>
-                            <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: { mode: overlayMode } }"></ng-container>
+                            <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate(); context: { $implicit: { mode: overlayMode } }"></ng-container>
                         </div>
                     </vx-motion>
                 </div>
@@ -80,113 +60,89 @@ export class Overlay extends BaseComponent {
 
     $pcOverlay: Overlay | undefined = inject(OVERLAY_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    @Input() hostName: string = '';
+    hostName = input<string>('');
 
     /**
      * The visible property is an input that determines the visibility of the component.
+     * Two-way bindable; emits `visibleChange` when the overlay is shown or hidden internally.
      * @defaultValue false
      * @group Props
      */
-    @Input() get visible(): boolean {
-        return this._visible;
-    }
-    set visible(value: boolean | null | undefined) {
-        this._visible = value ?? false;
-
-        if (this._visible && !this.modalVisible) {
-            this.modalVisible = true;
-        }
-    }
+    visible = model<boolean>(false);
     /**
      * The mode property is an input that determines the overlay mode type or string.
      * @defaultValue null
      * @group Props
      */
-    @Input() get mode(): OverlayModeType | string {
-        return this._mode || this.overlayOptions?.mode;
-    }
-    set mode(value: OverlayModeType | string) {
-        this._mode = value;
+    _mode = input<OverlayModeType | string | undefined>(undefined, { alias: 'mode' });
+    get mode(): OverlayModeType | string {
+        return this._mode() || this.overlayOptions?.mode;
     }
     /**
      * The style property is an input that determines the style object for the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get style(): { [klass: string]: any } | null | undefined {
-        return ObjectUtils.merge(this._style, this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
-    }
-    set style(value: { [klass: string]: any } | null | undefined) {
-        this._style = value;
+    _style = input<{ [klass: string]: any } | null | undefined>(undefined, { alias: 'style' });
+    get style(): { [klass: string]: any } | null | undefined {
+        return ObjectUtils.merge(this._style(), this.modal ? this.overlayResponsiveOptions?.style : this.overlayOptions?.style);
     }
     /**
      * The styleClass property is an input that determines the CSS class(es) for the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get styleClass(): string {
-        return ObjectUtils.merge(this._styleClass, this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
-    }
-    set styleClass(value: string) {
-        this._styleClass = value;
+    _styleClass = input<string | undefined>(undefined, { alias: 'styleClass' });
+    get styleClass(): string {
+        return ObjectUtils.merge(this._styleClass(), this.modal ? this.overlayResponsiveOptions?.styleClass : this.overlayOptions?.styleClass);
     }
     /**
      * The contentStyle property is an input that determines the style object for the content of the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get contentStyle(): { [klass: string]: any } | null | undefined {
-        return ObjectUtils.merge(this._contentStyle, this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
-    }
-    set contentStyle(value: { [klass: string]: any } | null | undefined) {
-        this._contentStyle = value;
+    _contentStyle = input<{ [klass: string]: any } | null | undefined>(undefined, { alias: 'contentStyle' });
+    get contentStyle(): { [klass: string]: any } | null | undefined {
+        return ObjectUtils.merge(this._contentStyle(), this.modal ? this.overlayResponsiveOptions?.contentStyle : this.overlayOptions?.contentStyle);
     }
     /**
      * The contentStyleClass property is an input that determines the CSS class(es) for the content of the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get contentStyleClass(): string {
-        return ObjectUtils.merge(this._contentStyleClass, this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass);
-    }
-    set contentStyleClass(value: string) {
-        this._contentStyleClass = value;
+    _contentStyleClass = input<string | undefined>(undefined, { alias: 'contentStyleClass' });
+    get contentStyleClass(): string {
+        return ObjectUtils.merge(this._contentStyleClass(), this.modal ? this.overlayResponsiveOptions?.contentStyleClass : this.overlayOptions?.contentStyleClass);
     }
     /**
      * The target property is an input that specifies the target element or selector for the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get target(): string | null | undefined {
-        const value = this._target || this.overlayOptions?.target;
+    _target = input<string | null | undefined>(undefined, { alias: 'target' });
+    get target(): string | null | undefined {
+        const value = this._target() || this.overlayOptions?.target;
         return value === undefined ? '@prev' : value;
-    }
-    set target(value: string | null | undefined) {
-        this._target = value;
     }
     /**
      * The autoZIndex determines whether to automatically manage layering. Its default value is 'false'.
      * @defaultValue false
      * @group Props
      */
-    @Input() get autoZIndex(): boolean {
-        const value = this._autoZIndex || this.overlayOptions?.autoZIndex;
+    _autoZIndex = input<boolean | undefined>(undefined, { alias: 'autoZIndex' });
+    get autoZIndex(): boolean {
+        const value = this._autoZIndex() || this.overlayOptions?.autoZIndex;
         return value === undefined ? true : value;
-    }
-    set autoZIndex(value: boolean) {
-        this._autoZIndex = value;
     }
     /**
      * The baseZIndex is base zIndex value to use in layering.
      * @defaultValue null
      * @group Props
      */
-    @Input() get baseZIndex(): number {
-        const value = this._baseZIndex || this.overlayOptions?.baseZIndex;
+    _baseZIndex = input<number | undefined>(undefined, { alias: 'baseZIndex' });
+    get baseZIndex(): number {
+        const value = this._baseZIndex() || this.overlayOptions?.baseZIndex;
         return value === undefined ? 0 : value;
-    }
-    set baseZIndex(value: number) {
-        this._baseZIndex = value;
     }
     /**
      * Transition options of the show or hide animation.
@@ -194,12 +150,10 @@ export class Overlay extends BaseComponent {
      * @group Props
      * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
-    @Input() get showTransitionOptions(): string {
-        const value = this._showTransitionOptions || this.overlayOptions?.showTransitionOptions;
+    _showTransitionOptions = input<string | undefined>(undefined, { alias: 'showTransitionOptions' });
+    get showTransitionOptions(): string {
+        const value = this._showTransitionOptions() || this.overlayOptions?.showTransitionOptions;
         return value === undefined ? '.12s cubic-bezier(0, 0, 0.2, 1)' : value;
-    }
-    set showTransitionOptions(value: string) {
-        this._showTransitionOptions = value;
     }
     /**
      * The hideTransitionOptions property is an input that determines the CSS transition options for hiding the component.
@@ -207,45 +161,37 @@ export class Overlay extends BaseComponent {
      * @group Props
      * @deprecated since v21.0.0. Use `motionOptions` instead.
      */
-    @Input() get hideTransitionOptions(): string {
-        const value = this._hideTransitionOptions || this.overlayOptions?.hideTransitionOptions;
+    _hideTransitionOptions = input<string | undefined>(undefined, { alias: 'hideTransitionOptions' });
+    get hideTransitionOptions(): string {
+        const value = this._hideTransitionOptions() || this.overlayOptions?.hideTransitionOptions;
         return value === undefined ? '.1s linear' : value;
-    }
-    set hideTransitionOptions(value: string) {
-        this._hideTransitionOptions = value;
     }
     /**
      * The listener property is an input that specifies the listener object for the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get listener(): any {
-        return this._listener || this.overlayOptions?.listener;
-    }
-    set listener(value: any) {
-        this._listener = value;
+    _listener = input<any>(undefined, { alias: 'listener' });
+    get listener(): any {
+        return this._listener() || this.overlayOptions?.listener;
     }
     /**
      * It is the option used to determine in which mode it should appear according to the given media or breakpoint.
      * @defaultValue null
      * @group Props
      */
-    @Input() get responsive(): ResponsiveOverlayOptions | undefined {
-        return this._responsive || this.overlayOptions?.responsive;
-    }
-    set responsive(val: ResponsiveOverlayOptions | undefined) {
-        this._responsive = val;
+    _responsive = input<ResponsiveOverlayOptions | undefined>(undefined, { alias: 'responsive' });
+    get responsive(): ResponsiveOverlayOptions | undefined {
+        return this._responsive() || this.overlayOptions?.responsive;
     }
     /**
      * The options property is an input that specifies the overlay options for the component.
      * @defaultValue null
      * @group Props
      */
-    @Input() get options(): OverlayOptions | undefined {
-        return this._options;
-    }
-    set options(val: OverlayOptions | undefined) {
-        this._options = val;
+    _options = input<OverlayOptions | undefined>(undefined, { alias: 'options' });
+    get options(): OverlayOptions | undefined {
+        return this._options();
     }
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
@@ -272,134 +218,107 @@ export class Overlay extends BaseComponent {
         };
     });
     /**
-     * This EventEmitter is used to notify changes in the visibility state of a component.
-     * @param {Boolean} boolean - Value of visibility as boolean.
-     * @group Emits
-     */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-    /**
      * Callback to invoke before the overlay is shown.
      * @param {OverlayOnBeforeShowEvent} event - Custom overlay before show event.
      * @group Emits
      */
-    @Output() onBeforeShow: EventEmitter<OverlayOnBeforeShowEvent> = new EventEmitter<OverlayOnBeforeShowEvent>();
+    onBeforeShow = output<OverlayOnBeforeShowEvent>();
     /**
      * Callback to invoke when the overlay is shown.
      * @param {OverlayOnShowEvent} event - Custom overlay show event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<OverlayOnShowEvent> = new EventEmitter<OverlayOnShowEvent>();
+    onShow = output<OverlayOnShowEvent>();
     /**
      * Callback to invoke before the overlay is hidden.
      * @param {OverlayOnBeforeHideEvent} event - Custom overlay before hide event.
      * @group Emits
      */
-    @Output() onBeforeHide: EventEmitter<OverlayOnBeforeHideEvent> = new EventEmitter<OverlayOnBeforeHideEvent>();
+    onBeforeHide = output<OverlayOnBeforeHideEvent>();
     /**
      * Callback to invoke when the overlay is hidden
      * @param {OverlayOnHideEvent} event - Custom hide event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<OverlayOnHideEvent> = new EventEmitter<OverlayOnHideEvent>();
+    onHide = output<OverlayOnHideEvent>();
     /**
      * Callback to invoke when the animation is started.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      * @deprecated since v21.0.0. Use onOverlayBeforeEnter and onOverlayBeforeLeave instead.
      */
-    @Output() onAnimationStart: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    onAnimationStart = output<AnimationEvent>();
     /**
      * Callback to invoke when the animation is done.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      * @deprecated since v21.0.0. Use onOverlayAfterEnter and onOverlayAfterLeave instead.
      */
-    @Output() onAnimationDone: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    onAnimationDone = output<AnimationEvent>();
     /**
      * Callback to invoke before the overlay enters.
      * @param {MotionEvent} event - Event before enter.
      * @group Emits
      */
-    @Output() onBeforeEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    onBeforeEnter = output<MotionEvent>();
     /**
      * Callback to invoke when the overlay enters.
      * @param {MotionEvent} event - Event on enter.
      * @group Emits
      */
-    @Output() onEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    onEnter = output<MotionEvent>();
     /**
      * Callback to invoke after the overlay has entered.
      * @param {MotionEvent} event - Event after enter.
      * @group Emits
      */
-    @Output() onAfterEnter: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    onAfterEnter = output<MotionEvent>();
     /**
      * Callback to invoke before the overlay leaves.
      * @param {MotionEvent} event - Event before leave.
      * @group Emits
      */
-    @Output() onBeforeLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    onBeforeLeave = output<MotionEvent>();
     /**
      * Callback to invoke when the overlay leaves.
      * @param {MotionEvent} event - Event on leave.
      * @group Emits
      */
-    @Output() onLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    onLeave = output<MotionEvent>();
     /**
      * Callback to invoke after the overlay has left.
      * @param {MotionEvent} event - Event after leave.
      * @group Emits
      */
-    @Output() onAfterLeave: EventEmitter<MotionEvent> = new EventEmitter<MotionEvent>();
+    onAfterLeave = output<MotionEvent>();
 
-    @ViewChild('overlay') overlayViewChild: ElementRef | undefined;
+    overlayViewChild = viewChild<ElementRef>('overlay');
 
-    @ViewChild('content') contentViewChild: ElementRef | undefined;
+    contentViewChild = viewChild<ElementRef>('content');
     /**
      * Content template of the component.
      * @param {OverlayContentTemplateContext} context - content context.
      * @see {@link OverlayContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
+    contentTemplate = contentChild<TemplateRef<OverlayContentTemplateContext>>('content', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    templates = contentChildren(PrimeTemplate);
 
     hostAttrSelector = input<string>();
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    _contentTemplate: TemplateRef<OverlayContentTemplateContext> | undefined;
+    /**
+     * `vxTemplate`-declared content template. Mirrors the pre-signal `ngAfterContentInit`
+     * behavior where any template type fell back to the content slot.
+     */
+    _contentTemplate = computed(() => {
+        const items = this.templates();
+        return (items.length ? items[items.length - 1].template : undefined) as TemplateRef<OverlayContentTemplateContext> | undefined;
+    });
 
-    _visible: boolean = false;
-
-    _mode: OverlayModeType | string;
-
-    _style: { [klass: string]: any } | null | undefined;
-
-    _styleClass: string | undefined;
-
-    _contentStyle: { [klass: string]: any } | null | undefined;
-
-    _contentStyleClass: string | undefined;
-
-    _target: any;
-
-    _autoZIndex: boolean | undefined;
-
-    _baseZIndex: number | undefined;
-
-    _showTransitionOptions: string | undefined;
-
-    _hideTransitionOptions: string | undefined;
-
-    _listener: any;
-
-    _responsive: ResponsiveOverlayOptions | undefined;
-
-    _options: OverlayOptions | undefined;
-
-    modalVisible: boolean = false;
+    modalVisible = signal<boolean>(false);
 
     isOverlayClicked: boolean = false;
 
@@ -461,11 +380,11 @@ export class Overlay extends BaseComponent {
     }
 
     get overlayEl() {
-        return this.overlayViewChild?.nativeElement;
+        return this.overlayViewChild()?.nativeElement;
     }
 
     get contentEl() {
-        return this.contentViewChild?.nativeElement;
+        return this.contentViewChild()?.nativeElement;
     }
 
     get targetEl() {
@@ -477,18 +396,17 @@ export class Overlay extends BaseComponent {
         private zone: NgZone
     ) {
         super();
-    }
 
-    onAfterContentInit() {
-        this.templates?.forEach((item) => {
-            switch (item.getType()) {
-                case 'content':
-                    this._contentTemplate = item.template;
-                    break;
-                // TODO: new template types may be added.
-                default:
-                    this._contentTemplate = item.template;
-                    break;
+        // visible can change outside the input system (two-way sync, show/hide flows) — register
+        // it so the `onChanges` contract keeps observing those writes (#16).
+        this.trackSignalChanges({ visible: this.visible });
+
+        // Former `visible` setter side effect (#18): the first truthy visibility renders the
+        // modal container. Runs on every `visible` change (including the initial value, like the
+        // setter did); the `modalVisible` guard keeps it idempotent.
+        effect(() => {
+            if (this.visible() && !this.modalVisible()) {
+                this.modalVisible.set(true);
             }
         });
     }
@@ -506,7 +424,7 @@ export class Overlay extends BaseComponent {
     }
 
     hide(overlay?: HTMLElement, isFocus: boolean = false) {
-        if (!this.visible) {
+        if (!this.visible()) {
             return;
         } else {
             this.onVisibleChange(false);
@@ -517,8 +435,9 @@ export class Overlay extends BaseComponent {
     }
 
     onVisibleChange(visible: boolean) {
-        this._visible = visible;
-        this.visibleChange.emit(visible);
+        // Writing the `model()` updates the signal and emits `visibleChange` (only when the value
+        // actually changes), preserving the emission semantics consumers' linkedSignals depend on.
+        this.visible.set(visible);
     }
 
     onOverlayClick() {
@@ -573,7 +492,7 @@ export class Overlay extends BaseComponent {
         this.unbindListeners();
         this.appendOverlay();
         ZIndexUtils.clear(this.overlayEl);
-        this.modalVisible = false;
+        this.modalVisible.set(false);
         this.cd.markForCheck();
         this.handleEvents('onAfterLeave', event);
     }

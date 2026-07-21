@@ -395,16 +395,16 @@ describe('DatePicker', () => {
         it('should initialize with default values', async () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(component.dateFormat).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
-            expect(component.multipleSeparator).toBe(',');
-            expect(component.rangeSeparator).toBe('-');
-            expect(component.inline).toBe(false);
-            expect(component.showOtherMonths).toBe(true);
-            expect(component.stepHour).toBe(1);
-            expect(component.stepMinute).toBe(1);
-            expect(component.stepSecond).toBe(1);
-            expect(component.showSeconds).toBe(false);
-            expect(component.hourFormat).toBe('24');
+            expect(component.dateFormat()).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
+            expect(component.multipleSeparator()).toBe(',');
+            expect(component.rangeSeparator()).toBe('-');
+            expect(component.inline()).toBe(false);
+            expect(component.showOtherMonths()).toBe(true);
+            expect(component.stepHour()).toBe(1);
+            expect(component.stepMinute()).toBe(1);
+            expect(component.stepSecond()).toBe(1);
+            expect(component.showSeconds()).toBe(false);
+            expect(component.hourFormat()).toBe('24');
         });
 
         it('should accept custom values', async () => {
@@ -415,9 +415,9 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.dateFormat).toBe('dd-mm-yyyy');
-            expect(datePickerComponent.placeholder).toBe('Choose date');
-            expect(datePickerComponent.showTime).toBe(true);
+            expect(datePickerComponent.dateFormat()).toBe('dd-mm-yyyy');
+            expect(datePickerComponent.placeholder()).toBe('Choose date');
+            expect(datePickerComponent.showTime()).toBe(true);
         });
     });
 
@@ -465,7 +465,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.dateFormat).toBe('dd/mm/yyyy');
+            expect(datePickerComponent.dateFormat()).toBe('dd/mm/yyyy');
 
             // Note: Input formatting depends on locale service and internal formatting logic
             // For unit tests, we primarily test that the property is set correctly
@@ -508,7 +508,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.icon).toBe('pi pi-calendar-plus');
+            expect(datePickerComponent.icon()).toBe('pi pi-calendar-plus');
         });
 
         it('should handle input id and name attributes', async () => {
@@ -580,7 +580,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.selectionMode).toBe('single');
+            expect(datePickerComponent.selectionMode()).toBe('single');
         });
     });
 
@@ -592,8 +592,8 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.showTime).toBe(true);
-            expect(datePickerComponent.showSeconds).toBe(true);
+            expect(datePickerComponent.showTime()).toBe(true);
+            expect(datePickerComponent.showSeconds()).toBe(true);
         });
 
         it('should handle 12-hour format', async () => {
@@ -602,7 +602,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.hourFormat).toBe('12');
+            expect(datePickerComponent.hourFormat()).toBe('12');
         });
 
         it('should handle time steps', async () => {
@@ -614,9 +614,9 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.stepHour).toBe(2);
-            expect(datePickerComponent.stepMinute).toBe(15);
-            expect(datePickerComponent.stepSecond).toBe(30);
+            expect(datePickerComponent.stepHour()).toBe(2);
+            expect(datePickerComponent.stepMinute()).toBe(15);
+            expect(datePickerComponent.stepSecond()).toBe(30);
         });
     });
 
@@ -627,7 +627,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.inline).toBe(true);
+            expect(datePickerComponent.inline()).toBe(true);
         });
     });
 
@@ -639,7 +639,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.minDate).toEqual(minDate);
+            expect(datePickerComponent.minDate()).toEqual(minDate);
         });
 
         it('should handle maxDate restriction', async () => {
@@ -649,7 +649,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.maxDate).toEqual(maxDate);
+            expect(datePickerComponent.maxDate()).toEqual(maxDate);
         });
 
         it('should handle disabled dates', async () => {
@@ -659,7 +659,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.disabledDates).toEqual(disabledDates);
+            expect(datePickerComponent.disabledDates()).toEqual(disabledDates);
         });
 
         it('should handle disabled days of week', async () => {
@@ -669,7 +669,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.disabledDays).toEqual(disabledDays);
+            expect(datePickerComponent.disabledDays()).toEqual(disabledDays);
         });
     });
 
@@ -680,7 +680,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.numberOfMonths).toBe(3);
+            expect(datePickerComponent.numberOfMonths()).toBe(3);
         });
     });
 
@@ -737,7 +737,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.inputStyle).toEqual({ border: '2px solid red', padding: '10px' });
+            expect(datePickerComponent.inputStyle()).toEqual({ border: '2px solid red', padding: '10px' });
         });
 
         it('should apply custom panel styles', async () => {
@@ -746,7 +746,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.panelStyle).toEqual({ backgroundColor: 'lightblue', border: '1px solid blue' });
+            expect(datePickerComponent.panelStyle()).toEqual({ backgroundColor: 'lightblue', border: '1px solid blue' });
         });
 
         it('should apply custom CSS classes', async () => {
@@ -756,8 +756,8 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.inputStyleClass).toBe('custom-input-class');
-            expect(datePickerComponent.panelStyleClass).toBe('custom-panel-class');
+            expect(datePickerComponent.inputStyleClass()).toBe('custom-input-class');
+            expect(datePickerComponent.panelStyleClass()).toBe('custom-panel-class');
         });
     });
 
@@ -834,7 +834,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.firstDayOfWeek).toBe(1);
+            expect(datePickerComponent.firstDayOfWeek()).toBe(1);
         });
 
         it('should handle show week numbers', async () => {
@@ -843,7 +843,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.showWeek).toBe(true);
+            expect(datePickerComponent.showWeek()).toBe(true);
         });
     });
 
@@ -881,8 +881,8 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.minDate).toEqual(extremeMinDate);
-            expect(datePickerComponent.maxDate).toEqual(extremeMaxDate);
+            expect(datePickerComponent.minDate()).toEqual(extremeMinDate);
+            expect(datePickerComponent.maxDate()).toEqual(extremeMaxDate);
         });
     });
 
@@ -893,7 +893,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.touchUI).toBe(true);
+            expect(datePickerComponent.touchUI()).toBe(true);
         });
 
         it('should handle show other months', async () => {
@@ -902,7 +902,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.showOtherMonths).toBe(false);
+            expect(datePickerComponent.showOtherMonths()).toBe(false);
         });
 
         it('should handle select other months', async () => {
@@ -911,7 +911,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.selectOtherMonths).toBe(true);
+            expect(datePickerComponent.selectOtherMonths()).toBe(true);
         });
 
         it('should handle button bar', async () => {
@@ -920,7 +920,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.showButtonBar).toBe(true);
+            expect(datePickerComponent.showButtonBar()).toBe(true);
         });
 
         it('should handle keep invalid dates', async () => {
@@ -929,7 +929,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
-            expect(datePickerComponent.keepInvalid).toBe(true);
+            expect(datePickerComponent.keepInvalid()).toBe(true);
         });
 
         it('should navigate to next month', async () => {
@@ -1004,8 +1004,8 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
 
             // Verify that selectionMode is set correctly
-            expect(datePickerComponent.selectionMode).toBe('multiple');
-            expect(datePickerComponent.inline).toBe(true);
+            expect(datePickerComponent.selectionMode()).toBe('multiple');
+            expect(datePickerComponent.inline()).toBe(true);
         });
 
         it('should handle range date selection', async () => {
@@ -1017,8 +1017,8 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
 
             // Verify that selectionMode is set correctly
-            expect(datePickerComponent.selectionMode).toBe('range');
-            expect(datePickerComponent.inline).toBe(true);
+            expect(datePickerComponent.selectionMode()).toBe('range');
+            expect(datePickerComponent.inline()).toBe(true);
         });
 
         it('should switch to month view when month clicked', async () => {
@@ -1121,7 +1121,7 @@ describe('DatePicker', () => {
 
             // Test that keyboard navigation properties are available
             expect(typeof datePickerComponent.onContainerButtonKeydown).toBe('function');
-            expect(datePickerComponent.inline).toBe(true);
+            expect(datePickerComponent.inline()).toBe(true);
         });
 
         it('should handle disabled dates', async () => {
@@ -1134,8 +1134,8 @@ describe('DatePicker', () => {
             const datePickerComponent = testFixture.debugElement.query(By.css('vx-datepicker')).componentInstance;
 
             // Test that disabled dates array is properly set
-            expect(datePickerComponent.disabledDates).toContain(disabledDate);
-            expect(Array.isArray(datePickerComponent.disabledDates)).toBe(true);
+            expect(datePickerComponent.disabledDates()).toContain(disabledDate);
+            expect(Array.isArray(datePickerComponent.disabledDates())).toBe(true);
         });
 
         it('should handle min/max date restrictions', async () => {
@@ -1193,34 +1193,34 @@ describe('DatePicker', () => {
             await vxTemplatesFixture.whenStable();
 
             // Verify that templates collection exists
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
         });
 
         it('should support date vxTemplate property access', () => {
             const datePickerComponent = vxTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.dateTemplate).not.toThrow();
+            expect(() => datePickerComponent.dateTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support header vxTemplate property access', () => {
             const datePickerComponent = vxTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.headerTemplate).not.toThrow();
+            expect(() => datePickerComponent.headerTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support footer vxTemplate property access', () => {
             const datePickerComponent = vxTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.footerTemplate).not.toThrow();
+            expect(() => datePickerComponent.footerTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support disabled date vxTemplate property access', () => {
             const datePickerComponent = vxTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.disabledDateTemplate).not.toThrow();
+            expect(() => datePickerComponent.disabledDateTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
     });
@@ -1244,34 +1244,34 @@ describe('DatePicker', () => {
             await refTemplatesFixture.whenStable();
 
             // Verify that templates collection exists
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
         });
 
         it('should support date #template reference property access', () => {
             const datePickerComponent = refTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.dateTemplate).not.toThrow();
+            expect(() => datePickerComponent.dateTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support header #template reference property access', () => {
             const datePickerComponent = refTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.headerTemplate).not.toThrow();
+            expect(() => datePickerComponent.headerTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support footer #template reference property access', () => {
             const datePickerComponent = refTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.footerTemplate).not.toThrow();
+            expect(() => datePickerComponent.footerTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support disabled date #template reference property access', () => {
             const datePickerComponent = refTemplatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.disabledDateTemplate).not.toThrow();
+            expect(() => datePickerComponent.disabledDateTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
     });
@@ -1295,41 +1295,41 @@ describe('DatePicker', () => {
             await templatesFixture.whenStable();
 
             // Verify that templates collection exists
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
         });
 
         it('should support date template property access', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.dateTemplate).not.toThrow();
+            expect(() => datePickerComponent.dateTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support header template property access', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.headerTemplate).not.toThrow();
+            expect(() => datePickerComponent.headerTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support footer template property access', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.footerTemplate).not.toThrow();
+            expect(() => datePickerComponent.footerTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support disabled date template property access', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.disabledDateTemplate).not.toThrow();
+            expect(() => datePickerComponent.disabledDateTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
         it('should support decade template property access', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access template properties without errors
-            expect(() => datePickerComponent.decadeTemplate).not.toThrow();
+            expect(() => datePickerComponent.decadeTemplate()).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
 
@@ -1337,8 +1337,8 @@ describe('DatePicker', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access navigation template properties without errors
             expect(() => {
-                datePickerComponent.previousIconTemplate;
-                datePickerComponent.nextIconTemplate;
+                datePickerComponent.previousIconTemplate();
+                datePickerComponent.nextIconTemplate();
             }).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
@@ -1347,9 +1347,9 @@ describe('DatePicker', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access action template properties without errors
             expect(() => {
-                datePickerComponent.triggerIconTemplate;
-                datePickerComponent.clearIconTemplate;
-                datePickerComponent.inputIconTemplate;
+                datePickerComponent.triggerIconTemplate();
+                datePickerComponent.clearIconTemplate();
+                datePickerComponent.inputIconTemplate();
             }).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
@@ -1358,8 +1358,8 @@ describe('DatePicker', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
             // Verify component can access time control template properties without errors
             expect(() => {
-                datePickerComponent.decrementIconTemplate;
-                datePickerComponent.incrementIconTemplate;
+                datePickerComponent.decrementIconTemplate();
+                datePickerComponent.incrementIconTemplate();
             }).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
@@ -1368,22 +1368,22 @@ describe('DatePicker', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify that the component has template properties
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
 
             // Test that we can access template-related properties without errors
             expect(() => {
-                datePickerComponent.dateTemplate;
-                datePickerComponent.headerTemplate;
-                datePickerComponent.footerTemplate;
-                datePickerComponent.disabledDateTemplate;
-                datePickerComponent.decadeTemplate;
-                datePickerComponent.previousIconTemplate;
-                datePickerComponent.nextIconTemplate;
-                datePickerComponent.triggerIconTemplate;
-                datePickerComponent.clearIconTemplate;
-                datePickerComponent.decrementIconTemplate;
-                datePickerComponent.incrementIconTemplate;
-                datePickerComponent.inputIconTemplate;
+                datePickerComponent.dateTemplate();
+                datePickerComponent.headerTemplate();
+                datePickerComponent.footerTemplate();
+                datePickerComponent.disabledDateTemplate();
+                datePickerComponent.decadeTemplate();
+                datePickerComponent.previousIconTemplate();
+                datePickerComponent.nextIconTemplate();
+                datePickerComponent.triggerIconTemplate();
+                datePickerComponent.clearIconTemplate();
+                datePickerComponent.decrementIconTemplate();
+                datePickerComponent.incrementIconTemplate();
+                datePickerComponent.inputIconTemplate();
             }).not.toThrow();
         });
 
@@ -1413,7 +1413,7 @@ describe('DatePicker', () => {
             const datePickerComponent = templatesDatePickerElement.componentInstance;
 
             // Verify that templates can be processed
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
 
             // Test that the template processing lifecycle works
             expect(() => {
@@ -1434,7 +1434,7 @@ describe('DatePicker', () => {
             }).not.toThrow();
 
             // Templates should be available for processing
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
         });
 
         it('should verify #template references are accessible', async () => {
@@ -1462,8 +1462,8 @@ describe('DatePicker', () => {
                 templatesFixture.changeDetectorRef.markForCheck();
 
                 // Templates should be available for context binding
-                if (datePickerComponent.templates) {
-                    datePickerComponent.templates.forEach((template: any) => {
+                if (datePickerComponent.templates()) {
+                    datePickerComponent.templates().forEach((template: any) => {
                         expect(template).toBeTruthy();
                     });
                 }
@@ -1496,18 +1496,18 @@ describe('DatePicker', () => {
                 templatesFixture.changeDetectorRef.markForCheck();
 
                 // Test template property access
-                datePickerComponent.dateTemplate;
-                datePickerComponent.headerTemplate;
-                datePickerComponent.footerTemplate;
-                datePickerComponent.disabledDateTemplate;
-                datePickerComponent.decadeTemplate;
-                datePickerComponent.previousIconTemplate;
-                datePickerComponent.nextIconTemplate;
-                datePickerComponent.triggerIconTemplate;
-                datePickerComponent.clearIconTemplate;
-                datePickerComponent.decrementIconTemplate;
-                datePickerComponent.incrementIconTemplate;
-                datePickerComponent.inputIconTemplate;
+                datePickerComponent.dateTemplate();
+                datePickerComponent.headerTemplate();
+                datePickerComponent.footerTemplate();
+                datePickerComponent.disabledDateTemplate();
+                datePickerComponent.decadeTemplate();
+                datePickerComponent.previousIconTemplate();
+                datePickerComponent.nextIconTemplate();
+                datePickerComponent.triggerIconTemplate();
+                datePickerComponent.clearIconTemplate();
+                datePickerComponent.decrementIconTemplate();
+                datePickerComponent.incrementIconTemplate();
+                datePickerComponent.inputIconTemplate();
             }).not.toThrow();
 
             // Component should handle template processing
@@ -1533,7 +1533,7 @@ describe('DatePicker', () => {
             }).not.toThrow();
 
             // Templates should be properly initialized
-            expect(datePickerComponent.templates).toBeDefined();
+            expect(datePickerComponent.templates()).toBeDefined();
         });
 
         it('should handle context parameters in date template', async () => {
@@ -1668,7 +1668,7 @@ describe('DatePicker', () => {
             const ptFixture = TestBed.createComponent(DatePicker);
             ptFixture.componentRef.setInput('pt', {
                 root: (options: any) => ({
-                    class: options.instance.inline ? 'inline-calendar' : 'popup-calendar'
+                    class: options.instance.inline() ? 'inline-calendar' : 'popup-calendar'
                 })
             });
             ptFixture.componentRef.setInput('inline', true);

@@ -88,7 +88,7 @@ describe('InputIcon', () => {
         });
 
         it('should apply custom styleClass', () => {
-            expect(inputIconInstance.styleClass).toBe('custom-icon');
+            expect(inputIconInstance.styleClass()).toBe('custom-icon');
 
             const iconElement = fixture.debugElement.query(By.directive(InputIcon));
             expect(iconElement.nativeElement.classList.contains('custom-icon')).toBe(true);
@@ -99,7 +99,7 @@ describe('InputIcon', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(inputIconInstance.styleClass).toBe('new-icon-class');
+            expect(inputIconInstance.styleClass()).toBe('new-icon-class');
 
             const iconElement = fixture.debugElement.query(By.directive(InputIcon));
             expect(iconElement.nativeElement.classList.contains('new-icon-class')).toBe(true);
@@ -158,10 +158,10 @@ describe('InputIcon PassThrough Tests', () => {
 
     describe('PT Case 3: Instance variables', () => {
         it('should access instance variables in PT function', () => {
-            component.styleClass = 'custom-icon';
+            fixture.componentRef.setInput('styleClass', 'custom-icon');
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
-                    class: instance?.styleClass ? 'HAS_STYLE' : ''
+                    class: instance?.styleClass() ? 'HAS_STYLE' : ''
                 })
             });
             fixture.detectChanges();
