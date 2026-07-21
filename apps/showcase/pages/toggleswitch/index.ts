@@ -5,6 +5,7 @@ import { ImportDoc } from '@/doc/toggleswitch/import-doc';
 import { InvalidDoc } from '@/doc/toggleswitch/invalid-doc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselection-doc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveforms-doc';
+import { SignalFormsDoc } from '@/doc/toggleswitch/signalforms-doc';
 import { TemplateDoc } from '@/doc/toggleswitch/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/toggleswitch/templatedrivenforms-doc';
 import { PTComponent } from '@/doc/toggleswitch/pt/PTComponent';
@@ -63,7 +64,8 @@ export class ToggleSwitchDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc },
+                { id: 'signalforms', label: 'Signal Forms', component: SignalFormsDoc }
             ]
         },
         {
