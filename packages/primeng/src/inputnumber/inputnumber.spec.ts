@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { provideVoxxUI } from 'voxx-ui/config';
@@ -219,9 +220,9 @@ describe('InputNumber', () => {
         });
 
         it('should handle null/undefined value initialization', () => {
-            component.value = null as any;
+            component.value.set(null);
             fixture.detectChanges();
-            expect(component.value).toBeNull();
+            expect(component.value()).toBeNull();
             expect(component.formattedValue()).toBe('' as any);
         });
     });
@@ -252,7 +253,7 @@ describe('InputNumber', () => {
             fixture.componentRef.setInput('prefix', '$ ');
             fixture.componentRef.setInput('suffix', ' USD');
             fixture.componentRef.setInput('format', true);
-            component.value = 100;
+            component.value.set(100);
             fixture.detectChanges();
 
             const formatted = component.formattedValue();
@@ -278,7 +279,7 @@ describe('InputNumber', () => {
         it('should handle fraction digits correctly', () => {
             fixture.componentRef.setInput('minFractionDigits', 2);
             fixture.componentRef.setInput('maxFractionDigits', 4);
-            component.value = 123.1;
+            component.value.set(123.1);
             fixture.detectChanges();
 
             const formatted = component.formatValue(123.1);
@@ -1513,5 +1514,271 @@ describe('InputNumber', () => {
                 }
             });
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// Signal Forms (FormValueControl<number | null>) integration
+// ---------------------------------------------------------------------------
+
+@Component({
+    standalone: true,
+    imports: [InputNumber, FormField],
+    template: `<vx-inputNumber [formField]="amountForm.amount" [step]="10" [showButtons]="true" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormInputNumberComponent {
+    model = signal<{ amount: number | null }>({ amount: 5 });
+
+    amountForm = form(this.model, (p) => {
+        // Custom "at least 10" validator so we can exercise invalid-state binding.
+        validate(p.amount, ({ value }) => (value() != null && (value() as number) >= 10 ? undefined : { kind: 'min', message: 'Must be at least 10' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [InputNumber, FormField],
+    template: `<vx-inputNumber [formField]="settingsForm.quantity" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledInputNumberComponent {
+    model = signal<{ quantity: number | null }>({ quantity: 3 });
+
+    settingsForm = form(this.model, (p) => {
+        disabled(p.quantity, () => true);
+    });
+}
+
+describe('InputNumber Signal Forms (FormValueControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ amount: 500 });
+        await flush(fixture);
+
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        expect(inputNumber.value()).toBe(500);
+        expect(inputNumber.formattedValue()).toContain('500');
+        expect(host.amountForm.amount().value()).toBe(500);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        expect(input.value).toContain('500');
+    });
+
+    it('writes committed user input back into the field value (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // Simulate typing then committing on blur (the keystroke/parse write path).
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.value = '250';
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.model().amount).toBe(250);
+        expect(host.amountForm.amount().value()).toBe(250);
+        expect(host.amountForm.amount().dirty()).toBe(true);
+    });
+
+    it('routes spinner input through the value model (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ amount: 100 });
+        await flush(fixture);
+
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        // ArrowUp spins the value up by `step` (10) through the rerouted updateModel path.
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+        await flush(fixture);
+
+        expect(inputNumber.value()).toBe(110);
+        expect(host.model().amount).toBe(110);
+        expect(host.amountForm.amount().value()).toBe(110);
+    });
+
+    it('clears the field value through the value model', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ amount: 100 });
+        await flush(fixture);
+
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        inputNumber.clear();
+        await flush(fixture);
+
+        expect(inputNumber.value()).toBeNull();
+        expect(host.model().amount).toBeNull();
+        expect(host.amountForm.amount().value()).toBeNull();
+    });
+
+    it('binds the disabled state from the field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormDisabledInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormDisabledInputNumberComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        expect(host.settingsForm.quantity().disabled()).toBe(true);
+        expect(inputNumber.$disabled()).toBe(true);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        expect(input.hasAttribute('disabled')).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.amountForm.amount().touched()).toBe(false);
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.amountForm.amount().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        // amount === 5 (< 10) -> validator fails -> field invalid -> invalid input bound to control
+        expect(host.amountForm.amount().valid()).toBe(false);
+        expect(inputNumber.invalid()).toBe(true);
+        expect(inputNumber.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ amount: 50 });
+        await flush(fixture);
+        expect(host.amountForm.amount().valid()).toBe(true);
+        expect(inputNumber.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormInputNumberComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormInputNumberComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.value = '250';
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.amountForm.amount().dirty()).toBe(true);
+        expect(host.amountForm.amount().touched()).toBe(true);
+
+        host.amountForm.amount().reset();
+        await flush(fixture);
+        expect(host.amountForm.amount().dirty()).toBe(false);
+        expect(host.amountForm.amount().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [InputNumber, FormsModule],
+            template: `<vx-inputNumber [(ngModel)]="amount" />`,
+            changeDetection: ChangeDetectionStrategy.OnPush
+        })
+        class NgModelHostComponent {
+            amount: number | null = 7;
+        }
+
+        TestBed.configureTestingModule({
+            imports: [NgModelHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // model -> view through the classic CVA path (initial write)
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        expect(inputNumber.value()).toBe(7);
+        expect(input.value).toContain('7');
+
+        // view -> model through the classic CVA path
+        input.value = '42';
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.amount).toBe(42);
+        expect(inputNumber.value()).toBe(42);
+    });
+
+    it('keeps reactive forms (formControlName) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [InputNumber, ReactiveFormsModule],
+            template: `
+                <form [formGroup]="form">
+                    <vx-inputNumber formControlName="amount" />
+                </form>
+            `,
+            changeDetection: ChangeDetectionStrategy.OnPush
+        })
+        class ReactiveHostComponent {
+            form = new FormGroup({ amount: new FormControl<number | null>(15) });
+        }
+
+        TestBed.configureTestingModule({
+            imports: [ReactiveHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(ReactiveHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // model -> view
+        const inputNumber = fixture.debugElement.query(By.directive(InputNumber)).componentInstance as InputNumber;
+        expect(inputNumber.value()).toBe(15);
+
+        // view -> model
+        const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+        input.value = '88';
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.form.get('amount')?.value).toBe(88);
     });
 });

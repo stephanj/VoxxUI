@@ -13,6 +13,7 @@ import { NumeralsDoc } from '@/doc/inputnumber/numerals-doc';
 import { PrefixSuffixDoc } from '@/doc/inputnumber/prefixsuffix-doc';
 import { PTComponent } from '@/doc/inputnumber/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveforms-doc';
+import { SignalFormsDoc } from '@/doc/inputnumber/signalforms-doc';
 import { SizesDoc } from '@/doc/inputnumber/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputnumber/templatedrivenforms-doc';
 import { VerticalDoc } from '@/doc/inputnumber/vertical-doc';
@@ -110,7 +111,8 @@ export class InputNumberDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc },
+                { id: 'signalforms', label: 'Signal Forms', component: SignalFormsDoc }
             ]
         },
         {
