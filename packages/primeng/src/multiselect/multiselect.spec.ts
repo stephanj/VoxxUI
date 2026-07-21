@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, provideZonelessChangeDetection, signal, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideVoxxUI } from 'voxx-ui/config';
@@ -3776,12 +3777,330 @@ describe('MultiSelect Complex Edge Cases', () => {
             ]);
             fixture.componentRef.setInput('display', 'chip');
             fixture.componentRef.setInput('filter', true);
-            fixture.componentInstance.value = [1];
+            fixture.componentInstance.value.set([1]);
             fixture.detectChanges();
             await fixture.whenStable();
 
             // Verify component is created with PT configuration for child components
             expect(fixture.componentInstance).toBeTruthy();
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// Signal Forms (FormValueControl<T[]>) integration — mirrors select.spec.ts,
+// adapted for the array (`T[]`) value semantics of MultiSelect.
+// ---------------------------------------------------------------------------
+
+const SF_MS_OPTIONS = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' }
+];
+
+@Component({
+    standalone: true,
+    imports: [MultiSelect, FormField, FormsModule],
+    template: `<vx-multiselect [formField]="citiesForm.cities" [options]="options" optionLabel="name" optionValue="code" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormMultiSelectComponent {
+    options = SF_MS_OPTIONS;
+
+    model = signal<{ cities: string[] }>({ cities: [] });
+
+    citiesForm = form(this.model, (p) => {
+        // Custom "required" validator (at least one selection) to exercise invalid-state binding.
+        validate(p.cities, ({ value }) => (value()?.length ? undefined : { kind: 'required', message: 'At least one city is required' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [MultiSelect, FormField],
+    template: `<vx-multiselect [formField]="settingsForm.cities" [options]="options" optionLabel="name" optionValue="code" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledMultiSelectComponent {
+    options = SF_MS_OPTIONS;
+
+    model = signal<{ cities: string[] }>({ cities: ['RM'] });
+
+    settingsForm = form(this.model, (p) => {
+        disabled(p.cities, () => true);
+    });
+}
+
+describe('MultiSelect Signal Forms (FormValueControl<T[]>) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ cities: ['RM'] });
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        expect(multiSelect.value()).toEqual(['RM']);
+        expect(multiSelect.modelValue()).toEqual(['RM']);
+        expect(multiSelect.label()).toBe('Rome');
+        expect(host.citiesForm.cities().value()).toEqual(['RM']);
+    });
+
+    it('reflects a NEW array reference pushed from the field (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+
+        // Each set produces a fresh array reference; the reference-based `!==` guard in
+        // bindFormValue must let every distinct array flow into the view.
+        host.model.set({ cities: ['NY'] });
+        await flush(fixture);
+        expect(multiSelect.modelValue()).toEqual(['NY']);
+
+        host.model.set({ cities: ['NY', 'LDN'] });
+        await flush(fixture);
+        expect(multiSelect.modelValue()).toEqual(['NY', 'LDN']);
+        expect(host.citiesForm.cities().value()).toEqual(['NY', 'LDN']);
+    });
+
+    it('writes an added selection back into the field as a NEW array (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ cities: ['NY'] });
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        const before = host.model().cities;
+
+        // Item toggle path (option click / keyboard select route here) adds LDN.
+        multiSelect.onOptionSelect({ originalEvent: null, option: SF_MS_OPTIONS[2] });
+        await flush(fixture);
+
+        expect(multiSelect.value()).toEqual(['NY', 'LDN']);
+        expect(host.model().cities).toEqual(['NY', 'LDN']);
+        expect(host.model().cities).not.toBe(before); // brand-new array reference observed
+        expect(host.citiesForm.cities().value()).toEqual(['NY', 'LDN']);
+        expect(host.citiesForm.cities().dirty()).toBe(true);
+    });
+
+    it('writes a removed chip back into the field (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ cities: ['NY', 'LDN'] });
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        // Chip remove path.
+        multiSelect.removeOption('NY', new Event('click'));
+        await flush(fixture);
+
+        expect(multiSelect.value()).toEqual(['LDN']);
+        expect(host.model().cities).toEqual(['LDN']);
+        expect(host.citiesForm.cities().value()).toEqual(['LDN']);
+    });
+
+    it('writes a select-all back into the field (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        multiSelect.onToggleAll({ originalEvent: new Event('click') });
+        await flush(fixture);
+
+        expect(multiSelect.value()).toEqual(['NY', 'RM', 'LDN', 'IST']);
+        expect(host.model().cities).toEqual(['NY', 'RM', 'LDN', 'IST']);
+        expect(host.citiesForm.cities().value()).toEqual(['NY', 'RM', 'LDN', 'IST']);
+    });
+
+    it('clears the field value through clear() (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ cities: ['RM', 'NY'] });
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        multiSelect.clear(new Event('click'));
+        await flush(fixture);
+
+        expect(multiSelect.modelValue()).toBeNull();
+        expect(host.citiesForm.cities().value()).toBeNull();
+    });
+
+    it('binds the disabled state from the field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormDisabledMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormDisabledMultiSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        expect(host.settingsForm.cities().disabled()).toBe(true);
+        expect(multiSelect.$disabled()).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.citiesForm.cities().touched()).toBe(false);
+        const focusInput = fixture.debugElement.query(By.css('[role="combobox"]')).nativeElement as HTMLElement;
+        focusInput.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.citiesForm.cities().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        // cities === [] -> validator fails -> field invalid -> invalid input bound to control
+        expect(host.citiesForm.cities().valid()).toBe(false);
+        expect(multiSelect.invalid()).toBe(true);
+        expect(multiSelect.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ cities: ['NY'] });
+        await flush(fixture);
+        expect(host.citiesForm.cities().valid()).toBe(true);
+        expect(multiSelect.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormMultiSelectComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormMultiSelectComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        multiSelect.onOptionSelect({ originalEvent: null, option: SF_MS_OPTIONS[0] });
+        const focusInput = fixture.debugElement.query(By.css('[role="combobox"]')).nativeElement as HTMLElement;
+        focusInput.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.citiesForm.cities().dirty()).toBe(true);
+        expect(host.citiesForm.cities().touched()).toBe(true);
+
+        host.citiesForm.cities().reset();
+        await flush(fixture);
+        expect(host.citiesForm.cities().dirty()).toBe(false);
+        expect(host.citiesForm.cities().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [MultiSelect, FormsModule],
+            template: `<vx-multiselect [(ngModel)]="cities" [options]="options" optionLabel="name" optionValue="code" />`,
+            changeDetection: ChangeDetectionStrategy.Eager
+        })
+        class NgModelHostComponent {
+            options = SF_MS_OPTIONS;
+            cities: string[] = [];
+        }
+
+        TestBed.configureTestingModule({
+            imports: [NgModelHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+        multiSelect.onOptionSelect({ originalEvent: null, option: SF_MS_OPTIONS[1] });
+        await flush(fixture);
+        expect(host.cities).toEqual(['RM']);
+        expect(multiSelect.value()).toEqual(['RM']);
+
+        // form -> view: writing ngModel updates the control and the value model
+        host.cities = ['IST', 'LDN'];
+        fixture.changeDetectorRef.markForCheck();
+        await flush(fixture);
+        expect(multiSelect.modelValue()).toEqual(['IST', 'LDN']);
+        expect(multiSelect.value()).toEqual(['IST', 'LDN']);
+    });
+
+    it('keeps reactive forms (formControl) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [MultiSelect, ReactiveFormsModule],
+            template: `<vx-multiselect [formControl]="citiesControl" [options]="options" optionLabel="name" optionValue="code" />`,
+            changeDetection: ChangeDetectionStrategy.Eager
+        })
+        class ReactiveHostComponent {
+            options = SF_MS_OPTIONS;
+            citiesControl = new FormControl<string[]>([]);
+        }
+
+        TestBed.configureTestingModule({
+            imports: [ReactiveHostComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(ReactiveHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const multiSelect = fixture.debugElement.query(By.directive(MultiSelect)).componentInstance as MultiSelect;
+
+        // view -> control
+        multiSelect.onOptionSelect({ originalEvent: null, option: SF_MS_OPTIONS[0] });
+        await flush(fixture);
+        expect(host.citiesControl.value).toEqual(['NY']);
+        expect(multiSelect.value()).toEqual(['NY']);
+
+        // control -> view
+        host.citiesControl.setValue(['RM', 'IST']);
+        await flush(fixture);
+        expect(multiSelect.modelValue()).toEqual(['RM', 'IST']);
+        expect(multiSelect.value()).toEqual(['RM', 'IST']);
     });
 });

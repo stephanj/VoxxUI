@@ -10,6 +10,7 @@ import { ImportDoc } from '@/doc/multiselect/import-doc';
 import { InvalidDoc } from '@/doc/multiselect/invalid-doc';
 import { LoadingStateDoc } from '@/doc/multiselect/loadingstate-doc';
 import { ReactiveFormsDoc } from '@/doc/multiselect/reactiveforms-doc';
+import { SignalFormsDoc } from '@/doc/multiselect/signalforms-doc';
 import { SizesDoc } from '@/doc/multiselect/sizes-doc';
 import { TemplateDoc } from '@/doc/multiselect/template-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/multiselect/templatedrivenforms-doc';
@@ -117,7 +118,8 @@ export class MultiSelectDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc },
+                { id: 'signalforms', label: 'Signal Forms', component: SignalFormsDoc }
             ]
         },
         {

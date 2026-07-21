@@ -13,6 +13,7 @@ import {
     InjectionToken,
     input,
     linkedSignal,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -965,7 +966,43 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     _disableTooltip = false;
 
-    value: any[];
+    /**
+     * Signal Forms (Angular v22) value model — the current array of selected values.
+     *
+     * Exposing a `value` `model<any[]>()` makes MultiSelect usable directly with the
+     * `[formField]` directive as a `FormValueControl<T[]>`. It is kept two-way in sync
+     * with `modelValue` (the render source that `label()`, `isSelected()`,
+     * `chipSelectedItems()` etc. derive from) by {@link BaseEditableHolder.bindFormValue}:
+     * - **field → view**: a Signal Form writing the field runs `writeControlValue`
+     *   (the same path as the CVA `writeValue`), updating `modelValue`.
+     * - **view → field**: every selection entry point (item toggle, chip add/remove,
+     *   select-all, range/filter select, clear) routes through `updateModel` →
+     *   `writeModelValue`, which reflects the new array back into this model so the
+     *   bound `FieldTree` observes the change.
+     *
+     * ## `value` name collision
+     * MultiSelect historically stored the selected values in a **plain mutable `value`
+     * field** (`any[]`), read/written by `updateModel`, `clear` and `writeControlValue`.
+     * That field is now this `model()`, making the model the single source of truth —
+     * reads become `value()` and writes go through `writeModelValue` (which syncs the
+     * model). The public property name is unchanged, so external code reading `.value`
+     * keeps working (now as a signal getter).
+     *
+     * ## Array semantics
+     * The `!==` identity guards in `bindFormValue`/`writeModelValue` are reference-based.
+     * Every write path here produces a **new array reference** (`[...prev, x]`,
+     * `filter(...)`, `[...new Set(...)]`, `null` on clear), so a bound Signal Form field
+     * always observes add-chip / remove-chip / select-all / clear round-trips.
+     *
+     * Note: like Select and ToggleSwitch, we deliberately do **not** add
+     * `implements FormValueControl<any[]>`. The `[formField]` directive detects the
+     * `value` model structurally, so the integration works at runtime while avoiding the
+     * contract's nominal member guards that clash with MultiSelect's large existing API.
+     * The classic `NG_VALUE_ACCESSOR` path is untouched, so `[(ngModel)]`/`formControlName`
+     * keep working.
+     * @group Props
+     */
+    value = model<any[]>();
 
     public _filteredOptions: any[] | undefined | null;
 
@@ -1311,6 +1348,10 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         public overlayService: OverlayService
     ) {
         super();
+        // Two-way bind the Signal Forms `value` model with `modelValue` (see the
+        // `value` field docs). Registers `value` as the FormValueControl source so
+        // user selections (via `writeModelValue`) flow back into a bound FieldTree.
+        this.bindFormValue(this.value);
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1384,9 +1425,12 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Method
      */
     public updateModel(value, event?) {
-        this.value = value;
         this.onModelChange(value);
-        this.writeValue(value);
+        // `writeModelValue` (BaseEditableHolder override) sets `modelValue` and reflects
+        // the new array into the bound `value` model for Signal Forms, so every user
+        // selection is the single write path shared by both forms systems.
+        this.writeModelValue(value);
+        this.cd.markForCheck();
     }
 
     onInputClick(event) {
@@ -1888,7 +1932,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         this.onBlur.emit({ originalEvent: event });
 
         if (!this.preventModelTouched) {
-            this.onModelTouched();
+            // markTouched() fires the classic onModelTouched callback AND emits the
+            // Signal Forms `touch` output so a bound FieldTree is marked touched.
+            this.markTouched();
         }
         this.preventModelTouched = false;
     }
@@ -1963,7 +2009,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
             this.cd.markForCheck();
         }
 
-        this.onChange.emit({ originalEvent: event, value: this.value });
+        this.onChange.emit({ originalEvent: event, value: this.value() });
         DomHandler.focus(this.headerCheckboxViewChild()?.inputViewChild()?.nativeElement);
         this.headerCheckboxFocus = true;
 
@@ -2078,7 +2124,9 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     onOverlayAfterLeave(event: any) {
         this.itemsWrapper = null;
-        this.onModelTouched();
+        // markTouched() marks the bound Signal Form field touched on overlay close, in
+        // addition to firing the classic onModelTouched callback.
+        this.markTouched();
         this.onPanelHide.emit(event);
     }
 
@@ -2108,7 +2156,6 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     clear(event: Event) {
-        this.value = [];
         this.updateModel(null, event);
         this.selectedOptions = [];
         this.onClear.emit();
@@ -2237,7 +2284,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
             clearable: this.showClear(),
             disabled: this.$disabled(),
             [this.size() as string]: this.size(),
-            'has-chip': this.display() === 'chip' && this.value && this.value.length && (this.maxSelectedLabels() ? this.value.length <= this.maxSelectedLabels()! : true),
+            'has-chip': this.display() === 'chip' && !!this.value()?.length && (this.maxSelectedLabels() ? this.value()!.length <= this.maxSelectedLabels()! : true),
             empty: !this.placeholder() && !this.$filled()
         });
     }
@@ -2261,7 +2308,8 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
+        // `setModelValue` is `writeModelValue`, which sets `modelValue` and syncs the
+        // bound `value` model, keeping the selected values as the single source.
         setModelValue(value);
         this.cd.markForCheck();
     }
