@@ -13,6 +13,7 @@ import {
     computed,
     contentChild,
     contentChildren,
+    effect,
     forwardRef,
     inject,
     input,
@@ -20,15 +21,17 @@ import {
     numberAttribute,
     output,
     signal,
+    untracked,
     viewChild
 } from '@angular/core';
+import { Listbox as AriaListbox, Option as AriaOption } from '@angular/aria/listbox';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'voxx-ui/api';
 import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { BaseEditableHolder } from 'voxx-ui/baseeditableholder';
-import { Bind, BindModule } from 'voxx-ui/bind';
+import { Bind, BindModule, withoutAriaOwnedAttrs } from 'voxx-ui/bind';
 import { Checkbox } from 'voxx-ui/checkbox';
 import { IconField } from 'voxx-ui/iconfield';
 import { BlankIcon, CheckIcon, SearchIcon } from 'voxx-ui/icons';
@@ -68,13 +71,13 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
  */
 @Component({
     selector: 'vx-listbox, vx-listBox, vx-list-box',
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule],
+    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule, AriaListbox, AriaOption],
     template: `
         <span
             #firstHiddenFocusableElement
             role="presentation"
             class="p-hidden-accessible p-hidden-focusable"
-            [tabindex]="!$disabled() ? tabindex() : -1"
+            [tabindex]="useAria() ? -1 : !$disabled() ? tabindex() : -1"
             (focus)="onFirstHiddenFocus($event)"
             [attr.data-p-hidden-focusable]="true"
             [vxBind]="ptm('hiddenFirstFocusableElement')"
@@ -123,7 +126,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                 [value]="_filterValue() || ''"
                                 [attr.disabled]="$disabled() ? '' : undefined"
                                 [attr.aria-owns]="$id() + '_list'"
-                                [attr.aria-activedescendant]="focusedOptionId"
+                                [attr.aria-activedescendant]="useAria() ? ariaListbox()?.activeDescendant() : focusedOptionId"
                                 [attr.placeholder]="filterPlaceHolder()"
                                 [attr.aria-label]="ariaFilterLabel()"
                                 [attr.tabindex]="!$disabled() && !focused ? tabindex() : -1"
@@ -206,8 +209,120 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </vx-scroller>
                 }
                 @if (!virtualScroll()) {
-                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
+                    @if (useAria()) {
+                        <ng-container *ngTemplateOutlet="ariaItems; context: { $implicit: visibleOptions() }"></ng-container>
+                    } @else {
+                        <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
+                    }
                 }
+
+                <!--
+                    @angular/aria listbox path (#27 pilot). Active only on the non-virtualScroll,
+                    non-metaKeySelection path (see useAria()). The [ngListbox] primitive OWNS
+                    role="listbox", tabindex, aria-activedescendant, aria-multiselectable,
+                    aria-disabled, aria-readonly, aria-orientation and the keyboard/roving engine;
+                    each [ngOption] OWNS role="option", aria-selected, aria-disabled and its id.
+                    VoxxUI keeps: the selection MODEL (routed through the value-key adapter),
+                    onChange/onClick/onDblClick events, filtering, live-region announcements,
+                    focusOnHover and PT (via withoutAriaOwnedAttrs precedence).
+                -->
+                <ng-template #ariaItems let-items>
+                    <ul
+                        ngListbox
+                        #ariaListEl="ngListbox"
+                        [id]="$id() + '_list'"
+                        [class]="cx('list')"
+                        [multi]="!!multiple()"
+                        focusMode="activedescendant"
+                        selectionMode="explicit"
+                        [wrap]="false"
+                        [disabled]="!!$disabled()"
+                        [readonly]="!!readonly()"
+                        [tabindex]="!$disabled() ? tabindex() : -1"
+                        [attr.aria-label]="ariaLabel()"
+                        (focus)="onAriaFocus($event)"
+                        (blur)="onAriaBlur($event)"
+                        (keydown)="captureAriaEvent($event)"
+                        (pointerdown)="captureAriaEvent($event)"
+                        [vxBind]="ariaPt(ptm('list'))"
+                    >
+                        @for (option of items; track option; let i = $index) {
+                            @if (isOptionGroup(option)) {
+                                <li [attr.id]="$id() + '_' + getOptionIndex(i, {})" [class]="cx('optionGroup')" role="presentation" [vxBind]="ariaPt(getPTOptions(option.optionGroup, {}, i, 'optionGroup'))">
+                                    @if (!groupTemplate() && !_groupTemplate()) {
+                                        <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                                    }
+                                    <ng-container *ngTemplateOutlet="groupTemplate() || _groupTemplate(); context: { $implicit: option.optionGroup }"></ng-container>
+                                </li>
+                            }
+                            @if (!isOptionGroup(option)) {
+                                <li
+                                    ngOption
+                                    vxRipple
+                                    [value]="optionKey(option)"
+                                    [label]="getOptionLabel(option)"
+                                    [disabled]="isOptionDisabled(option)"
+                                    [id]="$id() + '_' + getOptionIndex(i, {})"
+                                    [class]="cx('option', { option, i, scrollerOptions: {} })"
+                                    [attr.data-p-selected]="isSelected(option)"
+                                    [attr.data-p-focused]="focusedOptionIndex() === getOptionIndex(i, {})"
+                                    [attr.data-p-disabled]="isOptionDisabled(option)"
+                                    [vxBind]="ariaPt(getPTOptions(option, {}, i, 'option'))"
+                                    (click)="onAriaOptionClick($event, option, getOptionIndex(i, {}))"
+                                    (dblclick)="onOptionDoubleClick($event, option)"
+                                    (mouseenter)="onAriaOptionMouseEnter(i)"
+                                    (touchend)="onOptionTouchEnd()"
+                                >
+                                    @if (checkbox() && multiple()) {
+                                        <vx-checkbox
+                                            [class]="cx('optionCheckIcon')"
+                                            [ngModel]="isSelected(option)"
+                                            [readonly]="true"
+                                            [disabled]="$disabled() || isOptionDisabled(option)"
+                                            [tabindex]="-1"
+                                            [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                                            [binary]="true"
+                                            [pt]="ptm('pcCheckbox')"
+                                            hostName="listbox"
+                                            [unstyled]="unstyled()"
+                                        >
+                                            @if (checkIconTemplate() || _checkIconTemplate()) {
+                                                <ng-template #icon>
+                                                    <ng-template *ngTemplateOutlet="checkIconTemplate() || _checkIconTemplate(); context: { $implicit: isSelected(option) }"></ng-template>
+                                                </ng-template>
+                                            }
+                                        </vx-checkbox>
+                                    }
+                                    @if (checkmark()) {
+                                        @if (!checkmarkTemplate() && !_checkmarkTemplate()) {
+                                            @if (!isSelected(option)) {
+                                                <svg data-p-icon="blank" [class]="cx('optionBlankIcon')" [vxBind]="ptm('optionBlankIcon')" />
+                                            }
+                                            @if (isSelected(option)) {
+                                                <svg data-p-icon="check" [class]="cx('optionCheckIcon')" [vxBind]="ptm('optionCheckIcon')" />
+                                            }
+                                        }
+                                        <ng-container *ngTemplateOutlet="checkmarkTemplate() || _checkmarkTemplate(); context: { implicit: isSelected(option) }"></ng-container>
+                                    }
+                                    @if (!itemTemplate() && !_itemTemplate()) {
+                                        <span>{{ getOptionLabel(option) }}</span>
+                                    }
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            itemTemplate() || _itemTemplate();
+                                            context: {
+                                                $implicit: option,
+                                                index: getOptionIndex(i, {}),
+                                                selected: isSelected(option),
+                                                disabled: isOptionDisabled(option)
+                                            }
+                                        "
+                                    ></ng-container>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </ng-template>
 
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
                     <ul
@@ -343,7 +458,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             #lastHiddenFocusableElement
             role="presentation"
             class="p-hidden-accessible p-hidden-focusable"
-            [tabindex]="!$disabled() ? tabindex() : -1"
+            [tabindex]="useAria() ? -1 : !$disabled() ? tabindex() : -1"
             (focus)="onLastHiddenFocus($event)"
             [attr.data-p-hidden-focusable]="true"
             [vxBind]="ptm('hiddenLastFocusableEl')"
@@ -960,6 +1075,187 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     isDragging = signal<boolean>(false);
 
+    // ─────────────────────────────────────────────────────────────────────────
+    //  @angular/aria listbox pilot (#27)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Whether the `@angular/aria` `[ngListbox]` keyboard/focus/roving engine drives
+     * this instance. Enabled for the plain, non-virtualScroll path only.
+     *
+     * `virtualScroll` keeps the hand-rolled engine because the aria primitive's
+     * DOM-based item registry (`SortedCollection`) only sees the windowed rows the
+     * scroller renders, so full-dataset navigation/typeahead would break (#23 blocker).
+     *
+     * `metaKeySelection` keeps the hand-rolled engine because the aria selection
+     * model has no ctrl/cmd-gated "meta" selection mode — it is a documented,
+     * screen-reader-visible behavior the primitive cannot express.
+     */
+    useAria = computed(() => !this.virtualScroll() && !this.metaKeySelection());
+
+    /** The in-template `[ngListbox]` primitive instance (present only on the aria path). */
+    ariaListbox = viewChild(AriaListbox);
+
+    /**
+     * pt/aria precedence helper exposed to the template: strips aria-owned attrs
+     * (`role`/`aria-*`/`tabindex`/`id`) from a pt bag so pt can never fight the
+     * primitive's reactive host bindings on the managed `ul`/`li`. See
+     * `voxx-ui/bind` aria-precedence.ts (#26/#28).
+     */
+    ariaPt(attrs: any): any {
+        return withoutAriaOwnedAttrs(attrs);
+    }
+
+    /** Last pointer/keyboard event on the aria listbox, used to reconstruct the `onChange` payload. */
+    private _lastAriaEvent: Event | null = null;
+
+    /** Guards the aria→model effect from echoing a model→aria push back out. */
+    private _ariaSyncGuard = false;
+
+    /**
+     * Stable identity key for aria value matching. The aria primitive matches option
+     * values by `===` identity only; VoxxUI matches by `dataKey`/`optionValue`
+     * object-equality. We therefore feed the primitive a primitive KEY (the `dataKey`
+     * field when present, otherwise the resolved option value / the option itself) and
+     * map keys back to real option values before touching the model.
+     */
+    valueKey(value: any): any {
+        const dataKey = this.dataKey();
+        return dataKey && value != null && typeof value === 'object' ? resolveFieldData(value, dataKey) : value;
+    }
+
+    /** aria `[value]` for an option = the key of its model value. */
+    optionKey(option: any): any {
+        return this.valueKey(this.getOptionValue(option));
+    }
+
+    /** modelValue → array of aria keys (single mode is wrapped as a 0/1-length array). */
+    private ariaKeysFromModel(): any[] {
+        const mv = this.modelValue();
+        const arr = this.multiple() ? mv || [] : mv == null ? [] : [mv];
+        return arr.map((v) => this.valueKey(v));
+    }
+
+    /** aria keys → model value (array for multiple, scalar/null for single). */
+    private modelFromAriaKeys(keys: any[]): any {
+        const map = new Map<any, any>();
+        for (const option of this.visibleOptions()) {
+            if (this.isValidOption(option)) {
+                map.set(this.optionKey(option), this.getOptionValue(option));
+            }
+        }
+        const values = (keys || []).map((k) => (map.has(k) ? map.get(k) : k));
+        return this.multiple() ? values : values.length ? values[0] : null;
+    }
+
+    private static _sameKeys(a: any[], b: any[]): boolean {
+        if (a.length !== b.length) return false;
+        for (let i = 0; i < a.length; i++) {
+            if (!b.includes(a[i])) return false;
+        }
+        return true;
+    }
+
+    /** Records the last raw interaction event so `onChange` can carry an `originalEvent`. */
+    captureAriaEvent(event: Event) {
+        this._lastAriaEvent = event;
+    }
+
+    /**
+     * Click selection is VoxxUI-owned on the aria path (keyboard selection stays
+     * aria-owned). The aria primitive's own container click→toggle is routed through a
+     * navigate-then-select step whose selection only fires when the active item *moves*,
+     * so a plain click on the already-active option is a silent no-op — which breaks
+     * VoxxUI's "click always toggles" contract. We therefore `stopPropagation()` so the
+     * primitive never runs its click selection, move its active descendant to the clicked
+     * option (`gotoIndex`, keeping keyboard nav continuous), and toggle through VoxxUI's
+     * existing `onOptionSelect` (metaKeySelection is gated to the legacy path, so this is
+     * a deterministic plain toggle). The model→aria effect then mirrors the new selection
+     * back into the primitive's value so Space/Enter afterwards stay consistent.
+     */
+    onAriaOptionClick(event: MouseEvent, option: any, index: number) {
+        event.stopPropagation();
+        this._lastAriaEvent = event;
+        this.ariaListbox()?.gotoIndex(index);
+        this.onOptionSelect(event, option, index);
+        this._lastAriaEvent = null;
+    }
+
+    /** `focusOnHover` → move the aria active (focused) item to the hovered option. */
+    onAriaOptionMouseEnter(index: number) {
+        if (this.focusOnHover() && this.focused) {
+            this.ariaListbox()?.gotoIndex(index);
+        }
+    }
+
+    onAriaFocus(event: FocusEvent) {
+        this.focused = true;
+        this.onFocus.emit(event);
+    }
+
+    onAriaBlur(event: FocusEvent) {
+        this.focused = false;
+        this.searchValue = '';
+        this.markTouched();
+        this.onBlur.emit(event);
+    }
+
+    constructor(public filterService: FilterService) {
+        super();
+
+        // model → aria: mirror VoxxUI's modelValue into the primitive's key-based value.
+        // Re-runs when options (re)register so a value set before registration still lands.
+        effect(() => {
+            const al = this.ariaListbox();
+            if (!al) return;
+            al._collection.orderedItems();
+            const keys = this.ariaKeysFromModel();
+            untracked(() => {
+                if (!Listbox._sameKeys(al.value(), keys)) {
+                    this._ariaSyncGuard = true;
+                    al.value.set(keys);
+                    this._ariaSyncGuard = false;
+                }
+            });
+        });
+
+        // aria → model: user interaction (click / Space / Enter / Ctrl+A / range) updates
+        // the primitive value; route it back through the shared updateModel write path,
+        // reconstructing the { originalEvent, value } payload from the captured event.
+        //
+        // Only GENUINE user interactions carry a captured pointer/keyboard event
+        // (`_lastAriaEvent`). This gates out the primitive's own init-time value churn
+        // (the empty [] it starts with, and its "drop values without a matching item"
+        // pass), which would otherwise race the model→aria push above and wipe a
+        // programmatically-set model before it lands.
+        effect(() => {
+            const al = this.ariaListbox();
+            if (!al) return;
+            const keys = al.value();
+            untracked(() => {
+                if (this._ariaSyncGuard) return;
+                if (!this._lastAriaEvent) return;
+                if (Listbox._sameKeys(keys, this.ariaKeysFromModel())) return;
+                const value = this.modelFromAriaKeys(keys);
+                this.updateModel(value, this._lastAriaEvent);
+                this._lastAriaEvent = null;
+            });
+        });
+
+        // Keep the focusedOptionIndex signal (PT `context.focused`, filter
+        // aria-activedescendant, scroll-in-view) in sync with aria's active descendant.
+        effect(() => {
+            const al = this.ariaListbox();
+            if (!al || !this.useAria()) return;
+            const activeId = al.activeDescendant();
+            untracked(() => {
+                const prefix = `${this.$id()}_`;
+                const idx = activeId && activeId.startsWith(prefix) ? parseInt(activeId.slice(prefix.length), 10) : -1;
+                this.focusedOptionIndex.set(Number.isNaN(idx) ? -1 : idx);
+            });
+        });
+    }
+
     onHostFocusOut(event: FocusEvent) {
         this.onFocusout(event);
     }
@@ -970,10 +1266,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     });
 
     destroyRef = inject(DestroyRef);
-
-    constructor(public filterService: FilterService) {
-        super();
-    }
 
     onInit() {
         this.config.translationObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
