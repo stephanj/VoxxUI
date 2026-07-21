@@ -2,8 +2,10 @@ import type { Mock } from 'vitest';
 import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'voxx-ui/api';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'voxx-ui/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
@@ -2617,6 +2619,383 @@ describe('AutoComplete', () => {
                 expect(dropdownButton?.classList.contains('FUNC_DROPDOWN')).toBe(true);
                 expect(dropdownButton?.getAttribute('data-has-suggestions')).toBe('true');
             });
+        });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// Signal Forms (FormValueControl) integration — mirrors select.spec.ts, with
+// AutoComplete-specific coverage for single (scalar) and multiple (chips, T[])
+// modes, including new-array-reference round-trips.
+// ---------------------------------------------------------------------------
+
+const SF_SUGGESTIONS = ['New York', 'Rome', 'London', 'Istanbul'];
+
+@Component({
+    standalone: true,
+    imports: [AutoComplete, FormField, FormsModule],
+    template: `<vx-autocomplete [formField]="cityForm.city" [suggestions]="suggestions" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormAutoCompleteComponent {
+    suggestions = SF_SUGGESTIONS;
+
+    model = signal<{ city: string | null }>({ city: null });
+
+    cityForm = form(this.model, (p) => {
+        // Custom "required" validator so we can exercise invalid-state binding.
+        validate(p.city, ({ value }) => (value() ? undefined : { kind: 'required', message: 'City is required' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [AutoComplete, FormField],
+    template: `<vx-autocomplete multiple [formField]="tagsForm.tags" [suggestions]="suggestions" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormMultipleAutoCompleteComponent {
+    suggestions = SF_SUGGESTIONS;
+
+    model = signal<{ tags: string[] }>({ tags: [] });
+
+    tagsForm = form(this.model);
+}
+
+@Component({
+    standalone: true,
+    imports: [AutoComplete, FormField],
+    template: `<vx-autocomplete [formField]="settingsForm.city" [suggestions]="suggestions" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledAutoCompleteComponent {
+    suggestions = SF_SUGGESTIONS;
+
+    model = signal<{ city: string | null }>({ city: 'Rome' });
+
+    settingsForm = form(this.model, (p) => {
+        disabled(p.city, () => true);
+    });
+}
+
+describe('AutoComplete Signal Forms (FormValueControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    function getAutoComplete(fixture: ComponentFixture<unknown>): AutoComplete {
+        return fixture.debugElement.query(By.directive(AutoComplete)).componentInstance as AutoComplete;
+    }
+
+    describe('single mode', () => {
+        it('reflects the initial field value into the control (field -> view)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            host.model.set({ city: 'Rome' });
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            expect(ac.value()).toBe('Rome');
+            expect(ac.modelValue()).toBe('Rome');
+            expect(ac.inputValue()).toBe('Rome');
+            expect(host.cityForm.city().value()).toBe('Rome');
+        });
+
+        it('writes a suggestion selection back into the field value (view -> field)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            // Real selection write path (option click / keyboard select route here).
+            ac.onOptionSelect(null, 'London');
+            await flush(fixture);
+
+            expect(ac.value()).toBe('London');
+            expect(host.model().city).toBe('London');
+            expect(host.cityForm.city().value()).toBe('London');
+            expect(host.cityForm.city().dirty()).toBe(true);
+        });
+
+        it('writes a free-text commit back into the field value (view -> field)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+            input.value = 'Freetext City';
+            input.dispatchEvent(new Event('input'));
+            await flush(fixture);
+
+            expect(ac.value()).toBe('Freetext City');
+            expect(host.model().city).toBe('Freetext City');
+            expect(host.cityForm.city().value()).toBe('Freetext City');
+        });
+
+        it('clears the field value through clear() (view -> field)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            host.model.set({ city: 'Rome' });
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            ac.clear();
+            await flush(fixture);
+
+            expect(ac.value()).toBeNull();
+            expect(host.model().city).toBeNull();
+            expect(host.cityForm.city().value()).toBeNull();
+        });
+
+        it('binds the disabled state from the field', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormDisabledAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormDisabledAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            expect(host.settingsForm.city().disabled()).toBe(true);
+            expect(ac.$disabled()).toBe(true);
+        });
+
+        it('emits touch on blur so the field is marked touched', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            expect(host.cityForm.city().touched()).toBe(false);
+            const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLElement;
+            input.dispatchEvent(new Event('blur'));
+            await flush(fixture);
+
+            expect(host.cityForm.city().touched()).toBe(true);
+        });
+
+        it('reflects the invalid state from a failing validator', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            // city === null -> validator fails -> field invalid -> invalid input bound to control
+            expect(host.cityForm.city().valid()).toBe(false);
+            expect(ac.invalid()).toBe(true);
+            expect(ac.errors().length).toBeGreaterThan(0);
+
+            host.model.set({ city: 'New York' });
+            await flush(fixture);
+            expect(host.cityForm.city().valid()).toBe(true);
+            expect(ac.invalid()).toBe(false);
+        });
+
+        it('reset() clears touched/dirty state on the bound field', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            ac.onOptionSelect(null, 'New York');
+            const input = fixture.debugElement.query(By.css('input')).nativeElement as HTMLElement;
+            input.dispatchEvent(new Event('blur'));
+            await flush(fixture);
+            expect(host.cityForm.city().dirty()).toBe(true);
+            expect(host.cityForm.city().touched()).toBe(true);
+
+            host.cityForm.city().reset();
+            await flush(fixture);
+            expect(host.cityForm.city().dirty()).toBe(false);
+            expect(host.cityForm.city().touched()).toBe(false);
+        });
+    });
+
+    describe('multiple mode (chips, T[])', () => {
+        it('reflects the initial field array into the chips (field -> view)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormMultipleAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormMultipleAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            host.model.set({ tags: ['Rome', 'London'] });
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            expect(ac.value()).toEqual(['Rome', 'London']);
+            expect(ac.modelValue()).toEqual(['Rome', 'London']);
+            expect(host.tagsForm.tags().value()).toEqual(['Rome', 'London']);
+        });
+
+        it('adds a chip as a NEW array reference on the field (view -> field)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormMultipleAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormMultipleAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            host.model.set({ tags: ['Rome'] });
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            const prevRef = host.model().tags;
+
+            ac.onOptionSelect(null, 'London');
+            await flush(fixture);
+
+            expect(ac.value()).toEqual(['Rome', 'London']);
+            expect(host.tagsForm.tags().value()).toEqual(['Rome', 'London']);
+            // The add must land on the field as a brand-new array reference so the
+            // bound FieldTree observes the mutation (array-reference identity).
+            expect(host.model().tags).not.toBe(prevRef);
+            expect(host.tagsForm.tags().dirty()).toBe(true);
+        });
+
+        it('removes a chip as a NEW array reference on the field (view -> field)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormMultipleAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormMultipleAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            host.model.set({ tags: ['Rome', 'London', 'Istanbul'] });
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            const prevRef = host.model().tags;
+
+            // Chip remove callback (X icon) routes through removeOption.
+            ac.removeOption(new Event('click'), 1);
+            await flush(fixture);
+
+            expect(ac.value()).toEqual(['Rome', 'Istanbul']);
+            expect(host.tagsForm.tags().value()).toEqual(['Rome', 'Istanbul']);
+            expect(host.model().tags).not.toBe(prevRef);
+        });
+
+        it('removes the last chip via backspace as a NEW array reference (view -> field)', async () => {
+            TestBed.configureTestingModule({
+                imports: [TestSignalFormMultipleAutoCompleteComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(TestSignalFormMultipleAutoCompleteComponent);
+            const host = fixture.componentInstance;
+            host.model.set({ tags: ['Rome', 'London'] });
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            const prevRef = host.model().tags;
+
+            // Empty input + Backspace removes the trailing chip.
+            ac.onBackspaceKey({ stopPropagation: () => {} });
+            await flush(fixture);
+
+            expect(ac.value()).toEqual(['Rome']);
+            expect(host.tagsForm.tags().value()).toEqual(['Rome']);
+            expect(host.model().tags).not.toBe(prevRef);
+        });
+    });
+
+    describe('classic forms coexistence', () => {
+        it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+            @Component({
+                standalone: true,
+                imports: [AutoComplete, FormsModule],
+                template: `<vx-autocomplete [(ngModel)]="city" [suggestions]="suggestions" />`,
+                changeDetection: ChangeDetectionStrategy.Eager
+            })
+            class NgModelHostComponent {
+                suggestions = SF_SUGGESTIONS;
+                city: string | null = null;
+            }
+
+            TestBed.configureTestingModule({
+                imports: [NgModelHostComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(NgModelHostComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            ac.onOptionSelect(null, 'Rome');
+            await flush(fixture);
+            expect(host.city).toBe('Rome');
+            expect(ac.value()).toBe('Rome');
+
+            // form -> view: writing ngModel updates the control and the value model
+            host.city = 'Istanbul';
+            fixture.changeDetectorRef.markForCheck();
+            await flush(fixture);
+            expect(ac.modelValue()).toBe('Istanbul');
+            expect(ac.value()).toBe('Istanbul');
+        });
+
+        it('keeps reactive forms (formControl) working alongside FormValueControl', async () => {
+            @Component({
+                standalone: true,
+                imports: [AutoComplete, ReactiveFormsModule],
+                template: `<vx-autocomplete [formControl]="control" [suggestions]="suggestions" />`,
+                changeDetection: ChangeDetectionStrategy.Eager
+            })
+            class ReactiveHostComponent {
+                suggestions = SF_SUGGESTIONS;
+                control = new FormControl<string | null>(null);
+            }
+
+            TestBed.configureTestingModule({
+                imports: [ReactiveHostComponent],
+                providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+            });
+            const fixture = TestBed.createComponent(ReactiveHostComponent);
+            const host = fixture.componentInstance;
+            await flush(fixture);
+
+            const ac = getAutoComplete(fixture);
+            // form -> view
+            host.control.setValue('London');
+            await flush(fixture);
+            expect(ac.value()).toBe('London');
+            expect(ac.modelValue()).toBe('London');
+
+            // view -> form
+            ac.onOptionSelect(null, 'New York');
+            await flush(fixture);
+            expect(host.control.value).toBe('New York');
+            expect(ac.value()).toBe('New York');
         });
     });
 });
