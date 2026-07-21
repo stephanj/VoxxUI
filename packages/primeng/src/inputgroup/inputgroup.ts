@@ -12,7 +12,7 @@ const INPUTGROUP_INSTANCE = new InjectionToken<InputGroup>('INPUTGROUP_INSTANCE'
  * @group Components
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-inputgroup, vx-inputGroup, vx-input-group',
     imports: [BindModule],
     template: ` <ng-content></ng-content> `,

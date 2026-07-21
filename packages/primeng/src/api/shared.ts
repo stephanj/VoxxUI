@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Directive, input, NgModule, TemplateRef } from '@angular/core';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-header',
     template: '<ng-content></ng-content>'
 })
 export class Header {}
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-footer',
     template: '<ng-content></ng-content>'
 })

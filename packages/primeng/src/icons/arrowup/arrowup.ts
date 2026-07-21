@@ -3,7 +3,7 @@ import { uuid } from '@primeuix/utils';
 import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: '[data-p-icon="arrow-up"]',
     template: `
         <svg:g [attr.clip-path]="pathId">
