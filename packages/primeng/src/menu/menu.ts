@@ -63,7 +63,7 @@ export class SafeHtmlPipe implements PipeTransform {
 }
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: '[vxMenuItemContent]',
     imports: [CommonModule, RouterModule, Ripple, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule],
     template: ` <div [class]="cx('itemContent')" (click)="onItemClick($event, item())" [attr.data-pc-section]="'content'" [vxBind]="getPTOptions('itemContent')">
