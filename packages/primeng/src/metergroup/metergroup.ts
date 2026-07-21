@@ -10,7 +10,7 @@ import { MeterGroupStyle } from './style/metergroupstyle';
 const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE');
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'vx-meterGroupLabel, vx-metergrouplabel',
     imports: [CommonModule, SharedModule, Bind],
     template: `

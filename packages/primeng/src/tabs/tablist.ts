@@ -1,9 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, signal, TemplateRef, untracked, viewChild, ViewEncapsulation } from '@angular/core';
+import { TabList as AriaTabList } from '@angular/aria/tabs';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
-import { Bind, BindModule } from 'voxx-ui/bind';
+import { Bind, BindModule, withoutAriaOwnedAttrs } from 'voxx-ui/bind';
 import { ChevronLeftIcon, ChevronRightIcon } from 'voxx-ui/icons';
 import { RippleModule } from 'voxx-ui/ripple';
 import { TabListStyle } from './style/tabliststyle';
@@ -40,7 +41,9 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
             </button>
         }
         <div #content [vxBind]="ptm('content')" [class]="cx('content')" (scroll)="onScroll($event)">
-            <div #tabs [vxBind]="ptm('tabList')" [class]="cx('tabList')" role="tablist">
+            <!-- role="tablist" is now owned by the aria [ngTabList] host directive on the
+                 vx-tablist host (see hostDirectives), so it is intentionally NOT set here. -->
+            <div #tabs [vxBind]="ptm('tabList')" [class]="cx('tabList')">
                 <ng-content />
                 <span #inkbar [vxBind]="ptm('activeBar')" role="presentation" [class]="cx('activeBar')"></span>
             </div>
@@ -71,7 +74,10 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
         '[class]': 'cx("root")'
     },
     providers: [TabListStyle, { provide: TABLIST_INSTANCE, useExisting: TabList }, { provide: PARENT_INSTANCE, useExisting: TabList }],
-    hostDirectives: [Bind]
+    // aria `[ngTabList]` owns role="tablist", roving tabindex, aria-orientation,
+    // aria-activedescendant and the arrow/Home/End/Enter/Space keyboard engine on
+    // the vx-tablist host. VoxxUI keeps the scroll buttons + ink-bar below.
+    hostDirectives: [AriaTabList, Bind]
 })
 export class TabList extends BaseComponent<TabListPassThrough> {
     componentName = 'TabList';
@@ -79,8 +85,14 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     $pcTabList: TabList | undefined = inject(TABLIST_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    /** The `@angular/aria` tablist primitive driving keyboard nav + roving focus. */
+    aria = inject(AriaTabList, { self: true });
+
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        // pt/aria precedence: aria owns role/tabindex/aria-* on this host, so strip
+        // any pt attempt to override them (see voxx-ui/bind aria-precedence.ts).
+        this.bindDirectiveInstance.setAttrs(withoutAriaOwnedAttrs(this.ptms(['host', 'root'])));
     }
 
     /**
@@ -126,6 +138,38 @@ export class TabList extends BaseComponent<TabListPassThrough> {
 
     constructor() {
         super();
+
+        // Force "explicit" selection semantics regardless of the aria default
+        // ('follow'): arrow keys move roving focus only, they never auto-select.
+        // VoxxUI's `selectOnFocus` is driven by Tab.onFocus instead (it must also
+        // fire on plain focus / Tab key, which `follow` does not cover). The
+        // `selectionMode` input can't be set on a host-applied hostDirective, so
+        // we neutralise it through the exposed pattern layer.
+        (this.aria._pattern as any).followFocus = signal(false);
+
+        // Two-way sync: VoxxUI Tabs.value <-> aria selectedTab model.
+        // Tabs.value is the source of truth; re-run when tabs (de)register so the
+        // initial/late selection lands once the collection is populated.
+        effect(() => {
+            const v = this.pcTabs.value();
+            this.aria._collection.orderedItems();
+            untracked(() => {
+                if (v != null && this.aria.findTab(v as any) && this.aria.selectedTab() !== (v as any)) {
+                    this.aria.selectedTab.set(v as any);
+                }
+            });
+        });
+        // User interaction (click / Enter / Space) updates aria selectedTab; mirror
+        // it back to Tabs.value. Ignore aria's undefined resets (non-existent value).
+        effect(() => {
+            const v = this.aria.selectedTab();
+            untracked(() => {
+                if (v != null && this.pcTabs.value() !== (v as any)) {
+                    this.pcTabs.value.set(v as any);
+                }
+            });
+        });
+
         effect(() => {
             this.pcTabs.value();
             if (isPlatformBrowser(this.platformId)) {

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BaseIcon } from 'voxx-ui/icons/baseicon';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: '[data-p-icon="chevron-down"]',
     template: `
         <svg:path

@@ -18,7 +18,7 @@ import { TabsModule } from 'voxx-ui/tabs';
                     <vx-tab value="0">Header I</vx-tab>
                     <vx-tab value="1">Header II</vx-tab>
                     <vx-tab value="2">Header III</vx-tab>
-                    <vx-tab disabled>Header IV</vx-tab>
+                    <vx-tab value="3" disabled>Header IV</vx-tab>
                 </vx-tablist>
                 <vx-tabpanels>
                     <vx-tabpanel value="0">

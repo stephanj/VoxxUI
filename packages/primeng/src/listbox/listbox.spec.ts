@@ -2830,3 +2830,201 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
         });
     });
 });
+
+/**
+ * #27 — @angular/aria listbox pilot validation.
+ *
+ * These specs exercise the aria keyboard/selection path directly and validate the
+ * activedescendant-family integration mechanics the pilot exists to de-risk:
+ *   - the value-key adapter (identity-only aria value model <-> VoxxUI dataKey/optionValue equality),
+ *   - selection round-trip back through updateModel (single toggle, multiple toggle),
+ *   - the onChange { originalEvent, value } payload reconstruction,
+ *   - keyboard selection at the container (Space/Enter),
+ *   - clean dual-path gating (virtualScroll + metaKeySelection keep the hand-rolled engine).
+ */
+@Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false,
+    template: `
+        <vx-listbox
+            [(ngModel)]="value"
+            [options]="options"
+            [optionLabel]="optionLabel"
+            [optionValue]="optionValue"
+            [dataKey]="dataKey"
+            [multiple]="multiple"
+            [virtualScroll]="virtualScroll"
+            [virtualScrollItemSize]="30"
+            [metaKeySelection]="metaKeySelection"
+            [selectOnFocus]="selectOnFocus"
+            (onChange)="onChange($event)"
+        ></vx-listbox>
+    `
+})
+class AriaPilotHost {
+    value: any = null;
+    options: any[] = [
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' },
+        { label: 'Option 3', value: 'option3' }
+    ];
+    optionLabel: string | undefined = 'label';
+    optionValue: string | undefined = 'value';
+    dataKey: string | undefined = undefined;
+    multiple: boolean = false;
+    virtualScroll: boolean = false;
+    metaKeySelection: boolean = false;
+    selectOnFocus: boolean = false;
+    lastChange: ListboxChangeEvent | undefined;
+    onChange(e: ListboxChangeEvent) {
+        this.lastChange = e;
+    }
+}
+
+describe('Listbox @angular/aria pilot (#27)', () => {
+    let host: AriaPilotHost;
+    let fixture: ComponentFixture<AriaPilotHost>;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [Listbox, FormsModule, CommonModule],
+            providers: [provideZonelessChangeDetection(), provideNoopAnimations()],
+            declarations: [AriaPilotHost]
+        }).compileComponents();
+        fixture = TestBed.createComponent(AriaPilotHost);
+        host = fixture.componentInstance;
+    });
+
+    const listbox = () => fixture.debugElement.query(By.css('vx-listbox')).componentInstance as Listbox;
+    const ul = () => fixture.debugElement.query(By.css('ul[role="listbox"]'));
+    const optionEls = () => fixture.debugElement.queryAll(By.css('.p-listbox-option'));
+
+    it('uses the aria [ngListbox] primitive on the default (non-virtual, non-meta) path', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(listbox().useAria()).toBe(true);
+        expect(listbox().ariaListbox()).toBeTruthy();
+        // aria owns role + a focusable tabindex on the ul.
+        expect(ul().nativeElement.getAttribute('role')).toBe('listbox');
+        expect(ul().nativeElement.getAttribute('tabindex')).toBe('0');
+    });
+
+    it('falls back to the hand-rolled engine under virtualScroll (dual path)', async () => {
+        host.virtualScroll = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(listbox().useAria()).toBe(false);
+        expect(listbox().ariaListbox()).toBeFalsy();
+    });
+
+    it('falls back to the hand-rolled engine under metaKeySelection', async () => {
+        host.metaKeySelection = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(listbox().useAria()).toBe(false);
+        expect(listbox().ariaListbox()).toBeFalsy();
+    });
+
+    it('falls back to the hand-rolled engine under selectOnFocus', async () => {
+        host.selectOnFocus = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(listbox().useAria()).toBe(false);
+        expect(listbox().ariaListbox()).toBeFalsy();
+    });
+
+    it('single: click selects, re-click deselects (toggle) and routes through the model', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        optionEls()[1].nativeElement.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(host.value).toBe('option2');
+        expect(listbox().modelValue()).toBe('option2');
+
+        optionEls()[1].nativeElement.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(host.value).toBeNull();
+    });
+
+    it('single: onChange carries the originalEvent and the resolved value', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        optionEls()[0].nativeElement.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(host.lastChange).toBeTruthy();
+        expect(host.lastChange!.value).toBe('option1');
+        expect(host.lastChange!.originalEvent).toBeTruthy();
+    });
+
+    it('multiple: click toggles values into an array model', async () => {
+        host.multiple = true;
+        host.value = [];
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        optionEls()[0].nativeElement.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        optionEls()[2].nativeElement.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(host.value).toEqual(['option1', 'option3']);
+
+        optionEls()[0].nativeElement.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(host.value).toEqual(['option3']);
+    });
+
+    it('value-key adapter: dataKey matches a different object instance (no optionValue)', async () => {
+        host.optionValue = undefined;
+        host.optionLabel = 'label';
+        host.dataKey = 'id';
+        host.options = [
+            { id: 1, label: 'One' },
+            { id: 2, label: 'Two' },
+            { id: 3, label: 'Three' }
+        ];
+        // A DIFFERENT object instance that only shares the dataKey field.
+        host.value = { id: 2, label: 'Two' };
+        fixture.detectChanges();
+        await fixture.whenStable();
+        // A preset object value needs the normal follow-up CD to reflect in the DOM; this
+        // is pre-existing VoxxUI/zoneless behavior (identical on the legacy path), unrelated
+        // to the adapter.
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const lb = listbox();
+        // The value-key adapter resolved the object's dataKey field to a primitive key and
+        // matched it against the option keys, so VoxxUI selection and the aria value agree.
+        expect(lb.isSelected(lb.visibleOptions()[1])).toBe(true);
+        expect(lb.ariaListbox()!.value()).toEqual([2]);
+        const selected = fixture.debugElement.queryAll(By.css('.p-listbox-option[data-p-selected="true"]'));
+        expect(selected.length).toBe(1);
+        expect(selected[0].nativeElement.textContent).toContain('Two');
+    });
+
+    it('keyboard: ArrowDown then Space at the container navigates and selects', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const el = ul().nativeElement as HTMLElement;
+
+        // aria seeds the active descendant to the first option; ArrowDown moves to the
+        // second, Space selects it. Synthetic events must bubble and carry `key` (#26).
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(host.value).toBe('option2');
+    });
+});

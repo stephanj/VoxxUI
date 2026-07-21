@@ -75,7 +75,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'li[vxMultiSelectItem]',
     imports: [CommonModule, Checkbox, FormsModule, SharedModule],
     template: `
