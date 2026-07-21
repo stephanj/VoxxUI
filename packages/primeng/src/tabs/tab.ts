@@ -1,9 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
-import { equals, focus, getAttribute } from '@primeuix/utils';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, ViewEncapsulation } from '@angular/core';
+import { Tab as AriaTab } from '@angular/aria/tabs';
 import { SharedModule } from 'voxx-ui/api';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
-import { Bind, BindModule } from 'voxx-ui/bind';
+import { Bind, BindModule, withoutAriaOwnedAttrs } from 'voxx-ui/bind';
 import { Ripple } from 'voxx-ui/ripple';
 import { TabPassThrough } from 'voxx-ui/types/tabs';
 import { TabStyle } from './style/tabstyle';
@@ -14,6 +14,14 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 
 /**
  * Defines valid properties in Tab component.
+ *
+ * Accessibility (`role="tab"`, roving `tabindex`, `aria-selected`,
+ * `aria-disabled`, `aria-controls`, `id`) and keyboard navigation
+ * (arrows / Home / End / Enter / Space) are delegated to the `@angular/aria`
+ * `[ngTab]` primitive applied as a host directive — VoxxUI no longer hand-rolls
+ * them. The `value` and `disabled` inputs are re-exposed from the primitive, so
+ * the public API is unchanged. See the pt/aria precedence note in
+ * `voxx-ui/bind` (aria-precedence.ts).
  * @group Components
  */
 @Component({
@@ -24,19 +32,15 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("root")',
-        '[attr.id]': 'id()',
-        '[attr.aria-controls]': 'ariaControls()',
-        '[attr.role]': '"tab"',
-        '[attr.aria-selected]': 'active()',
-        '[attr.aria-disabled]': 'disabled()',
+        // aria (`[ngTab]`) owns role / id / tabindex / aria-selected /
+        // aria-disabled / aria-controls. VoxxUI keeps only styling data-hooks.
         '[attr.data-p-disabled]': 'disabled()',
         '[attr.data-p-active]': 'active()',
-        '[attr.tabindex]': 'tabindex()',
-        '(focus)': 'onFocus($event)',
-        '(click)': 'onClick($event)',
-        '(keydown)': 'onKeyDown($event)'
+        '(focus)': 'onFocus()'
     },
-    hostDirectives: [Ripple, Bind],
+    // Ordering: Ripple, then aria `[ngTab]` (owns the a11y attributes and
+    // keyboard behavior, re-exposing `value`/`disabled`), then Bind (pt).
+    hostDirectives: [Ripple, { directive: AriaTab, inputs: ['value', 'disabled'] }, Bind],
     providers: [TabStyle, { provide: TAB_INSTANCE, useExisting: Tab }, { provide: PARENT_INSTANCE, useExisting: Tab }]
 })
 export class Tab extends BaseComponent<TabPassThrough> {
@@ -46,22 +50,13 @@ export class Tab extends BaseComponent<TabPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
-    onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
-    }
+    /** The `@angular/aria` primitive that owns this tab's a11y + keyboard behavior. */
+    aria = inject(AriaTab, { self: true });
 
-    /**
-     * Value of tab.
-     * @defaultValue undefined
-     * @group Props
-     */
-    value = model<number | string | undefined>();
-    /**
-     * Whether the tab is disabled.
-     * @defaultValue false
-     * @group Props
-     */
-    disabled = input(false, { transform: booleanAttribute });
+    onAfterViewChecked(): void {
+        // pt/aria precedence: strip aria-owned attrs so pt can't fight the primitive.
+        this.bindDirectiveInstance.setAttrs(withoutAriaOwnedAttrs(this.ptms(['host', 'root'])));
+    }
 
     pcTabs = inject(forwardRef(() => Tabs));
 
@@ -73,146 +68,37 @@ export class Tab extends BaseComponent<TabPassThrough> {
 
     ripple = computed(() => this.config.ripple());
 
-    id = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
+    /**
+     * Value of tab.
+     * @defaultValue undefined
+     * @group Props
+     */
+    value = computed(() => this.aria.value());
+    /**
+     * Whether the tab is disabled.
+     * @defaultValue false
+     * @group Props
+     */
+    disabled = computed(() => this.aria.disabled());
 
-    ariaControls = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
-
-    active = computed(() => equals(this.pcTabs.value(), this.value()));
-
-    tabindex = computed(() => (this.disabled() ? -1 : this.active() ? this.pcTabs.tabindex() : -1));
+    active = computed(() => this.aria.selected());
 
     mutationObserver: MutationObserver | undefined;
 
-    onFocus(event: FocusEvent) {
-        if (!this.disabled()) {
-            this.pcTabs.selectOnFocus() && this.changeActiveValue();
+    /**
+     * VoxxUI-specific behavior not covered by the aria primitive: when
+     * `selectOnFocus` is enabled, focusing a tab (via keyboard roving, Tab key,
+     * or programmatically) selects it. `[ngTab]` only auto-selects on arrow
+     * navigation in `follow` mode, never on plain focus, so this shim stays.
+     */
+    onFocus() {
+        if (!this.disabled() && this.pcTabs.selectOnFocus()) {
+            this.pcTabs.updateValue(this.value());
         }
-    }
-
-    onClick(event: MouseEvent) {
-        if (!this.disabled()) {
-            this.changeActiveValue();
-        }
-    }
-
-    onKeyDown(event: KeyboardEvent) {
-        switch (event.code) {
-            case 'ArrowRight':
-                this.onArrowRightKey(event);
-                break;
-
-            case 'ArrowLeft':
-                this.onArrowLeftKey(event);
-                break;
-
-            case 'Home':
-                this.onHomeKey(event);
-                break;
-
-            case 'End':
-                this.onEndKey(event);
-                break;
-
-            case 'PageDown':
-                this.onPageDownKey(event);
-                break;
-
-            case 'PageUp':
-                this.onPageUpKey(event);
-                break;
-
-            case 'Enter':
-            case 'NumpadEnter':
-            case 'Space':
-                this.onEnterKey(event);
-                break;
-
-            default:
-                break;
-        }
-
-        event.stopPropagation();
     }
 
     onAfterViewInit(): void {
         this.bindMutationObserver();
-    }
-
-    onArrowRightKey(event) {
-        const nextTab = this.findNextTab(event.currentTarget);
-        nextTab ? this.changeFocusedTab(event, nextTab) : this.onHomeKey(event);
-        event.preventDefault();
-    }
-
-    onArrowLeftKey(event) {
-        const prevTab = this.findPrevTab(event.currentTarget);
-
-        prevTab ? this.changeFocusedTab(event, prevTab) : this.onEndKey(event);
-        event.preventDefault();
-    }
-
-    onHomeKey(event) {
-        const firstTab = this.findFirstTab();
-
-        this.changeFocusedTab(event, firstTab);
-        event.preventDefault();
-    }
-
-    onEndKey(event) {
-        const lastTab = this.findLastTab();
-
-        this.changeFocusedTab(event, lastTab);
-        event.preventDefault();
-    }
-
-    onPageDownKey(event) {
-        this.scrollInView(this.findLastTab());
-        event.preventDefault();
-    }
-
-    onPageUpKey(event) {
-        this.scrollInView(this.findFirstTab());
-        event.preventDefault();
-    }
-
-    onEnterKey(event) {
-        if (!this.disabled()) {
-            this.changeActiveValue();
-        }
-        event.preventDefault();
-    }
-
-    findNextTab(tabElement, selfCheck = false) {
-        const element = selfCheck ? tabElement : tabElement.nextElementSibling;
-
-        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'activebar' ? this.findNextTab(element) : element) : null;
-    }
-
-    findPrevTab(tabElement, selfCheck = false) {
-        const element = selfCheck ? tabElement : tabElement.previousElementSibling;
-
-        return element ? (getAttribute(element, 'data-p-disabled') || getAttribute(element, 'data-pc-section') === 'activebar' ? this.findPrevTab(element) : element) : null;
-    }
-
-    findFirstTab() {
-        return this.findNextTab(this.pcTabList?.tabs?.nativeElement?.firstElementChild, true);
-    }
-
-    findLastTab() {
-        return this.findPrevTab(this.pcTabList?.tabs?.nativeElement?.lastElementChild, true);
-    }
-
-    changeActiveValue() {
-        this.pcTabs.updateValue(this.value());
-    }
-
-    changeFocusedTab(event, element) {
-        focus(element);
-        this.scrollInView(element);
-    }
-
-    scrollInView(element) {
-        element?.scrollIntoView?.({ block: 'nearest' });
     }
 
     bindMutationObserver() {

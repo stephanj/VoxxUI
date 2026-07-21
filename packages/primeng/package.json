@@ -45,6 +45,7 @@
         "vitest": "^4.1.10"
     },
     "peerDependencies": {
+        "@angular/aria": "catalog:angular22",
         "@angular/cdk": "catalog:angular22",
         "@angular/common": "catalog:angular22",
         "@angular/core": "catalog:angular22",

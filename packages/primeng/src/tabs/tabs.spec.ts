@@ -266,8 +266,11 @@ describe('Tabs', () => {
         });
 
         it('should have correct ARIA roles', () => {
-            // The role="tablist" is on the inner div with class containing 'tabList', not on p-tablist itself
-            const tabListInnerElement = fixture.debugElement.query(By.css('div[role="tablist"]'));
+            // #26: role="tablist" is now owned by the @angular/aria [ngTabList] host
+            // directive, which places it on the vx-tablist host element (previously it
+            // was on the inner tabList div). This is the documented screen-reader-visible
+            // change from the aria migration.
+            const tabListInnerElement = fixture.debugElement.query(By.css('vx-tablist[role="tablist"]'));
 
             expect(tabListInnerElement.nativeElement.getAttribute('role')).toBe('tablist');
 
@@ -441,7 +444,7 @@ describe('Tabs', () => {
         });
 
         it('should handle right arrow key navigation', () => {
-            const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+            const rightArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowRight', code: 'ArrowRight', bubbles: true });
             vi.spyOn(rightArrowEvent, 'preventDefault').mockReturnValue(undefined);
 
             tabs[0].nativeElement.dispatchEvent(rightArrowEvent);
@@ -451,7 +454,7 @@ describe('Tabs', () => {
         });
 
         it('should handle left arrow key navigation', () => {
-            const leftArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+            const leftArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft', code: 'ArrowLeft', bubbles: true });
             vi.spyOn(leftArrowEvent, 'preventDefault').mockReturnValue(undefined);
 
             tabs[1].nativeElement.focus();
@@ -462,7 +465,7 @@ describe('Tabs', () => {
         });
 
         it('should handle Home key navigation', () => {
-            const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });
+            const homeEvent = new KeyboardEvent('keydown', { key: 'Home', code: 'Home', bubbles: true });
             vi.spyOn(homeEvent, 'preventDefault').mockReturnValue(undefined);
 
             tabs[2].nativeElement.focus();
@@ -473,7 +476,7 @@ describe('Tabs', () => {
         });
 
         it('should handle End key navigation', () => {
-            const endEvent = new KeyboardEvent('keydown', { code: 'End' });
+            const endEvent = new KeyboardEvent('keydown', { key: 'End', code: 'End', bubbles: true });
             vi.spyOn(endEvent, 'preventDefault').mockReturnValue(undefined);
 
             tabs[0].nativeElement.dispatchEvent(endEvent);
@@ -483,10 +486,17 @@ describe('Tabs', () => {
         });
 
         it('should handle Enter key activation', () => {
-            const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+            // #26: with @angular/aria, Enter/Space activate the roving-ACTIVE tab.
+            // The active tab is established by arrow navigation (not by a bare
+            // programmatic .focus()), matching real keyboard interaction. Arrow to
+            // tab 2 first, then Enter selects it.
+            tabs[0].nativeElement.focus();
+            tabs[0].nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', code: 'ArrowRight', bubbles: true }));
+            fixture.detectChanges();
+
+            const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true });
             vi.spyOn(enterEvent, 'preventDefault').mockReturnValue(undefined);
 
-            tabs[1].nativeElement.focus();
             tabs[1].nativeElement.dispatchEvent(enterEvent);
             fixture.detectChanges();
 
@@ -495,10 +505,14 @@ describe('Tabs', () => {
         });
 
         it('should handle Space key activation', () => {
-            const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
+            // #26: see Enter test — activation targets the roving-active tab.
+            tabs[0].nativeElement.focus();
+            tabs[0].nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', code: 'ArrowRight', bubbles: true }));
+            fixture.detectChanges();
+
+            const spaceEvent = new KeyboardEvent('keydown', { key: ' ', code: 'Space', bubbles: true });
             vi.spyOn(spaceEvent, 'preventDefault').mockReturnValue(undefined);
 
-            tabs[1].nativeElement.focus();
             tabs[1].nativeElement.dispatchEvent(spaceEvent);
             fixture.detectChanges();
 
@@ -513,7 +527,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             // Navigate from tab 2 with right arrow - should not go to disabled tab 3
-            const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+            const rightArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowRight', code: 'ArrowRight', bubbles: true });
             tabs = fixture.debugElement.queryAll(By.css('vx-tab'));
 
             tabs[1].nativeElement.focus();

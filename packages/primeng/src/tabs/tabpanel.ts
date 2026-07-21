@@ -1,8 +1,8 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { equals } from '@primeuix/utils';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { TabPanel as AriaTabPanel } from '@angular/aria/tabs';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
-import { Bind, BindModule } from 'voxx-ui/bind';
+import { Bind, BindModule, withoutAriaOwnedAttrs } from 'voxx-ui/bind';
 import { TabPanelStyle } from './style/tabpanelstyle';
 import { Tabs } from './tabs';
 import { TabPanelPassThrough } from 'voxx-ui/types/tabs';
@@ -11,6 +11,12 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
 
 /**
  * TabPanel is a helper component for Tabs component.
+ *
+ * `role="tabpanel"`, `id`, `aria-labelledby`, `tabindex` and the `inert` hidden
+ * state are owned by the `@angular/aria` `[ngTabPanel]` primitive (host
+ * directive). VoxxUI keeps its own visual hide (`[hidden]`) — aria only applies
+ * `inert`, which does not visually hide — and its own `lazy` rendering. `value`
+ * is re-exposed from the primitive so the public API is unchanged.
  * @group Components
  */
 @Component({
@@ -30,13 +36,11 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
     providers: [TabPanelStyle, { provide: TABPANEL_INSTANCE, useExisting: TabPanel }, { provide: PARENT_INSTANCE, useExisting: TabPanel }],
     host: {
         '[class]': 'cx("root")',
-        '[attr.id]': 'id()',
-        '[attr.role]': '"tabpanel"',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
+        // aria (`[ngTabPanel]`) owns role / id / aria-labelledby / tabindex / inert.
         '[attr.data-p-active]': 'active()',
         '[hidden]': '!active()'
     },
-    hostDirectives: [Bind]
+    hostDirectives: [{ directive: AriaTabPanel, inputs: ['value'] }, Bind]
 })
 export class TabPanel extends BaseComponent<TabPanelPassThrough> {
     componentName = 'TabPanel';
@@ -45,10 +49,14 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
 
     bindDirectiveInstance = inject(Bind, { self: true });
 
+    /** The `@angular/aria` primitive that owns this panel's a11y wiring. */
+    aria = inject(AriaTabPanel, { self: true });
+
     pcTabs = inject<Tabs>(forwardRef(() => Tabs));
 
     onAfterViewChecked(): void {
-        this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+        // pt/aria precedence: strip aria-owned attrs (see voxx-ui/bind aria-precedence.ts).
+        this.bindDirectiveInstance.setAttrs(withoutAriaOwnedAttrs(this.ptms(['host', 'root'])));
     }
 
     /**
@@ -63,18 +71,14 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
      * @defaultValue undefined
      * @group Props
      */
-    value = model<string | number | undefined>(undefined);
+    value = computed(() => this.aria.value());
     /**
      * Template for initializing complex content when lazy is enabled.
      * @group Templates
      */
     content = contentChild<TemplateRef<any>>('content');
 
-    id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
-
-    ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
-
-    active = computed(() => equals(this.pcTabs.value(), this.value()));
+    active = computed(() => this.aria.visible());
 
     isLazyEnabled = computed(() => this.pcTabs.lazy() || this.lazy());
 

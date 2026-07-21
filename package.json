@@ -47,6 +47,7 @@
         "@angular-eslint/schematics": "catalog:angular22",
         "@angular-eslint/template-parser": "catalog:angular22",
         "@angular/animations": "^22.0.0",
+        "@angular/aria": "catalog:angular22",
         "@angular/build": "catalog:angular22",
         "@angular/cdk": "catalog:angular22",
         "@angular/cli": "catalog:angular22",

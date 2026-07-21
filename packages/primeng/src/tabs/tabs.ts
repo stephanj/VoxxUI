@@ -1,4 +1,5 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { Tabs as AriaTabs } from '@angular/aria/tabs';
 import { uuid } from '@primeuix/utils';
 import { BaseComponent, PARENT_INSTANCE } from 'voxx-ui/basecomponent';
 import { Bind, BindModule } from 'voxx-ui/bind';
@@ -22,7 +23,10 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
         '[class]': 'cx("root")',
         '[attr.id]': 'id()'
     },
-    hostDirectives: [Bind]
+    // `AriaTabs` (`[ngTabs]`) provides the aria TABS DI token so the projected
+    // `ngTabList`/`ngTabPanel` primitives coordinate through it. It owns no host
+    // attributes, so it never conflicts with VoxxUI's own bindings above.
+    hostDirectives: [AriaTabs, Bind]
 })
 export class Tabs extends BaseComponent<TabsPassThrough> {
     componentName = 'Tabs';
