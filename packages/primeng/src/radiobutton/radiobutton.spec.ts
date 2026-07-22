@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { form, FormField, required, validate } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { RadioButton } from './radiobutton';
 
@@ -1143,5 +1144,168 @@ describe('RadioButton', () => {
                 expect(iconEl).toBeTruthy();
             });
         });
+    });
+});
+
+/**
+ * Signal Forms integration for RadioButton.
+ *
+ * A radio button is one option of a group; the *group's* selected value is the
+ * form value (type `T`), owned at group level — not the individual radio's
+ * boolean checked state. Neither Signal Forms custom-control contract fits a
+ * single radio:
+ *
+ *  - `FormCheckboxControl` models a `boolean` `checked` (one radio on/off), which
+ *    is not the group's `T` value.
+ *  - `FormValueControl<T>` requires a `value` `model()`, which would collide with
+ *    RadioButton's per-option `value` *input* (its option identity).
+ *
+ * The supported pattern is therefore the same as native `<input type="radio">`:
+ * bind **every** radio in the group to the **same** field with `[formField]`.
+ * RadioButton already ships an `NG_VALUE_ACCESSOR`, so `[formField]` drives it
+ * through the CVA path — writing the field value checks the matching radio and
+ * selecting a radio writes its `value` into the field. `[(ngModel)]` /
+ * `formControlName` continue to work unchanged.
+ */
+@Component({
+    standalone: true,
+    imports: [RadioButton, FormField],
+    template: `
+        @for (c of colors; track c) {
+            <vx-radiobutton name="color" [value]="c" [formField]="pizzaForm.color" [inputId]="c" />
+        }
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormRadioGroupComponent {
+    colors = ['red', 'green', 'blue'];
+
+    model = signal<{ color: string }>({ color: '' });
+
+    pizzaForm = form(this.model, (path) => {
+        required(path.color, { message: 'Pick a color' });
+        validate(path.color, ({ value }) => (value() ? undefined : { kind: 'required', message: 'Pick a color' }));
+    });
+}
+
+describe('RadioButton Signal Forms (group-level [formField]) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    function radios(fixture: ComponentFixture<unknown>) {
+        return fixture.debugElement.queryAll(By.directive(RadioButton)).map((d) => d.componentInstance as RadioButton);
+    }
+
+    function inputs(fixture: ComponentFixture<unknown>) {
+        return fixture.debugElement.queryAll(By.css('input')).map((d) => d.nativeElement as HTMLInputElement);
+    }
+
+    it('checks the radio whose value matches the initial field value (field -> view)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormRadioGroupComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormRadioGroupComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ color: 'green' });
+        await flush(fixture);
+
+        const rb = radios(fixture);
+        expect(rb[0].checked).toBeFalsy();
+        expect(rb[1].checked).toBe(true);
+        expect(rb[2].checked).toBeFalsy();
+        expect(host.pizzaForm.color().value()).toBe('green');
+    });
+
+    it('writes the selected option into the field and deselects siblings (view -> field)', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormRadioGroupComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormRadioGroupComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const inp = inputs(fixture);
+        inp[2].click();
+        await flush(fixture);
+        expect(host.model().color).toBe('blue');
+        expect(host.pizzaForm.color().value()).toBe('blue');
+        expect(host.pizzaForm.color().dirty()).toBe(true);
+
+        inp[0].click();
+        await flush(fixture);
+        expect(host.model().color).toBe('red');
+        const rb = radios(fixture);
+        expect(rb[0].checked).toBe(true);
+        expect(rb[2].checked).toBeFalsy();
+    });
+
+    it('reflects the invalid (required) state onto the bound radios', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormRadioGroupComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormRadioGroupComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.pizzaForm.color().valid()).toBe(false);
+        const rb = radios(fixture);
+        expect(rb[0].invalid()).toBe(true);
+        expect(rb[0].errors().length).toBeGreaterThan(0);
+
+        host.model.set({ color: 'red' });
+        await flush(fixture);
+        expect(host.pizzaForm.color().valid()).toBe(true);
+        expect(rb[0].invalid()).toBe(false);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        TestBed.configureTestingModule({
+            imports: [TestSignalFormRadioGroupComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSignalFormRadioGroupComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.pizzaForm.color().touched()).toBe(false);
+        inputs(fixture)[0].dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.pizzaForm.color().touched()).toBe(true);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside the [formField] pattern', async () => {
+        @Component({
+            standalone: true,
+            imports: [RadioButton, FormsModule],
+            template: `
+                @for (c of colors; track c) {
+                    <vx-radiobutton name="c2" [value]="c" [(ngModel)]="selected" />
+                }
+            `
+        })
+        class NgModelRadioGroupComponent {
+            colors = ['red', 'green', 'blue'];
+            selected = '';
+        }
+
+        TestBed.configureTestingModule({
+            imports: [NgModelRadioGroupComponent],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(NgModelRadioGroupComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const inp = fixture.debugElement.queryAll(By.css('input')).map((d) => d.nativeElement as HTMLInputElement);
+        inp[1].click();
+        await flush(fixture);
+        expect(host.selected).toBe('green');
     });
 });

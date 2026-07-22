@@ -220,7 +220,9 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
 
     onInputBlur(event: Event) {
         this.focused = false;
-        this.onModelTouched();
+        // Fires the classic `onModelTouched` and emits the Signal Forms `touch`
+        // output so a group bound with `[formField]` is marked touched on blur.
+        this.markTouched();
         this.onBlur.emit(event);
     }
 

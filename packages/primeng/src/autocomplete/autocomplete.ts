@@ -6,11 +6,13 @@ import {
     computed,
     contentChild,
     contentChildren,
+    effect,
     ElementRef,
     forwardRef,
     inject,
     InjectionToken,
     input,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -18,12 +20,13 @@ import {
     signal,
     SimpleChanges,
     TemplateRef,
+    untracked,
     viewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
-import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
+import { deepEquals, equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@primeuix/utils';
 import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'voxx-ui/api';
 import { AutoFocus } from 'voxx-ui/autofocus';
 import { PARENT_INSTANCE } from 'voxx-ui/basecomponent';
@@ -853,7 +856,40 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         this.onContainerClick(event);
     }
 
-    value: string | any;
+    /**
+     * Signal Forms (Angular v22) value model — the current selected value.
+     *
+     * Exposing a `value` `model()` makes AutoComplete usable directly with the
+     * `[formField]` directive as a `FormValueControl`, additively and without
+     * disturbing the classic `NG_VALUE_ACCESSOR` path used by `[(ngModel)]` /
+     * `formControlName`.
+     *
+     * ## `value` name collision (resolved like Select)
+     * AutoComplete historically stored the resolved control value (the result of
+     * `getOptionValue`, i.e. what `onModelChange`/the CVA emit) in a plain mutable
+     * `value` field, written by `updateModel` and `writeControlValue`. That field is
+     * now this `model()`, so it becomes the single source of truth for the form-facing
+     * value while keeping the public property name unchanged (external `.value` reads
+     * keep working, now as a signal getter). We deliberately do **not** add
+     * `implements FormValueControl<any>`: `[formField]` detects the `value` model
+     * structurally, so the integration works at runtime while avoiding the contract's
+     * nominal member guards that clash with AutoComplete's large existing API.
+     *
+     * ## Why not `bindFormValue` (the Select/InputNumber helper)?
+     * Those pilots keep `modelValue` and the form value **identical**, so the shared
+     * {@link BaseEditableHolder.bindFormValue} (which reflects `modelValue` straight
+     * into the model) fits. AutoComplete is different: `modelValue` holds the selected
+     * **option objects** (single scalar or `T[]` for chips) that the template renders
+     * from, whereas the form-facing `value` holds the **resolved** values
+     * (`getOptionValue`). Reflecting `modelValue` (options) into the model would push
+     * the wrong shape and, after a selection clears the suggestions, would let
+     * `writeControlValue` clobber the option objects with bare resolved scalars —
+     * reintroducing the #19248 chips-desync. Instead we wire the two-way binding
+     * manually (see the constructor effect + `updateModel`), keeping `value()` aligned
+     * with the CVA at all times.
+     * @group Props
+     */
+    value = model<any>();
 
     timeout: Nullable<any>;
 
@@ -1049,6 +1085,41 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         private zone: NgZone
     ) {
         super();
+        // Two-way binding between the Signal Forms `value` model and the internal
+        // render state (`modelValue`, which holds option objects). This is the
+        // AutoComplete-specific equivalent of the Select/InputNumber `bindFormValue`
+        // call — see the `value` field docs for why we can't reuse that helper here.
+        //
+        // field -> view: when `[formField]` (or a `value.set(...)`) writes a new
+        // form value, map it into `modelValue` via `writeControlValue` (the same
+        // path the CVA `writeValue` uses). The guard skips when the model is already
+        // in sync, which is essential: after a selection empties the suggestions,
+        // re-running `writeControlValue` would replace the stored option objects with
+        // bare resolved scalars and desync the chips (#19248).
+        effect(() => {
+            const value = this.value();
+            untracked(() => {
+                if (!deepEquals(this.resolvedModelValue(), value)) {
+                    this.writeControlValue(value, (options) => this.writeModelValue(options));
+                    this.cd.markForCheck();
+                }
+            });
+        });
+    }
+
+    /**
+     * The current `modelValue` (option objects) expressed as the resolved form value
+     * — the same shape `getOptionValue`/`onModelChange`/the `value` model use. Used to
+     * detect whether the `value` model and the render state are already in sync.
+     */
+    private resolvedModelValue(): any {
+        const modelValue = this.modelValue();
+
+        if (modelValue === undefined || modelValue === null) {
+            return modelValue;
+        }
+
+        return this.multiple() ? (modelValue as any[]).map((option) => this.getOptionValue(option)) : this.getOptionValue(modelValue);
     }
 
     onChanges(changes: SimpleChanges) {
@@ -1318,7 +1389,9 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             }
         }
 
-        this.onModelTouched();
+        // Marks the bound field touched for both forms systems: fires the classic
+        // `onModelTouched` (CVA) and emits the Signal Forms `touch` output.
+        this.markTouched();
         this.onBlur.emit(event);
     }
 
@@ -1687,8 +1760,13 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             value = this.multiple() ? options.map((option) => this.getOptionValue(option)) : this.getOptionValue(options);
         }
 
-        this.value = value;
+        // `modelValue` keeps the render state (option objects); the `value` model and
+        // the classic CVA both receive the resolved value. Setting the model here is
+        // the single view -> field write path (chip add/remove, free-text commit,
+        // suggestion select, clear all route through `updateModel`), so every mutation
+        // — including new-array-reference chip edits — lands on the bound FieldTree.
         this.writeModelValue(options);
+        this.value.set(value);
         this.onModelChange(value);
         this.updateInputValue();
         this.cd.markForCheck();
@@ -1918,7 +1996,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             setModelValue(isEmpty(option) ? value : option);
         }
 
-        this.value = value;
+        this.value.set(value);
         this.updateInputValue();
         this.cd.markForCheck();
     }
