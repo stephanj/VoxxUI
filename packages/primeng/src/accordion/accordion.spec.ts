@@ -347,6 +347,8 @@ describe('Accordion', () => {
         });
     });
 
+    // Keyboard handling is owned by the @angular/aria accordion group: it matches on
+    // `event.key` and listens at the container, so synthetic events carry `key` and bubble.
     describe('Keyboard Navigation', () => {
         it('should navigate with ArrowDown key', () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -354,7 +356,7 @@ describe('Accordion', () => {
             const secondHeader = headers[1].nativeElement;
 
             firstHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+            const event = new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown', bubbles: true });
             vi.spyOn(secondHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
@@ -368,7 +370,7 @@ describe('Accordion', () => {
             const secondHeader = headers[1].nativeElement;
 
             secondHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+            const event = new KeyboardEvent('keydown', { key: 'ArrowUp', code: 'ArrowUp', bubbles: true });
             vi.spyOn(firstHeader, 'focus').mockReturnValue(undefined);
 
             secondHeader.dispatchEvent(event);
@@ -382,7 +384,7 @@ describe('Accordion', () => {
             const lastHeader = headers[2].nativeElement;
 
             lastHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'Home' });
+            const event = new KeyboardEvent('keydown', { key: 'Home', code: 'Home', bubbles: true });
             vi.spyOn(firstHeader, 'focus').mockReturnValue(undefined);
 
             lastHeader.dispatchEvent(event);
@@ -396,7 +398,7 @@ describe('Accordion', () => {
             const lastHeader = headers[2].nativeElement;
 
             firstHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'End' });
+            const event = new KeyboardEvent('keydown', { key: 'End', code: 'End', bubbles: true });
             vi.spyOn(lastHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
@@ -409,7 +411,7 @@ describe('Accordion', () => {
             const firstHeader = headers[0].nativeElement;
 
             firstHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'Enter' });
+            const event = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true });
             firstHeader.dispatchEvent(event);
             await fixture.whenStable();
 
@@ -421,7 +423,7 @@ describe('Accordion', () => {
             const firstHeader = headers[0].nativeElement;
 
             firstHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'Space' });
+            const event = new KeyboardEvent('keydown', { key: ' ', code: 'Space', bubbles: true });
             firstHeader.dispatchEvent(event);
             await fixture.whenStable();
 
@@ -438,7 +440,7 @@ describe('Accordion', () => {
             const thirdHeader = headers[2].nativeElement;
 
             firstHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+            const event = new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown', bubbles: true });
             vi.spyOn(thirdHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
@@ -452,7 +454,7 @@ describe('Accordion', () => {
             const lastHeader = headers[2].nativeElement;
 
             lastHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+            const event = new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown', bubbles: true });
             vi.spyOn(firstHeader, 'focus').mockReturnValue(undefined);
 
             lastHeader.dispatchEvent(event);
@@ -466,7 +468,7 @@ describe('Accordion', () => {
             const lastHeader = headers[2].nativeElement;
 
             firstHeader.focus();
-            const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+            const event = new KeyboardEvent('keydown', { key: 'ArrowUp', code: 'ArrowUp', bubbles: true });
             vi.spyOn(lastHeader, 'focus').mockReturnValue(undefined);
 
             firstHeader.dispatchEvent(event);
@@ -1018,5 +1020,273 @@ describe('Accordion', () => {
 
             expect(accordionEl.nativeElement.className).toContain('SETINPUT_ROOT_CLASS');
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// @angular/aria integration (#26)
+// ---------------------------------------------------------------------------
+
+@Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: true,
+    imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
+    template: `
+        <vx-accordion class="outer" [(value)]="outerValue">
+            <vx-accordion-panel value="o1">
+                <vx-accordion-header>Outer 1</vx-accordion-header>
+                <vx-accordion-content>
+                    <vx-accordion class="inner" [(value)]="innerValue">
+                        <vx-accordion-panel value="i1">
+                            <vx-accordion-header>Inner 1</vx-accordion-header>
+                            <vx-accordion-content>Inner 1 content</vx-accordion-content>
+                        </vx-accordion-panel>
+                        <vx-accordion-panel value="i2">
+                            <vx-accordion-header>Inner 2</vx-accordion-header>
+                            <vx-accordion-content>Inner 2 content</vx-accordion-content>
+                        </vx-accordion-panel>
+                    </vx-accordion>
+                </vx-accordion-content>
+            </vx-accordion-panel>
+            <vx-accordion-panel value="o2">
+                <vx-accordion-header>Outer 2</vx-accordion-header>
+                <vx-accordion-content>Outer 2 content</vx-accordion-content>
+            </vx-accordion-panel>
+        </vx-accordion>
+    `
+})
+class TestNestedAccordionComponent {
+    outerValue: any = 'o1';
+    innerValue: any = undefined;
+}
+
+@Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: true,
+    imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
+    template: `
+        <vx-accordion [(value)]="value">
+            <vx-accordion-panel value="a">
+                <vx-accordion-header>Header only</vx-accordion-header>
+            </vx-accordion-panel>
+            <vx-accordion-panel value="b">
+                <vx-accordion-header>With content</vx-accordion-header>
+                <vx-accordion-content>B</vx-accordion-content>
+            </vx-accordion-panel>
+        </vx-accordion>
+    `
+})
+class TestHeaderOnlyAccordionComponent {
+    value: any = undefined;
+}
+
+@Component({
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: true,
+    imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
+    template: `
+        <vx-accordion>
+            <vx-accordion-panel value="a">
+                <vx-accordion-header [pt]="{ root: { class: 'pt-header-class', role: 'link', 'aria-expanded': 'mixed', tabindex: '5' } }">A</vx-accordion-header>
+                <vx-accordion-content>A</vx-accordion-content>
+            </vx-accordion-panel>
+        </vx-accordion>
+    `
+})
+class TestPTPrecedenceAccordionComponent {}
+
+describe('Accordion @angular/aria integration', () => {
+    let fixture: ComponentFixture<TestAccordionComponent>;
+    let component: TestAccordionComponent;
+    let accordion: Accordion;
+
+    function headers(f: ComponentFixture<unknown> = fixture): HTMLElement[] {
+        return f.debugElement.queryAll(By.directive(AccordionHeader)).map((d) => d.nativeElement);
+    }
+
+    function contents(f: ComponentFixture<unknown> = fixture): HTMLElement[] {
+        return f.debugElement.queryAll(By.directive(AccordionContent)).map((d) => d.nativeElement);
+    }
+
+    function key(el: HTMLElement, k: string, code = k) {
+        const event = new KeyboardEvent('keydown', { key: k, code, bubbles: true, cancelable: true });
+        el.dispatchEvent(event);
+        return event;
+    }
+
+    beforeEach(async () => {
+        TestBed.configureTestingModule({
+            imports: [TestAccordionComponent, TestNestedAccordionComponent, TestHeaderOnlyAccordionComponent, TestPTPrecedenceAccordionComponent],
+            providers: [provideZonelessChangeDetection()]
+        });
+        fixture = TestBed.createComponent(TestAccordionComponent);
+        component = fixture.componentInstance;
+        await fixture.whenStable();
+        accordion = fixture.debugElement.query(By.directive(Accordion)).componentInstance;
+    });
+
+    it('links each header to its region (aria-controls <-> id <-> aria-labelledby)', () => {
+        const h = headers();
+        const c = contents();
+        h.forEach((header, i) => {
+            expect(header.id).toBeTruthy();
+            expect(header.getAttribute('aria-controls')).toBe(c[i].id);
+            expect(c[i].getAttribute('aria-labelledby')).toBe(header.id);
+        });
+        // Existing VoxxUI id scheme is preserved.
+        expect(h[0].id).toBe(`${accordion.id()}_accordionheader_tab1`);
+        expect(c[0].id).toBe(`${accordion.id()}_accordioncontent_tab1`);
+    });
+
+    it('toggles exactly once per click and emits onOpen with the click event', async () => {
+        const spy = vi.spyOn(accordion, 'updateValue');
+        headers()[0].click();
+        await fixture.whenStable();
+
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(accordion.value()).toBe('tab1');
+        expect(component.openEvent?.originalEvent instanceof MouseEvent).toBe(true);
+    });
+
+    it('toggles when clicking a descendant of the header (e.g. the label text)', async () => {
+        (headers()[1].querySelector('.header-text') as HTMLElement).click();
+        await fixture.whenStable();
+
+        expect(accordion.value()).toBe('tab2');
+        expect(headers()[1].getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('opens and closes with Enter, forwarding the keyboard event to onOpen/onClose', async () => {
+        const header = headers()[0];
+        header.focus();
+        const open = key(header, 'Enter');
+        await fixture.whenStable();
+        expect(accordion.value()).toBe('tab1');
+        expect(component.openEvent?.originalEvent).toBe(open);
+        expect(open.defaultPrevented).toBe(true);
+
+        const close = key(header, 'Enter');
+        await fixture.whenStable();
+        expect(accordion.value()).toBeUndefined();
+        expect(component.closeEvent?.originalEvent).toBe(close);
+    });
+
+    it('keeps single mode exclusive when toggling from the keyboard', async () => {
+        const h = headers();
+        h[0].focus();
+        key(h[0], ' ', 'Space');
+        await fixture.whenStable();
+        h[1].focus();
+        key(h[1], ' ', 'Space');
+        await fixture.whenStable();
+
+        expect(accordion.value()).toBe('tab2');
+        expect(h[0].getAttribute('aria-expanded')).toBe('false');
+        expect(h[1].getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('keeps several panels open in multiple mode when toggling from the keyboard', async () => {
+        component.multiple = true;
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
+
+        const h = headers();
+        h[0].focus();
+        key(h[0], 'Enter');
+        h[2].focus();
+        key(h[2], 'Enter');
+        await fixture.whenStable();
+
+        expect(accordion.value()).toEqual(['tab1', 'tab3']);
+    });
+
+    it('does not expand a disabled panel from the keyboard', async () => {
+        component.tab1Disabled = true;
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
+
+        const header = headers()[0];
+        key(header, 'Enter');
+        await fixture.whenStable();
+
+        expect(accordion.value()).toBeUndefined();
+        expect(header.getAttribute('aria-disabled')).toBe('true');
+    });
+
+    it('reflects programmatic value changes in aria-expanded', async () => {
+        component.value = 'tab3';
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
+
+        expect(headers().map((h) => h.getAttribute('aria-expanded'))).toEqual(['false', 'false', 'true']);
+    });
+
+    it('still expands on focus with selectOnFocus', async () => {
+        component.selectOnFocus = true;
+        fixture.changeDetectorRef.markForCheck();
+        await fixture.whenStable();
+
+        headers()[1].focus();
+        await fixture.whenStable();
+        expect(accordion.value()).toBe('tab2');
+    });
+
+    it('does not let pt override aria-owned attributes, but still applies other pt attributes', async () => {
+        const f = TestBed.createComponent(TestPTPrecedenceAccordionComponent);
+        await f.whenStable();
+        const header = headers(f)[0];
+
+        expect(header.getAttribute('role')).toBe('button');
+        expect(header.getAttribute('aria-expanded')).toBe('false');
+        expect(header.getAttribute('tabindex')).toBe('0');
+        expect(header.classList.contains('pt-header-class')).toBe(true);
+    });
+
+    it('keeps keyboard navigation scoped to the nested accordion', async () => {
+        const f = TestBed.createComponent(TestNestedAccordionComponent);
+        await f.whenStable();
+        // Let the outer panel's enter motion finish so the inner headers are focusable.
+        await vi.waitFor(() => expect(getComputedStyle(contents(f)[0].querySelector('vx-motion') as Element).visibility).toBe('visible'), { timeout: 2000 });
+        const all = headers(f);
+        const [outer1, inner1, inner2, outer2] = all;
+        expect([outer1, inner1, inner2, outer2].map((h) => h.textContent?.trim())).toEqual(['Outer 1', 'Inner 1', 'Inner 2', 'Outer 2']);
+
+        inner1.focus();
+        const spyOuter2 = vi.spyOn(outer2, 'focus');
+        const spyInner2 = vi.spyOn(inner2, 'focus');
+        key(inner1, 'ArrowDown');
+
+        expect(spyInner2).toHaveBeenCalled();
+        expect(spyOuter2).not.toHaveBeenCalled();
+
+        // Focus moved to Inner 2; Enter toggles it without affecting the outer accordion.
+        expect(document.activeElement).toBe(inner2);
+        key(inner2, 'Enter');
+        await f.whenStable();
+        expect(f.componentInstance.innerValue).toBe('i2');
+        expect(f.componentInstance.outerValue).toBe('o1');
+    });
+
+    it('supports a panel without content', async () => {
+        const f = TestBed.createComponent(TestHeaderOnlyAccordionComponent);
+        await f.whenStable();
+        const [headerOnly] = headers(f);
+
+        expect(headerOnly.getAttribute('aria-controls')).toBeTruthy();
+        headerOnly.click();
+        await f.whenStable();
+        expect(f.componentInstance.value).toBe('a');
+        expect(headerOnly.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('reports no @angular/aria violations for standard usage', async () => {
+        const warn = vi.spyOn(console, 'warn');
+        const f = TestBed.createComponent(TestAccordionComponent);
+        await f.whenStable();
+        headers(f)[0].click();
+        await f.whenStable();
+
+        const violations = warn.mock.calls.filter((args) => String(args[0]).includes('Violations found'));
+        expect(violations).toEqual([]);
     });
 });

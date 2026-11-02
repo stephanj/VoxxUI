@@ -70,7 +70,18 @@ given for future migrations:
    click-toggle only fires when the active item *moves*, so a click on the
    already-active option is a silent no-op. Pattern: `stopPropagation()` +
    `gotoIndex()` + toggle through VoxxUI's own selection; keep keyboard
-   selection aria-owned.
+   selection aria-owned. (Not needed for Accordion: its group toggles on every
+   click.)
+7. **Host directives are created before their host component**, so the host's
+   constructor can re-point a host directive's signal fields (including a
+   `required` input such as `AccordionTrigger.panel`) to VoxxUI-derived
+   `computed()`s before the directive's `ngOnInit` builds its pattern from them.
+   This is how a primitive gets state that no template can bind — e.g. an object
+   reference to a projected *sibling* component. For a writable field (a
+   `model()` like `expanded`), assign a `computed()` with a `set()` that routes
+   writes through VoxxUI's own state/events. The directive's host bindings and
+   patterns read these fields lazily, so the override is complete. Pin the
+   behavior with specs: it depends on which fields the primitive reads.
 
 ## Current state
 
@@ -78,7 +89,7 @@ given for future migrations:
 |---|---|---|
 | **Tabs** | ✅ Adopted (#26) | Clean −130 LOC win; no virtual scroll, single engine. |
 | **Listbox** | ⚗️ Pilot landed, flag-guarded (#27) | `useAria = !virtualScroll && !metaKeySelection && !selectOnFocus`; legacy engine kept otherwise. Net **+301 LOC** (permanent dual path). |
-| **Accordion** | ⛔ Blocked (#26) | Aria's `AccordionTrigger.panel` is `input.required` needing an object-ref to its panel; VoxxUI's trigger/content are separate projected siblings with no supported feed path. |
+| **Accordion** | ✅ Adopted (#26) | `ngAccordionGroup` on `vx-accordion`, `ngAccordionTrigger` on `vx-accordion-header`, wired via constraint 7: the header re-points the trigger's `panel` (its sibling `AccordionContent`, which renders the region itself — no `ngAccordionPanel`, so no lazy `ng-template` requirement), `expanded` (reads `active()`, writes route through VoxxUI's toggle so `value`/`multiple`/`onOpen`/`onClose` stay VoxxUI-owned), `disabled` and `id`. Group behaviors set via the pattern escape hatch: `wrap` on, `softDisabled` off (disabled headers skipped, as before). Net **−60 LOC** (−92 excluding comments). |
 | **Select / MultiSelect / AutoComplete** | ⏸ On hold | Pilot (#27) shows **conditional GO**: viable, but overlay-driven + virtual-scroll-heavy ⇒ net-additive LOC and a permanent dual path. Adopt only if the goal is framework-maintained keyboard correctness, **not** code reduction. |
 | **Menu / TieredMenu** | ⏸ Deferred | Model-driven `MenuItem[]` API + per-submenu overlays; low LOC win vs. rework (#23). |
 | **DatePicker / Table** | ❌ Not adopting | No upstream calendar pattern; Table's grid win doesn't justify the risk (#23). |
