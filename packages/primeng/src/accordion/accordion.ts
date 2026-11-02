@@ -1,5 +1,24 @@
 import { AccordionGroup as AriaAccordionGroup, AccordionPanel as AriaAccordionPanel, AccordionTrigger as AriaAccordionTrigger } from '@angular/aria/accordion';
-import { ChangeDetectionStrategy, Component, computed, contentChild, DestroyRef, Directive, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, Signal, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    contentChild,
+    DestroyRef,
+    Directive,
+    forwardRef,
+    inject,
+    InjectionToken,
+    input,
+    InputSignalWithTransform,
+    model,
+    NgModule,
+    output,
+    Signal,
+    signal,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
