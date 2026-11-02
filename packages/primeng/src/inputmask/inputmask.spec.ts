@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
@@ -318,7 +320,7 @@ describe('InputMask', () => {
             component.clear();
 
             expect(component.inputViewChild()?.nativeElement.value).toBe('' as any);
-            expect(component.value).toBeNull();
+            expect(component.value()).toBeNull();
             expect(component.onModelChange).toHaveBeenCalledWith(null);
             expect(component.onClear.emit).toHaveBeenCalled();
         });
@@ -770,7 +772,7 @@ describe('InputMask', () => {
 
             component.writeControlValue('123456789', mockSetValue);
 
-            expect(component.value).toBe('123456789');
+            expect(component.value()).toBe('123456789');
             expect(mockSetValue).toHaveBeenCalledWith('123456789');
             expect(component.checkVal).toHaveBeenCalled();
         });
@@ -791,7 +793,7 @@ describe('InputMask', () => {
             component.writeControlValue(null, mockSetValue);
 
             expect(component.inputViewChild()!.nativeElement.value).toBe('' as any);
-            expect(component.value).toBeNull();
+            expect(component.value()).toBeNull();
         });
     });
 
@@ -1308,7 +1310,7 @@ describe('InputMask', () => {
                         return {
                             root: {
                                 onclick: () => {
-                                    clickedValue = instance.value || 'clicked';
+                                    clickedValue = instance.value() || 'clicked';
                                 }
                             }
                         };
@@ -2086,5 +2088,248 @@ describe('InputMaskDirective', () => {
 
             expect(directive.slotChar()).toBe('#');
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// Signal Forms (FormValueControl<string | null>) integration
+// ---------------------------------------------------------------------------
+
+@Component({
+    standalone: true,
+    imports: [InputMask, FormField],
+    template: `<vx-inputmask [formField]="phoneForm.phone" mask="999-999-9999" [showClear]="true" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormInputMaskComponent {
+    model = signal<{ phone: string | null }>({ phone: '' });
+
+    phoneForm = form(this.model, (p) => {
+        validate(p.phone, ({ value }) => (value() && !value()!.includes('_') ? undefined : { kind: 'incomplete', message: 'Enter a full phone number' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [InputMask, FormField],
+    template: `<vx-inputmask [formField]="phoneForm.phone" mask="999-999-9999" [unmask]="true" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormUnmaskedInputMaskComponent {
+    model = signal<{ phone: string | null }>({ phone: '5551234567' });
+
+    phoneForm = form(this.model);
+}
+
+@Component({
+    standalone: true,
+    imports: [InputMask, FormField],
+    template: `<vx-inputmask [formField]="phoneForm.phone" mask="999-999-9999" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledInputMaskComponent {
+    model = signal<{ phone: string | null }>({ phone: '555-123-4567' });
+
+    phoneForm = form(this.model, (p) => {
+        disabled(p.phone, () => true);
+    });
+}
+
+describe('InputMask Signal Forms (FormValueControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        // InputMask commits paste/input edits in a setTimeout(0).
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    function setup<T>(host: new (...args: any[]) => T): ComponentFixture<T> {
+        TestBed.configureTestingModule({
+            imports: [host],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        return TestBed.createComponent(host);
+    }
+
+    function mask(fixture: ComponentFixture<unknown>): InputMask {
+        return fixture.debugElement.query(By.directive(InputMask)).componentInstance as InputMask;
+    }
+
+    function inputEl(fixture: ComponentFixture<unknown>): HTMLInputElement {
+        return fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    }
+
+    function paste(input: HTMLInputElement, text: string) {
+        input.value = text;
+        input.dispatchEvent(new Event('paste'));
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        fixture.componentInstance.model.set({ phone: '555-123-4567' });
+        await flush(fixture);
+
+        expect(mask(fixture).value()).toBe('555-123-4567');
+        expect(inputEl(fixture).value).toBe('555-123-4567');
+    });
+
+    it('re-renders when the field value changes after init (field -> view)', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        await flush(fixture);
+
+        fixture.componentInstance.model.set({ phone: '555-987-6543' });
+        await flush(fixture);
+
+        expect(inputEl(fixture).value).toBe('555-987-6543');
+    });
+
+    it('writes pasted input back into the field value (view -> field)', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        paste(inputEl(fixture), '5551234567');
+        await flush(fixture);
+
+        expect(inputEl(fixture).value).toBe('555-123-4567');
+        expect(host.model().phone).toBe('555-123-4567');
+        expect(host.phoneForm.phone().dirty()).toBe(true);
+    });
+
+    it('round-trips raw characters with unmask', async () => {
+        const fixture = setup(TestSignalFormUnmaskedInputMaskComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // field -> view: the raw value is rendered through the mask
+        expect(inputEl(fixture).value).toBe('555-123-4567');
+
+        // view -> field: the field receives the unmasked characters
+        paste(inputEl(fixture), '5559876543');
+        await flush(fixture);
+        expect(host.model().phone).toBe('5559876543');
+    });
+
+    it('clears the field value through the value model', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ phone: '555-123-4567' });
+        await flush(fixture);
+
+        mask(fixture).clear();
+        await flush(fixture);
+
+        expect(mask(fixture).value()).toBeNull();
+        expect(host.model().phone).toBeNull();
+        expect(inputEl(fixture).value).toBe('');
+    });
+
+    it('binds the disabled state from the field', async () => {
+        const fixture = setup(TestSignalFormDisabledInputMaskComponent);
+        await flush(fixture);
+
+        expect(fixture.componentInstance.phoneForm.phone().disabled()).toBe(true);
+        expect(mask(fixture).$disabled()).toBe(true);
+        expect(inputEl(fixture).hasAttribute('disabled')).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.phoneForm.phone().touched()).toBe(false);
+        inputEl(fixture).dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.phoneForm.phone().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const im = mask(fixture);
+        expect(host.phoneForm.phone().valid()).toBe(false);
+        expect(im.invalid()).toBe(true);
+        expect(im.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ phone: '555-123-4567' });
+        await flush(fixture);
+        expect(host.phoneForm.phone().valid()).toBe(true);
+        expect(im.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        const fixture = setup(TestSignalFormInputMaskComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const input = inputEl(fixture);
+        paste(input, '5551234567');
+        await flush(fixture);
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.phoneForm.phone().dirty()).toBe(true);
+        expect(host.phoneForm.phone().touched()).toBe(true);
+
+        host.phoneForm.phone().reset();
+        await flush(fixture);
+        expect(host.phoneForm.phone().dirty()).toBe(false);
+        expect(host.phoneForm.phone().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [InputMask, FormsModule],
+            template: `<vx-inputmask [(ngModel)]="phone" mask="999-999-9999" />`,
+            changeDetection: ChangeDetectionStrategy.OnPush
+        })
+        class NgModelHostComponent {
+            phone: string | null = '555-000-1111';
+        }
+
+        const fixture = setup(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // model -> view through the classic CVA path; value() mirrors it
+        expect(inputEl(fixture).value).toBe('555-000-1111');
+        expect(mask(fixture).value()).toBe('555-000-1111');
+
+        // view -> model through the classic CVA path
+        paste(inputEl(fixture), '5552223333');
+        await flush(fixture);
+        expect(host.phone).toBe('555-222-3333');
+    });
+
+    it('keeps reactive forms (formControlName) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [InputMask, ReactiveFormsModule],
+            template: `
+                <form [formGroup]="form">
+                    <vx-inputmask formControlName="phone" mask="999-999-9999" />
+                </form>
+            `,
+            changeDetection: ChangeDetectionStrategy.OnPush
+        })
+        class ReactiveHostComponent {
+            form = new FormGroup({ phone: new FormControl<string | null>('555-444-5555') });
+        }
+
+        const fixture = setup(ReactiveHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(inputEl(fixture).value).toBe('555-444-5555');
+
+        paste(inputEl(fixture), '5556667777');
+        await flush(fixture);
+        expect(host.form.get('phone')!.value).toBe('555-666-7777');
     });
 });

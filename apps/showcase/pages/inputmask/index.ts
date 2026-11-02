@@ -8,6 +8,7 @@ import { InvalidDoc } from '@/doc/inputmask/invalid-doc';
 import { MaskDoc } from '@/doc/inputmask/mask-doc';
 import { OptionalDoc } from '@/doc/inputmask/optional-doc';
 import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveforms-doc';
+import { SignalFormsDoc } from '@/doc/inputmask/signalforms-doc';
 import { SizesDoc } from '@/doc/inputmask/sizes-doc';
 import { SlotCharDoc } from '@/doc/inputmask/slotchar-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/inputmask/templatedrivenforms-doc';
@@ -94,7 +95,8 @@ export class InputMaskDemo {
             label: 'Forms',
             children: [
                 { id: 'templatedriven', label: 'Template Driven', component: TemplateDrivenFormsDoc },
-                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc }
+                { id: 'reactive', label: 'Reactive Forms', component: ReactiveFormsDoc },
+                { id: 'signalforms', label: 'Signal Forms', component: SignalFormsDoc }
             ]
         },
         {

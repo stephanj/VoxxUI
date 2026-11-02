@@ -40,6 +40,7 @@ import {
     inject,
     InjectionToken,
     input,
+    model,
     NgModule,
     output,
     TemplateRef,
@@ -48,6 +49,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormField } from '@angular/forms/signals';
 import { getUserAgent, isClient } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'voxx-ui/api';
 import { AutoFocus } from 'voxx-ui/autofocus';
@@ -902,7 +904,25 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     inputViewChild = viewChild<ElementRef>('input');
 
-    value: Nullable<string>;
+    /**
+     * Signal Forms (Angular v22) value model — also the canonical value store.
+     *
+     * InputMask historically kept its value in a plain mutable field. Exposing it as
+     * a `model()` makes the component usable directly with the `[formField]` directive
+     * as a `FormValueControl<string | null>`: the field value is the masked text, or the
+     * raw characters when `unmask` is set — the same value the CVA path emits.
+     *
+     * Every user write path (typing, paste, backspace/delete, escape, clear, blur) goes
+     * through {@link updateModel}/{@link clear}, which call
+     * {@link BaseEditableHolder.writeModelValue} so the change reaches both this model and
+     * `modelValue`. {@link BaseEditableHolder.bindFormValue} syncs the other direction
+     * (field → view) by reusing `writeControlValue`, the same path `writeValue` uses.
+     *
+     * The classic `NG_VALUE_ACCESSOR` path is untouched, so `[(ngModel)]` /
+     * `formControlName` keep working unchanged.
+     * @group Props
+     */
+    value = model<Nullable<string>>(undefined);
 
     input: Nullable<HTMLInputElement>;
 
@@ -935,6 +955,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     constructor() {
         super();
 
+        // Two-way sync the FormValueControl `value` model with the shared `modelValue`
+        // (field → view reuses `writeControlValue`, the same path the CVA uses).
+        this.bindFormValue(this.value);
+
         // mask: the former @Input setter re-initialized the mask state and reset the value on
         // every write (#18). The initial value is consumed by onInit() below — exactly like the
         // old first setter run, whose writeValue('') could not touch the not-yet-created input
@@ -954,7 +978,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             untracked(() => {
                 this.initMask();
                 this.writeValue('');
-                this.onModelChange(this.value);
+                this.onModelChange(this.value());
             });
         });
     }
@@ -964,16 +988,31 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             let ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
-        this.initMask();
+        // A Signal Forms field value can arrive before onInit and already initialize the
+        // mask (see applyValueToInput); re-initializing would reset the filled buffer.
+        if (!this.tests) {
+            this.initMask();
+        }
 
-        if (this.mask() !== undefined && this.value === undefined) {
+        if (this.mask() !== undefined && this.value() === undefined && !this.isSignalFormBound()) {
             // Parity with the former mask @Input setter (#18): a provided mask reset the value
             // through the CVA path before any form directive wrote its own value. Skipped when a
             // writeValue already arrived (the old setter ran before any such write could happen,
             // so an early write must win here as it did then).
             this.writeValue('');
-            this.onModelChange(this.value);
+            this.onModelChange(this.value());
         }
+    }
+
+    /**
+     * Whether a Signal Forms `[formField]` directive sits on this element. `[formField]`
+     * pushes the field value into {@link value} only after `onInit`, so the legacy
+     * init-time mask reset must not run for it: writing `''` there would overwrite the
+     * field's initial value. Resolved lazily (not via a field `inject()`) because
+     * `FormField` itself injects `NG_VALUE_ACCESSOR` — i.e. this component.
+     */
+    private isSignalFormBound(): boolean {
+        return !!this.injector.get(FormField, null, { self: true, optional: true });
     }
 
     _clearIconTemplate = computed<TemplateRef<void> | undefined>(
@@ -1165,13 +1204,15 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     onInputBlur(e: Event) {
         this.focused = false;
-        this.onModelTouched();
+        // markTouched fires the classic `onModelTouched` callback AND emits the
+        // Signal Forms `touch` output, marking a bound field touched on blur.
+        this.markTouched();
         if (!this.keepBuffer()) {
             this.checkVal();
         }
         this.onBlur.emit(e);
 
-        if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
+        if (this.modelValue() != this.focusText || this.modelValue() != this.value()) {
             this.updateModel(e);
             let event = this.document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -1431,9 +1472,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
         const updatedValue = this.unmask() ? this.getUnmaskedValue() : target.value;
         if (updatedValue !== null && updatedValue !== undefined) {
-            this.value = updatedValue;
-            this.writeModelValue(this.value);
-            this.onModelChange(this.value);
+            // `writeModelValue` sets both `modelValue` and the `value` model, so a
+            // bound Signal Form field observes the user edit.
+            this.writeModelValue(updatedValue);
+            this.onModelChange(updatedValue);
         }
     }
 
@@ -1443,8 +1485,11 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     clear() {
         (this.inputViewChild() as ElementRef).nativeElement.value = '';
-        this.value = null;
-        this.onModelChange(this.value);
+        // Route through the shared write path so the `value` model + `modelValue`
+        // (and thus any bound Signal Form field) observe the cleared value. The
+        // former code only updated the plain field, leaving `modelValue` stale.
+        this.writeModelValue(null);
+        this.onModelChange(null);
         this.onClear.emit();
     }
 
@@ -1455,8 +1500,13 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
-        setModelValue(this.value);
+        // Update the `value` model (the source `applyValueToInput` renders from) directly,
+        // so the control is correct whatever `setModelValue` does, then let the shared
+        // write path update `modelValue`.
+        if (this.value() !== value) {
+            this.value.set(value);
+        }
+        setModelValue(value);
 
         const inputElement = this.inputViewChild()?.nativeElement;
 
@@ -1474,8 +1524,15 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     private pendingValueWrite = false;
 
     private applyValueToInput(inputElement: HTMLInputElement): void {
-        if (this.value == undefined || this.value == null) inputElement.value = '';
-        else inputElement.value = this.value;
+        // `[formField]` can push its value before onInit has initialized the mask; without
+        // the mask state checkVal() would wipe the freshly written text.
+        if (!this.tests) {
+            this.initMask();
+        }
+
+        const value = this.value();
+        if (value == undefined || value == null) inputElement.value = '';
+        else inputElement.value = value;
 
         this.checkVal();
         this.focusText = inputElement.value;
