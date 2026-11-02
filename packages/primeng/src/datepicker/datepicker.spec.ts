@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { disabled, form, FormField, validate } from '@angular/forms/signals';
+import { provideVoxxUI } from 'voxx-ui/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -992,7 +994,7 @@ describe('DatePicker', () => {
             await testFixture.whenStable();
 
             expect(testComponent.selectedDate).toEqual(testDate);
-            expect(datePickerComponent.value).toEqual(testDate);
+            expect(datePickerComponent.value()).toEqual(testDate);
         });
 
         it('should handle multiple date selection', async () => {
@@ -1838,5 +1840,267 @@ describe('DatePicker', () => {
 
             expect(ptFixture.componentInstance).toBeTruthy();
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// Signal Forms (FormValueControl) integration
+// ---------------------------------------------------------------------------
+
+@Component({
+    standalone: true,
+    imports: [DatePicker, FormField],
+    template: `<vx-datepicker [formField]="eventForm.start" dateFormat="yy-mm-dd" [showClear]="true" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDatePickerComponent {
+    model = signal<{ start: Date | null }>({ start: null });
+
+    eventForm = form(this.model, (p) => {
+        validate(p.start, ({ value }) => (value() ? undefined : { kind: 'required', message: 'A date is required' }));
+    });
+}
+
+@Component({
+    standalone: true,
+    imports: [DatePicker, FormField],
+    template: `<vx-datepicker [formField]="eventForm.start" dateFormat="yy-mm-dd" dataType="string" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormStringDatePickerComponent {
+    model = signal<{ start: string | null }>({ start: '2026-10-05' });
+
+    eventForm = form(this.model);
+}
+
+@Component({
+    standalone: true,
+    imports: [DatePicker, FormField],
+    template: `<vx-datepicker [formField]="eventForm.start" />`,
+    changeDetection: ChangeDetectionStrategy.OnPush
+})
+class TestSignalFormDisabledDatePickerComponent {
+    model = signal<{ start: Date | null }>({ start: new Date(2026, 9, 5) });
+
+    eventForm = form(this.model, (p) => {
+        disabled(p.start, () => true);
+    });
+}
+
+describe('DatePicker Signal Forms (FormValueControl) integration', () => {
+    async function flush(fixture: ComponentFixture<unknown>) {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+        await fixture.whenStable();
+    }
+
+    function setup<T>(host: new (...args: any[]) => T): ComponentFixture<T> {
+        TestBed.configureTestingModule({
+            imports: [host],
+            providers: [provideVoxxUI(), provideZonelessChangeDetection()]
+        });
+        return TestBed.createComponent(host);
+    }
+
+    function picker(fixture: ComponentFixture<unknown>): DatePicker {
+        return fixture.debugElement.query(By.directive(DatePicker)).componentInstance as DatePicker;
+    }
+
+    function inputEl(fixture: ComponentFixture<unknown>): HTMLInputElement {
+        return fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    }
+
+    function type(input: HTMLInputElement, text: string) {
+        // DatePicker only parses `input` events that follow a keydown (IE11 placeholder guard).
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: '1', bubbles: true }));
+        input.value = text;
+        input.dispatchEvent(new Event('input'));
+    }
+
+    it('reflects the initial field value into the control (field -> view)', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const date = new Date(2026, 9, 5);
+        fixture.componentInstance.model.set({ start: date });
+        await flush(fixture);
+
+        expect(picker(fixture).value()).toBe(date);
+        expect(picker(fixture).dateValue).toEqual(date);
+        expect(inputEl(fixture).value).toBe('2026-10-05');
+    });
+
+    it('re-renders when the field value changes after init (field -> view)', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        await flush(fixture);
+        expect(inputEl(fixture).value).toBe('');
+
+        fixture.componentInstance.model.set({ start: new Date(2026, 11, 24) });
+        await flush(fixture);
+
+        expect(inputEl(fixture).value).toBe('2026-12-24');
+    });
+
+    it('writes typed input back into the field value (view -> field)', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        type(inputEl(fixture), '2026-10-07');
+        await flush(fixture);
+
+        const value = host.model().start as Date;
+        expect(value instanceof Date).toBe(true);
+        expect([value.getFullYear(), value.getMonth(), value.getDate()]).toEqual([2026, 9, 7]);
+        expect(host.eventForm.start().value()).toBe(value);
+        expect(host.eventForm.start().dirty()).toBe(true);
+    });
+
+    it('writes a calendar selection back into the field value (view -> field)', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        picker(fixture).onDateSelect(new Event('click'), { day: 15, month: 5, year: 2026, selectable: true });
+        await flush(fixture);
+
+        const value = host.model().start as Date;
+        expect([value.getFullYear(), value.getMonth(), value.getDate()]).toEqual([2026, 5, 15]);
+        expect(inputEl(fixture).value).toBe('2026-06-15');
+    });
+
+    it('clears the field value through the value model', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const host = fixture.componentInstance;
+        host.model.set({ start: new Date(2026, 9, 5) });
+        await flush(fixture);
+
+        picker(fixture).clear();
+        await flush(fixture);
+
+        expect(picker(fixture).value()).toBeNull();
+        expect(host.model().start).toBeNull();
+        expect(inputEl(fixture).value).toBe('');
+    });
+
+    it('round-trips formatted strings with dataType="string"', async () => {
+        const fixture = setup(TestSignalFormStringDatePickerComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // field -> view: the string is parsed into the internal Date state
+        const dp = picker(fixture);
+        expect(dp.dateValue instanceof Date).toBe(true);
+        expect(inputEl(fixture).value).toBe('2026-10-05');
+
+        // view -> field: the field receives the formatted string, not a Date
+        dp.onDateSelect(new Event('click'), { day: 20, month: 9, year: 2026, selectable: true });
+        await flush(fixture);
+        expect(host.model().start).toBe('2026-10-20');
+    });
+
+    it('binds the disabled state from the field', async () => {
+        const fixture = setup(TestSignalFormDisabledDatePickerComponent);
+        await flush(fixture);
+
+        expect(fixture.componentInstance.eventForm.start().disabled()).toBe(true);
+        expect(picker(fixture).$disabled()).toBe(true);
+        expect(inputEl(fixture).hasAttribute('disabled')).toBe(true);
+    });
+
+    it('emits touch on blur so the field is marked touched', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(host.eventForm.start().touched()).toBe(false);
+        inputEl(fixture).dispatchEvent(new Event('blur'));
+        await flush(fixture);
+
+        expect(host.eventForm.start().touched()).toBe(true);
+    });
+
+    it('reflects the invalid state from a failing validator', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const dp = picker(fixture);
+        expect(host.eventForm.start().valid()).toBe(false);
+        expect(dp.invalid()).toBe(true);
+        expect(dp.errors().length).toBeGreaterThan(0);
+
+        host.model.set({ start: new Date(2026, 9, 5) });
+        await flush(fixture);
+        expect(host.eventForm.start().valid()).toBe(true);
+        expect(dp.invalid()).toBe(false);
+    });
+
+    it('reset() clears touched/dirty state on the bound field', async () => {
+        const fixture = setup(TestSignalFormDatePickerComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        const input = inputEl(fixture);
+        type(input, '2026-10-07');
+        input.dispatchEvent(new Event('blur'));
+        await flush(fixture);
+        expect(host.eventForm.start().dirty()).toBe(true);
+        expect(host.eventForm.start().touched()).toBe(true);
+
+        host.eventForm.start().reset();
+        await flush(fixture);
+        expect(host.eventForm.start().dirty()).toBe(false);
+        expect(host.eventForm.start().touched()).toBe(false);
+    });
+
+    it('keeps ControlValueAccessor (ngModel) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [DatePicker, FormsModule],
+            template: `<vx-datepicker [(ngModel)]="date" dateFormat="yy-mm-dd" />`,
+            changeDetection: ChangeDetectionStrategy.OnPush
+        })
+        class NgModelHostComponent {
+            date: Date | null = new Date(2026, 0, 2);
+        }
+
+        const fixture = setup(NgModelHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        // model -> view through the classic CVA path; value() mirrors it
+        expect(inputEl(fixture).value).toBe('2026-01-02');
+        expect(picker(fixture).value()).toBe(host.date);
+
+        // view -> model through the classic CVA path
+        type(inputEl(fixture), '2026-03-04');
+        await flush(fixture);
+        expect([host.date!.getFullYear(), host.date!.getMonth(), host.date!.getDate()]).toEqual([2026, 2, 4]);
+    });
+
+    it('keeps reactive forms (formControlName) working alongside FormValueControl', async () => {
+        @Component({
+            standalone: true,
+            imports: [DatePicker, ReactiveFormsModule],
+            template: `
+                <form [formGroup]="form">
+                    <vx-datepicker formControlName="date" dateFormat="yy-mm-dd" />
+                </form>
+            `,
+            changeDetection: ChangeDetectionStrategy.OnPush
+        })
+        class ReactiveHostComponent {
+            form = new FormGroup({ date: new FormControl<Date | null>(new Date(2026, 4, 6)) });
+        }
+
+        const fixture = setup(ReactiveHostComponent);
+        const host = fixture.componentInstance;
+        await flush(fixture);
+
+        expect(inputEl(fixture).value).toBe('2026-05-06');
+
+        picker(fixture).onDateSelect(new Event('click'), { day: 9, month: 4, year: 2026, selectable: true });
+        await flush(fixture);
+        expect(host.form.get('date')!.value!.getDate()).toBe(9);
     });
 });

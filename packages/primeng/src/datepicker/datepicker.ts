@@ -13,6 +13,7 @@ import {
     inject,
     InjectionToken,
     input,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -1044,7 +1045,40 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return this.contentWrapperViewChild() as ElementRef;
     }
 
-    value: any;
+    /**
+     * Internal selection state: a `Date`, `Date[]` (multiple) or `[Date, Date | null]`
+     * (range) — always Date-typed regardless of `dataType`. Formerly named `value`;
+     * renamed so `value` can be the Signal Forms model below.
+     */
+    dateValue: any;
+
+    /**
+     * Signal Forms (Angular v22) value model.
+     *
+     * Exposing `value` as a `model()` makes DatePicker usable directly with the
+     * `[formField]` directive as a `FormValueControl`. It holds exactly what the CVA path
+     * emits through `onModelChange`: the selection as `Date`/`Date[]` (default
+     * `dataType="date"`), or formatted string(s) with `dataType="string"`. A field value
+     * written from outside (`Date` or string) is parsed through `writeControlValue`, the
+     * same path the CVA `writeValue` uses.
+     *
+     * Unlike the other controls, DatePicker does **not** use
+     * {@link BaseEditableHolder.bindFormValue}: here `modelValue` tracks the formatted
+     * input text (for the filled state), not the emitted value, so mirroring it into the
+     * field would leak display strings. Sync is handled by {@link emitValue} (view → field)
+     * and an effect in the constructor (field → view) instead.
+     *
+     * The classic `NG_VALUE_ACCESSOR` path is untouched, so `[(ngModel)]` /
+     * `formControlName` keep working unchanged.
+     * @group Props
+     */
+    value = model<any>();
+
+    /**
+     * Last value exchanged with the `value` model, in either direction. Guards the
+     * field → view effect so the control's own emits don't re-enter `writeControlValue`.
+     */
+    private lastFormValue: any = undefined;
 
     dates: Nullable<Date[]>;
 
@@ -1277,6 +1311,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         super();
         this.window = this.document.defaultView as Window;
 
+        // Signal Forms field → view: a value pushed into the `value` model by `[formField]`
+        // (or a plain `[value]` binding) is written through the same path as the CVA.
+        effect(() => {
+            const value = this.value();
+            untracked(() => {
+                if (value !== this.lastFormValue) {
+                    this.writeControlValue(value);
+                }
+            });
+        });
+
         // The effects below replicate the side effects of the former @Input setters (#18).
         // Timing change vs. setters: setters ran synchronously at every input write (including
         // the initial writes before onInit), while these component effects run during change
@@ -1318,7 +1363,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             () => this.showTime(),
             () => {
                 if (this.currentHour === undefined) {
-                    this.initTime(this.value || new Date());
+                    this.initTime(this.dateValue || new Date());
                 }
                 this.updateInputfield();
             }
@@ -1717,20 +1762,20 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
 
         if (this.isMultipleSelection() && this.isSelected(dateMeta)) {
-            this.value = this.value.filter((date: Date, i: number) => {
+            this.dateValue = this.dateValue.filter((date: Date, i: number) => {
                 return !this.isDateEquals(date, dateMeta);
             });
-            if (this.value.length === 0) {
-                this.value = null;
+            if (this.dateValue.length === 0) {
+                this.dateValue = null;
             }
-            this.updateModel(this.value);
+            this.updateModel(this.dateValue);
         } else {
             if (this.shouldSelectDate(dateMeta)) {
                 this.selectDate(dateMeta);
             }
         }
 
-        if (this.hideOnDateTimeSelect() && (this.isSingleSelection() || (this.isRangeSelection() && this.value[1]))) {
+        if (this.hideOnDateTimeSelect() && (this.isSingleSelection() || (this.isRangeSelection() && this.dateValue[1]))) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
@@ -1750,7 +1795,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     shouldSelectDate(dateMeta: any) {
         if (this.isMultipleSelection()) {
             const maxDateCount = this.maxDateCount();
-            return maxDateCount != null ? maxDateCount > (this.value ? this.value.length : 0) : true;
+            return maxDateCount != null ? maxDateCount > (this.dateValue ? this.dateValue.length : 0) : true;
         } else return true;
     }
 
@@ -1778,21 +1823,21 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     updateInputfield() {
         let formattedValue = '';
 
-        if (this.value) {
+        if (this.dateValue) {
             if (this.isSingleSelection()) {
-                formattedValue = this.formatDateTime(this.value);
+                formattedValue = this.formatDateTime(this.dateValue);
             } else if (this.isMultipleSelection()) {
-                for (let i = 0; i < this.value.length; i++) {
-                    let dateAsString = this.formatDateTime(this.value[i]);
+                for (let i = 0; i < this.dateValue.length; i++) {
+                    let dateAsString = this.formatDateTime(this.dateValue[i]);
                     formattedValue += dateAsString;
-                    if (i !== this.value.length - 1) {
+                    if (i !== this.dateValue.length - 1) {
                         formattedValue += this.multipleSeparator() + ' ';
                     }
                 }
             } else if (this.isRangeSelection()) {
-                if (this.value && this.value.length) {
-                    let startDate = this.value[0];
-                    let endDate = this.value[1];
+                if (this.dateValue && this.dateValue.length) {
+                    let startDate = this.dateValue[0];
+                    let endDate = this.dateValue[1];
 
                     formattedValue = this.formatDateTime(startDate);
                     if (endDate) {
@@ -1898,11 +1943,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.isSingleSelection()) {
             this.updateModel(date);
         } else if (this.isMultipleSelection()) {
-            this.updateModel(this.value ? [...this.value, date] : [date]);
+            this.updateModel(this.dateValue ? [...this.dateValue, date] : [date]);
         } else if (this.isRangeSelection()) {
-            if (this.value && this.value.length) {
-                let startDate = this.value[0];
-                let endDate = this.value[1];
+            if (this.dateValue && this.dateValue.length) {
+                let startDate = this.dateValue[0];
+                let endDate = this.dateValue[1];
 
                 if (!endDate && date.getTime() >= startDate.getTime()) {
                     endDate = date;
@@ -1921,23 +1966,33 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     updateModel(value: any) {
-        this.value = value;
+        this.dateValue = value;
 
         if (this.dataType() == 'date') {
-            this.writeModelValue(this.value);
-            this.onModelChange(this.value);
+            this.writeModelValue(this.dateValue);
+            this.emitValue(this.dateValue);
         } else if (this.dataType() == 'string') {
             if (this.isSingleSelection()) {
-                this.onModelChange(this.formatDateTime(this.value));
+                this.emitValue(this.formatDateTime(this.dateValue));
             } else {
                 let stringArrValue: any[] | null = null;
-                if (Array.isArray(this.value)) {
-                    stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
+                if (Array.isArray(this.dateValue)) {
+                    stringArrValue = this.dateValue.map((date: Date) => this.formatDateTime(date));
                 }
                 this.writeModelValue(stringArrValue);
-                this.onModelChange(stringArrValue);
+                this.emitValue(stringArrValue);
             }
         }
+    }
+
+    /**
+     * Single view → form write path: notifies the classic CVA (`onModelChange`) and
+     * reflects the same value into the Signal Forms `value` model.
+     */
+    private emitValue(value: any): void {
+        this.lastFormValue = value;
+        this.value.set(value);
+        this.onModelChange(value);
     }
 
     getFirstDayOfMonthIndex(month: number, year: number) {
@@ -1994,12 +2049,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     isSelected(dateMeta: any): boolean | undefined {
-        if (this.value) {
+        if (this.dateValue) {
             if (this.isSingleSelection()) {
-                return this.isDateEquals(this.value, dateMeta);
+                return this.isDateEquals(this.dateValue, dateMeta);
             } else if (this.isMultipleSelection()) {
                 let selected = false;
-                for (let date of this.value) {
+                for (let date of this.dateValue) {
                     selected = this.isDateEquals(date, dateMeta);
                     if (selected) {
                         break;
@@ -2008,8 +2063,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
                 return selected;
             } else if (this.isRangeSelection()) {
-                if (this.value[1]) return this.isDateEquals(this.value[0], dateMeta) || this.isDateEquals(this.value[1], dateMeta) || this.isDateBetween(this.value[0], this.value[1], dateMeta);
-                else return this.isDateEquals(this.value[0], dateMeta);
+                if (this.dateValue[1]) return this.isDateEquals(this.dateValue[0], dateMeta) || this.isDateEquals(this.dateValue[1], dateMeta) || this.isDateBetween(this.dateValue[0], this.dateValue[1], dateMeta);
+                else return this.isDateEquals(this.dateValue[0], dateMeta);
             }
         } else {
             return false;
@@ -2017,26 +2072,26 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     isComparable() {
-        return this.value != null && typeof this.value !== 'string';
+        return this.dateValue != null && typeof this.dateValue !== 'string';
     }
 
     isMonthSelected(month) {
         if (!this.isComparable()) return false;
 
         if (this.isMultipleSelection()) {
-            return this.value.some((currentValue) => currentValue.getMonth() === month && currentValue.getFullYear() === this.currentYear);
+            return this.dateValue.some((currentValue) => currentValue.getMonth() === month && currentValue.getFullYear() === this.currentYear);
         } else if (this.isRangeSelection()) {
-            if (!this.value[1]) {
-                return this.value[0]?.getFullYear() === this.currentYear && this.value[0]?.getMonth() === month;
+            if (!this.dateValue[1]) {
+                return this.dateValue[0]?.getFullYear() === this.currentYear && this.dateValue[0]?.getMonth() === month;
             } else {
                 const currentDate = new Date(this.currentYear, month, 1);
-                const startDate = new Date(this.value[0].getFullYear(), this.value[0].getMonth(), 1);
-                const endDate = new Date(this.value[1].getFullYear(), this.value[1].getMonth(), 1);
+                const startDate = new Date(this.dateValue[0].getFullYear(), this.dateValue[0].getMonth(), 1);
+                const endDate = new Date(this.dateValue[1].getFullYear(), this.dateValue[1].getMonth(), 1);
 
                 return currentDate >= startDate && currentDate <= endDate;
             }
         } else {
-            return this.value.getMonth() === month && this.value.getFullYear() === this.currentYear;
+            return this.dateValue.getMonth() === month && this.dateValue.getFullYear() === this.currentYear;
         }
     }
 
@@ -2059,7 +2114,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     isYearSelected(year: number) {
         if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
+            let value = this.isRangeSelection() ? this.dateValue[0] : this.dateValue;
 
             return !this.isMultipleSelection() ? value.getFullYear() === year : false;
         }
@@ -2196,7 +2251,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (!this.keepInvalid()) {
             this.updateInputfield();
         }
-        this.onModelTouched();
+        // markTouched fires the classic `onModelTouched` callback AND emits the
+        // Signal Forms `touch` output, marking a bound field touched on blur.
+        this.markTouched();
     }
 
     onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild()?.nativeElement) {
@@ -2213,10 +2270,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     clear() {
-        this.value = null;
+        this.dateValue = null;
         this.inputFieldValue = null;
-        this.writeModelValue(this.value);
-        this.onModelChange(this.value);
+        this.writeModelValue(this.dateValue);
+        this.emitValue(this.dateValue);
         this.updateInputfield();
         this.onClear.emit(undefined);
     }
@@ -2839,21 +2896,21 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     constrainTime(hour: number, minute: number, second: number, pm: boolean) {
         let returnTimeTriple: number[] = [hour, minute, second];
         let minHoursExceeds12: boolean = false;
-        let value = this.value;
+        let value = this.dateValue;
         const convertedHour = this.convertTo24Hour(hour, pm);
         const isRange = this.isRangeSelection(),
             isMultiple = this.isMultipleSelection(),
             isMultiValue = isRange || isMultiple;
 
         if (isMultiValue) {
-            if (!this.value) {
-                this.value = [new Date(), new Date()];
+            if (!this.dateValue) {
+                this.dateValue = [new Date(), new Date()];
             }
             if (isRange) {
-                value = this.value[1] || this.value[0];
+                value = this.dateValue[1] || this.dateValue[0];
             }
             if (isMultiple) {
-                value = this.value[this.value.length - 1];
+                value = this.dateValue[this.dateValue.length - 1];
             }
         }
         const valueDateString = value && isDate(value) ? value.toDateString() : null;
@@ -2928,7 +2985,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
-        let value = this.value;
+        let value = this.dateValue;
         const valueDateString = value && isDate(value) ? value.toDateString() : null;
         let isMinDate = this.minDate() && valueDateString && this.minDate()!.toDateString() === valueDateString;
         if (isMinDate && this.minDate()!.getHours() >= 12) {
@@ -3040,12 +3097,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     updateTime() {
-        let value = this.value;
+        let value = this.dateValue;
         if (this.isRangeSelection()) {
-            value = this.value[1] || this.value[0];
+            value = this.dateValue[1] || this.dateValue[0];
         }
         if (this.isMultipleSelection()) {
-            value = this.value[this.value.length - 1];
+            value = this.dateValue[this.dateValue.length - 1];
         }
         value = value && isDate(value) ? new Date(value.getTime()) : new Date();
 
@@ -3059,12 +3116,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
         if (this.isRangeSelection()) {
-            if (this.value[1]) value = [this.value[0], value];
+            if (this.dateValue[1]) value = [this.dateValue[0], value];
             else value = [value, null];
         }
 
         if (this.isMultipleSelection()) {
-            value = [...this.value.slice(0, -1), value];
+            value = [...this.dateValue.slice(0, -1), value];
         }
 
         this.updateModel(value);
@@ -3183,12 +3240,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     updateUI() {
-        let propValue = this.value;
+        let propValue = this.dateValue;
         if (Array.isArray(propValue)) {
             propValue = propValue.length === 2 ? propValue[1] : propValue[0];
         }
 
-        let val = this.defaultDate() && this.isValidDate(this.defaultDate()) && !this.value ? this.defaultDate() : propValue && this.isValidDate(propValue) ? propValue : new Date();
+        let val = this.defaultDate() && this.isValidDate(this.defaultDate()) && !this.dateValue ? this.defaultDate() : propValue && this.isValidDate(propValue) ? propValue : new Date();
 
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
@@ -3864,13 +3921,20 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * Writes the value to the control.
      */
     writeControlValue(value: any): void {
-        this.value = value;
-        if (this.value && typeof this.value === 'string') {
+        // Keep the `value` model in step with external writes (CVA or Signal Forms) so
+        // `value()` always reflects the current form value and the sync effect stays idle.
+        this.lastFormValue = value;
+        if (this.value() !== value) {
+            this.value.set(value);
+        }
+
+        this.dateValue = value;
+        if (this.dateValue && typeof this.dateValue === 'string') {
             try {
-                this.value = this.parseValueFromString(this.value);
+                this.dateValue = this.parseValueFromString(this.dateValue);
             } catch {
                 if (this.keepInvalid()) {
-                    this.value = value;
+                    this.dateValue = value;
                 }
             }
         }
