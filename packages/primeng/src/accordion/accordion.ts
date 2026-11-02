@@ -1,5 +1,5 @@
-import { AccordionGroup as AriaAccordionGroup, AccordionTrigger as AriaAccordionTrigger } from '@angular/aria/accordion';
-import { ChangeDetectionStrategy, Component, computed, contentChild, DestroyRef, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, Signal, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AccordionGroup as AriaAccordionGroup, AccordionPanel as AriaAccordionPanel, AccordionTrigger as AriaAccordionTrigger } from '@angular/aria/accordion';
+import { ChangeDetectionStrategy, Component, computed, contentChild, DestroyRef, Directive, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, Signal, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
@@ -114,6 +114,22 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
     _componentStyle = inject(AccordionStyle);
 }
 /**
+ * `@angular/aria`'s `AccordionTrigger` with its `panel` input redeclared as optional.
+ *
+ * Upstream, `panel` is `input.required`, and Angular requires a host directive's required
+ * inputs to be exposed on the host (NG2019) — which would make it a required input of
+ * `vx-accordion-header` for every consumer. The value is never bound from a template:
+ * {@link AccordionHeader} re-points it to the sibling {@link AccordionContent}.
+ * Internal; not part of the public API.
+ */
+@Directive({
+    selector: '[vxAccordionTrigger]'
+})
+export class VxAccordionTrigger extends AriaAccordionTrigger {
+    override readonly panel = input<AriaAccordionPanel>(undefined as unknown as AriaAccordionPanel);
+}
+
+/**
  * AccordionHeader is a helper component for Accordion component.
  * @group Components
  */
@@ -162,7 +178,7 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
     },
     // Ordering: Ripple, then the aria trigger (owns the a11y attributes and keyboard
     // toggling via its group), then Bind so pt attributes apply last.
-    hostDirectives: [Ripple, AriaAccordionTrigger, Bind],
+    hostDirectives: [Ripple, VxAccordionTrigger, Bind],
     providers: [AccordionStyle, { provide: ACCORDION_HEADER_INSTANCE, useExisting: AccordionHeader }, { provide: PARENT_INSTANCE, useExisting: AccordionHeader }]
 })
 export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
@@ -201,7 +217,7 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     toggleicon = contentChild<TemplateRef<AccordionToggleIconTemplateContext>>('toggleicon');
 
     /** The `@angular/aria` trigger primitive that owns this header's a11y and keyboard behavior. */
-    aria = inject(AriaAccordionTrigger, { self: true });
+    aria = inject(VxAccordionTrigger, { self: true });
 
     /**
      * The DOM event (click / Enter / Space) that led to the current aria-driven toggle,
@@ -217,8 +233,8 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     /**
      * Feeds VoxxUI's state into the `@angular/aria` trigger.
      *
-     * The trigger's `panel` is a required input carrying an object reference to its
-     * `ngAccordionPanel`, but here the header and content are separate projected sibling
+     * The trigger's `panel` input carries an object reference to its `ngAccordionPanel`
+     * (see {@link VxAccordionTrigger} for why it is optional here), but here the header and content are separate projected sibling
      * components, so no template can bind it. Host directives are created before their
      * host component, so the trigger's `panel`, `expanded`, `disabled` and `id` fields are
      * re-pointed here — before its `ngOnInit` builds the pattern from them:
