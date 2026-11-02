@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DebugElement, Input, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -1030,5 +1030,57 @@ describe('Splitter', () => {
             expect(hostEl.nativeElement.className).toContain('SET_INPUT_CLASS');
             expect(gutter.nativeElement.className).toContain('GUTTER_SET_INPUT');
         });
+    });
+});
+
+// ---------------------------------------------------------------------------
+// panelSizes application across platforms (#36)
+// ---------------------------------------------------------------------------
+
+describe('Splitter panelSizes platform handling', () => {
+    function panels(fixture: ComponentFixture<TestSplitterComponent>): HTMLElement[] {
+        return Array.from(fixture.nativeElement.querySelectorAll('vx-splitter > [data-pc-section="panel"]'));
+    }
+
+    it('applies [panelSizes] changes after init to the panels in the browser', async () => {
+        TestBed.configureTestingModule({
+            imports: [Splitter],
+            declarations: [TestSplitterComponent],
+            providers: [provideZonelessChangeDetection()]
+        });
+        const fixture = TestBed.createComponent(TestSplitterComponent);
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(panels(fixture).length).toBe(2);
+        // Initial sizes ([50, 50]) are applied once the panels exist.
+        panels(fixture).forEach((panel) => expect(panel.style.flexBasis).toContain('50%'));
+
+        fixture.componentInstance.panelSizes = [30, 70];
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const splitter = fixture.debugElement.query(By.directive(Splitter)).componentInstance as Splitter;
+        expect(splitter._panelSizes).toEqual([30, 70]);
+        const [first, second] = panels(fixture);
+        expect(first.style.flexBasis).toContain('30%');
+        expect(second.style.flexBasis).toContain('70%');
+    });
+
+    it('stores [panelSizes] but does not touch the DOM on the server', async () => {
+        TestBed.configureTestingModule({
+            imports: [Splitter],
+            declarations: [TestSplitterComponent],
+            providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
+        });
+        const fixture = TestBed.createComponent(TestSplitterComponent);
+        fixture.componentInstance.panelSizes = [25, 75];
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const splitter = fixture.debugElement.query(By.directive(Splitter)).componentInstance as Splitter;
+        expect(splitter._panelSizes).toEqual([25, 75]);
+        expect(panels(fixture).length).toBe(2);
+        panels(fixture).forEach((panel) => expect(panel.style.flexBasis).toBe(''));
     });
 });
