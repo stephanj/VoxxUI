@@ -194,8 +194,22 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
     private applyPanelSizes(val: number[]) {
         this._panelSizes = val;
 
+        // DOM writes are browser-only. Since #17 this runs from an effect, i.e. after the panels
+        // query has resolved, so on the server it would otherwise run against the server DOM
+        // (#36). The sizes stored above are still applied by onAfterViewInit in the browser.
+        if (!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
         if (this.el && this.el.nativeElement && this.panels().length > 0) {
-            let children = [...this.el.nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
+            let children = Array.from<HTMLElement>(this.el.nativeElement.children).filter((child) => child.getAttribute('data-pc-section') === 'panel');
+
+            // The effect's first run happens before this component's view has rendered the
+            // panel elements; onAfterViewInit applies the stored sizes once they exist (#36).
+            if (children.length < this.panels().length) {
+                return;
+            }
+
             let _panelSizes: any = [];
 
             this.panels().map((panel, i) => {
@@ -217,7 +231,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
                 }
 
                 if (!initialized) {
-                    let children = [...this.el.nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
+                    let children = Array.from<HTMLElement>(this.el.nativeElement.children).filter((child) => child.getAttribute('data-pc-section') === 'panel');
                     let _panelSizes: any = [];
 
                     this.panels().map((panel, i) => {
@@ -513,7 +527,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
 
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
-            let children = [...(this.el as ElementRef).nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
+            let children = Array.from<HTMLElement>((this.el as ElementRef).nativeElement.children).filter((child) => child.getAttribute('data-pc-section') === 'panel');
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels().length - 1) * this.gutterSize() + 'px)';
             });
